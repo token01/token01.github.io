@@ -13,7 +13,7 @@ github_repo: "https://github.com/token01/token01.github.io.git" # you code repos
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "Goals determine what you going to be!"
-sidebar-avatar: img/avatar-by.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: img/avatar-sun.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 

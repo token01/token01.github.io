@@ -3,7 +3,7 @@ title: 全栈攻城
 SEOTitle: 全栈攻城 | The whole stack siege
 header-img: img/home-bg.jpg
 email: token01@126.com
-description: ""
+description: "Knowledge advances by steps not by leaps"
 keyword: ""
 url: "http//www.token01.com"                              # your host, for absolute URL
 baseurl: ""         # for example, '/blog' if your blog hosted on 'host/blog'
@@ -94,16 +94,17 @@ service-worker: true
 # Friends
 friends: [
     {
-        title: "WY",
-        href: "http://zhengwuyang.com"
+        title: "个人网站",
+        href: "http://token01.com"
     },{
-        title: "简书·BY",
-        href: "http://www.jianshu.com/u/e71990ada2fd"
-    },{
-        title: "Apple",
-        href: "https://apple.com"
-    },{
-        title: "Apple Developer",
-        href: "https://developer.apple.com/"
+        title: "简书",
+        href: "http://www.jianshu.com/users/ebbb26d32e0f/"
     }
+#    ,{
+#        title: "Apple",
+#        href: "https://apple.com"
+#    },{
+#        title: "Apple Developer",
+#        href: "https://developer.apple.com/"
+#    }
 ]

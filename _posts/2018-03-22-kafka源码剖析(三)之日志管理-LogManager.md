@@ -21,7 +21,9 @@ tags:
         logManager.startup()
 
 ```
+
 ## 2 开启代码
+
 ```
 /**
    *  Start the background threads to flush logs and do log cleanup

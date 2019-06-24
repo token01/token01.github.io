@@ -332,4 +332,3 @@ LogCleaner实例中,定期执行的日志压缩:
 1. 配置项log.cleaner.dedupe.buffer.size,默认值128MB,用于配置清理过期数据的内存缓冲区,这个用于数据清理时,选择的压缩方式时,用于对重复数据的清理排序内存.
 1. 配置项log.cleaner.threads,默认值1.用于配置清理过期日志的线程个数.
 1. 配置项log.cleaner.backoff.ms,用于定时检查日志是否需要清理的时间间隔,默认是15秒.
-1.

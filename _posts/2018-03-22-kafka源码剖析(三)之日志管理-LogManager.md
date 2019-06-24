@@ -261,11 +261,13 @@ private def deleteSegment(segment: LogSegment) {
 这块代码比较清晰，如果日志大小大于retention.bytes，那么就会被标记为待删除，然后调用的方法是一样的，也是deleteOldSegments。就不赘述了。
 
 ### 3.6 定期对log的磁盘缓冲区进行flush:
+
 这个通过后台的调度组件定期去执行LogManager中的flushDirtyLogs的函数,
 
 这个函数中迭代所有的partition的log,并执行flush的操作,这个操作中通过当前最后一个offset找到上一次进行checkpoint的offset与当前的offset中间的segment,并执行segment中log与index的flush操作.对应log文件执行文件管道的force函数,对于index文件,执行文件管道map的force函数.
 
 ``` 
+
 private def flushDirtyLogs() = {
   debug("Checking for dirty logs to flush...")
 
@@ -288,9 +290,9 @@ private def flushDirtyLogs() = {
 }
 
 ```
- 
 
 ### 3.7 定期对partition的offset进行checkpoint操作:
+
 这个通过后台的调度组件定期去
 
    执行LogManager中的checkpointRecoveryPointOffsets的函数,

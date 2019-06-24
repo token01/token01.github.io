@@ -33,3 +33,5 @@ Temporary Items
 
 # debug file
 _site
+.vscode/*
+.gitignore

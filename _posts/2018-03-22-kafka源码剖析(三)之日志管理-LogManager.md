@@ -14,7 +14,9 @@ tags:
 ---
 
 ## 1 入口
+
 ```
+
 /* start log manager */
         // 启动日志管理模块
         logManager = LogManager(config, zkUtils, brokerState, kafkaScheduler, time, brokerTopicStats)

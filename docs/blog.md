@@ -4,9 +4,9 @@ home: true
 layout: Blog
 icon: home
 bgImage: http://tc.seoipo.com/home-bg-1.jpg
-title: 互联网小白
+title: 野生架构师
 #heroImage: /logo.svg
-heroText: 互联网小白
+heroText: 野生架构师
 heroFullScreen: false
 tagline: 盛年不重来，一日难再晨
 #projects:

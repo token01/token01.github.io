@@ -73,9 +73,8 @@ export default hopeTheme({
     intro: "/intro.html",
     roundAvatar: true,
     medias: {
-      GitHub: "https://github.com/rockbenben",
-      Zhihu: "https://www.zhihu.com/people/qingwhat",
-      Weibo: "https://weibo.com/u/1992817087",
+      GitHub: "https://github.com/token01",
+      Zhihu: "https://www.zhihu.com/people/abel-48",
       Wechat: "http://tc.seoipo.com/wechat.svg",
       少数派: [
         "https://sspai.com/u/zqj05i4v/posts",

@@ -8,7 +8,7 @@ export default hopeTheme({
   hostname: "https://abelsun.tech",
 
   author: {
-    name: "清顺",
+    name: "Abel sun",
     url: "https://abelsun.tech",
   },
 
@@ -67,7 +67,7 @@ export default hopeTheme({
   // 主题功能选项：https://vuepress-theme-hope.github.io/v2/zh/config/theme/feature.html
   blog: {
     articleInfo: ["Date", "PageView", "Category", "Tag", "ReadingTime"],
-    name: "清顺",
+    name: "Abel sun",
     avatar: "/avatar_self.webp",
     description: "迷信新工具，热衷于研究开源软件、心理学理论，定期分享探索成果",
     intro: "/intro.html",

@@ -11,18 +11,18 @@ export default sidebar([
     link: "",
     collapsable: true,
     children: [
-      "README.md",
+      "application/README.md",
       {
         text: "Basic",
         icon: "emmet",
         collapsable: true,
-        children: ["Markdown.md", "Electron.md", "AutoHotkey.md", "Regex.md"],
+        children: ["application/Markdown.md", "application/Electron.md", "application/AutoHotkey.md", "Regex.md"],
       },
       {
         text: "FrondEnd",
         icon: "app",
         collapsable: true,
-        children: ["Vue.md", "HTML.md", "JavaScript.md", "Python.md"],
+        children: ["application/Vue.md", "application/HTML.md", "application/JavaScript.md", "application/Python.md"],
       },
     ],
   },

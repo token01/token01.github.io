@@ -8,9 +8,9 @@ export default navbar([
     icon: "code",
     prefix: "/",
     children: [
-      "code/Markdown",
-      "code/AutoHotkey",
-      "code/Electron",
+      "code/application/Markdown",
+      "code/application/AutoHotkey",
+      "code/application/Electron",
       {
         text: "页面开发",
         icon: "vue",

@@ -39,7 +39,7 @@ LearnNotes 的主题为 [vuepress-theme-hope](https://vuepress-theme-hope.github
 
 VuePress v2 默认使用 Vite，打包时会引入时间戳和 hash 对文件重命名，导致网站大部分的文件发生更改。即使你并没有更新文章，生成的静态文件也会改变。比如我的笔记网站用的 VuePress 默认配置，每次服务器部署需要 10 分钟，期间打开网站就会出错。可这是我知识记录的阵地，一天要最少更新 3 次。
 
-如果不想每次架构都重命名文件，可以复制「[nohashname](https://github.com/rockbenben/LearnNotes/tree/nohashname)」branch。我把 nohashname 分支的打包工具换成了 [Webpack](https://v2.vuepress.vuejs.org/zh/guide/bundler.html)，并用 chainWebpack 设置文件命名规则，避免文件非必要重命名。
+如果不想每次架构都重命名文件，可以复制「[nohashname](https://github.com/token01/tree/nohashname)」branch。我把 nohashname 分支的打包工具换成了 [Webpack](https://v2.vuepress.vuejs.org/zh/guide/bundler.html)，并用 chainWebpack 设置文件命名规则，避免文件非必要重命名。
 
 1. 修改 config.ts 的导入设置，将 `import { defineUserConfig } from "vuepress"` 替换为 `import { defineUserConfig } from "@vuepress/cli"`，将 `import { viteBundler } from "@vuepress/bundler-vite"` 替换为 `import { webpackBundler } from "@vuepress/bundler-webpack"`。
 

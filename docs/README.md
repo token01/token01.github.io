@@ -32,7 +32,7 @@ icon: note
 
 ## 🍥 搭建 LearnNotes
 
-1. 进入 [LearnNotes](https://github.com/rockbenben/LearnNotes) 项目页，点击「Use this template」，复制模板文件。
+1. 进入 [LearnNotes](https://github.com/token01) 项目页，点击「Use this template」，复制模板文件。
 
    ![](http://tc.seoipo.com/2022-08-10-19-32-05.png)
 
@@ -112,7 +112,7 @@ Vercel 的速度比 GitHub Pages 稳定些，不过「\*.vercel.app」域名已�
 
 Vercel 部署步骤如下：
 
-1. 点击 [![Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Frockbenben%2FLearnNotes%2Ftree%2Fgh-pages) 或将 `https://vercel.com/new/clone?repository-url=https://github.com/rockbenben/LearnNotes/tree/gh-pages` 中的 `rockbenben/LearnNotes` 改为 `你的用户名/仓库名`，然后会跳转至 Vercel 进行网页部署。如果你未登录的话，Vercel 会让你注册或登录，请使用 GitHub 账户进行快捷登录。
+1. 点击 [![Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Frockbenben%2FLearnNotes%2Ftree%2Fgh-pages) 或将 `https://vercel.com/new/clone?repository-url=https://github.com/token01/tree/gh-pages` 中的 `token01` 改为 `你的用户名/仓库名`，然后会跳转至 Vercel 进行网页部署。如果你未登录的话，Vercel 会让你注册或登录，请使用 GitHub 账户进行快捷登录。
 
 2. 输入一个你喜欢的 Vercel 项目名称，默认 private 即可，然后点击 `Create`。
 
@@ -172,7 +172,7 @@ Vercel 部署步骤如下：
 
 VuePress 默认使用 Vite，打包时会引入时间戳和 hash 对文件重命名，导致网站大部分的文件发生更改。即使你并没有更新文章，生成的静态文件也会改变。比如我的笔记网站用的 VuePress 默认配置，每次服务器部署需要 10 分钟，期间打开网站就会出错。
 
-如果不想每次架构都重命名文件，可以复制「[nohashname](https://github.com/rockbenben/LearnNotes/tree/nohashname)」branch。我把 nohashname 分支的打包工具换成了 Webpack，并用 chainWebpack 设置文件命名规则，避免文件非必要重命名。
+如果不想每次架构都重命名文件，可以复制「[nohashname](https://github.com/token01/tree/nohashname)」branch。我把 nohashname 分支的打包工具换成了 Webpack，并用 chainWebpack 设置文件命名规则，避免文件非必要重命名。
 
 ### 本地运行 LearnNotes
 

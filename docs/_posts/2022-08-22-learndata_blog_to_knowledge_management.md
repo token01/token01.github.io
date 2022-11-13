@@ -18,7 +18,7 @@ Notion、Obsidian、Logseq、Roam Research、Evernote、flomo、为知、飞书�
 
 ![](http://tc.seoipo.com/2022-08-22-18-02-07.png "Markdown VS Notion")
 
-突破迷思后，我基于 VuePress 和 vuepress-theme-hope 建立了 [LearnNotes](https://github.com/rockbenben/LearnNotes) 项目，把知识笔记、生活记录、博客和任何觉得有价值的记录转成 Markdown 文本，然后推送到 GitHub 生成 Pages 静态页面，同步到国内云服务器形成 [LearnNotes - 浅谈技术](https://abelsun.tech/)。
+突破迷思后，我基于 VuePress 和 vuepress-theme-hope 建立了 [LearnNotes](https://github.com/token01) 项目，把知识笔记、生活记录、博客和任何觉得有价值的记录转成 Markdown 文本，然后推送到 GitHub 生成 Pages 静态页面，同步到国内云服务器形成 [LearnNotes - 浅谈技术](https://abelsun.tech/)。
 
 ![](http://tc.seoipo.com/2022-08-24-19-14-59.png "笔记/博客自动化发布")
 

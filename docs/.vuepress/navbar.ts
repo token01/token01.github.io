@@ -48,7 +48,6 @@ export default navbar([
     prefix: "/family/",
     children: [
       "Diet",
-      "Shoppinglist",
       "Coupon",
     ],
   },

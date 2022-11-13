@@ -1,6 +1,6 @@
 ---
 article: false
-title: LearnData 开源笔记
+title: LearnNotes-浅谈技术
 icon: note
 ---
 
@@ -12,9 +12,9 @@ icon: note
 
 但是，**笔记里的知识并不属于你，只有经过消化、应用，才会成为自己的知识。**
 
-因此，我基于 VuePress 和 vuepress-theme-hope 建立了 LearnData，将所有笔记与文章聚合在同一页面形成知识库，方便自己使用和分享输出。
+因此，我基于 VuePress 和 vuepress-theme-hope 建立了 LearnNotes，将所有笔记与文章聚合在同一页面形成知识库，方便自己使用和分享输出。
 
-![](http://tc.seoipo.com/2022-08-22-19-28-25.png?imageMogr2/thumbnail/!80p "笔记 + 文章 = LearnData 知识库")
+![](http://tc.seoipo.com/2022-08-22-19-28-25.png?imageMogr2/thumbnail/!80p "笔记 + 文章 = LearnNotes 知识库")
 
 ![](http://tc.seoipo.com/2022-08-24-19-14-59.png "笔记/博客自动化发布")
 
@@ -30,9 +30,9 @@ icon: note
 - 生活区：说明书，生活记录及小技巧；
 - 博客区：聚合所有博客文章，并以分类、标签、时间轴等方式进行组合。
 
-## 🍥 搭建 LearnData
+## 🍥 搭建 LearnNotes
 
-1. 进入 [LearnData](https://github.com/rockbenben/LearnData) 项目页，点击「Use this template」，复制模板文件。
+1. 进入 [LearnNotes](https://github.com/rockbenben/LearnNotes) 项目页，点击「Use this template」，复制模板文件。
 
    ![](http://tc.seoipo.com/2022-08-10-19-32-05.png)
 
@@ -51,11 +51,11 @@ icon: note
 
    如果未出现访问链接提示或不能打开 GitHub Pages，则删除 `docs/_posts` 路径下的 `2017-04-22-rss_feed43_feedex.md` 文件，GitHub Pages 有时会对这篇旧文章里的代码报错。
 
-## 🔣 配置 LearnData
+## 🔣 配置 LearnNotes
 
 ### 配置路径
 
-LearnData 的文章页面配置查看主目录下的 `samplepage.md`，文本保存路径和网站配置在 `docs` 文件夹。
+LearnNotes 的文章页面配置查看主目录下的 `samplepage.md`，文本保存路径和网站配置在 `docs` 文件夹。
 
 `docs/.vuepress` 存放网站配置文件。`docs/_post` 存放博客文章。`docs/_temp` 默认不同步到 GitHub，需手动在本地建立 `_temp` 文件夹，用来存放草稿。你可以按范围或功能来新建文件夹存放笔记。
 
@@ -73,11 +73,11 @@ LearnData 的文章页面配置查看主目录下的 `samplepage.md`，文本保
 - `theme.ts` 对主题和插件进行配置，[评论插件](https://newzone.top/web/Comments.html) 亦在此文件。
 - `templateBuild.html` 是网页模板，调整网站关键词和第三方统计代码。
 
-注意：LearnData 默认使用了 algolia 全文搜索，如果你没设置 Docsearch 爬虫的话，需删除 `docs/.vuepress/config.ts` 中 plugins 下的 docsearchPlugin 区块。删除后，站点会将页面标题和小标题作为搜索索引。
+注意：LearnNotes 默认使用了 algolia 全文搜索，如果你没设置 Docsearch 爬虫的话，需删除 `docs/.vuepress/config.ts` 中 plugins 下的 docsearchPlugin 区块。删除后，站点会将页面标题和小标题作为搜索索引。
 
 ### 看板娘
 
-LearnData 集成了看板娘 [Live2D Widget](https://github.com/stevenjoezhang/live2d-widget)，提升网站美观度和趣味性。如果不需要看板娘，则删除 `docs\.vuepress\public` 下的 live2d-widget 文件夹。
+LearnNotes 集成了看板娘 [Live2D Widget](https://github.com/stevenjoezhang/live2d-widget)，提升网站美观度和趣味性。如果不需要看板娘，则删除 `docs\.vuepress\public` 下的 live2d-widget 文件夹。
 
 启用看板娘模型前，需打开 `docs\.vuepress\public\live2d-widget\autoload.js`，将 `apiPath: "https://newzone.top/live2d-widget/live2d_api/"` 改为 `cdnPath: live2d_path + "live2d_api/"`。如果未正确修改，看板娘会出现跨域报错，只显示文字而不显示图片。用服务器自建 [live2d api](https://github.com/fghrsh/live2d_api)，可以调整看板娘模型。
 
@@ -94,7 +94,7 @@ LearnData 集成了看板娘 [Live2D Widget](https://github.com/stevenjoezhang/l
 
 ## 🖥️ 网站部署
 
-LearnData 推送到 GitHub 后，会自动生成可访问的网页，但国内访问 GitHub Pages 的速度极不稳定，为了确保网站能被正常访问，建议增加国内的访问节点。
+LearnNotes 推送到 GitHub 后，会自动生成可访问的网页，但国内访问 GitHub Pages 的速度极不稳定，为了确保网站能被正常访问，建议增加国内的访问节点。
 
 很多人选择 Gitee Pages 作为国内节点，GitHub Actions 将新文档同步到 Gitee，生成位于国内的静态页面 Gitee Pages。但是，Gitee Pages 的限制非常多，免费版无法自定义域名，必须实名验证，更别提近期的下架风波。因此，我没选 Gitee，而是把文档同步到国内服务器（域名需备案）或 Vercel（国外服务永远不知什么时候会断）。
 
@@ -112,13 +112,13 @@ Vercel 的速度比 GitHub Pages 稳定些，不过「\*.vercel.app」域名已�
 
 Vercel 部署步骤如下：
 
-1. 点击 [![Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Frockbenben%2FLearnData%2Ftree%2Fgh-pages) 或将 `https://vercel.com/new/clone?repository-url=https://github.com/rockbenben/LearnData/tree/gh-pages` 中的 `rockbenben/LearnData` 改为 `你的用户名/仓库名`，然后会跳转至 Vercel 进行网页部署。如果你未登录的话，Vercel 会让你注册或登录，请使用 GitHub 账户进行快捷登录。
+1. 点击 [![Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Frockbenben%2FLearnNotes%2Ftree%2Fgh-pages) 或将 `https://vercel.com/new/clone?repository-url=https://github.com/rockbenben/LearnNotes/tree/gh-pages` 中的 `rockbenben/LearnNotes` 改为 `你的用户名/仓库名`，然后会跳转至 Vercel 进行网页部署。如果你未登录的话，Vercel 会让你注册或登录，请使用 GitHub 账户进行快捷登录。
 
 2. 输入一个你喜欢的 Vercel 项目名称，默认 private 即可，然后点击 `Create`。
 
    ![](http://tc.seoipo.com/2022-08-24-17-24-16.png "创建 Vercel 项目")
 
-3. 此时 Vercel 会基于 LearnData 模板帮助你新建并初始化仓库，仓库名为你之前输入的项目名。几十秒后，满屏的烟花会庆祝你部署成功。此时点击 `Go to Dashboard` 可以跳转到应用的控制台。
+3. 此时 Vercel 会基于 LearnNotes 模板帮助你新建并初始化仓库，仓库名为你之前输入的项目名。几十秒后，满屏的烟花会庆祝你部署成功。此时点击 `Go to Dashboard` 可以跳转到应用的控制台。
 
    ![](http://tc.seoipo.com/2022-08-24-17-21-58.png "Vercel 部署成功提示")
 
@@ -140,7 +140,7 @@ Vercel 部署步骤如下：
            # 你的用户名
            dst_owner: rockbenben
            # 与 Vercel 链接的仓库名，也就是 Vercel 部署时新建的仓库
-           dst_repo_name: LearnData-Vercel
+           dst_repo_name: LearnNotes-Vercel
            dst_branch: main
            src_branch: gh-pages
            clean: true
@@ -172,12 +172,12 @@ Vercel 部署步骤如下：
 
 VuePress 默认使用 Vite，打包时会引入时间戳和 hash 对文件重命名，导致网站大部分的文件发生更改。即使你并没有更新文章，生成的静态文件也会改变。比如我的笔记网站用的 VuePress 默认配置，每次服务器部署需要 10 分钟，期间打开网站就会出错。
 
-如果不想每次架构都重命名文件，可以复制「[nohashname](https://github.com/rockbenben/LearnData/tree/nohashname)」branch。我把 nohashname 分支的打包工具换成了 Webpack，并用 chainWebpack 设置文件命名规则，避免文件非必要重命名。
+如果不想每次架构都重命名文件，可以复制「[nohashname](https://github.com/rockbenben/LearnNotes/tree/nohashname)」branch。我把 nohashname 分支的打包工具换成了 Webpack，并用 chainWebpack 设置文件命名规则，避免文件非必要重命名。
 
-### 本地运行 LearnData
+### 本地运行 LearnNotes
 
 1. 安装环境 npm 和 pnpm，方法查看 [环境部署教程](https://newzone.top/deploy/VPS.html#环境部署)。
-2. 下载 LearnData 项目到本地，在目录下运行终端，输入命令 `pnpm add vuepress@2.0.0-beta.51 @vuepress/client@2.0.0-beta.51 vuepress-theme-hope@2.0.0-beta.108 @vuepress/plugin-google-analytics@2.0.0-beta.51 @vuepress/plugin-search@2.0.0-beta.51 @vuepress/plugin-docsearch@2.0.0-beta.51`。
+2. 下载 LearnNotes 项目到本地，在目录下运行终端，输入命令 `pnpm add vuepress@2.0.0-beta.51 @vuepress/client@2.0.0-beta.51 vuepress-theme-hope@2.0.0-beta.108 @vuepress/plugin-google-analytics@2.0.0-beta.51 @vuepress/plugin-search@2.0.0-beta.51 @vuepress/plugin-docsearch@2.0.0-beta.51`。
 3. 完成前两步后，终端中输入 `pnpm docs:dev`，成功即可提示访问链接，默认为 `http://localhost:8080/`。
 
 运行本地服务器后，修改文件时预览页面也会同步发生改变。如果想停止本地服务器，在终端中按键 `Ctrl + C`。

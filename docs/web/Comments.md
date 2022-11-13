@@ -5,7 +5,7 @@ icon: comment
 order: 3
 ---
 
-LearnData 使用的是 Waline 评论插件，部署简单，有后端管理。评论插件推荐次序为 Waline > Valine > giscus > Gitalk > Gitter。
+LearnNotes 使用的是 Waline 评论插件，部署简单，有后端管理。评论插件推荐次序为 Waline > Valine > giscus > Gitalk > Gitter。
 
 ## 评论插件
 

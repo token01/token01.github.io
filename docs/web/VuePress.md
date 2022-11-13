@@ -9,7 +9,7 @@ order: 1
 
 不过，VuePress 网站需要依赖包环境，生成的静态文件在本地运行会缺少组件，需要服务器或其他云服务上运行。如果本地部署中出现未知 bug，推荐使用 [StackBlitz](https://stackblitz.com/) 在线 IDE 工具测试，打开 `https://stackblitz.com/github/用户名/仓库名` 即可将对应 GitHub 仓库导入 StackBlitz。开发时，建议用 dev 命令测试，这样可以查看打包前的动态代码，发现组件间的内部链接。
 
-LearnData 的主题为 [vuepress-theme-hope](https://vuepress-theme-hope.github.io/v2/zh/guide/)，图标为 [Iconfont 精选图标](https://vuepress-theme-hope.github.io/v2/zh/guide/interface/icon.html#iconfont-%E7%B2%BE%E9%80%89%E5%9B%BE%E6%A0%87)，页面修改查看 [样式配置](https://vuepress-theme-hope.github.io/v2/zh/config/style.html)，其他主题和插件参考 [Awesome VuePress V2](https://github.com/vuepress/awesome-vuepress/blob/main/v2.md) 和 [看板娘](https://www.npmjs.com/package/vuepress-plugin-helper-live2d)。
+LearnNotes 的主题为 [vuepress-theme-hope](https://vuepress-theme-hope.github.io/v2/zh/guide/)，图标为 [Iconfont 精选图标](https://vuepress-theme-hope.github.io/v2/zh/guide/interface/icon.html#iconfont-%E7%B2%BE%E9%80%89%E5%9B%BE%E6%A0%87)，页面修改查看 [样式配置](https://vuepress-theme-hope.github.io/v2/zh/config/style.html)，其他主题和插件参考 [Awesome VuePress V2](https://github.com/vuepress/awesome-vuepress/blob/main/v2.md) 和 [看板娘](https://www.npmjs.com/package/vuepress-plugin-helper-live2d)。
 
 ## 初始配置
 
@@ -39,7 +39,7 @@ LearnData 的主题为 [vuepress-theme-hope](https://vuepress-theme-hope.github.
 
 VuePress v2 默认使用 Vite，打包时会引入时间戳和 hash 对文件重命名，导致网站大部分的文件发生更改。即使你并没有更新文章，生成的静态文件也会改变。比如我的笔记网站用的 VuePress 默认配置，每次服务器部署需要 10 分钟，期间打开网站就会出错。可这是我知识记录的阵地，一天要最少更新 3 次。
 
-如果不想每次架构都重命名文件，可以复制「[nohashname](https://github.com/rockbenben/LearnData/tree/nohashname)」branch。我把 nohashname 分支的打包工具换成了 [Webpack](https://v2.vuepress.vuejs.org/zh/guide/bundler.html)，并用 chainWebpack 设置文件命名规则，避免文件非必要重命名。
+如果不想每次架构都重命名文件，可以复制「[nohashname](https://github.com/rockbenben/LearnNotes/tree/nohashname)」branch。我把 nohashname 分支的打包工具换成了 [Webpack](https://v2.vuepress.vuejs.org/zh/guide/bundler.html)，并用 chainWebpack 设置文件命名规则，避免文件非必要重命名。
 
 1. 修改 config.ts 的导入设置，将 `import { defineUserConfig } from "vuepress"` 替换为 `import { defineUserConfig } from "@vuepress/cli"`，将 `import { viteBundler } from "@vuepress/bundler-vite"` 替换为 `import { webpackBundler } from "@vuepress/bundler-webpack"`。
 

@@ -125,7 +125,7 @@ jobs:
       with:
           accessKeyId: ${{ secrets.ACCESS_KEY_ID }}
           accessKeySecret: ${{ secrets.ACCESS_KEY_SECRET }}
-          bucket: learndata-notes
+          bucket: LearnNotes-notes
           # use your own endpoint
           endpoint: oss-cn-shanghai.aliyuncs.com
           # 全目录上传

@@ -52,5 +52,5 @@ export default navbar([
       "Coupon",
     ],
   },
-  { text: "工具收藏", icon: "tool", link: "https://nav.newzone.top/" },
+  // { text: "工具收藏", icon: "tool", link: "https://nav.newzone.top/" },
 ]);

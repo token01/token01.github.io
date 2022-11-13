@@ -3,7 +3,7 @@
 home: true
 layout: Blog
 icon: home
-bgImage: http://tc.seoipo.com/home-bg-1.jpg
+bgImage: /image/home-bg-1.jpeg
 title: 野生架构师
 #heroImage: /logo.svg
 heroText: 野生架构师

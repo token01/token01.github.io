@@ -6,15 +6,16 @@
     <link>https://newzone.top/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Sun, 13 Nov 2022 06:15:58 GMT</pubDate>
-    <lastBuildDate>Sun, 13 Nov 2022 06:15:58 GMT</lastBuildDate>
+    <pubDate>Sun, 13 Nov 2022 06:34:42 GMT</pubDate>
+    <lastBuildDate>Sun, 13 Nov 2022 06:34:42 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>工具</category>
-    <category>自动化</category>
     <category>系统</category>
     <category>网络</category>
     <category>服务器</category>
+    <category>自动化</category>
+    <category>健康</category>
     <item>
       <title>电脑上实现微信双开，无需网页版或第三方软件</title>
       <link>https://newzone.top/_posts/2017-04-18-wechat_multi_open.html</link>
@@ -43,90 +44,6 @@
 <p>国内搬运地址：<a href="https://wwz.lanzouf.com/ij0oz05ns3di" target="_blank" rel="noopener noreferrer">RevokeMsgPatcher.v1.5.zip</a></p>
 ]]></content:encoded>
       <enclosure url="http://tc.seoipo.com/2022-05-06-04-21-30.png" type="image/png"/>
-    </item>
-    <item>
-      <title>RSS 入门篇：Feed43&amp;FeedEx-为静态网页定制 RSS 源</title>
-      <link>https://newzone.top/_posts/2017-04-22-rss_feed43_feedex.html</link>
-      <guid>https://newzone.top/_posts/2017-04-22-rss_feed43_feedex.html</guid>
-      <source url="https://newzone.top/rss.xml">RSS 入门篇：Feed43&amp;FeedEx-为静态网页定制 RSS 源</source>
-      <category>自动化</category>
-      <pubDate>Sat, 22 Apr 2017 12:54:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>迷上 IFTTT 后急需 RSS 来监测网页，找到免费的 FEED43。网上有很多教程，但对新手都不够友好，就重新整理了一份。</p>
-<p><strong>► 开始烧制属于自己的 feed</strong></p>
-<h2 id="_1-进入网页" tabindex="-1"> 1. 进入网页</h2>
-<p><a href="http://www.feed43.com/" target="_blank" rel="noopener noreferrer">FEED43</a> 无需注册，点击 Create your own feed 直接使用。</p>
-<p><img src="https://pic1.zhimg.com/v2-b5da0b08f632376fad3925a779e373b4_r.jpg" alt="" loading="lazy"></p>
-<h2 id="_2-选定-rss-网页" tabindex="-1"> 2. 选定 RSS 网页</h2>
-<p>将目标网址添入 Step1. Specify source page address (URL)，将输入的源代码复制到 txt 文档中（方便之后写抓取规则）</p>
-<p><img src="https://pic1.zhimg.com/v2-1b687a5b1c325ba6d04fbdcc13b95668_r.jpg" alt="" loading="lazy"></p>
-<p>如果 Page Source 显示为乱码，Encoding 可设为 <strong>UTF-8</strong> 。</p>
-<h2 id="_3-定制-rss-抓取规则" tabindex="-1"> 3. 定制 RSS 抓取规则</h2>
-<p>Global Search Pattern 是选择你要搜索的范围。可以不填，这样会搜索整个页面，一般新手都选择整个页面，即空白。Item (repeatable) Search Pattern 这部分最重要，是我们要抓取的内容。</p>
-<p><img src="https://pic1.zhimg.com/v2-b1fa90c59739bddc0c27134cd36ba6bc_r.jpg" alt="" loading="lazy"></p>
-<p>仔细查看 Step1 中的源代码，找到区需要抓取的部分，输入到 Item (repeatable) Search Pattern。</p>
-<p>测试网址：<code>http://news.163.com/special/0001386F/rank_whole.html</code>。</p>
-<p>需要抓取的源代码：</p>
-<div data-ext="html"><pre><code><span><span><span>&lt;</span>tr</span><span>></span></span>
-  <span><span><span>&lt;</span>td</span> <span>class</span><span><span>=</span><span>"</span>red<span>"</span></span><span>></span></span>
-    <span><span><span>&lt;</span>span</span><span>></span></span>2<span><span><span>&lt;/</span>span</span>
-    <span>></span></span><span><span><span>&lt;</span>a</span> <span>href</span><span><span>=</span><span>"</span>更时尚更运动 车展实拍解析红旗 H5<span>"</span></span>
-      <span>></span></span>更时尚更运动 车展实拍解析红旗 H5<span><span><span>&lt;/</span>a</span>
-    <span>></span></span>
-  <span><span><span>&lt;/</span>td</span><span>></span></span>
-  <span><span><span>&lt;</span>td</span> <span>class</span><span><span>=</span><span>"</span>cBlue<span>"</span></span><span>></span></span>11211615<span><span><span>&lt;/</span>td</span><span>></span></span>
-<span><span><span>&lt;/</span>tr</span><span>></span></span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p><img src="https://pic2.zhimg.com/v2-cf6dbf2c09189f7517ec63abdc80c50d_r.jpg" alt="" loading="lazy"></p>
-<p><strong>抓取规则</strong>：</p>
-<div data-ext="html"><pre><code><span><span><span>&lt;</span>tr</span><span>></span></span>
-  {*}
-  <span><span><span>&lt;</span>td</span> <span>class</span><span><span>=</span><span>"</span>{*}<span>"</span></span><span>></span></span><span><span><span>&lt;</span>span</span><span>></span></span>{*}<span><span><span>&lt;/</span>span</span><span>></span></span><span><span><span>&lt;</span>a</span> <span>href</span><span><span>=</span><span>"</span>{%}<span>"</span></span><span>></span></span>{%}<span><span><span>&lt;/</span>a</span><span>></span></span><span><span><span>&lt;/</span>td</span><span>></span></span>
-  {*}
-  <span><span><span>&lt;</span>td</span> <span>class</span><span><span>=</span><span>"</span>cBlue<span>"</span></span><span>></span></span>{*}<span><span><span>&lt;/</span>td</span><span>></span></span>
-  {*}
-<span><span><span>&lt;/</span>tr</span><span>></span></span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>点击 Extract，进行抓取。</p>
-<p><img src="https://pic4.zhimg.com/v2-e9486741a6229ab258a95147f584571b_r.jpg" alt="" loading="lazy"></p>
-<h2 id="_4-整理-rss-输入格式" tabindex="-1"> 4. 整理 rss 输入格式</h2>
-<p>Define output format，一般情况下前面三个会已经写好，后三个就将前面得出的 item 里面的元素填入即可，我这里{%1}对应的是链接所以填入 Link，{%2}对于标题就填入 Title。</p>
-<p><img src="https://pic1.zhimg.com/v2-b4614f5c46090f2eb762aac87d604350_r.jpg" alt="" loading="lazy"></p>
-<p>然后点击 preview，完成制作，同时出现预览。</p>
-<p><img src="https://pic2.zhimg.com/v2-498bf1f1c0b14da172498b58f59e39b9_r.jpg" alt="" loading="lazy"></p>
-<p>如果注册了 FEED43 的账号，可以修改 rss 地址，但不能改为中文，否则会 rss 出错。</p>
-<h2 id="_5-获取-rss-地址" tabindex="-1"> 5. 获取 RSS 地址</h2>
-<p>点击 Feed URL 可得 rss 地址，我这里是 <a href="https://www.feed43.com/dianji.xml" target="_blank" rel="noopener noreferrer">https://www.feed43.com/dianji.xml</a></p>
-<p><img src="https://pic1.zhimg.com/v2-f3b00e876d8df136f7d354b4fc22f900_r.jpg" alt="" loading="lazy"></p>
-<p>在 RSS reader 中展示为</p>
-<p><img src="https://pic4.zhimg.com/v2-6d8f503ff3da16eb985ca1d3ae2de98f_r.jpg" alt="" loading="lazy"></p>
-<h2 id="_6-全文抓取" tabindex="-1"> 6. 全文抓取</h2>
-<p>feed43 导出的条目必须点击链接才能看到内容。在 rss 展示全文，需要通过 FeedEx 再转一次。注意：feed43 免费用户过多，<strong>需在浏览器中打开一次才能得到真实链接</strong> (一般为 <code>http://node2.feed43.com</code>)，FeedEx 需使用真实链接，一般 3 分钟内转换好。</p>
-<p>FeedEx：<a href="https://feedex.net/" target="_blank" rel="noopener noreferrer">https://feedex.net/</a></p>
-<p><img src="https://pic4.zhimg.com/v2-8e3701adffa1d6fb4ea10dda2704988b_r.jpg" alt="" loading="lazy"></p>
-<p>feeds43 免费版每 6 小时抓取一次，显示最新的 20 条内容。</p>
-<p>如果网页源更新较频繁的话，可使用 RSSHub 和 Huginn。</p>
-<h2 id="rss-合集" tabindex="-1"> RSS 合集</h2>
-<p>汇总的 RSS 永久订阅 feeds，均通过 RSSHub 和 Huginn 制作。如果有兴趣自制 RSS，可参考以下教程。</p>
-<ul>
-<li>
-<p><a href="https://newzone.top/_posts/2017-04-22-rss_feed43_feedex.html" target="_blank" rel="noopener noreferrer">RSS 入门篇：FEED43&amp;FeedEx-为静态网页定制 RSS 源</a></p>
-</li>
-<li>
-<p><a href="https://newzone.top/_posts/2018-10-07-huginn_scraping_any_website.html" target="_blank" rel="noopener noreferrer">RSS 进阶篇：Huginn - 真·为任意网页定制 RSS 源（PhantomJs 抓取）</a></p>
-</li>
-<li>
-<p><a href="https://newzone.top/_posts/2019-04-01-rsshub_noob.html" target="_blank" rel="noopener noreferrer">RSS 速成篇：RSSHub 捡现成的轮子</a></p>
-</li>
-<li>
-<p><a href="https://newzone.top/_posts/2020-03-25-rsshub_on_vps.html" target="_blank" rel="noopener noreferrer">RSS 速成篇 2：RSSHub 自部署</a></p>
-</li>
-<li>
-<p><a href="https://newzone.top/_posts/2021-10-23-nas_with_rsshub_and_huginn.html" target="_blank" rel="noopener noreferrer">RSS 完结篇：节省千元服务费，RSSHub、Huginn 转移 NAS</a></p>
-</li>
-<li>
-<p><a href="https://newzone.top/_posts/2022-03-17-rss_persistent_link_collection.html" target="_blank" rel="noopener noreferrer">RSS 汇总篇：RSS 永久链接合集，拒绝 RSS 失效</a></p>
-</li>
-</ul>
-]]></content:encoded>
-      <enclosure url="https://pic1.zhimg.com/v2-b5da0b08f632376fad3925a779e373b4_r.jpg" type="image/jpeg"/>
     </item>
     <item>
       <title>office 2016 安装程序报错解决办法</title>
@@ -387,6 +304,93 @@ AI 会取代你的工作！</p>
 <li><a href="https://www.guokr.com/" target="_blank" rel="noopener noreferrer">果壳网</a>：果壳首页推荐，官方更新速度较慢，刚好可以了解些奇思妙想</li>
 <li>工作类：梅花、SocialBeta、数英网、艾瑞网</li>
 </ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>提早晚餐，饿死算逑</title>
+      <link>https://newzone.top/_posts/2018-03-06-no_more_dinner.html</link>
+      <guid>https://newzone.top/_posts/2018-03-06-no_more_dinner.html</guid>
+      <source url="https://newzone.top/rss.xml">提早晚餐，饿死算逑</source>
+      <category>健康</category>
+      <pubDate>Tue, 06 Mar 2018 22:06:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>上大学后，每天晚上都打游戏点「叉鸭例牌 + 两碗米饭」，体重成功上到 85KG。后来减肥在 13 年达到历史低点 75KG，但后来持续上升，在 18 年春节达到顶点，93KG，比婚前胖了<strong>38 斤</strong>。</p>
+<p>目前以在家办公为主，很少出门，每天走路都没走多少，更别说运动了。</p>
+<p><strong>解决方案：</strong></p>
+<ol>
+<li>
+<p>增加运动：每天划船机 2 公里，后期再逐步加量</p>
+</li>
+<li>
+<p>调节饮食，多喝水不吃炸鸡</p>
+<ul>
+<li>
+<p>早餐：9 点，牛奶 + 麦片</p>
+</li>
+<li>
+<p>午餐：12 点，正常</p>
+</li>
+<li>
+<p>晚餐：4 点，晚餐后不再吃东西</p>
+</li>
+</ul>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>历史体重</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2012 年 9 月 2 日 23:04:51</td>
+<td>85KG</td>
+<td>今天吃了 3 个苹果，3 块钱煎饼。刚洗完澡</td>
+</tr>
+<tr>
+<td>2013 年 4 月 11 日 21:24:54</td>
+<td>86.4KG</td>
+<td>脱去外套</td>
+</tr>
+<tr>
+<td>2013 年 9 月 5 日 8 点</td>
+<td>81.8kg</td>
+<td></td>
+</tr>
+<tr>
+<td>2013 年 10 月 3 日 9:55:02</td>
+<td>78.7KG</td>
+<td></td>
+</tr>
+<tr>
+<td>2014 年 2 月 25 日春节</td>
+<td>83KG</td>
+<td>重新开始减重</td>
+</tr>
+<tr>
+<td>2014 年 10 月 19 日 16:50:10</td>
+<td>86.1KG</td>
+<td></td>
+</tr>
+<tr>
+<td>2016 年 8 月 4 日</td>
+<td>88KG</td>
+<td></td>
+</tr>
+<tr>
+<td>2018 年 3 月 6 日 晚</td>
+<td>91.6 KG</td>
+<td></td>
+</tr>
+<tr>
+<td>2020 年 10 月 6 日</td>
+<td>95 KG</td>
+<td>巅峰，开始营养健康餐</td>
+</tr>
+</tbody>
+</table>
 ]]></content:encoded>
     </item>
   </channel>

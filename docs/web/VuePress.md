@@ -110,7 +110,7 @@ export default defineUserConfig({
 });
 ```
 
-除修改页面模板外，也可以通过修改 config.ts 配置来添加自定义标签。插入下方代码后，网站所有页面都会在 header 前添入对应代码，其效用等同于 `<meta name="keywords" content="关键词，内容标签，相关词">` 和 `<img referrerpolicy="no-referrer-when-downgrade" src="https://tongji.newzone.top/matomo.php?idsite=7&amp;rec=1" style="border:0" alt="" />`。
+除修改页面模板外，也可以通过修改 config.ts 配置来添加自定义标签。插入下方代码后，网站所有页面都会在 header 前添入对应代码，其效用等同于 `<meta name="keywords" content="关键词，内容标签，相关词">` 和 `<img referrerpolicy="no-referrer-when-downgrade" src="https://tongji.abelsun.tech/matomo.php?idsite=7&amp;rec=1" style="border:0" alt="" />`。
 
 ```ts
 head: [
@@ -125,7 +125,7 @@ head: [
     "img",
     {
       referrerpolicy: "no-referrer-when-downgrade",
-      src: "https://tongji.newzone.top/matomo.php?idsite=7&amp;rec=1",
+      src: "https://tongji.abelsun.tech/matomo.php?idsite=7&amp;rec=1",
       style: "border:0",
       alt: "",
     },

@@ -5,7 +5,7 @@ icon: customize
 order: 2
 ---
 
-抓取步骤：https://newzone.top/_posts/2018-10-07-huginn_scraping_any_website.html
+抓取步骤：https://abelsun.tech/_posts/2018-10-07-huginn_scraping_any_website.html
 
 `.env` 设置：https://github.com/huginn/huginn/blob/master/.env.example
 

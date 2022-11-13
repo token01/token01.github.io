@@ -5,11 +5,11 @@ import sidebar from "./sidebar";
 
 export default hopeTheme({
   // 主题选项：https://vuepress-theme-hope.github.io/v2/zh/config/theme/layout.html
-  hostname: "https://newzone.top",
+  hostname: "https://abelsun.tech",
 
   author: {
     name: "清顺",
-    url: "https://newzone.top",
+    url: "https://abelsun.tech",
   },
 
   iconAssets: "iconfont",
@@ -81,7 +81,7 @@ export default hopeTheme({
         "https://sspai.com/u/zqj05i4v/posts",
         path.resolve(__dirname, "icons/sspai.svg"),
       ],
-      RSS: "https://newzone.top/rss.xml",
+      RSS: "https://abelsun.tech/rss.xml",
     },
   },
 
@@ -94,7 +94,7 @@ export default hopeTheme({
     // 评论配置（仅做样例，记得更换）
     comment: {
       provider: "Waline",
-      serverURL: "https://waline.newzone.top",
+      serverURL: "https://waline.abelsun.tech",
       // 部署 Waline：https://waline.js.org/guide/get-started.html
       // pageview: true, // 浏览量统计
       // Waline 等级标签

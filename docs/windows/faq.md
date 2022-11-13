@@ -29,7 +29,7 @@ Windows 遇到不懂的问题，可以在 [Microsoft 支持社区](https://answe
 
 ## 网址快捷方式
 
-右键单击桌面 >「新建」>「快捷方式」，插入浏览器路径，然后空格并输入要打开的网址链接，比如 `"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe" https://newzone.top/`。
+右键单击桌面 >「新建」>「快捷方式」，插入浏览器路径，然后空格并输入要打开的网址链接，比如 `"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe" https://abelsun.tech/`。
 
 如果需要一次打开多个网址，则在参数后继续添加「空格 链接」。
 

@@ -18,7 +18,7 @@ Notion、Obsidian、Logseq、Roam Research、Evernote、flomo、为知、飞书�
 
 ![](http://tc.seoipo.com/2022-08-22-18-02-07.png "Markdown VS Notion")
 
-突破迷思后，我基于 VuePress 和 vuepress-theme-hope 建立了 [LearnNotes](https://github.com/rockbenben/LearnNotes) 项目，把知识笔记、生活记录、博客和任何觉得有价值的记录转成 Markdown 文本，然后推送到 GitHub 生成 Pages 静态页面，同步到国内云服务器形成 [LearnNotes - 浅谈技术](https://newzone.top/)。
+突破迷思后，我基于 VuePress 和 vuepress-theme-hope 建立了 [LearnNotes](https://github.com/rockbenben/LearnNotes) 项目，把知识笔记、生活记录、博客和任何觉得有价值的记录转成 Markdown 文本，然后推送到 GitHub 生成 Pages 静态页面，同步到国内云服务器形成 [LearnNotes - 浅谈技术](https://abelsun.tech/)。
 
 ![](http://tc.seoipo.com/2022-08-24-19-14-59.png "笔记/博客自动化发布")
 
@@ -40,7 +40,7 @@ LearnNotes 的笔记/文章编辑均使用 Markdown，输出不再受到应用�
 
 ### 输出分享
 
-其次，网页形式让笔记方便分享。除了效率工具心得，我把生活技巧、购物评价和说明书也放在 LearnNotes。家人或朋友需要帮助时，直接访问网页即可，不需要安装 app 或折腾账户分享，比如我经常分享的 [通马桶技巧](https://newzone.top/family/Maintenance.html#通马桶) 和疏通器说明书。
+其次，网页形式让笔记方便分享。除了效率工具心得，我把生活技巧、购物评价和说明书也放在 LearnNotes。家人或朋友需要帮助时，直接访问网页即可，不需要安装 app 或折腾账户分享，比如我经常分享的 [通马桶技巧](https://abelsun.tech/family/Maintenance.html#通马桶) 和疏通器说明书。
 
 ![](http://tc.seoipo.com/2022-08-19-22-52-29.png "生活知识页面样例")
 
@@ -97,7 +97,7 @@ Obsidian 等双链笔记想法设计很好，我们可以自由地在不同知�
 
 如何搭建把博客转为知识库，建立属于你的 LearnNotes 知识管理网站呢？
 
-首先，确定你有 GitHub 账户，懂 Markdown 和基础 HTML 知识。然后，按 [LearnNotes 部署教程](https://newzone.top/#搭建-LearnNotes) 即可完成搭建和配置。如果你的笔记已经 Markdown 化，把文档放在 docs 目录下就可以建立你自己的知识库。
+首先，确定你有 GitHub 账户，懂 Markdown 和基础 HTML 知识。然后，按 [LearnNotes 部署教程](https://abelsun.tech/#搭建-LearnNotes) 即可完成搭建和配置。如果你的笔记已经 Markdown 化，把文档放在 docs 目录下就可以建立你自己的知识库。
 
 笔记结构可以参考我的分类。这没有绝对的界限，只要看到自己觉得有价值的知识点，都可以往 LearnNotes 里丢。但是，不要全文本地化收藏，简单提取用链接引用即可，除少量精品外，网络时代的文章隔几年就会失效，没必要收藏为一篇篇的笔记。当下次应用到这个知识点时，我们再考虑整理事宜，否则，长时间用不到的知识，又有什么整理的价值呢。
 
@@ -117,4 +117,4 @@ Obsidian 等双链笔记想法设计很好，我们可以自由地在不同知�
 
 这次我不想再立 Flag 了，只希望能放过自己。每进行一次知识迁移，真是大伤，休息一段时间吧。
 
-如果你有兴趣尝试 [LearnNotes](https://newzone.top/)，欢迎通过链接访问并复制模板尝试，具体的操作方法与常见问答我都写在博客中。有进一步的问题或讨论欢迎在评论区留言。
+如果你有兴趣尝试 [LearnNotes](https://abelsun.tech/)，欢迎通过链接访问并复制模板尝试，具体的操作方法与常见问答我都写在博客中。有进一步的问题或讨论欢迎在评论区留言。

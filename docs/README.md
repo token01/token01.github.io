@@ -70,7 +70,7 @@ LearnNotes 的文章页面配置查看主目录下的 `samplepage.md`，文本�
 - `config.ts` 配置网站环境依赖和网站属性。
 - `sidebar.ts` 配置侧边栏，替换文档中文件夹路径即可，后台自动抓取路径下的 md 文件来生成侧边栏。
 - `navbar.ts` 配置导航栏，推荐放你常用的文档链接。
-- `theme.ts` 对主题和插件进行配置，[评论插件](https://newzone.top/web/Comments.html) 亦在此文件。
+- `theme.ts` 对主题和插件进行配置，[评论插件](https://abelsun.tech/web/Comments.html) 亦在此文件。
 - `templateBuild.html` 是网页模板，调整网站关键词和第三方统计代码。
 
 注意：LearnNotes 默认使用了 algolia 全文搜索，如果你没设置 Docsearch 爬虫的话，需删除 `docs/.vuepress/config.ts` 中 plugins 下的 docsearchPlugin 区块。删除后，站点会将页面标题和小标题作为搜索索引。
@@ -79,7 +79,7 @@ LearnNotes 的文章页面配置查看主目录下的 `samplepage.md`，文本�
 
 LearnNotes 集成了看板娘 [Live2D Widget](https://github.com/stevenjoezhang/live2d-widget)，提升网站美观度和趣味性。如果不需要看板娘，则删除 `docs\.vuepress\public` 下的 live2d-widget 文件夹。
 
-启用看板娘模型前，需打开 `docs\.vuepress\public\live2d-widget\autoload.js`，将 `apiPath: "https://newzone.top/live2d-widget/live2d_api/"` 改为 `cdnPath: live2d_path + "live2d_api/"`。如果未正确修改，看板娘会出现跨域报错，只显示文字而不显示图片。用服务器自建 [live2d api](https://github.com/fghrsh/live2d_api)，可以调整看板娘模型。
+启用看板娘模型前，需打开 `docs\.vuepress\public\live2d-widget\autoload.js`，将 `apiPath: "https://abelsun.tech/live2d-widget/live2d_api/"` 改为 `cdnPath: live2d_path + "live2d_api/"`。如果未正确修改，看板娘会出现跨域报错，只显示文字而不显示图片。用服务器自建 [live2d api](https://github.com/fghrsh/live2d_api)，可以调整看板娘模型。
 
 如果网站部署在子页面 `https://xxx.github.io/yyy`，则需将子页面路径 yyy 加入到以下两个文件：
 
@@ -104,7 +104,7 @@ LearnNotes 推送到 GitHub 后，会自动生成可访问的网页，但国内�
 
 服务器设置：进入 GitHub 仓库「setting - Secrets - Action」，添加 `FTP_HOST`，`FTP_PORT`，`FTP_USERNAME` 和 `FTP_PASSWORD` 的密钥。配置成功后，每次修改文件，Github 都会自动推送到服务器 FTP。
 
-如果你不需要同步到服务器 FTP，建议按常见问题中的操作删除对应代码，或者按照 [GitHub 同步到 oss](https://newzone.top/deploy/Static.html#同步到-oss) 步骤将网页部署到云存储上。
+如果你不需要同步到服务器 FTP，建议按常见问题中的操作删除对应代码，或者按照 [GitHub 同步到 oss](https://abelsun.tech/deploy/Static.html#同步到-oss) 步骤将网页部署到云存储上。
 
 ### 部署到 Vercel
 
@@ -176,7 +176,7 @@ VuePress 默认使用 Vite，打包时会引入时间戳和 hash 对文件重命
 
 ### 本地运行 LearnNotes
 
-1. 安装环境 npm 和 pnpm，方法查看 [环境部署教程](https://newzone.top/deploy/VPS.html#环境部署)。
+1. 安装环境 npm 和 pnpm，方法查看 [环境部署教程](https://abelsun.tech/deploy/VPS.html#环境部署)。
 2. 下载 LearnNotes 项目到本地，在目录下运行终端，输入命令 `pnpm add vuepress@2.0.0-beta.51 @vuepress/client@2.0.0-beta.51 vuepress-theme-hope@2.0.0-beta.108 @vuepress/plugin-google-analytics@2.0.0-beta.51 @vuepress/plugin-search@2.0.0-beta.51 @vuepress/plugin-docsearch@2.0.0-beta.51`。
 3. 完成前两步后，终端中输入 `pnpm docs:dev`，成功即可提示访问链接，默认为 `http://localhost:8080/`。
 

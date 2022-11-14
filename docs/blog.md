@@ -4,9 +4,9 @@ home: true
 layout: Blog
 icon: home
 bgImage: /image/home-bg-1.jpeg
-title: 野生架构师
+title: 知识是知识，做到才智慧，多做少多说
 #heroImage: /logo.svg
-heroText: 野生架构师
+heroText: 知识是知识，做到才智慧，多做少多说
 heroFullScreen: false
 tagline: 盛年不重来，一日难再晨
 projects:

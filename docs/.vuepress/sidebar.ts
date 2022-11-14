@@ -16,7 +16,7 @@ export default sidebar([
         text: "Basic",
         icon: "emmet",
         collapsable: true,
-        children: ["application/Markdown.md", "application/Electron.md", "application/AutoHotkey.md", "Regex.md"],
+        children: ["application/Markdown.md", "application/Electron.md", "application/AutoHotkey.md", "application/Regex.md"],
       },
       {
         text: "FrondEnd",

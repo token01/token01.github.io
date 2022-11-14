@@ -76,10 +76,10 @@ export default hopeTheme({
       GitHub: "https://github.com/token01",
       Zhihu: "https://www.zhihu.com/people/abel-48",
       Wechat: "http://tc.seoipo.com/wechat.svg",
-      少数派: [
-        "https://sspai.com/u/zqj05i4v/posts",
-        path.resolve(__dirname, "icons/sspai.svg"),
-      ],
+      // 少数派: [
+      //   "https://sspai.com/u/zqj05i4v/posts",
+      //   path.resolve(__dirname, "icons/sspai.svg"),
+      // ],
       RSS: "https://abelsun.tech/rss.xml",
     },
   },

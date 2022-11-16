@@ -44,7 +44,7 @@
 
 ## 数据库
 
-- [MySQL 数据库开发规范](code/db/mysql_standard.md)
+- [MySQL 数据库开发规范](code/db/this_mysql_standard.md)
 
 ## 软件工程
 

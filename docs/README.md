@@ -34,7 +34,7 @@
 
 ## Java
 
-- [俯瞰 Java 服务端开发](code/java/俯瞰Java服务端开发.md)
+- [俯瞰 Java 服务端开发](code/java/java_service.md)
 - [Java 工程师能力提升路径（一）：从业余到专业](code/java/part_one_of_java_engineer_path.md)
 - [Java 学习大法](code/java/java_study_way.md)
 - [\[Java 开发实战\] 5 分钟搞定 liquibase 数据库版本控制](code/java/liquibase.md)
@@ -60,8 +60,8 @@
 
 > Thinking in code.
 
-- [编码的道与禅](code/thinking/编码的道与禅.md)
-- [程序员的职业素养](code/thinking/程序员的职业素养.md)
+- [编码的道与禅](code/thinking/the_coding_of_tao_and_zen.md)
+- [程序员的职业素养](code/thinking/the_programmer_professional_quality.md)
 - [研发质量与效率的绩效指标设计](code/thinking/coder_kpi.md)
 - [编程界的 51 条名言佳句](code/thinking/quotes.md)
 
@@ -71,8 +71,7 @@
 
 > 不同的编程语言，不同的设计思想。
 
-- [使用 prolog 解决爱因斯坦斑马难题](code/lang/使用prolog解决爱因斯坦斑马难题.md)
-- [一段简单的 ruby 爬虫代码](code/lang/一段简单的ruby爬虫代码.md)
+- [一段简单的 ruby 爬虫代码](code/lang/the_simple_ruby_crawler_code.md)
 
 ## 效率
 
@@ -80,7 +79,7 @@
 
 - [\[10 倍程序员\] ⭐ 脚本的魅力，内含 js 写爬虫、python 骚操作等实用代码](code/10x/script.md)
 - [\[10 倍程序员\] ⭐51W+ 的终端命令行工具助你成为 10 倍程序员](code/10x/terminal.md)
-- [效率工具箱](code/tools/我的效率工具箱.md)
+- [效率工具箱](code/tools/my_efficiency_toolkit.md)
 - [使用开源工作流自动化工具 n8n 打造个人助理](code/tools/n8n.md)
 - [我如何流畅地切换使用 Mac 和 Windows（一）](code/tools/mac_win_chapter_1.md)
 

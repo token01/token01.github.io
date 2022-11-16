@@ -1,8 +1,6 @@
 ---
-created: 2022-08-10 18:11
 layout: post
 title: "我如何流畅地切换使用 Mac 和 Windows（一）"
-date: 2022-08-10T23:52:31+0800
 comments: true
 tags: ["效率", "Mac", "Windows"]
 categories: ["技术"]

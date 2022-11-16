@@ -6,16 +6,32 @@
     <link>https://abelsun.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 16 Nov 2022 03:00:15 GMT</pubDate>
-    <lastBuildDate>Wed, 16 Nov 2022 03:00:15 GMT</lastBuildDate>
+    <pubDate>Wed, 16 Nov 2022 03:09:50 GMT</pubDate>
+    <lastBuildDate>Wed, 16 Nov 2022 03:09:50 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+    <category>随笔</category>
     <category>工具</category>
     <category>系统</category>
     <category>网络</category>
     <category>服务器</category>
     <category>自动化</category>
-    <category>健康</category>
+    <item>
+      <title>浅谈技术-回顾</title>
+      <link>https://abelsun.tech/_posts/2022-11-16-Introduction-to-technology.html</link>
+      <guid>https://abelsun.tech/_posts/2022-11-16-Introduction-to-technology.html</guid>
+      <source url="https://abelsun.tech/rss.xml">浅谈技术-回顾</source>
+      <category>随笔</category>
+      <pubDate>Wed, 16 Nov 2022 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>没有核心技术能不能开发出成功的产品？
+在辞职闭关的这段时间，学着学着我逐渐越来越迷茫，不知道这些知识能够运用在那里，后来每次一看数学书，我就开始想睡觉，逐渐数学书成为我助眠的工具，再过一阵子，我就放弃走这条路了，自我感觉不去学校是不可能走科研这条路的，因此我放弃了，当时我用一句话安慰自己——If you accept your limitation，you go beyond them。</p>
+<p>这些年，我看到许多名校毕业的高材生取得成功，比如香港科技大学毕业的大疆创始人等等，我总感觉掌握核心技术才能获得成功，而像我这样，仅仅是有不错的编程思想、有一定技术广度，能写出比较好看的代码，但却写不出艰深的代码，比如操作系统、数据库等等，总感觉自己的职业发展有上限，也做过技术经理等岗位，尝试横向发展，不可否认，这是许多人的出路，但人总要做自己喜欢的事情，我想没有太多热爱编程的人喜欢做管理。</p>
+<p>既然不喜欢做管理，也没掌握什么底层核心技术，那如何突破上限呢？近期我有了不一样的看法，且听我说一说。</p>
+<p>由于打算开始独立开发者生涯，我首先瞄准了做工具，而不是我擅长的 sass 服务，因为对于个人开发者而言，做 sass 需要投入太多的时间精力以及服务器等资源，风险较高，而个人做的话也很难比的上企业所提供的服务。我看许多个人开发者也是在做工具，这样的成本比较可控，对于许多客户端开发者，这是很不错的思路，但我是一个服务端的架构师，做客户端并不是我擅长的，如果做主要以服务端为核心的 sass 服务，能不能成功？</p>
+<p>在经过一段时间的思考，我想是可以的。很重要的原因在于我想通了一点，能不能做成一件事，不光在于有没有掌握核心技术，拿中外合资企业来说，很多核心技术我们国家还没有掌握，但并不妨碍那些企业获得成功，而他们的优势就在于技术整合，现如今软件行业经过高度的抽象，做一个大型系统，也是可以通过整合各种技术来实现，并不需要我们做太多的底层技术研发，对于做架构而言就像是搭积木，只要懂得组合各种技术，搭建出一套承载千万级用户的系统并非难事，并不需要你懂的多么艰深的数学算法，当然如果能够设计出优秀的数学算法，那优势就更加明显了。</p>
+<p>重点在于，即使不掌握核心技术，只懂技术的组合也是可以构建强大的企业级应用，就像是中外合资企业，合作方负责提供核心技术，我们只管技术的组合，我们受限于他人的技术，但只要保持良好的合作，并不妨碍我们做出好的应用，尤其是在云计算已经占领大部分市场的时候，做 sass 服务，就像是与云计算厂商合作，云厂商提供核心服务，我们只需将这些技术组合好。</p>
+]]></content:encoded>
+    </item>
     <item>
       <title>电脑上实现微信双开，无需网页版或第三方软件</title>
       <link>https://abelsun.tech/_posts/2017-04-18-wechat_multi_open.html</link>
@@ -304,93 +320,6 @@ AI 会取代你的工作！</p>
 <li><a href="https://www.guokr.com/" target="_blank" rel="noopener noreferrer">果壳网</a>：果壳首页推荐，官方更新速度较慢，刚好可以了解些奇思妙想</li>
 <li>工作类：梅花、SocialBeta、数英网、艾瑞网</li>
 </ul>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>提早晚餐，饿死算逑</title>
-      <link>https://abelsun.tech/_posts/2018-03-06-no_more_dinner.html</link>
-      <guid>https://abelsun.tech/_posts/2018-03-06-no_more_dinner.html</guid>
-      <source url="https://abelsun.tech/rss.xml">提早晚餐，饿死算逑</source>
-      <category>健康</category>
-      <pubDate>Tue, 06 Mar 2018 22:06:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>上大学后，每天晚上都打游戏点「叉鸭例牌 + 两碗米饭」，体重成功上到 85KG。后来减肥在 13 年达到历史低点 75KG，但后来持续上升，在 18 年春节达到顶点，93KG，比婚前胖了<strong>38 斤</strong>。</p>
-<p>目前以在家办公为主，很少出门，每天走路都没走多少，更别说运动了。</p>
-<p><strong>解决方案：</strong></p>
-<ol>
-<li>
-<p>增加运动：每天划船机 2 公里，后期再逐步加量</p>
-</li>
-<li>
-<p>调节饮食，多喝水不吃炸鸡</p>
-<ul>
-<li>
-<p>早餐：9 点，牛奶 + 麦片</p>
-</li>
-<li>
-<p>午餐：12 点，正常</p>
-</li>
-<li>
-<p>晚餐：4 点，晚餐后不再吃东西</p>
-</li>
-</ul>
-</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>日期</th>
-<th>历史体重</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2012 年 9 月 2 日 23:04:51</td>
-<td>85KG</td>
-<td>今天吃了 3 个苹果，3 块钱煎饼。刚洗完澡</td>
-</tr>
-<tr>
-<td>2013 年 4 月 11 日 21:24:54</td>
-<td>86.4KG</td>
-<td>脱去外套</td>
-</tr>
-<tr>
-<td>2013 年 9 月 5 日 8 点</td>
-<td>81.8kg</td>
-<td></td>
-</tr>
-<tr>
-<td>2013 年 10 月 3 日 9:55:02</td>
-<td>78.7KG</td>
-<td></td>
-</tr>
-<tr>
-<td>2014 年 2 月 25 日春节</td>
-<td>83KG</td>
-<td>重新开始减重</td>
-</tr>
-<tr>
-<td>2014 年 10 月 19 日 16:50:10</td>
-<td>86.1KG</td>
-<td></td>
-</tr>
-<tr>
-<td>2016 年 8 月 4 日</td>
-<td>88KG</td>
-<td></td>
-</tr>
-<tr>
-<td>2018 年 3 月 6 日 晚</td>
-<td>91.6 KG</td>
-<td></td>
-</tr>
-<tr>
-<td>2020 年 10 月 6 日</td>
-<td>95 KG</td>
-<td>巅峰，开始营养健康餐</td>
-</tr>
-</tbody>
-</table>
 ]]></content:encoded>
     </item>
   </channel>

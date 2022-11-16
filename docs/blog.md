@@ -4,9 +4,9 @@ home: true
 layout: Blog
 icon: home
 bgImage: /image/home-bg-1.jpeg
-title: 奋发有为，时不我待
+title: 野生架构师
 #heroImage: /logo.svg
-heroText: 奋发有为，时不我待
+heroText: 野生架构师
 heroFullScreen: false
 tagline: 盛年不重来，一日难再晨
 projects:

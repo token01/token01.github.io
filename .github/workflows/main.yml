@@ -18,8 +18,8 @@ jobs:
           # 如果你文档需要 Git 子模块，取消注释下一行
           # submodules: true
 
-      - name: Install npm
-        uses: npm/action-setup@v2.2.4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.2.4
         with:
           version: 7
           run_install: true
@@ -31,13 +31,13 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: npm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Build Docs
         env:
           NODE_OPTIONS: --max_old_space_size=8192
         run: |-
-          npm run docs:build
+          pnpm run docs:build
           > docs/.vuepress/dist/.nojekyll
 
       - name: Deploy

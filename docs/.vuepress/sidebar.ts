@@ -1,5 +1,5 @@
 import { sidebar } from "vuepress-theme-hope";
-
+// https://emojipedia.org/
 // 精选图标：https://vuepress-theme-hope.github.io/v2/zh/guide/interface/icon.html#iconfont-%E7%B2%BE%E9%80%89%E5%9B%BE%E6%A0%87
 export default sidebar([
   "/DailyRoutine",
@@ -45,7 +45,7 @@ export default sidebar([
     children: "structure",
   },
   {
-    text: " 系统问题",
+    text: "👥 系统问题",
     icon: "",
     prefix: "/windows/",
     link: "",
@@ -53,7 +53,7 @@ export default sidebar([
     children: "structure",
   },
   {
-    text: "🛖 生活",
+    text: " 生活",
     icon: "",
     prefix: "/family/",
     link: "",

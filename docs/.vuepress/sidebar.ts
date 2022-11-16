@@ -5,26 +5,12 @@ export default sidebar([
   "/DailyRoutine",
   "/Read",
   {
-    text: "🚀 代码",
+    text: "🚀 编程技术",
     icon: "",
     prefix: "/code/",
     link: "",
     collapsable: true,
-    children: [
-      "application/README.md",
-      {
-        text: "Basic",
-        icon: "emmet",
-        collapsable: true,
-        children: ["application/Markdown.md", "application/Electron.md", "application/AutoHotkey.md", "application/Regex.md"],
-      },
-      {
-        text: "FrondEnd",
-        icon: "app",
-        collapsable: true,
-        children: ["application/Vue.md", "application/HTML.md", "application/JavaScript.md", "application/Python.md"],
-      },
-    ],
+    children: "structure",
   },
   {
     text: "🧰 软件应用",
@@ -59,7 +45,7 @@ export default sidebar([
     children: "structure",
   },
   {
-    text: "🪟 系统问题",
+    text: " 系统问题",
     icon: "",
     prefix: "/windows/",
     link: "",
@@ -82,4 +68,5 @@ export default sidebar([
     collapsable: true,
     children: "structure",
   },
+  
 ]);

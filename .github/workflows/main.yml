@@ -19,7 +19,7 @@ jobs:
           # submodules: true
 
       - name: Install npm
-        uses: pnpm/action-setup@v2.2.4
+        uses: npm/action-setup@v2.2.4
         with:
           version: 7
           run_install: true

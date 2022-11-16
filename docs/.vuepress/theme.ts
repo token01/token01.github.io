@@ -76,9 +76,8 @@ export default hopeTheme({
       GitHub: "https://github.com/token01",
       Zhihu: "https://www.zhihu.com/people/abel-48",
       Wechat: "https://cdn.nlark.com/yuque/0/2022/jpeg/340500/1667573879406-4ffff4df-f80b-4e43-8485-217d2c241953.jpeg",
-      Twitter: "https://https://twitter.com/sunzhenya",
+      Twitter: "https://twitter.com/sunzhenya",
       yuque: "https://www.yuque.com/sunzhenya",
-
       // 少数派: [
       //   "https://sspai.com/u/zqj05i4v/posts",
       //   path.resolve(__dirname, "icons/sspai.svg"),

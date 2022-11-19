@@ -4,9 +4,10 @@ title: LearnNotes
 icon: note
 ---
 
-# Windows Hidden
+## Windows Hidden
 
 `whidden.py`
+
 ```python
 from tkinter import *
 import win32api
@@ -301,12 +302,11 @@ if __name__ == '__main__':
     Main = _Main()
     Main.main()
 
-
-
 ```
 
 管理员方式运行
 > 有些窗口需要管理员权限
+
 ```shell
 @ echo off
 %1 %2

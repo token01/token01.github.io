@@ -3,7 +3,7 @@ article: false
 title: LearnNotes
 icon: note
 ---
-Jupyter Notebook
+## Jupyter Notebook
 ----------
 
 * [jupyter notebook](https://jupyter.org/)
@@ -12,7 +12,8 @@ Jupyter Notebook
 * [zeppelin notebook](https://zeppelin.apache.org/)
 * [metaflow](https://github.com/Netflix/metaflow)
 
-## 安装
+### 安装
+
 ```shell
 pip install notebook
 
@@ -50,12 +51,14 @@ conda deactivate
 conda remove -n name --all
 ```
 
-## pip源
+### pip源
+
 ```shell
 pip install <包名> -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn
 ```
 
-## 插件
+### 插件
+
 ```
 pip install jupyter_contrib_nbextensions
 jupyter contrib nbextension install --user

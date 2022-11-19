@@ -1,8 +1,4 @@
----
-article: false
-title: LearnNotes
-icon: note
----
+
 # Spark in Python
 
 * [pyspark tutorial](https://sparkbyexamples.com/pyspark-tutorial/)

@@ -4,20 +4,22 @@ title: LearnNotes
 icon: note
 ---
 
-# Pandas
+## Pandas
 
 > Pandas 是一个强大的分析结构化数据的工具集，它的使用基础是 Numpy（提供高性能的矩阵运算），用于数据挖掘和数据分析，同时也提供数据清洗功能。
 
-## 官方
+### 官方
+
 * [官方文档](https://pandas.pydata.org/docs/reference/index.html#api)
 * [源代码](https://github.com/pandas-dev/pandas)
 
-## 非官方
+### 非官方
+
 * [Pandas 教程](https://www.gairuo.com/p/pandas-tutorial)
 * [numpy 教程](https://www.gairuo.com/p/numpy-tutorial)
 * [正则表达式语法](https://www.gairuo.com/p/regular-expression)
 
-## 基础
+### 基础
 
 ```python
 import pandas as pd  # 最新为 1.0.4 版本 (2020-05-29)
@@ -30,7 +32,7 @@ import seaborn as sns
 #s：任意的 Pandas Series 对象
 #注：有些属性方法 df 和 s 都可以使用
 ```
-### 导入导出数据
+#### 导入导出数据
 ```python
 # 从 CSV 文件导入数据
 pd.read_csv('file.csv', name=['列名','列名2'])
@@ -85,7 +87,7 @@ with pd.ExcelWriter('new.xlsx') as writer:
 # pd.ExcelWriter('new.xlsx',engine='xlsxwriter')
 ```
 
-### 测试数据
+#### 测试数据
 ```python
 # 创建20行5列的随机数组成的 DataFrame 对象
 pd.DataFrame(np.random.rand(20,5))
@@ -102,7 +104,7 @@ df = pd.util.testing.makeTimeDataFrame()
 df = pd.util.testing.makeMixedDataFrame()
 ```
 
-### 查看、检查、统计、属性
+#### 查看、检查、统计、属性
 ```python
 df.head(n) # 查看 DataFrame 对象的前n行
 df.tail(n) # 查看 DataFrame 对象的最后n行
@@ -162,7 +164,7 @@ ds.rolling(x).min() #依次计算相邻x个元素的最小值
 ds.rolling(x).max() #依次计算相邻x个元素的最大值
 ```
 
-### 数据清理
+#### 数据清理
 ```python
 df.columns = ['a','b','c'] # 重命名列名
 df.columns = df.columns.str.replace(' ', '_') # 列名空格换下划线
@@ -195,7 +197,7 @@ df.loc[::-1].reset_index(drop=True)
 df.loc[df['colname'] == 'value','colname'] = 'newvalue'
 ```
 
-### 数据处理、Filter、Sort
+#### 数据处理、Filter、Sort
 
 ```python
 # 保留小数位，四舍六入五成双
@@ -339,7 +341,7 @@ unique3
 
 ```
 
-### 数据选取
+#### 数据选取
 ```python
 df[[col1, col2]] # 以DataFrame形式返回多列
 df.loc[df['team'] == 'B',['name']] # 按条件查询，只显示name 列
@@ -408,7 +410,7 @@ df[df.eval("Q1 > `Q2`+@a")]
 df_ask_org.groupby('CLASS').apply(lambda x:x.nlargest(3,'述求量'))
 ```
 
-### 数据处理、分组、透视
+#### 数据处理、分组、透视
 ```python
 df.groupby([col1,col2]) # 返回一个按多列进行分组的Groupby对象
 df.groupby(col1)[col2] # 返回按列col1进行分组后，列col2的均值
@@ -471,7 +473,7 @@ r1_3 = df.query("APPLICANT_SEX_CN != '未知'").groupby(
 #.apply(lambda x: ":".join(str(a) for a in x.value_counts().values.tolist()))
 ```
 
-### 数据合并
+#### 数据合并
 ```python
 # 合并透视表和分组表
 table4 = table1.reset_index()
@@ -637,7 +639,7 @@ def computeDur(start_time, end_time):
 df_test['duration'] = df_test.apply(lambda x: computeDur(x['start_time'], x['end_time']), axis=1)
 ```
 
-### 其他
+#### 其他
 ```python
 # 解决科学计数法问题
 df = pd.read_csv('111.csv', sep='\t').fillna('')[:].astype('str')
@@ -660,7 +662,7 @@ ted.ratings.apply(ast.literal_eval)
 df.index.to_series().apply()
 ```
 
-### 样式显示
+#### 样式显示
 ```python
 # https://pbpython.com/styling-pandas.html
 df['per_cost'] = df['per_cost'].map('{:,.2f}%'.format)  # 显示%比形式
@@ -826,5 +828,5 @@ InteractiveShell.ast_node_interactivity = 'all' #默认为'last'
 https://plot.ly/create
 ```
 
-### Slideshow 幻灯片
+#### Slideshow 幻灯片
 `pip install RISE`

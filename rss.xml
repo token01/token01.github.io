@@ -2,1418 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <atom:link href="https://abelsun.tech/rss.xml" rel="self" type="application/rss+xml"/>
-    <title>LearnNotes-浅谈技术</title>
+    <title>LearnNotes</title>
     <link>https://abelsun.tech/</link>
     <description>开源工具、编程知识、效率方法、有趣内容的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 16 Nov 2022 12:54:40 GMT</pubDate>
-    <lastBuildDate>Wed, 16 Nov 2022 12:54:40 GMT</lastBuildDate>
+    <pubDate>Sat, 19 Nov 2022 03:38:52 GMT</pubDate>
+    <lastBuildDate>Sat, 19 Nov 2022 03:38:52 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>技术</category>
-    <category>阅读</category>
-    <item>
-      <title>MySQL 数据库开发规范</title>
-      <link>https://abelsun.tech/code/db/this_mysql_standard.html</link>
-      <guid>https://abelsun.tech/code/db/this_mysql_standard.html</guid>
-      <source url="https://abelsun.tech/rss.xml">MySQL 数据库开发规范</source>
-      <category>技术</category>
-      <pubDate>Tue, 21 Sep 2021 21:44:08 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="mysql-数据库开发规范" tabindex="-1"> MySQL 数据库开发规范</h1>
-<h2 id="一、前言" tabindex="-1"> 一、前言</h2>
-<h3 id="_1-目的" tabindex="-1"> 1. 目的</h3>
-<p>本文档旨在为使用 MySQL 数据库的应用和系统提供统一规范参考，标准化 MySQL 数据库的开发使用及SQL优化流程，提高业务开发系统的规范性和代码的可读性，减轻维护工作量，提高工作效率。</p>
-<p>本文档的规范内容除命名约定外，许多理念也适用于其他关系型数据库。</p>
-<h3 id="_2-适用范围" tabindex="-1"> 2. 适用范围</h3>
-<ul>
-<li>MySQL 数据库开发设计人员</li>
-<li>数据库管理人员</li>
-<li>运维人员</li>
-<li>数据分析人员</li>
-<li>研发人员</li>
-<li>架构师</li>
-</ul>
-<h3 id="_3-规范说明" tabindex="-1"> 3. 规范说明</h3>
-<p>以下所有规范会按照【强制】、【建议】两个级别进行标注，遵守优先级从高到低，未标注的默认为【建议】级别。</p>
-<h2 id="二、数据库设计规范" tabindex="-1"> 二、数据库设计规范</h2>
-<p>用于规范数据库对象的设计，如数据库（DATABASE）、表（TABLE）、索引（INDEX） 等的设计约定。</p>
-<h3 id="_1-原则" tabindex="-1"> 1. 原则</h3>
-<ol>
-<li>【强制】命名建议使用具有意义的英文词汇，词汇中间以下划线分隔。</li>
-<li>【强制】命名只能使用英文字母、数字、下划线。</li>
-<li>【强制】避免用 MySQL 的保留字如：group，order 等作为单个字段名。</li>
-<li>【强制】所有数据库对象使用小写字母。</li>
-</ol>
-<h3 id="_2-数据库设计" tabindex="-1"> 2. 数据库设计</h3>
-<ol>
-<li>【强制】遵守以上全部一般命名规则。</li>
-<li>【强制】使用单数。</li>
-<li>【建议】库的名称格式：业务系统名称_子系统名。建议按照业务、产品线或者其它指标进行区分，一般不要超过 20 个字符。如：临时库（tmp_crm）、测试库（test_crm）、产品中心主数据库（product_main）、产品中心应用打包（product_apk）。</li>
-<li>【强制】一般分库名称命名格式是<code>库通配名_编号</code>，编号从 0 开始递增，比如 <code>northwind_001</code>，以时间进行分库的名称格式是<code>库通配名_时间</code>。</li>
-<li>【强制】创建数据库时必须显式指定字符集，并且字符集只能是 utf8 或者 utf8mb4（优先使用）。创建数据库 SQL 举例：</li>
-</ol>
-<div data-ext="text"><pre><code>create database db_name default character set utf8mb4;
-</code></pre><div aria-hidden="true"><div></div></div></div><h3 id="_3-表设计" tabindex="-1"> 3. 表设计</h3>
-<ol>
-<li>【强制】遵守以上全部一般命名规则。</li>
-<li>【强制】使用单数。</li>
-<li>【强制】相关模块的表名与表名之间尽量体现 join 的关系，如 <code>user</code> 表和 <code>user_login</code> 表。</li>
-<li>【强制】创建表时必须显式指定字符集为 utf8 或 utf8mb4。</li>
-<li>【强制】创建表时必须显式指定表存储引擎类型，如无特殊需求，一律为 InnoDB。当需要使用除 InnoDB/MyISAM/Memory 以外的存储引擎时，必须通过 DBA 审核才能在生产环境中使用。因为 InnoDB 表支持事务、行锁、宕机恢复、MVCC 等关系型数据库重要特性，为业界使用最多的 MySQL 存储引擎。而这是其它大多数存储引擎不具备的，因此首推 InnoDB。</li>
-<li>【强制】建表必须有 comment。</li>
-<li>【强制】关于主键：命名为 <code>id</code>，类型为 int 或 bigint，且为 <code>auto_increment</code>；</li>
-<li>【建议】核心表（如用户表，金钱相关的表）必须有行数据的创建时间字段 <code>create_time</code> 和最后更新时间字段 <code>update_time</code>，便于排查问题，后台系统所维护得表还需要有 <code>create_account</code> 和 <code>update_account</code> 字段，account 为管理账号，与 smart-sso 中的 account 命名保持一致。</li>
-<li>【建议】表中所有字段尽量使用 <code>NOT NULL</code> 属性，除非 <code>NULL</code> 含有明确含义，因为使用 <code>NULL</code> 值会存在每一行都会占用额外存储空间、数据迁移容易出错、聚合函数计算结果偏差等问题。</li>
-<li>【建议】尽量不要定义 <code>DEFAULT</code> 值，因为业务逻辑下放到了数据库层面，这是一种隐式行为，不利于开发和维护。</li>
-<li>【建议】建议对表里的 <code>blob</code>、<code>text</code> 等大字段，垂直拆分到其它表里，仅在需要读这些对象的时候才去 select。</li>
-<li>【建议】反范式设计：当数据不怎么变化时，把经常需要 join 查询的字段，在其它表里冗余一份。如 <code>username</code> 属性在 <code>user_account</code>，<code>user_login_log</code> 等表里冗余一份，减少 join 查询。</li>
-<li>【强制】中间表用于保留中间结果集，名称必须以 <code>tmp_</code> 开头。备份表用于备份或抓取源表快照，名称必须以 <code>bak_</code> 开头。中间表和备份表定期清理。</li>
-<li>【强制】对于超过 100W 行的大表进行 <code>alter table</code>，必须经过 DBA 审核，并在业务低峰期执行。因为 <code>alter table</code> 会产生表锁，期间阻塞对于该表的所有写入，对于业务可能会产生极大影响。</li>
-<li>【强制】日志类型的表，应该从主数据库中分离出来，放入专门的数据库，并且做好数据清理或归档方案。</li>
-</ol>
-<h3 id="_4-字段设计" tabindex="-1"> 4. 字段设计</h3>
-<ol>
-<li>
-<p>【强制】字段命名需要表示其实际含义的英文单词或简写；</p>
-</li>
-<li>
-<p>【建议】建议各表之间相同意义的字段应同名；</p>
-</li>
-<li>
-<p>【强制】字段需添加注释，枚举型需指明主要值的含义，如“0 - 离线，1 - 在线”；</p>
-</li>
-<li>
-<p>【强制】布尔值列命名为 <code>is_描述</code> 。如 member 表上表示为 enabled 的会员的列命名为 is_enabled；</p>
-</li>
-<li>
-<p>【建议】字段名不建议超过 30 个字符，字段个数不建议大于 60。</p>
-</li>
-<li>
-<p>【强制】避免使用保留字，如 order、from、desc 等，请参考官方保留字。</p>
-</li>
-<li>
-<p>【强制】小数类型为 decimal，禁止使用 float 和 double。</p>
-<p>说明：在存储的时候，float 和 double 都存在精度损失的问题，很可能在比较值的时候，得到不正确的结果。如果存储的数据范围超过 decimal 的范围，建议将数据拆成整数和小数并分开存储。</p>
-</li>
-<li>
-<p>【强制】如果存储的字符串长度几乎相等，使用 char 定长字符串类型。</p>
-</li>
-<li>
-<p>【强制】varchar 是可变长字符串，不预先分配存储空间，长度不要超过 5000，如果存储长度大于此值，定义字段类型为 text，独立出来一张表，用主键来对应，避免影响其它字段索引效率。</p>
-</li>
-<li>
-<p>【推荐】表的命名最好是加上“业务名称_表的作用”。</p>
-<p>正例：alipay_task / force_project / trade_config</p>
-</li>
-<li>
-<p>【推荐】库名与应用名称尽量一致。</p>
-</li>
-<li>
-<p>【推荐】如果修改字段含义或对字段表示的状态追加时，需要及时更新字段注释。</p>
-</li>
-<li>
-<p>【推荐】字段允许适当冗余，以提高查询性能，但必须考虑数据一致。冗余字段应遵循：</p>
-<p>1）不是频繁修改的字段。</p>
-<p>2）不是varchar超长字段，更不能是text字段。</p>
-<p>正例：商品类目名称使用频率高，字段长度短，名称基本一成不变，可在相关联的表中冗余存储类目名称，避免关联查询。</p>
-</li>
-<li>
-<p>【推荐】单表行数超过500万行或者单表容量超过2GB，才推荐进行分库分表。</p>
-<p>说明：如果预计三年后的数据量根本达不到这个级别，请不要在创建表时就分库分表。</p>
-</li>
-<li>
-<p>【参考】合适的字符存储长度，不但节约数据库表空间、节约索引存储，更重要的是提升检索速度。</p>
-<p>正例：如下表，其中无符号值可以避免误存负数，且扩大了表示范围。</p>
-<table>
-<thead>
-<tr>
-<th><strong>对象</strong></th>
-<th><strong>年龄区间</strong></th>
-<th><strong>类型</strong></th>
-<th><strong>字节</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>人</td>
-<td>150岁之内</td>
-<td>unsigned tinyint</td>
-<td>1</td>
-</tr>
-<tr>
-<td>龟</td>
-<td>数百岁</td>
-<td>unsigned smallint</td>
-<td>2</td>
-</tr>
-<tr>
-<td>恐龙化石</td>
-<td>数千万岁</td>
-<td>unsigned int</td>
-<td>4</td>
-</tr>
-<tr>
-<td>太阳</td>
-<td>约50亿年</td>
-<td>unsigned bigint</td>
-<td>8</td>
-</tr>
-</tbody>
-</table>
-</li>
-</ol>
-<h3 id="_5-索引设计" tabindex="-1"> 5. 索引设计</h3>
-<ol>
-<li>【强制】主键索引：pk_[表名称或简写]_[字段名或简写]。</li>
-<li>【强制】唯一索引：uk_[表名称或简写]_[字段名或简写]。</li>
-<li>【强制】普通索引：idx_[表名称或简写]_[字段名或简写]。</li>
-<li>多单词组成的 column_name，取尽可能有代表意义的缩写。</li>
-<li>【强制】选择区分度大的列建立索引，不在低基数列上建立索引，例如：“性别”，“是否是 XXX”。</li>
-<li>单张表的索引数量控制在 5 个以内，避免冗余索引。</li>
-<li>索引中的字段数建议不超过 5 个。</li>
-<li>唯一索引建议由 3 个或更少的字段组成。</li>
-<li>尽量不要在频繁更新的列上创建索引。</li>
-<li>对于确定需要组成组合索引的多个字段，建议将选择性高的字段靠前放。</li>
-<li>最左前缀原则，使用联合索引时，从左向右匹配，比如索引 idx_c1_c2_c3 (c1,c2,c3，)相当于创建了 (c1)、(c1,c2)、(c1,c2,c3) 三个索引，where 条件包含上面三种情况的字段比较则可以用到索引，但像 where c1=a and c3=c 只能用到 c1 列的索引，像 c2=b and c3=c 等情况就完全用不到这个索引。</li>
-<li>很长的 VARCHAR 字段建立索引时，指定索引长度，没必要对全字段建立索引，根据实际文本区分度决定索引长度即可。 idx_table_name (name(10))</li>
-<li>定期删除一些长时间未使用过的索引。</li>
-<li>ORDER BY，GROUP BY，DISTINCT 的字段需要添加在索引的后面，形成覆盖索引。</li>
-<li>新的 select,update,delete 上线，都要先 explain，确保索引的正确性。</li>
-<li>不建议在 where 条件索引列上使用函数，会导致索引失效，如 lower(email)。</li>
-<li>使用 like 模糊匹配，% 不要放首位，会导致索引失效。</li>
-</ol>
-<h3 id="_6-权限设计" tabindex="-1"> 6. 权限设计</h3>
-<p>生产环境需要调整 root 用户为强密码，且不对外开放。</p>
-<p>线上所需用户建议按照用户或者业务场景划分，根据实际情况对每个用户授予相应权限，例如：</p>
-<table>
-<thead>
-<tr>
-<th><strong>序号</strong></th>
-<th><strong>用户名</strong></th>
-<th><strong>涵义</strong></th>
-<th><strong>用途</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>root</td>
-<td>超级用户</td>
-<td>全局管理，禁止对外开放</td>
-</tr>
-<tr>
-<td>2</td>
-<td>dba</td>
-<td>数据库管理员</td>
-<td>数据库 DBA</td>
-</tr>
-<tr>
-<td>3</td>
-<td>app</td>
-<td>应用开发</td>
-<td>应用开发</td>
-</tr>
-<tr>
-<td>4</td>
-<td>developer</td>
-<td>开发者</td>
-<td>开发环境使用</td>
-</tr>
-<tr>
-<td>5</td>
-<td>tempuser</td>
-<td>临时统计</td>
-<td>线上业务临时统计，只读用户</td>
-</tr>
-<tr>
-<td>6</td>
-<td>other</td>
-<td>其他用户</td>
-<td>第三方人员访问</td>
-</tr>
-</tbody>
-</table>
-<h2 id="三、数据模型设计" tabindex="-1"> 三、数据模型设计</h2>
-<p>数据库模型设计是指对于一个给定的应用环境，构造合理的数据库模式，建立数据库及其应用系统，有效存储数据，满足用户信息要求和处理要求。数据库设计在开发过程中处于一个非常重要的地位。一个高效的数据库模型是非常重要和必要的。</p>
-<h3 id="_1-完整性" tabindex="-1"> 1. 完整性</h3>
-<p>数据库完整性是指数据库中数据的正确性和相容性，数据库完整性是由完整性约束来保证的，数据库完整性对于数据库应用系统非常关键，其作用主要体现在以下几个方面：</p>
-<ul>
-<li>利用完整性控制机制来实现业务规则，易于定义，容易理解，而且可以降低应用程序的复杂性，提高应用程序的运行效率。</li>
-<li>合理的数据库完整性设计，能够同时兼顾数据库的完整性和系统的效能。在应用软件的功能测试中，完善的数据库完整性有助于尽早发现应用软件的错误。</li>
-<li>为了在数据库和应用程序代码之间提供另一层抽象，可以为应用程序建立专门的视图而不必非要应用程序直接访问数据表。这样做还等于在处理数据库变更时给你提供了更多的自由。</li>
-</ul>
-<h3 id="_2-性能" tabindex="-1"> 2. 性能</h3>
-<p>性能是衡量一个系统的关键因素，在设计阶段就在性能方面就应该多关注，尽量减少后期的烦恼。在数据库设计阶段，性能上的考虑时需要注意：不能以范式作为唯一标准或者指导，在设计过程中，需要从实际需求出发，以性能提升为根本目标来展开设计工作，一些时候为了提升性能，甚至会做反范式设计。</p>
-<p>另外还有一些设计上的方法和技巧：</p>
-<ul>
-<li>设置合理的字段类型和长度。字段类型在满足需求后应尽量短，比如，能用int就尽量不要用 bigint。另外不同数据库在 varchar 和 text 类型在长度和性能上也是不同的，选择时要谨慎。</li>
-<li>选择高效的主键和索引。由于对表记录的读取都是直接或者间接地通过主键或索引来获取，因此应该该根据具体应用特性来设计合理的主键或索引。同时索引长度的也应该关注，尽量减少索引长度。</li>
-<li>适度冗余。适度的冗余可以避免关联查询，减少 join 查询。</li>
-</ul>
-<h3 id="_3-扩展性" tabindex="-1"> 3. 扩展性</h3>
-<p>在大规模系统中，除了性能，可扩展性也是设计的关键点，而数据库表扩展性主要包含</p>
-<p>表逻辑结构、功能字段的增加、分表等。在扩展性上要把握的原则如下：</p>
-<ul>
-<li>一表一实体。如果不同实体之间有关联时，可增加一个单独的表，不会影响以前的功能。</li>
-</ul>
-<h2 id="四、sql-开发规范" tabindex="-1"> 四、SQL 开发规范</h2>
-<h3 id="_1-sql-语句" tabindex="-1"> 1. SQL 语句</h3>
-<ol>
-<li>
-<p>【强制】不要使用count(列名)或count(常量)来替代count( <em>)，count(</em> )是SQL92定义的标准统计行数的语法，跟数据库无关，跟NULL和非NULL无关。</p>
-<p>说明：count(*)会统计值为NULL的行，而count(列名)不会统计此列为NULL值的行。</p>
-</li>
-<li>
-<p>【强制】count(distinct col) 计算该列除NULL之外的不重复行数，注意 count(distinct col1, col2) 如果其中一列全为NULL，那么即使另一列有不同的值，也返回为0。</p>
-</li>
-<li>
-<p>【强制】当某一列的值全是NULL时，count(col)的返回结果为0，但sum(col)的返回结果为NULL，因此使用sum()时需注意NPE问题。</p>
-<p>正例：可以使用如下方式来避免sum的NPE问题：</p>
-<p><code>SELECT IF(ISNULL(SUM(g)),0,SUM(g)) FROM table;</code></p>
-</li>
-<li>
-<p>【强制】使用<code>ISNULL()</code>来判断是否为NULL值。 说明：NULL与任何值的直接比较都为NULL。</p>
-<p>1） <code>NULL&lt;&gt;NULL</code>的返回结果是NULL，而不是<code>false</code>。</p>
-<p>2） <code>NULL=NULL</code>的返回结果是NULL，而不是<code>true</code>。</p>
-<p>3） <code>NULL&lt;&gt;1</code>的返回结果是NULL，而不是<code>true</code>。</p>
-</li>
-<li>
-<p>【强制】 在代码中写分页查询逻辑时，若count为0应直接返回，避免执行后面的分页语句。</p>
-</li>
-<li>
-<p>【强制】不得使用外键与级联，一切外键概念必须在应用层解决。</p>
-<p>说明：以学生和成绩的关系为例，学生表中的student_id是主键，那么成绩表中的student_id则为外键。如果更新学生表中的student_id，同时触发成绩表中的student_id更新，即为级联更新。外键与级联更新适用于单机低并发，不适合分布式、高并发集群；级联更新是强阻塞，存在数据库更新风暴的风险；外键影响数据库的插入速度。</p>
-</li>
-<li>
-<p>【强制】禁止使用存储过程，存储过程难以调试和扩展，更没有移植性。</p>
-</li>
-<li>
-<p>【强制】数据订正（特别是删除、修改记录操作）时，要先select，避免出现误删除，确认无误才能执行更新语句。</p>
-</li>
-<li>
-<p>【推荐】in操作能避免则避免，若实在避免不了，需要仔细评估in后边的集合元素数量，控制在1000个之内。</p>
-</li>
-<li>
-<p>【参考】如果有全球化需要，所有的字符存储与表示，均以utf-8编码，注意字符统计函数的区别。</p>
-<p>说明：</p>
-<p><code>SELECT LENGTH(&quot;轻松工作&quot;)</code> 返回为12</p>
-<p><code>SELECT CHARACTER_LENGTH(&quot;轻松工作&quot;)</code> 返回为4</p>
-<p>如果需要存储表情，那么选择utf8mb4来进行存储，注意它与utf-8编码的区别。</p>
-</li>
-<li>
-<p>【参考】 TRUNCATE TABLE 比 DELETE 速度快，且使用的系统和事务日志资源少，但TRUNCATE无事务且不触发trigger，有可能造成事故，故不建议在开发代码中使用此语句。</p>
-<p>说明：TRUNCATE TABLE 在功能上与不带 WHERE 子句的 DELETE 语句相同。</p>
-</li>
-<li>
-<p>【建议】查询列表时若不含有分页和条件参数，建议增加 limit 参数，限制结果集数量，避免出现 OOM。</p>
-</li>
-<li>
-<p>【强制】分页查询时若页数量参数可由客户端提供，必须限制 <code>pageSize</code> 最大值。</p>
-</li>
-</ol>
-<h3 id="_2-dml-语句" tabindex="-1"> 2. DML 语句</h3>
-<ol>
-<li>【强制】select 语句必须指定具体字段名称，禁止写成 <code>*</code>。因为 <code>select *</code> 会将不该读的数据也从 MySQL 里读出来，造成 I/O 压力。</li>
-<li>【强制】insert 语句指定具体字段名称，不要写成 <code>insert into t1 values(…)</code>，道理同上。</li>
-<li>【建议】<code>insert into … values(xx),(xx),(xx)…</code>，这里 xx 的值不要超过 5000 个。值过多虽然上线很快，但会引起主从同步延迟。</li>
-<li>【建议】select 语句不要使用 <code>union</code>，推荐使用 <code>union all</code>，并且 <code>union</code> 子句个数限制在 5 个以内。因为 <code>union all</code> 不需要去重，节省数据库资源，提高性能。</li>
-<li>【建议】in 值列表限制在 500 以内。例如 <code>select … where user_id in(…500 个以内…)</code>，这么做是为了减少底层扫描，减轻数据库压力从而加速查询。</li>
-<li>【建议】事务里批量更新数据需要控制数量，进行必要的 sleep，做到少量多次。</li>
-<li>【强制】事务涉及的表必须全部是 InnoDB 表。否则一旦失败不会全部回滚，且易造成主从库同步终端。</li>
-<li>【强制】写入和事务发往主库，只读 SQL 发往从库。</li>
-<li>【强制】除静态表或小表（100 行以内），dml 语句必须有 where 条件，且使用索引查找。</li>
-<li>【建议】生产环境避免使用 <code>hint</code>，如 <code>sql_no_cache</code>，<code>force index</code>，<code>ignore key</code>，<code>straight join</code> 等。因为 <code>hint</code> 是用来强制 sql 按照某个执行计划来执行，但随着数据量变化我们无法保证自己当初的预判是正确的，临时性的优化可以使用 <code>hint</code>，后期需要将语句优化成合适状态。</li>
-<li>【强制】where 条件里等号左右字段类型必须一致，否则会引起类型转化，且可能导致索引失效。</li>
-<li>【建议】<code>select|update|delete|replace</code> 要有 where 子句，且 where 子句的条件必需使用索引查找。</li>
-<li>【强制】生产数据库中强烈不推荐大表上发生全表扫描，但对于 100 行以下的静态表可以全表扫描。查询数据量不要超过表行数的 25%，否则不会利用索引。</li>
-<li>【强制】where 子句中禁止只使用全模糊的 like 条件进行查找，必须有其它等值或范围查询条件，否则无法利用索引。</li>
-<li>【建议】索引列不要使用函数或表达式，否则无法利用索引。如 <code>where length(name) = 'admin'</code> 或 <code>where user_id + 2 = 10023</code>。</li>
-<li>【建议】分页查询，当 <code>limit</code> 起点较高时，可先用过滤条件进行过滤。如 <code>select a, b, c from t1 limit 10000, 20;</code> 优化为: <code>select a, b, c from t1 where id &gt; 10000 limit 20;</code>。</li>
-</ol>
-<h3 id="_3-多表连接" tabindex="-1"> 3. 多表连接</h3>
-<ol>
-<li>【强制】禁止跨 DB 的 join 语句。因为这样可以减少模块间耦合，为数据库拆分奠定坚实基础。</li>
-<li>【建议】不要在业务的更新类 SQL 语句中使用 join，比如 <code>update t1 join t2 …</code>。</li>
-<li>【建议】不建议使用子查询，建议将子查询 SQL 拆开结合程序多次查询，或使用 join 来代替子查询。</li>
-<li>【建议】线上环境，多表 join 不要超过 3 个表。</li>
-<li>【建议】多表连接查询推荐使用别名，且 select 列表中要用别名引用字段，数据库.表格式，如 <code>select a from db1.table1 alias1 where …</code>。</li>
-<li>【建议】在多表 join 中，尽量选取结果集较小的表作为驱动表，来 join 其它表。</li>
-</ol>
-<h3 id="_4-事务" tabindex="-1"> 4. 事务</h3>
-<ol>
-<li>【建议】事务中 <code>insert|update|delete|replace</code> 语句操作的行数控制在 2000 以内，以及 where 子句中 in 列表的传参个数控制在 500 以内。</li>
-<li>【建议】批量操作数据时，需要控制事务处理间隔时间，进行必要的 sleep，一般建议值 5-10 秒。</li>
-<li>【建议】对于有 <code>auto_increment</code> 属性字段的表的插入操作，并发需要控制在 200 以内。</li>
-<li>【强制】程序设计必须考虑“数据库事务隔离级别”带来的影响，包括脏读、不可重复读和幻读。线上建议事务隔离级别为 <code>repeatable-read</code>。</li>
-<li>【建议】事务里包含 SQL 不超过 5 个（支付业务除外）。因为过长的事务会导致锁数据较久，MySQL 内部缓存、连接消耗过多等雪崩问题。</li>
-<li>【建议】事务里更新语句尽量基于主键或 <code>unique key</code>，如 <code>update … where id = XX;</code>，否则会产生间隙锁，内部扩大锁定范围，导致系统性能下降，产生死锁。</li>
-<li>【建议】尽量把一些典型外部调用移出事务，如调用 Web Service，访问文件存储等，从而避免事务过长。</li>
-<li>【建议】对于 MySQL 主从延迟严格敏感的 select 语句，请开启事务强制访问主库。</li>
-</ol>
-<h3 id="_5-dao-层注意事项" tabindex="-1"> 5. DAO 层注意事项</h3>
-<ol>
-<li>
-<p>【强制】在表查询中，一律不要使用 * 作为查询的字段列表，需要哪些字段必须明确写明。</p>
-<p>说明：1）增加查询分析器解析成本。2）增减字段容易与resultMap配置不一致。</p>
-</li>
-<li>
-<p>【强制】POJO类的布尔属性不能加is，而数据库字段必须加is_，要求在resultMap中进行字段与属性之间的映射。</p>
-</li>
-<li>
-<p>【强制】<code>开发客户端接口</code>时不要用 DO 类当返回参数，即使所有类属性名与数据库字段一一对应，也需要定义；反过来，每一个表也必然有一个与之对应。</p>
-<p>说明：配置映射关系，使字段与DO类解耦，方便维护。</p>
-</li>
-<li>
-<p>【强制】sql.xml配置参数使用：#{}，#param# 不要使用${} 此种方式容易出现SQL注入。</p>
-</li>
-<li>
-<p>【强制】iBATIS自带的queryForList(String statementName,int start,int size)不推荐使用。</p>
-<p>说明：其实现方式是在数据库取到statementName对应的SQL语句的所有记录，再通过subList取start,size的子集合。</p>
-</li>
-<li>
-<p>【强制】不允许直接拿HashMap与Hashtable作为查询结果集的输出。</p>
-<p>说明：resultClass=”Hashtable”，会置入字段名和属性值，但是值的类型不可控。</p>
-</li>
-<li>
-<p>【强制】更新数据表记录时，必须同时更新记录对应的 create_time 字段值为当前时间。</p>
-</li>
-<li>
-<p>【推荐】不要写一个大而全的数据更新接口。传入为POJO类，不管是不是自己的目标更新字段，都进行update table set c1=value1,c2=value2,c3=value3; 这是不对的。执行SQL时，不要更新无改动的字段，一是易出错；二是效率低；三是增加binlog存储。</p>
-</li>
-<li>
-<p>【参考】<code>@Transactional</code>事务不要滥用。事务会影响数据库的QPS，另外使用事务的地方需要考虑各方面的回滚方案，包括缓存回滚、搜索引擎回滚、消息补偿、统计修正等。</p>
-</li>
-<li>
-<p>【参考】<code>&lt;isEqual&gt;</code>中的compareValue是与属性值对比的常量，一般是数字，表示相等时带上此条件；<code>&lt;isNotEmpty&gt;</code>表示不为空且不为null时执行；<code>&lt;isNotNull&gt;</code>表示不为null值时执行。</p>
-</li>
-</ol>
-<h2 id="五、流程规范" tabindex="-1"> 五、流程规范</h2>
-<ol>
-<li>【强制】数据库的 scheme 变动，需要进行版本控制，对每个数据库建立专门的 liquibase 或 flyway 项目进行 SQL 版本管理。</li>
-<li>【强制】在一个迭代中，开发阶段的第一个步骤为数据库设计，需要首先提交数据库版本控制代码的合并请求，合并通过后再进行接下来的功能开发。</li>
-</ol>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>俯瞰 Java 服务端开发</title>
-      <link>https://abelsun.tech/code/java/java_service.html</link>
-      <guid>https://abelsun.tech/code/java/java_service.html</guid>
-      <source url="https://abelsun.tech/rss.xml">俯瞰 Java 服务端开发</source>
-      <category>技术</category>
-      <pubDate>Wed, 12 Aug 2020 21:44:08 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="俯瞰-java-服务端开发" tabindex="-1"> 俯瞰 Java 服务端开发</h1>
-<blockquote>
-<p>Java 服务端开发是一个非常宽广的领域，要概括其全貌，即使是几本书也讲不完，该文将会提到许多的技术及工具，但不会深入去讲解，旨在以一个俯瞰的视角去探寻这片领域。</p>
-</blockquote>
-<h2 id="目录" tabindex="-1"> 目录</h2>
-
-<ul>
-<li>
-<ul>
-<li></li>
-<li>
-<ul>
-<li></li>
-<li></li>
-</ul>
-</li>
-<li>
-<ul>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-</ul>
-</li>
-<li>
-<ul>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-</ul>
-</li>
-<li>
-<ul>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-</ul>
-</li>
-<li>
-<ul>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-</ul>
-</li>
-<li>
-<ul>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-</ul>
-</li>
-<li>
-<ul>
-<li></li>
-</ul>
-</li>
-<li></li>
-</ul>
-</li>
-</ul>
-
-<h2 id="框架" tabindex="-1"> 框架</h2>
-<h3 id="spring-boot" tabindex="-1"> Spring Boot</h3>
-<p>Spring 框架已经成为 Java 服务端开发领域里的标配，无数的服务基于其开发，它整合了服务端开发所需的绝大多数组件，Spring Boot 在其基础上又做了一层轻封装并简化了依赖管理，使得它用起来更加的便捷。</p>
-<h3 id="vert-x" tabindex="-1"> Vert.x</h3>
-<p>Spring 框架早已成为主流，但是我们也不能忽略了其他优秀框架的存在。</p>
-<p><a href="https://github.com/vert-x3" target="_blank" rel="noopener noreferrer">Vert.x</a> 是在 JVM 基础上构建响应式应用的一套工具集，支持多种语言，它不仅是一套工具集，也可视作是一套框架，其中包含使用 Netty 编写的 Web 框架、gprc、redis 客户端等众多组件，囊括了大部分开发网络应用时所需用到的组件，它最重要的核心概念是使用了事件驱动的非阻塞模型，因此具备高度的可伸缩性。它使用了响应式的编程模型，这个话题在下文中会再提到。</p>
-<h2 id="网络" tabindex="-1"> 网络</h2>
-<h3 id="五层协议" tabindex="-1"> 五层协议</h3>
-<p>学习计算机网络时一般采用折中的办法，也就是中和 OSI 和 TCP/IP 的优点，采用一种只有五层协议的体系结构，即物理层、数据链路层、网络层、运输层、应用层，每一层都有其各自的术语，比如：吞吐量、子网掩码、VIP、DNS等等，这在平时工作的沟通过程中也是至关重要。要做好服务端编程，我们必须对网络的一些基本概念有一个清晰的认识，推荐阅读《计算机网络：自顶向下方法》。</p>
-<p>推荐阅读：</p>
-<ul>
-<li><a href="https://github.com/Snailclimb/JavaGuide/blob/master/docs/network/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C.md" target="_blank" rel="noopener noreferrer">五层协议</a></li>
-<li><a href="https://github.com/Snailclimb/JavaGuide/blob/master/docs/network/%E5%B9%B2%E8%B4%A7%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93.md" target="_blank" rel="noopener noreferrer">计算机网络知识总结</a></li>
-</ul>
-<h3 id="http-协议" tabindex="-1"> HTTP 协议</h3>
-<p>对于服务端编程而言，在网络这个部分最重要的还是 HTTP 协议，从 TCP、DNS ，最后到浏览器响应，我们必须清楚整个过程是如何运转的，中间再加入 CDN、反向代理、流量控制等服务时，其会更加复杂，但也正因为网络的分层模型，使得我们可以在这个中间过程中对服务端的响应性能做出优化。</p>
-<p>具体到 HTTP 协议，其承载于 TCP 协议之上，中间再加上 TLS 或 SSL，就成了 HTTPS ，协议头如何解析，响应体如何发送，搞清楚了这些，可以很容易地开发一个简单的 HTTP 服务。HTTP 协议也在不断改进，目前已经到了 2.0 版本，在传输性能上有大幅的提升。</p>
-<p>HTTP 使用明文传输，因此很容易受到中间人攻击，可以在路由器、代理等多个层面截获传输信息，因此 HTTP 终将退出历史舞台，HTTPS 必然成为主流，但是 HTTPS 也并非绝对安全，由于证书签发机构存在安全漏洞，曾导致许多网站使用了不安全的 SSL 证书，因此很多应用会采用自定义的加密方式来加强信息传输的安全性。</p>
-<h3 id="tcp-拥塞控制" tabindex="-1"> TCP 拥塞控制</h3>
-<p>TCP 使用多种拥塞控制策略来避免发送方至接收方之间的链路变得拥塞，其有许多具体的实现算法，具体的实现细节隐藏在操作系统的内核当中，通过使用不同的算法，可以在不同的场景下获得最佳的性能，例如 Google 设计并发布的 BBR（Bottleneck Bandwidth and Round-trip propagation time）拥塞算法，它能更有效地利用网络环境，尤其在超远距离的网络传输中能获得更大的性能提升，目前已经移植到 linux 内核4.9版本。</p>
-<p>由于许多网络层相关的算法都隐藏在操作系统内核当中，普通计算机用户一般无需理解这些概念，但是对于服务端开发者来说，若对其有一定的了解，则能够从这一层面寻找解决方案来提升系统的吞吐量。</p>
-<h3 id="网络-i-o-模型" tabindex="-1"> 网络 I/O 模型</h3>
-<p>常见 I/O 模型主要有 BIO（阻塞I/O），NIO（非阻塞I/O），I/O复用、事件(信号)驱动I/O、AIO（异步I/O）。以读取数据为例，传统的 BIO 里面调用 socket 的 read 方法，函数在收到数据前会一直阻塞，对于 NIO，如果有数据则返回，反之返回 0，不会发生阻塞，而 AIO 则更进一步，不光等待数据就绪是非阻塞，连数据从网卡到内存的过程也是异步的。</p>
-<p>结合使用 NIO、AIO、I/O复用，可以解决线程瓶颈并处理海量连接，比如 nginx 使用了 AIO 模型，因此性能比 apache http server 性能更好。在 Java 领域，Netty 基于 Reactor 模式实现了一个异步事件驱动的 NIO 框架，其已经运用在互联网的许多领域，大到大数据、通信行业、游戏行业，小到 redis 客户端、Web 框架等开源组件都有其身影。</p>
-<h2 id="数据库" tabindex="-1"> 数据库</h2>
-<h3 id="关系型数据库" tabindex="-1"> 关系型数据库</h3>
-<p>MySQL 是最流行的开源数据库，PostgreSQL 是最高级的开源数据库，SQL Server 是微软开发的企业级数据库，还有在大型公司用的较多的 Oracle 数据库。在服务端开发方面，MySQL 的市场占用率是最高的，但也推荐学习一下 PostgreSQL 和所谓的「企业级数据库」，毕竟 MySQL 在这些数据库面前有时确实显得功能简单、实用性不足。</p>
-<p>在真实的工作中，数据库的设计是一个非常需要平衡取舍的过程，有时为了优化查询性能不得不做一些数据冗余，而在数据量极大的情况下，又必须谨慎选择每一列的存储类型、避免冗余。</p>
-<p>数据量非常大的情况下，大多数时候还要进行分库分表的设计。</p>
-<ul>
-<li>ShardingSphere
-<ul>
-<li>目前 Java 中主流的分库分表中间件，支持客户端架构、代理架构，Sidecar 架构目前还在开发中。</li>
-</ul>
-</li>
-<li>Vitess
-<ul>
-<li>Vitess 是 Youtube 开源的 MySQL 数据库集群系统，采用的是中心化的数据库代理架构，这套数据集群承载了 Youtube 数以亿计的数据量和访问请求。</li>
-</ul>
-</li>
-</ul>
-<h3 id="存储引擎" tabindex="-1"> 存储引擎</h3>
-<p>MySQL 中主流使用的是 InnoDB 存储引擎，内部采用了 B+ 树的索引结构，Percona XtraDB 是InnoDB 存储引擎的增强版，Percona 兼容 MySQL，号称拥有更好的性能，也具有一定的市场占有率。</p>
-<p>除了 InnoDB 及其衍生引擎，RocksDB 也是一个可选项，这是一个 LSM 存储引擎，不同于传统的基于 B+ 树的存储引擎，基于 LSM 存储引擎的数据库尤其适合写多读少的场景，由于最初是设计用来做持久化的键值数据存储，因此在 KV 存储上具有非常高的性能，可惜的是 MySQL 无法选择 RocksDB 作为存储引擎，目前支持的数据库有 MariaDB 和 Percona。</p>
-<h3 id="newsql" tabindex="-1"> NewSQL</h3>
-<p>NewSQL 这一新兴领域也大量使用了 RocksDB 作为存储引擎，TiDB 作为流行度较高的 NewSQL 产品，就是用其实现的数据持久化。</p>
-<h3 id="nosql-数据库" tabindex="-1"> NoSQL 数据库</h3>
-<ul>
-<li>MongoDB
-<ul>
-<li>MongoDB 介于关系数据库和非关系数据库之间，不要求数据存储具有固定的模式，且能用于存储超大规模的数据集。</li>
-</ul>
-</li>
-</ul>
-<h3 id="时序数据库" tabindex="-1"> 时序数据库</h3>
-<p>随着互联网的深入，应用场景越来越丰富，诸如系统运行状态、系统指标采集等场景产生大量的数据，这类基于时间的一系列数据，以写多读少、数据量极大为特点，传统的数据库已经不适合存储这类数据，时序数据库由此诞生。</p>
-<p>主流的时序数据库有：</p>
-<ul>
-<li>influxdb</li>
-<li>Prometheus</li>
-<li>graphite</li>
-</ul>
-<h3 id="列式数据库" tabindex="-1"> 列式数据库</h3>
-<p>传统的关系型数据库采用行式存储，大数据领域多采用列式存储，列式存储的主要优势在于可以按需所取，在并行处理和数据压缩上更有优势。关系型数据库适合 OLTP， 列式数据库更适合 OLAP，为了使列式数据库能更好地支持 OLTP，目前出现了像 kudu 和 Druid 这类优秀的开源产品，它们结合了列式存储的优势，并在 OLTP 方面也做了特别的优化。</p>
-<p>主流的列式数据库有：</p>
-<ul>
-<li>HBase</li>
-<li>Cassandra</li>
-<li>kudu</li>
-<li>Druid</li>
-</ul>
-<h3 id="嵌入式数据库" tabindex="-1"> 嵌入式数据库</h3>
-<p>传统的关系型数据库能够支持企业级的应用，但在许多场景下，我们可能只需要一个小型应用，这个时候使用嵌入式数据库是一个方便的选择，除此之外，嵌入式数据库非常适合用于做单元测试。</p>
-<p>Java 中流行的嵌入式数据库有：</p>
-<ul>
-<li>h2base</li>
-<li>moby</li>
-</ul>
-<h2 id="中间件" tabindex="-1"> 中间件</h2>
-<h3 id="web-server" tabindex="-1"> Web Server</h3>
-<ul>
-<li>Nginx
-<ul>
-<li>Nginx 使用 AIO 的模型实现高并发，Apache 每个请求独占一个线程。</li>
-<li>AIO 模型适合于 IO 密集型服务，多进程或线程适合于 CPU 密集型服务，由于大多数 Web 服务都属于 IO 密集型，nginx 的市场占有率逐渐超过了 Apache。由于这一特点，Nginx 也非常适合做反向代理，通过这种机制做负载均衡也是非常主流的一种方案。</li>
-</ul>
-</li>
-<li>tomcat、jetty、weblogic 等传统 Java Web 服务器
-<ul>
-<li>随着容器化技术的流行，这类服务器日渐式微，市场占有率逐渐下降，进行容器化部署时tomcat一般内置在程序中，这种进步使得开发者可以更关注业务代码本身，而无需关注此类服务器的种种细节，可谓是对开发人员的减负。</li>
-</ul>
-</li>
-<li>OpenResty
-<ul>
-<li>优秀的开源产品经常出现许多优秀的衍生产品，比如 Percona 之于 MySQL，OpenResty 之于 Nginx，Kong 之于 OpenResty。</li>
-<li>Nginx 市场占有率之高，但许多场景下是用其做反向代理，OpenResty 的设计目标则是让 Web 服务直接跑在 Nginx 服务内部。</li>
-<li>OpenResty 同时也是基于 LuaJIT 的 Web 平台，开发者可以很方便地使用 Lua 调用 Nignx 模块，具有强大的可扩展性，比如可将典型的 Nginx + Tomcat + MySQL 架构更换为 Nginx + Lua + Redis + Tomcat + MySQL 的架构。</li>
-<li>Kong 从技术上讲也属于 Web Server，但一般用来做 API 网关，下文中再详述。</li>
-</ul>
-</li>
-</ul>
-<h3 id="分布式缓存" tabindex="-1"> 分布式缓存</h3>
-<ul>
-<li>Redis
-<ul>
-<li>Redis 作为一个高性能的内存数据库，目前已被广泛使用，其支持多种数据结构，根据不同场景使用不同的数据结构，才能最有效地使用它。</li>
-</ul>
-</li>
-</ul>
-<h3 id="kv-存储" tabindex="-1"> KV 存储</h3>
-<ul>
-<li>Pika
-<ul>
-<li>Redis 的性能非常高，但在将其做数据库使用时存在数据持久化的问题，Pika 就是为了解决这一问题而出现，它底层基于 RocksDB，修改了其部分源代码，在 KV 数据持久化上有非常高的性能，与基于内存的 redis 相比仅有较小的性能下降，同时它还兼容大部分的 redis 协议，与 Redis 的使用几乎没有差异，上手简单。</li>
-</ul>
-</li>
-<li>Tair
-<ul>
-<li>Tair 与 Pika 类似，底层支持多种存储引擎，包括 mdb、rdb、ldb，其中 ldb 基于 leveldb（google开源，rocksdb 在其基础上优化），它可将内存存储和持久化相结合，具有高可用的分布式架构，目前开源版本已经不再维护，阿里云上则提供了企业级的 Tair 存储服务。</li>
-</ul>
-</li>
-<li>SSDB
-<ul>
-<li>SSDB 也是兼容 Redis 的一款 KV 数据库，目前更新频率较低，相比而言 Pika 目前还在更新中，且有企业进行背书。</li>
-</ul>
-</li>
-</ul>
-<h3 id="消息队列" tabindex="-1"> 消息队列</h3>
-<p>消息队列在请求削峰、跨系统间通信解耦、发布订阅等许多场景下都会使用到，不光能解决这些问题，采用消息驱动的架构可以增强系统的扩展性，比如新增一个订阅方，即可以实现新的功能，并且对当前的系统没有任何的侵入性。</p>
-<p>常用的消息队列产品有 kafka、rabbitmq 等，它们各有优缺点，在大数据领域 kafka 占有绝对优势，总体的市场占有率也较高，而 rabbitmq 由于产品成熟，也被广泛使用。</p>
-<p>在使用消息队列的过程中，需要处理一系列的细节，比如：定义消息处理者、如何发送消息、如何发布事件、消息如何序列化、如何记录消息记录、设计消息路由、消息处理失败的重试机制、消息 id 等等，在具体的编码过程中不能完全专注于业务代码开发，因此市面上有一些 ESB 产品在内部处理好了这些细节，并从更高的抽象层级提供更加简洁的 API，在开发过程中则能更加聚焦在业务逻辑本身，当我们的系统面临这些问题的时候，不妨选择一个 ESB 产品来提升研发效率。</p>
-<h3 id="定时调度" tabindex="-1"> 定时调度</h3>
-<p>简单的定时任务可以采用 linux cron 进行配置，复杂的场景也可以使用分布式任务调度框架，可选的实现方式非常多，这里简单的列举几种。</p>
-<ul>
-<li>Quartz
-<ul>
-<li>老牌任务调度系统，许多分布式任务调度框架基于它而扩展。</li>
-</ul>
-</li>
-<li>Spring Scheduler
-<ul>
-<li>用它来做简单的任务调度非常方便，但要注意由于现在的系统大多采用分布式部署，因此当使用它来做任务调度时最好做到单独的服务中，避免与其他系统耦合。</li>
-</ul>
-</li>
-<li>国产分布式任务调度系统
-<ul>
-<li>目前较为流行的有 Elastic-Job、XXL-JOB，Elastic-Job 采用去中心化的架构，依赖 zookeeper 存储任务调度数据，XXL-JOB 采用中心化调度的架构，调度采用 RPC 方式。</li>
-<li>PowerJob 是新兴的一个开源任务调度系统，在功能上更为强大，支持 MapReduce 分片，值得关注。</li>
-</ul>
-</li>
-</ul>
-<h3 id="rpc" tabindex="-1"> RPC</h3>
-<p>提到 RPC 不得不提到日暮西山的 Web Service，其采用 XML 作为消息格式，并以 SOAP 协议进行封装，由于过于复杂且性能开销较大，其逐渐被采用 JSON 格式的 REST 服务所取代，相比之下，REST 简单且采用更高效的序列化方式，所以目前许多系统广泛采用 HTTP 的方式进行远程过程调用。</p>
-<p>在对于性能要求特别高的场景，或从整体架构上考虑，人们才会选用专门的 RPC 产品，这类系统一般拥有更高效的通讯协议和数据传输格式，典型的有 dubbo、grpc、thrift，其中 grpc 具有最优秀的性能。</p>
-<p>RPC 框架的原理其实与 HTTP 调用类似，只是采用了更精简的协议头和数据序列化方式，此外在服务注册发现及负载均衡上也做了专门的封装。在 Spring Cloud 中，使用 OpenFeign 进行服务间调用是非常方便的一个选择，其使用 HTTP 方式，当性能无法满足时，可考虑替换序列化方式，或选用 grpc 进行通信。</p>
-<h3 id="数据库中间件" tabindex="-1"> 数据库中间件</h3>
-<p>数据库本身就是一个庞大的产品，除了前面提到的 ShardingSphere、Vitess 这类中间件，还有一类专门做数据处理的中间件。</p>
-<ul>
-<li>otter
-<ul>
-<li>分布式数据库同步系统，支持 MySQL、Oracle。</li>
-</ul>
-</li>
-<li>canal
-<ul>
-<li>基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费。</li>
-</ul>
-</li>
-<li>DataX-Web
-<ul>
-<li>分布式数据同步工具，可用来简化 ETL 工作。</li>
-</ul>
-</li>
-<li>gh-ost
-<ul>
-<li>对数据表结构进行架构变更时，可能导致表被锁住，如果数据量特别大，这种问题对于线上发布的影响是比较大的，可以采用建新表并迁移数据再修改表名的方式手工处理，这种方式容易出错且耗时，Github 开源的 MySQL 在线架构迁移工具则是程序化完成这一类操作的很好的选择。</li>
-</ul>
-</li>
-</ul>
-<h3 id="日志系统" tabindex="-1"> 日志系统</h3>
-<ul>
-<li>ELK
-<ul>
-<li>日志系统一般采用 ELK 技术栈，这其中包含三个子系统，因此要扩展一个新功能，可以有多种方式切入，比如做监控报警，可以使用 logstash 将 metrics 写入到 Prometheus，也可以使用 kibana 上的 sentinl 插件或者 ElastAlert 插件。</li>
-<li>logstash 支持从许多管道收集数据，其中包括 kafka，在日志量特别大的情况下，可以将日志先发送至 kafka。</li>
-</ul>
-</li>
-<li>Sentry
-<ul>
-<li>日志在很大一部分场景下都是用于排查错误的，除了 ELK 外还有专注于应用程序错误报告的系统，比如 Sentry。</li>
-</ul>
-</li>
-</ul>
-<h3 id="配置中心" tabindex="-1"> 配置中心</h3>
-<p>由于越来越多的系统基于 docker 部署，配置中心不仅可以简化系统的配置管理，也可简化系统的发布流程，目前较为流行的开源配置中心是 Apollo。另外也可以通过 zookeeper、Consul 等工具来实现统一配置管理。</p>
-<p>Nacos 是阿里开源的一款集配置中心和注册中心于一体的系统，使用它来做配置中心也较为方便，服务端部署相比 Apollo 简化了许多。</p>
-<h2 id="微服务" tabindex="-1"> 微服务</h2>
-<p>由于单体应用牵一发而动全身的特点，许多大型应用在开发时都会自觉拆分为多个子系统，这是在微服务概念提出前就被广泛采用的方式，而微服务概念的提出则更进一步，提出了一种全新的系统开发方式，使系统可以方便地拆分到更小的粒度，即微型服务，那么在服务数量越来越多的情况下，服务治理、熔断降级、链路追踪等问题也浮出水面，于是解决这些问题的 Spring Cloud 框架冉冉升起。</p>
-<h3 id="服务注册与发现" tabindex="-1"> 服务注册与发现</h3>
-<p>主流的服务注册与发现组件有：Eureka、Consul、Nacos 等等，它们采用不同的 CAP 分布式一致性规则或多种都支持，但不管使用哪一种，其实还是存在服务失联的问题，比如在滚动更新的过程中，注册中心未能及时剔除掉服务，导致调用方仍在调用停止的服务，首先我们可以通过调整配置减少更新周期，必要时需要修改其源代码，使用长连接，只要连接中断即从注册中心剔除服务，具体的细节需要专门写一篇文章来讲解。</p>
-<p>在可能的情况下，尽量使用消息机制来进行服务间通信，这是一个更好的选择，除了更好地进行解耦，在滚动更新这个部分也能更好地保持系统不间断运转。</p>
-<h3 id="熔断与降级" tabindex="-1"> 熔断与降级</h3>
-<p>服务间的调用过多，一定程度上增加了系统的耦合度，当其他微服务出问题或响应较慢时，整个系统都受影响，在必要时需要对出问题的服务进行熔断或降级。</p>
-<ul>
-<li>Hystrix
-<ul>
-<li>Spring Cloud 框架默认集成的熔断组件。</li>
-</ul>
-</li>
-<li>Sentinel
-<ul>
-<li>Spring Cloud Alibaba 中集成的熔断组件，提供了一个外部控制台，可以实时调整系统的熔断降级配置，在这个部分强于 Hystrix 。</li>
-</ul>
-</li>
-</ul>
-<h3 id="链路追踪-apm" tabindex="-1"> 链路追踪 / APM</h3>
-<p>服务间互相调用，使得调试变得比单体应用复杂不少，这个时候使用链路追踪工具能够简化调试，同时也能够对应用程序的性能有更直观的监控。</p>
-<p>主流的链路追踪组件有：</p>
-<ul>
-<li>zipkin</li>
-<li>pinpoint</li>
-<li>SkyWalking</li>
-<li>jaeger</li>
-</ul>
-<h3 id="api-网关" tabindex="-1"> API 网关</h3>
-<p>Spring Cloud 体系中常用的网关前有 Zuul，后有 Gateway，这一类跟 Spring Cloud 结合紧密，使用方便，但由于它们都是 Java 写成，在许多场景下还是比不上一些专门的网关产品。</p>
-<ul>
-<li>Kong
-<ul>
-<li>Kong 是 OpenResty 的衍生开源网关产品，拥有优秀的性能和丰富的插件，可满足许多的扩展性需求。</li>
-</ul>
-</li>
-<li>Traefik
-<ul>
-<li>Traefik 是用 Go 语言编写的网关，定位是云原生的边界路由网关产品，它拥有丰富的特性、易用的控制面板，与云原生场景深度结合，提供了实时的流量指标可对接到 Prometheus 中。其企业版包含限流、高可用等特性，开源版在这一部分有所缺失。</li>
-</ul>
-</li>
-</ul>
-<h3 id="服务网格" tabindex="-1"> 服务网格</h3>
-<p>从单体应用到微服务的演进，我们会发现服务治理、熔断、Tracing 这些几乎是必不可少的部分，即使是使用 Spring Cloud 框架，我们也需要关注大量的微服务技术细节，为了分离这一关注点并使这些技术成为基础设施一般的存在，服务网格应运而生。</p>
-<p><a href="https://jimmysong.io/blog/what-is-a-service-mesh/" target="_blank" rel="noopener noreferrer">什么是Service Mesh（服务网格）？</a></p>
-<blockquote>
-<p>服务网格好比微服务间的 TCP/IP，负责服务之间的网络调用、限流、熔断和监控。对于编写应用程序来说一般无须关心 TCP/IP 这一层（比如通过 HTTP 协议的 RESTful 应用），同样使用 Service Mesh 也就无须关心服务之间的那些原本通过服务框架实现的事情，比如 Spring Cloud、Netflix OSS 和其他中间件，现在只要交给 Service Mesh 就可以了。</p>
-</blockquote>
-<p>目前主流的服务网格有：</p>
-<ul>
-<li>Istio</li>
-<li>Linkerd</li>
-</ul>
-<h2 id="常用开源组件" tabindex="-1"> 常用开源组件</h2>
-<p>上文有提及的，这里不再累述。</p>
-<h3 id="数据访问" tabindex="-1"> 数据访问</h3>
-<ul>
-<li>MyBatis Plus</li>
-<li>Mapper</li>
-<li>jOOQ</li>
-<li>JPA</li>
-<li>dynamic-datasource-spring-boot-starter</li>
-<li>sharding-jdbc</li>
-</ul>
-<h3 id="工具组件" tabindex="-1"> 工具组件</h3>
-<ul>
-<li>guava</li>
-<li>commons-lang3</li>
-<li>hutool</li>
-</ul>
-<h3 id="缓存" tabindex="-1"> 缓存</h3>
-<ul>
-<li>redission</li>
-<li>jetcache</li>
-<li>caffeine</li>
-</ul>
-<h3 id="字节码修改" tabindex="-1"> 字节码修改</h3>
-<ul>
-<li>asm</li>
-<li>javassist</li>
-<li>cglib</li>
-</ul>
-<h3 id="http客户端" tabindex="-1"> http客户端</h3>
-<ul>
-<li>okhttp</li>
-<li>Aache HttpClient</li>
-<li>retrofit</li>
-<li>openfeign</li>
-</ul>
-<h3 id="响应式编程" tabindex="-1"> 响应式编程</h3>
-<ul>
-<li>RxJava</li>
-<li>reactor-core</li>
-</ul>
-<h3 id="序列化" tabindex="-1"> 序列化</h3>
-<ul>
-<li>protobuf</li>
-<li>protostuff</li>
-<li>hessian</li>
-</ul>
-<h3 id="分布式事务" tabindex="-1"> 分布式事务</h3>
-<ul>
-<li>seata</li>
-</ul>
-<h3 id="事件驱动框架" tabindex="-1"> 事件驱动框架</h3>
-<ul>
-<li>AxonFramework</li>
-</ul>
-<h3 id="规则引擎" tabindex="-1"> 规则引擎</h3>
-<ul>
-<li>drools</li>
-</ul>
-<h3 id="测试" tabindex="-1"> 测试</h3>
-<ul>
-<li>junit</li>
-<li>mockito</li>
-<li>Spock</li>
-</ul>
-<h2 id="编程思想" tabindex="-1"> 编程思想</h2>
-<p>编程思想是一个抽象的概念，要将其具象化我们必须透过现象看其本质，优秀的编程思想是对各种优秀想法的组织，这些想法可以精炼成许多原则，原则是构成编程思想的一个重要部分，也是所有编程方式都可以遵守的通用准则。在原则的基础上，在编码过程中反复解决的一些问题又被归纳为模式，这两者是思想的主要构成，另外也有不同的编程范式及方法论，我在这里简单的讲一下设计原则。</p>
-<h3 id="原则" tabindex="-1"> 原则</h3>
-<blockquote>
-<p>很多原则不仅适用于编程领域，也适用于其他领域，我想这也是为什么乔布斯提倡人人都应该学习编程，因为它能让你拥有更好的思考方式。</p>
-</blockquote>
-<ul>
-<li>保持简单
-<ul>
-<li>Keep It Simple, Stupid (KISS)
-<ul>
-<li>最重要的原则之一，可靠来源于简单，只有不断保持系统的简单、代码的简单，才能更好地创造优秀的软件。</li>
-</ul>
-</li>
-<li>You Ain’t Gonna Need It (YAGNI)
-<ul>
-<li>如无必要，勿增复杂性，避免过度设计。</li>
-</ul>
-</li>
-<li>Separation of Concerns (SoC) – 关注点分离
-<ul>
-<li>将目标相关联的部分封装在一起，标识为关注点。这是降低复杂性的一个重要原则，MVC 或 MVP 模式都是该原则的应用，将模型、视图和控制器作为不同的关注点，使得每一个关注点可以更有效地理解及重用。</li>
-<li>在编码过程中，也可以应用这一思想，比如我们首先关注应用程序是否可用，当其运行正确后再关心运行效率，这比同时进行这两项工作要简单的多。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>不要重复
-<ul>
-<li>Don’t Repeat Yourself (DRY)
-<ul>
-<li>最简单也最容易理解的原则，每个程序员都应该以随意复制粘贴代码而感到羞愧。</li>
-</ul>
-</li>
-<li>Convention over Configuration（CoC）- 惯例优于配置原则
-<ul>
-<li>将约定的配置方式和信息作为缺省的规则来使用，可以减少开发人员做决定的数量，减少编码量，获得简单的好处，又不会丢失灵活性。</li>
-<li>Spring Boot 框架解决的问题之一就是简化项目的配置，其大量应用了 CoC 原则。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>S.O.L.I.D 原则
-<ul>
-<li>Single Responsibility Principle (SRP) - 单一职责原则
-<ul>
-<li>一个类，只做一件事，并把这件事做好，其只有一个引起它变化的原因。</li>
-<li>很简单的原则，但是很多程序员在工作时经常违反这一原则，比如一个 service 类中引入许多 dao 对象，提供多种不相关服务。</li>
-</ul>
-</li>
-<li>Open/Closed Principle (OCP) – 开闭原则
-<ul>
-<li>模块是可扩展的，而不可修改的。也就是说，对扩展是开放的，而对修改是封闭的。</li>
-<li>设计模式中的代理、策略和观察者模式比较好地实现了这一原则。</li>
-<li>当我们定义的一个API可接受函数作为参数时，实际上也是一种策略模式的变体，同样也体现了这一原则。</li>
-</ul>
-</li>
-<li>Liskov substitution principle (LSP) – 里氏代换原则
-<ul>
-<li>子类必须能够替换成它们的基类。</li>
-<li>这个原则可作为我们设计类继承关系的基准。</li>
-</ul>
-</li>
-<li>Interface Segregation Principle (ISP) – 接口隔离原则
-<ul>
-<li>对接口进行拆分，使用多个专门的接口比使用单一的总接口要好。</li>
-<li>接口可以多继承，那为何要因为懒惰而将其随便定义在一个总接口里呢？</li>
-</ul>
-</li>
-<li>Dependency Inversion Principle (DIP) – 依赖倒置原则
-<ul>
-<li>高层模块不应该依赖于低层模块的实现，而是依赖于高层抽象。</li>
-<li>IoC 是 DIP 的一个具体实现，其已经深入到编程语言当中，Spring 框架最初就只是作为一个 IoC 容器，而后才不断扩展出许多实用功能并最终成为一个开发框架。</li>
-<li>相关原则：Hollywood Principle – 好莱坞原则（所有的组件都是被动的，所有的组件初始化和调用都由容器负责）。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>高内聚、低耦合
-<ul>
-<li>Law of Demeter – 迪米特法则
-<ul>
-<li>又称“最少知识原则”（Principle of Least Knowledge），一个类对于其他类知道的越少越好，知道的越多其耦合程度就越高。</li>
-<li>门面模式和中介模式都是迪米特法则应用的例子。</li>
-<li>这一原则强调低耦合。</li>
-</ul>
-</li>
-<li>Common Closure Principle（CCP）– 共同封闭原则
-<ul>
-<li>如果必须修改应用程序里的代码，我们希望所有的修改都发生在一个包里（修改关闭），而不是遍布在很多包里。</li>
-<li>在微服务架构中，若修改一个功能时，经常需要修改多个服务，那么其很有可能违反了 CCP 原则不恰当地进行了服务拆分。</li>
-<li>这一原则强调高内聚。</li>
-</ul>
-</li>
-<li>Common Reuse Principle (CRP) – 共同重用原则
-<ul>
-<li>包的所有类被一起重用，没有被一起重用的类不应该被组合在一起。依赖一个包就是依赖这个包所包含的一切。</li>
-<li>CCP则让系统的维护者受益，CCP让包尽可能大（CCP原则加入功能相关的类），CRP则让包尽可能小（CRP原则剔除不使用的类）。它们的出发点不一样，但不相互冲突。</li>
-<li>这一原则同样强调高内聚。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="结语" tabindex="-1"> 结语</h2>
-<p>正如开头所言，服务端开发领域极其庞大，本文还有许多枝节尚未提及，比如安全、DevOps等等。技术的演进使这个领域加速扩大，未来还会有许多的变化，也许 Service Mesh 将会成为主流，也许 NewSql 将成为开发标配，任何一门技术的演进历史变长，它的总体学习时间相应也会增加，但这并不意味着对其的应用也会变得复杂，我们不能忽视云计算这一因素，云服务的提供为开发者隐藏了许多的细节，在这个时代不需要知晓每一项技术的原理，也能够开发出服务千万用户的产品。</p>
-<p>未来会演进成什么样，可以去期待，但不要只是去期待，因为未来已经到来，只是还没有平均分布。</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>七周七语言之用 ruby 做点什么</title>
-      <link>https://abelsun.tech/code/lang/the_simple_ruby_crawler_code.html</link>
-      <guid>https://abelsun.tech/code/lang/the_simple_ruby_crawler_code.html</guid>
-      <source url="https://abelsun.tech/rss.xml">七周七语言之用 ruby 做点什么</source>
-      <category>技术</category>
-      <pubDate>Sat, 25 May 2013 07:50:08 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="一段简单的ruby爬虫代码" tabindex="-1"> 一段简单的ruby爬虫代码</h1>
-<blockquote>
-<p>每学一门语言，思维方式都会发生改变，编程语言亦是如此。</p>
-</blockquote>
-<p>编程语言从范型上来划分，主要有过程式语言、面向对象式语言和函数式语言，只有了解这些语言的变化、发展和设计哲学，深入地学习它们，才能够将它们融汇贯通，体会到不同范型中的精华和思想。如今有众多的编程语言，五花八门，《七周七语言》中挑选了7门优秀的语言进行讲解，这些语言包括了以上三种范型，其中有Ruby这样的面向对象的脚本语言、Io这样的原型语言、Haskell这样的纯函数式语言，也有Scala这种融合了函数式编程和面向对象编程的语言，这些语言都有其特别的设计和独门绝技，比如Ruby的简洁、效率和它的元编程特性。</p>
-<p>本次用Ruby写了一段抓取程序，可以抓取煎蛋上评分较高的有趣图片，其中解析html用到了nokogiri模块。这段程序总共只有几十行代码，为了多使用一些语言上的特性，还加了一些没必要的代码，如果再精简一下的话，这段程序可以非常简短，实在是不得不佩服ruby的简洁和效率。</p>
-<p>不多说了，直接上代码吧！</p>
-<div data-ext="rb"><pre><code><span>#encoding: utf-8</span>
-
-<span>require</span> <span><span>'net/http'</span></span>
-<span>require</span> <span><span>'open-uri'</span></span>
-<span>require</span> <span><span>'nokogiri'</span></span> <span># 用于解析html的模块</span>
-                   <span># sudo apt-get install libxslt-dev libxml2-dev </span>
-                   <span># sudo gem install nokogiri</span>
-<span>require</span> <span><span>'pathname'</span></span>
-
-<span>class</span> <span>JanDanSpider</span>
-    attr_accessor <span>:base_uri</span><span>,</span> <span>:cur_page</span> <span># 定义属性访问器</span>
-
-    <span>def</span> <span><span>initialize</span></span><span>(</span>pagesize<span>)</span>
-        <span>@base_uri</span> <span>=</span> <span><span>'http://jandan.net/pic'</span></span> <span># @表示实例变量、@@表示类变量、$表示全局变量</span>
-        <span>@dir</span> <span>=</span> <span><span>'/media/Develop/MyCode/SevenLang/ruby/pic'</span></span>
-        <span>@pagesize</span> <span>=</span> <span>Integer</span><span>(</span>pagesize<span>)</span> <span># 整型转换</span>
-    <span>end</span>
-
-    <span>def</span> <span><span>crawl</span></span><span>(</span><span>)</span>
-        <span>Dir</span><span>.</span>mkdir <span>@dir</span> <span>unless</span> <span>File</span><span>.</span>directory<span>?</span> <span>@dir</span> <span># 表判断的方法结尾都有个?</span>
-        totalpage <span>=</span> crawlpage<span>(</span><span>0</span><span>)</span>
-        puts <span><span>"pagesize </span><span><span>#{</span><span>totalpage</span><span>}</span></span><span>"</span></span> <span># ""字符会引发字符串替换，''则不会</span>
-        <span>(</span><span>1.</span><span>.</span><span>@pagesize</span><span>-</span><span>1</span><span>)</span><span>.</span><span>each</span> <span>do</span> <span>|</span>i<span>|</span> <span># 遍历元组</span>
-            crawlpage<span>(</span>totalpage <span>-</span> i<span>)</span>
-        <span>end</span>
-        puts <span><span>'complete!'</span></span>
-    <span>end</span>
-
-    <span>def</span> <span><span>crawlpage</span></span><span>(</span>page<span>)</span>
-        url <span>=</span> page<span>==</span><span>0</span> <span>?</span> <span>@base_uri</span> <span>:</span> <span>@base_uri</span><span>+</span><span><span>'/page-'</span></span><span>+</span>page<span>.</span>to_s <span># to_s是必要的</span>
-        puts <span><span>"crawl-page: </span><span><span>#{</span><span>url</span><span>}</span></span><span>"</span></span>
-
-        fpage <span>=</span> open<span>(</span>url<span>)</span>
-        html <span>=</span> fpage<span>.</span>read
-        doc <span>=</span> Nokogiri<span>::</span><span>HTML</span><span>(</span>html<span>)</span>
-        doc<span>.</span>css<span>(</span><span><span>'ol.commentlist li'</span></span><span>)</span><span>.</span><span>each</span> <span>{</span> <span>|</span>comment<span>|</span>
-            match <span>=</span> <span><span>/comment-(\d+)/</span></span><span>.</span>match<span>(</span>comment<span>[</span><span><span>'id'</span></span><span>]</span><span>)</span>
-            <span>if</span> match
-                id <span>=</span> match<span>[</span><span>1</span><span>]</span>
-                oo <span>=</span> <span>Integer</span><span>(</span>comment<span>.</span>css<span>(</span><span><span>'#cos_support'</span></span><span>+</span><span><span>'-'</span></span><span>+</span>id<span>)</span><span>[</span><span>0</span><span>]</span><span>.</span>content<span>)</span><span>;</span>
-                xx <span>=</span> <span>Integer</span><span>(</span>comment<span>.</span>css<span>(</span><span><span>'#cos_unsupport'</span></span><span>+</span><span><span>'-'</span></span><span>+</span>id<span>)</span><span>[</span><span>0</span><span>]</span><span>.</span>content<span>)</span><span>;</span>
-                xx <span>=</span> <span>1</span> <span>if</span> xx<span>==</span><span>0</span>
-                <span>if</span><span>(</span>oo<span>></span>xx <span>&amp;&amp;</span> <span>(</span>oo<span>></span><span>200</span> <span>||</span> oo<span>/</span>xx <span>></span><span>10</span><span>)</span> <span>)</span>
-                    src <span>=</span> comment<span>.</span>css<span>(</span><span><span>'p img'</span></span><span>)</span><span>[</span><span>0</span><span>]</span><span>[</span><span><span>"src"</span></span><span>]</span>
-                    puts <span><span>"crawl: oo </span><span><span>#{</span><span>oo</span><span>}</span></span><span> xx </span><span><span>#{</span><span>xx</span><span>}</span></span><span> src </span><span><span>#{</span><span>src</span><span>}</span></span><span>"</span></span>
-                    save_pic<span>(</span>src<span>)</span>
-                <span>end</span>
-            <span>end</span>
-        <span>}</span>
-        <span>if</span> page<span>==</span><span>0</span>
-            cur_page <span>=</span> doc<span>.</span>css<span>(</span><span><span>".current-comment-page"</span></span><span>)</span><span>[</span><span>0</span><span>]</span><span>.</span>content
-            page <span>=</span> <span>Integer</span><span>(</span><span><span>/\d+/</span></span><span>.</span>match<span>(</span>cur_page<span>)</span><span>.</span>to_s<span>)</span>
-        <span>end</span>
-        puts <span><span>"page </span><span><span>#{</span><span>page</span><span>}</span></span><span> done!"</span></span>
-        page <span># ruby中每条语句都有返回值，函数内最后一条语句的返回值会被return</span>
-    <span>end</span>
-
-    <span>def</span> <span><span>save_pic</span></span><span>(</span>url<span>)</span>
-        urlpath <span>=</span> <span>Pathname</span><span>.</span><span>new</span><span>(</span>url<span>)</span>
-        filename <span>=</span> urlpath<span>.</span>basename<span>.</span>to_s
-        dirpath <span>=</span> <span>Pathname</span><span>.</span><span>new</span><span>(</span><span>@dir</span><span>)</span>
-        filepath <span>=</span> dirpath<span>.</span>join<span>(</span>filename<span>)</span><span>.</span>to_s
-        open<span>(</span>url<span>)</span> <span>{</span> <span>|</span>fin<span>|</span>
-            open<span>(</span>filepath<span>,</span><span><span>"wb"</span></span><span>)</span> <span>{</span> <span>|</span>fout<span>|</span>
-                <span>while</span> buf <span>=</span> fin<span>.</span>read<span>(</span><span>4096</span><span>)</span> <span>do</span>
-                    fout<span>.</span>write buf
-                <span>end</span>
-            <span>}</span>
-        <span>}</span> <span>unless</span> <span>File</span><span>.</span>exists<span>?</span> filepath <span># 仅当文件不存在时进行抓取</span>
-        puts <span><span>'done!'</span></span>
-    <span>end</span>
-
-<span>end</span>
-
-<span>if</span> <span>ARGV</span><span>.</span>length <span>==</span> <span>1</span>
-    spider <span>=</span> <span>JanDanSpider</span><span>.</span><span>new</span><span>(</span>$<span>*</span><span>[</span><span>0</span><span>]</span><span>)</span> <span># 可从 ARGV 或 $* 读取命令行参数</span>
-    spider<span>.</span>crawl<span>(</span><span>)</span>
-<span>else</span>
-    puts <span><span>'please input pagesize'</span></span> <span>#tip: puts, 转义+换行符 print, 转义 p, 换行</span>
-<span>end</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>]]></content:encoded>
-    </item>
-    <item>
-      <title>编码的道与禅</title>
-      <link>https://abelsun.tech/code/thinking/the_coding_of_tao_and_zen.html</link>
-      <guid>https://abelsun.tech/code/thinking/the_coding_of_tao_and_zen.html</guid>
-      <source url="https://abelsun.tech/rss.xml">编码的道与禅</source>
-      <category>技术</category>
-      <category>阅读</category>
-      <pubDate>Fri, 07 Jun 2013 03:44:08 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="编码的道与禅" tabindex="-1"> 编码的道与禅</h1>
-<p>Bob 大叔在《代码整洁之道》一书的前言打趣着说，当你写的代码在经受代码审查时，如果审查者愤怒的吼道“What the fuck is this shit?”等言辞激烈的词语时，那说明你写的是 Bad Code；如果审查者只是漫不经心的吐出几个“What the fuck?”，那说明你写的是 Good Code。这就是衡量代码质量的唯一标准——每分钟骂出“What the fuck?”的频率。</p>
-<p>想写出整洁的代码很难，有一部分原因在于糟糕的代码太容易编写。想快点完成任务时，考虑不周全时，忽略安全时，随意命名时，参数过多时，嵌套太深时，未及时更改注释时，违反法则时，重复你自己时等等情形，我们有太多的机会来制造糟糕的代码。只有严肃对待自己的代码，了解哪些事情会使我们的代码变味，才有可能写出整洁的代码。</p>
-<p>写代码和写文章在某种程度上有相似之处，好的文章一定有好的可读性，写代码也一样，只有优美干净的代码才能具有良好的可读性。编写具有可读性的代码不光是保持有意义的命名就行，如果你想成为一名更好的程序员，写代码时你需要注意的有很多，比如：</p>
-<ol>
-<li>规范本地变量的位置</li>
-<li>使函数尽量短小</li>
-<li>调用者尽可能放在被调用者上面</li>
-<li>保持代码拥有良好的格式</li>
-<li>编写只做一件事的函数</li>
-<li>函数参数不要超过三个</li>
-<li>暴露时序耦合</li>
-<li>使用异常代替返回错误码</li>
-</ol>
-<p>除此之外，你还须牢记众多设计原则，如：</p>
-<ol>
-<li>开放封闭原则（OCP）</li>
-<li>迪米特法则</li>
-<li>依赖倒置原则（DIP）</li>
-<li>单一职责原则（SRP）</li>
-<li>里氏替换原则（LSP）</li>
-<li>不要重复（DRY）</li>
-<li>你不会需要它（YAGNI）</li>
-</ol>
-<p>当然仅有这些是不够的，这不是骑自行车，学写整洁代码得花许多功夫，必须不断实践，从失败中提取代码的坏味道并从中得到启发。</p>
-<p>编写整洁代码，你需要牢记并遵守很多东西，但这并不是循规蹈矩和刻板，而是对简单之美、代码之美的追求。代码整洁之道，是编写优秀代码的一种方法，其核心是尽力使代码保持简单——Keep It Simple, Stupid。判断一个人写的代码的好坏，不是看它的代码写的有多复杂，而是看他有没有把复杂的事物抽象出来并用简单的方式去描述它，此外这个人对代码的态度也至关重要，大多数时候我们并不能从一开始就把代码写的很完美，当我们需要快速做出一个原型，或者一开始代码看起来不错，但新的需求使现有的设计无法满足，如果不对设计进行改动的话，那么代码就会变的丑陋，如果你热爱自己正在做的事情，崇尚代码之美，那么你就会有足够的动力去重构它、完善它，而不是破坏结构使代码腐烂。</p>
-<p>保持简单、追求简单，我想这就是编码之中的禅意，一种追求本真的境界。这种禅在 Python 的设计哲学中体现的淋漓尽致，让我们在 Python 解释器中输入“import this”，来看看经典的 Python 之禅。</p>
-<ul>
-<li>Beautiful is better than ugly.<br>
-优美胜于丑陋。</li>
-<li>Explicit is better than implicit.<br>
-显式胜于隐式。</li>
-<li>Simple is better than complex.<br>
-简单胜于复杂。</li>
-<li>Complex is better than complicated.<br>
-复杂胜于难懂。</li>
-<li>Flat is better than nested.
-扁平胜于嵌套。</li>
-<li>Sparse is better than dense.<br>
-分散胜于密集。</li>
-<li>Readability counts.<br>
-可读性应当被重视。</li>
-<li>Special cases aren’t special enough to break the rules. Although practicality beats purity.<br>
-尽管实用性会打败纯粹性，特例也不能凌驾于规则之上。</li>
-<li>Errors should never pass silently. Unless explicitly silenced.<br>
-除非明确地使其沉默，错误永远不应该默默地溜走。</li>
-<li>In the face of ambiguity, refuse the temptation to guess.<br>
-面对不明确的定义，拒绝猜测的诱惑。</li>
-<li>There should be one– and preferably only one –obvious way to do it.<br>
-用一种方法，最好只有一种方法来做一件事。</li>
-<li>Although that way way not be obvious at first unless you’re Dutch.<br>
-虽然一开始这种方法并不是显而易见的，但谁叫你不是Python之父呢。</li>
-<li>Now is better than never. Although never is often better than right now.<br>
-做比不做好，但立马去做有时还不如不做。</li>
-<li>If the implementation is hard to explain, it’s a bad idea.<br>
-如果实现很难说明，那它是个坏想法。</li>
-<li>If the implementation is easy to explain, it may be a good idea.<br>
-如果实现容易解释，那它有可能是个好想法。</li>
-<li>Namespaces are one honking great idea – let’s do more of those!<br>
-命名空间是个绝妙的想法，让我们多多地使用它们吧！</li>
-</ul>
-<p>道着重于方法，禅着重于态度，让我们把这两者相结合，做一个有追求的程序员，为成为软件匠人而奋斗吧。</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>程序员的职业素养</title>
-      <link>https://abelsun.tech/code/thinking/the_programmer_professional_quality.html</link>
-      <guid>https://abelsun.tech/code/thinking/the_programmer_professional_quality.html</guid>
-      <source url="https://abelsun.tech/rss.xml">程序员的职业素养</source>
-      <category>阅读</category>
-      <pubDate>Tue, 18 Jun 2013 08:26:08 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="程序员的职业素养" tabindex="-1"> 程序员的职业素养</h1>
-<p>Bob 大叔的《代码整洁之道》一书，曾经让我受益匪浅，这本书从编码上很小的细节着手，讲解如何编写出高质量的代码。Bob 大叔还写过一本《程序员的职业素养》，这本书未深入讲解编程的知识细节，而是从程序员工作的角度描述哪些行为是不专业的、哪些行为可能会导致项目延期、哪些行为会导致工作效率低下等等事情，其中也有很多非常好的专业建议。</p>
-<p>提升职业素养，使自己成为一个专业的程序员，这并非一件简单的事情，技术能力、沟通技巧、工作态度等等都构成了评价一个员工专业性的因素，缺少任何一个可能都会令我们显得不够专业，如果能把书中的理论知识持之以恒地应用到工作之中，可以说对我们的职业生涯将大有裨益。</p>
-<p>我对书中的一些关键点做了一些摘要，以便自己可以经常回过头来看一看，思考自己是否有将理论和实践结合起来以及怎样才能做的更好。培根在《论读书》中说过，有的书可以请人代读，然后看他的笔记摘要就行了，但这只应限于不太重要的书，否则一本书将像被蒸馏过的水，变得淡而无味了。我下面列举的摘要，就像是蒸馏过的水一样，虽然读起来没什么味道，但是一些观点确实是引人深思的，希望对大家有所帮助。</p>
-<h2 id="第一章-专业主义" tabindex="-1"> 第一章 - 专业主义</h2>
-<ol>
-<li>
-<p>专业主义意味着担当责任</p>
-</li>
-<li>
-<p>不行损害之事</p>
-<p>不破坏软件功能，失误率不可能等于零，但专业的程序员有责任让它无线接近零；让QA找不出任何问题，发送明知有缺陷的代码，这种做法是极其不专业的，记住那些你没把握的代码都可以看做是有某种缺陷的，QA不是抓虫机器。自动化QA——单元测试和验收测试；不要破坏结构，<strong>无情重构</strong>和坚持代码设计原则。</p>
-</li>
-<li>
-<p>职业道德</p>
-<p>工作时间用来解决雇主的问题，而不是你自己的问题；了解工作领域；坚持学习。</p>
-</li>
-<li>
-<p>练习——软件开发技能和效率也可以通过训练来提高，可以坚持重复做一些简单的练习，这种练习可称作“卡塔”，卡塔的形式是一个有待解决的简单编程问题，做卡塔的目的不是找出解决方法，而是训练你的手指和大脑。</p>
-</li>
-<li>
-<p>合作</p>
-<p>一起编程、一起练习、一起设计、一起计划。</p>
-</li>
-<li>
-<p>辅导——教学相长。</p>
-</li>
-<li>
-<p>了解业务领域</p>
-</li>
-<li>
-<p>与雇主保持一致，站在雇主的角度来思考。</p>
-</li>
-<li>
-<p>谦逊</p>
-<p>对自己的能力充满自信，并因此勇于承担有把握的风险；清楚自己的自负。</p>
-</li>
-</ol>
-<h2 id="第二章-说-不" tabindex="-1"> 第二章 - 说“不”</h2>
-<p>“能就是能，不能就是不能。不要说试试看。”</p>
-<ol>
-<li>
-<p>对抗角色</p>
-<p>掌握沟通技巧，杜绝说“试试看”，交流应该保持明确性，当可能存在风险时，保持自己的立场。</p>
-</li>
-<li>
-<p>高风险时刻</p>
-<p>最需要说“不”的是那些高风险的关键时刻，把最明确的信息传递给上级。</p>
-</li>
-<li>
-<p>要有团队精神</p>
-<p>真正为团队努力的人，会根据自己最好的能力状况，明确说明哪些是做得到的事，哪些是做不到的事。</p>
-</li>
-<li>
-<p>说“是”的成本</p>
-<p>急于完成，必然要做出某些牺牲，比如代码质量。</p>
-</li>
-</ol>
-<p>其他：有时候，提供太多细节，只会招致更多的微观管理</p>
-<h2 id="第三章-说-是" tabindex="-1"> 第三章 - 说“是”</h2>
-<ol>
-<li>
-<p>承诺用语</p>
-<p>口头上说。心里认真。付诸行动。</p>
-</li>
-<li>
-<p>识别缺乏承诺的征兆</p>
-<p>话语中包含“需要/应当”、“希望/但愿”、“让我们”等词语时，很可能是缺乏承诺的征兆</p>
-</li>
-<li>
-<p>真正的承诺听起来是怎样的</p>
-<p>关键在于，你对自己将会做的某件事做了清晰的事实陈述，而且还明确说明了完成期限/时间。</p>
-</li>
-<li>
-<p>信守承诺将使你成为一名严谨负责的开发人员</p>
-</li>
-<li>
-<p>专业人士给出肯定回答时，会使用承诺用语，以确保各方能明白无误地理解承诺内容。</p>
-</li>
-</ol>
-<h2 id="第四章-编码" tabindex="-1"> 第四章 - 编码</h2>
-<ol>
-<li>
-<p>做好准备</p>
-<p>代码要能正常工作、解决问题、跟现有系统结合、具有高的可读性。</p>
-</li>
-<li>
-<p>确保将睡眠、健康和生活方式调整到最佳状况，这样才能在工作中全力以赴，产生优秀的代码。</p>
-</li>
-<li>
-<p>流态区</p>
-<p>这是一种编码时会进入的一种意识高度专注但思维视野却会收拢到狭窄的状态，在这种状态下能够进行非常高效的代码编写，但它也有不利的一面，那就是思维视野收拢，此时可能无法估计到代码的全局层面。</p>
-</li>
-<li>
-<p>中断、阻塞</p>
-<p>中断会打断思维，而阻塞是一种无法思考的状态，结对编程可以从某些方面表面这些问题，同伴能在被中断之后恢复之前被打断的思维，同伴也能在你思维阻塞的时候重新激活你的思维。</p>
-</li>
-<li>
-<p>创造性输入</p>
-<p>广泛地阅读，学习各种各样的知识，能激活人的创造力和增加很多灵光一闪的机会。</p>
-</li>
-<li>
-<p>保持节奏</p>
-<p>要适当分配精力，不要一直困在解决问题的状态中，暂时从问题中脱离出来，有助于大脑以不同且更具创造性的方式搜寻解决方案。</p>
-</li>
-<li>
-<p>进度延迟</p>
-<p>根据目标定期衡量进度，使用三个考虑到多种因素的期限：乐观预估、标称预估、悲观预估。</p>
-</li>
-<li>
-<p>无法完成任务时，不要轻易让步，不要让其他人抱有期望，不要盲目冲刺，若要加班，一定要提供说明加班失败的后备方案。</p>
-</li>
-<li>
-<p>定义“完成”</p>
-<p>完成不是往源代码管理系统中提交已经写完的代码，团队应该对“完成”有一个清晰的定义，一般来讲，只有当代码完全通过验收测试，开发任务才算完成。</p>
-</li>
-</ol>
-<h2 id="第五章-测试驱动开发" tabindex="-1"> 第五章 - 测试驱动开发</h2>
-<ol>
-<li>
-<p>TDD的三项法则</p>
-<p>编好失败的单元测试之前，不编写产品代码；</p>
-<p>一个单元测试失败，就不再编写单元测试代码；</p>
-<p>产品代码刚好让失败的单元测试通过，不要多写。</p>
-</li>
-<li>
-<p>TDD的优势</p>
-<p>确定性——通过测试能让你更加确信代码能正常工作
-降低缺陷注入率</p>
-</li>
-<li>
-<p>敢于重构的勇气</p>
-<p>拥有一套值得信赖的测试，便可完全打消对修改代码的恐惧。</p>
-</li>
-<li>
-<p>文档</p>
-<p>遵循TDD的三项法则，所编写的每个单元测试都是一个示例，它们是最好的底层文档。</p>
-</li>
-<li>
-<p>设计</p>
-<p>为了编写测试，必须找出函数跟其他函数解耦的方法；
-事后写的测试只是一种防守，而现行编写的测试则是进攻，事后编写测试的作者已经受制于已有代码。</p>
-</li>
-<li>
-<p>TDD的局限</p>
-<p>即使有全面的测试，也有可能产生糟糕的代码，因为写出的测试代码可能就很糟糕，所以应当把测试代码当做产品代码一样认真对待。</p>
-</li>
-</ol>
-<h2 id="第六章-练习" tabindex="-1"> 第六章 - 练习</h2>
-<p>一句话总结：任何事情要想做得快，都离不开练习，重复编码过程，要求你迅速做出决定，熟练之后大脑可以放心思考更高层次的问题。</p>
-<h2 id="第七章-验收测试" tabindex="-1"> 第七章 - 验收测试</h2>
-<ol>
-<li>
-<p>验收测试定义为业务方与开发方合作编写的测试，目的在于确定需求已经完成。</p>
-</li>
-<li>
-<p>自动化</p>
-<p>验收测试应当自动进行，这可以节省不必要的成本。</p>
-</li>
-<li>
-<p>持续集成</p>
-<p>务必确保在持续集成系统中，单元测试和验收测试每天都能运行。
-保持持续集成系统的正常运行是非常重要的，集成一旦失败，应当立即处理。</p>
-</li>
-</ol>
-<h2 id="第八章-测试策略" tabindex="-1"> 第八章 - 测试策略</h2>
-<ol>
-<li>
-<p>业务人员编写针对正常路径的测试（happy-pathtest），QA则编写针对极端情况（corner）、边界状态（boundary）和异常路径（unhappy-path）的测试。</p>
-</li>
-<li>
-<p>自动化测试金字塔</p>
-<p>使用测试驱动开发来产生单元测试；</p>
-<p>验收测试定义系统需求；</p>
-<p>持续集成保证质量稳步上升；</p>
-<p>系统测试确保正确的系统构造；</p>
-<p>人工探索式测试确保在人工操作下表现良好，同时富有创造性地找出尽可能多的“古怪之处”。</p>
-</li>
-</ol>
-<h2 id="第九章-时间管理" tabindex="-1"> 第九章 - 时间管理</h2>
-<ol>
-<li>关于会议的真理：会议是必须的；会议浪费了大量的时间。</li>
-<li>谨慎选择应当参加哪些会议，必要时礼貌拒绝。</li>
-<li>避免消耗注意力点数</li>
-<li>避免优先级错乱</li>
-</ol>
-<h2 id="第十章-预估" tabindex="-1"> 第十章 - 预估</h2>
-<ol>
-<li>
-<p>不同的人对预估有不同的看法</p>
-<p>很多时候，业务方觉得预估就是承诺，开发方认为预估就是猜测，两者相差迥异。</p>
-</li>
-<li>
-<p>预估是一种猜测，它不是定数，预估的结果是一种概率分布。</p>
-</li>
-</ol>
-<h2 id="第十一章-压力" tabindex="-1"> 第十一章 - 压力</h2>
-<ol>
-<li>
-<p>在压力下保持冷静的最好方式，便是规避会导致压力的处境，例如不要轻易承诺。</p>
-</li>
-<li>
-<p>“快速且脏乱”的抛弃型代码，是自相矛盾的说法，脏乱只会导致缓慢，让系统、代码和设计尽可能整洁，就可以避免压力。</p>
-</li>
-<li>
-<p>危机中的纪律</p>
-<p>如果你遵守的纪律原则是工作的最佳方式，那么即使处于危机之中，也应当坚决秉持这些纪律原则。</p>
-<p>如果你在危机中放弃TDD，那说明你并不真正相信TDD是有帮助的。</p>
-</li>
-<li>
-<p>应对压力</p>
-<p>不要惊慌失措；保持沟通；依靠纪律原则；寻求帮助。</p>
-</li>
-</ol>
-<h2 id="第十二章-协作" tabindex="-1"> 第十二章 - 协作</h2>
-<ol>
-<li>
-<p>程序员与人</p>
-<p>我们并非是因为喜欢和人们在一起工作才选择做程序员。整个群体的平均状况便是如此，我们，程序员们，还是最享受面无表情的沉思，沉浸于问题思考中。</p>
-</li>
-<li>
-<p>程序员与程序员</p>
-<p>不正常的团体最糟糕的症状是，每个程序员在自己的代码周边筑起一道高墙，拒绝让其他程序员接触到这些代码。这是招致灾难的“最佳秘诀”。</p>
-</li>
-<li>
-<p>结对</p>
-<p>结对工作是分享知识的最好途径，也是复查代码的最好方式，系统中不应该包含未经其他程序员复查过的代码。</p>
-</li>
-</ol>
-<p>也许我们不是因为通过编程可以和人互相协作才选择从事这项工作，但真不走运，编程就意味着与人合作。</p>
-<h2 id="第十三章-团队与项目" tabindex="-1"> 第十三章 - 团队与项目</h2>
-<ol>
-<li>成员克服个体差异，默契配合，彼此信任，才能形成真正有凝聚力的团队，当然这需要一个“发酵”的过程。</li>
-<li>专业的开发组织会把项目分配给已形成凝聚力的团队，而不会围绕着项目来组建团队。</li>
-</ol>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>我的效率工具箱</title>
-      <link>https://abelsun.tech/code/tools/my_efficiency_toolkit.html</link>
-      <guid>https://abelsun.tech/code/tools/my_efficiency_toolkit.html</guid>
-      <source url="https://abelsun.tech/rss.xml">我的效率工具箱</source>
-      <category>技术</category>
-      <pubDate>Thu, 11 Jun 2020 21:44:08 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="我的效率工具箱" tabindex="-1"> 我的效率工具箱</h1>
-<blockquote>
-<p>该文主要介绍/推荐一些平时工作中可以提升效率的工具。</p>
-</blockquote>
-<h2 id="基础工具" tabindex="-1"> 基础工具</h2>
-<h2 id="_1-vim" tabindex="-1"> 1. vim</h2>
-<ul>
-<li>vi 可谓无处不在，它内置在mac和linux系统中，不光有强大的文本编辑功能和插件生态，在Visual Studio、Idea、DataGrip、Visual Studio Code、甚至chrome等众多工具中都有它的身影，比如说chrome中的 <strong>Vimium</strong> 插件, 使用该插件不需要鼠标就可以非常方便的浏览网页，还有非常好用的书签和浏览记录搜索功能。</li>
-<li>vim 的学习曲线比较陡峭，但是一旦熟练之后就再也离不开了。</li>
-<li>学会了vim，不光是只掌握了vim，你还能更轻松地使用其他的工具，比如linux中的less、more等，其内部的快捷键跟vim是类似的。</li>
-</ul>
-<h2 id="_2-google" tabindex="-1"> 2. google</h2>
-<ul>
-<li>原本不用推荐，但是平时接触到的很多开发还是不用谷歌的，所以提一下。</li>
-<li>常见场景，碰到技术问题，英文一搜，点开前面两三个搜索结果，很快找到答案。</li>
-<li>程序员要更善于使用互联网。</li>
-</ul>
-<h2 id="_3-shell" tabindex="-1"> 3. Shell</h2>
-<ul>
-<li>Windows Terminal + WSL2</li>
-<li>Cmder</li>
-<li>Cygwin</li>
-<li>Oh My Zsh</li>
-</ul>
-<h2 id="_4-win-r" tabindex="-1"> 4. Win + R</h2>
-<ul>
-<li>Windows下有不少快速启动的软件，但其实运行窗口就可以实现了，新建一个快速访问的文件夹将其放入环境变量，再将经常访问的快捷方式加入其中，比如D盘的快捷方式，只需要Win+R，输入d即可打开D盘。</li>
-</ul>
-<h2 id="_5-everything" tabindex="-1"> 5. Everything</h2>
-<ul>
-<li>Alt + R 快捷键，电脑上的任何文件都能快速搜索出来，用了再也离不开。</li>
-</ul>
-<h2 id="_6-microsoft-365" tabindex="-1"> 6. Microsoft 365</h2>
-<ul>
-<li>PowerPoint 创意灵感功能，让你不需要再去找ppt模板。</li>
-<li>Excel PowerQuery PowerPivot，数据分析，组合查询，可视化数据分析，感觉比写sql还爽。</li>
-<li>OneNote 多终端同步笔记，值得拥有。</li>
-<li>OneDrive 多终端同步文件。</li>
-</ul>
-<h2 id="_7-visual-studio-code" tabindex="-1"> 7. Visual Studio Code</h2>
-<ul>
-<li>该文使用 VS Code 编写。</li>
-</ul>
-<h2 id="开发工具" tabindex="-1"> 开发工具</h2>
-<h2 id="_1-visual-studio-resharper" tabindex="-1"> 1. Visual Studio + Resharper</h2>
-<ul>
-<li>宇宙第一IDE。</li>
-</ul>
-<h2 id="_2-idea" tabindex="-1"> 2. IDEA</h2>
-<ul>
-<li>多去插件市场看看。</li>
-</ul>
-<h2 id="_3-pycharm" tabindex="-1"> 3. PyCharm</h2>
-<ul>
-<li>python开发就用它。</li>
-</ul>
-<h2 id="_4-rider" tabindex="-1"> 4. Rider</h2>
-<ul>
-<li>有时 VS 太重，可以用用 Rider。</li>
-</ul>
-<h2 id="_5-docker" tabindex="-1"> 5. Docker</h2>
-<ul>
-<li>镜像仓库、数据库、ES、Redis、RabbitMq 等等服务部署在上面，它不香吗？</li>
-</ul>
-<h2 id="数据库工具" tabindex="-1"> 数据库工具</h2>
-<h2 id="_1-datagrip" tabindex="-1"> 1. DataGrip</h2>
-<ul>
-<li>可连接10多种主流数据库。</li>
-</ul>
-<h2 id="_2-postgresql" tabindex="-1"> 2. PostgreSql</h2>
-<ul>
-<li>MySql是最流行的开源数据库，它是最高级的开源数据库。</li>
-<li>使用它的Foreign Data Wrapper功能，可以跨各种数据库（Sql Server、MySql、Redis）组合查询数据。</li>
-</ul>
-<h2 id="其他工具" tabindex="-1"> 其他工具</h2>
-<h2 id="_1-barrier" tabindex="-1"> 1. Barrier</h2>
-<ul>
-<li>一套键鼠操作多台电脑，多系统用户的利器。</li>
-</ul>
-<h2 id="结语" tabindex="-1"> 结语</h2>
-<p>以前常用的工具其实比现在还多，比如还需要经常使用反编译工具、代码片段工具、文件对比工具、各种数据库工具等等，但随着越来越多的优秀软件涌现，让我们可以很轻松地化繁为简。使用的工具变少了，效率却提升了，这非常符合软件开发中的 KISS 原则。</p>
-<p>Keep It Simple, Stupid。</p>
-]]></content:encoded>
-    </item>
     <item>
       <title>[10 倍程序员] ⭐ 脚本的魅力，内含 js 写爬虫、python 骚操作等实用代码</title>
-      <link>https://abelsun.tech/code/10x/script.html</link>
-      <guid>https://abelsun.tech/code/10x/script.html</guid>
+      <link>https://abelsun.tech/10x/script.html</link>
+      <guid>https://abelsun.tech/10x/script.html</guid>
       <source url="https://abelsun.tech/rss.xml">[10 倍程序员] ⭐ 脚本的魅力，内含 js 写爬虫、python 骚操作等实用代码</source>
+      <description>零、内容简介 将脚本用好能给工作带来事半功倍的效果，本文的内容主要涉及三个脚本工具：js、`awk、python， 主题如下： 使用 js 在浏览器控制台写爬虫。; 使用 shell 统计数据。; 使用 python 进行 redis、rabbitmq 运维。; 使用 python 生成 mysql 数据字典。; 话不多说，直接进入主题。 一、使用 j...</description>
       <category>技术</category>
       <pubDate>Mon, 06 Dec 2021 21:44:08 GMT</pubDate>
       <content:encoded><![CDATA[<h1 id="_10-倍程序员-⭐脚本的魅力-内含-js-写爬虫、python-骚操作等实用代码" tabindex="-1"> [10 倍程序员] ⭐脚本的魅力，内含 js 写爬虫、python 骚操作等实用代码</h1>
@@ -1487,7 +90,7 @@ pandas<span>.</span>read_json<span>(</span><span>"mrs.json"</span><span>)</span>
 <ol>
 <li>
 <p>首先导入 JSON 数据。</p>
-<p><img src="@source/code/10x/script/mrs_excel.png" alt="excel导入" loading="lazy"></p>
+<p><img src="@source/10x/script/mrs_excel.png" alt="excel导入" loading="lazy"></p>
 </li>
 <li>
 <p>在 Power Query 的高级编辑器中，修改 <code>Power Query M 公式语言</code> 脚本展开 json 数据。</p>
@@ -1653,9 +256,10 @@ connection<span>.</span>close<span>(</span><span>)</span>
     </item>
     <item>
       <title>[10 倍程序员] ⭐ 51W+ 的终端命令行工具助你成为 10 倍程序员</title>
-      <link>https://abelsun.tech/code/10x/terminal.html</link>
-      <guid>https://abelsun.tech/code/10x/terminal.html</guid>
+      <link>https://abelsun.tech/10x/terminal.html</link>
+      <guid>https://abelsun.tech/10x/terminal.html</guid>
       <source url="https://abelsun.tech/rss.xml">[10 倍程序员] ⭐ 51W+ 的终端命令行工具助你成为 10 倍程序员</source>
+      <description>终端是程序员的必备工具之一，10 倍程序员的终端跟普通程序员有何不同？本文将介绍许多牛逼且实用的开源工具，用上这些工具后你不一定会变成 10 倍程序员，但绝对能够让你感觉自己像个 10 倍程序员。 本文仅对工具做基本介绍，不提供安装方法，因为这些工具的安装方法在项目的 github 首页上基本都会提供，在掘金上也能找到许多具体的使用教程。 在终端准备部...</description>
       <category>技术</category>
       <pubDate>Tue, 25 May 2021 21:44:08 GMT</pubDate>
       <content:encoded><![CDATA[<h1 id="_10-倍程序员-⭐51w-的终端命令行工具助你成为-10-倍程序员" tabindex="-1"> [10 倍程序员] ⭐51W+ 的终端命令行工具助你成为 10 倍程序员</h1>
@@ -1761,7 +365,7 @@ connection<span>.</span>close<span>(</span><span>)</span>
 <p>看这 star 数量，便知无需过多介绍，微软多年后终于意识到自家的终端实在是太简陋了，用上 Windows Terminal 后可以抛弃掉 cmder、cygwin 了。</p>
 <p>要让其发挥终端的强大威力，还需要安装 <code>WSL2</code>，推荐安装 ubuntu。</p>
 <p>可以为不同的 shell 环境设置不同的背景、主题，其还支持与 VS Code 一样的 <code>CTRL+SHIFT+P</code> 快捷键打开快速命令窗口，方便操作。</p>
-<p><img src="@source/code/10x/terminal/terminal.gif" alt="Windows Terminal" loading="lazy"></p>
+<p><img src="@source/10x/terminal/terminal.gif" alt="Windows Terminal" loading="lazy"></p>
 <h3 id="iterm2" tabindex="-1"> iTerm2</h3>
 <p><img src="https://img.shields.io/github/stars/gnachman/iTerm2" alt="stars" loading="lazy"></p>
 <p>地址：<a href="https://github.com/gnachman/iTerm2" target="_blank" rel="noopener noreferrer">https://github.com/gnachman/iTerm2</a></p>
@@ -1801,7 +405,7 @@ connection<span>.</span>close<span>(</span><span>)</span>
 <p><img src="https://img.shields.io/github/stars/powerline/powerline" alt="stars" loading="lazy"></p>
 <p>地址：<a href="https://github.com/powerline/powerline" target="_blank" rel="noopener noreferrer">https://github.com/powerline/powerline</a></p>
 <p>终端本身是高效的，但有时也略显乏味，使用 powerline 可以为终端加上强大的 <code>状态栏</code>，比如在 vim 中显示当前状态，在打开 git 目录时显示当前分支等等。</p>
-<p><img src="@source/code/10x/terminal/powerline.png" alt="powerline" loading="lazy"></p>
+<p><img src="@source/10x/terminal/powerline.png" alt="powerline" loading="lazy"></p>
 <h2 id="系统工具" tabindex="-1"> 系统工具</h2>
 <h3 id="文件管理器" tabindex="-1"> 文件管理器</h3>
 <p>很多人用不惯终端的一个原因就是在上面无法像 windows资源管理器或 finder 一样操作文件，实际上有许多开源的命令行文件管理器，下面介绍两个热门的，大家按需选用。</p>
@@ -1811,7 +415,7 @@ connection<span>.</span>close<span>(</span><span>)</span>
 <p><img src="https://img.shields.io/github/stars/ranger/ranger" alt="stars" loading="lazy"></p>
 <p>地址：<a href="https://github.com/ranger/ranger" target="_blank" rel="noopener noreferrer">https://github.com/ranger/ranger</a></p>
 <p>Ranger 使用 Python 编写，默认为使用 <code>vim</code> 风格的按键绑定，对于使用 vim 的用户来说几乎没有学习成本，能够快速上手使用。</p>
-<p><img src="@source/code/10x/terminal/ranger.png" alt="ranger" loading="lazy"></p>
+<p><img src="@source/10x/terminal/ranger.png" alt="ranger" loading="lazy"></p>
 </li>
 <li>
 <p>nnn</p>
@@ -1859,21 +463,21 @@ connection<span>.</span>close<span>(</span><span>)</span>
 <p><img src="https://img.shields.io/github/stars/junegunn/fzf" alt="stars" loading="lazy"></p>
 <p>地址：<a href="https://github.com/junegunn/fzf" target="_blank" rel="noopener noreferrer">https://github.com/junegunn/fzf</a></p>
 <p>fzf 是一款支持模糊搜索的交互式工具，可以用来查找任何列表内容，包括文件、Git 分支、进程等。</p>
-<p><img src="@source/code/10x/terminal/fzf.png" alt="fzf" loading="lazy"></p>
+<p><img src="@source/10x/terminal/fzf.png" alt="fzf" loading="lazy"></p>
 <h3 id="tldr" tabindex="-1"> tldr</h3>
 <p><img src="https://img.shields.io/github/stars/tldr-pages/tldr" alt="stars" loading="lazy"></p>
 <p>地址：<a href="https://github.com/tldr-pages/tldr" target="_blank" rel="noopener noreferrer">https://github.com/tldr-pages/tldr</a></p>
 <p>tdlr 是 <code>Too long, Don't read</code> 的缩写，可以帮助你快速查看常用命令的使用实例，比如 tar 命令，那后面一长串参数谁记得清呢？当然，linux 大佬除外。</p>
-<p><img src="@source/code/10x/terminal/tldr.png" alt="tldr" loading="lazy"></p>
+<p><img src="@source/10x/terminal/tldr.png" alt="tldr" loading="lazy"></p>
 <h3 id="the-fuck" tabindex="-1"> The Fuck</h3>
 <p><img src="https://img.shields.io/github/stars/nvbn/thefuck" alt="stars" loading="lazy"></p>
 <p>地址：<a href="https://github.com/nvbn/thefuck" target="_blank" rel="noopener noreferrer">https://github.com/nvbn/thefuck</a></p>
 <p>在终端下是不是经常输错命令，搞得自己心烦意乱，<code>The Fuck</code> 是一款了不起的工具，帮你彻底解决这个问题，当你输错命令后，只要输入 <code>fuck</code> 命令，它会帮你自动纠正错误，精彩之极！</p>
-<p><img src="@source/code/10x/terminal/thefxxk.gif" alt="thefxxk" loading="lazy"></p>
+<p><img src="@source/10x/terminal/thefxxk.gif" alt="thefxxk" loading="lazy"></p>
 <h3 id="w3m" tabindex="-1"> w3m</h3>
 <p>地址：<a href="https://github.com/tats/w3m" target="_blank" rel="noopener noreferrer">https://github.com/tats/w3m</a></p>
 <p>真正的程序员就该使用命令行来浏览网页。</p>
-<p><img src="@source/code/10x/terminal/w3m.png" alt="w3m" loading="lazy"></p>
+<p><img src="@source/10x/terminal/w3m.png" alt="w3m" loading="lazy"></p>
 <h2 id="_10-倍程序员之路" tabindex="-1"> 10 倍程序员之路</h2>
 <p>w3m 这个项目已经基本不维护了，我以这个命令来结束本篇文章，因为还有许多像这样优秀好玩的工具等待我们去发现、去创造。</p>
 <p>程序员的双手是魔术师的双手，他们将代码转变成丰富多彩的软件，即使是平平无奇的终端竟然也能玩出许多花样。</p>
@@ -1882,997 +486,998 @@ connection<span>.</span>close<span>(</span><span>)</span>
       <enclosure url="https://img.shields.io/github/stars/ohmyzsh/ohmyzsh" type="image/"/>
     </item>
     <item>
-      <title>万字长文带你彻底搞懂什么是 DevOps</title>
-      <link>https://abelsun.tech/code/engineering/devops.html</link>
-      <guid>https://abelsun.tech/code/engineering/devops.html</guid>
-      <source url="https://abelsun.tech/rss.xml">万字长文带你彻底搞懂什么是 DevOps</source>
-      <category>技术</category>
-      <pubDate>Sun, 23 May 2021 21:44:08 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="万字长文带你彻底搞懂什么是-devops" tabindex="-1"> 万字长文带你彻底搞懂什么是 DevOps</h1>
-<p>DevOps 日渐成为研发人员耳熟能详的一个组合词，但什么是 DevOps，为什么 DevOps 对于互联网企业如此重要，真正将其思考透彻的人却不多，带着这些困惑，本文将带你一探 DevOps 的起源、原则和实践，让你搞清楚到底何为 DevOps。</p>
-<p>DevOps 的起源可以追溯到 2008 年，在一次敏捷大会的敏捷基础设施话题组被提及，从起源我们可以了解到 DevOps 的发展跟敏捷软件开发是密不可分的。</p>
-<h2 id="devops-定义" tabindex="-1"> DevOps 定义</h2>
-<p>DevOps 经过这些年的发展，其定义也在不断变化，先来看三段 DevOps 的 wiki 定义。</p>
-<ol>
-<li>
-<p>DevOps 2017 - 2020 年英文 wiki 定义（直译）</p>
-<blockquote>
-<p>DevOps是一种<strong>软件工程文化和实践（Practices）</strong>，旨在整合软件开发和软件运维。DevOps运动的主要特点是强烈倡导对构建软件的所有环节（从集成、测试、发布到部署和基础架构管理）进行全面的自动化和监控 DevOps 的目标是缩短开发周期，提高部署频率和更可靠地发布，与业务目标保持一致。</p>
-</blockquote>
-</li>
-<li>
-<p>DevOps 2021 年英文 wiki 定义（直译）</p>
-<blockquote>
-<p>DevOps 是一系列整合软件开发和软件运维活动的<strong>实践（Practices）</strong>。目标是缩短软件开发生命周期并使用持续交付提供高质量的软件。</p>
-</blockquote>
-<p>另：</p>
-<blockquote>
-<p>DevOps 与敏捷软件开发是互补关系，DevOps 的许多方面来自于敏捷方法论。</p>
-</blockquote>
-</li>
-<li>
-<p>DevOps 中文 wiki 定义</p>
-<blockquote>
-<p>DevOps（Development和Operations的组合词）是一种重视“软件开发人员（Dev）”和“IT运维技术人员（Ops）”之间<strong>沟通合作</strong>的文化、运动或惯例。透过自动化“软件交付”和“架构变更”的流程，来使得构建、测试、发布软件能够更加地快捷、频繁和可靠。</p>
-</blockquote>
-</li>
-</ol>
-<p>提取这三段的共同点，可以看到不论定义如何变化，DevOps 所要实现的目标都是一致的——缩短软件开发生命周期并使用 <strong>持续交付</strong> 提供高质量的软件。由于持续交付活动中包含了构建、测试和发布等活动，我更倾向于用这个定义，可以更好地缩减定义长度。</p>
-<p>另外可以看到英文直接翻译过来的定义中都包含「<strong>实践</strong>」 一词，而中文 wiki 经过一定的翻译或本地化后变成了「<strong>文化、运动或惯例</strong>」，其还更强调开发运维之间 <strong>沟通合作</strong> 这一点，因此将最新的英文 wiki 定义与中文 wiki 定义相结合，可以帮助我们更好地理解 DevOps，那么它的最终定义是什么就交由读者朋友自己去领会吧。</p>
-<h2 id="devops-发展背景" tabindex="-1"> DevOps 发展背景</h2>
-<p>为什么 DevOps 会如此热门，时常被人所提及，这与其发展背景是分不开的，主要原因可以概括为以下几点：</p>
-<ol>
-<li>
-<p>敏态需求的增加，即探索性工作的增加；</p>
-<ul>
-<li>软件开发从传统的瀑布流方式到敏捷开发，再到现在对敏捷开发提出了更高的要求，近些年创新型的应用不断涌现，在这些应用的研发过程中多采用小步快跑、快速试错的方式，这些探索性工作要求运维能够具备一天发布多次的能力，需要企业完成由稳态到敏态的转变。</li>
-</ul>
-</li>
-<li>
-<p>软件开发活动在企业经营活动中占比的不断增加；</p>
-<ul>
-<li>业务发展对软件的依赖由轻度依赖、中度依赖发展到目前的重度依赖。</li>
-</ul>
-</li>
-<li>
-<p>企业存在对消除浪费的需求。</p>
-<ul>
-<li>软件开发活动在企业中的位置越来越重要，而像企业经营活动一样，软件开发活动中也存在着许多的浪费，企业管理上必然存在着 <strong>识别并消除浪费</strong> 的需求。</li>
-<li>软件开发中的浪费包括不必要和必要的浪费，不必要的浪费有：无人使用的功能、软件bug、等待测试、等待审批等；必要的浪费包括：工作项移交、测试、项目管理等。</li>
-</ul>
-</li>
-</ol>
-<p>以上主要从企业的角度说明了 DevOps 的发展，这是较为深层次的原因，表层的推动因素包括：容器化技术的发展、微服务架构的发展等等，这些技术上的创新为 DevOps 提供了良好的发展条件，以解决企业面临的这些问题。</p>
-<h2 id="devops-原则与实践" tabindex="-1"> DevOps 原则与实践</h2>
-<p>了解了什么是 DevOps 及其发展原因后，又该如何具体的进行 DevOps 实践，我们采用黄金圈法则来思考这一问题。</p>
-<p><img src="@source/code/engineering/img/golden_circle.png" alt="黄金圈法则" loading="lazy"></p>
-<p>DevOps 原则是总体指导思想，实践是具体的执行方法，DevOps 是一个动态的过程，在进行相关实践的时候可以看看其应用了哪些原则，当违背原则的时候需要思考实践的合理性。</p>
-<h2 id="devops-原则" tabindex="-1"> DevOps 原则</h2>
-<p>DevOps 包含以下三大原则：</p>
-<ol>
-<li>流动原则：<strong>加速</strong> 从开发、运维到交付给客户的流程；</li>
-<li>反馈原则：建设 <strong>安全可靠</strong> 的工作体系；</li>
-<li>持续学习与实验原则：采用科学的工作方式，将对组织的 <strong>改进和创新</strong> 作为工作的一部分。</li>
-</ol>
-<h3 id="流动原则" tabindex="-1"> 流动原则</h3>
-<ol>
-<li>
-<p>坚持少做</p>
-<ul>
-<li>产品开始开发时采用 MVP 原则。</li>
-<li>产品迭代时要适时做减法。</li>
-</ul>
-</li>
-<li>
-<p>持续分解问题</p>
-<ul>
-<li>大的变更或需求拆解为一系列小的变更，快速解决。</li>
-</ul>
-</li>
-<li>
-<p>工作可视化</p>
-<ul>
-<li>采用 Sprint 看板将工作可视化。</li>
-</ul>
-</li>
-<li>
-<p>控制任务数量</p>
-<ul>
-<li>减少前置时间，降低测试人员的等待时间。</li>
-<li>任务越多，预估越不准确。</li>
-</ul>
-</li>
-<li>
-<p>减少交接次数</p>
-<ul>
-<li>减少不必要的沟通和等待。</li>
-</ul>
-</li>
-<li>
-<p>持续识别和改善约束点</p>
-<ul>
-<li>识别出影响流动的主要前置因素，比如搭建环境、需求文档。</li>
-<li>QA、开发、运维、产品持续提升生产力。</li>
-<li>为非功能性需求预留20%的开发时间，减少技术债务。</li>
-</ul>
-</li>
-<li>
-<p>消除价值流中的困境和浪费（导致交付延迟的主要因素）</p>
-<ul>
-<li>半成品——未完全完成的工作。</li>
-<li>额外工序——从不使用的文档、重复编写接口文档等。</li>
-<li>额外功能——用户实际不需要的功能。</li>
-<li>任务切换——将人员分配到多个项目或截然不同的工作任务中。</li>
-<li>等待、移动、缺陷、非标准化的手动操作。</li>
-</ul>
-</li>
-</ol>
-<h3 id="反馈原则" tabindex="-1"> 反馈原则</h3>
-<ol>
-<li>
-<p>在复杂系统中安全地工作</p>
-<ul>
-<li>管理复杂的工作，识别出设计和操作的问题；</li>
-<li>群策群力解决问题，从而快速构建新知识；</li>
-<li>在整个组织中，将区域性的知识应用到全局范围；</li>
-<li>领导者要持续培养有以上才能的人。</li>
-</ul>
-</li>
-<li>
-<p>及时发现问题</p>
-<ul>
-<li>快速、频繁和高质量的信息流——每个工序的操作都会被度量和监控。</li>
-<li>技术价值流的每个阶段（产品管理、开发、QA、安全、运维），建立快速的反馈和前馈回路（包括自动化构建、集成和测试过程）。</li>
-<li>全方位的遥测系统。</li>
-</ul>
-</li>
-<li>
-<p>在源头保障质量</p>
-<ul>
-<li>过多的检查和审批流程，使得做决策的地方远离执行工作的地方，这导致流程有效性降低，减弱了因果关系之间反馈的强度。</li>
-<li>让开发人员也对系统质量负责，快速反馈，加速开发人员的学习。</li>
-</ul>
-</li>
-<li>
-<p>为内部客户优化工作</p>
-<ul>
-<li>运维的非功能性需求（如架构、性能、稳定性、可测试性、可配置性和安全性）与用户功能同样重要。</li>
-</ul>
-</li>
-</ol>
-<h3 id="持续学习与实验原则" tabindex="-1"> 持续学习与实验原则</h3>
-<ol>
-<li>建立学习型组织和安全文化</li>
-<li>将日常工作的改进制度化</li>
-<li>把局部发现转化为全局优化</li>
-<li>在日常工作中注入弹性模式
-<ul>
-<li>缩短部署的前置时间、提高测试覆盖率、缩短测试执行时间，甚至在必要时解耦架构，都属于在系统中引入类似张力的做法。</li>
-</ul>
-</li>
-<li>领导层强化学习文化
-<ul>
-<li>领导者帮助一线工作者在日常工作中发现并解决问题。</li>
-</ul>
-</li>
-</ol>
-<h2 id="devops-实践" tabindex="-1"> DevOps 实践</h2>
-<p>基于 DevOps 的相关原则，有与其对应的实践，包括：流动的技术实践、反馈的技术实践和持续学习与实验的技术实践。在应用这些实践之前还需认真设计组织结构，使其有利于实践的开展。</p>
-<h3 id="设计组织结构" tabindex="-1"> 设计组织结构</h3>
-<ul>
-<li>利用康威定律设计团队结构。
-<ul>
-<li>康威定律：软件的架构和软件团队的结构是一致的。</li>
-<li>软件的架构应该保证小团队能够独立运作，彼此充分解耦，从而避免过多不必要的沟通和协调。</li>
-</ul>
-</li>
-<li>过度职能导向（成本优化）的危害。
-<ul>
-<li>执行工作的人通常不理解自己的工作与价值流目标的关系（“我之所以要配置这台服务器，是因为别人要我这么做”）。</li>
-<li>如果运维部门的每个职能团队都要同时服务于多个价值流（即多个开发团队），那么问题更是雪上加霜，因为所有团队的时间都很宝贵。</li>
-</ul>
-</li>
-<li>组建以市场为导向的团队。
-<ul>
-<li>将工程师及其专业技能（例如运维、QA和信息安全）嵌入每个服务团队，或者向团队提供自助服务平台，其功能包括配置类生产环境、执行自动化测试或进行部署。</li>
-<li>这使每个服务团队能够独立地向客户交付价值，而不必提交工单给IT运维、QA或信息安全等其他部门。</li>
-</ul>
-</li>
-<li>使职能导向有效。
-<ul>
-<li>快速响应。</li>
-<li>高度信任的文化。</li>
-</ul>
-</li>
-<li>将测试、运维和信息安全融入日常工作。
-<ul>
-<li>保证质量、可用性和安全性不是某个部门的职责，而是所有人日常工作的一部分。</li>
-</ul>
-</li>
-<li>使团队成员成为通才。
-<ul>
-<li>培养全栈工程师。</li>
-<li>给工程师提供学习必要技能的机会，让他们有能力构建和运行所负责的系统。</li>
-</ul>
-</li>
-<li>松耦合架构，提高生产力和安全性。</li>
-<li>保持小规模（“两个披萨原则”）。</li>
-</ul>
-<p>要使职能导向有效，需要由传统的集中式运维向提供运维服务的方向转变。</p>
-<p><img src="@source/code/engineering/img/oaas.png" alt="运维平台" loading="lazy"></p>
-<h3 id="运维融入项目开发工作" tabindex="-1"> 运维融入项目开发工作</h3>
-<ul>
-<li>创建共享服务（类生产环境、部署流水线、自动化测试工具、生产环境监控台、运维服务平台等），提高开发生产力。</li>
-<li>运维工程师融入开发团队。
-<ul>
-<li>使产品团队自给自足，可以完全负责服务的交付和支持。</li>
-<li>派遣工程师到项目开发团队（运维工程师的面试和聘用仍由集中式运维团队完成）。</li>
-</ul>
-</li>
-<li>为每个项目团队分派运维联络人（派遣的运维工程师）。
-<ul>
-<li>集中式运维团队管理所有环境，派遣的运维工程师需要理解：新产品的功能、开发原因、程序如何工作、可运维性、可扩展性、监控能力、架构模式、对基础设施的要求、产品特性的发布计划等。</li>
-</ul>
-</li>
-<li>邀请运维联络人参加开发团队会议、每日站会、回顾会议。</li>
-<li>使用看板图展示运维工作。</li>
-</ul>
-<h3 id="流动的技术实践" tabindex="-1"> 流动的技术实践</h3>
-<p>该部分包含以下内容：</p>
-<ul>
-<li>运行部署流水线的基础。</li>
-<li>实现快速可靠的自动化测试。</li>
-<li>代码持续集成。</li>
-<li>自动化和低风险发布。</li>
-<li>降低发布风险的架构。</li>
-</ul>
-<h4 id="运行部署流水线的基础" tabindex="-1"> 运行部署流水线的基础</h4>
-<ul>
-<li>自动化环境（开发、测试、正式）搭建。
-<ul>
-<li>使用 Shell、IaC（Puppet、Ansible、Terraform）、Docker、K8S、OpenShift 等技术。</li>
-</ul>
-</li>
-<li>所有内容做版本控制。
-<ul>
-<li>应用程序代码版本控制；</li>
-<li>数据库代码版本控制；</li>
-<li>运维配置代码版本控制；</li>
-<li>自动化和手动测试的脚本；</li>
-<li>支持代码打包、部署、数据库迁移、应用配置的脚本；</li>
-<li>项目相关文件（需求文档、部署过程、发布说明等）；</li>
-<li>防火墙配置、服务器配置等脚本。</li>
-</ul>
-</li>
-<li>扩展完成的定义。
-<ul>
-<li>在类生产环境中按照预期进行，开发工作才认为是完成的。</li>
-</ul>
-</li>
-</ul>
-<h4 id="实现快速可靠的自动化测试" tabindex="-1"> 实现快速可靠的自动化测试</h4>
-<ul>
-<li>持续构建、测试和集成。
-<ul>
-<li>代码分支持续集成到主干中，并确保通过单元测试、集成测试和验收测试。</li>
-<li>常用工具：Jenkins、TFS、TeamCity、GitLab CI。</li>
-<li>对持续集成的配合：自动化测试工具；一旦失败必须立即解决的文化；代码持续合入到主干，而不是持续在特性分支上工作。</li>
-</ul>
-</li>
-<li>构建快速可靠的自动化测试套件。
-<ul>
-<li>单元测试：JUnit、Mockito、PowerMock</li>
-<li>单元测试度量：测试覆盖率。</li>
-<li>验收测试：自动化API测试、自动化GUI测试。</li>
-<li>并行测试：安全测试、性能测试、单元测试、自动化测试。</li>
-<li>测试驱动开发：TDD、ATDD。</li>
-</ul>
-</li>
-<li>让部署流水线始终保持绿色状态。
-<ul>
-<li>部署流水线失败时，所有人立即解决问题或者立即回滚代码，后续的代码提交应该拒绝。</li>
-</ul>
-</li>
-</ul>
-<h4 id="代码持续集成" tabindex="-1"> 代码持续集成</h4>
-<ul>
-<li>持续集成代码。
-<ul>
-<li>开发人员在自己的分支上独立工作的时间越长，就越难将变更合入主干。</li>
-</ul>
-</li>
-<li>小批量开发。</li>
-<li>基于主干开发。
-<ul>
-<li>频繁向主干提交（通过合并请求）代码。</li>
-</ul>
-</li>
-</ul>
-<h4 id="自动化和低风险发布" tabindex="-1"> 自动化和低风险发布</h4>
-<ul>
-<li>自动化部署步骤：构建、测试、部署；相关流程包括：
-<ul>
-<li>代码打包、构建；</li>
-<li>上传 Docker 镜像；</li>
-<li>创建预配置的 K8S 服务；</li>
-<li>自动化单元测试、冒烟测试；</li>
-<li>数据库迁移自动化；</li>
-<li>配置自动化。</li>
-</ul>
-</li>
-<li>应用自动化的自助式部署
-<ul>
-<li>开发人员专注于编写代码，点击部署按钮，通过监控指标看到代码在生产环境中正常运行，在代码出错时能获得错误信息快速修复。</li>
-<li>通过代码审查、自动化测试、自动化部署，控制部署风险，必要时使开发人员也可进行部署操作，测试人员和项目经理可在某些环境中进行部署。</li>
-</ul>
-</li>
-<li>将部署和发布解耦
-<ul>
-<li>部署指在特定环境中安装制定版本的软件。</li>
-<li>发布指将产品特性提供给所有客户或部分客户使用。</li>
-</ul>
-</li>
-<li>基于环境的发布模式
-<ul>
-<li>蓝绿部署</li>
-<li>灰度（金丝雀）发布</li>
-</ul>
-</li>
-<li>基于应用的发布模式
-<ul>
-<li>实现特性开关，好处：轻松地回滚、缓解性能压力、可以屏蔽服务依赖。</li>
-<li>实现黑启动：发布潜在风险的新特性时，隐式调用，仅记录测试结果。</li>
-</ul>
-</li>
-<li>持续交付的实践
-<ul>
-<li>持续交付是指，所有开发人员都在主干上进行小批量工作，或者在短时间存在的特性分支上工作，并且定期向主干合并，同时始终让主干保持可发布状态，并能做到在正常的工作时段里按需进行一键式发布。开发人员在引入任何回归错误时（包括缺陷、性能问题、安全问题、可用性问题等），都能快速得到反馈。一旦发现这类问题，就立即加以解决，从而保持主干始终处于可部署状态。</li>
-</ul>
-</li>
-<li>持续部署的实践
-<ul>
-<li>持续部署是指，在持续交付的基础上，由开发人员或运维人员自助式地定期向生产环境部署优质的构建版本，这通常意味着每天每人至少做一次生产环境部署，甚至每当开发人员提交代码变更时，就触发一次自动化部署。</li>
-</ul>
-</li>
-<li>大多数团队采用持续交付实践。</li>
-</ul>
-<h4 id="降低发布风险的架构" tabindex="-1"> 降低发布风险的架构</h4>
+      <title></title>
+      <link>https://abelsun.tech/Artificial-Intelligence/AI.html</link>
+      <guid>https://abelsun.tech/Artificial-Intelligence/AI.html</guid>
+      <source url="https://abelsun.tech/rss.xml"></source>
+      <description>TensorFlow; kubeflow (https://github.com/kubeflow/kubeflow); arena (https://github.com/kubeflow/arena); Pytorch; Caffe2;</description>
+      <pubDate>Sat, 19 Nov 2022 02:42:33 GMT</pubDate>
+      <content:encoded><![CDATA[<ul>
+<li>TensorFlow
 <ul>
-<li>松耦合架构</li>
-<li>面向服务的架构</li>
-<li>安全地演进企业架构
+<li><a href="https://github.com/kubeflow/kubeflow" target="_blank" rel="noopener noreferrer">kubeflow</a>
 <ul>
-<li>绞杀者应用模式：API封装已有功能、按新架构实现新功能、API版本化。</li>
+<li><a href="https://github.com/kubeflow/arena" target="_blank" rel="noopener noreferrer">arena</a></li>
 </ul>
 </li>
-<li>云原生架构</li>
-</ul>
-<h3 id="反馈的技术实践" tabindex="-1"> 反馈的技术实践</h3>
-<p>这部分包含以下内容：</p>
-<ul>
-<li>建立遥测系统</li>
-<li>智能告警</li>
-<li>应用反馈实现安全部署</li>
-<li>应用A/B测试</li>
-<li>建立评审和协作流程</li>
-</ul>
-<h4 id="建立遥测系统" tabindex="-1"> 建立遥测系统</h4>
-<ul>
-<li>什么是遥测（Telemetry）？
-<ul>
-<li>遥测包含监控，实现对网络实时、高速和更精细的监控技术。</li>
-<li>相比于传统的网络监控技术，遥测通过推模式，主动向采集器上推送数据信息，提供更实时更高速更精确的网络监控功能。</li>
-</ul>
-</li>
-<li>遥测的三大维度
-<ul>
-<li>Tracing（跟踪），Metrics（指标） , Logging（日志）。</li>
-</ul>
-</li>
-<li>可观察性
-<ul>
-<li>系统可以由其外部输出（遥测的数据）推断其内部状态的程度。</li>
-<li>能发现、预测并解决问题。</li>
-</ul>
-</li>
-<li>集中式监控系统（可使用：Prometheus、SkyWalking）
-<ul>
-<li>在业务逻辑、应用程序和环境层收集数据。</li>
-<li>负责存储和转发事件和指标的事件路由器。</li>
-</ul>
-</li>
-<li>应用程序日志遥测（ELK、审计日志、Metrics）</li>
-<li>重大应用事件清单：
-<ul>
-<li>认证/授权的结果（包括退出）；</li>
-<li>系统和数据的访问；</li>
-<li>系统和应用程序的变更（特别是特权变更）；</li>
-<li>数据的变更，例如增加、修改或删除数据；</li>
-<li>无效输入（可能的恶意注入、威胁等）；</li>
-<li>资源（内存、磁盘、中央处理器、带宽或其他任何具有硬/软限制的资源）；</li>
-<li>健康度和可用性；</li>
-<li>启动和关闭；</li>
-<li>故障和错误；</li>
-<li>断路器跳闸；</li>
-<li>延迟；</li>
-<li>备份成功/失败。</li>
-</ul>
-</li>
-<li>将建立生产遥测融入日常开发工作。</li>
-<li>使用遥测指导问题的解决。</li>
-<li>建立自助访问的可视化遥测信息系统（信息辐射器）
-<ul>
-<li>Grafana</li>
-<li>SkyWalking</li>
-<li>Kibana</li>
-</ul>
-</li>
-<li>发现和填补遥测的盲区（建立充分而完整的遥测）
-<ul>
-<li>业务级别：订单量、用户数、流失率、广告展示和点击等。</li>
-<li>应用程序级别：事务处理事件、应用程序故障等。</li>
-<li>基础架构级别：服务器吞吐量、CPU负载、磁盘使用率等。</li>
-<li>客户端软件级别：应用出错和崩溃、客户端的事务处理事件等。</li>
-<li>部署流水线级别：流水线状态、部署频率等。</li>
-</ul>
-</li>
-</ul>
-<h4 id="智能告警" tabindex="-1"> 智能告警</h4>
-<ul>
-<li>解决告警疲劳
-<ul>
-<li>充分而完整的遥测会引入告警疲劳问题，需要更智能的报警。</li>
-</ul>
-</li>
-<li>使用统计分析方法，而非静态阈值设置告警
-<ul>
-<li>使用均值和标准差（适用于正态分布的数据）：度量数据与均值存在较大标准差时告警。</li>
-</ul>
-</li>
-<li>使用预防故障的告警，而不只是故障发生后的告警
-<ul>
-<li>试着问有什么指标可以预测故障。</li>
-</ul>
-</li>
-<li>异常检测技术
-<ul>
-<li>平滑统计技术：使用移动平均数，利用每个点与滑动窗口中所有其他数据的平均值，来转换数据。</li>
-<li>支持高级异常检测的工具：Prometheus、Grafana。</li>
-</ul>
-</li>
-</ul>
-<h4 id="应用反馈实现安全部署" tabindex="-1"> 应用反馈实现安全部署</h4>
-<ul>
-<li>通过遥测使部署更安全——部署后能立即发现问题。</li>
-<li>价值流中的所有人（开发人员、开发经理、架构师、运维团队等）共同承担运维事故的下游责任。
-<ul>
-<li>共同承担值班工作、共同解决生产环境问题。</li>
-</ul>
-</li>
-<li>让开发人员跟踪工作对运维人员的影响。
-<ul>
-<li>使开发的应用易于部署，提升运维人员幸福感。</li>
-</ul>
-</li>
-<li>让开发团队自行管理生产服务。
-<ul>
-<li>首先由开发团队管理，然后才交由集中的运维团队管理。</li>
-<li>运维工程师由生产支持转变为顾问或加入团队，帮助做好部署准备，建立服务发布指南（包括：支持有效的监控、部署可靠、架构能支持快速频繁的部署等）。</li>
-<li>为团队分配SRE人员。SRE定位：SRE就是软件开发工程师负责了运维工作，SRE非常稀少，只能分配给最重要的团队。</li>
-</ul>
-</li>
-</ul>
-<h4 id="应用a-b测试" tabindex="-1"> 应用A/B测试</h4>
-<ul>
-<li>在功能中集成A/B测试
-<ul>
-<li>向用户随机展示一个页面的两个版本之一。</li>
-</ul>
-</li>
-<li>在发布中集成A/B测试
-<ul>
-<li>使用特性开关。</li>
-</ul>
-</li>
-<li>在功能规划中集成A/B测试
-<ul>
-<li>不仅要快速部署和发布软件，还要在实验方面不断提升，通过实验主动实现业务目标和客户满意度。</li>
-</ul>
-</li>
-</ul>
-<h4 id="建立评审和协作流程" tabindex="-1"> 建立评审和协作流程</h4>
-<ul>
-<li>防止「过度控制变更」
-<ul>
-<li>反事实思维容易认为事故是由于缺乏审批流程导致。</li>
-</ul>
-</li>
-<li>建立同行评审，缩短审批流程
-<ul>
-<li>DevOps 中高绩效的组织更多地依赖同行评审，更少地依赖外部变更批准（层层审批）。</li>
-</ul>
-</li>
-<li>代码评审
-<ul>
-<li>每个人的代码提交到主干时，必须由同行进行评审；</li>
-<li>每个人应该持续关注其他成员的提交活动；</li>
-<li>定义高风险变更，从而决定是否需要请领域专家进行审查；</li>
-<li>将大的提交变更拆分成小批量变更。</li>
-</ul>
-</li>
-<li>利用结对编程改进代码变更
-<ul>
-<li>研究表明：结对的程序员比两个独立工作的程序员慢了15%，而‘无错误’代码量却从70%增加到了85%。</li>
-<li>测试和调试程序的成本通常比写初始代码的成本高出多倍。</li>
-</ul>
-</li>
-<li>评估合并请求的有效性
-<ul>
-<li>与在生产环境产生的结果无关。</li>
-<li>有效合并请求的基本要素：必须足够详细地说明变更的原因、如何做的变更，以及任何已识别的风险和应对措施。</li>
-</ul>
-</li>
-</ul>
-<h3 id="持续学习与实验的技术实践" tabindex="-1"> 持续学习与实验的技术实践</h3>
-<p>这部分包含以下内容：</p>
-<ul>
-<li>将学习融入日常工作</li>
-<li>将局部经验转化为全局改进</li>
-<li>预留组织学习和改进的时间</li>
-</ul>
-<h4 id="将学习融入日常工作" tabindex="-1"> 将学习融入日常工作</h4>
-<ul>
-<li>公正文化和学习文化
-<ul>
-<li>人为错误往往不是问题的根本原因，可能是复杂系统中存在不可避免的设计问题而导致。</li>
-<li>不应该对造成故障的人进行「点名、责备和羞辱」，我们的目标是最大限度地抓住组织学习的机会。</li>
-<li>从学习的角度看待错误、报错、失误、过失等。</li>
-<li>相关实践1：在事后分析中，不指责，公正地进行评判，使工程师自己愿意对事情负责，并且热情地帮助其他人避免同样的错误发生；广泛地公开事后分析会议结果。</li>
-<li>相关实践2：在生产环境中引入受控的人为故障（捣乱猴），针对不可避免的问题进行演练。</li>
-</ul>
-</li>
-<li>降低事故容忍度，寻找更弱的故障信号
-<ul>
-<li>随着组织能力的提升，事故数量大幅降低，故障越不应该出现。</li>
-<li>在复杂的系统中，放大微弱的故障信号对于防范灾难性故障事关重要。</li>
-</ul>
-</li>
-<li>重新定义失败
-<ul>
-<li>高效能DevOps组织的变更频率是平均水平的30倍，即使失败率只有平均水平的一半，也显然意味着故障总数更多。</li>
-<li>鼓励创新并接受因此带来的风险。</li>
-</ul>
-</li>
-<li>创建故障演练日
-<ul>
-<li>帮助团队模拟和演练事故，使其具备实战能力。</li>
-<li>暴露系统的潜在缺陷。</li>
-</ul>
-</li>
-</ul>
-<h4 id="将局部经验转化为全局改进" tabindex="-1"> 将局部经验转化为全局改进</h4>
-<ul>
-<li>[ChatOps] 使用聊天机器人、积累组织知识
-<ul>
-<li>自动化工具集成到聊天中，比如（@bot depoy owl to production）；</li>
-<li>操作结果由机器人发送回聊天室，每个人都能看到发生的一切；</li>
-<li>新来的工程师也可以看到团队的日常工作及执行方式；</li>
-<li>看到他人互相帮助时，人们也会倾向于寻求帮助；</li>
-<li>使用话题组，建立起组织学习，知识得到快速积累。</li>
-<li>加强了透明、协作的文化。</li>
-</ul>
-</li>
-<li>将标准、流程和规范转化为便于执行的形式
-<ul>
-<li>[ArchOps] 使工程师成为构建者，而不是砌砖工；</li>
-<li>将手动操作流程转换为可自动化执行的代码；</li>
-<li>将合规性使用代码表达出来。</li>
-</ul>
-</li>
-<li>运用自动化测试记录和传播知识
-<ul>
-<li>自动化界面测试，令使用者知道系统如何使用；</li>
-<li>单元测试，令调用者知道方法API如何使用。</li>
-</ul>
-</li>
-<li>项目开发中包含非功能性的运维需求
-<ul>
-<li>对各种应用和环境进行充分的遥测；</li>
-<li>准确跟踪依赖关系的能力；</li>
-<li>具有弹性并能正常降级的服务；</li>
-<li>各版本之间具有向前和向后的兼容性；</li>
-<li>归档数据来管理生产数据集的能力；</li>
-<li>轻松搜索和理解各种服务日志信息的能力；</li>
-<li>通过多个服务跟踪用户请求的能力；</li>
-<li>使用功能开关或其他方法实现简便、集中式的运行时配置。</li>
-</ul>
-</li>
-<li>把可重用的运维用户故事纳入开发
-<ul>
-<li>将重复的运维工作通过编码进行实现。</li>
-</ul>
-</li>
-<li>技术选型需要考虑运维因素
-<ul>
-<li>不能减慢工作流；</li>
-<li>思考举例：TIDB VS MySQL 该如何选择。</li>
-</ul>
-</li>
-</ul>
-<h4 id="预留组织学习和改进的时间" tabindex="-1"> 预留组织学习和改进的时间</h4>
-<ul>
-<li>偿还技术债务制度化
-<ul>
-<li>定时「大扫除」</li>
-<li>开发和运维针对非功能性需求进行优化，横跨整个价值流。</li>
-<li>价值：赋予一线工作人员不断识别和解决问题的能力。</li>
-</ul>
-</li>
-<li>让所有人教学相长
-<ul>
-<li>所有的工程师都越来越需要某些技能，而不只是开发人员如此。</li>
-<li>越来越多的技术价值流采用了DevOps的原则和模式。</li>
-<li>[每周学习文化] 每周一次的学习时间，每个同伴既要自己学习，又要教别人。</li>
-</ul>
-</li>
-<li>内部顾问和教练
-<ul>
-<li>成立内部的教练和咨询组织，促进专业知识在组织内的传播。</li>
-</ul>
-</li>
-</ul>
-<h2 id="实践重点" tabindex="-1"> 实践重点</h2>
-<p>DevOps 的实践包含许多内容，提炼了以下重点方便查阅：</p>
-<ul>
-<li>流动原则的实践
-<ul>
-<li>部署流水线的基础（所有内容做版本控制、在类生产环境按预期工作才算完成）</li>
-<li>实现快速可靠的自动化测试（自动化运行、始终保持流水线处于绿色状态）</li>
-<li>代码持续集成（小批量开发）</li>
-<li>自动化和低风险发布（自助式部署、部署和发布解耦、采用持续交付）</li>
-<li>降低发布风险的架构（云原生架构）</li>
-</ul>
-</li>
-<li>反馈原则的实践
-<ul>
-<li>建立遥测系统（Tracing、Metrics、Logging）</li>
-<li>智能告警（使用统计分析方法和预防故障的告警）</li>
-<li>应用反馈实现安全部署（部署后立即发现问题、共同承担责任）</li>
-<li>应用A/B测试（功能规划中集成A/B测试、使用特性开关）</li>
-<li>建立评审和协作流程（同行评审、减少审批流程、结对编程）</li>
-</ul>
-</li>
-<li>持续学习与实验原则的实践
-<ul>
-<li>将学习融入日常工作（从学习的角度看待事故、寻找更弱的故障信号）</li>
-<li>将局部经验转化为全局改进（ChatOps、让规范便于执行、非功能性的运维需求）</li>
-<li>预留组织学习和改进的时间（定时偿还技术债务、教学相长、内部教练）</li>
 </ul>
 </li>
+<li>Pytorch</li>
+<li>Caffe2</li>
 </ul>
-<h2 id="结语" tabindex="-1"> 结语</h2>
-<p>DevOps 的发展与技术的发展相辅相成，也为技术人员提供了更多的学习道路和发展方向，借用一句 DevOps 领袖的话来作为本文的结束语。</p>
-<blockquote>
-<p>对于所有热爱创新、热爱变革的专业技术人士来说，我们的前方是美好而充满活力的未来。</p>
-</blockquote>
 ]]></content:encoded>
     </item>
     <item>
-      <title>网站项目 Git 使用流程和规范</title>
-      <link>https://abelsun.tech/code/engineering/gitflow.html</link>
-      <guid>https://abelsun.tech/code/engineering/gitflow.html</guid>
-      <source url="https://abelsun.tech/rss.xml">网站项目 Git 使用流程和规范</source>
-      <category>技术</category>
-      <pubDate>Tue, 08 Dec 2020 21:44:08 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="网站项目-git-使用流程和规范" tabindex="-1"> 网站项目 Git 使用流程和规范</h1>
-<h2 id="零、前言" tabindex="-1"> <strong>零、前言</strong></h2>
-<ol>
-<li>本文档适用于需要持续发布的网站项目（后端、前端），稍加修改可以适用于需要同时存在不同版本的项目（框架、组件、app等）。</li>
-<li>该工作流程基于 git flow 分支策略，该策略的优点是分支清晰，能够应付开发流程中的许多情况，缺点是分支较多，开发过程中会经常需要进行合并操作，于是在基于该策略的基础上做适当的简化，并考虑并行迭代的情况，综合制定了该工作流程。</li>
-</ol>
-<p>本文档共包含分支策略、工作流程、分支使用规范、代码提交规范四个部分，分支策略主要是对 git flow 的介绍，工作流程部分则描述在具体开发过程中该如何实施，分支使用规范详细描述每种分支的用法，最后的代码提交规范是成功推进代码审查的关键因素。</p>
-<h3 id="_1、术语说明" tabindex="-1"> <strong>1、术语说明</strong></h3>
+      <title></title>
+      <link>https://abelsun.tech/Artificial-Intelligence/RoadMap.html</link>
+      <guid>https://abelsun.tech/Artificial-Intelligence/RoadMap.html</guid>
+      <source url="https://abelsun.tech/rss.xml"></source>
+      <description>AI工程师成长 编程语言 Python 数据分析：pandas (https://github.com/pandas-dev/pandas), sklearn (https://github.com/automl/auto-sklearn); 《Effective Python》 Scala/Java 大数据领域：Hadoop,Spark,Flink;...</description>
+      <pubDate>Sat, 19 Nov 2022 02:42:33 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="ai工程师成长" tabindex="-1"> AI工程师成长</h2>
+<h2 id="编程语言" tabindex="-1"> 编程语言</h2>
+<h3 id="python" tabindex="-1"> Python</h3>
 <ul>
-<li>持续集成/CI：使用该术语一般指 feature 分支的代码频繁集成到 develop 分支，并由CI自动构建到测试环境，feature 集成到 develop 一天内最少一次。</li>
+<li>数据分析：<a href="https://github.com/pandas-dev/pandas" target="_blank" rel="noopener noreferrer">pandas</a>, <a href="https://github.com/automl/auto-sklearn" target="_blank" rel="noopener noreferrer">sklearn</a></li>
 </ul>
-
+<blockquote>
+<p>《Effective Python》</p>
+</blockquote>
+<h3 id="scala-java" tabindex="-1"> Scala/Java</h3>
 <ul>
-<li>持续集成环境：根据特定分支配置的自动构建、运行测试和部署测试程序的环境。</li>
+<li>大数据领域：Hadoop,Spark,Flink</li>
 </ul>
-
+<blockquote>
+<p>《深入理解Java虚拟机》、《Spark快速大数据分析》、《Programming in Scala》</p>
+</blockquote>
+<blockquote>
+<p>使用Spark的Scala API来进行大规模的数据分析及处理，完成lag feature之类的特征工程处理</p>
+</blockquote>
+<h3 id="c-c-rust" tabindex="-1"> C/C++/Rust</h3>
+<blockquote>
+<p>当前流行的算法框架，例如TensorFlow, PyTorch, LightGBM等，底层都是基于C++为主要语言进行实现的</p>
+</blockquote>
+<h2 id="操作系统" tabindex="-1"> 操作系统</h2>
+<blockquote>
+<p>硬件结构，CPU调度，进程，线程，内存管理，文件系统，IO，网络等</p>
+</blockquote>
+<h3 id="linux" tabindex="-1"> Linux</h3>
 <ul>
-<li>预发布环境：接近生产的环境，而非测试环境。</li>
+<li>CentOS</li>
+<li>MacOS</li>
+<li>Ubuntu</li>
 </ul>
-<h2 id="一、分支策略" tabindex="-1"> <strong>一、分支策略</strong></h2>
-<h3 id="_1、分支策略" tabindex="-1"> <strong>1、分支策略</strong></h3>
-<p>主要分支策略基于 git flow，但基于复杂多变的项目研发过程会有所不同。</p>
-<p>Git flow主要流程见下图，具体使用可参考：<a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="noopener noreferrer">http://www.ruanyifeng.com/blog/2012/07/git.html</a></p>
-<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bb195d05989d49638aff53dd5d6d1fc7~tplv-k3u1fbpfcp-zoom-1.image" alt="" loading="lazy"></p>
-<h3 id="_2、长期分支" tabindex="-1"> <strong>2、长期分支</strong></h3>
+<h2 id="算法与数据结构" tabindex="-1"> 算法与数据结构</h2>
+<blockquote>
+<p>《统计思维》，《贝叶斯方法》，《程序员的数学2》</p>
+</blockquote>
+<blockquote>
+<p>机器学习：周志华《机器学习》、《PRML》，《ESL》、《统计学习方法》<br>
+深度学习</p>
+</blockquote>
 <ul>
-<li>master：用于存放对外发布的版本，任何时候在这个分支拿到的都是稳定的版本。</li>
+<li>通用机器学习：scikit-learn，Spark ML，LightGBM, XGBoost</li>
+<li>通用深度学习：Keras/TensorFlow，PyTorch</li>
+<li>特征工程：tsfresh, Featuretools，Feast</li>
+<li>AutoML：hyperopt，SMAC3，nni，autogluon</li>
+<li>可解释机器学习：shap，aix360，eli5，interpret</li>
+<li>异常检测：pyod，egads</li>
+<li>可视化：pyecharts，seaborn</li>
+<li>数据质量：cerberus，pandas_profiling，Deequ</li>
+<li>时间序列：fbprophet，sktime，pyts</li>
+<li>大规模机器学习：Horovod，BigDL，mmlspark</li>
+<li>Pipeline：MLflow, metaflow，KubeFlow，Hopsworks</li>
+<li>爬虫：scrapy</li>
 </ul>
-
+<h3 id="大规模算法运行" tabindex="-1"> 大规模算法运行</h3>
+<blockquote>
+<p>分布式训练</p>
+</blockquote>
+<blockquote>
+<p>高性能计算
+硬件：超线程技术,向量化指令集，GPGPU，TPU<br>
+软件：OpenBLAS，OpenMP，JIT<br>
+Nvidia-cuDNN， LightGBM<br>
+模型加速：MobileNet，TensorRT，二值网络</p>
+</blockquote>
+<h2 id="可视化" tabindex="-1"> 可视化</h2>
+<h2 id="软件工程" tabindex="-1"> 软件工程</h2>
 <ul>
-<li>develop：用于日常的开发，存放最新的开发版本。</li>
+<li>
+<p>代码规范</p>
+</li>
+<li>
+<p>设计模式</p>
+</li>
+<li>
+<p>质量保障,自动化测试</p>
+<blockquote>
+<p>sklearn，LightGBM</p>
+</blockquote>
+</li>
+<li>
+<p>项目管理</p>
+<blockquote>
+<p>敏捷开发，设计评审，代码评审，版本管控，任务看板管理</p>
+</blockquote>
+</li>
+<li>
+<p>软件架构师</p>
+<blockquote>
+<p>技术选型与系统架构设计，架构设计原则与模式，宽广的研发知识视野，高性能，高可用，可扩展性，安全性, 微服务</p>
+</blockquote>
+</li>
 </ul>
-<h3 id="_3、临时分支" tabindex="-1"> <strong>3、临时分支</strong></h3>
+<h2 id="mlops" tabindex="-1"> MLOps</h2>
+<blockquote>
+<p>框架工具：Airflow，DolphinScheduler，Cadence<br>
+开源系统：MLflow，Kubeflow，Metaflow，TFX
+数据质量：TFX Data Validation，Cerberus，Deequ<br>
+实验管理：MLflow，fitlog，wandb<br>
+Serving：mmlspark，TF Serving，MLeap，H2O，PredictionIO，PMML/PFA/ONNX<br>
+CI/CD：Jenkins，CircleCI，GoCD，VerCD
+系统监控：elasicsearch + kibana</p>
+</blockquote>
+<h2 id="数据库" tabindex="-1"> 数据库</h2>
+<p>Delta Lake<br>
+<a href="https://www.hopsworks.ai/" target="_blank" rel="noopener noreferrer">Feature Store</a></p>
+<h2 id="云计算" tabindex="-1"> 云计算</h2>
+<p>Docker、k8s</p>
+<hr>
+<p><a href="https://zhuanlan.zhihu.com/p/192633890" target="_blank" rel="noopener noreferrer">参考</a></p>
+<h2 id="文献" tabindex="-1"> 文献</h2>
 <ul>
-<li>feature：用于开发特定功能从develop中分出来的，一个feature分支对应一次迭代开发，开发完成后合并到develop分支中；</li>
+<li>NLP TF-IDF(Term Frequency - Inverse Document Frequency) <a href="https://www.ruanyifeng.com/blog/2013/03/tf-idf.html" target="_blank" rel="noopener noreferrer">TF-IDF与余弦相似性的应用（一）：自动提取关键词</a></li>
+<li>LDA <a href="https://nbviewer.jupyter.org/github/bmabey/pyLDAvis/blob/master/notebooks/sklearn.ipynb" target="_blank" rel="noopener noreferrer">pyLDAvis</a></li>
 </ul>
-
-<ul>
-<li>hotfix：用于修复bug，从master中分出来的，开发完成后合并到master、deveop分支。</li>
-</ul>
-
-<ul>
-<li>release：指发布正式版本之前（即合并到Master分支之前），我们可能需要有一个预发布的版本进行测试。</li>
-</ul>
-<h2 id="二、工作流程" tabindex="-1"> <strong>二、工作流程</strong></h2>
-<p><strong>注：以下文字中粗体为特殊情况，大多数时候不需考虑，从流程中去除的话，该工作流程并不复杂。</strong></p>
-<h3 id="_1、项目初始" tabindex="-1"> <strong>1、项目初始</strong></h3>
-<ul>
-<li>gitlab上创建项目</li>
-</ul>
-
-<ul>
-<li>创建develop分支，并将其设置为保护性分支，具有Maintainer权限的用户才可以直接push和merge，其他用户需要将代码提交到自己的分支后发起merge request（以下简称MR）请求，由Maintainer和团队成员进行代码评审决定是否接受合并。</li>
-</ul>
-
-<ul>
-<li>修改master分支为不允许任何人推送，该分支只能通过MR进行变更。</li>
-</ul>
-<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/95f71972b0484b2eb57b46329bb1654e~tplv-k3u1fbpfcp-zoom-1.image" alt="" loading="lazy"></p>
-<h3 id="_2、迭代开始阶段" tabindex="-1"> <strong>2、迭代开始阶段</strong></h3>
-<ul>
-<li>情况1：迭代时间较长、分工明确</li>
-</ul>
-
-<ul>
-<li>开发人员各自新建属于自己的feature分支，代码持续集成到develop。</li>
-</ul>
-
-<ul>
-<li><strong>情况2：迭代时间较短、分工不明确或需要多个人开发同一功能</strong></li>
-</ul>
-
-<ul>
-<li><strong>开发人员共享一个feature分支，代码持续集成到develop。</strong></li>
-</ul>
-
-<ul>
-<li><strong>情况3：迭代A、迭代B同时启动，A为主要迭代</strong></li>
-</ul>
-
-<ul>
-<li><strong>主要迭代根据情况1、2选择开发方式，代码持续集成到develop</strong></li>
-</ul>
-
-<ul>
-<li><strong>次要迭代从develop分出sprint-{版本}，feature基于该版本开发，代码持续集成到sprint-{版本}</strong></li>
-</ul>
-
-<ul>
-<li><strong>情况4：主要迭代A已启动，突然启动迭代B</strong></li>
-</ul>
-
-<ul>
-<li><strong>迭代B从master分出sprint-{版本}，feature基于该版本开发，代码持续集成到sprint-{版本}</strong></li>
-</ul>
-<p><strong>注意：情况2、3、4均为特殊情况，应尽量避免</strong>，尤其是3、4两种情况需要将代码持续集成到另一个版本，那么需要配置另一套持续集成环境，同时也加大了代码评审、分支合并的麻烦。下面描述的开发阶段以情况1为准，若为3、4情况，则需要将develop分支替换为sprint分支。</p>
-<h3 id="_3、迭代开发阶段" tabindex="-1"> <strong>3、迭代开发阶段</strong></h3>
-<ul>
-<li>开发人员完成feature的开发或阶段性开发时，发起到develop的MR。</li>
-</ul>
-
-<ul>
-<li>Maintainer和团队成员对MR进行review，拒绝的需要提交者重新修改代码后再次提交MR，接受的将合并到develop，并自动构建到测试环境。</li>
-</ul>
-
-<ul>
-<li>迭代整体测试通过后进入发布准备阶段。</li>
-</ul>
-<h3 id="_4、发布准备阶段" tabindex="-1"> <strong>4、发布准备阶段</strong></h3>
-<ul>
-<li>对于无预发布环境的项目，跳过准备阶段，进入发布阶段。</li>
-</ul>
-
-<ul>
-<li><strong>对于有预发布环境的项目，从develop中新建release为保护性分支（若已有则合并，该分支可在部署稳定后删除）。</strong></li>
-</ul>
-
-<ul>
-<li><strong>release分支构建到预发布环境进行测试，若存在bug，在该分支上进行修改。</strong></li>
-</ul>
-
-<ul>
-<li><strong>完成release分支的测试后，进入发布阶段。</strong></li>
-</ul>
-<h3 id="_5、发布阶段" tabindex="-1"> <strong>5、发布阶段</strong></h3>
-<ul>
-<li>提交发布申请，运维审核通过后进行代码合并</li>
-</ul>
-
-<ul>
-<li>存在release时，release分支合并到develop和master，不存在时，develop合并到master。</li>
-</ul>
-
-<ul>
-<li>通过master构建并发布到生产环境。</li>
-</ul>
-
-<ul>
-<li>在master上打上版本tag标签，标记发布。</li>
-</ul>
-<h3 id="_6、线上发布回滚情况" tabindex="-1"> 6、线上发布回滚情况</h3>
-<ul>
-<li>出现发布回滚情况时，合并到master上的代码也需进行回滚操作。</li>
-</ul>
-<h3 id="_7、线上bug修复" tabindex="-1"> 7、线上bug修复</h3>
-<ul>
-<li>从master新建hotfix分支用于修复bug。</li>
-</ul>
-
-<ul>
-<li>完成后将hotfix合并到develop进行测试。</li>
-</ul>
-
-<ul>
-<li>测试通过后合并到master进行发布，并打上小版本号的tag标签。</li>
-</ul>
-
-<ul>
-<li><strong>若当前存在release分支，还需将hotfix合并到release。</strong></li>
-</ul>
-
-<ul>
-<li>删除hotfix分支。</li>
-</ul>
-<h2 id="三、使用规范" tabindex="-1"> <strong>三、使用规范</strong></h2>
-<h3 id="_1、临时分支命名规范" tabindex="-1"> <strong>1、临时分支命名规范</strong></h3>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Math</title>
+      <link>https://abelsun.tech/Artificial-Intelligence/math.html</link>
+      <guid>https://abelsun.tech/Artificial-Intelligence/math.html</guid>
+      <source url="https://abelsun.tech/rss.xml">Math</source>
+      <description>希腊字母 大写 小写 英文注音 国际音标注音 中文注音 :--- :--- :------- :----------- :------- Α α alpha alfa 阿耳法 Β β beta beta 贝塔 Γ γ gamma gamma 伽马 Δ δ deta delta 德耳塔 Ε ε epsilon epsilon 艾普西隆 Ζ ζ zeta ...</description>
+      <pubDate>Sat, 19 Nov 2022 02:42:33 GMT</pubDate>
+      <content:encoded><![CDATA[<h1 id="math" tabindex="-1"> Math</h1>
+<h2 id="希腊字母" tabindex="-1"> 希腊字母</h2>
 <table>
 <thead>
 <tr>
-<th>临时分支</th>
-<th>前缀</th>
-<th>备注</th>
+<th style="text-align:left">大写</th>
+<th style="text-align:left">小写</th>
+<th style="text-align:left">英文注音</th>
+<th style="text-align:left">国际音标注音</th>
+<th style="text-align:left">中文注音</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>feature</td>
-<td>feature-</td>
-<td>若gitlab中包含任务issue，可以采用feature-{issueid}-{简单描述}命名</td>
+<td style="text-align:left">Α</td>
+<td style="text-align:left">α</td>
+<td style="text-align:left">alpha</td>
+<td style="text-align:left">alfa</td>
+<td style="text-align:left">阿耳法</td>
 </tr>
 <tr>
-<td>release</td>
-<td>release-</td>
-<td>以版本名称或版本号结尾</td>
+<td style="text-align:left">Β</td>
+<td style="text-align:left">β</td>
+<td style="text-align:left">beta</td>
+<td style="text-align:left">beta</td>
+<td style="text-align:left">贝塔</td>
 </tr>
 <tr>
-<td>hotfix</td>
-<td>hotfix-</td>
-<td>若gitlab中包含bug issue，可以采用feature-{issueid}-{简单描述}命名</td>
+<td style="text-align:left">Γ</td>
+<td style="text-align:left">γ</td>
+<td style="text-align:left">gamma</td>
+<td style="text-align:left">gamma</td>
+<td style="text-align:left">伽马</td>
 </tr>
 <tr>
-<td>sprint</td>
-<td>sprint-</td>
-<td>以迭代名称或版本号结尾</td>
+<td style="text-align:left">Δ</td>
+<td style="text-align:left">δ</td>
+<td style="text-align:left">deta</td>
+<td style="text-align:left">delta</td>
+<td style="text-align:left">德耳塔</td>
+</tr>
+<tr>
+<td style="text-align:left">Ε</td>
+<td style="text-align:left">ε</td>
+<td style="text-align:left">epsilon</td>
+<td style="text-align:left">epsilon</td>
+<td style="text-align:left">艾普西隆</td>
+</tr>
+<tr>
+<td style="text-align:left">Ζ</td>
+<td style="text-align:left">ζ</td>
+<td style="text-align:left">zeta</td>
+<td style="text-align:left">zeta</td>
+<td style="text-align:left">截塔</td>
+</tr>
+<tr>
+<td style="text-align:left">Η</td>
+<td style="text-align:left">η</td>
+<td style="text-align:left">eta</td>
+<td style="text-align:left">eta</td>
+<td style="text-align:left">艾塔</td>
+</tr>
+<tr>
+<td style="text-align:left">Θ</td>
+<td style="text-align:left">θ</td>
+<td style="text-align:left">theta</td>
+<td style="text-align:left">θita</td>
+<td style="text-align:left">西塔</td>
+</tr>
+<tr>
+<td style="text-align:left">Ι</td>
+<td style="text-align:left">ι</td>
+<td style="text-align:left">iota</td>
+<td style="text-align:left">iota</td>
+<td style="text-align:left">约塔</td>
+</tr>
+<tr>
+<td style="text-align:left">Κ</td>
+<td style="text-align:left">κ</td>
+<td style="text-align:left">kappa</td>
+<td style="text-align:left">kappa</td>
+<td style="text-align:left">卡帕</td>
+</tr>
+<tr>
+<td style="text-align:left">∧</td>
+<td style="text-align:left">λ</td>
+<td style="text-align:left">lambda</td>
+<td style="text-align:left">lambda</td>
+<td style="text-align:left">兰姆达</td>
+</tr>
+<tr>
+<td style="text-align:left">Μ</td>
+<td style="text-align:left">μ</td>
+<td style="text-align:left">mu</td>
+<td style="text-align:left">miu</td>
+<td style="text-align:left">缪</td>
+</tr>
+<tr>
+<td style="text-align:left">Ν</td>
+<td style="text-align:left">ν</td>
+<td style="text-align:left">nu</td>
+<td style="text-align:left">niu</td>
+<td style="text-align:left">纽</td>
+</tr>
+<tr>
+<td style="text-align:left">Ξ</td>
+<td style="text-align:left">ξ</td>
+<td style="text-align:left">xi</td>
+<td style="text-align:left">ksi</td>
+<td style="text-align:left">可塞</td>
+</tr>
+<tr>
+<td style="text-align:left">Ο</td>
+<td style="text-align:left">ο</td>
+<td style="text-align:left">omicron</td>
+<td style="text-align:left">omikron</td>
+<td style="text-align:left">奥密可戎</td>
+</tr>
+<tr>
+<td style="text-align:left">∏</td>
+<td style="text-align:left">π</td>
+<td style="text-align:left">pi</td>
+<td style="text-align:left">pai</td>
+<td style="text-align:left">派</td>
+</tr>
+<tr>
+<td style="text-align:left">Ρ</td>
+<td style="text-align:left">ρ</td>
+<td style="text-align:left">rho</td>
+<td style="text-align:left">rou</td>
+<td style="text-align:left">柔</td>
+</tr>
+<tr>
+<td style="text-align:left">∑</td>
+<td style="text-align:left">σ</td>
+<td style="text-align:left">sigma</td>
+<td style="text-align:left">sigma</td>
+<td style="text-align:left">西格马</td>
+</tr>
+<tr>
+<td style="text-align:left">Τ</td>
+<td style="text-align:left">τ</td>
+<td style="text-align:left">tau</td>
+<td style="text-align:left">tau</td>
+<td style="text-align:left">套</td>
+</tr>
+<tr>
+<td style="text-align:left">Υ</td>
+<td style="text-align:left">υ</td>
+<td style="text-align:left">upsilon</td>
+<td style="text-align:left">jupsilon</td>
+<td style="text-align:left">衣普西隆</td>
+</tr>
+<tr>
+<td style="text-align:left">Φ</td>
+<td style="text-align:left">φ</td>
+<td style="text-align:left">phi</td>
+<td style="text-align:left">fai</td>
+<td style="text-align:left">斐</td>
+</tr>
+<tr>
+<td style="text-align:left">Χ</td>
+<td style="text-align:left">χ</td>
+<td style="text-align:left">chi</td>
+<td style="text-align:left">khai</td>
+<td style="text-align:left">喜</td>
+</tr>
+<tr>
+<td style="text-align:left">Ψ</td>
+<td style="text-align:left">ψ</td>
+<td style="text-align:left">psi</td>
+<td style="text-align:left">psai</td>
+<td style="text-align:left">普西</td>
+</tr>
+<tr>
+<td style="text-align:left">Ω</td>
+<td style="text-align:left">ω</td>
+<td style="text-align:left">omega</td>
+<td style="text-align:left">omiga</td>
+<td style="text-align:left">欧米</td>
 </tr>
 </tbody>
 </table>
-<p>CI管道可通过前缀匹配进行相关的自动化操作。</p>
-<p>分支前缀，一般用-/连接，很少用_，<em>表示两个词语有关联，feature分支这里实际上是一种分组，所以一般用-/，可以在前缀之后使用</em>。</p>
-<h3 id="_2、feature-分支使用规范" tabindex="-1"> <strong>2、feature 分支使用规范</strong></h3>
+<h2 id="基础概念" tabindex="-1"> 基础概念</h2>
 <ul>
-<li>分支粒度：以一个功能为单位，尽量对应gitlab上的一个任务issue，开发下一个功能时新建feature</li>
+<li>
+<p>自然数。从0开始算</p>
+</li>
+<li>
+<p>质数。只能被1和他本事整除的正整数（即只有1和他本事两个约数）叫质数，反之为合数，1既不是质数也不是合数。</p>
+<blockquote>
+<p>质数:2,3,5,7,11,13,17,19<br>
+合数：4，6，8，10
+2是唯一一个即使质数也是偶数的正整数，即是唯一是偶质数，大于2的质数必定是奇数<br>
+若正整数a,b的乘积是质数p，则a = p,b = 1或 b = p, a = 1<br>
+若两个质数的和或差是奇数，那么其中一个质数必然是2。因为只有偶±奇才能等于奇数<br>
+若两个质数的乘积是偶数，那么其中一个质数必然是2。因为只有奇乘偶才能是偶数</p>
+</blockquote>
+</li>
+<li>
+<p>互质数。公约数只有1的两个数叫互质数。如：9的约数{1,3,9},16的约数{1,2,4,8,16} 它们的公约数1，所以它们是互质数。</p>
+</li>
+<li>
+<p>最小公倍数</p>
+</li>
 </ul>
-
+<h2 id="方程" tabindex="-1"> 方程</h2>
+<h3 id="一元二次" tabindex="-1"> 一元二次</h3>
 <ul>
-<li>存在时间：尽量短，合并到develop后选择合适的时间点删除feature</li>
+<li>
+<p>直接开平方法</p>
+<blockquote>
+<p>若 $x^2=a(a \geq 0)$ ，则 $x=\pm \sqrt{a}$</p>
+</blockquote>
+</li>
+<li>
+<p>配方法</p>
+<blockquote>
+<p>但二次项系数为1的时，方程两边都加上一次项系数一半的平方。<br>
+构成一个完全平方公式即(a+b)²=a²+2ab+b²、(a-b)²=a²-2ab+b²<br>
+平方差公式：(a+b)(a-b)=a²-b²</p>
+</blockquote>
+<p>解方程：$x^2 + 3x = 0$<br>
+$x^2 + 3x + (\frac{3}{2})^2 = (\frac{3}{2})^2$<br>
+$(x+\frac{3}{2})^2 = \frac{9}{4}$<br>
+$x+\frac{3}{2} = \pm \frac{3}{2}$<br>
+$x = -\frac{6}{2} = -3$ 或 x = 0</p>
+</li>
+<li>
+<p>因式分解法</p>
+<blockquote>
+<p>若(x-a)(x-b)=0，则x-a=0或x-b=0</p>
+</blockquote>
+</li>
+<li>
+<p>公式法</p>
+<blockquote>
+<p>方程$ax^2 + bx + c = 0(a \neq 0, 判别式：b^2-4ac\geq0)$,则解是$x=\frac{-b\pm \sqrt{b^2-4ac}}{2a}$</p>
+</blockquote>
+</li>
+<li>
+<p>根与系数的关系</p>
+<blockquote>
+<p>若$ax^2 + bx + c = 0(a \neq 0)$的两个跟为$x_1,x_2$<br>
+则$x_1+x_2=- \frac{b}{a}$，$x_1x_2=\frac{c}{a}$</p>
+</blockquote>
+</li>
 </ul>
-
+<p><img src="@source/assets/img/解一元二次.png" alt="" loading="lazy"></p>
+<h2 id="集合" tabindex="-1"> 集合</h2>
 <ul>
-<li>集成频率：每天最少一次，feature要经常合并到develop中，便于code review，开发要经常从develop中获取最新代码；</li>
-</ul>
-
+<li>集合元素的性质：确定性、无序性、互异性</li>
+<li>元素与集合的关系
 <ul>
-<li>合并请求：当feature完成的时候即可发起MR，但当一个feature开发时间较长时，也应当尽量提早发起MR，此时可在MR中添加WIP前缀，表示当前工作正在处理中，相关人员可以提前审核，但不合并</li>
+<li>属于 $\in$  , 不属于 $\notin$<br>
+元素a在集合A里面：a $\in$ A<br>
+元素a不再集合A里面: a $\notin$ A</li>
 </ul>
-<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/66303c1820e74334b0aaf59244128472~tplv-k3u1fbpfcp-zoom-1.image" alt="" loading="lazy"></p>
-<h3 id="_3、hotfix-分支使用规范" tabindex="-1"> <strong>3、hotfix 分支使用规范</strong></h3>
+</li>
+<li>常见数集符合
 <ul>
-<li>与feature鉴别：线上除紧急bug修复，当需要做功能性调整并快速上线时，也需要新建hotfix分支，而非feature。</li>
+<li>$N$ 自然数集  <code>0,1,2,3……</code></li>
+<li>$N^*$ 或 $N_+$ 正整数集 <code>1,2,3……</code></li>
+<li>$Z$ 整数集，包含正整数，负整数，零</li>
+<li>$Q$ 有理数集，有理数是整数（正整数、0、负整数）和分数的统称</li>
+<li>$R$ 实数集，实数是有理数和无理数的总称</li>
 </ul>
-<h3 id="_4、sprint-分支使用规范" tabindex="-1"> <strong>4、sprint 分支使用规范</strong></h3>
+</li>
+<li>集合之间的关系
 <ul>
-<li>sprint的使用与develop相同，也为保护性分支。</li>
+<li>A=B，相等。集合A和集合B中说有元素都相同</li>
+<li>A$\subseteq$B，子集。B大，其实也有可能相等</li>
+<li>A$\subseteq$B，真子集，符号有错误，下面是一个不等于号$\neq$。也是B大，而且不可能相等。</li>
+<li>$\emptyset$，空集。空集是任何集合在子集，是任何非空集的真子集</li>
+<li>A$\cup$B，并集。取两个集合的所有元素</li>
+<li>A$\cap$B，交集。取两个集合相等的部分</li>
+<li>$\complement_UA$，补集。A集合在全集U中，取U中除A集合剩下的部分</li>
 </ul>
-
+</li>
+<li>必然结论
 <ul>
-<li>需要从sprint中分出feature分支进行开发，从feature提交MR到sprint中做代码审查。</li>
+<li>A$\cup$B = A 可推理出  A$\supseteq$B</li>
+<li>A$\cap$B = A 可退理出  B$\supseteq$A</li>
+<li>A$\cap$A = A</li>
+<li>$A\cap \emptyset = \emptyset$</li>
+<li>$A\cap\complement_UA = \emptyset$</li>
+<li>$A\cup\complement_UA = U$</li>
+<li>$\complement_U(\complement_UA) = A$</li>
+<li>$A\subseteq B$ 可推理出 $A\cap B = A$ 可推理出 $A\cup B = B$ 可推理出 $\complement_UB \subseteq \complement_UA$ 可推理出 $A \cap (\complement_UB) = \emptyset$</li>
+<li>集合A中有n个元素，那么他的子集个数为$2<sup>n$，真子集个数为$2</sup>n-1$，非空真子集个数为$2^n-2$</li>
 </ul>
-<h3 id="_5、release分支使用规范" tabindex="-1"> <strong>5、release分支使用规范</strong></h3>
+<blockquote>
+<p>例：集合A = {1,2,3}<br>
+子集有：空集、{1}、{2}、{3}、{1,2}、{1,3}、{2,3}、{1,2,3} 共8个 =  $2^3$<br>
+真子集去掉{1,2,3} 共7个<br>
+非空真子集去掉{1,2,3}和空集，共6个</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="函数" tabindex="-1"> 函数</h2>
+<p>函数三要素：定义域，对应关系，值域。</p>
+<p>函数：$y=f(x),x \in A$</p>
 <ul>
-<li>release为保护性分支。</li>
+<li>定义域：自变量x取值范围构成的集合</li>
+<li>值域：函数值的集合 {$f(x), x\in A$}</li>
 </ul>
-
+<h2 id="方差" tabindex="-1"> 方差</h2>
+<p>方差是各个数据与平均数之差的平方的和的平均数。</p>
+<p>$S^2 = \frac{1}{n}[(x_1-x)^2 + (x_2-x)^2 + ... + (x_n-x)^2]$</p>
+<p>$S^2 = \frac{\sum^n_{i=1}(x_i - x)^2}{n}$</p>
+<p>其中，x表示样本的平均数，n表示样本的数量，$x_i$表示个体，而$S^2$就表示方差。</p>
+<blockquote>
+<p>两人的5次测验成绩如下：X： 50，100，100，60，50，平均值E(X)=72；Y：73， 70，75，72，70 平均值E(Y)=72。平均成绩相同，但X 不稳定，对平均值的偏离大。方差描述随机变量对于数学期望的偏离程度。<br>
+方差越小越稳定</p>
+</blockquote>
+<h2 id="标准差" tabindex="-1"> 标准差</h2>
+<p>$δ=\sqrt(\frac{(x_1-x)^2 +(x_2-x)^2 +......(x_n-x)^2)}{n})$</p>
+<p>方差=标准差的平方</p>
+<h2 id="数据标准化-normalization-method" tabindex="-1"> 数据标准化 Normalization Method</h2>
+<blockquote>
+<p>机器学习算法中要求样本间的距离就要使用数据归一化，把数据映射到同一尺度。<br>
+数据归一化是为了解决量纲的问题，使数据映射到同一尺度。举2个例子：比如两个特征为月收入和和身高。月收入范围5000元-30000元，身高为1m-2.5m，在计算两个特征的欧式距离时，由于取值范围身高这一特征被忽略了，这样就让身高这一特征的信息失效了。所以要使用数据归一化把数据映射到同一尺度</p>
+</blockquote>
 <ul>
-<li>使用 hotfix 分支进行bug修复。</li>
+<li>
+<p>标准归一化 Z-score标准化</p>
+<p>$x∗ = \frac{x−μ}{δ}$</p>
+<p>其中 μ为所有样本数据的均值（mean）， δ为所有样本数据的标准差（standard deviation）。</p>
+</li>
+<li>
+<p>最大最小归一化</p>
+<p>也称为离差标准化，是对原始数据的线性变换，使结果值映射到 [0 - 1] 之间。</p>
+<p>$x∗=\frac{x − x_{min}}{x_{max} − x_{min}}$</p>
+<p>其中 $x_{max}$为样本数据的最大值， $x_{min}$为样本数据的最小值。这种方法有个缺陷就是当有新数据加入时，可能导致 $x_{max}$和 $x_{min}$的变化，需要重新定义。</p>
+</li>
 </ul>
-<h2 id="四、代码提交规范" tabindex="-1"> 四、代码提交规范</h2>
-<p>先说说为什么要制定代码提交规范。</p>
-<ol>
-<li>Git 是当前最流行的代码仓管理系统，可以说是开发者的必备技能。它非常强大，使用得当的话可以大幅助力个人效能的提升。如果一个团队的成员都能熟练使用 Git 的话，可以大大提高团队代码的模块化、可读性、可维护性，从而提高团队的研发效能。</li>
-<li>成功推进代码审查的两个关键操作：一是注意审查提交的原子性，二是审查中关注提交说明（Commit Message）。</li>
-</ol>
-<h3 id="_1、代码提交原子性规范" tabindex="-1"> 1、代码提交原子性规范</h3>
-<p>代码提交的原子性，是指一个提交包含一个不可分割的特性、修复或者优化，同时这个提交要尽可能小。如果用一个提交完成一个功能，这个提交还是会比较大的话，我们需要把这个功能再拆分为子功能。</p>
-<p>原子性提交的优点：</p>
-<ol>
-<li>可以让代码结构更清晰、更容易理解；</li>
-<li>出了问题之后方便定位，并可以针对性地对问题提交进行“回滚”；</li>
-<li>在功能开关的协助下，可以让开发者尽快把代码推送到 develop/master 上进行合并。这正是持续集成的基础。</li>
-</ol>
-<p>规范要求：</p>
-<ol>
-<li>一个提交包含一个不可分割的特性、修复或者优化，同时这个提交要尽可能小。</li>
-</ol>
-<p>代码审查标准</p>
-<ol>
-<li>不符合原子性提交的代码可以直接打回。</li>
-<li>逐步要求提交的原子性，不要求一次性到位，但必须逐步改进。</li>
-</ol>
-<h3 id="_2、代码提交说明规范" tabindex="-1"> 2、代码提交说明规范</h3>
-<p>好的提交说明可以提升代码可读性，同时也是提高代码审查效率的利器。通过制定严格的提交说明格式来规范其质量，可以方便审查者查理解被审查代码的意图、实现思路，并通过测试情况，加快对代码的理解，提高对代码质量的信心，从而大大提高审查者的效率。同时，严格的提交说明格式及好的说明质量也可以督促开发者提高代码质量。</p>
-<p>好的格式应该包含以下几个方面：</p>
-<ul>
-<li><strong>标题</strong>，简明扼要地描述这个提交。这部分最好在 70 个字符之内，以确保在单行显示的时候能够显示完整。比如，在命令行常用的 git log --oneline 输出结果要能显示完全。</li>
-<li><strong>详细描述</strong>，包括提交的目的、选择这个方法的原因，以及实现细节的总结性描述。这三个方面的内容最能帮助审查者阅读代码。</li>
-<li><strong>测试情况</strong>，描述的是你对这个提交做了什么样的测试验证，具体包括正常情况的输出、错误情况的输出，以及性能、安全等方面的专项测试结果。这部分内容，可以增加审查者对提交代码的了解程度以及信心。</li>
-<li><strong>与其他工具和系统相关的信息</strong>，比如相关任务 ID、相关的冲刺（sprint，也可翻译为“迭代”）链接。这些信息对工具的网状互联提供基础信息，非常重要。</li>
-</ul>
-<p>规范要求：</p>
-<ol>
-<li>提交说明必须包括<strong>标题、测试情况</strong>两个部分。</li>
-<li>提交说明需要符合格式要求，根据提交的代码量，有必要时增加<strong>详细描述、相关信息</strong>两部分。</li>
-<li>基本格式要求（其中标题、测试两个部分必须包括，标题必须使用 <strong>type(scope)</strong>  形式）：</li>
-</ol>
-<div data-ext="text"><pre><code>标题
-
-描述:
-
-测试:
-
-相关信息:
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>提交说明模板：</p>
-<div data-ext="text"><pre><code>$type($scope): 
-
-summary: 
-
-test: 
-
-task id: 
-
-BREAKING CHANGE: 
-
-Closes：关闭issue，如#123
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>type 可使用以下选项：</p>
-<ul>
-<li>feat：新功能</li>
-<li>fix：修补 bug</li>
-<li>docs：仅文档的改动</li>
-<li>style：代码格式的改动，不影响代码运行的变动。</li>
-<li>refactor：重构，即不是新增功能，也不是修改bug的代码变动</li>
-<li>perf：性能优化</li>
-<li>test： 增加测试</li>
-<li>build：构建过程</li>
-<li>chore: 不修改源代码的杂项变动</li>
-</ul>
-<p>scope 用于说明 commit 影响的范围，比如数据层、控制层、视图层等等，视项目不同而不同。</p>
-<p>在末尾说明其他重要信息，比如不兼容的改动、修复的 bug id 等。</p>
 ]]></content:encoded>
-      <enclosure url="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bb195d05989d49638aff53dd5d6d1fc7~tplv-k3u1fbpfcp-zoom-1.image" type="image/"/>
+    </item>
+    <item>
+      <title></title>
+      <link>https://abelsun.tech/algorithm/BloomFilter.html</link>
+      <guid>https://abelsun.tech/algorithm/BloomFilter.html</guid>
+      <source url="https://abelsun.tech/rss.xml"></source>
+      <description>布隆过滤器 Bloom Filter 应用场景 在大量是数据池中找出某元素是否存在。 字处理软件中，需要检查一个英语单词是否拼写正确; 在 FBI，一个嫌疑人的名字是否已经在嫌疑名单上; 在网络爬虫里，一个网址是否被访问过; yahoo, gmail等邮箱垃圾邮件过滤功能; 联想到的解决方案 数组; 链表; 树、平衡二叉树、Trie; Map (红黑树...</description>
+      <pubDate>Sat, 19 Nov 2022 02:42:33 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="布隆过滤器-bloom-filter" tabindex="-1"> 布隆过滤器 Bloom Filter</h2>
+<h2 id="应用场景" tabindex="-1"> 应用场景</h2>
+<p>在大量是数据池中找出某元素是否存在。</p>
+<ul>
+<li>字处理软件中，需要检查一个英语单词是否拼写正确</li>
+<li>在 FBI，一个嫌疑人的名字是否已经在嫌疑名单上</li>
+<li>在网络爬虫里，一个网址是否被访问过</li>
+<li>yahoo, gmail等邮箱垃圾邮件过滤功能</li>
+</ul>
+<p>联想到的解决方案</p>
+<ul>
+<li>数组</li>
+<li>链表</li>
+<li>树、平衡二叉树、Trie</li>
+<li>Map (红黑树)</li>
+<li>哈希表</li>
+</ul>
+<p>对于这些方案 BloomFilter 具有时间和空间上的优势</p>
+<h2 id="原理" tabindex="-1"> 原理</h2>
+<p>布隆过滤器（Bloom Filter）的核心实现是一个超大的位数组和几个哈希函数。假设位数组的长度为m，哈希函数的个数为k</p>
+<p><img src="@source/assets/img/bloomfilter.webp" alt="BloomFilter" loading="lazy"></p>
+<p>假设集合里面有3个元素{x, y, z}，哈希函数的个数为3。首先将位数组进行初始化，将里面每个位都设置位0。对于集合里面的每一个元素，将元素依次通过3个哈希函数进行映射，每次映射都会产生一个哈希值，这个值对应位数组上面的一个点，然后将位数组对应的位置标记为1。查询W元素是否存在集合中的时候，同样的方法将W通过哈希映射到位数组上的3个点。如果3个点的其中有一个点不为1，则可以判断该元素一定不存在集合中。反之，如果3个点都为1，则该元素可能存在集合中。注意：此处不能判断该元素是否一定存在集合中，可能存在一定的误判率。可以从图中可以看到：假设某个元素通过映射对应下标为4，5，6这3个点。虽然这3个点都为1，但是很明显这3个点是不同元素经过哈希得到的位置，因此这种情况说明元素虽然不在集合中，也可能对应的都是1，这是误判率存在的原因。</p>
+<h2 id="实现" tabindex="-1"> 实现</h2>
+<h3 id="基础实现" tabindex="-1"> 基础实现</h3>
+<p>对于程序员来说概念不好理解，代码更好理解。下面就是基础的实现方式，目的就是更好的理解实现原理。</p>
+<div data-ext="java"><pre><code><span>import</span> <span><span>java<span>.</span>util<span>.</span></span><span>BitSet</span></span><span>;</span>
+
+<span>public</span> <span>class</span> <span>SimpleBloomFilter</span> <span>{</span>
+
+    <span>private</span> <span>static</span> <span>final</span> <span>int</span> <span>DEFAULT_SIZE</span> <span>=</span> <span>2</span> <span>&lt;&lt;</span> <span>24</span><span>;</span>
+    <span>private</span> <span>static</span> <span>final</span> <span>int</span><span>[</span><span>]</span> seeds <span>=</span> <span>new</span> <span>int</span><span>[</span><span>]</span> <span>{</span><span>7</span><span>,</span> <span>11</span><span>,</span> <span>13</span><span>,</span> <span>31</span><span>,</span> <span>37</span><span>,</span> <span>61</span><span>,</span><span>}</span><span>;</span>
+
+    <span>private</span> <span>BitSet</span> bits <span>=</span> <span>new</span> <span>BitSet</span><span>(</span><span>DEFAULT_SIZE</span><span>)</span><span>;</span>
+    <span>private</span> <span>SimpleHash</span><span>[</span><span>]</span> func <span>=</span> <span>new</span> <span>SimpleHash</span><span>[</span>seeds<span>.</span>length<span>]</span><span>;</span>
+
+    <span>public</span> <span>static</span> <span>void</span> <span>main</span><span>(</span><span>String</span><span>[</span><span>]</span> args<span>)</span> <span>{</span>
+        <span>String</span> value <span>=</span> <span>"Hello World"</span><span>;</span>
+        <span>SimpleBloomFilter</span> filter <span>=</span> <span>new</span> <span>SimpleBloomFilter</span><span>(</span><span>)</span><span>;</span>
+        <span>System</span><span>.</span>out<span>.</span><span>println</span><span>(</span>filter<span>.</span><span>contains</span><span>(</span>value<span>)</span><span>)</span><span>;</span>
+        filter<span>.</span><span>add</span><span>(</span>value<span>)</span><span>;</span>
+        <span>System</span><span>.</span>out<span>.</span><span>println</span><span>(</span>filter<span>.</span><span>contains</span><span>(</span>value<span>)</span><span>)</span><span>;</span>
+    <span>}</span>
+
+    <span>public</span> <span>SimpleBloomFilter</span><span>(</span><span>)</span> <span>{</span>
+        <span>for</span> <span>(</span><span>int</span> i <span>=</span> <span>0</span><span>;</span> i <span>&lt;</span> seeds<span>.</span>length<span>;</span> i<span>++</span><span>)</span> <span>{</span>
+            func<span>[</span>i<span>]</span> <span>=</span> <span>new</span> <span>SimpleHash</span><span>(</span><span>DEFAULT_SIZE</span><span>,</span> seeds<span>[</span>i<span>]</span><span>)</span><span>;</span>
+        <span>}</span>
+    <span>}</span>
+
+    <span>public</span> <span>void</span> <span>add</span><span>(</span><span>String</span> value<span>)</span> <span>{</span>
+        <span>for</span> <span>(</span><span>SimpleHash</span> f <span>:</span> func<span>)</span> <span>{</span>
+            bits<span>.</span><span>set</span><span>(</span>f<span>.</span><span>hash</span><span>(</span>value<span>)</span><span>,</span> <span>true</span><span>)</span><span>;</span>
+        <span>}</span>
+    <span>}</span>
+
+    <span>public</span> <span>boolean</span> <span>contains</span><span>(</span><span>String</span> value<span>)</span> <span>{</span>
+        <span>if</span> <span>(</span>value <span>==</span> <span>null</span><span>)</span> <span>{</span>
+            <span>return</span> <span>false</span><span>;</span>
+        <span>}</span>
+        <span>boolean</span> ret <span>=</span> <span>true</span><span>;</span>
+        <span>for</span> <span>(</span><span>SimpleHash</span> f <span>:</span> func<span>)</span> <span>{</span>
+            ret <span>=</span> ret <span>&amp;&amp;</span> bits<span>.</span><span>get</span><span>(</span>f<span>.</span><span>hash</span><span>(</span>value<span>)</span><span>)</span><span>;</span>
+        <span>}</span>
+        <span>return</span> ret<span>;</span>
+    <span>}</span>
+
+    <span>public</span> <span>static</span> <span>class</span> <span>SimpleHash</span> <span>{</span>
+
+        <span>private</span> <span>int</span> cap<span>;</span>
+        <span>private</span> <span>int</span> seed<span>;</span>
+
+        <span>public</span> <span>SimpleHash</span><span>(</span><span>int</span> cap<span>,</span> <span>int</span> seed<span>)</span> <span>{</span>
+            <span>this</span><span>.</span>cap <span>=</span> cap<span>;</span>
+            <span>this</span><span>.</span>seed <span>=</span> seed<span>;</span>
+        <span>}</span>
+
+        <span>public</span> <span>int</span> <span>hash</span><span>(</span><span>String</span> value<span>)</span> <span>{</span>
+            <span>int</span> result <span>=</span> <span>0</span><span>;</span>
+            <span>int</span> len <span>=</span> value<span>.</span><span>length</span><span>(</span><span>)</span><span>;</span>
+            <span>for</span> <span>(</span><span>int</span> i <span>=</span> <span>0</span><span>;</span> i <span>&lt;</span> len<span>;</span> i<span>++</span><span>)</span> <span>{</span>
+                result <span>=</span> seed <span>*</span> result <span>+</span> value<span>.</span><span>charAt</span><span>(</span>i<span>)</span><span>;</span>
+            <span>}</span>
+            <span>return</span> <span>(</span>cap <span>-</span> <span>1</span><span>)</span> <span>&amp;</span> result<span>;</span>
+        <span>}</span>
+
+    <span>}</span>
+<span>}</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="生产实现" tabindex="-1"> 生产实现</h3>
+<ul>
+<li><a href="https://mvnrepository.com/artifact/com.google.guava/guava" target="_blank" rel="noopener noreferrer">Guava</a> com.google.common.hash.BloomFilter</li>
+<li><a href="../assets/code/BloomFilter.java">BloomFilter.java</a>  <a href="https://github.com/MagnusS/Java-BloomFilter/blob/master/src/com/skjegstad/utils/BloomFilter.java" target="_blank" rel="noopener noreferrer">usedby</a></li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title></title>
+      <link>https://abelsun.tech/algorithm/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0.html</link>
+      <guid>https://abelsun.tech/algorithm/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0.html</guid>
+      <source url="https://abelsun.tech/rss.xml"></source>
+      <description>算法学习 algorithm 记录常用解决方案算法 收藏一下算法的使用案例 基础 [All Algorithms implemented in Java ](https://github.com/TheAlgorithms/Java) GitHub stars 寻路算法 A\*（A-Star) A\* Pathfinding for Beginners...</description>
+      <pubDate>Sat, 19 Nov 2022 02:42:33 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="算法学习-algorithm" tabindex="-1"> 算法学习 algorithm</h2>
+<p>记录常用解决方案算法<br>
+收藏一下算法的使用案例</p>
+<h2 id="基础" tabindex="-1"> 基础</h2>
+<p><a href="https://github.com/TheAlgorithms/Java" target="_blank" rel="noopener noreferrer">All Algorithms implemented in Java
+</a>
+<img src="https://img.shields.io/github/stars/TheAlgorithms/Java?style=flat-square" alt="GitHub stars" loading="lazy"></p>
+<h2 id="寻路算法" tabindex="-1"> 寻路算法</h2>
+<ul>
+<li>A*（A-Star) <a href="https://www.gamedev.net/articles/programming/artificial-intelligence/a-pathfinding-for-beginners-r2003/" target="_blank" rel="noopener noreferrer">A* Pathfinding for Beginners</a>
+<a href="https://github.com/sbfkcel/fast-astar" target="_blank" rel="noopener noreferrer">fast-astar</a> <img src="https://img.shields.io/github/stars/sbfkcel/fast-astar?style=flat-square" alt="GitHub stars" loading="lazy"></li>
+</ul>
+<h2 id="搜索" tabindex="-1"> 搜索</h2>
+<ul>
+<li>DFS 深度优先搜索</li>
+<li>BFS 宽度/广度优先搜索</li>
+</ul>
+<h2 id="协同编辑" tabindex="-1"> 协同编辑</h2>
+<ul>
+<li>OT （Operational Transformation）
+<ul>
+<li><a href="https://blog.csdn.net/pheecian10/article/details/78496854" target="_blank" rel="noopener noreferrer">1</a></li>
+<li><a href="https://yafeilee.com/blogs/100" target="_blank" rel="noopener noreferrer">2</a></li>
+</ul>
+</li>
+</ul>
+]]></content:encoded>
+      <enclosure url="https://img.shields.io/github/stars/TheAlgorithms/Java?style=flat-square" type="image/"/>
+    </item>
+    <item>
+      <title></title>
+      <link>https://abelsun.tech/bigdata/Elasticsearch.html</link>
+      <guid>https://abelsun.tech/bigdata/Elasticsearch.html</guid>
+      <source url="https://abelsun.tech/rss.xml"></source>
+      <description>Elasticsearch 关键字 Cluster：集群。; ES可以作为一个独立的单个搜索服务器。不过，为了处理大型数据集，实现容错和高可用性，ES可以运行在许多互相合作的服务器上。这些服务器的集合称为集群。 Node：节点。; 形成集群的每个服务器称为节点。 Shard：分片。; 当有大量的文档时，由于内存的限制、磁盘处理能力不足、无法足够快的响应...</description>
+      <pubDate>Sat, 19 Nov 2022 02:42:33 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="elasticsearch" tabindex="-1"> Elasticsearch</h2>
+<h2 id="关键字" tabindex="-1"> 关键字</h2>
+<ul>
+<li>
+<p>Cluster：集群。</p>
+<p>ES可以作为一个独立的单个搜索服务器。不过，为了处理大型数据集，实现容错和高可用性，ES可以运行在许多互相合作的服务器上。这些服务器的集合称为集群。</p>
+</li>
+<li>
+<p>Node：节点。
+形成集群的每个服务器称为节点。</p>
+</li>
+<li>
+<p>Shard：分片。</p>
+<p>当有大量的文档时，由于内存的限制、磁盘处理能力不足、无法足够快的响应客户端的请求等，一个节点可能不够。这种情况下，数据可以分为较小的分片。每个分片放到不同的服务器上。
+当你查询的索引分布在多个分片上时，ES会把查询发送给每个相关的分片，并将结果组合在一起，而应用程序并不知道分片的存在。即：这个过程对用户来说是透明的。</p>
+</li>
+<li>
+<p>Replia：副本。</p>
+<p>为提高查询吞吐量或实现高可用性，可以使用分片副本。
+副本是一个分片的精确复制，每个分片可以有零个或多个副本。ES中可以有许多相同的分片，其中之一被选择更改索引操作，这种特殊的分片称为主分片。
+当主分片丢失时，如：该分片所在的数据不可用时，集群将副本提升为新的主分片。</p>
+</li>
+<li>
+<p>全文检索。</p>
+<p>全文检索就是对一篇文章进行索引，可以根据关键字搜索，类似于mysql里的like语句。
+全文索引就是把内容根据词的意义进行分词，然后分别创建索引，例如”你们的激情是因为什么事情来的” 可能会被分词成：“你们“，”激情“，“什么事情“，”来“ 等token，这样当你搜索“你们” 或者 “激情” 都会把这句搜出来。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Elasticsearch</th>
+<th>MySQL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Index</td>
+<td>Database</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>Table</td>
+</tr>
+<tr>
+<td>Mapping</td>
+<td>Schema</td>
+</tr>
+<tr>
+<td>Document</td>
+<td>Row</td>
+</tr>
+<tr>
+<td>Field</td>
+<td>Column</td>
+</tr>
+<tr>
+<td>Query DSL</td>
+<td>SQL</td>
+</tr>
+<tr>
+<td>Restful API</td>
+<td>insert select update delete</td>
+</tr>
+</tbody>
+</table>
+<h3 id="安装" tabindex="-1"> 安装</h3>
+<ul>
+<li>Docker</li>
+</ul>
+<div data-ext="sh"><pre><code><span>docker</span> run <span>-d</span> <span>--name</span> elasticsearch <span>-p</span> <span>9200</span>:9200 <span>-p</span> <span>9300</span>:9300 <span>--restart</span><span>=</span>always elasticsearch:6.8.5
+</code></pre><div aria-hidden="true"><div></div></div></div><ul>
+<li>极限网关
+<a href="http://gateway.infinilabs.com/zh/" target="_blank" rel="noopener noreferrer">http://gateway.infinilabs.com/zh/</a></li>
+</ul>
+<h3 id="常用api" tabindex="-1"> 常用API</h3>
+<div data-ext="sh"><pre><code>-- 所有节点
+<span>curl</span> http://127.0.0.1:9200/_cat/nodes?v
+-- 所有 index
+<span>curl</span> <span>'localhost:9200/_cat/indices?v'</span>
+
+-- 导入导出 https://github.com/elasticsearch-dump/elasticsearch-dump
+elasticdump <span>--input</span><span>=</span>http://localhost:9200/index-law <span>--output</span><span>=</span>my_index.json <span>--type</span><span>=</span>data
+
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h4 id="备份" tabindex="-1"> 备份</h4>
+<div data-ext="sh"><pre><code><span>vim</span> /etc/elasticsearch/elasticsearch.yml
+path.repo: <span>"/data/elasticsearch/backup
+
+curl -XPOST -H 'Content-Type: application/json' http://127.0.0.1:9200/_snapshot/my_es_backup -d '
+{
+    "</span><span>type</span><span>": "</span>fs<span>",
+    "</span>settings<span>": {
+        "</span>location<span>": "</span>/home/sdb1/my_es_backup<span>",
+        "</span>max_snapshot_bytes_per_sec<span>" : "</span>100mb<span>",
+        "</span>max_restore_bytes_per_sec<span>" : "</span>100mb<span>",
+        "</span>compress<span>" : true
+    }
+}'
+
+-- 查看
+curl -XGET "</span>localhost:9200/_snapshot/my_es_backup/_all?pretty"
+-- 恢复
+<span>curl</span> <span>-XPOST</span> http://127.0.0.1:9200/_snapshot/my_es_backup/snapshot_1/_restore?wait_for_completion<span>=</span>true
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="elasticsearch-head" tabindex="-1"> elasticsearch-head</h2>
+<blockquote>
+<p>A web front end for an elastic search cluster</p>
+</blockquote>
+<h3 id="安装-1" tabindex="-1"> 安装</h3>
+<ul>
+<li>Docker</li>
+</ul>
+<div data-ext="sh"><pre><code><span>docker</span> run <span>-d</span> <span>--name</span> es-head <span>-p</span> <span>9100</span>:9100 mobz/elasticsearch-head:5
+</code></pre><div aria-hidden="true"><div></div></div></div><ul>
+<li>
+<p>跨域问题 <code>No 'Access-Control-Allow-Origin'</code></p>
+<p><strong>修改 elasticsearch 配置文件</strong></p>
+<div data-ext="sh"><pre><code><span>vim</span> /usr/share/elasticsearch/config/elasticsearch.yml
+
+<span>#开启跨域访问支持，默认为false</span>
+http.cors.enabled: <span>true</span>
+<span>#跨域访问允许的域名地址，(允许所有域名)以上使用正则</span>
+http.cors.allow-origin: /.*/
+
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></li>
+<li>
+<p>请求方式错误 <code>406 Not Acceptable</code></p>
+<p>一般在使用elasticsearch 6.x 才会出现，因为<code>elasticsearch-head</code> 只适配到了5，而6.X 请求方式变成 <code>json</code> 方式请求<br>
+<strong>修改 elasticsearch-head 源码</strong></p>
+<div data-ext="sh"><pre><code><span>vim</span> /usr/src/app/_site/vendor.js
+
+将
+contentType: <span>"application/x-www-form-urlencoded"</span>
+改为
+contentType: <span>"application/json"</span>
+
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title></title>
+      <link>https://abelsun.tech/bigdata/Flink.html</link>
+      <guid>https://abelsun.tech/bigdata/Flink.html</guid>
+      <source url="https://abelsun.tech/rss.xml"></source>
+      <description>Flink 大数据计算技术演进： 1. Hadoop 承载的 MapReduce 1. 支持 DAG（有向无环图）框架的计算引擎 Tez 和 Oozie，主要还是批处理任务 1. 支持 Job 内部的 DAG（有向无环图），以 Spark 为代表 1. 大数据统一计算引擎，包括流处理、批处理、AI、Machine Learning、图计算等，以 Fli...</description>
+      <pubDate>Sat, 19 Nov 2022 02:42:33 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="flink" tabindex="-1"> Flink</h2>
+<p>大数据计算技术演进：</p>
+<ol>
+<li>Hadoop 承载的 MapReduce</li>
+<li>支持 DAG（有向无环图）框架的计算引擎 Tez 和 Oozie，主要还是批处理任务</li>
+<li>支持 Job 内部的 DAG（有向无环图），以 Spark 为代表</li>
+<li>大数据统一计算引擎，包括流处理、批处理、AI、Machine Learning、图计算等，以 Flink 为代表</li>
+</ol>
+<h2 id="场景" tabindex="-1"> 场景</h2>
+<ul>
+<li>业务数据处理，聚合业务数据，统计分析</li>
+<li>流量日志，动态数据监控</li>
+<li>交通信号灯数据</li>
+<li>道路上车流量统计（拥堵状况）</li>
+<li>公安视频监控</li>
+<li>服务器运行状态监控</li>
+<li>金融证券公司实时跟踪股市波动，计算风险价值</li>
+<li>数据实时 ETL</li>
+<li>银行或者支付公司涉及金融盗窃的预警</li>
+<li>扩展库：CEP（复杂事件处理）、机器学习、图形处理</li>
+</ul>
+<h2 id="大数据" tabindex="-1"> 大数据</h2>
+<h3 id="数据集类型" tabindex="-1"> 数据集类型</h3>
+<ul>
+<li>
+<p>无穷数据集：无穷的持续集成的数据集合</p>
+<blockquote>
+<p>用户与客户端的实时交互数据<br>
+应用实时产生的日志<br>
+金融市场的实时交易记录</p>
+</blockquote>
+</li>
+<li>
+<p>有界数据集：有限不会改变的数据集合</p>
+</li>
+</ul>
+<h3 id="数据运算模型" tabindex="-1"> 数据运算模型</h3>
+<ul>
+<li>流式：只要数据一直在产生，计算就持续地进行</li>
+<li>批处理：在预先定义的时间内运行计算，当计算完成时释放计算机资源</li>
+</ul>
+<p>Flink 其特点就是处理 <strong>流式数据</strong> ，但是他其实是一个针对 <strong>流数据</strong>（DataStream）和 <strong>批数据</strong>（DataSet）的分布式处理引擎，是一个 <strong>流批统一</strong> 的计算引擎。</p>
+<h2 id="部署" tabindex="-1"> 部署</h2>
+<ul>
+<li>
+<p>Local</p>
+<blockquote>
+<p>直接在 IDE 中运行 Flink Job 时则会在本地启动一个 mini Flink 集群</p>
+</blockquote>
+</li>
+<li>
+<p>Standalone</p>
+<blockquote>
+<p>在 Flink 目录下执行 bin/start-cluster.sh 脚本则会启动一个 Standalone 模式的集群</p>
+</blockquote>
+</li>
+<li>
+<p>YARN</p>
+<blockquote>
+<p>YARN 是 Hadoop 集群的资源管理系统，它可以在群集上运行各种分布式应用程序，Flink 可与其他应用并行于 YARN 中</p>
+</blockquote>
+</li>
+<li>
+<p>Kubernetes</p>
+</li>
+<li>
+<p>AWS、MapR、Aliyun OSS</p>
+</li>
+</ul>
+<h2 id="结构" tabindex="-1"> 结构</h2>
+<h3 id="api" tabindex="-1"> API</h3>
+<p>至下而上：</p>
+<ul>
+<li>
+<p>Stateful Stream Processing 最底层提供了有状态流</p>
+<blockquote>
+<p>它将通过 Process Function 嵌入到 DataStream API 中。它允许用户可以自由地处理来自一个或多个流数据的事件，并使用一致性、容错的状态。除此之外，用户可以注册事件时间和处理事件回调，从而使程序可以实现复杂的计算。</p>
+</blockquote>
+</li>
+<li>
+<p>DataStream/DataSet API 是 Flink 提供的核心 API</p>
+<blockquote>
+<p>DataSet 处理有界的数据集，DataStream 处理有界或者无界的数据流。用户可以通过各种方法（map/flatmap/window/keyby/sum/max/min/avg/join 等）将数据进行转换或者计算。</p>
+</blockquote>
+</li>
+<li>
+<p>Table API 表为中心的声明式 DSL</p>
+<blockquote>
+<p>其中表可能会动态变化（在表达流数据时）。Table API 提供了例如 select、project、join、group-by、aggregate 等操作，使用起来却更加简洁（代码量更少）。 你可以在表与 DataStream/DataSet 之间无缝切换，也允许程序将 Table API 与 DataStream 以及 DataSet 混合使用。</p>
+</blockquote>
+</li>
+<li>
+<p>SQL</p>
+<blockquote>
+<p>这一层抽象在语法与表达能力上与 Table API 类似，但是是以 SQL查询表达式的形式表现程序。SQL 抽象与 Table API 交互密切，同时 SQL 查询可以直接在 Table API 定义的表上执行。 Flink 除了 DataStream 和 DataSet API，它还支持 Table/SQL API，Flink 也将通过 SQL API 来构建统一的大数据流批处理引擎，因为在公司中通常会有那种每天定时生成报表的需求（批处理的场景，每晚定时跑一遍昨天的数据生成一个结果报表），但是也是会有流处理的场景（比如采用 Flink 来做实时性要求很高的需求），于是慢慢的整个公司的技术选型就变得越来越多了，这样开发人员也就要面临着学习两套不一样的技术框架，运维人员也需要对两种不一样的框架进行环境搭建和作业部署，平时还要维护作业的稳定性。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="模拟程序与数据流结构" tabindex="-1"> 模拟程序与数据流结构</h3>
+<p><a href="https://gitbook.cn/gitchat/column/5dad4a20669f843a1a37cb4f/topic/5db69938f6a6211cb96164da" target="_blank" rel="noopener noreferrer"><img src="@source/assets/img/DevOps-BD-FLINK-1.png" alt="" loading="lazy"></a></p>
+<ul>
+<li>
+<p>Source：数据输入</p>
+<blockquote>
+<p>Flink 在流处理和批处理上的 source 大概有 4 类：基于本地集合的 source、基于文件的 source、基于网络套接字的 source、自定义的 source。自定义的 source 常见的有 Apache kafka、Amazon Kinesis Streams、RabbitMQ、Twitter Streaming API、Apache NiFi 等，当然你也可以定义自己的 source。</p>
+</blockquote>
+</li>
+<li>
+<p>Transformation：数据转换的各种操作</p>
+<blockquote>
+<p>有 Map/FlatMap/Filter/KeyBy/Reduce/Fold/ Aggregations/Window/WindowAll/Union/Window join/Split/Select/Project 等，操作很多，可以将数据转换计算成你想要的数据。</p>
+</blockquote>
+</li>
+<li>
+<p>Sink：数据输出</p>
+<blockquote>
+<p>Flink 将转换计算后的数据发送的地点，你可能需要存储下来，Flink 常见的 Sink 大概有如下几类：写入文件、打印出来、写入 socket、自定义的 sink 。自定义的 Sink 常见的有 Apache kafka、RabbitMQ、MySQL、ElasticSearch、Apache Cassandra、Hadoop FileSystem 等，同理你也可以定义自己的 sink。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="事件时间-处理时间语义" tabindex="-1"> 事件时间&amp;处理时间语义</h3>
+<ul>
+<li>Event time 事件自身时间
+Ingestion Time 事件进入flink的时间
+Processing Time 事件被处理时的机器事件</li>
+</ul>
+<h3 id="窗口机制" tabindex="-1"> 窗口机制</h3>
+<p>Flink 支持多种 Window，比如 Time Window、Count Window、Session Window，还支持自定义 Window</p>
+<h3 id="并行执行任务" tabindex="-1"> 并行执行任务</h3>
+<p>stream partitions
+operator subtasks</p>
+<h3 id="状态存储和容错" tabindex="-1"> 状态存储和容错</h3>
+<p>Flink 是一款有状态的流处理框架，它提供了丰富的状态访问接口，按照数据的划分方式，可以分为 Keyed State 和 Operator State，在 Keyed State 中又提供了多种数据结构：</p>
+<ul>
+<li>ValueState</li>
+<li>MapState</li>
+<li>ListState</li>
+<li>ReducingState</li>
+<li>AggregatingState</li>
+</ul>
+<p>另外状态存储也支持多种方式：</p>
+<ul>
+<li>MemoryStateBackend：存储在内存中</li>
+<li>FsStateBackend：存储在文件中</li>
+<li>RocksDBStateBackend：存储在 RocksDB 中</li>
+</ul>
+<p>Flink 中支持使用 Checkpoint 来提高程序的可靠性，开启了 Checkpoint 之后，Flink 会按照一定的时间间隔对程序的运行状态进行备份，当发生故障时，Flink 会将所有任务的状态恢复至最后一次发生 Checkpoint 中的状态，并从那里开始重新开始执行。</p>
+<p>另外 Flink 还支持根据 Savepoint 从已停止作业的运行状态进行恢复，这种方式需要通过命令进行触发。</p>
+<h3 id="内存管理机制" tabindex="-1"> 内存管理机制</h3>
+<p>Flink 在 JVM 中提供了自己的内存管理，使其独立于 Java 的默认垃圾收集器。它通过使用散列、索引、缓存和排序有效地进行内存管理</p>
+<p>// TODO Flink</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title></title>
+      <link>https://abelsun.tech/bigdata/%E5%95%86%E4%B8%9A%E6%99%BA%E8%83%BD.html</link>
+      <guid>https://abelsun.tech/bigdata/%E5%95%86%E4%B8%9A%E6%99%BA%E8%83%BD.html</guid>
+      <source url="https://abelsun.tech/rss.xml"></source>
+      <description>BI (Business Intelligence) 商业智能 ETL Extract-Transform-Load ETL是将业务系统的数据经过抽取(Extract)、清洗转换(Transform)之后加载(Load)到数据仓库（Data Warehouse）或数据集市（Data Mart）中，成为联机分析处理（On-Line Analytical ...</description>
+      <pubDate>Sat, 19 Nov 2022 02:42:33 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="bi-business-intelligence-商业智能" tabindex="-1"> BI (Business Intelligence) 商业智能</h2>
+<h2 id="etl-extract-transform-load" tabindex="-1"> ETL Extract-Transform-Load</h2>
+<p>ETL是将业务系统的数据经过抽取(Extract)、清洗转换(Transform)之后加载(Load)到数据仓库（Data Warehouse）或数据集市（Data Mart）中，成为联机分析处理（On-Line Analytical Processing，OLAP）、数据挖掘（Data Mining）的基础。目的是将企业中的分散、零乱、标准不统一的数据整合到一起，为企业的决策提供分析依据。</p>
+<blockquote>
+<p><strong>抽取</strong> 是将数据从已有的数据源中提取出来，例如通过 JDBC/Binlog 方式获取 MySQL 数据库的增量数据；<strong>转换</strong> 是对原始数据进行处理，例如将用户属性中的手机号替换为匿名的唯一 ID、计算每个用户对商品的平均打分、计算每个商品的购买数量、将 B 表的数据填充到 A 表中形成新的宽表等；<strong>加载</strong> 是将数据写入目的地。</p>
+</blockquote>
+<p><img src="@source/assets/img/ETL-ELT.png" alt="" loading="lazy"></p>
+<ul>
+<li><a href="http://camel.apache.org/" target="_blank" rel="noopener noreferrer">Apache Camel</a></li>
+<li><a href="http://apatar.com/" target="_blank" rel="noopener noreferrer">Apatar</a></li>
+<li><a href="http://hekad.readthedocs.io" target="_blank" rel="noopener noreferrer">Heka</a></li>
+<li><a href="https://www.elastic.co/products/logstash" target="_blank" rel="noopener noreferrer">ElasticSearch</a></li>
+<li><a href="http://scriptella.org/" target="_blank" rel="noopener noreferrer">Scriptella</a></li>
+<li><a href="http://www.talend.com/" target="_blank" rel="noopener noreferrer">Talend</a></li>
+<li><a href="https://github.com/pentaho/pentaho-kettle" target="_blank" rel="noopener noreferrer">Kettle</a></li>
+<li><a href="https://www.informatica.com/" target="_blank" rel="noopener noreferrer">Informatica</a></li>
+<li><a href="https://www.ibm.com/products/infosphere-datastage" target="_blank" rel="noopener noreferrer">DataStage</a></li>
+</ul>
+<h2 id="elt" tabindex="-1"> ELT</h2>
+<p>ELT 和 ETL 相比，ETL 在数据源抽取后首先进行转换，然后将转换的结果写入目的地。ELT 则是在抽取后将结果先写入目的地，然后由下游应用利用数据库的聚合分析能力或者外部计算框架，例如 Spark 来完成转换的步骤。最大的区别是“重抽取和加载，轻转换”，从而可以用更简单的技术栈、更轻量的方案搭建起一个满足现代企业应用的数据集成平台。AI 应用内在的特点也使得 ELT 特别适合这个场景。</p>
+<ul>
+<li><a href="https://cwiki.apache.org/confluence/display/KAFKA/Ecosystem" target="_blank" rel="noopener noreferrer">Kafka</a></li>
+<li><a href="https://docs.confluent.io/current/connect/index.html" target="_blank" rel="noopener noreferrer">Kafka Connect</a></li>
+<li><a href="https://github.com/alibaba/DataX" target="_blank" rel="noopener noreferrer">DataX</a></li>
+<li><a href="https://www.datapipeline.com/" target="_blank" rel="noopener noreferrer">DataPipeline</a></li>
+</ul>
+<h2 id="案例" tabindex="-1"> <a href="https://mp.weixin.qq.com/s?__biz=MjM5ODI5Njc2MA==&amp;mid=2655830097&amp;idx=1&amp;sn=a637be12d879ab6f43bc35a74cdc70c6" target="_blank" rel="noopener noreferrer">案例</a></h2>
+<p>设计要求在用户输入搜索内容时，要能从商家名称和商品名称两个维度去搜索，搜索出来的结果，按照准确率排序，并按商家所属商品的关联关系，来组合数据结构，同时提供 API 给业务系统调用。</p>
+<ul>
+<li>商家数据库和商品数据库是多台不同的服务器，并且数据量达百万级，如何才能实现跨数据库的数据同步呢？</li>
+<li>商家和商品的数据是有从属关系的，不然就会把肯德基的香辣鸡腿堡挂到麦当劳去，这就尴尬了！</li>
+<li>商家商品数据是经常更新的，比如修改价格、库存、上下架等，那搜索服务可不能搜出一堆过时的数据，如果客户明明搜出来的商品，点进去后却已下架了，那么客户就要吐槽了！如何实现搜索数据与源数据库增删改均实时同步呢？</li>
+</ul>
+<h3 id="架构设计" tabindex="-1"> 架构设计</h3>
+<ul>
+<li>首先，商家数据和商品数据分别存储在 2 个独立的 MySQL8 数据库，为满足商家数据和商品数据的关联，我们需要将两个库中所需要的表实时 ETL 到我们的搜索系统数据库。</li>
+<li>其次，数据从商家、商品数据库 ETL 到搜索系统数据库后，需要实时的组合成为商家关联商品数据结构，并以父子文档的格式，存储到 ES 中。</li>
+<li>最后，商家、商品数据库的增删改操作，需要实时的同步到 ES 中，也就是 ES 中的数据，需要支持实时的增加、删除和修改。</li>
+<li>为此，我们设计了 2 个 Canal 组件，第一个 Canal 实现数据 ETL，把商家、商品数据库的某些表及字段，抽取到搜索服务数据库。</li>
+<li>再利用第二个 Canal，读取搜索服务 MySQL 数据库的 Binlog，实时传输到 Kafka 消息队列，再由 canal adapter 对数据进行关联、父子文档映射等，将处理好的数据存储到 ElasticSearch 中。</li>
+</ul>
+<h2 id="bi商业软件" tabindex="-1"> BI商业软件</h2>
+<ul>
+<li><a href="https://www.tableau.com/" target="_blank" rel="noopener noreferrer">tableau</a></li>
+<li><a href="http://www.powerbi.com.cn/" target="_blank" rel="noopener noreferrer">powerbi</a></li>
+<li><a href="https://powerbi.microsoft.com/" target="_blank" rel="noopener noreferrer">powerbi microsoft</a></li>
+<li><a href="http://www.meritdata.com.cn/" target="_blank" rel="noopener noreferrer">tempo</a></li>
+<li><a href="https://www.dataojo.com/index.html" target="_blank" rel="noopener noreferrer">dataojo</a></li>
+<li><a href="https://www.aliyun.com/product/bigdata/ide" target="_blank" rel="noopener noreferrer">DataWorks</a></li>
+</ul>
+]]></content:encoded>
     </item>
   </channel>
 </rss>

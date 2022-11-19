@@ -1,5 +1,10 @@
-Big Data
---------------
+---
+article: false
+title: BigData
+icon: any
+order: 4
+---
+
 
 [![](../assets/img/big-data.png)](https://www.processon.com/view/link/5ee2424be0b34d4dba347744)
 ![](../assets/img/bigdata.png)
@@ -237,6 +242,4 @@ Schema|设计在数据仓库之前，写入型 Schema | 分析的时候临时建
 * Lake Formation AWS
 > 可以识别 S3 或关系数据库和 NoSQL 数据库中存储的现有数据，并将数据移动到 S3 数据湖中。使用 EMR for Apache Spark（测试版）、Redshift 或 Athena 进行分析。支持的数据源跟阿里云差不多。
 
-
 工业数据空间（Industrial Data Space）
---------------

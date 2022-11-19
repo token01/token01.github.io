@@ -38,6 +38,14 @@ export default sidebar(
     children: "structure",    
   },
   {
+    text: "👹 文本文档",
+    icon: "",
+    prefix: "/notpad/",
+    link: "",
+    collapsable: true,
+    children: "structure",
+  },
+  {
     text: "🧰 软件应用",
     icon: "",
     prefix: "/apps/",

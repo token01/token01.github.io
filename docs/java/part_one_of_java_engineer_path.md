@@ -4,57 +4,6 @@ title: JAVA从业余到专业
 icon: note
 ---
 
-<!-- TOC -->
-
-- [](#)
-- [零、前言](#零前言)
-- [一、从业余到职业](#一从业余到职业)
-  - [1.1 基础技术](#11-基础技术)
-    - [1.1.1 编码规范](#111-编码规范)
-    - [1.1.2 Java 基础](#112-java-基础)
-    - [1.1.3 Spring 框架](#113-spring-框架)
-    - [1.1.4 数据库基础](#114-数据库基础)
-  - [1.2 职业心态](#12-职业心态)
-  - [1.3 核心通用能力](#13-核心通用能力)
-    - [1.3.1 个人执行力](#131-个人执行力)
-    - [1.3.2 沟通能力](#132-沟通能力)
-    - [1.3.3 责任心](#133-责任心)
-    - [1.3.4 业务能力](#134-业务能力)
-    - [1.3.5 总结](#135-总结)
-- [二、从职业到专业](#二从职业到专业)
-  - [2.1 专业技术之了然于胸](#21-专业技术之了然于胸)
-    - [2.1.1 Java 高效编程](#211-java-高效编程)
-    - [2.1.2 设计模式](#212-设计模式)
-    - [2.1.3 SQL 程序设计](#213-sql-程序设计)
-    - [2.1.4 Git 流程规范](#214-git-流程规范)
-    - [2.1.5 Redis](#215-redis)
-    - [2.1.6 工具类](#216-工具类)
-    - [2.1.7 RPC](#217-rpc)
-    - [2.1.8 代码质量](#218-代码质量)
-  - [2.2 专业技术之驾轻就熟](#22-专业技术之驾轻就熟)
-    - [2.2.1 Javascript](#221-javascript)
-    - [2.2.2 消息队列](#222-消息队列)
-    - [2.2.3 Linux](#223-linux)
-    - [2.2.4 Web 服务器](#224-web-服务器)
-    - [2.2.5 分布式相关](#225-分布式相关)
-    - [2.2.6 单元测试](#226-单元测试)
-    - [2.2.7 Docker](#227-docker)
-    - [2.2.8 Web 安全](#228-web-安全)
-  - [2.3 专业技术之略知一二](#23-专业技术之略知一二)
-    - [2.3.1 NoSQL](#231-nosql)
-    - [2.3.2 搜索引擎](#232-搜索引擎)
-    - [2.3.3 序列化](#233-序列化)
-    - [2.3.4 分布式工具](#234-分布式工具)
-    - [2.3.5 正则表达式](#235-正则表达式)
-  - [2.4 其他推荐书目](#24-其他推荐书目)
-  - [2.5 核心能力](#25-核心能力)
-    - [2.5.1 解决问题的能力](#251-解决问题的能力)
-    - [2.5.2 学习能力](#252-学习能力)
-    - [2.5.3 信息获取能力](#253-信息获取能力)
-- [三、尾声](#三尾声)
-
-<!-- /TOC -->
-
 # 零、前言
 
 为梳理 Java 工程师所需具备的技能，特编写该文档，为了更具有针对性，标题中含有 Java 一词，但实际内容中也包含许多非 Java 部分。要成为 Java 领域中的专家，不仅要求精通 Java，还需要掌握其他技术以及许多软技能，如：沟通能力、学习能力、业务能力等，该文也会略有涉及。
@@ -101,9 +50,9 @@ icon: note
 
 推荐阅读：
 
-- 《Java 编程思想》https://book.douban.com/subject/2130190/ 。
-- 《Java 核心技术》https://book.douban.com/subject/3146174/ 。
-- Java Guide 开源项目 https://github.com/Snailclimb/JavaGuide 。
+- 《Java 编程思想》<https://book.douban.com/subject/2130190/> 。
+- 《Java 核心技术》<https://book.douban.com/subject/3146174/> 。
+- Java Guide 开源项目 <https://github.com/Snailclimb/JavaGuide> 。
 
 《Java 编程思想》可检验自身 Java 基础的掌握程度，这本书对于初学者具有一定的难度，但对于将 Java 开发作为职业的人来说，这属于基础知识。
 
@@ -130,7 +79,7 @@ Spring 框架已替代 J2EE 成为 Java 服务端开发事实上的标准，优�
 
 推荐阅读：
 
-- 《Spring 实战》https://book.douban.com/subject/26767354/ 。
+- 《Spring 实战》<https://book.douban.com/subject/26767354/> 。
 
 ### 1.1.4 数据库基础
 
@@ -155,13 +104,11 @@ Spring 框架已替代 J2EE 成为 Java 服务端开发事实上的标准，优�
 
 推荐阅读：
 
-- 《SQL 必知必会》https://book.douban.com/subject/24250054/ 。
+- 《SQL 必知必会》<https://book.douban.com/subject/24250054/> 。
 
 扩展阅读：
 
-- 《高性能 MySQL》https://book.douban.com/subject/23008813/ 。
-
-
+- 《高性能 MySQL》<https://book.douban.com/subject/23008813/> 。
 
 熟练掌握以上技能即可从事基础的 Java 开发工作，除此之外，要想达到职业的标准，心态上也需要有适当地转变。
 
@@ -231,8 +178,8 @@ Java 工程师的核心能力除了技术、编码、逻辑等之外，还需要
 推荐阅读：
 
 - 《Effective Java》
-- 《Java 8 实战》 https://book.douban.com/subject/26772632/
-- 《Java 性能优化权威指南》 https://book.douban.com/subject/25828043/
+- 《Java 8 实战》 <https://book.douban.com/subject/26772632/>
+- 《Java 性能优化权威指南》 <https://book.douban.com/subject/25828043/>
 
 ### 2.1.2 设计模式
 
@@ -245,7 +192,7 @@ Java 工程师的核心能力除了技术、编码、逻辑等之外，还需要
 
 相关开源项目推荐：
 
-- https://github.com/iluwatar/java-design-patterns
+- <https://github.com/iluwatar/java-design-patterns>
 
 除了阅读这些书籍之外，每一种设计模式最好都自己实现一遍以加深理解。
 
@@ -253,21 +200,21 @@ Java 工程师的核心能力除了技术、编码、逻辑等之外，还需要
 
 推荐阅读：
 
-- 《SQL 语言艺术》https://book.douban.com/subject/3012601/
-- 《MySQL技术内幕（第5版）》https://book.douban.com/subject/26436525/
+- 《SQL 语言艺术》<https://book.douban.com/subject/3012601/>
+- 《MySQL技术内幕（第5版）》<https://book.douban.com/subject/26436525/>
 
 ### 2.1.4 Git 流程规范
 
 推荐阅读：
 
-- https://github.com/justjavac/free-programming-books-zh_CN#%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6
+- <https://github.com/justjavac/free-programming-books-zh_CN#%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6>
 - [Git分支管理策略](http://www.ruanyifeng.com/blog/2012/07/git.html)
 
 ### 2.1.5 Redis
 
 推荐阅读：
 
-- 《Redis 设计与实现》https://redisbook.readthedocs.io/en/latest/index.html
+- 《Redis 设计与实现》<https://redisbook.readthedocs.io/en/latest/index.html>
 
 ### 2.1.6 工具类
 
@@ -344,7 +291,7 @@ Java 工程师的核心能力除了技术、编码、逻辑等之外，还需要
 
 推荐阅读：
 
-- 《Docker 从入门到实践》 https://yeasy.gitbook.io/docker_practice/
+- 《Docker 从入门到实践》 <https://yeasy.gitbook.io/docker_practice/>
 
 ### 2.2.8 Web 安全
 

@@ -1,5 +1,9 @@
-Emoji list
--------
+---
+article: false
+title: Emoji list
+icon: check
+---
+
 ## People
 
 :bowtie:

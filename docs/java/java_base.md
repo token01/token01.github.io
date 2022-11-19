@@ -8,61 +8,6 @@ icon: note
 
 ## 目录
 
-<!-- TOC -->
-
-- [目录](#目录)
-- [框架](#框架)
-  - [Spring Boot](#spring-boot)
-  - [Vert.x](#vertx)
-- [网络](#网络)
-  - [五层协议](#五层协议)
-  - [HTTP 协议](#http-协议)
-  - [TCP 拥塞控制](#tcp-拥塞控制)
-  - [网络 I/O 模型](#网络-io-模型)
-- [数据库](#数据库)
-  - [关系型数据库](#关系型数据库)
-  - [存储引擎](#存储引擎)
-  - [NewSQL](#newsql)
-  - [NoSQL 数据库](#nosql-数据库)
-  - [时序数据库](#时序数据库)
-  - [列式数据库](#列式数据库)
-  - [嵌入式数据库](#嵌入式数据库)
-- [中间件](#中间件)
-  - [Web Server](#web-server)
-  - [分布式缓存](#分布式缓存)
-  - [KV 存储](#kv-存储)
-  - [消息队列](#消息队列)
-  - [定时调度](#定时调度)
-  - [RPC](#rpc)
-  - [数据库中间件](#数据库中间件)
-  - [日志系统](#日志系统)
-  - [配置中心](#配置中心)
-- [微服务](#微服务)
-  - [服务注册与发现](#服务注册与发现)
-  - [熔断与降级](#熔断与降级)
-  - [链路追踪 / APM](#链路追踪--apm)
-  - [API 网关](#api-网关)
-  - [服务网格](#服务网格)
-- [常用开源组件](#常用开源组件)
-  - [数据访问](#数据访问)
-  - [工具组件](#工具组件)
-  - [缓存](#缓存)
-  - [字节码修改](#字节码修改)
-  - [http客户端](#http客户端)
-  - [响应式编程](#响应式编程)
-  - [序列化](#序列化)
-  - [分布式事务](#分布式事务)
-  - [事件驱动框架](#事件驱动框架)
-  - [规则引擎](#规则引擎)
-  - [测试](#测试)
-- [编程思想](#编程思想)
-  - [原则](#原则)
-- [结语](#结语)
-
-<!-- /TOC -->
-
-## 框架
-
 ### Spring Boot
 
 Spring 框架已经成为 Java 服务端开发领域里的标配，无数的服务基于其开发，它整合了服务端开发所需的绝大多数组件，Spring Boot 在其基础上又做了一层轻封装并简化了依赖管理，使得它用起来更加的便捷。
@@ -114,10 +59,10 @@ MySQL 是最流行的开源数据库，PostgreSQL 是最高级的开源数据库
 
 数据量非常大的情况下，大多数时候还要进行分库分表的设计。
 
-- ShardingSphere
-  - 目前 Java 中主流的分库分表中间件，支持客户端架构、代理架构，Sidecar 架构目前还在开发中。
-- Vitess
-  - Vitess 是 Youtube 开源的 MySQL 数据库集群系统，采用的是中心化的数据库代理架构，这套数据集群承载了 Youtube 数以亿计的数据量和访问请求。 
+* ShardingSphere
+  * 目前 Java 中主流的分库分表中间件，支持客户端架构、代理架构，Sidecar 架构目前还在开发中。
+* Vitess
+  * Vitess 是 Youtube 开源的 MySQL 数据库集群系统，采用的是中心化的数据库代理架构，这套数据集群承载了 Youtube 数以亿计的数据量和访问请求。
 
 ### 存储引擎
 
@@ -131,8 +76,8 @@ NewSQL 这一新兴领域也大量使用了 RocksDB 作为存储引擎，TiDB �
 
 ### NoSQL 数据库
 
-- MongoDB
-  - MongoDB 介于关系数据库和非关系数据库之间，不要求数据存储具有固定的模式，且能用于存储超大规模的数据集。
+* MongoDB
+  * MongoDB 介于关系数据库和非关系数据库之间，不要求数据存储具有固定的模式，且能用于存储超大规模的数据集。
 
 ### 时序数据库
 
@@ -140,9 +85,9 @@ NewSQL 这一新兴领域也大量使用了 RocksDB 作为存储引擎，TiDB �
 
 主流的时序数据库有：
 
-- influxdb
-- Prometheus
-- graphite
+* influxdb
+* Prometheus
+* graphite
 
 ### 列式数据库
 
@@ -150,10 +95,10 @@ NewSQL 这一新兴领域也大量使用了 RocksDB 作为存储引擎，TiDB �
 
 主流的列式数据库有：
 
-- HBase
-- Cassandra
-- kudu
-- Druid
+* HBase
+* Cassandra
+* kudu
+* Druid
 
 ### 嵌入式数据库
 
@@ -161,37 +106,37 @@ NewSQL 这一新兴领域也大量使用了 RocksDB 作为存储引擎，TiDB �
 
 Java 中流行的嵌入式数据库有：
 
-- h2base
-- moby
+* h2base
+* moby
 
 ## 中间件
 
 ### Web Server
 
-- Nginx
-  - Nginx 使用 AIO 的模型实现高并发，Apache 每个请求独占一个线程。
-  - AIO 模型适合于 IO 密集型服务，多进程或线程适合于 CPU 密集型服务，由于大多数 Web 服务都属于 IO 密集型，nginx 的市场占有率逐渐超过了 Apache。由于这一特点，Nginx 也非常适合做反向代理，通过这种机制做负载均衡也是非常主流的一种方案。
-- tomcat、jetty、weblogic 等传统 Java Web 服务器
-  - 随着容器化技术的流行，这类服务器日渐式微，市场占有率逐渐下降，进行容器化部署时tomcat一般内置在程序中，这种进步使得开发者可以更关注业务代码本身，而无需关注此类服务器的种种细节，可谓是对开发人员的减负。
-- OpenResty
-  - 优秀的开源产品经常出现许多优秀的衍生产品，比如 Percona 之于 MySQL，OpenResty 之于 Nginx，Kong 之于 OpenResty。
-  - Nginx 市场占有率之高，但许多场景下是用其做反向代理，OpenResty 的设计目标则是让 Web 服务直接跑在 Nginx 服务内部。
-  - OpenResty 同时也是基于 LuaJIT 的 Web 平台，开发者可以很方便地使用 Lua 调用 Nignx 模块，具有强大的可扩展性，比如可将典型的 Nginx + Tomcat + MySQL 架构更换为 Nginx + Lua + Redis + Tomcat + MySQL 的架构。
-  - Kong 从技术上讲也属于 Web Server，但一般用来做 API 网关，下文中再详述。
+* Nginx
+  * Nginx 使用 AIO 的模型实现高并发，Apache 每个请求独占一个线程。
+  * AIO 模型适合于 IO 密集型服务，多进程或线程适合于 CPU 密集型服务，由于大多数 Web 服务都属于 IO 密集型，nginx 的市场占有率逐渐超过了 Apache。由于这一特点，Nginx 也非常适合做反向代理，通过这种机制做负载均衡也是非常主流的一种方案。
+* tomcat、jetty、weblogic 等传统 Java Web 服务器
+  * 随着容器化技术的流行，这类服务器日渐式微，市场占有率逐渐下降，进行容器化部署时tomcat一般内置在程序中，这种进步使得开发者可以更关注业务代码本身，而无需关注此类服务器的种种细节，可谓是对开发人员的减负。
+* OpenResty
+  * 优秀的开源产品经常出现许多优秀的衍生产品，比如 Percona 之于 MySQL，OpenResty 之于 Nginx，Kong 之于 OpenResty。
+  * Nginx 市场占有率之高，但许多场景下是用其做反向代理，OpenResty 的设计目标则是让 Web 服务直接跑在 Nginx 服务内部。
+  * OpenResty 同时也是基于 LuaJIT 的 Web 平台，开发者可以很方便地使用 Lua 调用 Nignx 模块，具有强大的可扩展性，比如可将典型的 Nginx + Tomcat + MySQL 架构更换为 Nginx + Lua + Redis + Tomcat + MySQL 的架构。
+  * Kong 从技术上讲也属于 Web Server，但一般用来做 API 网关，下文中再详述。
 
 ### 分布式缓存
 
-- Redis
-  - Redis 作为一个高性能的内存数据库，目前已被广泛使用，其支持多种数据结构，根据不同场景使用不同的数据结构，才能最有效地使用它。
+* Redis
+  * Redis 作为一个高性能的内存数据库，目前已被广泛使用，其支持多种数据结构，根据不同场景使用不同的数据结构，才能最有效地使用它。
 
 ### KV 存储
 
-- Pika
-  - Redis 的性能非常高，但在将其做数据库使用时存在数据持久化的问题，Pika 就是为了解决这一问题而出现，它底层基于 RocksDB，修改了其部分源代码，在 KV 数据持久化上有非常高的性能，与基于内存的 redis 相比仅有较小的性能下降，同时它还兼容大部分的 redis 协议，与 Redis 的使用几乎没有差异，上手简单。
-- Tair
-  - Tair 与 Pika 类似，底层支持多种存储引擎，包括 mdb、rdb、ldb，其中 ldb 基于 leveldb（google开源，rocksdb 在其基础上优化），它可将内存存储和持久化相结合，具有高可用的分布式架构，目前开源版本已经不再维护，阿里云上则提供了企业级的 Tair 存储服务。
-- SSDB
-  - SSDB 也是兼容 Redis 的一款 KV 数据库，目前更新频率较低，相比而言 Pika 目前还在更新中，且有企业进行背书。
+* Pika
+  * Redis 的性能非常高，但在将其做数据库使用时存在数据持久化的问题，Pika 就是为了解决这一问题而出现，它底层基于 RocksDB，修改了其部分源代码，在 KV 数据持久化上有非常高的性能，与基于内存的 redis 相比仅有较小的性能下降，同时它还兼容大部分的 redis 协议，与 Redis 的使用几乎没有差异，上手简单。
+* Tair
+  * Tair 与 Pika 类似，底层支持多种存储引擎，包括 mdb、rdb、ldb，其中 ldb 基于 leveldb（google开源，rocksdb 在其基础上优化），它可将内存存储和持久化相结合，具有高可用的分布式架构，目前开源版本已经不再维护，阿里云上则提供了企业级的 Tair 存储服务。
+* SSDB
+  * SSDB 也是兼容 Redis 的一款 KV 数据库，目前更新频率较低，相比而言 Pika 目前还在更新中，且有企业进行背书。
 
 ### 消息队列
 
@@ -205,13 +150,13 @@ Java 中流行的嵌入式数据库有：
 
 简单的定时任务可以采用 linux cron 进行配置，复杂的场景也可以使用分布式任务调度框架，可选的实现方式非常多，这里简单的列举几种。
 
-- Quartz
-  - 老牌任务调度系统，许多分布式任务调度框架基于它而扩展。
-- Spring Scheduler
-  - 用它来做简单的任务调度非常方便，但要注意由于现在的系统大多采用分布式部署，因此当使用它来做任务调度时最好做到单独的服务中，避免与其他系统耦合。
-- 国产分布式任务调度系统
-  - 目前较为流行的有 Elastic-Job、XXL-JOB，Elastic-Job 采用去中心化的架构，依赖 zookeeper 存储任务调度数据，XXL-JOB 采用中心化调度的架构，调度采用 RPC 方式。
-  - PowerJob 是新兴的一个开源任务调度系统，在功能上更为强大，支持 MapReduce 分片，值得关注。
+* Quartz
+  * 老牌任务调度系统，许多分布式任务调度框架基于它而扩展。
+* Spring Scheduler
+  * 用它来做简单的任务调度非常方便，但要注意由于现在的系统大多采用分布式部署，因此当使用它来做任务调度时最好做到单独的服务中，避免与其他系统耦合。
+* 国产分布式任务调度系统
+  * 目前较为流行的有 Elastic-Job、XXL-JOB，Elastic-Job 采用去中心化的架构，依赖 zookeeper 存储任务调度数据，XXL-JOB 采用中心化调度的架构，调度采用 RPC 方式。
+  * PowerJob 是新兴的一个开源任务调度系统，在功能上更为强大，支持 MapReduce 分片，值得关注。
 
 ### RPC
 
@@ -225,22 +170,22 @@ RPC 框架的原理其实与 HTTP 调用类似，只是采用了更精简的协�
 
 数据库本身就是一个庞大的产品，除了前面提到的 ShardingSphere、Vitess 这类中间件，还有一类专门做数据处理的中间件。
 
-- otter
-  - 分布式数据库同步系统，支持 MySQL、Oracle。
-- canal
-  - 基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费。
-- DataX-Web
-  - 分布式数据同步工具，可用来简化 ETL 工作。
-- gh-ost
-  - 对数据表结构进行架构变更时，可能导致表被锁住，如果数据量特别大，这种问题对于线上发布的影响是比较大的，可以采用建新表并迁移数据再修改表名的方式手工处理，这种方式容易出错且耗时，Github 开源的 MySQL 在线架构迁移工具则是程序化完成这一类操作的很好的选择。
+* otter
+  * 分布式数据库同步系统，支持 MySQL、Oracle。
+* canal
+  * 基于 MySQL 数据库增量日志解析，提供增量数据订阅和消费。
+* DataX-Web
+  * 分布式数据同步工具，可用来简化 ETL 工作。
+* gh-ost
+  * 对数据表结构进行架构变更时，可能导致表被锁住，如果数据量特别大，这种问题对于线上发布的影响是比较大的，可以采用建新表并迁移数据再修改表名的方式手工处理，这种方式容易出错且耗时，Github 开源的 MySQL 在线架构迁移工具则是程序化完成这一类操作的很好的选择。
 
 ### 日志系统
 
-- ELK
-  - 日志系统一般采用 ELK 技术栈，这其中包含三个子系统，因此要扩展一个新功能，可以有多种方式切入，比如做监控报警，可以使用 logstash 将 metrics 写入到 Prometheus，也可以使用 kibana 上的 sentinl 插件或者 ElastAlert 插件。
-  - logstash 支持从许多管道收集数据，其中包括 kafka，在日志量特别大的情况下，可以将日志先发送至 kafka。
-- Sentry
-  - 日志在很大一部分场景下都是用于排查错误的，除了 ELK 外还有专注于应用程序错误报告的系统，比如 Sentry。
+* ELK
+  * 日志系统一般采用 ELK 技术栈，这其中包含三个子系统，因此要扩展一个新功能，可以有多种方式切入，比如做监控报警，可以使用 logstash 将 metrics 写入到 Prometheus，也可以使用 kibana 上的 sentinl 插件或者 ElastAlert 插件。
+  * logstash 支持从许多管道收集数据，其中包括 kafka，在日志量特别大的情况下，可以将日志先发送至 kafka。
+* Sentry
+  * 日志在很大一部分场景下都是用于排查错误的，除了 ELK 外还有专注于应用程序错误报告的系统，比如 Sentry。
 
 ### 配置中心
 
@@ -262,10 +207,10 @@ Nacos 是阿里开源的一款集配置中心和注册中心于一体的系统�
 
 服务间的调用过多，一定程度上增加了系统的耦合度，当其他微服务出问题或响应较慢时，整个系统都受影响，在必要时需要对出问题的服务进行熔断或降级。
 
-- Hystrix
-  - Spring Cloud 框架默认集成的熔断组件。
-- Sentinel
-  - Spring Cloud Alibaba 中集成的熔断组件，提供了一个外部控制台，可以实时调整系统的熔断降级配置，在这个部分强于 Hystrix 。
+* Hystrix
+  * Spring Cloud 框架默认集成的熔断组件。
+* Sentinel
+  * Spring Cloud Alibaba 中集成的熔断组件，提供了一个外部控制台，可以实时调整系统的熔断降级配置，在这个部分强于 Hystrix 。
 
 ### 链路追踪 / APM
 
@@ -273,19 +218,19 @@ Nacos 是阿里开源的一款集配置中心和注册中心于一体的系统�
 
 主流的链路追踪组件有：
 
-- zipkin
-- pinpoint
-- SkyWalking
-- jaeger
+* zipkin
+* pinpoint
+* SkyWalking
+* jaeger
 
 ### API 网关
 
 Spring Cloud 体系中常用的网关前有 Zuul，后有 Gateway，这一类跟 Spring Cloud 结合紧密，使用方便，但由于它们都是 Java 写成，在许多场景下还是比不上一些专门的网关产品。
 
-- Kong
-  - Kong 是 OpenResty 的衍生开源网关产品，拥有优秀的性能和丰富的插件，可满足许多的扩展性需求。
-- Traefik
-  - Traefik 是用 Go 语言编写的网关，定位是云原生的边界路由网关产品，它拥有丰富的特性、易用的控制面板，与云原生场景深度结合，提供了实时的流量指标可对接到 Prometheus 中。其企业版包含限流、高可用等特性，开源版在这一部分有所缺失。
+* Kong
+  * Kong 是 OpenResty 的衍生开源网关产品，拥有优秀的性能和丰富的插件，可满足许多的扩展性需求。
+* Traefik
+  * Traefik 是用 Go 语言编写的网关，定位是云原生的边界路由网关产品，它拥有丰富的特性、易用的控制面板，与云原生场景深度结合，提供了实时的流量指标可对接到 Prometheus 中。其企业版包含限流、高可用等特性，开源版在这一部分有所缺失。
 
 ### 服务网格
 
@@ -297,8 +242,8 @@ Spring Cloud 体系中常用的网关前有 Zuul，后有 Gateway，这一类跟
 
 目前主流的服务网格有：
 
-- Istio
-- Linkerd
+* Istio
+* Linkerd
 
 ## 常用开源组件
 
@@ -306,66 +251,66 @@ Spring Cloud 体系中常用的网关前有 Zuul，后有 Gateway，这一类跟
 
 ### 数据访问
 
-- MyBatis Plus
-- Mapper
-- jOOQ
-- JPA
-- dynamic-datasource-spring-boot-starter
-- sharding-jdbc
+* MyBatis Plus
+* Mapper
+* jOOQ
+* JPA
+* dynamic-datasource-spring-boot-starter
+* sharding-jdbc
 
 ### 工具组件
 
-- guava
-- commons-lang3
-- hutool
+* guava
+* commons-lang3
+* hutool
 
 ### 缓存
 
-- redission
-- jetcache
-- caffeine
+* redission
+* jetcache
+* caffeine
 
 ### 字节码修改
 
-- asm
-- javassist
-- cglib
+* asm
+* javassist
+* cglib
 
 ### http客户端
 
-- okhttp
-- Aache HttpClient
-- retrofit
-- openfeign
+* okhttp
+* Aache HttpClient
+* retrofit
+* openfeign
 
 ### 响应式编程
 
-- RxJava
-- reactor-core
+* RxJava
+* reactor-core
 
 ### 序列化
 
-- protobuf
-- protostuff
-- hessian
+* protobuf
+* protostuff
+* hessian
 
 ### 分布式事务
 
-- seata
+* seata
 
 ### 事件驱动框架
 
-- AxonFramework
+* AxonFramework
 
 ### 规则引擎
 
-- drools
+* drools
 
 ### 测试
 
-- junit
-- mockito
-- Spock
+* junit
+* mockito
+* Spock
 
 ## 编程思想
 
@@ -375,51 +320,51 @@ Spring Cloud 体系中常用的网关前有 Zuul，后有 Gateway，这一类跟
 
 > 很多原则不仅适用于编程领域，也适用于其他领域，我想这也是为什么乔布斯提倡人人都应该学习编程，因为它能让你拥有更好的思考方式。
 
-- 保持简单
-  - Keep It Simple, Stupid (KISS)
-    - 最重要的原则之一，可靠来源于简单，只有不断保持系统的简单、代码的简单，才能更好地创造优秀的软件。
-  - You Ain’t Gonna Need It (YAGNI)
-    - 如无必要，勿增复杂性，避免过度设计。
-  - Separation of Concerns (SoC) – 关注点分离
-    - 将目标相关联的部分封装在一起，标识为关注点。这是降低复杂性的一个重要原则，MVC 或 MVP 模式都是该原则的应用，将模型、视图和控制器作为不同的关注点，使得每一个关注点可以更有效地理解及重用。
-    - 在编码过程中，也可以应用这一思想，比如我们首先关注应用程序是否可用，当其运行正确后再关心运行效率，这比同时进行这两项工作要简单的多。
-- 不要重复
-  - Don’t Repeat Yourself (DRY)
-    - 最简单也最容易理解的原则，每个程序员都应该以随意复制粘贴代码而感到羞愧。
-  - Convention over Configuration（CoC）- 惯例优于配置原则
-    - 将约定的配置方式和信息作为缺省的规则来使用，可以减少开发人员做决定的数量，减少编码量，获得简单的好处，又不会丢失灵活性。
-    - Spring Boot 框架解决的问题之一就是简化项目的配置，其大量应用了 CoC 原则。
-- S.O.L.I.D 原则
-  - Single Responsibility Principle (SRP) - 单一职责原则
-    - 一个类，只做一件事，并把这件事做好，其只有一个引起它变化的原因。
-    - 很简单的原则，但是很多程序员在工作时经常违反这一原则，比如一个 service 类中引入许多 dao 对象，提供多种不相关服务。
-  - Open/Closed Principle (OCP) – 开闭原则
-    - 模块是可扩展的，而不可修改的。也就是说，对扩展是开放的，而对修改是封闭的。
-    - 设计模式中的代理、策略和观察者模式比较好地实现了这一原则。
-    - 当我们定义的一个API可接受函数作为参数时，实际上也是一种策略模式的变体，同样也体现了这一原则。
-  - Liskov substitution principle (LSP) – 里氏代换原则
-    - 子类必须能够替换成它们的基类。
-    - 这个原则可作为我们设计类继承关系的基准。
-  - Interface Segregation Principle (ISP) – 接口隔离原则
-    - 对接口进行拆分，使用多个专门的接口比使用单一的总接口要好。
-    - 接口可以多继承，那为何要因为懒惰而将其随便定义在一个总接口里呢？
-  - Dependency Inversion Principle (DIP) – 依赖倒置原则
-    - 高层模块不应该依赖于低层模块的实现，而是依赖于高层抽象。
-    - IoC 是 DIP 的一个具体实现，其已经深入到编程语言当中，Spring 框架最初就只是作为一个 IoC 容器，而后才不断扩展出许多实用功能并最终成为一个开发框架。
-    - 相关原则：Hollywood Principle – 好莱坞原则（所有的组件都是被动的，所有的组件初始化和调用都由容器负责）。
-- 高内聚、低耦合
-  - Law of Demeter – 迪米特法则
-    - 又称“最少知识原则”（Principle of Least Knowledge），一个类对于其他类知道的越少越好，知道的越多其耦合程度就越高。
-    - 门面模式和中介模式都是迪米特法则应用的例子。
-    - 这一原则强调低耦合。
-  - Common Closure Principle（CCP）– 共同封闭原则
-    - 如果必须修改应用程序里的代码，我们希望所有的修改都发生在一个包里（修改关闭），而不是遍布在很多包里。
-    - 在微服务架构中，若修改一个功能时，经常需要修改多个服务，那么其很有可能违反了 CCP 原则不恰当地进行了服务拆分。
-    - 这一原则强调高内聚。
-  - Common Reuse Principle (CRP) – 共同重用原则
-    - 包的所有类被一起重用，没有被一起重用的类不应该被组合在一起。依赖一个包就是依赖这个包所包含的一切。
-    - CCP则让系统的维护者受益，CCP让包尽可能大（CCP原则加入功能相关的类），CRP则让包尽可能小（CRP原则剔除不使用的类）。它们的出发点不一样，但不相互冲突。
-    - 这一原则同样强调高内聚。
+* 保持简单
+  * Keep It Simple, Stupid (KISS)
+    * 最重要的原则之一，可靠来源于简单，只有不断保持系统的简单、代码的简单，才能更好地创造优秀的软件。
+  * You Ain’t Gonna Need It (YAGNI)
+    * 如无必要，勿增复杂性，避免过度设计。
+  * Separation of Concerns (SoC) – 关注点分离
+    * 将目标相关联的部分封装在一起，标识为关注点。这是降低复杂性的一个重要原则，MVC 或 MVP 模式都是该原则的应用，将模型、视图和控制器作为不同的关注点，使得每一个关注点可以更有效地理解及重用。
+    * 在编码过程中，也可以应用这一思想，比如我们首先关注应用程序是否可用，当其运行正确后再关心运行效率，这比同时进行这两项工作要简单的多。
+* 不要重复
+  * Don’t Repeat Yourself (DRY)
+    * 最简单也最容易理解的原则，每个程序员都应该以随意复制粘贴代码而感到羞愧。
+  * Convention over Configuration（CoC）- 惯例优于配置原则
+    * 将约定的配置方式和信息作为缺省的规则来使用，可以减少开发人员做决定的数量，减少编码量，获得简单的好处，又不会丢失灵活性。
+    * Spring Boot 框架解决的问题之一就是简化项目的配置，其大量应用了 CoC 原则。
+* S.O.L.I.D 原则
+  * Single Responsibility Principle (SRP) - 单一职责原则
+    * 一个类，只做一件事，并把这件事做好，其只有一个引起它变化的原因。
+    * 很简单的原则，但是很多程序员在工作时经常违反这一原则，比如一个 service 类中引入许多 dao 对象，提供多种不相关服务。
+  * Open/Closed Principle (OCP) – 开闭原则
+    * 模块是可扩展的，而不可修改的。也就是说，对扩展是开放的，而对修改是封闭的。
+    * 设计模式中的代理、策略和观察者模式比较好地实现了这一原则。
+    * 当我们定义的一个API可接受函数作为参数时，实际上也是一种策略模式的变体，同样也体现了这一原则。
+  * Liskov substitution principle (LSP) – 里氏代换原则
+    * 子类必须能够替换成它们的基类。
+    * 这个原则可作为我们设计类继承关系的基准。
+  * Interface Segregation Principle (ISP) – 接口隔离原则
+    * 对接口进行拆分，使用多个专门的接口比使用单一的总接口要好。
+    * 接口可以多继承，那为何要因为懒惰而将其随便定义在一个总接口里呢？
+  * Dependency Inversion Principle (DIP) – 依赖倒置原则
+    * 高层模块不应该依赖于低层模块的实现，而是依赖于高层抽象。
+    * IoC 是 DIP 的一个具体实现，其已经深入到编程语言当中，Spring 框架最初就只是作为一个 IoC 容器，而后才不断扩展出许多实用功能并最终成为一个开发框架。
+    * 相关原则：Hollywood Principle – 好莱坞原则（所有的组件都是被动的，所有的组件初始化和调用都由容器负责）。
+* 高内聚、低耦合
+  * Law of Demeter – 迪米特法则
+    * 又称“最少知识原则”（Principle of Least Knowledge），一个类对于其他类知道的越少越好，知道的越多其耦合程度就越高。
+    * 门面模式和中介模式都是迪米特法则应用的例子。
+    * 这一原则强调低耦合。
+  * Common Closure Principle（CCP）– 共同封闭原则
+    * 如果必须修改应用程序里的代码，我们希望所有的修改都发生在一个包里（修改关闭），而不是遍布在很多包里。
+    * 在微服务架构中，若修改一个功能时，经常需要修改多个服务，那么其很有可能违反了 CCP 原则不恰当地进行了服务拆分。
+    * 这一原则强调高内聚。
+  * Common Reuse Principle (CRP) – 共同重用原则
+    * 包的所有类被一起重用，没有被一起重用的类不应该被组合在一起。依赖一个包就是依赖这个包所包含的一切。
+    * CCP则让系统的维护者受益，CCP让包尽可能大（CCP原则加入功能相关的类），CRP则让包尽可能小（CRP原则剔除不使用的类）。它们的出发点不一样，但不相互冲突。
+    * 这一原则同样强调高内聚。
 
 ## 结语
 

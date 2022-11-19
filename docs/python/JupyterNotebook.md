@@ -4,7 +4,7 @@ title: Jupyter Notebook
 icon: note
 ---
 ## Jupyter Notebook
-----------
+
 
 * [jupyter notebook](https://jupyter.org/)
   * [JupyterHub](https://github.com/jupyterhub/jupyterhub)
@@ -25,6 +25,7 @@ jupyter notebook --help
 ```
 
 使用虚拟环境
+
 ```shell
 # 安装
 pip install virtualenv

@@ -58,11 +58,6 @@
 - [万字长文带你彻底搞懂什么是 DevOps](./engineering/devops.md)
 - [网站项目 Git 使用流程和规范](./engineering/gitflow.md)
 
-## Javascript
-
-- [🎄 [React] 使用 remotion 制作视频，让圣诞快乐 PSD 动起来](./js/remotion.md)
-- [使用 lit 编写 Web Components 简化 Layui 代码](./js/lit_layui.md)
-
 ## 编程人生
 
 > Thinking in code.

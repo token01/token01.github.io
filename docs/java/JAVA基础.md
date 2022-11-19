@@ -111,7 +111,7 @@
 ### 泛型和类型擦除
 
 - 参数化类型
-- 写一个泛型类与普通类的区别是在类名后面加个<T>
+- 写一个泛型类与普通类的区别是在类名后面加个
 
 ### 反射
 
@@ -123,7 +123,7 @@
 - 在 Java 的反射中，
 Class.forName 和 ClassLoader 的区别
 
-  - classloader值是将类的.class文件加载到jvm中，<br>不会执行static代码块<br>
+  - classloader值是将类的.class文件加载到jvm中，不会执行static代码块
   - class.forName不但将类的.class文件加载到jvm中，
 还会执行static代码块
 
@@ -245,7 +245,7 @@ JVM要求我们必须对其进行cathc处理
 
 构造函数必须是私有的
 
-- 了保证每一个枚举类元素的唯一实例，<br>是不会允许外部进行new的<br>
+- 了保证每一个枚举类元素的唯一实例，是不会允许外部进行new的
 
 ### sort排序原理
 
@@ -596,7 +596,7 @@ LockSupport阻塞等手段实现的高效并发
 
   - 表示，导出堆信息的文件路径。
 
-- -XX:OnOutOfMemoryError<br>
+- -XX:OnOutOfMemoryError
 
   - 当系统产生OOM时，执行一个指定的脚本
 ，这个脚本可以是任意功能的。
@@ -679,7 +679,7 @@ exit动作进行任何关注行为，这样的话，子进程一旦退出后，�
     - 提供了三种功能
 
       - 判断任务是否完成
-      - 能够中断任务<br>
+      - 能够中断任务
       - 能够获取任务执行结果
 
     - future的底层实现异步原理
@@ -826,7 +826,7 @@ ScheduledFutureTask（DelayQueue.take()）
       - 用于设置创建线程的工厂，可以通过线程工厂给每个
 创建出来的线程做些更有意义的事情，比如设置daemon和优先级等等
 
-    - RejectedExecutionHandler（饱和策略）<br>
+    - RejectedExecutionHandler（饱和策略）
 
       - AbortPolicy：直接抛出异常。
       - CallerRunsPolicy：只用调用者所在线程来运行任务。
@@ -843,14 +843,14 @@ ScheduledFutureTask（DelayQueue.take()）
 
 - 线程池关闭相关操作
 
-  - shutdown<br>
+  - shutdown
 
     - shutdown()后线程池将变成shutdown状态，此时不接收新任务，
 但会处理完正在运行的 和 在阻塞队列中等待处理的任务。
 
   - shutdownNow
 
-    - shutdownNow()后线程池将变成stop状态，此时不接收新任务，<br>不再处理在阻塞队列中等待的任务，还会尝试中断正在处理中的工作线程。<br>
+    - shutdownNow()后线程池将变成stop状态，此时不接收新任务，不再处理在阻塞队列中等待的任务，还会尝试中断正在处理中的工作线程。
 
 ### 阻塞队列
 
@@ -1120,7 +1120,7 @@ Condition（await 、signal、signalAll）
 所访问，偏向锁就会升级为轻量级锁，其他线程会
 通过自旋的形式尝试获取锁，不会阻塞，提高性能。
 
-- 重量级锁状态<br>
+- 重量级锁状态
 
   - 重量级锁是指当锁为轻量级锁的时候，另一个线程虽然是自旋，
 但自旋不会一直持续下去，当自旋一定次数的时候，还没有获取到锁，

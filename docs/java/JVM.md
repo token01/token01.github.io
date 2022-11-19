@@ -1,5 +1,8 @@
-# 复习大纲
-
+---
+article: false
+title: JVM
+icon: note
+---
 ## 垃圾回收算法
 
 ### 标记-清除算法

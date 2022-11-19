@@ -1,19 +1,24 @@
-Java 字节码 Bytecode
-----------
+---
+article: false
+title: 字节码_Bytecode
+icon: note
+---
 
 从写 Java 文件到通过编译器编译成 class 文件（也就是字节码文件），再到虚拟机执行 class 文件。不论该字节码文件来自何方，由哪种编译器编译，甚至是手写字节码文件，只要符合java虚拟机的规范，那么 jvm 就能够执行该字节码文件。
 
 ## 简述
+
 Demo.java
+
 ```java
 package pro.ifuture.myday.utils;
 
 public class Demo {
-	private String text = "hello world";
+ private String text = "hello world";
 
-	public static void main(String[] args) {
-		System.out.print("hello world");
-	}
+ public static void main(String[] args) {
+  System.out.print("hello world");
+ }
 }
 ```
 
@@ -71,12 +76,14 @@ java字节码解读表
 |2+n个字节| Attributes| |
 
 ## JavaAgent
+
 在JDK1.5后开始出现了 javaagent 它提供了操作运行时字节码的机制，包：`java.lang.instrument`。可以把它理解为虚拟机级别的AOP
 
 **部署**  
 `-javaagent:/path/myAgent.jar`
 
 **代码**  
+
 ```java
 import java.lang.instrument.Instrumentation;
 
@@ -96,8 +103,10 @@ public class Agent {
     }
 }
 ```
+
 **打包**
 META-INF/MANIFEST.MF
+
 ```
 Manifest-Version: 1.0
 Implementation-Title: myAgent
@@ -105,7 +114,9 @@ Premain-Class: pro.ifuture.agent.Agent
 Implementation-Version: 1.0-SNAPSHOT
 Built-By: ifuture
 ```
+
 使用maven时  
+
 ```xml
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
@@ -139,6 +150,7 @@ Built-By: ifuture
 ```
 
 ## 应用
+
 * [asm](https://asm.ow2.io/) ASM库可以用来生成、转换和分析编译后的java类
 * [Arthas](https://github.com/alibaba/arthas) Alibaba Java诊断利器Arthas
 * [MyPerf4J](https://github.com/LinShunKang/MyPerf4J) 性能分析

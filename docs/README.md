@@ -39,14 +39,14 @@
 - [018 🙊 Less Is More](./letter/018.md)
 - [019 ✨ 从凯文·凯利的建议中找到对自己有用的那 10%](./letter/019.md)
 
-## Java
+## JAVA语言
 
-- [俯瞰 Java 服务端开发](./java/1.md)
+- [俯瞰 Java 服务端开发](./java/java_base.md)
 - [Java 工程师能力提升路径（一）：从业余到专业](./java/part_one_of_java_engineer_path.md)
 - [Java 学习大法](./java/java_study_way.md)
 - [\[Java 开发实战\] 5 分钟搞定 liquibase 数据库版本控制](./java/liquibase.md)
 - [\[Java 开发实战\] 高级工程师的自我修养之单元测试（一）：DAO 层测试](./java/unit_test.md)
-- [\[Java 开发实战\] 你还在统一返回 ApiResultBean 吗？✋ duck 不必，快来看 API 错误处理的最佳实践](./java/api_error_handling.md)
+- [\[Java 开发实战\] 错误处理的最佳实践](./java/api_error_handling.md)
 - [Java Spring 项目开发最佳实践](./java/spring_best_practice.md)
 
 ## 数据库

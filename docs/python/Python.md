@@ -1,6 +1,6 @@
 ---
 article: false
-title: Python
+title: Python基础知识
 icon: python
 order: 3
 ---

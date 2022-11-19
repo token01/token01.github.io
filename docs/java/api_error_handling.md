@@ -1,13 +1,8 @@
 ---
-layout: post
-title: "[Java] 你还在统一返回 ApiResultBean 吗？✋ duck 不必，快来看 API 错误处理的最佳实践 ✔️"
-date: 2021-07-09T05:44:08+08:00
-comments: true
-tags: ["Java"]
-categories: ["技术"]
+article: false
+title:  API错误处理的最佳实践
+icon: note
 ---
-
-# [Java 开发实战] 你还在统一返回 ApiResultBean 吗？✋ duck 不必，快来看 API 错误处理的最佳实践 ✔️
 
 ## 为什么写这篇文章？
 

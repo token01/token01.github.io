@@ -1,13 +1,9 @@
 ---
-layout: post
-title: "[Java] Spring 项目开发最佳实践"
-date: 2021-01-18T05:44:08+08:00
-comments: true
-tags: ["Java"]
-categories: ["技术"]
+article: false
+title: Spring项目开发最佳实践
+icon: note
 ---
 
-# Java Spring 项目开发最佳实践
 
 ## 零、前言
 
@@ -23,10 +19,10 @@ categories: ["技术"]
 
 ### IDEA 插件推荐
 
--   Alibaba Java Coding Guide
--   Lombok
--   Maven Helper
--   SonarLint
+- Alibaba Java Coding Guide
+- Lombok
+- Maven Helper
+- SonarLint
 - GitToolBox
 
 简单列举几个通用的五星插件，还有许多专门领域的插件，例如 MyBatis、JPA 等，后续专门写一篇文章来进行介绍。
@@ -39,11 +35,11 @@ categories: ["技术"]
 
 请阅读：
 
--   [阿里巴巴Java开发手册](https://github.com/alibaba/p3c)
+- [阿里巴巴Java开发手册](https://github.com/alibaba/p3c)
 
 <!---->
 
--   [Google Java编程风格指南](http://hawstein.com/2014/01/20/google-java-style/)
+- [Google Java编程风格指南](http://hawstein.com/2014/01/20/google-java-style/)
 
 ### 其他必用工具
 
@@ -130,7 +126,7 @@ Maven 父 pom 为基础框架的 starter-parent，建议参考 `spring-boot-star
 - 自定义 Spring 事件包名：event、event.listener (事件监听处理)、event.model（自定义事件模型）
 
     监听器类：Listener
-    
+
     事件模型类：Event
 
 ### 项目包名类名示例
@@ -199,18 +195,18 @@ Web 层，也可以直接依赖于 Service 层，依此类推。
 
 **可以暴露为 RPC（REST） 服务的分层：**
 
--   Controller
--   Service
+- Controller
+- Service
 
 **哪些情况下可以调用 Service 层的 RPC 服务？**
 
--   调用方属于当前领域限界上下文的服务，或者说调用方与提供方属于同一组微服务。
+- 调用方属于当前领域限界上下文的服务，或者说调用方与提供方属于同一组微服务。
 
 **不同领域限界上下文的服务，不能互相调用 Service 层级的 RPC 服务，必须通过 Controller 层进行 Api 交互（更好的方式是使用领域集成事件/消息异步通信）。**
 
 **异步通信**
 
--   异步通信使用 Spring Cloud Bus。
+- 异步通信使用 Spring Cloud Bus。
 
 ### 服务提供方（Provider）开发实践
 
@@ -242,23 +238,23 @@ RPC 接口和实现各自放在独立的模块中，方便服务调用方重用�
 
 ### Controller 接口定义
 
--   Url 映射名与方法名应该保持高度相关性，尽量一致，当 url 需要设计的相对精简时可以有细微的命名差异。
+- Url 映射名与方法名应该保持高度相关性，尽量一致，当 url 需要设计的相对精简时可以有细微的命名差异。
 
--   请求参数注意事项：
+- 请求参数注意事项：
 
-    -   不能出现用户信息等敏感数据，相关信息应该通过加密 cookie 等方式传递。
-    -   请求参数超过4个时，应当使用 VO 或 DTO 对象进行封装。
+  - 不能出现用户信息等敏感数据，相关信息应该通过加密 cookie 等方式传递。
+  - 请求参数超过4个时，应当使用 VO 或 DTO 对象进行封装。
 
--   返回对象注意事项：
+- 返回对象注意事项：
 
-    -   返回类型必须使用强类型，错误示例：`ApiResult<Object>`、`Object`、`Map<String,Object>`。
-    -   数据敏感性不高的情况下，返回信息尽量丰富，例如创建对象时不要仅返回是否成功，同时也返回对象Id，这样一来扩展性更高，比如用户创建后又可以立即根据这个Id来选择用户所在的角色组。
+  - 返回类型必须使用强类型，错误示例：`ApiResult<Object>`、`Object`、`Map<String,Object>`。
+  - 数据敏感性不高的情况下，返回信息尽量丰富，例如创建对象时不要仅返回是否成功，同时也返回对象Id，这样一来扩展性更高，比如用户创建后又可以立即根据这个Id来选择用户所在的角色组。
 
--   请求的访问方式
+- 请求的访问方式
 
-    -   查询数据时使用 GET。
-    -   修改数据时使用 POST，特别要注意传递数据较少但实际会修改数据的情况下也必须使用 POST，如传递 id 删除数据时。
-    -   构造 Restful 风格接口时参照 Restful 规范。
+  - 查询数据时使用 GET。
+  - 修改数据时使用 POST，特别要注意传递数据较少但实际会修改数据的情况下也必须使用 POST，如传递 id 删除数据时。
+  - 构造 Restful 风格接口时参照 Restful 规范。
 
 ### Controller 中 ApiResult 的使用规约
 
@@ -266,38 +262,38 @@ RPC 接口和实现各自放在独立的模块中，方便服务调用方重用�
 
 **需要使用 ApiResult 的情况有：**
 
--   提供给第三方使用的 Api 。
--   修改数据的接口。
--   可能具有多个返回状态码的接口。
+- 提供给第三方使用的 Api 。
+- 修改数据的接口。
+- 可能具有多个返回状态码的接口。
 
 **Service 层是否可以返回 ApiResult ？**
 
--   一般性原则是不可以，除非在 Service 层有重用需求（一般而言 Service 层方法的粒度较粗，可重用性不高，可重用高的可以下沉到 Manager 层）。
+- 一般性原则是不可以，除非在 Service 层有重用需求（一般而言 Service 层方法的粒度较粗，可重用性不高，可重用高的可以下沉到 Manager 层）。
 
 **ApiResult 不允许向下传递（ApiResult 面向的是 Api 调用方，而非开发人员）。**
 
--   ApiResult 是作为最终结果输出到调用方，而不应该在开发程序的时候多方传递，这样会降低可读性（增加了if、else的编写），因此 ApiResult 不允许向下传递。
+- ApiResult 是作为最终结果输出到调用方，而不应该在开发程序的时候多方传递，这样会降低可读性（增加了if、else的编写），因此 ApiResult 不允许向下传递。
 
 ### 统一 Controller 层的异常处理
 
--   优先使用 ExceptionHandler 方式进行全局异常处理，其次是 AOP 实现。
--   Controller 中可以进行业务相关的异常处理，不需要进行通用异常处理。
+- 优先使用 ExceptionHandler 方式进行全局异常处理，其次是 AOP 实现。
+- Controller 中可以进行业务相关的异常处理，不需要进行通用异常处理。
 
 ### 参数校验规约
 
--   使用 JSR 验证机制。
--   Controller 层可以进行参数的校验工作，也可以下放至 service 层进行校验，取决于代码的重用程度和验证的层次，Controller 主要进行基本参数验证，业务逻辑上的参数验证应该放到 service 层。
--   校验方法必须放在单独的方法中。
+- 使用 JSR 验证机制。
+- Controller 层可以进行参数的校验工作，也可以下放至 service 层进行校验，取决于代码的重用程度和验证的层次，Controller 主要进行基本参数验证，业务逻辑上的参数验证应该放到 service 层。
+- 校验方法必须放在单独的方法中。
 
 ### API 优先设计
 
--   使用 API 优先设计的思想进行 Controller 层的开发，大多数情况下使用 API Code First 模式，提供外部 API 时可以考虑 API Design First。
+- 使用 API 优先设计的思想进行 Controller 层的开发，大多数情况下使用 API Code First 模式，提供外部 API 时可以考虑 API Design First。
 
-    -   扩展项目：<https://github.com/swagger-api/swagger-codegen>、<https://github.com/OpenAPITools/openapi-generator>
+  - 扩展项目：<https://github.com/swagger-api/swagger-codegen>、<https://github.com/OpenAPITools/openapi-generator>
 
--   项目中需要引入 Swagger 组件。
+- 项目中需要引入 Swagger 组件。
 
--   在生产环境禁用 Swagger 。
+- 在生产环境禁用 Swagger 。
 
 ## 六、Service 层开发实践
 
@@ -305,18 +301,18 @@ RPC 接口和实现各自放在独立的模块中，方便服务调用方重用�
 
 方法参数注意事项：
 
--   必须使用强类型。
--   超过 4 个参数时使用数据模型类进行封装。
--   不允许使用复杂对象，如：Request、Response 等。
+- 必须使用强类型。
+- 超过 4 个参数时使用数据模型类进行封装。
+- 不允许使用复杂对象，如：Request、Response 等。
 
 方法返回值注意事项：
 
--   **不允许返回 ApiResult**，返回 ApiResult 容易使 Controller 层变为幽灵类，即 Controller 层毫无作用，减少了分层层次。
+- **不允许返回 ApiResult**，返回 ApiResult 容易使 Controller 层变为幽灵类，即 Controller 层毫无作用，减少了分层层次。
 
 ### Servce 层编写注意事项
 
--   不应该包含非业务逻辑相关的代码，如国际化信息、导出 Excel 实现等。
--   不能包含 DAO 层实现代码。
+- 不应该包含非业务逻辑相关的代码，如国际化信息、导出 Excel 实现等。
+- 不能包含 DAO 层实现代码。
 
 ### Service 接口编写规约
 
@@ -324,59 +320,59 @@ RPC 接口和实现各自放在独立的模块中，方便服务调用方重用�
 
 **需要编写 Service 接口的情况有：**
 
--   Service 可能需要多个实现（这种情况也可考虑将 Service 接口放入 spi 包中）。
--   需要直接使用 Service 接口做 rpc 调用时。
+- Service 可能需要多个实现（这种情况也可考虑将 Service 接口放入 spi 包中）。
+- 需要直接使用 Service 接口做 rpc 调用时。
 
 **其他情况下不需要编写 Service 接口。**
 
 **不编写 Service 接口时的注意事项：**
 
--   不要在 private 方法上编写注解。
--   Service 类不应该继承包含增删改善功能的基类。
+- 不要在 private 方法上编写注解。
+- Service 类不应该继承包含增删改善功能的基类。
 
 ## 七、DAO 层开发实践
 
 ### 数据访问组件的选择
 
--   管理后台项目统一使用 jpa、jOOQ 或其他 ORM 框架以提升开发效率。
--   客户端/网站接口可使用组合使用 jpa、mybatis 等技术，按性能需要为准。
+- 管理后台项目统一使用 jpa、jOOQ 或其他 ORM 框架以提升开发效率。
+- 客户端/网站接口可使用组合使用 jpa、mybatis 等技术，按性能需要为准。
 
 ### 注意事项
 
--   数据分页必须在数据库层面进行。
--   不使用存储过程。
+- 数据分页必须在数据库层面进行。
+- 不使用存储过程。
 
 ## 八、其他实践
 
 ### 异常处理实践
 
--   DAO 层不需要手动抛出异常，若有底层数据访问类，可在底层封装 DAOException，**DAO层可以不捕获异常，若捕获必须向上传递异常，在该层不需要打印异常日志**。
--   Service 层可以捕获异常，在一些情况下可通过异常控制代码流程，比如通过参数校验异常控制程序不往下执行，通过这些方式，减少 if 代码，**Service 层捕获异常后可向上传递异常，若不传递则必须记录异常日志，若向上传递则不记录日志**。
--   Controller 层与 Service 层的异常处理方式一致，**向上传递异常时，由 Controller 上的切面进行日志记录和返回结果的包装**。
--   **原则：自行处理异常必须记录日志（完整异常堆栈），向上传递异常则不需要，DAO 层必须向上传递异常。**
--   不允许忽略异常（try 后什么都不做）。
--   一级自定义异常继承自 RunTimeException 。
+- DAO 层不需要手动抛出异常，若有底层数据访问类，可在底层封装 DAOException，**DAO层可以不捕获异常，若捕获必须向上传递异常，在该层不需要打印异常日志**。
+- Service 层可以捕获异常，在一些情况下可通过异常控制代码流程，比如通过参数校验异常控制程序不往下执行，通过这些方式，减少 if 代码，**Service 层捕获异常后可向上传递异常，若不传递则必须记录异常日志，若向上传递则不记录日志**。
+- Controller 层与 Service 层的异常处理方式一致，**向上传递异常时，由 Controller 上的切面进行日志记录和返回结果的包装**。
+- **原则：自行处理异常必须记录日志（完整异常堆栈），向上传递异常则不需要，DAO 层必须向上传递异常。**
+- 不允许忽略异常（try 后什么都不做）。
+- 一级自定义异常继承自 RunTimeException 。
 
 ### 单元测试实践
 
--   单元测试必须遵守 AIR（Automatic、Independent、Repeatable） 原则。
--   单元测试必须保证依赖的测试环境是受控的，测试用例执行的成功与否是符合预期的。
--   代码仓库中的单元测试执行失败时会阻碍后续工作的进行，一旦出错必须立即解决。
+- 单元测试必须遵守 AIR（Automatic、Independent、Repeatable） 原则。
+- 单元测试必须保证依赖的测试环境是受控的，测试用例执行的成功与否是符合预期的。
+- 代码仓库中的单元测试执行失败时会阻碍后续工作的进行，一旦出错必须立即解决。
 
 ### 对象映射
 
--   使用 MapStruct 等工具组织类之间的映射关系，以提升对象映射执行效率和代码可读性。
+- 使用 MapStruct 等工具组织类之间的映射关系，以提升对象映射执行效率和代码可读性。
 
 ## 九、数据库版本控制
 
--   使用 liquibase 或 flyway 做数据库版本控制。
--   数据库版本控制代码放在单独的 git 项目中（方便设置部署流水线），按项目进行分组，一个 git 项目中可存在多个数据库版本控制代码。
+- 使用 liquibase 或 flyway 做数据库版本控制。
+- 数据库版本控制代码放在单独的 git 项目中（方便设置部署流水线），按项目进行分组，一个 git 项目中可存在多个数据库版本控制代码。
 
 ## 十、部署相关实践
 
--   Dockerfile 需要支持 SkyWalking，以进行链路追踪。
--   配置中心使用 apollo，灵活管理项目配置。
--   线上使用 logback 日志系统写入日志到 ELK。
+- Dockerfile 需要支持 SkyWalking，以进行链路追踪。
+- 配置中心使用 apollo，灵活管理项目配置。
+- 线上使用 logback 日志系统写入日志到 ELK。
 
 ## 十一、Java 微服务项目常规架构示例图
 

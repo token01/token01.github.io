@@ -1,4 +1,8 @@
-## 基础
+---
+article: false
+title:  基础知识积累
+icon: note
+---
 
 ### JDK和JRE
 

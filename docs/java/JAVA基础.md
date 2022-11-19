@@ -1520,11 +1520,11 @@ JAVA1.8 HashMap采用 数组+链表+红黑树的方式实现。
 - 占用内存比较宽松，故空间复杂度很小，但时间复杂度很大
 - 寻址困难，插入和删除容易
 
- 单项链表：![](../assets/img/JAVA-BASE-TABLE-1.bmp)
+ 单项链表：![](../assets/img/JAVA-BASE-TABLE-1.png)
 
- 双向链表：![](../assets/img/JAVA-BASE-TABLE-2.bmp)
+ 双向链表：![](../assets/img/JAVA-BASE-TABLE-2.png)
 
- 循环链表：![](../assets/img/JAVA-BASE-TABLE-3.bmp)
+ 循环链表：![](../assets/img/JAVA-BASE-TABLE-3.png)
 
 ### 红黑树
 

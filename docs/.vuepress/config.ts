@@ -11,7 +11,7 @@ export default defineUserConfig({
   // 网站语言，默认为中文
   lang: "zh-CN",
   // 网站标题
-  title: "LearnNotes-浅谈技术",
+  title: "LearnNotes",
   // 网站描述
   description:
     "开源工具、编程知识、效率方法、有趣内容的自我提升笔记，记录并输出一切能让自己提升的知识。",

@@ -1,6 +1,6 @@
 ---
 article: false
-title: LearnNotes-浅谈技术
+title: LearnNotes
 icon: note
 ---
 

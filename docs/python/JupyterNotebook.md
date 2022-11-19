@@ -1,6 +1,6 @@
 ---
 article: false
-title: LearnNotes
+title: Jupyter Notebook
 icon: note
 ---
 ## Jupyter Notebook

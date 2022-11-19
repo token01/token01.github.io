@@ -1,5 +1,10 @@
+---
+article: false
+title:  Spark in Python
+icon: note
+---
 
-# Spark in Python
+## Spark in Python
 
 * [pyspark tutorial](https://sparkbyexamples.com/pyspark-tutorial/)
 * [Spark Python examples](https://github.com/apache/spark/blob/master/examples/src/main/python/ml/lda_example.py)

@@ -1,6 +1,6 @@
 ---
 article: false
-title: LearnNotes
+title: Pandas
 icon: note
 ---
 

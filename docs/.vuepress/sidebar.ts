@@ -10,7 +10,7 @@ export default sidebar(
     icon: "",
     prefix: "/code/",
     link: "",
-    collapsable: true,
+    collapsable: false,
     children: "structure",    
   },
   {
@@ -18,7 +18,7 @@ export default sidebar(
     icon: "",
     prefix: "/letter/",
     link: "",
-    collapsable: true,
+    collapsable: false,
     children: "structure",    
   },
   {
@@ -26,7 +26,7 @@ export default sidebar(
     icon: "",
     prefix: "/java/",
     link: "",
-    collapsable: true,
+    collapsable: false,
     children: "structure",    
   },
   {
@@ -34,7 +34,7 @@ export default sidebar(
     icon: "",
     prefix: "/python/",
     link: "",
-    collapsable: true,
+    collapsable: false,
     children: "structure",    
   },
   {
@@ -42,7 +42,7 @@ export default sidebar(
     icon: "",
     prefix: "/apps/",
     link: "",
-    collapsable: true,
+    collapsable: false,
     children: "structure",
   },
   {
@@ -50,7 +50,7 @@ export default sidebar(
     icon: "",
     prefix: "/web/",
     link: "",
-    collapsable: true,
+    collapsable: false,
     children: "structure",
   },
   {
@@ -58,7 +58,7 @@ export default sidebar(
     icon: "",
     prefix: "/deploy/",
     link: "",
-    collapsable: true,
+    collapsable: false,
     children: "structure",
   },
   {
@@ -66,7 +66,7 @@ export default sidebar(
     icon: "",
     prefix: "/services/",
     link: "",
-    collapsable: true,
+    collapsable: false,
     children: "structure",
   },
   {
@@ -74,7 +74,7 @@ export default sidebar(
     icon: "",
     prefix: "/windows/",
     link: "",
-    collapsable: true,
+    collapsable: false,
     children: "structure",
   },
   {
@@ -82,7 +82,7 @@ export default sidebar(
     icon: "",
     prefix: "/family/",
     link: "",
-    collapsable: true,
+    collapsable: false,
     children: "structure",
   },
   {
@@ -90,7 +90,7 @@ export default sidebar(
     icon: "blog",
     prefix: "/_posts/",
     link: "/blog",
-    collapsable: true,
+    collapsable: false,
     children: "structure",
   }, 
 ]

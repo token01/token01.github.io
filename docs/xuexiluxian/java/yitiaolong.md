@@ -43,9 +43,9 @@ C 语言的特殊性就在于它可能是唯一一门最适合来学习一系列
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/java/yitiaolong-3507eb06-8424-4b8e-b20d-046268508c9d.png)
 
-我第一时间就整理了一份 PDF 版的，需要的小伙伴可以长按识别/扫描下方二维码，关注后回复 「**阮一峰**」 下载这份 PDF 吧：
+<!-- 我第一时间就整理了一份 PDF 版的，需要的小伙伴可以长按识别/扫描下方二维码，关注后回复 「**阮一峰**」 下载这份 PDF 吧：
 
-![扫码关注后回复「阮一峰」关键字](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png)
+![扫码关注后回复「阮一峰」关键字](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png) -->
 
 在学习的过程中切记一点，就是一定要多练多练多练，这一点不仅适合学习 C语言，也适合学习 Java 语言。有句话说得好呀，**看懂了+上万行代码=学会了**。无论是看视频学习，还是看书学习，最怕的就是眼高手低，以为自己看懂了，实际上呢，离学会了还差上万行代码。
 
@@ -200,11 +200,11 @@ B 站上浙江大学的一个数据结构课非常不错，很系统很经典。
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/java/yitiaolong-3b9ab6b9-67f2-4810-bb39-9e1f48ffe3da.png)
 
 
->在线阅读地址：[https://refactoring.guru](https://refactoring.guru)
+<!-- >在线阅读地址：[https://refactoring.guru](https://refactoring.guru)
 
 需要离线版的小伙伴请长按识别/扫描下方的二维码关注作者的原创公众号「**沉默王二**」回复关键字「**设计模式**」就可以拉取到了。
 
-![扫码关注后回复「设计模式」关键字](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png)
+![扫码关注后回复「设计模式」关键字](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png) -->
 
  
 

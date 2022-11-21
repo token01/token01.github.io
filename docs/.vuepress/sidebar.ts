@@ -21,7 +21,6 @@ export const sidebarConfig = sidebar({
     "typoramaczwpjbhyjjdkptmarkdownbjqmksimacsocom",
     "xshellazpjbjcxshellpxffxbxt",
     "pycharmjhpxmazjcnyrgxxbxt",
-    "yang1",
   ],
   "/pdf/": [
     "java",
@@ -55,7 +54,6 @@ export const sidebarConfig = sidebar({
     "os",
     "qianduan",
     "algorithm",
-    "lanqiaobei",
     "bigdata",
     "android",
     "mysql",
@@ -667,18 +665,6 @@ export const sidebarConfig = sidebar({
           "20ren-it-quma",
           "benkesheng-ali-tengxun",
           "408",
-        ],
-    },
-    {
-      text: "八、知识库搭建",
-      collapsible: true,
-      prefix: "szjy/",
-      children: [
-          "buy-cloud-server",
-          "install-baota-mianban",
-          "buy-domain",
-          "record-domain",
-          "https-domain",
         ],
     },
     // {

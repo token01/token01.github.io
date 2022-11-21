@@ -199,11 +199,11 @@ B 站上浙江大学的一个数据结构课非常不错，很系统很经典。
 
 当然了，考虑到有些小伙伴需要 PDF 版的，我也准备好了。直接长按识别/扫描下方二维码，关注后回复 「**刷题**」 下载这份 PDF 吧：
 
-![扫码关注后回复「刷题」关键字](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png)
+<!-- ![扫码关注后回复「刷题」关键字](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png)
 
 除此之外，再给大家推荐三份高质量的刷题笔记，C/C++、Java、Go 版的全有了！同样可以通过上面的方式获取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/algorithm-6c0c84be-ba1c-48d0-8ea7-70ef66e04ff2.png)
+![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/algorithm-6c0c84be-ba1c-48d0-8ea7-70ef66e04ff2.png) -->
 
 ### **4）在线网站**
 

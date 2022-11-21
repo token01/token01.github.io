@@ -268,9 +268,9 @@ IoC（Inverse of Control），也就是控制反转，是一种设计思想，�
 
 借这个机会，我希望把多年来整理的硬核学习资料分享出来，帮助到更多小伙伴，包括**编程语言的入门教程，操作系统、计算机网络、数据结构与算法这种偏基础的硬核知识，以及能“吊打”面试官的八股文：**
 
-直接长按识别/扫描下方二维码，关注后回复 「**00**」 下载这份 PDF 吧：
+<!-- 直接长按识别/扫描下方二维码，关注后回复 「**00**」 下载这份 PDF 吧：
 
-![扫码关注后回复「00」关键字](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png)
+![扫码关注后回复「00」关键字](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png) -->
 
 ## 三、嵌入式
 

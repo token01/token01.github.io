@@ -10,32 +10,7 @@ head:
     - name: description
       content: 架构师进阶之路，小白的零基础Java教程，从入门到进阶
 ---
-<!-- 
-::: center
-<p align="center">
-  <a href="https://www.yuque.com/itwanger/ydx81p/nksgcaox959w7ie9">
-      <img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zsxq-hb.jpg" style="margin: 0 auto; width: 700px;" />
-  </a>
-</p>
-:::
 
->[二哥的编程星球](https://tobebetterjavaer.com/zhishixingqiu/)已经有 **1000 多名** 小伙伴加入了，如果你也需要一个良好的学习氛围，[戳链接](https://tobebetterjavaer.com/zhishixingqiu/)加入我们吧！这是一个「编程学习指南 + Java项目实战 + LeetCode刷题」的私密圈子，你可以阅读星球专栏、向二哥提问、帮你制定学习计划、跟着二哥一起做项目、刷力扣，冲冲冲。
-
-::: center
-<div align="center">
-  <a href="https://tobebetterjavaer.com">
-    <img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/logo-01.png" width="260px" alt="Java 程序员进阶之路">
-  </a><br>
-  <a href="https://tobebetterjavaer.com/blog.html" target="_blank"><img src="https://img.shields.io/badge/博客-在线阅读-green.svg?style=for-the-badge"></a>
-  <a href="#联系方式" target="_blank"><img src="https://img.shields.io/badge/公众号-沉默王二-brightgreen.svg?style=for-the-badge"></a>
-  <a href="https://space.bilibili.com/513340480" target="_blank"><img src="https://img.shields.io/badge/bilibili-哔哩哔哩-critical?style=for-the-badge"></a>
-  <a href="https://tobebetterjavaer.com/download/java.html" target="_blank"><img src="https://img.shields.io/badge/计算机经典电子书-下载-yellow.svg?style=for-the-badge" alt="无套路下载"></a>
-  <a href="https://github.com/token01/token01.github.io" target="_blank"><img alt="架构师进阶之路" src="https://img.shields.io/github/stars/itwanger/toBeBetterJavaer?style=for-the-badge"></a><br><br>
-<a href="https://github.com/token01/token01.github.io">Github</a> |
-<a href="https://gitee.com/itwanger/toBeBetterJavaer">Gitee</a>
-</div>  
-:::
- -->
 
 ## 为什么会有这个开源知识库
 
@@ -51,11 +26,7 @@ head:
 
 赠人玫瑰手有余香。知识库会持续保持**更新**，欢迎收藏品鉴！推荐你通过在线阅读网站进行阅读，体验更好，速度更快！
 
-- [**架构师进阶之路在线阅读网站（新版，推荐👍）**](https://tobebetterjavaer.com/)
-- [架构师进阶之路在线阅读](https://docsify.tobebetterjavaer.com)
-
 ## 知识库地图
-
 
 知识库收录的核心内容就全在这里面了，大类分为 Java 核心、Java 企业级开发、数据库、计算机基础、求职面试、学习资源、程序人生，几乎你需要的这里都有。
 
@@ -75,7 +46,6 @@ head:
 * [操作系统学习路线（建议收藏🔥）](xuexiluxian/os.md)
 * [前端学习路线（建议收藏🔥）](xuexiluxian/qianduan.md)
 * [算法和数据结构学习路线（建议收藏🔥）](xuexiluxian/algorithm.md)
-* [蓝桥杯学习路线（建议收藏🔥）](xuexiluxian/lanqiaobei.md)
 * [大数据学习路线（建议收藏🔥）](xuexiluxian/bigdata.md)
 * [Android 安卓学习路线（建议收藏🔥）](xuexiluxian/android.md)
 * [MySQL 学习路线（建议收藏🔥）](xuexiluxian/mysql.md)
@@ -466,33 +436,6 @@ head:
 - [不到 20 人的 IT 公司该去吗？](xuexijianyi/20ren-it-quma.md)
 - [本科生如何才能进入腾讯、阿里等一流的互联网公司？](xuexijianyi/benkesheng-ali-tengxun.md)
 - [计算机考研 408 统考该如何准备？](xuexijianyi/408.md)
-
-## 知识库搭建
-
-
-从购买阿里云服务器+域名购买+域名备案+HTTP 升级到 HTTPS，全方面记录《Java 程序员进阶之路》知识库的诞生和改进过程，涉及到 docsify、Git、Linux 命令、GitHub 仓库等实用知识点。
-
-- [购买云服务器](szjy/buy-cloud-server.md)
-- [安装宝塔面板](szjy/install-baota-mianban.md)
-- [购买域名&域名解析](szjy/buy-domain.md)
-- [备案域名](szjy/record-domain.md)
-- [给域名配置HTTPS证书](szjy/https-domain.md)
-- [使用docsify+Git+GitHub+码云+阿里云服务器搭建知识库网站](szjy/tobebetterjavaer-wangzhan-shangxian.md)
-
-<!-- 
-## 联系作者
-
-
->- 作者是一名普通普通普通普通三连的 Java 后端开发者，热爱学习，热爱分享
->- 参加工作以后越来越理解交流和分享的重要性，在不停地汲取营养的同时，也希望帮助到更多的小伙伴们
->- Java 程序员进阶之路，不仅是作者自学 Java 以来所有的原创文章和学习资料的大聚合，更是作者向这个世界传播知识的一个窗口。
-
-
-- [走近作者：个人介绍 Q&A](about-the-author/readme.md)
-- [我的第一个，10 万(B站视频播放)](about-the-author/bzhan-10wan.md)
-- [我的第一个，一千万！知乎阅读](about-the-author/zhihu-1000wan.md)
-- [我的第二个，一千万！CSDN阅读](about-the-author/csdn-1000wan.md) -->
-
 
 
 

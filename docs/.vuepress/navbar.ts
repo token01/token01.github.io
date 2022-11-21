@@ -25,12 +25,6 @@ export default navbar([
     text: "珍藏资源",
     icon: "youzhi",
     children: [
-      {
-        
-        text: "PDF下载", 
-        icon: "java", 
-        link: "/pdf/readme.md" 
-      },
       { 
         text: "面渣逆袭", 
         icon: "zhunbei", 

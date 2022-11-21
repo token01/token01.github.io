@@ -24,11 +24,11 @@ head:
 
 我第一时间就整理了一份 PDF 版，截个图大家可以感受下。我对这份教程非常满意，该讲的地方都讲到了，示例也给了很多，对初学者来说，入门必备。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/c-1.png)
+<!-- ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/c-1.png)
 
 直接长按识别/扫描下方二维码，关注后回复 「**08**」 下载这份 PDF 吧：
 
-![扫码关注后回复「08」关键字](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png)
+![扫码关注后回复「08」关键字](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png) -->
 
 
 

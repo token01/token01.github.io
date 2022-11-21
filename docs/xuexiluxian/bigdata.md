@@ -118,13 +118,13 @@ Maven，Java 程序员进阶之路上有教程：[https://tobebetterjavaer.com/m
 
 视频的话，[尚硅谷的大数据相关视频](https://space.bilibili.com/302417610/search/video?keyword=%E5%A4%A7%E6%95%B0%E6%8D%AE)还不错。
 
-这里还给大家准备了一份 GitHub 上星标 12k 的大数据入门指南，来看一下内容吧。
+<!-- 这里还给大家准备了一份 GitHub 上星标 12k 的大数据入门指南，来看一下内容吧。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/bigdata-461d50d4-504d-499c-b8ea-e8d38eb836ad.png)
 
 直接长按识别/扫描下方二维码，关注后回复 「**00**」 下载这份 PDF 吧：
 
-![扫码关注后回复「00」关键字](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png)
+![扫码关注后回复「00」关键字](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png) -->
 
 
 ## 学习建议

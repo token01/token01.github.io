@@ -133,9 +133,9 @@ head:
 
 >GitHub 地址：[https://github.com/doocs/jvm](https://github.com/doocs/jvm)
 
-考虑到有些小伙伴可能需要 PDF 版本，我都整理好了，需要的小伙伴请扫描下方的二维码关注作者的原创公众号「**沉默王二**」回复关键字「**java**」就可以拉取到了。
+<!-- 考虑到有些小伙伴可能需要 PDF 版本，我都整理好了，需要的小伙伴请扫描下方的二维码关注作者的原创公众号「**沉默王二**」回复关键字「**java**」就可以拉取到了。
 
-![扫码关注后回复「java」关键字](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png)
+![扫码关注后回复「java」关键字](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png) -->
 
 再推荐一份 GitHub 上开源的 Java 虚拟机知识点总结：
 

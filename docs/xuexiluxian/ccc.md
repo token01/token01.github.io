@@ -52,9 +52,9 @@ head:
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/ccc-b3de882e-3b4e-453e-a9b7-e327ca7ec30e.png)
 
 
-我从网上 down 了一份，保存到了本地。需要的小伙伴请长按识别/扫描下方的二维码关注作者的原创公众号「**沉默王二**」回复关键字「**cpp**」就可以拉取到了。
+<!-- 我从网上 down 了一份，保存到了本地。需要的小伙伴请长按识别/扫描下方的二维码关注作者的原创公众号「**沉默王二**」回复关键字「**cpp**」就可以拉取到了。
 
-![回复关键字 cpp ](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png)
+![回复关键字 cpp ](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png) -->
 
 给大家看一下我保存的这些视频资源哈。
 

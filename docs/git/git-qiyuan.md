@@ -1052,7 +1052,7 @@ Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 
 如果使用 GitHub 仓库的原始路径来访问的话，速度贼慢！
 
->https://github.com/itwanger/toBeBetterJavaer/tree/master/images/logo-01.png
+>https://github.com/token01/token01.github.io/tree/master/images/logo-01.png
 
 使用 jsDelivr 加速后就不一样了，速度飞起！
 

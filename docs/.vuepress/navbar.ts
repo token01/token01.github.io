@@ -11,11 +11,11 @@ export default navbar([
     icon: "lujing", 
     link: "/home.md" 
   },
-  { 
-    text: "知识星球", 
-    icon: "Artboard", 
-    link: "/zhishixingqiu/" 
-  },
+  // { 
+  //   text: "知识星球", 
+  //   icon: "Artboard", 
+  //   link: "/zhishixingqiu/" 
+  // },
   {
     text: "学习路线",
     icon: "luxian",
@@ -26,6 +26,7 @@ export default navbar([
     icon: "youzhi",
     children: [
       {
+        
         text: "PDF下载", 
         icon: "java", 
         link: "/pdf/readme.md" 
@@ -42,9 +43,9 @@ export default navbar([
       },
     ],
   },
-  {
-    text: "B站视频",
-    icon: "bzhan", 
-    link: "https://space.bilibili.com/513340480"
-  },
+  // {
+  //   text: "B站视频",
+  //   icon: "bzhan", 
+  //   link: "https://space.bilibili.com/513340480"
+  // },
 ]);

@@ -646,25 +646,7 @@ export const sidebarConfig = sidebar({
             "nice-article/weixin/youdxzhhmjzlycfx",
           ],
         },
-        {
-          text: "城市选择",
-          prefix: "cityselect/",
-          collapsible: true,
-          children: [
-            "beijing",
-            "chengdu",
-            "guangzhou",
-            "hangzhou",
-            "nanjing",
-            "qingdao",
-            "shenzhen",
-            "suzhou",
-            "xian",
-            "zhengzhou",
-            "jinan",
-          ],
-        },
-      ],
+        ],
     },
     {
       text: "七、学习建议",
@@ -699,18 +681,18 @@ export const sidebarConfig = sidebar({
           "https-domain",
         ],
     },
-    {
-      text: "九、联系作者",
-      collapsible: true,
-      prefix: "about-the-author/",
-      children: [
-        "bzhan-10wan",
-        "zhihu-1000wan",
-        "csdn-1000wan",
-        "readme.md",
+    // {
+    //   text: "九、联系作者",
+    //   collapsible: true,
+    //   prefix: "about-the-author/",
+    //   children: [
+    //     "bzhan-10wan",
+    //     "zhihu-1000wan",
+    //     "csdn-1000wan",
+    //     "readme.md",
         
-      ],
-    },
+    //   ],
+    // },
   ],
 });
 

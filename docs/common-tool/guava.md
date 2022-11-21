@@ -29,7 +29,7 @@ head:
 
 *PS：star 这种事，只能求，不求没效果😭😭😭。二哥开源的《Java 程序员进阶之路》专栏在 GitHub 上已经收获了 595 枚星标，铁粉们赶紧去点点啦，帮二哥冲 600 star，笔芯*！
 
->[https://github.com/itwanger/toBeBetterJavaer](https://github.com/itwanger/toBeBetterJavaer)
+>[https://github.com/token01/token01.github.io](https://github.com/token01/token01.github.io)
 
 ## 02、引入 Guava
 

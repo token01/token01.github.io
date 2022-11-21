@@ -34,7 +34,7 @@ tag:
 
 首先，《Java 程序员进阶之路》专栏的源头是 GitHub 上的一个开源仓库。
 
->GitHub 地址：https://github.com/itwanger/toBeBetterJavaer
+>GitHub 地址：https://github.com/token01/token01.github.io
 
 里面除了 md 文档和图片之外，还有代码示例，以及 docsify 的基础环境文件。
 

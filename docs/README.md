@@ -4,16 +4,16 @@ icon: home
 title: 主页
 heroImage: http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/logo.png
 heroText: 架构师进阶之路
-tagline: 沉默王二BB：这是一份通俗易懂、风趣幽默的Java学习指南，内容涵盖Java基础、Java并发编程、Java虚拟机、Java企业级开发、Java面试等核心知识点。学Java，就认准架构师进阶之路😄
+tagline: 这是一份通俗易懂、风趣幽默的Java学习指南，内容涵盖Java基础、Java并发编程、Java虚拟机、Java企业级开发、Java面试等核心知识点。学Java，就认准架构师进阶之路😄
 actions:
   - text: 立马上路→
     link: /home.md
     type: primary
-  - text: 二哥的编程星球
-    link: /zhishixingqiu/
+  - text: 博客入口
+    link: /blog.md
     type: default
-footer: |-
-  <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021038026号-1</a> | 主题: <a href="https://vuepress-theme-hope.github.io/v2/" target="_blank">VuePress Theme Hope</a>
+# footer: |-
+#   <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2021038026号-1</a> | 主题: <a href="https://vuepress-theme-hope.github.io/v2/" target="_blank">VuePress Theme Hope</a>
 ---
 
 ## 推荐阅读 
@@ -23,7 +23,7 @@ footer: |-
 - [Java程序员常读书单📚](/pdf/)：超1000本PDF，助力Java 程序员构建最强知识体系，涵盖Java、设计模式、数据库、数据结构与算法、大数据、架构、其他编程语言等等，再也不用辛苦去找下载地址了，这里全都有。
 - [编程喵喵🐱实战项目学习教程](https://github.com/itwanger/codingmore-learning) ：codingmore（Spring Boot+Vue 的前后端分离项目，一款值得一试的开源知识库学习网站）的学习教程，需要项目经验的 Java 开发者必备！
 
-## 公众号
+<!-- ## 公众号
 
 最近整理了一份牛逼的学习资料，包括但不限于Java基础部分（JVM、Java集合框架、多线程），还囊括了 **数据库、计算机网络、算法与数据结构、设计模式、框架类Spring、Netty、微服务（Dubbo，消息队列） 网关** 等等等等……详情戳：[可以说是2022年全网最全的学习和找工作的PDF资源了](https://tobebetterjavaer.com/pdf/programmer-111.html)
 
@@ -43,60 +43,8 @@ footer: |-
 
 <div align="left">
     <img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/weixin-zhifu.png" width="260px">
-</div>
+</div> -->
 
-:gift_heart: 感谢大家对我资金的赞赏，每隔一个月会统计一次。
-
-时间|小伙伴|赞赏金额
----|---|---
-2022-11-13|*王|5元
-2022-11-10|*车|1元
-2022-11-10|F*k|1元
-2022-11-05|*H|3元
-2022-11-04|*千|0.02元
-2022-11-04|*尘|15元
-2022-11-02|*峰|1元
-2022-11-10|*车|1元
-2022-10-29|~*~|6元
-2022-10-28|*官|1元
-2022-10-20|*电|2元
-2022-10-15|*深|5元
-2022-09-30|*君|1元
-2022-09-28|*懂|1元
-2022-09-27|*府|1元
-2022-09-23|*物|5元
-2022-09-23|H*n|1元
-2022-09-23|*a|0.01元
-2022-09-08|*👀|20元
-2022-09-07|丹*1|20元
-2022-08-27|*夹|40元
-2022-07-06|体*P|2元
-2022-07-05|*谦|5元
-2022-06-18|*杰|2元
-2022-06-15|L*c|15元
-2022-06-10|*❤|1元
-2022-06-09|'*'|1元
-2022-06-07|*勇|1元
-2022-06-03|*张|1元
-2022-05-12|*烟|10元
-2022-04-25|*思|5元
-2022-04-20|w*n|1元
-2022-04-12|*生|10元
-2022-03-04|袁*波|99元
-2022-02-17|*色|1元
-2022-02-17|M*y|1元
-2022-01-28|G*R|6.6元
-2022-01-20|*光|50元
-2022-01-14|*浩|1元
-2022-01-01|马*谊|6.6元
-2022-01-01|刚*好|3.6元
-2021-12-20|t*1|5 元
-2021-10-26|*鱼|28 元
-2021-10-11|*人|28 元
-2021-09-01|S*n|6.6 元
-2021-08-02|*秒|1 元
-2021-06-13|*7| 28 元
-2021-04-29|p*e|2 元
 
 
 

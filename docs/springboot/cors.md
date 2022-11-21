@@ -191,7 +191,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 **本篇已收录至 GitHub 上星标 1.6k+ star 的开源专栏《Java 程序员进阶之路》，据说每一个优秀的 Java 程序员都喜欢她，风趣幽默、通俗易懂。内容包括 Java 基础、Java 并发编程、Java 虚拟机、Java 企业级开发、Java 面试等核心知识点。学 Java，就认准 Java 程序员进阶之路**😄。
 
-[https://github.com/itwanger/toBeBetterJavaer](https://github.com/itwanger/toBeBetterJavaer)
+[https://github.com/token01/token01.github.io](https://github.com/token01/token01.github.io)
 
 star 了这个仓库就等于你拥有了成为了一名优秀 Java 工程师的潜力。也可以戳下面的链接跳转到《Java 程序员进阶之路》的官网网址，开始愉快的学习之旅吧。
 

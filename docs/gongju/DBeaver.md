@@ -44,7 +44,7 @@ DBeaver 支持几乎所有主流的数据库，包括关系型数据库和非关
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/DBeaver-4.png)
 
 
-因为 DBeaver 是基于 [Maven 构建](https://github.com/itwanger/toBeBetterJavaer/blob/master/docs/maven/maven.md)的，数据库驱动也就是链接数据库的 JDBC 驱动是通过 Maven 仓库下载的。选择「首选项」→「Maven」，添加阿里云镜像地址：
+因为 DBeaver 是基于 [Maven 构建](https://github.com/token01/token01.github.io/blob/master/docs/maven/maven.md)的，数据库驱动也就是链接数据库的 JDBC 驱动是通过 Maven 仓库下载的。选择「首选项」→「Maven」，添加阿里云镜像地址：
 
 >[http://maven.aliyun.com/nexus/content/groups/public](http://maven.aliyun.com/nexus/content/groups/public)
 

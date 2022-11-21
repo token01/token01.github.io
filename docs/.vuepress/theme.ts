@@ -7,7 +7,7 @@ export default hopeTheme({
   // 网站图标
   logo: "https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/logo-02.png",
   // Git 仓库和编辑链接
-  repo: "https://github.com/itwanger/toBeBetterJavaer",
+  repo: "https://github.com/token01/token01.github.io",
   repoLabel: "GitHub",
   docsDir: "docs",
   // 以前的默认仓库分支名，方便提交 pr 和 issue

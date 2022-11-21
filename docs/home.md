@@ -1,5 +1,5 @@
 ---
-title: 架构师进阶之路x沉默王二
+title: 架构师进阶之路
 isOriginal: true
 headerDepth: 1
 description: 架构师进阶之路，小白的零基础Java教程，从入门到进阶
@@ -10,7 +10,7 @@ head:
     - name: description
       content: 架构师进阶之路，小白的零基础Java教程，从入门到进阶
 ---
-
+<!-- 
 ::: center
 <p align="center">
   <a href="https://www.yuque.com/itwanger/ydx81p/nksgcaox959w7ie9">
@@ -30,18 +30,18 @@ head:
   <a href="#联系方式" target="_blank"><img src="https://img.shields.io/badge/公众号-沉默王二-brightgreen.svg?style=for-the-badge"></a>
   <a href="https://space.bilibili.com/513340480" target="_blank"><img src="https://img.shields.io/badge/bilibili-哔哩哔哩-critical?style=for-the-badge"></a>
   <a href="https://tobebetterjavaer.com/download/java.html" target="_blank"><img src="https://img.shields.io/badge/计算机经典电子书-下载-yellow.svg?style=for-the-badge" alt="无套路下载"></a>
-  <a href="https://github.com/itwanger/toBeBetterJavaer" target="_blank"><img alt="架构师进阶之路" src="https://img.shields.io/github/stars/itwanger/toBeBetterJavaer?style=for-the-badge"></a><br><br>
-<a href="https://github.com/itwanger/toBeBetterJavaer">Github</a> |
+  <a href="https://github.com/token01/token01.github.io" target="_blank"><img alt="架构师进阶之路" src="https://img.shields.io/github/stars/itwanger/toBeBetterJavaer?style=for-the-badge"></a><br><br>
+<a href="https://github.com/token01/token01.github.io">Github</a> |
 <a href="https://gitee.com/itwanger/toBeBetterJavaer">Gitee</a>
 </div>  
 :::
-
+ -->
 
 ## 为什么会有这个开源知识库
 
 
-知识库取名 **toBeBetterJavaer**，即 **To Be Better Javaer**，意为「成为一名更好的 Java 程序员」，是自学 Java 以来所有原创文章和学习资料的大聚合。内容包括 Java 基础、Java 并发编程、Java 虚拟机、Java 企业级开发、Java 面试等核心知识点。据说每一个优秀的 Java 程序员都喜欢她，风趣幽默、通俗易懂。学 Java，就认准 Java 程序员进阶之路😄。
- 
+<!-- 知识库取名 **toBeBetterJavaer**，即 **To Be Better Javaer**，意为「成为一名更好的 Java 程序员」，是自学 Java 以来所有原创文章和学习资料的大聚合。内容包括 Java 基础、Java 并发编程、Java 虚拟机、Java 企业级开发、Java 面试等核心知识点。据说每一个优秀的 Java 程序员都喜欢她，风趣幽默、通俗易懂。学 Java，就认准 Java 程序员进阶之路😄。
+  -->
  知识库旨在为学习 Java 的小伙伴提供一系列：
  - **优质的原创 Java 教程**
  - **全面清晰的 Java 学习路线**
@@ -469,21 +469,6 @@ head:
 - [简历如何优化，简历如何投递，面试如何准备？💪](nice-article/weixin/luoczbmsddyb.md)
 - [校招时间节点、简历编写、笔试、HR面、实习等注意事项💪](nice-article/weixin/youdxzhhmjzlycfx.md)
 
-### 城市选择
-
-- [北京都有哪些值得加入的IT互联网公司？](cityselect/beijing.md)
-- [广州都有哪些值得加入的IT互联网公司？](cityselect/guangzhou.md)
-- [深圳都有哪些值得加入的IT互联网公司？](cityselect/shenzhen.md)
-- [西安都有哪些值得加入的IT互联网公司？](cityselect/xian.md)
-- [青岛都有哪些值得加入的IT互联网公司？](cityselect/qingdao.md)
-- [郑州都有哪些值得加入的IT互联网公司？](cityselect/zhengzhou.md)
-- [苏州都有哪些值得加入的IT互联网公司？](cityselect/suzhou.md)
-- [南京都有哪些值得加入的IT互联网公司？](cityselect/nanjing.md)
-- [杭州都有哪些值得加入的IT互联网公司？](cityselect/hangzhou.md)
-- [成都都有哪些值得加入的IT互联网公司？](cityselect/chengdu.md)
-- [济南都有哪些值得加入的IT互联网公司？](cityselect/jinan.md)
-
-
 ### 学习建议
 
 - [计算机专业该如何自学编程，看哪些书籍哪些视频哪些教程？](xuexijianyi/LearnCS-ByYourself.md)
@@ -513,7 +498,7 @@ head:
 - [给域名配置HTTPS证书](szjy/https-domain.md)
 - [使用docsify+Git+GitHub+码云+阿里云服务器搭建知识库网站](szjy/tobebetterjavaer-wangzhan-shangxian.md)
 
-
+<!-- 
 ## 联系作者
 
 
@@ -525,7 +510,7 @@ head:
 - [走近作者：个人介绍 Q&A](about-the-author/readme.md)
 - [我的第一个，10 万(B站视频播放)](about-the-author/bzhan-10wan.md)
 - [我的第一个，一千万！知乎阅读](about-the-author/zhihu-1000wan.md)
-- [我的第二个，一千万！CSDN阅读](about-the-author/csdn-1000wan.md)
+- [我的第二个，一千万！CSDN阅读](about-the-author/csdn-1000wan.md) -->
 
 
 

@@ -41,14 +41,14 @@ export default navbar([
       },
     ],
   },
-  {
-    text: "生活",
-    icon: "emmet",
-    prefix: "/family/",
-    children: [
-      "Diet",
-      "Coupon",
-    ],
-  },
+  // {
+  //   text: "生活",
+  //   icon: "emmet",
+  //   prefix: "/family/",
+  //   children: [
+  //     "Diet",
+  //     "Coupon",
+  //   ],
+  // },
   // { text: "工具收藏", icon: "tool", link: "https://nav.abelsun.tech/" },
 ]);

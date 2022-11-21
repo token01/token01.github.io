@@ -1,7 +1,7 @@
 ---
 article: false
 title:  window hidden
-icon: note
+icon: python
 ---
 
 ## Windows Hidden

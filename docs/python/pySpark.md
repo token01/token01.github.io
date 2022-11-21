@@ -1,7 +1,7 @@
 ---
 article: false
 title:  Spark in Python
-icon: note
+icon: python
 ---
 
 ## Spark in Python

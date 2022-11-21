@@ -1,7 +1,7 @@
 ---
 article: false
 title: Jupyter Notebook
-icon: note
+icon: python
 ---
 ## Jupyter Notebook
 

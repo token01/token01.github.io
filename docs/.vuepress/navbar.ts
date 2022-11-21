@@ -8,6 +8,15 @@ export default navbar([
     icon: "code",
     prefix: "/",
     children: [
+      {
+        text: "基础/系统",
+        icon: "any",
+        prefix: "",
+        children: [
+          "services/NAS",
+          "windows/faq",
+        ],
+      },
       "code/Markdown",
       "java/java_base",
       "python/Python",

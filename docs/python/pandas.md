@@ -1,7 +1,7 @@
 ---
 article: false
 title: Pandas
-icon: note
+icon: python
 ---
 
 ## Pandas

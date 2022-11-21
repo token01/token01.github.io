@@ -135,4 +135,4 @@ Java 平台和 .net 平台是主要的竞争对手。一个属于甲骨文，一
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

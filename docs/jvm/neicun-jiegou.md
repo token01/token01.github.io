@@ -116,4 +116,4 @@ JDK 8 的时候，HotSpot 移除了永久代，也就是说方法区不存在了
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

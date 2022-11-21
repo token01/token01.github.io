@@ -85,7 +85,7 @@ Java 语言既具有编译型语言的特征，也具有解释型语言的特征
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## 基础语法
 
@@ -254,7 +254,7 @@ PS：笔试面试可能会碰到的奇葩题，开发这么写，见一次吊一
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## 面向对象
 
@@ -529,7 +529,7 @@ Java 中有以下四种创建对象的方式:
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## String
 
@@ -647,7 +647,7 @@ JDK 源码里已经对这个方法进行了说明：
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## Integer
 
@@ -751,7 +751,7 @@ public static int parseInt(String s, int radix)
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## Object
 
@@ -1426,6 +1426,6 @@ reduced.ifPresent(System.out::println);
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 > 图文详解 53 道Java基础面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：沉默王二，戳[转载链接](https://mp.weixin.qq.com/s/t7EYyF0VGEg1rAZut9dwSw)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/M-6RSRcRd3X93cR7VXpanw)。

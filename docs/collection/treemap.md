@@ -252,5 +252,5 @@ TreeMap 默认会保持 key 的自然顺序（根据 `compareTo()` 方法）。
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 

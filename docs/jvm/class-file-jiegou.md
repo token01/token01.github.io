@@ -372,4 +372,4 @@ main 方法中调用了 foo 方法。通过 jclasslib 看一下它当中一个�
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

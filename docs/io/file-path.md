@@ -557,5 +557,5 @@ Files 类包含许多其他有用的函数，例如用于创建符号链接，�
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 

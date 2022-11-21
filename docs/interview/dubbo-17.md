@@ -332,4 +332,4 @@ Zookeeper 中节点是有生命周期的，具体的生命周期取决于节点�
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

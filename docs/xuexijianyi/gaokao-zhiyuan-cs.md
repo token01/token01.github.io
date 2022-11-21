@@ -298,4 +298,4 @@ B 站上的这个[计算机网络微课堂](https://www.bilibili.com/video/BV1c4
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

@@ -146,4 +146,4 @@ server {
 
 恭喜！
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

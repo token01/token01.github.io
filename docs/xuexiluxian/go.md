@@ -226,4 +226,4 @@ Go 这边没有 Java 那么卷，岗位的薪资却也比较客观。如果能�
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

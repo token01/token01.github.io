@@ -330,4 +330,4 @@ synchronized 关键字用于在多线程环境中获取和释放监听对象，�
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

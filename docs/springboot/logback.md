@@ -301,4 +301,4 @@ class CodingmoreLogbackApplicationTests {
 > - Logback 详细配置专用：[https://github.com/itwanger/coding-more](https://github.com/itwanger/codingmore-learning/tree/main/codingmore-logback)
 
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

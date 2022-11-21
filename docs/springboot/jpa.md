@@ -336,4 +336,4 @@ Hibernate: delete from user where id=?
 
 ---
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

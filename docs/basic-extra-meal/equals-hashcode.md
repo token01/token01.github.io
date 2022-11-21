@@ -242,4 +242,4 @@ result = (31*1 + Integer(18).hashCode()) * 31 + String("张三").hashCode();
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

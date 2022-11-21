@@ -186,4 +186,4 @@ public class ElasticsearchTest {
 
 另外，如果你想写入门级别的文章，这篇就是最好的范例。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

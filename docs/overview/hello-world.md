@@ -61,4 +61,4 @@ IDEA 会自动保存，在代码编辑面板中右键，在弹出的菜单中选
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

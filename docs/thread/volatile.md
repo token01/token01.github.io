@@ -286,4 +286,4 @@ volatile 可以保证线程可见性且提供了一定的有序性，但是无�
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

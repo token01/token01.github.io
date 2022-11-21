@@ -90,4 +90,4 @@ Java 在云时代面临着以 Go 语言为主的容器（Docker 等技术）生�
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

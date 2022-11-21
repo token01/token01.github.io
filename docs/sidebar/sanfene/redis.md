@@ -172,7 +172,7 @@ Redis6.0的多线程是用多线程来处理数据的**读写和协议解析**�
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## 持久化
 
@@ -275,7 +275,7 @@ AOF的工作流程操作：命令写入 （append）、文件同步（sync）、
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## 高可用
 
@@ -545,7 +545,7 @@ Redis集群提供了灵活的节点扩容和收缩方案，可以在不影响集
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## 缓存设计
 
@@ -819,7 +819,7 @@ Redis缓存，数据库发生更新，直接删除缓存的key即可，因为对
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## Redis运维
 ### 34.Redis报内存不足怎么处理？
@@ -937,7 +937,7 @@ Redis使用过程中，有时候会出现大key的情况， 比如：
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## Redis应用
 
@@ -1129,7 +1129,7 @@ set lock:fighter3 true ex 5 nx OK ... do something critical ... > del lock:codeh
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## 底层结构
 这一部分就比较深了，如果不是简历上写了精通Redis，应该不会怎么问。
@@ -1282,7 +1282,7 @@ quicklist由list和ziplist结合而成，它是一个由ziplist充当节点的�
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## 其他问题
 
@@ -1317,4 +1317,4 @@ quicklist由list和ziplist结合而成，它是一个由ziplist充当节点的�
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

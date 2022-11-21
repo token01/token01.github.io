@@ -81,4 +81,4 @@ macOS 系统可以选择用 Chrome 浏览器。
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/szjy/tobebetterjavaer-beian-13.png)
 
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

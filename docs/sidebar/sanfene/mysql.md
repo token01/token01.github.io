@@ -215,7 +215,7 @@ MySQL 逻辑架构图主要分三层：
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## 存储引擎
 
@@ -279,7 +279,7 @@ PS:MySQL8.0 都开始慢慢流行了，如果不是面试，MylSAM 其实可以�
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## 日志
 
@@ -401,7 +401,7 @@ log buffer 的大小是有限的，如果不停的往这个有限大小的 log b
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## SQL 优化
 
@@ -651,7 +651,7 @@ explain 是 sql 优化的利器，除了优化慢 sql，平时的 sql 编写，�
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## 索引
 
@@ -905,7 +905,7 @@ ALTER TABLE user add INDEX comidx_name_phone (name,age);
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## 锁
 
@@ -1036,7 +1036,7 @@ InnoDB 的行锁的主要实现如下：
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## 事务
 
@@ -1176,7 +1176,7 @@ READ COMMITTED 是**每次读取数据前都生成一个 ReadView**，这样就�
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## 高可用/性能
 
@@ -1397,7 +1397,7 @@ Hash 路由设计的复杂点主要体现在初始表数量的选取上，表数
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## 运维
 
@@ -1478,4 +1478,4 @@ Hash 路由设计的复杂点主要体现在初始表数量的选取上，表数
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

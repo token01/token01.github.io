@@ -216,4 +216,4 @@ JVM 相关的知识已经成为面试必考的科目了，但老实讲，JVM 相
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

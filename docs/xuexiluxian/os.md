@@ -190,5 +190,5 @@ linux-0.11 的学习推荐《Linux 内核完全注释》，该书对 linux-0.11 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 

@@ -137,7 +137,7 @@ Spring 框架中广泛使用了不同类型的设计模式，下面我们来看�
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## IOC
 
@@ -954,7 +954,7 @@ protected void populateBean(String beanName, RootBeanDefinition mbd, @Nullable B
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## AOP
 
@@ -1310,7 +1310,7 @@ AspectJ 属于**静态织入**，通过修改代码来实现，在实际运行�
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## 事务
 
@@ -1472,7 +1472,7 @@ org.springframework.transaction.UnexpectedRollbackException: Transaction rolled 
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## MVC
 
@@ -1543,7 +1543,7 @@ PS:这是一道全新的八股，毕竟 ModelAndView 这种方式应该没人用
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## Spring Boot
 
@@ -1774,6 +1774,6 @@ PS:微服务后面有机会再扩展，其实面试一般都是结合项目去�
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 >  图文详解 35 道Spring面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：沉默王二，戳[转载链接](https://mp.weixin.qq.com/s/EQge6DmgIqYITM3mAxkatg)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/Y17S85ntHm_MLTZMJdtjQQ)。

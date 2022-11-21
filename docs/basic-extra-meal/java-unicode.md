@@ -183,4 +183,4 @@ UTF-16 使用 2 个或者 4 个字节来存储字符。
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

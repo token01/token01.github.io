@@ -410,4 +410,4 @@ DelayQueue是一个存放实现Delayed接口的数据的无界阻塞队列，只
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

@@ -273,4 +273,4 @@ B 站上浙江大学的一个数据结构课非常不错，很系统很经典。
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

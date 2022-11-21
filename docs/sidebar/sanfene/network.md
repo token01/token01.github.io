@@ -88,7 +88,7 @@ OSI 七层模型是国际标准化组织（International Organization for Standa
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## 网络综合
 
@@ -155,7 +155,7 @@ DNS 的解析过程如下图：
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## HTTP
 
@@ -503,7 +503,7 @@ CA 签发证书的过程，如上图左边部分：
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## TCP
 
@@ -1191,7 +1191,7 @@ TCP 是面向流，没有界限的一串数据。TCP 底层并不了解上层业
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## UDP
 
@@ -1252,7 +1252,7 @@ UDP 在传输数据之前不需要先建立连接，远地主机的运输层在�
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## IP
 
@@ -1392,7 +1392,7 @@ ping，**Packet Internet Groper**，是一种因特网包探索器，用于测�
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  
 
 ## 网络安全
 
@@ -1567,4 +1567,4 @@ XSS 攻击一般分三种类型：**存储型 、反射型 、DOM 型 XSS**
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

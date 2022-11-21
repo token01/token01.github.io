@@ -413,4 +413,4 @@ ArrayList，如果有个中文名的话，应该叫动态数组，也就是可�
 
 关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
+  

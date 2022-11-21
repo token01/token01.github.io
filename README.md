@@ -1,25 +1,3 @@
-<!-- <p align="center">
-  <a href="https://www.yuque.com/itwanger/ydx81p/nksgcaox959w7ie9">
-      <img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zsxq-hb.jpg" style="margin: 0 auto; width: 700px;" />
-  </a>
-</p>
-
->[二哥的编程星球](https://tobebetterjavaer.com/zhishixingqiu/)已经有 **1000 多名** 小伙伴加入了，如果你也需要一个良好的学习氛围，[戳链接](https://tobebetterjavaer.com/zhishixingqiu/)加入我们吧！这是一个「编程学习指南 + Java项目实战 + LeetCode刷题」的私密圈子，你可以阅读星球专栏、向二哥提问、帮你制定学习计划、跟着二哥一起做项目、刷力扣，冲冲冲。
-
-<p align="center">
-  <a href="https://tobebetterjavaer.com">
-    <img src="https://itwanger-oss.oss-cn-beijing.aliyuncs.com/tobebetterjavaer/images/logo-01.png" width="260px" alt="Java 程序员进阶之路">
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://tobebetterjavaer.com/blog.html" target="_blank"><img src="https://img.shields.io/badge/博客-在线阅读-green.svg?style=for-the-badge"></a>
-  <a href="#联系方式" target="_blank"><img src="https://img.shields.io/badge/公众号-沉默王二-brightgreen.svg?style=for-the-badge"></a>
-  <a href="https://space.bilibili.com/513340480" target="_blank"><img src="https://img.shields.io/badge/bilibili-哔哩哔哩-critical?style=for-the-badge"></a>
-  <a href="https://tobebetterjavaer.com/download/java.html" target="_blank"><img src="https://img.shields.io/badge/计算机经典电子书-下载-yellow.svg?style=for-the-badge" alt="无套路下载"></a>
-  <a href="https://github.com/token01/token01.github.io" target="_blank"><img alt="架构师进阶之路" src="https://img.shields.io/github/stars/itwanger/toBeBetterJavaer?style=for-the-badge"></a>
-</p> -->
-
 # 为什么会有这个开源知识库
 
 <!-- > 知识库取名 **toBeBetterJavaer**，即 **To Be Better Javaer**，意为「成为一名更好的 Java 程序员」，是自学 Java 以来所有原创文章和学习资料的大聚合。内容包括 Java 基础、Java 并发编程、Java 虚拟机、Java 企业级开发、Java 面试等核心知识点。据说每一个优秀的 Java 程序员都喜欢她，风趣幽默、通俗易懂。学 Java，就认准 Java 程序员进阶之路😄。

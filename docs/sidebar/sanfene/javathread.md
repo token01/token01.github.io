@@ -241,9 +241,9 @@ ThreadLocal，即线程变量，是一个以ThreadLocal对象为键、任意对�
 
 > 关于多线程，其实很大概率还会出一些笔试题，比如交替打印、银行转账、生产消费模型等等，后面老三会单独出一期来盘点一下常见的多线程笔试题。
 
-最近整理了一份牛逼的学习资料，包括但不限于Java基础部分（JVM、Java集合框架、多线程），还囊括了 **数据库、计算机网络、算法与数据结构、设计模式、框架类Spring、Netty、微服务（Dubbo，消息队列） 网关** 等等等等……详情戳：[可以说是2022年全网最全的学习和找工作的PDF资源了](https://tobebetterjavaer.com/pdf/programmer-111.html)
+  
 
-关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
+ 
 
   
 
@@ -534,9 +534,9 @@ if (inheritThreadLocals && parent.inheritableThreadLocals != null)
         ThreadLocal.createInheritedMap(parent.inheritableThreadLocals);
 ```
 
-最近整理了一份牛逼的学习资料，包括但不限于Java基础部分（JVM、Java集合框架、多线程），还囊括了 **数据库、计算机网络、算法与数据结构、设计模式、框架类Spring、Netty、微服务（Dubbo，消息队列） 网关** 等等等等……详情戳：[可以说是2022年全网最全的学习和找工作的PDF资源了](https://tobebetterjavaer.com/pdf/programmer-111.html)
+  
 
-关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
+ 
 
   
 
@@ -678,9 +678,9 @@ volatile可以确保对某个变量的更新对其他线程马上可见，一个
 
 ![volatile写插入内存屏障后生成的指令序列示意图](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/sidebar/sanfene/javathread-29.png)
 
-最近整理了一份牛逼的学习资料，包括但不限于Java基础部分（JVM、Java集合框架、多线程），还囊括了 **数据库、计算机网络、算法与数据结构、设计模式、框架类Spring、Netty、微服务（Dubbo，消息队列） 网关** 等等等等……详情戳：[可以说是2022年全网最全的学习和找工作的PDF资源了](https://tobebetterjavaer.com/pdf/programmer-111.html)
+  
 
-关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
+ 
 
   
 
@@ -1161,9 +1161,9 @@ compareAndSwapInt 是一个native方法，基于CAS来操作int类型变量。�
 
 ![线程死锁检测](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/sidebar/sanfene/javathread-49.png)
 
-最近整理了一份牛逼的学习资料，包括但不限于Java基础部分（JVM、Java集合框架、多线程），还囊括了 **数据库、计算机网络、算法与数据结构、设计模式、框架类Spring、Netty、微服务（Dubbo，消息队列） 网关** 等等等等……详情戳：[可以说是2022年全网最全的学习和找工作的PDF资源了](https://tobebetterjavaer.com/pdf/programmer-111.html)
+  
 
-关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
+ 
 
   
 
@@ -1395,9 +1395,9 @@ public class ExchangerTest {
 
 假如两个线程有一个没有执行exchange()方法，则会一直等待，如果担心有特殊情况发生，避免一直等待，可以使用`exchange(V x, long timeOut, TimeUnit unit) `设置最大等待时长。
 
-最近整理了一份牛逼的学习资料，包括但不限于Java基础部分（JVM、Java集合框架、多线程），还囊括了 **数据库、计算机网络、算法与数据结构、设计模式、框架类Spring、Netty、微服务（Dubbo，消息队列） 网关** 等等等等……详情戳：[可以说是2022年全网最全的学习和找工作的PDF资源了](https://tobebetterjavaer.com/pdf/programmer-111.html)
+  
 
-关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
+ 
 
   
 
@@ -2002,9 +2002,9 @@ ForkJoinTask与一般Task的主要区别在于它需要实现compute方法，在
 
 ----
 
-最近整理了一份牛逼的学习资料，包括但不限于Java基础部分（JVM、Java集合框架、多线程），还囊括了 **数据库、计算机网络、算法与数据结构、设计模式、框架类Spring、Netty、微服务（Dubbo，消息队列） 网关** 等等等等……详情戳：[可以说是2022年全网最全的学习和找工作的PDF资源了](https://tobebetterjavaer.com/pdf/programmer-111.html)
+  
 
-关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
+ 
 
   
 

@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  LearnNotes-build:
+  LearnData-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -18,7 +18,7 @@ jobs:
           # 如果你文档需要 Git 子模块，取消注释下一行
           # submodules: true
 
-      - name: Install npm
+      - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
         with:
           version: 7
@@ -31,14 +31,15 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: npm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Build Docs
         env:
           NODE_OPTIONS: --max_old_space_size=8192
         run: |-
-          npm run docs:build
+          pnpm run docs:build
           > docs/.vuepress/dist/.nojekyll
+
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
@@ -46,8 +47,8 @@ jobs:
           branch: gh-pages
           folder: docs/.vuepress/dist
 
-      ### 没有服务器的话，请删除本区块代码，防止报错 ###
-      # 将页面推送到服务器，timeout 时间从默认的 1 分钟调整到 10 分钟。
+      # ### 没有服务器的话，请删除本区块代码，防止报错 ###
+      # # 将页面推送到服务器，timeout 时间从默认的 1 分钟调整到 10 分钟。
       # - name: 📂 Sync files
       #   uses: SamKirkland/FTP-Deploy-Action@4.3.2
       #   with:

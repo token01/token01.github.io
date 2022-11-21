@@ -484,20 +484,6 @@
 - [本科生如何才能进入腾讯、阿里等一流的互联网公司？](docs/xuexijianyi/benkesheng-ali-tengxun.md)
 - [计算机考研 408 统考该如何准备？](docs/xuexijianyi/408.md)
 
-# 知识库搭建
-
-> 从购买阿里云服务器+域名购买+域名备案+HTTP 升级到 HTTPS，全方面记录《Java 程序员进阶之路》知识库的诞生和改进过程，涉及到 docsify、Git、Linux 命令、GitHub 仓库等实用知识点。
-
-
-- [购买云服务器](docs/szjy/buy-cloud-server.md)
-- [安装宝塔面板](docs/szjy/install-baota-mianban.md)
-- [购买域名&域名解析](docs/szjy/buy-domain.md)
-- [备案域名](docs/szjy/record-domain.md)
-- [给域名配置HTTPS证书](docs/szjy/https-domain.md)
-- [使用docsify+Git+GitHub+码云+阿里云服务器搭建知识库网站](docs/szjy/tobebetterjavaer-wangzhan-shangxian.md)
-
-
-
 ### 友情链接
 
 - [Hippo4J](https://github.com/acmenlt/dynamic-threadpool)，🔥 强大的动态线程池，附带监控报警功能（没有依赖中间件），完全遵循阿里巴巴编码规范。

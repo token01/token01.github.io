@@ -62,11 +62,9 @@
   * [操作系统学习路线（建议收藏🔥）](docs/xuexiluxian/os.md)
   * [前端学习路线（建议收藏🔥）](docs/xuexiluxian/qianduan.md)
   * [算法和数据结构学习路线（建议收藏🔥）](docs/xuexiluxian/algorithm.md)
-  * [蓝桥杯学习路线（建议收藏🔥）](docs/xuexiluxian/lanqiaobei.md)
   * [大数据学习路线（建议收藏🔥）](docs/xuexiluxian/bigdata.md)
   * [Android 安卓学习路线（建议收藏🔥）](docs/xuexiluxian/android.md)
   * [MySQL 学习路线（建议收藏🔥）](docs/xuexiluxian/mysql.md)
-  * [.NET 学习路线（建议收藏🔥）](docs/xuexiluxian/donet.md)
   
 
 # 面渣逆袭
@@ -441,39 +439,12 @@
 - [淘宝面试官👤：优惠券系统该如何设计？](docs/interview/mianshiguan-youhuiquan.md)
 
 
-## 优质面经
-
-- [硕士读者春招斩获深圳腾讯PCG和杭州阿里云 offer✌️](docs/mianjing/shanganaliyun.md)
-- [本科读者小公司一年工作经验社招拿下阿里美团头条京东滴滴等 offer✌️](docs/mianjing/shezynmjfxhelmtttjddd.md)
-- [非科班读者，用一年时间社招拿下阿里 Offer✌️](docs/mianjing/xuelybdzheloffer.md)
-- [二本读者社招两年半10家公司28轮面试面经✌️](docs/mianjing/huanxgzl.md)
-- [双非一本秋招收获腾讯ieg、百度、字节等6家大厂offer✌️](docs/mianjing/quzjlsspdx.md)
-- [双非学弟收割阿里、字节、B站校招 offer，附大学四年硬核经验总结✌️](docs/mianjing/zheisnylzldhzd.md)
-- [深漂 6 年了，回西安的一波面经总结✌️](docs/mianjing/chengxyspnhxagzl.md)
-
-
 ## 面试准备
 
 - [面试常见词汇扫盲+大厂面试特点分享💪](docs/nice-article/weixin/miansmtgl.md)
 - [有无实习/暑期实习 offer 如何准备秋招？💪](docs/nice-article/weixin/zijxjjdyfqzgl.md)
 - [简历如何优化，简历如何投递，面试如何准备？💪](docs/nice-article/weixin/luoczbmsddyb.md)
 - [校招时间节点、简历编写、笔试、HR面、实习等注意事项💪](docs/nice-article/weixin/youdxzhhmjzlycfx.md)
-
-
-
-## 城市选择
-
-- [北京都有哪些值得加入的IT互联网公司？](docs/cityselect/beijing.md)
-- [广州都有哪些值得加入的IT互联网公司？](docs/cityselect/guangzhou.md)
-- [深圳都有哪些值得加入的IT互联网公司？](docs/cityselect/shenzhen.md)
-- [西安都有哪些值得加入的IT互联网公司？](docs/cityselect/xian.md)
-- [青岛都有哪些值得加入的IT互联网公司？](docs/cityselect/qingdao.md)
-- [郑州都有哪些值得加入的IT互联网公司？](docs/cityselect/zhengzhou.md)
-- [苏州都有哪些值得加入的IT互联网公司？](docs/cityselect/suzhou.md)
-- [南京都有哪些值得加入的IT互联网公司？](docs/cityselect/nanjing.md)
-- [杭州都有哪些值得加入的IT互联网公司？](docs/cityselect/hangzhou.md)
-- [成都都有哪些值得加入的IT互联网公司？](docs/cityselect/chengdu.md)
-- [济南都有哪些值得加入的IT互联网公司？](docs/cityselect/jinan.md)
 
 
 # 学习资源
@@ -526,107 +497,8 @@
 - [使用docsify+Git+GitHub+码云+阿里云服务器搭建知识库网站](docs/szjy/tobebetterjavaer-wangzhan-shangxian.md)
 
 
-# 联系作者
-
->- 作者是一名普通普通普通普通三连的 Java 后端开发者，热爱学习，热爱分享
->- 参加工作以后越来越理解交流和分享的重要性，在不停地汲取营养的同时，也希望帮助到更多的小伙伴们
->- Java 程序员进阶之路，不仅是作者自学 Java 以来所有的原创文章和学习资料的大聚合，更是作者向这个世界传播知识的一个窗口。
-
-## 心路历程
-
-- [走近作者：个人介绍 Q&A](docs/about-the-author/readme.md)
-- [我的第一个，10 万(B站视频播放)](docs/about-the-author/bzhan-10wan.md)
-- [我的第一个，一千万！知乎阅读](docs/about-the-author/zhihu-1000wan.md)
-- [我的第二个，一千万！CSDN阅读](docs/about-the-author/csdn-1000wan.md)
-
-## 联系方式
-
-### 原创公众号
-
-最近整理了一份牛逼的学习资料，包括但不限于Java基础部分（JVM、Java集合框架、多线程），还囊括了 **数据库、计算机网络、算法与数据结构、设计模式、框架类Spring、Netty、微服务（Dubbo，消息队列） 网关** 等等等等……详情戳：[可以说是2022年全网最全的学习和找工作的PDF资源了](https://tobebetterjavaer.com/pdf/programmer-111.html)
-
-关注二哥的原创公众号 **沉默王二**，回复**111** 即可免费领取。
-
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png)
-    
-    
-### star趋势图
-
-[![Star History Chart](https://api.star-history.com/svg?repos=itwanger/toBeBetterJavaer&type=Date)](https://star-history.com/#itwanger/toBeBetterJavaer&Date)
-
 
 ### 友情链接
 
 - [Hippo4J](https://github.com/acmenlt/dynamic-threadpool)，🔥 强大的动态线程池，附带监控报警功能（没有依赖中间件），完全遵循阿里巴巴编码规范。
 - [JavaGuide](https://github.com/Snailclimb/JavaGuide)，「Java学习+面试指南」一份涵盖大部分 Java 程序员所需要掌握的核心知识。准备 Java 面试，首选 JavaGuide！
-
-### 捐赠鼓励
-
-开源不易，如果《Java 程序员进阶之路》对你有些帮助，可以请作者喝杯咖啡，算是对开源做出的一点点鼓励吧！
-
-<div align="left">
-    <img src="https://itwanger-oss.oss-cn-beijing.aliyuncs.com/tobebetterjavaer/images/weixin-zhifu.png" width="260px">
-</div>
-
-:gift_heart: 感谢大家对我资金的赞赏，每隔一个月会统计一次。
-
-时间|小伙伴|赞赏金额
----|---|---
-2022-11-13|*王|5元
-2022-11-10|*车|1元
-2022-11-10|F*k|1元
-2022-11-05|*H|3元
-2022-11-04|*千|0.02元
-2022-11-04|*尘|15元
-2022-11-02|*峰|1元
-2022-11-10|*车|1元
-2022-10-29|~*~|6元
-2022-10-28|*官|1元
-2022-10-20|*电|2元
-2022-10-15|*深|5元
-2022-09-30|*君|1元
-2022-09-28|*懂|1元
-2022-09-27|*府|1元
-2022-09-23|*物|5元
-2022-09-23|H*n|1元
-2022-09-23|*a|0.01元
-2022-09-08|*👀|20元
-2022-09-07|丹*1|20元
-2022-08-27|*夹|40元
-2022-07-06|体*P|2元
-2022-07-05|*谦|5元
-2022-06-18|*杰|2元
-2022-06-15|L*c|15元
-2022-06-10|*❤|1元
-2022-06-09|'*'|1元
-2022-06-07|*勇|1元
-2022-06-03|*张|1元
-2022-05-12|*烟|10元
-2022-04-25|*思|5元
-2022-04-20|w*n|1元
-2022-04-12|*生|10元
-2022-03-04|袁*波|99元
-2022-02-17|*色|1元
-2022-02-17|M*y|1元
-2022-01-28|G*R|6.6元
-2022-01-20|*光|50元
-2022-01-14|*浩|1元
-2022-01-01|马*谊|6.6元
-2022-01-01|刚*好|3.6元
-2021-12-20|t*1|5 元
-2021-10-26|*鱼|28 元
-2021-10-11|*人|28 元
-2021-09-01|S*n|6.6 元
-2021-08-02|*秒|1 元
-2021-06-13|*7| 28 元
-2021-04-29|p*e|2 元
-
-
-
-### 参与贡献
-
-1. 如果你对本项目有任何建议或发现文中内容有误的，欢迎提交 issues 进行指正。
-2. 对于文中我没有涉及到知识点，欢迎提交 PR。
-
-
-

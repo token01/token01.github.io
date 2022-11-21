@@ -27,7 +27,7 @@ export default hopeTheme({
 
   // 全局默认作者
   author: {
-    name: "沉默王二",
+    name: "Abelsun",
     url: "/about-the-author/",
   },
 

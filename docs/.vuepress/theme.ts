@@ -41,7 +41,7 @@ export default hopeTheme({
   },
   // 提示文字
   encryptLocales: {
-    placeholder: "微信搜‘沉默王二’回复‘密码’获取口令",
+    placeholder: "",
 
     /**
      * Passwrod error hint

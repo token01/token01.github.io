@@ -181,4 +181,4 @@ JVM 就是靠解析这些 opcode 和操作数来完成程序的执行的。当�
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/jvm/how-run-java-code-91dac706-1c4e-4775-bc4e-b2104283aa04.png)
 
-<img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png">
+<img src="   ">

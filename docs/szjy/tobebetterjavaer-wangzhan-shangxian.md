@@ -235,4 +235,4 @@ git pull
 
 我们下期见~
 
-<img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xingbiaogongzhonghao.png">
+<img src="   ">

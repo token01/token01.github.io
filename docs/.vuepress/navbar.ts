@@ -4,23 +4,24 @@ import { navbar } from "vuepress-theme-hope";
 export default navbar([
   { text: "博客", icon: "blog", link: "/blog" },
   {
-    text: "编程就是",
+    text: "代码",
     icon: "code",
     prefix: "/",
     children: [
+      "code/Markdown",
+      "code/AutoHotkey",
+      "code/Electron",
       {
-        text: "基础/系统",
-        icon: "any",
+        text: "页面开发",
+        icon: "vue",
         prefix: "",
         children: [
-          "services/NAS",
-          "windows/faq",
+          "web/VuePress",
+          "web/docsify",
+          "deploy/VPS",
         ],
       },
-      "code/Markdown",
-      "java/java_base",
-      "python/Python",
-      ],
+    ],
   },
   {
     text: "应用",
@@ -41,14 +42,15 @@ export default navbar([
       },
     ],
   },
-  // {
-  //   text: "生活",
-  //   icon: "emmet",
-  //   prefix: "/family/",
-  //   children: [
-  //     "Diet",
-  //     "Coupon",
-  //   ],
-  // },
-  // { text: "工具收藏", icon: "tool", link: "https://nav.abelsun.tech/" },
+  {
+    text: "生活",
+    icon: "emmet",
+    prefix: "/family/",
+    children: [
+      "Diet",
+      "Shoppinglist",
+      "Coupon",
+    ],
+  },
+  { text: "工具收藏", icon: "tool", link: "https://nav.newzone.top/" },
 ]);

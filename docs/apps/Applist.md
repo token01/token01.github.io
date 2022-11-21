@@ -21,7 +21,7 @@ Windows 自用软件，以开源软件为主。
 
 ## 平面设计
 
-设计：Figma & [Stable Diffusion](https://abelsun.tech/_posts/2022-09-05-stable_diffusion_ai_painting.html)（AI 绘图） & Photoshop & 字由 ~~& GIMP & FastStone & illustrator & Dreamweaver & lightroom~~
+设计：Figma & [Stable Diffusion](https://newzone.top/_posts/2022-09-05-stable_diffusion_ai_painting.html)（AI 绘图） & Photoshop & 字由 ~~& GIMP & FastStone & illustrator & Dreamweaver & lightroom~~
 
 截图：Snipaste & ShareX ~~& webshot & SETUNA~~
 
@@ -53,7 +53,7 @@ Windows 自用软件，以开源软件为主。
 
 按键可视化：[Carnac](https://github.com/Code52/carnac) & [Keyviz](https://github.com/mulaRahul/keyviz) & [ClickShow](https://github.com/cuiliang/ClickShow) & [KeyCastOW](https://github.com/brookhong/KeyCastOW)
 
-投屏工具：[scrcpy](https://abelsun.tech/_posts/2019-08-26-scrcpy_screen_projection.html) (手机投屏) & [Macast](https://gitee.com/xfangfang/Macast/releases/)（手机视频投屏到电脑）& 蓝莓投屏
+投屏工具：[scrcpy](https://newzone.top/_posts/2019-08-26-scrcpy_screen_projection.html) (手机投屏) & [Macast](https://gitee.com/xfangfang/Macast/releases/)（手机视频投屏到电脑）& 蓝莓投屏
 
 ## 效率工具
 

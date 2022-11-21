@@ -9,13 +9,13 @@ tagline: 技术文通俗易懂，吹水文风趣幽默。
 projects:
   - icon: project
     name: 进阶之路
-    desc: 架构师进阶之路
+    desc: Web2.0至3.0进阶之路
     link: /home.md
 
-  - icon: book
-    name: Java电子书下载
-    desc: Java程序员常读书单，附下载地址
-    link: /download/java.md
+  # - icon: book
+  #   name: Java电子书下载
+  #   desc: Java程序员常读书单，附下载地址
+  #   link: /download/java.md
 
   - icon: article
     name: 学习路线

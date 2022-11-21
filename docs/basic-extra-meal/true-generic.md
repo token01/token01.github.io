@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java重要知识点
-description: 架构师进阶之路，小白的零基础Java教程，从入门到进阶，Java不能实现真正泛型的原因是什么？
+description: Web2.0至3.0进阶之路，小白的零基础Java教程，从入门到进阶，Java不能实现真正泛型的原因是什么？
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,架构师进阶之路,Java入门,教程,java,泛型
+      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,java,泛型
 ---
 
 

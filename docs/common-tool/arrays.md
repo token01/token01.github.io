@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - 常用工具类
-description: 架构师进阶之路，小白的零基础Java教程，从入门到进阶，Java Arrays工具类的10大常用方法
+description: Web2.0至3.0进阶之路，小白的零基础Java教程，从入门到进阶，Java Arrays工具类的10大常用方法
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,架构师进阶之路,Java入门,教程,java,Arrays,数组
+      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,java,Arrays,数组
 ---
 
 

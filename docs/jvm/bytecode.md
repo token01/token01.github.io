@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java虚拟机
-description: 架构师进阶之路，小白的零基础Java教程，从入门到进阶，从javap的角度轻松看懂字节码
+description: Web2.0至3.0进阶之路，小白的零基础Java教程，从入门到进阶，从javap的角度轻松看懂字节码
 head:
   - - meta
     - name: keywords
-      content: Java,JavaSE,教程,架构师进阶之路,jvm,Java虚拟机,字节码,javap
+      content: Java,JavaSE,教程,Web2.0至3.0进阶之路,jvm,Java虚拟机,字节码,javap
 ---
 
 # 从javap的角度轻松看懂字节码

@@ -5,11 +5,11 @@ category:
   - 开发/构建工具
 tag:
   - Git
-description: 架构师进阶之路，小白的零基础Java教程，从入门到进阶，1小时彻底掌握 Git，（可能是）史上最简单明了的 Git 教程
+description: Web2.0至3.0进阶之路，小白的零基础Java教程，从入门到进阶，1小时彻底掌握 Git，（可能是）史上最简单明了的 Git 教程
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,架构师进阶之路,Git入门,Git教程,git
+      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Git入门,Git教程,git
 ---
 
 # 1小时彻底掌握 Git，（可能是）史上最简单明了的 Git 教程

@@ -7,9 +7,14 @@ export default navbar([
     link: "/blog.md" 
   },
   { 
-    text: "进阶之路", 
+    text: "Web2.0进阶之路", 
     icon: "lujing", 
     link: "/home.md" 
+  },
+  { 
+    text: "Web3.0进阶之路", 
+    icon: "lujing", 
+    link: "/web3.0.md" 
   },
   // { 
   //   text: "知识星球", 

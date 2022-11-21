@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java虚拟机
-description: 架构师进阶之路，小白的零基础Java教程，从入门到进阶，虚拟机是如何执行字节码指令的？
+description: Web2.0至3.0进阶之路，小白的零基础Java教程，从入门到进阶，虚拟机是如何执行字节码指令的？
 head:
   - - meta
     - name: keywords
-      content: Java,JavaSE,教程,架构师进阶之路,jvm,Java虚拟机,字节码指令
+      content: Java,JavaSE,教程,Web2.0至3.0进阶之路,jvm,Java虚拟机,字节码指令
 ---
 
 # 虚拟机是如何执行字节码指令的？

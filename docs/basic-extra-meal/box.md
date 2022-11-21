@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java重要知识点
-description: 架构师进阶之路，小白的零基础Java教程，从入门到进阶，深入剖析Java中的拆箱和装箱
+description: Web2.0至3.0进阶之路，小白的零基础Java教程，从入门到进阶，深入剖析Java中的拆箱和装箱
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,架构师进阶之路,Java入门,教程,装箱,拆箱,包装类型
+      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,装箱,拆箱,包装类型
 ---
 
 

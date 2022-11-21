@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java IO
-description: 架构师进阶之路，小白的零基础Java教程，文件的世界，一切皆字节流 OutputStream、InputStream
+description: Web2.0至3.0进阶之路，小白的零基础Java教程，文件的世界，一切皆字节流 OutputStream、InputStream
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,架构师进阶之路,Java入门,教程,IO,OutputStream,InputStream,字节流
+      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,IO,OutputStream,InputStream,字节流
 ---
 
 我们必须得明确一点，一切文件数据(文本、图片、视频等)都是以二进制的形式存储的，传输时也如此。所以，字节流可以传输任意文件数据。在操作流的时候，我们要时刻明确，无论使用什么样的流对象，底层传输的始终是二进制数据。

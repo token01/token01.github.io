@@ -12,15 +12,6 @@ head:
     - name: keywords
       content: 算法,数据结构,学习路线
 ---
-
-说出来还真有点不好意思。上学那时候傻，为了校招，硬着头皮刷《算法导论》、《编程珠玑》，还有 LeetCode，刷了小一年。
-
-刷着忘着，忘着刷着，不刷怕考到，最后刷的秀发都稀疏了。
-
-等找到了工作后才恍然大悟，原来当初根本不用那么辛苦。这不，刚好有小伙伴在《[Java 程序员进阶之路](https://tobebetterjavaer.com/zhishixingqiu/)》知识星球上问我算法的学习路线，我就毫不保留地把我算法方面的学习经验分享出来，希望能给大家一点点启发和帮助。
-
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/algorithm-59f3bc36-4e6c-48c0-86e5-8afdd6165147.png)
-
 我画了一张图，里面几乎涵盖了所有数据结构与算法书籍中都会讲到的知识点。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/algorithm-220e86a7-fa5d-44a2-a560-3cb6cfa70ad0.png)

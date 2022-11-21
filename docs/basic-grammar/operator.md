@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java语法基础
-description: 架构师进阶之路，小白的零基础Java教程，本文主要介绍Java 中的运算符(算术运算符、关系运算符、赋值运算符、逻辑运算符、位运算符)的使用
+description: Web2.0至3.0进阶之路，小白的零基础Java教程，本文主要介绍Java 中的运算符(算术运算符、关系运算符、赋值运算符、逻辑运算符、位运算符)的使用
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,架构师进阶之路,Java入门,教程,运算符
+      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,运算符
 ---
 
 “二哥，让我盲猜一下哈，运算符是不是指的就是加减乘除啊？”三妹的脸上泛着甜甜的笑容，我想她一定对提出的问题很有自信。

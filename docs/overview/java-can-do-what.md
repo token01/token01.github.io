@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java概述
-description: 架构师进阶之路，小白的零基础Java教程，Java的优势，Java的特点，Java能做什么
+description: Web2.0至3.0进阶之路，小白的零基础Java教程，Java的优势，Java的特点，Java能做什么
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,架构师进阶之路,Java入门,教程,Java 优势,特点
+      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,Java 优势,特点
 ---
 
 # Java的特点，Java能做什么

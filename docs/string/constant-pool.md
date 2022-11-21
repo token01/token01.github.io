@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - 数组&字符串
-description: 架构师进阶之路，小白的零基础Java教程，从入门到进阶，深入理解Java字符串常量池
+description: Web2.0至3.0进阶之路，小白的零基础Java教程，从入门到进阶，深入理解Java字符串常量池
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,架构师进阶之路,Java入门,教程,java字符串,String,常量池
+      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,java字符串,String,常量池
 ---
 
 “三妹，今天我们来学习一下字符串常量池吧，这是字符串中非常关键的一个知识点。”我话音未落，青岛路小学那边传来了嘹亮的歌声就钻进了我的耳朵，“唱 ~ 山 ~ 歌 ~”

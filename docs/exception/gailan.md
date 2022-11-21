@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - 异常处理
-description: 架构师进阶之路，小白的零基础Java教程，从入门到进阶，一文彻底搞懂Java异常处理，YYDS
+description: Web2.0至3.0进阶之路，小白的零基础Java教程，从入门到进阶，一文彻底搞懂Java异常处理，YYDS
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,架构师进阶之路,Java入门,教程,java,异常处理
+      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,java,异常处理
 ---
 
 ## 一、什么是异常

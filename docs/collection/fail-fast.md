@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - 集合框架（容器）
-description: 架构师进阶之路，小白的零基础Java教程，为什么阿里巴巴强制不要在foreach里执行删除操作？还不是因为fail-fast
+description: Web2.0至3.0进阶之路，小白的零基础Java教程，为什么阿里巴巴强制不要在foreach里执行删除操作？还不是因为fail-fast
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,架构师进阶之路,Java入门,教程,fail-fast
+      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,fail-fast
 ---
 
 

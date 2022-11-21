@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - 数组&字符串
-description: 架构师进阶之路，小白的零基础Java教程，从入门到进阶，如何优雅地打印Java数组？
+description: Web2.0至3.0进阶之路，小白的零基础Java教程，从入门到进阶，如何优雅地打印Java数组？
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,架构师进阶之路,Java入门,教程,java数组,打印数组
+      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,java数组,打印数组
 ---
 
 “哥，[之前听你说，数组也是一个对象](https://tobebetterjavaer.com/array/array.html)，但 Java 中并未明确的定义这样一个类。”看来三妹有在用心地学习。

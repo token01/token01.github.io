@@ -3,8 +3,8 @@ home: true
 icon: home
 title: 主页
 heroImage: http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/logo.png
-heroText: 架构师进阶之路
-tagline: 这是一份通俗易懂、风趣幽默的Java学习指南，内容涵盖Java基础、Java并发编程、Java虚拟机、Java企业级开发、Java面试等核心知识点。学Java，就认准架构师进阶之路😄
+heroText: Web2.0至3.0进阶之路
+tagline: 这是一份通俗易懂、风趣幽默的Java学习指南，内容涵盖Java基础、Java并发编程、Java虚拟机、Java企业级开发、Java面试等核心知识点。学Java，就认准Web2.0至3.0进阶之路😄
 actions:
   - text: 立马上路→
     link: /home.md

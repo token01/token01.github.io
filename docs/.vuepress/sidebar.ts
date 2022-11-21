@@ -22,20 +22,6 @@ export const sidebarConfig = sidebar({
     "xshellazpjbjcxshellpxffxbxt",
     "pycharmjhpxmazjcnyrgxxbxt",
   ],
-  "/pdf/": [
-    "java",
-    "programmer-111",
-    "java-concurrent",
-    "github-java-jiaocheng-115-star",
-    "shejimoshi",
-    "java-leetcode",
-    "ali-java-shouce",
-    "yuanyifeng-c-language",
-    "bat-shuati",
-    "os",
-    "progit",
-    "jianli",
-  ],
   "/xuexiluxian/": [
     {
       text: "Java学习路线",
@@ -619,31 +605,7 @@ export const sidebarConfig = sidebar({
             "mianshiguan-fenkufenbiao",
             "mianshiguan-youhuiquan",
           ],
-        },
-        {
-          text: "优质面经",
-          collapsible: true,
-          prefix:"mianjing/",
-          children: [
-            "shanganaliyun",
-            "shezynmjfxhelmtttjddd",
-            "xuelybdzheloffer",
-            "huanxgzl",
-            "quzjlsspdx",
-            "zheisnylzldhzd",
-            "chengxyspnhxagzl",
-          ],
-        },
-        {
-          text: "面试准备",
-          collapsible: true,
-          children: [
-            "nice-article/weixin/zijxjjdyfqzgl",
-            "nice-article/weixin/miansmtgl",
-            "nice-article/weixin/luoczbmsddyb",
-            "nice-article/weixin/youdxzhhmjzlycfx",
-          ],
-        },
+        }
         ],
     },
     {

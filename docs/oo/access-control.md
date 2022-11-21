@@ -1,7 +1,7 @@
 ---
 title: 聊一聊Java中的访问权限修饰符
 shortTitle: 聊一聊Java中的访问权限修饰符
-description: 架构师进阶之路，小白的零基础Java教程，聊一聊Java中的访问权限修饰符
+description: Web2.0至3.0进阶之路，小白的零基础Java教程，聊一聊Java中的访问权限修饰符
 category:
   - Java 核心
 tag:
@@ -9,7 +9,7 @@ tag:
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,架构师进阶之路,Java入门,教程,Java访问权限修饰符,public,private,protected,访问权限修饰符
+      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,Java访问权限修饰符,public,private,protected,访问权限修饰符
 ---
 
 

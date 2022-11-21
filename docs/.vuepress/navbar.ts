@@ -14,7 +14,7 @@ export default navbar([
   { 
     text: "Web3.0进阶之路", 
     icon: "lujing", 
-    link: "/web3.0.md" 
+    link: "/blockchain" 
   },
   // { 
   //   text: "知识星球", 
@@ -35,11 +35,11 @@ export default navbar([
         icon: "zhunbei", 
         link: "/sidebar/sanfene/nixi.md" 
       },
-      { 
-        text: "破解合集",
-        icon: "zhongyaotishi",
-        link: "/nice-article/itmind/" 
-      },
+      // { 
+      //   text: "破解合集",
+      //   icon: "zhongyaotishi",
+      //   link: "/nice-article/itmind/" 
+      // },
     ],
   },
   // {

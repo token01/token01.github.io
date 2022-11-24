@@ -5,11 +5,26 @@ category:
   - 区块链
 tag:
   - 区块链基础知识
-description: Web2.0至3.0进阶之路 web3.0 区块链 区块链基础知识
+description: 技术进阶之路 web3.0 区块链 区块链基础知识
 head:
   - - meta
     - name: keywords
       content: web3.0 区块链 基础知识
+---
+
+---
+title: 面渣逆袭（Spring面试题八股文）必看👍
+shortTitle: 面渣逆袭-Spring
+description: 图文详解 35 道Spring面试高频题，这次吊打面试官，我觉得稳了（手动 dog）
+author: 三分恶
+category:
+  - 面渣逆袭
+tags:
+  - 面渣逆袭
+head:
+  - - meta
+    - name: keywords
+      content: Spring面试题,Spring,面试题,八股文,java
 ---
 
 ## 计算机的随机数

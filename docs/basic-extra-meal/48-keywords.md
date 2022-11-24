@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java语法基础
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，Java中常用的48个关键字和2个保留字
+description: 技术进阶之路，小白的零基础Java教程，Java中常用的48个关键字和2个保留字
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,Java保留字,Java关键字,关键字,保留字
+      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,Java保留字,Java关键字,关键字,保留字
 ---
 
 “二哥，就我之前学过的这些 Java 代码中，有 public、static、void、main 等等，它们应该都是关键字吧？”三妹的脸上泛着甜甜的笑容，我想她在学习 Java 方面已经变得越来越自信了。

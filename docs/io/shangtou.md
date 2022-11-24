@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java IO
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，Java IO 体系看起来类很多，感觉很复杂，但其实是 IO 涉及的因素太多了。在设计 IO 相关的类时，编写者也不是从同一个方面考虑的，所以会给人一种很乱的感觉，并且还有设计模式的使用，更加难以使用这些 IO 类，所以特地对 Java 的 IO 做一个总结。
+description: 技术进阶之路，小白的零基础Java教程，Java IO 体系看起来类很多，感觉很复杂，但其实是 IO 涉及的因素太多了。在设计 IO 相关的类时，编写者也不是从同一个方面考虑的，所以会给人一种很乱的感觉，并且还有设计模式的使用，更加难以使用这些 IO 类，所以特地对 Java 的 IO 做一个总结。
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,Java IO,io,输入输出流
+      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,Java IO,io,输入输出流
 ---
 
 

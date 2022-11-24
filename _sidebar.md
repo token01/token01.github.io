@@ -42,8 +42,3 @@
 	* [视频教程](README.md?id=视频教程)
 	* [优质书单](README.md?id=优质书单)
 	* [学习建议](README.md?id=学习建议)
-* [知识库建设](README.md?id=知识库建设)
-* [联系作者](README.md?id=联系作者)
-	* [心路历程](README.md?id=心路历程)
-	* [联系方式](README.md?id=联系方式)
-

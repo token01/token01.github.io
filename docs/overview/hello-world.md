@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java概述
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，编写第一个Java程序：Hello World
+description: 技术进阶之路，小白的零基础Java教程，编写第一个Java程序：Hello World
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,Hello World
+      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,Hello World
 ---
 
 # 编写第一个Java程序：Hello World

@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java重要知识点
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，从入门到进阶，jdk9为什么要将String的底层实现由char数组改成了byte数组?
+description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，jdk9为什么要将String的底层实现由char数组改成了byte数组?
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,java,string,char,byte
+      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,java,string,char,byte
 ---
 
 大家好，我是二哥呀！如果你不是 Java8 的钉子户，你应该早就发现了：String 类的源码已经由 `char[]` 优化为了 `byte[]` 来存储字符串内容，为什么要这样做呢？

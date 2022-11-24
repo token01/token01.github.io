@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java语法基础
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，Java 数据类型转换（强制数据类型转换+自动类型转换）
+description: 技术进阶之路，小白的零基础Java教程，Java 数据类型转换（强制数据类型转换+自动类型转换）
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,Java 简介,数据类型转换,j强制数据类型转换,自动类型转换
+      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,Java 简介,数据类型转换,j强制数据类型转换,自动类型转换
 ---
 
 数据类型转换发生在所赋值的数值类型和接收数据的变量类型不一致的时候，它需要从一种数据类型转换成另一种数据类型。数据类型的转换可以分为隐式转换（自动类型转换）和显式转换（强制类型转换）两种。

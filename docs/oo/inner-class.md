@@ -1,7 +1,7 @@
 ---
 title: Java内部类详解：成员内部类、局部内部类、匿名内部类、静态内部类
 shortTitle: Java内部类详解
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，Java内部类详解：成员内部类、局部内部类、匿名内部类、静态内部类
+description: 技术进阶之路，小白的零基础Java教程，Java内部类详解：成员内部类、局部内部类、匿名内部类、静态内部类
 category:
   - Java 核心
 tag:
@@ -9,7 +9,7 @@ tag:
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,内部类,成员内部类,局部内部类,匿名内部类,静态内部类
+      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,内部类,成员内部类,局部内部类,匿名内部类,静态内部类
 ---
 
 

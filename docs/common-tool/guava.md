@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - 常用工具类
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，从入门到进阶，Guava：Google开源的工具库，太强大了
+description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，Guava：Google开源的工具库，太强大了
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,java,Guava
+      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,java,Guava
 ---
 
 

@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java虚拟机
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，从入门到进阶，咱们从头到尾说一次Java垃圾回收
+description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，咱们从头到尾说一次Java垃圾回收
 head:
   - - meta
     - name: keywords
-      content: Java,JavaSE,教程,Web2.0至3.0进阶之路,jvm,Java虚拟机,垃圾回收,gc
+      content: Java,JavaSE,教程,技术进阶之路,jvm,Java虚拟机,垃圾回收,gc
 ---
 
 # 咱们从头到尾说一次Java垃圾回收

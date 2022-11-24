@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - 集合框架（容器）
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，Java ArrayList详解
+description: 技术进阶之路，小白的零基础Java教程，Java ArrayList详解
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,ArrayList,ArrayList源码
+      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,ArrayList,ArrayList源码
 ---
 
 “二哥，听说今天我们开讲 ArrayList 了？好期待哦！”三妹明知故问，这个托配合得依然天衣无缝。

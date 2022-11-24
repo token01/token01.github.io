@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java IO
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，Java字符流Reader和Writer的故事
+description: 技术进阶之路，小白的零基础Java教程，Java字符流Reader和Writer的故事
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,Java IO,Reader,Writer,字符流
+      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,Java IO,Reader,Writer,字符流
 ---
 
 字符流Reader和Writer的故事要从它们的类关系图开始，啥都不说了，直接看图

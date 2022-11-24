@@ -5,7 +5,7 @@ category:
   - 求职面试
 tag:
   - 面试题&八股文
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，60 道 MySQL 精选面试题👍
+description: 技术进阶之路，小白的零基础Java教程，60 道 MySQL 精选面试题👍
 head:
   - - meta
     - name: keywords

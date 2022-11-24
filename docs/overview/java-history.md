@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java概述
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，Java发展简史
+description: 技术进阶之路，小白的零基础Java教程，Java发展简史
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,Java简史
+      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,Java简史
 ---
 
 # Java发展简史

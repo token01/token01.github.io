@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - 面向对象编程
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，从入门到进阶，怎么理解Java中的类和对象？
+description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，怎么理解Java中的类和对象？
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,类和对象,class,object
+      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,类和对象,class,object
 ---
 
 “二哥，我那天在图书馆复习《Java 程序员进阶之路》的时候，刚好碰见一个学长，他问我有没有‘对象’，我说还没有啊。结果你猜他说什么，‘要不要我给你 new 一个啊？’我当时就懵了，new 是啥意思啊，二哥？”三妹满是疑惑的问我。

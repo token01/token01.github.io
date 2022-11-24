@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java虚拟机
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，从入门到进阶，JVM 核心知识点总结
+description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，JVM 核心知识点总结
 head:
   - - meta
     - name: keywords
-      content: Java,JavaSE,教程,Web2.0至3.0进阶之路,jvm,Java虚拟机
+      content: Java,JavaSE,教程,技术进阶之路,jvm,Java虚拟机
 ---
 
 # JVM 核心知识点总结

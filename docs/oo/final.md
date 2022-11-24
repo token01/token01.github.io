@@ -1,7 +1,7 @@
 ---
 title: 一文彻底搞懂 Java final 关键字
 shortTitle: 一文彻底搞懂Java final关键字
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，一文彻底搞懂 Java final 关键字
+description: 技术进阶之路，小白的零基础Java教程，一文彻底搞懂 Java final 关键字
 category:
   - Java 核心
 tag:
@@ -9,7 +9,7 @@ tag:
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,final,静态变量,静态方法,静态代码块,静态内部类
+      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,final,静态变量,静态方法,静态代码块,静态内部类
 ---
 
 

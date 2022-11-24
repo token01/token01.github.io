@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - 数组&字符串
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，从入门到进阶，为什么String是不可变的？
+description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，为什么String是不可变的？
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,java字符串,String,不可变
+      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,java字符串,String,不可变
 ---
 
 我正坐在沙发上津津有味地读刘欣大佬的《码农翻身》——Java 帝国这一章，门铃响了。起身打开门一看，是三妹，她从学校回来了。

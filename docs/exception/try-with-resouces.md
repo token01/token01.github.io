@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - 异常处理
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，从入门到进阶，深入理解 Java 中的 try-with-resouces 语法糖
+description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，深入理解 Java 中的 try-with-resouces 语法糖
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,java,try-with-resouces
+      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,java,try-with-resouces
 ---
 
 “二哥，终于等到你讲 try-with-resouces 了！”三妹夸张的表情让我有些吃惊。

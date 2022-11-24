@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java重要知识点
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，从入门到进阶，Java到底是值传递还是引用传递？
+description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，Java到底是值传递还是引用传递？
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,java,值传递,引用传递
+      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,java,值传递,引用传递
 ---
 
 

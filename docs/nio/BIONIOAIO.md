@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java NIO
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，BIO、NIO和AIO之间的区别
+description: 技术进阶之路，小白的零基础Java教程，BIO、NIO和AIO之间的区别
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,Web2.0至3.0进阶之路,Java入门,教程,IO,BIO,NIO,AIO
+      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,IO,BIO,NIO,AIO
 ---
 
 

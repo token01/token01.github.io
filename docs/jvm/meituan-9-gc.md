@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java虚拟机
-description: Web2.0至3.0进阶之路，小白的零基础Java教程，从入门到进阶，Java中9种常见的CMS GC问题分析与解决
+description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，Java中9种常见的CMS GC问题分析与解决
 head:
   - - meta
     - name: keywords
-      content: Java,JavaSE,教程,Web2.0至3.0进阶之路,jvm,Java虚拟机,cms
+      content: Java,JavaSE,教程,技术进阶之路,jvm,Java虚拟机,cms
 ---
  
 # Java中9种常见的CMS GC问题分析与解决

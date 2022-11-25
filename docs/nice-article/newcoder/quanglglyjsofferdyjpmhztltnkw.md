@@ -17,13 +17,13 @@ head:
 作者：沉默王二<br>
 Java 程序员进阶之路：https://tobebetterjavaer.com
 
-大家好，我是二哥呀。
+大家好，我是musk呀。
 
 这里有一份牛友整理的“**军工研究所offer待遇汇总**”，非常详细非常全面，分享出来希望对大家有帮助，来一睹为快。
 
 ![](https://uploadfiles.nowcoder.com/images/20220815/318889480_1660553876568/DDC98CF5A49D62FF936F01FE096A668D)
 
-文末还一些二哥对于“**如何选择互联网还是军工研究院**”的看法，希望和大家多多交流，如果你有任何“实习”及“求职”相关的问题，也欢迎和二哥交流～～ 祝大家都能找到理想的工作！飞黄腾达！
+文末还一些musk对于“**如何选择互联网还是军工研究院**”的看法，希望和大家多多交流，如果你有任何“实习”及“求职”相关的问题，也欢迎和musk交流～～ 祝大家都能找到理想的工作！飞黄腾达！
 
 >作者：学长聊就业求职，来源：https://www.nowcoder.com/discuss/1093701，整理：沉默王二
 
@@ -244,7 +244,7 @@ Java 程序员进阶之路：https://tobebetterjavaer.com
 
 ## ending
 
-下面👇🏻是二哥近期分享的原创内容，有关于在校学生党的，也有在职工作党的，多看看这些经验心得应该会对你以后的校招&求职或者工作学习有所帮助🤔。
+下面👇🏻是musk近期分享的原创内容，有关于在校学生党的，也有在职工作党的，多看看这些经验心得应该会对你以后的校招&求职或者工作学习有所帮助🤔。
 
 - ✌️：[想春招找个实习，我该如何准备？](https://mp.weixin.qq.com/s/eyCEQKclRkTnsJze01Bilg)
 - ✌️：[逼签！冲字节还是苟同花顺？](https://mp.weixin.qq.com/s/Dv_kcwUT-KTZ6LAwn3o_Jg)
@@ -258,14 +258,14 @@ Java 程序员进阶之路：https://tobebetterjavaer.com
 - ✌️：[无语啊，还在教 JSP？](https://mp.weixin.qq.com/s/byM6khHVNMXOpG3oaBGsQg)
 
 
-一个人可以走得很快，但一群人才能走得更远。[二哥的编程星球](https://mp.weixin.qq.com/s/hXXBTPPkFj2VMg_GXqn4EA)已经有 **1000 多名** 球友加入了，如果你也需要一个良好的学习氛围，[戳链接🔗](https://mp.weixin.qq.com/s/hXXBTPPkFj2VMg_GXqn4EA)加入我们吧。
+一个人可以走得很快，但一群人才能走得更远。[musk的编程星球](https://mp.weixin.qq.com/s/hXXBTPPkFj2VMg_GXqn4EA)已经有 **1000 多名** 球友加入了，如果你也需要一个良好的学习氛围，[戳链接🔗](https://mp.weixin.qq.com/s/hXXBTPPkFj2VMg_GXqn4EA)加入我们吧。
 
 
 
 ![](https://files.mdnice.com/user/3903/af891ac9-f2a2-4b8a-844d-dacc818a7f20.png)
 
 
-这是一个**编程学习指南 + Java项目实战 + LeetCode 刷题的私密圈子**，你可以阅读星球专栏、向二哥提问、帮你制定学习计划、和球友一起打卡成长。
+这是一个**编程学习指南 + Java项目实战 + LeetCode 刷题的私密圈子**，你可以阅读星球专栏、向musk提问、帮你制定学习计划、和球友一起打卡成长。
 
 [星球的知识图谱](https://mp.weixin.qq.com/s/CljCSezUgoBXb-T9wbIGww)里已经沉淀了非常多优质的内容，**相信能帮助你走的更快、更稳、更远**。
 
@@ -273,11 +273,11 @@ Java 程序员进阶之路：https://tobebetterjavaer.com
 ![](https://files.mdnice.com/user/3903/618f4083-9859-4efb-a55a-5ad3eda79004.png)
 
 
-最后，把二哥的座右铭送给大家：**没有什么使我停留——除了目的，纵然岸旁有玫瑰、有绿荫、有宁静的港湾，我是不系之舟**。共勉💪。
+最后，把musk的座右铭送给大家：**没有什么使我停留——除了目的，纵然岸旁有玫瑰、有绿荫、有宁静的港湾，我是不系之舟**。共勉💪。
 
 
 
 
 ![](https://files.mdnice.com/user/3903/b7e50cf4-6fca-4511-9bfd-aa1ed9eb587b.png)
 
-欢迎点击左下角**阅读原文**了解二哥的编程星球详情，这可能是你学习求职路上最有含金量的一次点击。
+欢迎点击左下角**阅读原文**了解musk的编程星球详情，这可能是你学习求职路上最有含金量的一次点击。

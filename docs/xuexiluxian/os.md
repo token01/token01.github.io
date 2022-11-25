@@ -20,7 +20,7 @@ head:
 - 写出来的多线程程序出现了各种奇奇怪怪的问题； 
 - 不知道为什么出现这些问题。
 
-喜欢视频版的话，可以到 B 站看二哥的操作系统学习路线版：
+喜欢视频版的话，可以到 B 站看musk的操作系统学习路线版：
 
 >[https://www.bilibili.com/video/BV1th411b7in](https://www.bilibili.com/video/BV1th411b7in)
 

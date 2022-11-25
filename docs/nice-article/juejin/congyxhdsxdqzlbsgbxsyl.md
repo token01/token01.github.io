@@ -13,7 +13,7 @@ head:
       content: 后端,程序员
 ---
 
-大家好，我是二哥呀。
+大家好，我是musk呀。
 
 我是个喜欢读书（装逼）和音乐（吹牛）的 Java 仔，截止到发这篇文章前，我已经 CV 代码 11 年又 3 个月又 206 天了（家长记得很清楚）。
 
@@ -140,7 +140,7 @@ head:
 
 ## ending
 
-一个人可以走得很快，但一群人才能走得更远。当你处在一个学习氛围浓烈的环境中时，就会不由自主地往前冲刺。[二哥的编程星球](https://mp.weixin.qq.com/s/e5Q4aJCX9xccTzBBGepx4g)已经有 **790 多名** 球友加入了，如果你也需要一个良好的学习氛围，[戳链接](https://mp.weixin.qq.com/s/e5Q4aJCX9xccTzBBGepx4g)加入我们吧。
+一个人可以走得很快，但一群人才能走得更远。当你处在一个学习氛围浓烈的环境中时，就会不由自主地往前冲刺。[musk的编程星球](https://mp.weixin.qq.com/s/e5Q4aJCX9xccTzBBGepx4g)已经有 **790 多名** 球友加入了，如果你也需要一个良好的学习氛围，[戳链接](https://mp.weixin.qq.com/s/e5Q4aJCX9xccTzBBGepx4g)加入我们吧。
 
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/juejin-congyxhdsxdqzlbsgbxsyl-3f136fc7-09cd-40cb-b298-adbd87c08abe.png)
@@ -167,5 +167,5 @@ head:
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-rumrabbitmqzypjdg-53717e59-63c9-44bd-99d3-dd2c26fe68bb.png)
 
-欢迎点击左下角**阅读原文**了解二哥的编程星球详情，这可能是你学习求职路上最有含金量的一次点击。
+欢迎点击左下角**阅读原文**了解musk的编程星球详情，这可能是你学习求职路上最有含金量的一次点击。
 

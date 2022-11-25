@@ -7,7 +7,7 @@ tag:
 
 # 全文搜索引擎Elasticsearch入门教程
 
-学习真的是一件令人开心的事情，上次分享了 [Redis 入门](https://mp.weixin.qq.com/s/NPJkMy5RppyFk9QhzHxhrw)的文章后，收到了很多小伙伴的鼓励，比如说：“哎呀，不错呀，二哥，通俗易懂，十分钟真的入门了”。瞅瞅，瞅瞅，我决定再接再厉，入门一下 Elasticsearch，因为我们公司的商城系统升级了，需要用 Elasticsearch 做商品的搜索。
+学习真的是一件令人开心的事情，上次分享了 [Redis 入门](https://mp.weixin.qq.com/s/NPJkMy5RppyFk9QhzHxhrw)的文章后，收到了很多小伙伴的鼓励，比如说：“哎呀，不错呀，musk，通俗易懂，十分钟真的入门了”。瞅瞅，瞅瞅，我决定再接再厉，入门一下 Elasticsearch，因为我们公司的商城系统升级了，需要用 Elasticsearch 做商品的搜索。
 
 不过，我首先要声明一点，我对 Elasticsearch 并没有进行很深入的研究，仅仅是因为要用，就学一下。但作为一名负责任的技术博主，我是用心的，为此还特意在某某时间上买了一门视频课程，作者叫阮一鸣。说实话，他光秃秃的头顶让我对这门课程产生了浓厚的兴趣。
 
@@ -111,7 +111,7 @@ Elasticsearch 是免安装的，只需要把 zip 包解压就可以了。
 
 ### 05、在 Java 中使用 Elasticsearch
 
-有些小伙伴可能会问，“二哥，我是一名 Java 程序员，我该如何在 Java 中使用 Elasticsearch 呢？”这个问题问得好，这就来，这就来。
+有些小伙伴可能会问，“musk，我是一名 Java 程序员，我该如何在 Java 中使用 Elasticsearch 呢？”这个问题问得好，这就来，这就来。
 
 Elasticsearch 既然内置了 Java 运行环境，自然就提供了一系列 API 供我们操作。
 

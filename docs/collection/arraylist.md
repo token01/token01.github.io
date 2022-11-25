@@ -12,7 +12,7 @@ head:
       content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,ArrayList,ArrayList源码
 ---
 
-“二哥，听说今天我们开讲 ArrayList 了？好期待哦！”三妹明知故问，这个托配合得依然天衣无缝。
+“musk，听说今天我们开讲 ArrayList 了？好期待哦！”三妹明知故问，这个托配合得依然天衣无缝。
 
 “是的呀，三妹。”我肯定地点了点头，继续说道，“ArrayList 可以称得上是集合框架方面最常用的类了，可以和 HashMap 一较高下。”
 
@@ -24,7 +24,7 @@ Java 这门编程语言和 C语言的不同之处就在这里，如果是 C语�
 
 ## 创建 ArrayList
 
-“二哥，**如何创建一个 ArrayList 啊**？”三妹问。
+“musk，**如何创建一个 ArrayList 啊**？”三妹问。
 
 ```java
 ArrayList<String> alist = new ArrayList<String>();
@@ -48,7 +48,7 @@ List<String> alist = new ArrayList<>(20);
 
 ## 向 ArrayList 中添加元素
 
-“二哥，**那怎么向 ArrayList 中添加一个元素呢**？”三妹继续问。
+“musk，**那怎么向 ArrayList 中添加一个元素呢**？”三妹继续问。
 
 可以通过 `add()` 方法向 ArrayList 中添加一个元素，如果不指定下标的话，就默认添加在末尾。
 
@@ -155,7 +155,7 @@ private void grow(int minCapacity) {
 
 “`>>` 是右移运算符，`oldCapacity >> 1` 相当于 oldCapacity 除以 2。”我给三妹解释道，“在计算机内部，都是按照二进制存储的，10 的二进制就是 1010，也就是 `0*2^0 + 1*2^1 + 0*2^2 + 1*2^3`=0+2+0+8=10 。。。。。。”
 
-还没等我解释完，三妹就打断了我，“二哥，能再详细解释一下到底为什么吗？”
+还没等我解释完，三妹就打断了我，“musk，能再详细解释一下到底为什么吗？”
 
 “当然可以啊。”我拍着胸脯对三妹说。
 
@@ -212,7 +212,7 @@ public void add(int index, E element) {
 ## 更新 ArrayList 中的元素
 
 
-“二哥，那怎么**更新 ArrayList 中的元素**呢？”三妹继续问。
+“musk，那怎么**更新 ArrayList 中的元素**呢？”三妹继续问。
 
 可以使用 `set()` 方法来更改 ArrayList 中的元素，需要提供下标和新元素。
 
@@ -238,7 +238,7 @@ public E set(int index, E element) {
 
 ## 删除 ArrayList 中的元素
 
-“二哥，那怎么**删除 ArrayList 中的元素**呢？”三妹继续问。
+“musk，那怎么**删除 ArrayList 中的元素**呢？”三妹继续问。
 
 `remove(int index)` 方法用于删除指定下标位置上的元素，`remove(Object o)` 方法用于删除指定值的元素。
 
@@ -312,7 +312,7 @@ private void fastRemove(int index) {
 
 ## 查找 ArrayList 中的元素
 
-“二哥，那怎么**查找 ArrayList 中的元素**呢？”三妹继续问。
+“musk，那怎么**查找 ArrayList 中的元素**呢？”三妹继续问。
 
 如果要正序查找一个元素，可以使用 `indexOf()` 方法；如果要倒序查找一个元素，可以使用 `lastIndexOf()` 方法。
 

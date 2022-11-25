@@ -8,7 +8,7 @@ tag:
 
 
 
-大家好，我是二哥呀！今天来给大家推荐一款直击痛点的 HTTP 客户端框架，可以超高效率地完成和第三方接口的对接。
+大家好，我是musk呀！今天来给大家推荐一款直击痛点的 HTTP 客户端框架，可以超高效率地完成和第三方接口的对接。
 
 在介绍本篇的主角之前，我们先来了解下 Java 生态中的 HTTP 组件库，大致可以分为三类：
 
@@ -63,7 +63,7 @@ public class HttpClientDemo {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI("https://postman-echo.com/post"))
                 .headers("Content-Type", "text/plain;charset=UTF-8")
-                .POST(HttpRequest.BodyPublishers.ofString("二哥牛逼"))
+                .POST(HttpRequest.BodyPublishers.ofString("musk牛逼"))
                 .build();
         client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
@@ -87,7 +87,7 @@ public class HttpComponentsDemo {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost("http://httpbin.org/post");
             List<NameValuePair> nvps = new ArrayList<>();
-            nvps.add(new BasicNameValuePair("name", "二哥"));
+            nvps.add(new BasicNameValuePair("name", "musk"));
             httpPost.setEntity(new UrlEncodedFormEntity(nvps, Charset.forName("UTF-8")));
 
             try (CloseableHttpResponse response2 = httpclient.execute(httpPost)) {
@@ -124,7 +124,7 @@ public class OkHttpPostDemo {
 
     public static void main(String[] args) throws IOException {
         OkHttpPostDemo example = new OkHttpPostDemo();
-        String json = "{'name':'二哥'}";
+        String json = "{'name':'musk'}";
         String response = example.post("https://httpbin.org/post", json);
         System.out.println(response);
     }
@@ -216,7 +216,7 @@ public class ForRestDemo {
         ForRestClient myClient = configuration.createInstance(ForRestClient.class);
 
         // 调用Forest请求接口，并获取响应返回结果
-        String result = myClient.simplePost("二哥");
+        String result = myClient.simplePost("musk");
         System.out.println(result);
     }
 }

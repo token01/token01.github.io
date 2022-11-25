@@ -24,7 +24,7 @@ head:
 
 “完了没？三妹。”
 
-“完了好一会儿了，二哥，你图画得真慢，让我瞧瞧怎么样？”
+“完了好一会儿了，musk，你图画得真慢，让我瞧瞧怎么样？”
 
 “害，图要画得清晰明了，不容易的。三妹，你瞧，不错吧。”
 
@@ -105,7 +105,7 @@ HashSet(int initialCapacity, float loadFactor, boolean dummy) {
 
 ### **3）TreeSet**
 
-“二哥，不用你讲了，我能猜到，TreeSet 是由 TreeMap 实现的，只不过同样操作的键位，值由一个固定的 Object 对象填充。”
+“musk，不用你讲了，我能猜到，TreeSet 是由 TreeMap 实现的，只不过同样操作的键位，值由一个固定的 Object 对象填充。”
 
 哇，三妹都学会了推理。
 

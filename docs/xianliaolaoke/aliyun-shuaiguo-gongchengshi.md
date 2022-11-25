@@ -36,13 +36,13 @@
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xianliaolaoke/aliyun-shuaiguo-gongchengshi-6.png)
 
-之前给大家提到过，二哥的小破站《Java 程序员进阶之路》的图床是用 GitHub+jsDelivr 做的，免费啊，可以白嫖啊，所以我觉得用起来很爽！
+之前给大家提到过，musk的小破站《Java 程序员进阶之路》的图床是用 GitHub+jsDelivr 做的，免费啊，可以白嫖啊，所以我觉得用起来很爽！
 
 但直到有一天，有个小伙伴提了一个 issue，说 jsDelivr 撤出了国内节点，导致部分图片不显示或者加载缓慢，我就坐立不安、寝食难安了！
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xianliaolaoke/aliyun-shuaiguo-gongchengshi-7.png)
 
-毕竟二哥可是一名负责任的好同志啊，必须得解决这个图床的问题。于是我就折腾了两天的 **OSS + CDN**，小破站的图片是能正常访问了，只是没想到，阿里云的这套图床组合在 GitHub 上这么“不靠谱”。
+毕竟musk可是一名负责任的好同志啊，必须得解决这个图床的问题。于是我就折腾了两天的 **OSS + CDN**，小破站的图片是能正常访问了，只是没想到，阿里云的这套图床组合在 GitHub 上这么“不靠谱”。
 
 真的是钱花了，事却没办好。害，先来瞧瞧我自己摸索出来的折中方案吧。
 
@@ -57,6 +57,6 @@
 
 先把问题解决了再说。
 
-小伙伴们有没有更好的的图床解决方案呢？可以在评论区/弹幕区给出自己的答案，救救二哥这个孩子吧！！！！！！
+小伙伴们有没有更好的的图床解决方案呢？可以在评论区/弹幕区给出自己的答案，救救musk这个孩子吧！！！！！！
 
 好了，今天的分享就先到这吧，希望小伙伴们能点点赞，转转发，好让阿里云官方看到这个问题， 重视这个问题，并解决这个问题。

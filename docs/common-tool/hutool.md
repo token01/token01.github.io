@@ -384,7 +384,7 @@ ImgUtil.pressText(//
 );
 ```
 
-趁机让大家欣赏一下二哥帅气的真容。
+趁机让大家欣赏一下musk帅气的真容。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/common-tool/hutool-07.png)
 

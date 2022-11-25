@@ -12,17 +12,17 @@ head:
       content: Android,Performance,AndroidPerformance,性能,优化,性能优化,Perf,Flutter,Linux,AndroidFramework,Framework,Android Performance,Flutter,Kotlin,Memory,内存,流畅性,卡顿,响应速度,Jank,Smooth,Android Framework,ANR,Crash,Dalvik,ART,Jetpack,Compose
 ---
 
-有球友问二哥有没有安卓方面的学习路线，虽然二哥不是一名专业的安卓工程师，曾经也装模作样的学过一段时间的安卓，买过郭霖的《[第一行代码安卓](https://github.com/itwanger/JavaBooks#android)》，目前应该已经出到第三版了，在业界还是挺有名望的。
+有球友问musk有没有安卓方面的学习路线，虽然musk不是一名专业的安卓工程师，曾经也装模作样的学过一段时间的安卓，买过郭霖的《[第一行代码安卓](https://github.com/itwanger/JavaBooks#android)》，目前应该已经出到第三版了，在业界还是挺有名望的。
 
-虽然不是专业的安卓工程师，但给球友提供一份靠谱的学习路线，二哥还是有这个实力的，知道哪里好哪里坏，如果你是新手，那么下面的内容可以帮助你找到学习的线路；如果你是老手，这篇文章列出的内容也可以帮助你查漏补缺。如果各位有什么其他的建议，欢迎留言交流。
+虽然不是专业的安卓工程师，但给球友提供一份靠谱的学习路线，musk还是有这个实力的，知道哪里好哪里坏，如果你是新手，那么下面的内容可以帮助你找到学习的线路；如果你是老手，这篇文章列出的内容也可以帮助你查漏补缺。如果各位有什么其他的建议，欢迎留言交流。
 
 # 推荐资料
 
 - 1、[第一行代码 Android（书籍）](https://github.com/itwanger/JavaBooks#android)
 - 2、[Android Tech And Perf（博客）](https://www.androidperformance.com/)
 - 3、[2022 最新 Android 基础教程，从开发入门到项目实战（视频）](https://www.bilibili.com/video/BV19U4y1R7zV)
-- 4、[关注 Android Jetpack开发：原理解析与应用实战（书籍，二哥写过推荐序）](https://e.jd.com/30816230.html)
-- 5、[Flutter实战入门（书籍，二哥写过推荐序）](https://e.jd.com/30622790.html)
+- 4、[关注 Android Jetpack开发：原理解析与应用实战（书籍，musk写过推荐序）](https://e.jd.com/30816230.html)
+- 5、[Flutter实战入门（书籍，musk写过推荐序）](https://e.jd.com/30622790.html)
 
 # [](#Programming "Programming")Programming
 
@@ -188,7 +188,7 @@ Android App 默认使用 Gradle 进行编译，关于 Gradle 的使用必须要�
 
 [Jetpack](https://developer.android.google.cn/jetpack?hl=zh-cn) 是 Google 推出的一套库、工具和指南，可帮助开发者更轻松地编写优质应用。这些组件可帮助您遵循最佳做法、让您摆脱编写样板代码的工作并简化复杂任务，以便您将精力集中放在所需的代码上。Jetpack 包含与平台 API 解除捆绑的 androidx.\* 软件包库。这意味着，它可以提供向后兼容性，且比 Android 平台的更新频率更高，以此确保您始终可以获取最新且最好的 Jetpack 组件版本。
 
-这部分推荐一个读者的书《[关注 Android Jetpack开发：原理解析与应用实战](https://e.jd.com/30816230.html)》，二哥为此写过推荐语，封面可见。
+这部分推荐一个读者的书《[关注 Android Jetpack开发：原理解析与应用实战](https://e.jd.com/30816230.html)》，musk为此写过推荐语，封面可见。
 
 1.  Foundation Components — AppCompat, Android KTX, Multidex
 2.  Architecture Components — LiveData, ViewModel, DataBinding, Paging, Work Manager, Navigation

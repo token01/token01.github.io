@@ -14,7 +14,7 @@ head:
 
 
 
-为了方便球友了解哪些互联网的**秋招和提前批**开始招聘了，二哥给大家汇总了一下目前已经开始秋招&提前批开始招聘的公司！
+为了方便球友了解哪些互联网的**秋招和提前批**开始招聘了，musk给大家汇总了一下目前已经开始秋招&提前批开始招聘的公司！
 
 > 想了解更多校招日程汇总可以看这里：[https://www.nowcoder.com/jobs/school/schedule?fromPut=squ\_dmjdxb](https://www.nowcoder.com/jobs/school/schedule?fromPut=squ_dmjdxb)
 

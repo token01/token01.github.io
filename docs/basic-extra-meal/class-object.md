@@ -89,7 +89,7 @@ http://hg.openjdk.java.net/jdk8u/jdk8u/hotspot/file/ade5be2b1758/src/share/vm/me
 http://hg.openjdk.java.net/jdk8u/jdk8u/hotspot/file/ade5be2b1758/src/share/vm/classfile/systemDictionary.cpp#l1814
 ```
 
-分享的最后，二哥要简单说两句，每次看 R 大的内容，总是感觉膝盖忍不住要跪一下，只能说写过 JVM 的男人就是不一样。喜欢研究 CPP 源码的话小伙伴可以再深入学习下，一定会有所收获。
+分享的最后，musk要简单说两句，每次看 R 大的内容，总是感觉膝盖忍不住要跪一下，只能说写过 JVM 的男人就是不一样。喜欢研究 CPP 源码的话小伙伴可以再深入学习下，一定会有所收获。
 
 ----
 

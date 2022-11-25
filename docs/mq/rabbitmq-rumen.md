@@ -104,7 +104,7 @@ rabbitmq-plugins enable rabbitmq_management
 
 ### 04、在 Java 中使用 RabbitMQ
 
-有些小伙伴可能会问，“二哥，我是一名 Java 程序员，我该如何在 Java 中使用 RabbitMQ 呢？”这个问题问得好，这就来，这就来。
+有些小伙伴可能会问，“musk，我是一名 Java 程序员，我该如何在 Java 中使用 RabbitMQ 呢？”这个问题问得好，这就来，这就来。
 
 
 第一步，在项目中添加 RabbitMQ 客户端依赖：

@@ -30,7 +30,7 @@ GitHub 上已经有 21.4k 的 star 了，这说明 Tabby 非常的受欢迎：
 
 >[https://github.com/eugeny/tabby](https://github.com/eugeny/tabby)
 
-*Tabby：二哥，我谢谢你呀，能再吹两句吗？*
+*Tabby：musk，我谢谢你呀，能再吹两句吗？*
 
 Tabby 是一个高度可定制化的 跨平台的终端工具，支持 Windows、macOS 和 Linux，自带 SFTP 功能，能与 Linux 服务器轻松传输文件，支持多种主题，界面炫酷，插件丰富。
 
@@ -148,7 +148,7 @@ SSH 连接和 SFTP 传输恐怕是我们操作 Linux 服务器最常用的两个
 
 Windows 用户习惯用 Xshell，macOS 用户习惯用 iTerm2，但这两款工具都没办法跨平台，多平台操作的用户就可以选择 Tabby 来体验一下，真心不错。
 
-Tabby 的学习资料还比较少，所以希望二哥的这篇文章能给有需要的小伙伴提供一点点的帮助和启发。
+Tabby 的学习资料还比较少，所以希望musk的这篇文章能给有需要的小伙伴提供一点点的帮助和启发。
 
   
 

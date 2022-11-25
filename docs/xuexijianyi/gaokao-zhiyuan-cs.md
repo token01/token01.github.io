@@ -12,7 +12,7 @@ head:
       content: 人工智能,计算机,大学专业,高考,高考志愿
 ---
 
-大家好，我是二哥呀！随着高考成绩的出炉，星球的 VIP 群里也是聊的热火朝天，作为过来人，大家都在弟弟妹妹的面前扮演着重要的角色，毕竟学校的选择/专业的选择/会决定你接下来的人生该往哪里走，走成什么样子！
+大家好，我是musk呀！随着高考成绩的出炉，星球的 VIP 群里也是聊的热火朝天，作为过来人，大家都在弟弟妹妹的面前扮演着重要的角色，毕竟学校的选择/专业的选择/会决定你接下来的人生该往哪里走，走成什么样子！
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu/gaoktzyjsjjkrgznrgdsjwlwwlgcgzyx-7ee994ae-343f-4497-ae9a-4c2a501f09d2.png)
 

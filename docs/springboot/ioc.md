@@ -7,7 +7,7 @@ tag:
 
 # Spring IoC扫盲
 
-大家好，我是二哥呀。不废话，今天来带你一分钟玩转 Spring IoC。Spring 框架是 Java 后端开发中非常重要的基础框架，可以说必不可缺，而 IoC 又是 Spring 体系中最重要的两个概念之一（另外一个是谁呢？）。
+大家好，我是musk呀。不废话，今天来带你一分钟玩转 Spring IoC。Spring 框架是 Java 后端开发中非常重要的基础框架，可以说必不可缺，而 IoC 又是 Spring 体系中最重要的两个概念之一（另外一个是谁呢？）。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/ioc-dfa5b7d3-43c3-492f-a9f5-59d3bf7b242b.jpg)
 

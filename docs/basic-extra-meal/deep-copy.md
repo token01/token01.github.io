@@ -73,7 +73,7 @@ Exception in thread "main" java.lang.CloneNotSupportedException
 ```java
 class TestClone {
     public static void main(String[] args) throws CloneNotSupportedException {
-        Writer writer1 = new Writer(18,"二哥");
+        Writer writer1 = new Writer(18,"musk");
         Writer writer2 = (Writer) writer1.clone();
 
         System.out.println("浅拷贝后：");
@@ -89,7 +89,7 @@ class TestClone {
 }
 ```
 
-- 通过 new 关键字声明了一个 Writer 对象（18 岁的二哥），将其赋值给 writer1。
+- 通过 new 关键字声明了一个 Writer 对象（18 岁的musk），将其赋值给 writer1。
 - 通过调用 `clone()` 方法进行对象拷贝，并将其赋值给 writer2。
 - 之后打印 writer1 和 writer2。
 - 将 writer2 的 name 字段调整为“三妹”。
@@ -99,10 +99,10 @@ class TestClone {
 
 ```
 浅拷贝后：
-writer1：Writer@68837a77{age=18, name='二哥'}
-writer2：Writer@b97c004{age=18, name='二哥'}
+writer1：Writer@68837a77{age=18, name='musk'}
+writer2：Writer@b97c004{age=18, name='musk'}
 调整了 writer2 的 name 后：
-writer1：Writer@68837a77{age=18, name='二哥'}
+writer1：Writer@68837a77{age=18, name='musk'}
 writer2：Writer@b97c004{age=18, name='三妹'}
 ```
 
@@ -164,7 +164,7 @@ class Writer implements Cloneable{
 ```java
 class TestClone {
     public static void main(String[] args) throws CloneNotSupportedException {
-        Writer writer1 = new Writer(18,"二哥");
+        Writer writer1 = new Writer(18,"musk");
         Book book1 = new Book("编译原理",100);
         writer1.setBook(book1);
 
@@ -185,7 +185,7 @@ class TestClone {
 }
 ```
 
-- 通过 new 关键字声明了一个 Writer 对象（18 岁的二哥），将其赋值给 writer1。
+- 通过 new 关键字声明了一个 Writer 对象（18 岁的musk），将其赋值给 writer1。
 - 通过 new 关键字声明了一个 Book 对象（100 块的编译原理），将其赋值给 book1。
 - 将 writer1 的 book 字段设置为 book1。
 - 通过调用 `clone()` 方法进行对象拷贝，并将其赋值给 writer2。
@@ -198,11 +198,11 @@ class TestClone {
 
 ```
 浅拷贝后：
-writer1：Writer@68837a77 age=18, name='二哥', book=Book@32e6e9c3 bookName='编译原理', price=100}}
-writer2：Writer@6d00a15d age=18, name='二哥', book=Book@32e6e9c3 bookName='编译原理', price=100}}
+writer1：Writer@68837a77 age=18, name='musk', book=Book@32e6e9c3 bookName='编译原理', price=100}}
+writer2：Writer@6d00a15d age=18, name='musk', book=Book@32e6e9c3 bookName='编译原理', price=100}}
 writer2.book 变更后：
-writer1：Writer@68837a77 age=18, name='二哥', book=Book@32e6e9c3 bookName='永恒的图灵', price=70}}
-writer2：Writer@36d4b5c age=18, name='二哥', book=Book@32e6e9c3 bookName='永恒的图灵', price=70}}
+writer1：Writer@68837a77 age=18, name='musk', book=Book@32e6e9c3 bookName='永恒的图灵', price=70}}
+writer2：Writer@36d4b5c age=18, name='musk', book=Book@32e6e9c3 bookName='永恒的图灵', price=70}}
 ```
 
 与之前例子不同的是，writer2.book 变更后，writer1.book 也发生了改变。这是因为字符串 String 是不可变对象，一个新的值必须在字符串常量池中开辟一段新的内存空间，而自定义对象的内存地址并没有发生改变，只是对应的字段值发生了改变，见下图。
@@ -274,7 +274,7 @@ class Writer implements Cloneable{
 ```java
 class TestClone {
     public static void main(String[] args) throws CloneNotSupportedException {
-        Writer writer1 = new Writer(18,"二哥");
+        Writer writer1 = new Writer(18,"musk");
         Book book1 = new Book("编译原理",100);
         writer1.setBook(book1);
 
@@ -299,11 +299,11 @@ class TestClone {
 
 ```
 深拷贝后：
-writer1：Writer@6be46e8f age=18, name='二哥', book=Book@5056dfcb bookName='编译原理', price=100}}
-writer2：Writer@6d00a15d age=18, name='二哥', book=Book@51efea79 bookName='编译原理', price=100}}
+writer1：Writer@6be46e8f age=18, name='musk', book=Book@5056dfcb bookName='编译原理', price=100}}
+writer2：Writer@6d00a15d age=18, name='musk', book=Book@51efea79 bookName='编译原理', price=100}}
 writer2.book 变更后：
-writer1：Writer@6be46e8f age=18, name='二哥', book=Book@5056dfcb bookName='编译原理', price=100}}
-writer2：Writer@6d00a15d age=18, name='二哥', book=Book@51efea79 bookName='永恒的图灵', price=70}}
+writer1：Writer@6be46e8f age=18, name='musk', book=Book@5056dfcb bookName='编译原理', price=100}}
+writer2：Writer@6d00a15d age=18, name='musk', book=Book@51efea79 bookName='永恒的图灵', price=70}}
 ```
 
 不只是 writer1 和 writer2 是不同的对象，它们中的 book 也是不同的对象。所以，改变了 writer2 中的 book 并不会影响到 writer1。
@@ -380,7 +380,7 @@ Writer 类也需要实现 Serializable 接口，并且在该类中，增加了�
 ```java
 class TestClone {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        Writer writer1 = new Writer(18,"二哥");
+        Writer writer1 = new Writer(18,"musk");
         Book book1 = new Book("编译原理",100);
         writer1.setBook(book1);
 
@@ -405,18 +405,18 @@ class TestClone {
 
 ```
 深拷贝后：
-writer1：Writer@9629756 age=18, name='二哥', book=Book@735b5592 bookName='编译原理', price=100}}
-writer2：Writer@544fe44c age=18, name='二哥', book=Book@31610302 bookName='编译原理', price=100}}
+writer1：Writer@9629756 age=18, name='musk', book=Book@735b5592 bookName='编译原理', price=100}}
+writer2：Writer@544fe44c age=18, name='musk', book=Book@31610302 bookName='编译原理', price=100}}
 writer2.book 变更后：
-writer1：Writer@9629756 age=18, name='二哥', book=Book@735b5592 bookName='编译原理', price=100}}
-writer2：Writer@544fe44c age=18, name='二哥', book=Book@31610302 bookName='永恒的图灵', price=70}}
+writer1：Writer@9629756 age=18, name='musk', book=Book@735b5592 bookName='编译原理', price=100}}
+writer2：Writer@544fe44c age=18, name='musk', book=Book@31610302 bookName='永恒的图灵', price=70}}
 ```
 
 测试结果和之前用 `clone()` 方法实现的深拷贝类似。
 
 “不过，三妹，需要注意，由于是序列化涉及到输入流和输出流的读写，在性能上要比 HotSpot 虚拟机实现的 `clone()` 方法差很多。”我语重心长地说。
 
-“好的，二哥，你先去休息吧，让我来琢磨一会，总结一下浅拷贝和深拷贝之间的差异。”
+“好的，musk，你先去休息吧，让我来琢磨一会，总结一下浅拷贝和深拷贝之间的差异。”
 
 “嗯嗯。”
 

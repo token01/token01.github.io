@@ -6,7 +6,7 @@
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xianliaolaoke/daxue-nuli-jisuanji-1.jpg)
 
-下面是视频链接，感兴趣的小伙伴可以跳过去给二哥刷个三连，谢谢支持了。
+下面是视频链接，感兴趣的小伙伴可以跳过去给musk刷个三连，谢谢支持了。
 
 >[https://www.bilibili.com/video/BV1434y117xE/](https://www.bilibili.com/video/BV1434y117xE/)
 

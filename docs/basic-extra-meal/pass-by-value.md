@@ -37,7 +37,7 @@ Java 继承了 C 语言这一特性，因此 Java 是按照值来传递的。
 
 ```java
 int age = 18;
-String name = "二哥";
+String name = "musk";
 ```
 
 age 是基本类型，值就保存在变量中，而 name 是引用类型，变量中保存的是对象的地址。一般称这种变量为对象的引用，引用存放在栈中，而对象存放在堆中。
@@ -115,7 +115,7 @@ class PrimitiveTypeDemo1 {
 ```java
 class ReferenceTypeDemo {
     public static void main(String[] args) {
-        String name = "二哥";
+        String name = "musk";
         modify(name);
         System.out.println(name);
     }
@@ -126,7 +126,7 @@ class ReferenceTypeDemo {
 }
 ```
 
-在调用 `modify()` 方法的时候，形参 name1 复制了 name 的地址，指向的是堆中“二哥”的位置。
+在调用 `modify()` 方法的时候，形参 name1 复制了 name 的地址，指向的是堆中“musk”的位置。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/core-points/pass-by-value-03.png)
 

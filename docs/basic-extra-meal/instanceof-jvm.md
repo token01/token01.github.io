@@ -107,7 +107,7 @@ VM runtime的：
 
 >[http://hg.openjdk.java.net/jdk7u/jdk7u/hotspot/file/tip/src/share/vm/oops/oop.inline.hpp](http://hg.openjdk.java.net/jdk7u/jdk7u/hotspot/file/tip/src/share/vm/oops/oop.inline.hpp)
 
-分享的最后，二哥简单来说一下。
+分享的最后，musk简单来说一下。
 
 这个问题涉及语法细节，涉及jvm实现，涉及编译器，还涉及一点点数据结构设计，比较考验一个 Java 程序员的内功，如果要回答到论文的程度，那真的是，面试官也得提前备好知识点，不然应聘者的回答啥也听不懂就挺尴尬的。
 

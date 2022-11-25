@@ -15,7 +15,7 @@ head:
 # JVM到底是如何运行Java代码的？
 
 
-“二哥，看了上一篇 [Hello World](https://mp.weixin.qq.com/s/191I_2CVOxVuyfLVtb4jhg) 的程序后，我很好奇，它是怎么在 Run 面板里打印出‘三妹，少看手机少打游戏，好好学，美美哒’呢？”三妹咪了一口麦香可可奶茶后对我说。
+“musk，看了上一篇 [Hello World](https://mp.weixin.qq.com/s/191I_2CVOxVuyfLVtb4jhg) 的程序后，我很好奇，它是怎么在 Run 面板里打印出‘三妹，少看手机少打游戏，好好学，美美哒’呢？”三妹咪了一口麦香可可奶茶后对我说。
 
 “三妹，我们通常把 Java 分为编译期和运行时，弄清楚这两个阶段就知道原因了。”
 

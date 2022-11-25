@@ -13,7 +13,7 @@ head:
 ---
 
 
-大家好，我是二哥呀！今天给大家分享一个基于Netty的IDEA即时聊天插件，可以实现即时聊天、游戏对战（下棋）。
+大家好，我是musk呀！今天给大家分享一个基于Netty的IDEA即时聊天插件，可以实现即时聊天、游戏对战（下棋）。
 
 >GitHub 地址：[https://github.com/anlingyi/xechat-idea](https://github.com/anlingyi/xechat-idea)
 
@@ -77,7 +77,7 @@ head:
 
 ## 部署服务端
 
-直接在 Intellij IDEA 中运行 xechat 插件的话，是共享的 xechat 的服务器，这不，竟然遇到了作者，竟然还是二哥的读者。
+直接在 Intellij IDEA 中运行 xechat 插件的话，是共享的 xechat 的服务器，这不，竟然遇到了作者，竟然还是musk的读者。
 
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/ide/xechat-45ff0d90-c777-47b9-8b18-b26c44e4c3f1.png)

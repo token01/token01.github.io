@@ -775,7 +775,7 @@ public class UserController {
 
 记过上面的接口验证，功能没有问题，集成成功。
 
-上文基本覆盖了 mybatis-plus 常用的特性，有同学说自动代码生成没说？[二哥的编程星球](https://mp.weixin.qq.com/s/3RVsFZ17F0JzoHCLKbQgGw)里《编程喵🐱实战项目笔记》里有专门的文章说明`mybatis-plus-generator` + `velocity`整合的文章，从后台代码，到前端代码全部一键生成。
+上文基本覆盖了 mybatis-plus 常用的特性，有同学说自动代码生成没说？[musk的编程星球](https://mp.weixin.qq.com/s/3RVsFZ17F0JzoHCLKbQgGw)里《编程喵🐱实战项目笔记》里有专门的文章说明`mybatis-plus-generator` + `velocity`整合的文章，从后台代码，到前端代码全部一键生成。
 
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/haibukuaiyongmybatisplusshoubashoujiaoni-385444a5-ff07-4020-a62f-4fda0142e835.png)

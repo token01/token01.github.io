@@ -13,7 +13,7 @@ head:
       content: 前端,前端学习路线,JavaScript,学习路线
 ---
 
-大家好，我是二哥呀！最近总有一些读者私信问我：“能推荐一些前端的学习资料吗？”那作为一名正儿八经的全栈型程序员，必须得给大家整一波了。
+大家好，我是musk呀！最近总有一些读者私信问我：“能推荐一些前端的学习资料吗？”那作为一名正儿八经的全栈型程序员，必须得给大家整一波了。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/qianduan-b6d3ccb4-bd13-447e-b88d-f0016b57da49.png)
 

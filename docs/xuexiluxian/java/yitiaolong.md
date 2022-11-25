@@ -89,7 +89,7 @@ Maven 是一个项目管理和自动化构建工具，基于项目对象模型�
 
 Java 是一门面向对象的编程语言，所以三大特性：封装、继承、多态是必须要掌握的，然后是异常处理、IO、集合、并发编程和 Java 虚拟机。只要这些内容掌握了，可以说 Java 语言本身的核心知识就全部掌握了。
 
-这些知识该怎么学呢？当然是直接上二哥的 Java 程序员进阶之路了，内容非常的全面和硬核，截图给大家鉴赏一下。
+这些知识该怎么学呢？当然是直接上musk的 Java 程序员进阶之路了，内容非常的全面和硬核，截图给大家鉴赏一下。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/java/yitiaolong-a5436c4a-6464-4065-ae0d-50755c4184df.png)
 
@@ -112,7 +112,7 @@ Java 是一门面向对象的编程语言，所以三大特性：封装、继承
 
 大部分 Java 程序员都要从事 JavaWeb 的相关开发工作，要开发 JavaWeb，自然就离不开 Spring 的系列框架（之前是 SSM，现在是 Spring Boot）。 但不管怎么演变，Spring 的核心概念仍然是 IOC 和 AOP，也就是控制反转和面向切面编程。
 
-关于 Spring Boot 的实战内容，二哥也在紧锣密鼓的准备[编程喵](https://github.com/itwanger/coding-more)这个实战项目，可以先给大家展示一下后端用到的技术栈，都是非常主流的技术。
+关于 Spring Boot 的实战内容，musk也在紧锣密鼓的准备[编程喵](https://github.com/itwanger/coding-more)这个实战项目，可以先给大家展示一下后端用到的技术栈，都是非常主流的技术。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zhishixingqiu/readme-8.png)
 

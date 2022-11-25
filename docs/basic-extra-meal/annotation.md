@@ -12,7 +12,7 @@ head:
       content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,java,注解,annotation
 ---
 
-“二哥，这节讲注解吗？”三妹问。
+“musk，这节讲注解吗？”三妹问。
 
 “是的。”我说，“注解是 Java 中非常重要的一部分，但经常被忽视也是真的。之所以这么说是因为我们更倾向成为一名注解的使用者而不是创建者。`@Override` 注解用过吧？但你知道怎么自定义一个注解吗？”
 
@@ -188,7 +188,7 @@ public class JsonSerializer {
 }
 ```
 
-“JsonSerializer 类的内容看起来似乎有点多啊，二哥，我有点看不懂。”三妹说。
+“JsonSerializer 类的内容看起来似乎有点多啊，musk，我有点看不懂。”三妹说。
 
 “不要怕，我一点点来解释，直到你搞明白为止。”
 

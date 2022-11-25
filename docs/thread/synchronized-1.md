@@ -12,7 +12,7 @@ head:
       content: Java,并发编程,多线程,Thread,synchronized
 ---
 
-二哥：“三妹，今天我们来学习 synchronized 关键字的应用方式和内存语义吧。”
+musk：“三妹，今天我们来学习 synchronized 关键字的应用方式和内存语义吧。”
 
 三妹（颜值在线，气质也在线）：“好的。”
 

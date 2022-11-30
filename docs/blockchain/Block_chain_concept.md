@@ -1,5 +1,5 @@
 ---
-title: 区块链概念概况
+title: `
 shortTitle: 区块链介绍 
 category:
   - 区块链

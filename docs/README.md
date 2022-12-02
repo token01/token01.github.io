@@ -2,7 +2,7 @@
 home: true
 icon: home
 title: 主页
-heroImage: http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/logo.png
+heroImage: logo.png
 heroText: 凤凰蜕变进阶之路
 tagline: 😏汇聚知识 🤖 开源工具 ,😂效率方法、探索认知的自我提升笔记😄
 actions:

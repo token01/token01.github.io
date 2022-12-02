@@ -4,6 +4,7 @@ layout: Blog
 icon: home
 title: 博客
 heroText: 野生架构师
+background:  "/assets/icon/itwanger-282.png"
 heroFullScreen: false
 tagline: 技术文通俗易懂，吹水文风趣幽默。
 projects:

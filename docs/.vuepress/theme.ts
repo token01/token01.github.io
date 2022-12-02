@@ -3,9 +3,9 @@ import navbar from "./navbar";
 import { sidebarConfig } from "./sidebar";
 
 export default hopeTheme({
-  hostname: "https://tobebetterjavaer.com",
+  hostname: "https://bytecodes.tech",
   // 网站图标
-  logo: "https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/logo-02.png",
+  logo: "assets/icon/logo.png",
   // Git 仓库和编辑链接
   repo: "https://github.com/token01/token01.github.io",
   repoLabel: "GitHub",
@@ -77,10 +77,10 @@ export default hopeTheme({
     // 座右铭
     description:"没有什么使我停留——除了目的，纵然岸旁有玫瑰、有绿荫、有宁静的港湾，我是不系之舟。",
     medias: {
-      Zhihu: "https://www.zhihu.com/people/cmower",
-      CSDN: "https://blog.csdn.net/qing_gee",
-      Github: "https://github.com/itwanger",
-      Gitee: "https://gitee.com/itwanger",
+      Zhihu: "https://www.zhihu.com/people/abel-48",
+      CSDN: "https://blog.csdn.net/kongmingdaoshi",
+      Github: "https://github.com/token01",
+      Gitee: "https://gitee.com/token01",
     },
   },
 

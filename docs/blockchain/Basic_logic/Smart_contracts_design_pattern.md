@@ -13,8 +13,11 @@ head:
 ---
 
 ## 设计模式
+
 《Design Patterns For Smart Contracts In the Ethereum Ecosystem》
+
 ### 安全 Security
+
 * Checks-Effects-Interaction 保证状态完整，再做外部调用
 
   Checks：参数验证，Effects：修改合约状态，Interaction：外部交互
@@ -23,6 +26,7 @@ head:
 * Mutex - 禁止递归
 
   使用修饰符防止函数被递归调用。防止重放攻击
+
   ```javascript
   contract Mutex {
     bool locked;
@@ -38,7 +42,9 @@ head:
     function some() public noReentrancy{
         some();
     }
+
 }
+
   ```
 
 ### 可维护性 Maintaince
@@ -73,6 +79,7 @@ contract Computer{
 ```
 
 * Satellite - 分解合约功能
+
 ```javascript
 contract Base {
     uint public _variable;
@@ -95,6 +102,7 @@ contract Satellite {
 ```
 
 * Contract Registry - 跟踪最新合约
+
 ```javascript
 contract Registry{
 
@@ -126,6 +134,7 @@ contract Base {
 ```
 
 * Contract Relay - 代理调用最新合约
+
 ```javascript
 contract Base {
     uint public _variable;
@@ -157,7 +166,9 @@ contract Satellite {
 ```
 
 ### 生命周期 Lifecycle
+
 * Mortal - 允许合约自毁
+
 ```javascript
 contract Mortal{
     //自毁
@@ -171,6 +182,7 @@ contract Mortal{
 * Automatic Deprecation - 允许合约自动停止服务
 
   当用户调用service，notExpired修饰符会先进行日期检测，这样，一旦过了特定时间，调用就会因过期而被拦截在notExpired层。
+
 ```javascript
 contract AutoDeprecated{
 
@@ -194,6 +206,7 @@ contract AutoDeprecated{
 ### 权限 Authorization
 
 * Ownership
+
 ```javascript
 contract Ownable {
     address public owner;
@@ -236,6 +249,7 @@ contract Biz is Owned{
 * Commit - Reveal - 延迟秘密泄露
 Commit And Reveal模式允许用户将要保护的数据转换为不可识别数据，比如一串哈希值，直到某个时刻再揭示哈希值的含义，展露真正的原值。  
 以投票场景举例，假设需要在所有参与者都完成投票后再揭示投票内容，以防这期间参与者受票数影响
+
 ```javascript
 contract CommitReveal {
     struct Commit {
@@ -269,6 +283,7 @@ contract CommitReveal {
 * Oracle - 读取链外数据
   获取外部数据会通过名为Oracle的链外数据层来执行。当业务方的合约尝试获取外部数据时，会先将查询请求存入到某个Oracle专用合约内；Oracle会监听该合约，读取到这个查询请求后，执行查询，并调用业务合约响应接口使合约获取结果。
 ![oracle](../assets/img/contract-oracle.png)
+
 ```javascript
 contract Oracle {
     address oracleSource = 0x123; // known source
@@ -318,8 +333,11 @@ contract BizContract {
 ```
 
 ## 闪电网络
+
 ### RSMC
+
 Revocable Sequence Maturity Contract（序列到期可撤销合约）
 
 ### HTLC
+
 Hashed Timelock Contract（哈希时间锁定）

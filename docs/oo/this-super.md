@@ -1,7 +1,7 @@
 ---
 title: Java中this和super的用法总结
 shortTitle: Java中this和super的用法总结
-description: 技术进阶之路，小白的零基础Java教程，Java中this和super的用法总结
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，Java中this和super的用法总结
 category:
   - Java 核心
 tag:
@@ -9,7 +9,7 @@ tag:
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,this,super
+      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,this,super
 ---
 
 

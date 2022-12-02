@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java概述
-description: 技术进阶之路，小白的零基础Java教程，Java 简介，什么是Java？
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，Java 简介，什么是Java？
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,Java简介
+      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,Java简介
 ---
 
 # Java简介，什么是 Java？

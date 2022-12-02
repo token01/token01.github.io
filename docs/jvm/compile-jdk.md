@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java虚拟机
-description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，自己编译JDK
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，自己编译JDK
 head:
   - - meta
     - name: keywords
-      content: Java,JavaSE,教程,技术进阶之路,jvm,Java虚拟机,JDK
+      content: Java,JavaSE,教程,凤凰蜕变进阶之路,jvm,Java虚拟机,JDK
 ---
 
 # 自己编译JDK

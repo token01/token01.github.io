@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java语法基础
-description: 技术进阶之路，小白的零基础Java教程，Java命名规范，告别编码 5 分钟，命名 2 小时
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，Java命名规范，告别编码 5 分钟，命名 2 小时
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,Java命名规范,命名规范
+      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,Java命名规范,命名规范
 ---
 
 “musk，Java 中的命名约定都有哪些呢？”三妹的脸上泛着甜甜的笑容，她开始对接下来要学习的内容充满期待了，这正是我感到欣慰的地方。

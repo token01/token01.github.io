@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java重要知识点
-description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，大白话说清楚Java反射：入门、使用、原理
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，大白话说清楚Java反射：入门、使用、原理
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,java,反射
+      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,java,反射
 ---
 
 “musk，什么是反射呀？”三妹开门见山地问。

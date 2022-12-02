@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java重要知识点
-description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，详解Java中可变参数的使用
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，详解Java中可变参数的使用
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,java,可变参数
+      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,java,可变参数
 ---
 
 # 详解Java中可变参数的使用

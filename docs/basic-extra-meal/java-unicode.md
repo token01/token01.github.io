@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java重要知识点
-description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，彻底弄懂Java中的Unicode和UTF-8编码
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，彻底弄懂Java中的Unicode和UTF-8编码
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,unicode,utf-8
+      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,unicode,utf-8
 ---
 
 “musk，[上一篇](https://tobebetterjavaer.com/basic-grammar/basic-data-type.html)文章中提到了 Unicode，说 Java 中的 

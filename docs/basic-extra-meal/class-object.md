@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java重要知识点
-description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，Java 中，先有Class还是先有Object？
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，Java 中，先有Class还是先有Object？
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,java,class,object
+      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,java,class,object
 ---
 
 

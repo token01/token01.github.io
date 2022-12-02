@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - 常用工具类
-description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，Hutool：国产良心工具包，让你的Java变得更甜
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，Hutool：国产良心工具包，让你的Java变得更甜
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,java,Hutool
+      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,java,Hutool
 ---
 
 读者群里有个小伙伴感慨说，“Hutool 这款开源类库太厉害了，基本上该有该的工具类，它里面都有。”讲真的，我平常工作中也经常用 Hutool，它确实可以帮助我们简化每一行代码，使 Java 拥有函数式语言般的优雅，让 Java 语言变得“甜甜的”。

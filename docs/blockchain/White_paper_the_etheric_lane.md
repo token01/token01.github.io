@@ -5,7 +5,7 @@ category:
   - 区块链
 tag:
   - 区块链基础知识
-description: 技术进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书
 head:
 - - meta
   - name: keywords

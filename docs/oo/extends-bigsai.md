@@ -1,7 +1,7 @@
 ---
 title: 一万字彻底搞懂 Java 继承（三大特征之一）
 shortTitle: 一万字彻底搞懂Java继承
-description: 技术进阶之路，小白的零基础Java教程，认真聊聊 Java的三大特征：继承
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，认真聊聊 Java的三大特征：继承
 category:
   - Java 核心
 tag:
@@ -9,7 +9,7 @@ tag:
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,继承,inheritance
+      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,继承,inheritance
 ---
 
 ## 关于继承

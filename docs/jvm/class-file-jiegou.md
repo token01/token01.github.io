@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java虚拟机
-description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，详解Java的类文件（class文件）结构
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，详解Java的类文件（class文件）结构
 head:
   - - meta
     - name: keywords
-      content: Java,JavaSE,教程,技术进阶之路,jvm,Java虚拟机,class
+      content: Java,JavaSE,教程,凤凰蜕变进阶之路,jvm,Java虚拟机,class
 ---
 
 # 详解Java的类文件（class文件）结构

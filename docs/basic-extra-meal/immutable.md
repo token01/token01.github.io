@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java重要知识点
-description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，深入理解Java中的不可变对象
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，深入理解Java中的不可变对象
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,java,不可变对象,immutable
+      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,java,不可变对象,immutable
 ---
 
 # 深入理解Java中的不可变对象

@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - 常用工具类
-description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，Java Collections：专为集合框架而生的工具类
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，Java Collections：专为集合框架而生的工具类
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,java,Collections,集合框架
+      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,java,Collections,集合框架
 ---
 
 

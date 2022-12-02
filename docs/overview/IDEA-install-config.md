@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java概述
-description: 技术进阶之路，小白的零基础Java教程，Intellij IDEA的安装和配置
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，Intellij IDEA的安装和配置
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,Intellij IDEA安装,IDEA安装,idea,Intellij IDEA
+      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,Intellij IDEA安装,IDEA安装,idea,Intellij IDEA
 ---
 
 # 安装集成开发环境Intellij IDEA

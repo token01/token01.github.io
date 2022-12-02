@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - 数组&字符串
-description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，如何在Java中优雅地分割String字符串？
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，如何在Java中优雅地分割String字符串？
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,java字符串,String,拆分字符串
+      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,java字符串,String,拆分字符串
 ---
 
 “哥，我感觉字符串拆分没什么可讲的呀，直接上 String 类的 `split()` 方法不就可以了！”三妹毫不客气地说。

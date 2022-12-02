@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java虚拟机
-description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，Java即时编译（JIT）器原理解析及实践
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，Java即时编译（JIT）器原理解析及实践
 head:
   - - meta
     - name: keywords
-      content: Java,JavaSE,教程,技术进阶之路,jvm,Java虚拟机,jit
+      content: Java,JavaSE,教程,凤凰蜕变进阶之路,jvm,Java虚拟机,jit
 ---
 
 # Java即时编译（JIT）器原理解析及实践

@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java语法基础
-description: 技术进阶之路，小白的零基础Java教程，Java流程控制语句（if/switch判断语句和while/do-while/for循环语句）
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，Java流程控制语句（if/switch判断语句和while/do-while/for循环语句）
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,Java流程控制语句,Java判断语句,Java循环语句,if,switch,while,do-while,for
+      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,Java流程控制语句,Java判断语句,Java循环语句,if,switch,while,do-while,for
 ---
 
 

@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java NIO
-description: 技术进阶之路，小白的零基础Java教程，使用Java NIO完成网络通信
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，使用Java NIO完成网络通信
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,nio,网络通信
+      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,nio,网络通信
 ---
 
 ## NIO基础继续讲解

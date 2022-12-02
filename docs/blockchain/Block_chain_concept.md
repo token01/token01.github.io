@@ -1,11 +1,11 @@
 ---
-title: 
+title: 区块链介绍
 shortTitle: 区块链介绍 
 category:
   - 区块链
 tag:
   - 区块链基础知识
-description: 技术进阶之路 web3.0 区块链 区块链基础知识
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识
 head:
   - - meta
     - name: keywords

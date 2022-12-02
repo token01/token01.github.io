@@ -1,7 +1,7 @@
 ---
 title: 一文彻底搞懂 Java static 关键字：静态变量、静态方法、静态代码块、静态内部类
 shortTitle: 一文彻底搞懂Java static关键字
-description: 技术进阶之路，小白的零基础Java教程，一文彻底搞懂 Java static 关键字：静态变量、静态方法、静态代码块、静态内部类
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，一文彻底搞懂 Java static 关键字：静态变量、静态方法、静态代码块、静态内部类
 category:
   - Java 核心
 tag:
@@ -9,7 +9,7 @@ tag:
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,static,java静态变量,java静态方法,java静态代码块,java静态内部类
+      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,static,java静态变量,java静态方法,java静态代码块,java静态内部类
 ---
 
 “哥，你牙龈肿痛轻点没？周一的《教妹学 Java》（Java 程序员进阶之路的前身）你都没有更新，偷懒了呀！”三妹关心地问我。

@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java新特性
-description: 技术进阶之路，小白的零基础Java教程，从入门到进阶，Java 8 Optional最佳指南
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，Java 8 Optional最佳指南
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,java8,Optional
+      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,java8,Optional
 ---
 
 

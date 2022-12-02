@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java语法基础
-description: 技术进阶之路，小白的零基础Java教程，Java 中的数据类型（8 种基本数据类型和引用数据类型）
+description: 凤凰蜕变进阶之路，小白的零基础Java教程，Java 中的数据类型（8 种基本数据类型和引用数据类型）
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,技术进阶之路,Java入门,教程,Java 简介,Java数据类型,基本数据类型,引用数据类型,数据类型
+      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,Java 简介,Java数据类型,基本数据类型,引用数据类型,数据类型
 ---
 
 ## 数据类型的分类

@@ -1,4 +1,3 @@
-
 ---
 title: 区块链-以太坊白皮书
 shortTitle: 区块链-以太坊白皮书
@@ -8,14 +7,16 @@ tag:
   - 区块链基础知识
 description: 技术进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书
 head:
-  - - meta
-    - name: keywords
-      content: web3.0 区块链 基础知识 P2P网络 以太坊白皮书
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 以太坊白皮书
 ---
 
 以太坊白皮书 ETH White paper
 -----
-> 转自 ethfans https://ethfans.org/wikis/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%99%BD%E7%9A%AE%E4%B9%A6
+
+> 转自 ethfans <https://ethfans.org/wikis/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%99%BD%E7%9A%AE%E4%B9%A6>
+
 ## 历史
 
 去中心化的数字货币概念，正如财产登记这样的替代应用一样，早在几十年以前就被提出来了。1980和1990年代的匿名电子现金协议，大部分是以乔姆盲签技术（Chaumian blinding）为基础的。这些电子现金协议提供具有高度隐私性的货币，但是这些协议都没有流行起来，因为它们都依赖于一个中心化的中介机构。1998年，戴伟（Wei Dai）的b-money首次引入了通过解决计算难题和去中心化共识创造货币的思想，但是该建议并未给出如何实现去中心化共识的具体方法。2005年，芬尼（Hal Finney）引入了“可重复使用的工作量证明机制”（reusable proofs of work）概念，它同时使用b-money的思想和Adam Back提出的计算困难的哈希现金（Hashcash）难题来创造密码学货币。但是，这种概念再次迷失于理想化，因为它依赖于可信任的计算作为后端。
@@ -412,24 +413,24 @@ C50: (作一个图灵机的步计算和记录结果在合约的长期存储)
 
 ### 　进阶阅读
 
-1. Intrinsic value: https://tinyurl.com/BitcoinMag-IntrinsicValue
-2. Smart property: https://en.bitcoin.it/wiki/Smart_Property
-3. Smart contracts: https://en.bitcoin.it/wiki/Contracts
-4. B-money: http://www.weidai.com/bmoney.txt
-5. Reusable proofs of work: http://www.finney.org/~hal/rpow/
-6. Secure property titles with owner authority: http://szabo.best.vwh.net/securetitle.html
-7. Bitcoin whitepaper: http://bitcoin.org/bitcoin.pdf
-8. Namecoin: https://namecoin.org/
-9. Zooko’s triangle: http://en.wikipedia.org/wiki/Zooko’s_triangle
-10. Colored coins whitepaper: https://tinyurl.com/coloredcoin-whitepaper
-11. Mastercoin whitepaper: https://github.com/mastercoin-MSC/spec
-12. Decentralized autonomous corporations, Bitcoin Magazine: https://tinyurl.com/Bootstrapping-DACs
-13. Simplified payment verification:https://en.bitcoin.it/wiki/Scalability#Simplifiedpaymentverification
-14. Merkle trees: http://en.wikipedia.org/wiki/Merkle_tree
-15. Patricia trees: http://en.wikipedia.org/wiki/Patricia_tree
-16. GHOST: http://www.cs.huji.ac.il/~avivz/pubs/13/btc_scalability_full.pdf
-17. StorJ and Autonomous Agents, Jeff Garzik: https://tinyurl.com/storj-agents
-18. Mike Hearn on Smart Property at Turing Festival: http://www.youtube.com/watch?v=Pu4PAMFPo5Y
+1. Intrinsic value: <https://tinyurl.com/BitcoinMag-IntrinsicValue>
+2. Smart property: <https://en.bitcoin.it/wiki/Smart_Property>
+3. Smart contracts: <https://en.bitcoin.it/wiki/Contracts>
+4. B-money: <http://www.weidai.com/bmoney.txt>
+5. Reusable proofs of work: <http://www.finney.org/~hal/rpow/>
+6. Secure property titles with owner authority: <http://szabo.best.vwh.net/securetitle.html>
+7. Bitcoin whitepaper: <http://bitcoin.org/bitcoin.pdf>
+8. Namecoin: <https://namecoin.org/>
+9. Zooko’s triangle: <http://en.wikipedia.org/wiki/Zooko’s_triangle>
+10. Colored coins whitepaper: <https://tinyurl.com/coloredcoin-whitepaper>
+11. Mastercoin whitepaper: <https://github.com/mastercoin-MSC/spec>
+12. Decentralized autonomous corporations, Bitcoin Magazine: <https://tinyurl.com/Bootstrapping-DACs>
+13. Simplified payment verification:<https://en.bitcoin.it/wiki/Scalability#Simplifiedpaymentverification>
+14. Merkle trees: <http://en.wikipedia.org/wiki/Merkle_tree>
+15. Patricia trees: <http://en.wikipedia.org/wiki/Patricia_tree>
+16. GHOST: <http://www.cs.huji.ac.il/~avivz/pubs/13/btc_scalability_full.pdf>
+17. StorJ and Autonomous Agents, Jeff Garzik: <https://tinyurl.com/storj-agents>
+18. Mike Hearn on Smart Property at Turing Festival: <http://www.youtube.com/watch?v=Pu4PAMFPo5Y>
 19. Ethereum RLP: [https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-RLP](https://github.com/ethereum/wiki/wiki/[English]-RLP)
 20. Ethereum Merkle Patricia trees: [https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-Patricia-Tree](https://github.com/ethereum/wiki/wiki/[English]-Patricia-Tree)
-21. Peter Todd on Merkle sum trees:http://sourceforge.net/p/bitcoin/mailman/message/31709140/
+21. Peter Todd on Merkle sum trees:<http://sourceforge.net/p/bitcoin/mailman/message/31709140/>

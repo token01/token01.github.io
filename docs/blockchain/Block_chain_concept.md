@@ -1,7 +1,7 @@
 ---
 title: 
 shortTitle: 区块链介绍 
-category
+category:
   - 区块链
 tag:
   - 区块链基础知识

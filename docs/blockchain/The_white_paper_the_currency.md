@@ -11,6 +11,7 @@ head:
     - name: keywords
       content: web3.0 区块链 基础知识 P2P网络 比特币
 ---
+
 > 比特币 white paper中英文对照版本，保持英文原版只字不差，排版尽量模拟原版
 
  Satoshi Nakamoto  

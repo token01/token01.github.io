@@ -3,7 +3,7 @@ title: Java中常用的48个关键字和2个保留字
 shortTitle: 48个关键字和2个保留字
 category:
   - Java核心
-tag:
+tag: 
   - Java语法基础
 description: 技术进阶之路，小白的零基础Java教程，Java中常用的48个关键字和2个保留字
 head:

@@ -12,8 +12,7 @@ head:
       content: Java,JavaSE,教程,凤凰蜕变进阶之路,jvm,Java虚拟机,字节码
 ---
 
-# JVM字节码指令详解
-
+## JVM字节码指令详解
 
 大家好，我是musk呀。Java 字节码指令是 JVM 体系中非常难啃的一块硬骨头，我估计有些读者会有这样的疑惑，“Java 字节码难学吗？我能不能学会啊？”
 
@@ -49,7 +48,7 @@ x 为操作码助记符，表明是哪一种数据类型。见下表所示。
 
 像 arraylength 指令，没有操作码助记符，它没有代表数据类型的特殊字符，但操作数只能是一个数组类型的对象。
 
-大部分的指令都不支持 byte、short 和 char，甚至没有任何指令支持 boolean 类型。编译器会将 byte 和 short 类型的数据带符号扩展（Sign-Extend）为 int 类型，将 boolean 和 char  零位扩展（Zero-Extend）为 int 类型。 
+大部分的指令都不支持 byte、short 和 char，甚至没有任何指令支持 boolean 类型。编译器会将 byte 和 short 类型的数据带符号扩展（Sign-Extend）为 int 类型，将 boolean 和 char  零位扩展（Zero-Extend）为 int 类型。
 
 举例来说。
 
@@ -71,7 +70,6 @@ private void load(int age, String name, long birthday, boolean sex) {
 通过查看局部变量表就能关联上了。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/jvm/zijiema-zhiling-79d74946-ce9e-41d4-b889-bda861f847bc.png)
-
 
 **2）将常量池中的常量压入操作数栈中**
 
@@ -276,7 +274,6 @@ public void newObject() {
 通过 jclasslib 看一下 `newObject()` 方法的字节码指令。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/jvm/zijiema-zhiling-8125da3d-876c-43fe-8347-cb2341408088.png)
-
 
 - `new #13 <java/lang/String>`，创建一个 String 对象。
 - `new #15 <java/io/File>`，创建一个 File 对象。
@@ -551,7 +548,6 @@ public void compare() {
 
 `11 if_icmple 18 (+7)` 的意思是，如果栈顶的两个 int 类型的数值比较的话，如果前者小于后者时跳转到第 18 行（11+7）。
 
-
 **4）多条件分支跳转指令**
 
 主要有 tableswitch 和 lookupswitch，前者要求多个条件分支值是连续的，它内部只存放起始值和终止值，以及若干个跳转偏移量，通过给定的操作数 index，可以立即定位到跳转偏移量位置，因此效率比较高；后者内部存放着各个离散的 case-offset 对，每次执行都要搜索全部的 case-offset 对，找到匹配的 case 值，并根据对应的 offset 计算跳转地址，因此效率较低。
@@ -579,9 +575,7 @@ public void switchTest(int select) {
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/jvm/zijiema-zhiling-04e166ae-13c7-4025-804a-be88e2923a50.png)
 
-
 case 2 的时候没有 break，所以 case 2 和 case 3 是连续的，用的是 tableswitch。如果等于 1，跳转到 28 行；如果等于 2 和 3，跳转到 34 行，如果是 default，跳转到 40 行。
-
 
 **5）无条件跳转指令**
 
@@ -589,20 +583,11 @@ goto 指令接收两个字节的操作数，共同组成一个带符号的整数
 
 前面的例子里都出现了 goto 的身影，也很好理解。如果指令的偏移量特别大，超出了两个字节的范围，可以使用指令 goto_w，接收 4 个字节的操作数。
 
-------
 
 更多指令，可以阅读下面这篇文章：
 
->https://segmentfault.com/a/1190000037628881
+><https://segmentfault.com/a/1190000037628881>
 
 >路漫漫其修远兮，吾将上下而求索
 
 想要走得更远，Java 字节码这块就必须得硬碰硬地吃透，希望musk的这些分享可以帮助到大家~
-
-----
-
-  
-
- 
-
-  

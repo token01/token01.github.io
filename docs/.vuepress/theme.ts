@@ -27,7 +27,7 @@ export default hopeTheme({
 
   // 全局默认作者
   author: {
-    name: "Abelsun",
+    name: "Abel sun",
     url: "/about-the-author/",
   },
 

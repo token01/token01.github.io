@@ -118,7 +118,7 @@ GB 2312 的出现，基本满足了汉字的计算机处理需求。对于人名
 ```java
 public class Demo {
     public static void main(String[] args) {
-        String wanger = "沉默王二";
+        String wanger = "musk";
         byte[] bytes = wanger.getBytes(Charset.forName("GBK"));
         String result = new String(bytes, Charset.forName("UTF-8"));
         System.out.println(result);

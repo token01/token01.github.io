@@ -13,7 +13,7 @@ head:
       content: OS面试题,操作系统,OS,操作系统面试题,面试题,八股文
 ---
 
-> 图文详解操作系统面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：沉默王二，戳[转载链接](https://mp.weixin.qq.com/s/CYsn0M5ddDuG--mALmhsuw)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/KMGyn-FLkvzsMH06LV4OfQ)。
+> 图文详解操作系统面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：musk，戳[转载链接](https://mp.weixin.qq.com/s/CYsn0M5ddDuG--mALmhsuw)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/KMGyn-FLkvzsMH06LV4OfQ)。
 
 
 ## 引论
@@ -669,7 +669,7 @@ epoll 的⽅式即使监听的 Socket 数量越多的时候，效率不会⼤幅
 
 ----
 
-> 图文详解操作系统面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：沉默王二，戳[转载链接](https://mp.weixin.qq.com/s/CYsn0M5ddDuG--mALmhsuw)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/KMGyn-FLkvzsMH06LV4OfQ)。
+> 图文详解操作系统面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：musk，戳[转载链接](https://mp.weixin.qq.com/s/CYsn0M5ddDuG--mALmhsuw)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/KMGyn-FLkvzsMH06LV4OfQ)。
 
 
   

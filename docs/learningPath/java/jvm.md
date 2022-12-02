@@ -133,7 +133,7 @@ head:
 
 >GitHub 地址：[https://github.com/doocs/jvm](https://github.com/doocs/jvm)
 
-<!-- 考虑到有些小伙伴可能需要 PDF 版本，我都整理好了，需要的小伙伴请扫描下方的二维码关注作者的原创公众号「**沉默王二**」回复关键字「**java**」就可以拉取到了。
+<!-- 考虑到有些小伙伴可能需要 PDF 版本，我都整理好了，需要的小伙伴请扫描下方的二维码关注作者的原创公众号「**musk**」回复关键字「**java**」就可以拉取到了。
 
 ![扫码关注后回复「java」关键字](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png) -->
 
@@ -145,7 +145,7 @@ head:
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/java/jvm-2beabbe4-2ddd-4180-8690-1bc3224e6b41.png)
 
-需要的小伙伴可以微信搜索「**沉默王二**」回复关键字「**java**」就可以拉取到了。
+需要的小伙伴可以微信搜索「**musk**」回复关键字「**java**」就可以拉取到了。
 
 **5）付费专栏**
 

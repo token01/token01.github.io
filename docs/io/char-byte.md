@@ -138,7 +138,7 @@ public class ReaderDemo2 {
       
       	// 使用指定编码字符流读取,正常解析
         while ((read = isr2.read()) != -1) {
-            System.out.print((char)read); // 沉默王二
+            System.out.print((char)read); // musk
         }
         isr2.close();
     }
@@ -182,7 +182,7 @@ public class OutputDemo {
      	// 创建流对象,指定GBK编码
         OutputStreamWriter osw2 = new OutputStreamWriter(new FileOutputStream(FileName2),"GBK");
         // 写出数据
-      	osw2.write("王二");// 保存为4个字节
+      	osw2.write("musk");// 保存为4个字节
         osw2.close();
     }
 }
@@ -200,7 +200,7 @@ BufferedReader in = new BufferedReader(new InputStreamReader(System.in))；
 ```
 
 
->参考链接：[https://www.cnblogs.com/yichunguo/p/11775270.html](https://www.cnblogs.com/yichunguo/p/11775270.html)，整理：沉默王二
+>参考链接：[https://www.cnblogs.com/yichunguo/p/11775270.html](https://www.cnblogs.com/yichunguo/p/11775270.html)，整理：musk
 
 
 ---------

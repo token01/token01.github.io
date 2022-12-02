@@ -45,12 +45,12 @@ public void test(Wanger wanger) {
 
 ```java
 List<String> list = new ArrayList<>();
-list.add("沉默王二");
+list.add("musk");
 list.add("沉默王三");
 list.add("一个文章真特么有趣的程序员");
 
 for (String str : list) {
-	if ("沉默王二".equals(str)) {
+	if ("musk".equals(str)) {
 		list.remove(str);
 	}
 }
@@ -80,14 +80,14 @@ final void checkForComodification() {
 
 ```java
 List<String> list = new ArrayList();
-list.add("沉默王二");
+list.add("musk");
 list.add("沉默王三");
 list.add("一个文章真特么有趣的程序员");
 Iterator var2 = list.iterator();
 
 while(var2.hasNext()) {
     String str = (String)var2.next();
-    if ("沉默王二".equals(str)) {
+    if ("musk".equals(str)) {
         list.remove(str);
     }
 }
@@ -138,7 +138,7 @@ private class Itr implements Iterator<E> {
 
 所以 modCount 的值在经过三次 add 后为 3，于是 `new Itr()` 后 expectedModCount 的值也为 3。
 
-执行第一次循环时，发现“沉默王二”等于 str，于是执行 `list.remove(str)`。
+执行第一次循环时，发现“musk”等于 str，于是执行 `list.remove(str)`。
 
 - remove 方法调用 fastRemove 方法
 - fastRemove 方法中会执行 `modCount++`
@@ -171,12 +171,12 @@ modCount 的值变成了 4。
 
 ```java
 List<String> list = new ArrayList<>();
-list.add("沉默王二");
+list.add("musk");
 list.add("沉默王三");
 list.add("一个文章真特么有趣的程序员");
 
 for (String str : list) {
-	if ("沉默王二".equals(str)) {
+	if ("musk".equals(str)) {
 		list.remove(str);
 		break;
 	}
@@ -192,12 +192,12 @@ break 后循环就不再遍历了，意味着 Iterator 的 next 方法不再执�
 
 ```java
 List<String> list = new ArrayList<>();
-list.add("沉默王二");
+list.add("musk");
 list.add("沉默王三");
 list.add("一个文章真特么有趣的程序员");
 for (int i = 0, n = list.size(); i < n; i++) {
 	String str = list.get(i);
-	if ("沉默王二".equals(str)) {
+	if ("musk".equals(str)) {
 		list.remove(str);
 	}
 }
@@ -213,7 +213,7 @@ remove 之前 `list.get(1)` 为“沉默王三”；但 remove 之后 `list.get(
 
 ```java
 List<String> list = new ArrayList<>();
-list.add("沉默王二");
+list.add("musk");
 list.add("沉默王三");
 list.add("一个文章真特么有趣的程序员");
 
@@ -221,7 +221,7 @@ Iterator<String> itr = list.iterator();
 
 while (itr.hasNext()) {
 	String str = itr.next();
-	if ("沉默王二".equals(str)) {
+	if ("musk".equals(str)) {
 		itr.remove();
 	}
 }

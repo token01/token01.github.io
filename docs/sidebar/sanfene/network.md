@@ -13,7 +13,7 @@ head:
       content: 计算机网络,计算机网络面试题,面试题,八股文
 ---
 
-> 图文详解计算机网络面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：沉默王二，戳[转载链接](https://mp.weixin.qq.com/s/FvxyiMyq0422yifcyoG8vg)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/yAlErlC09GnjaVvwUo3Acg)。
+> 图文详解计算机网络面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：musk，戳[转载链接](https://mp.weixin.qq.com/s/FvxyiMyq0422yifcyoG8vg)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/yAlErlC09GnjaVvwUo3Acg)。
 
 大家好，我是musk呀，今天继续来给大家分享三弟的面渣逆袭！
 
@@ -1560,7 +1560,7 @@ XSS 攻击一般分三种类型：**存储型 、反射型 、DOM 型 XSS**
 
 ----
 
-> 图文详解计算机网络面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：沉默王二，戳[转载链接](https://mp.weixin.qq.com/s/FvxyiMyq0422yifcyoG8vg)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/yAlErlC09GnjaVvwUo3Acg)。
+> 图文详解计算机网络面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：musk，戳[转载链接](https://mp.weixin.qq.com/s/FvxyiMyq0422yifcyoG8vg)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/yAlErlC09GnjaVvwUo3Acg)。
 
 
   

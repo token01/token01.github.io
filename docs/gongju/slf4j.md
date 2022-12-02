@@ -34,7 +34,7 @@ SLF4J 的作者就是 Log4J 和 Logback 的作者，他的 GitHub 主页长下�
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/slf4j-c72cd63d-b15b-401c-8399-ad0355f1f802.png)
 
-一股秋风瑟瑟的清冷感扑面而来，有没有？可能巨佬不屑于维护他的 GitHub 主页吧？我的 GitHub 主页够凄惨了，没想到巨佬比我还惨，终于可以吹牛逼地说，“我，沉默王二，GitHub 主页比 SLF4J、Log4J 和 Logback 的作者 Ceki Gulcu 绿多了。。。。。。”
+一股秋风瑟瑟的清冷感扑面而来，有没有？可能巨佬不屑于维护他的 GitHub 主页吧？我的 GitHub 主页够凄惨了，没想到巨佬比我还惨，终于可以吹牛逼地说，“我，musk，GitHub 主页比 SLF4J、Log4J 和 Logback 的作者 Ceki Gulcu 绿多了。。。。。。”
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/slf4j-cdc9e0fb-71ab-42e7-8024-7e9cfd9b30c3.png)
 
@@ -102,7 +102,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 public class Demo {
     private static Log logger = LogFactory.getLog(Demo.class);
@@ -214,7 +214,7 @@ SLF4J 除了解决掉以上的痛点，帮助我们的应用程序独立于任�
 众所周知，字符串是不可变的，字符串拼接会创建很多不必要的字符串对象，极大的消耗了内存空间。但 Log4J 在打印带参数的日志时，只能使用字符串拼接的方式：
 
 ```java
-String name = "沉默王二";
+String name = "musk";
 int age = 18;
 logger.debug(name + "，年纪：" + age + "，是个非常不要脸的程序员");
 ```
@@ -269,13 +269,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 public class Log4jSLF4JDemo {
     private static final Logger logger = LoggerFactory.getLogger(Log4jSLF4JDemo.class);
 
     public static void main(String[] args) {
-        logger.debug("{}，是个非常不要脸的程序员","沉默王二");
+        logger.debug("{}，是个非常不要脸的程序员","musk");
     }
 }
 ```
@@ -288,7 +288,7 @@ public class Log4jSLF4JDemo {
 如果只是 Log4J 的话，会先进行字符串拼接，再执行 `debug()` 方法，来看示例代码：
 
 ```java
-String name = "沉默王二";
+String name = "musk";
 int age = 18;
 logger.debug(name + "，年纪：" + age + "，是个非常不要脸的程序员");
 ```
@@ -306,7 +306,7 @@ logger.debug(name + "，年纪：" + age + "，是个非常不要脸的程序员
 这是因为如果参数是基本数据类型的话，会先进行自动装箱（`Integer.valueOf()`）。测试代码如下所示：
 
 ```java
-logger.debug("沉默王二，{}岁", 18);
+logger.debug("musk，{}岁", 18);
 ```
 
 通过反编译工具就可以看得到：

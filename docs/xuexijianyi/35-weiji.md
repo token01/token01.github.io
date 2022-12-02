@@ -14,7 +14,7 @@ head:
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-a1c73ba1-4f12-4bb9-a64b-14bb7cc86ec5.png)
 
-作者：沉默王二<br>
+作者：musk<br>
 Java 程序员进阶之路：https://tobebetterjavaer.com
 
 大家好，我是musk呀！今天周六，咱精神就不要绷那么紧了，来谈一个超级“轻松”的话题：35 岁中年危机。
@@ -285,7 +285,7 @@ IT 行业的技术更新换代非常快，对个人综合能力要求非常高�
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-rumrabbitmqzypjdg-53717e59-63c9-44bd-99d3-dd2c26fe68bb.png)
 
 
->参考链接：[https://mp.weixin.qq.com/s/jtwD0Iodg7-HsHEJh2ubZw](https://mp.weixin.qq.com/s/jtwD0Iodg7-HsHEJh2ubZw)，出处：楼仔，整理：沉默王二
+>参考链接：[https://mp.weixin.qq.com/s/jtwD0Iodg7-HsHEJh2ubZw](https://mp.weixin.qq.com/s/jtwD0Iodg7-HsHEJh2ubZw)，出处：楼仔，整理：musk
 
 ----
 

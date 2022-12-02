@@ -52,9 +52,9 @@ Java 通过类（class）来定义这些物体，这些物体有什么状态，�
 
 ```java
 /**
- * 微信搜索「沉默王二」，回复 Java
+ * 微信搜索「musk」，回复 Java
  *
- * @author 沉默王二
+ * @author musk
  * @date 2020/11/19
  */
 public class Person {
@@ -169,7 +169,7 @@ null
 
 ```java
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 public class PersonTest {
     public static void main(String[] args) {
@@ -212,7 +212,7 @@ public class Person {
 
     public static void main(String[] args) {
         Person person = new Person();
-        person.name = "沉默王二";
+        person.name = "musk";
         person.age = 18;
         person.sex = 1;
         
@@ -227,10 +227,10 @@ person 被称为对象 Person 的引用变量，见下图：
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/object-class/16-02.png)
 
-通过对象的引用变量，可以直接对字段进行初始化（`person.name = "沉默王二"`），所以以上代码输出结果如下所示：
+通过对象的引用变量，可以直接对字段进行初始化（`person.name = "musk"`），所以以上代码输出结果如下所示：
 
 ```
-沉默王二
+musk
 18
 1
 ```
@@ -239,7 +239,7 @@ person 被称为对象 Person 的引用变量，见下图：
 
 ```java
 /**
- * @author 沉默王二，一枚有趣的程序员
+ * @author musk，一枚有趣的程序员
  */
 public class Person {
     private String name;
@@ -254,7 +254,7 @@ public class Person {
 
     public static void main(String[] args) {
         Person person = new Person();
-        person.initialize("沉默王二",18,1);
+        person.initialize("musk",18,1);
 
         System.out.println(person.name);
         System.out.println(person.age);
@@ -263,13 +263,13 @@ public class Person {
 }
 ```
 
-在 Person 类中新增方法 `initialize()`，然后在新建对象后传参进行初始化（`person.initialize("沉默王二", 18, 1)`）。
+在 Person 类中新增方法 `initialize()`，然后在新建对象后传参进行初始化（`person.initialize("musk", 18, 1)`）。
 
 第三种：通过构造方法初始化。
 
 ```java
 /**
- * @author 沉默王二，一枚有趣的程序员
+ * @author musk，一枚有趣的程序员
  */
 public class Person {
     private String name;
@@ -283,7 +283,7 @@ public class Person {
     }
 
     public static void main(String[] args) {
-        Person person = new Person("沉默王二", 18, 1);
+        Person person = new Person("musk", 18, 1);
 
         System.out.println(person.name);
         System.out.println(person.age);
@@ -303,7 +303,7 @@ new Person();
 可以直接通过匿名对象调用方法：
 
 ```java
-new Person().initialize("沉默王二", 18, 1);
+new Person().initialize("musk", 18, 1);
 ```
 
 ## 05、关于对象

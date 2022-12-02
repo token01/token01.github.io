@@ -222,4 +222,4 @@ category:
 
 [学习分布式系统需要怎样的知识？](https://www.zhihu.com/question/23645117)
 
->参考链接：[https://www.cnblogs.com/xybaby/p/7787034.html](https://www.cnblogs.com/xybaby/p/7787034.html)，整理：沉默王二
+>参考链接：[https://www.cnblogs.com/xybaby/p/7787034.html](https://www.cnblogs.com/xybaby/p/7787034.html)，整理：musk

@@ -17,14 +17,14 @@ head:
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/csdn-zhenggjspringbootrhclcsxytyyctyxybugpooldbkcsdnbkzgjspringbootrhcl-69c3cc92-4d31-467b-a15d-33e43fd4bade.png)
 
-作者：沉默王二<br>
+作者：musk<br>
 Java 程序员进阶之路：https://tobebetterjavaer.com
 
 大家好，我是musk呀！
 
 本篇主要要介绍的就是`controller`层的处理，一个完整的后端请求由4部分组成：1. `接口地址`(也就是URL地址)、2. `请求方式`(一般就是get、set，当然还有put、delete)、3. `请求数据`(request，有head跟body)、4. `响应数据`(response)
 
->文章链接：https://blog.csdn.net/chaitoudaren/article/details/105610962 作者：bugpool 整理：沉默王二
+>文章链接：https://blog.csdn.net/chaitoudaren/article/details/105610962 作者：bugpool 整理：musk
 
 本篇将解决以下3个问题：
 

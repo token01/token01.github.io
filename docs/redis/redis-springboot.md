@@ -64,12 +64,12 @@ string 是 Redis 最基本的数据类型，一个key对应一个value。
 对应文本命令：
 
 ```
-## 增加一个 key 为 name，value 为 沉默王二
-> set name '沉默王二'
+## 增加一个 key 为 name，value 为 musk
+> set name 'musk'
 OK
 ## 获取
 > get name
-沉默王二
+musk
 > set name '沉默王三'
 OK
 > get name
@@ -94,8 +94,8 @@ Redis hash 是一个键值对集合，值可以看成是一个 Map。
 ## 清除数据库
 > flushdb
 OK
-## 创建 hash，key 为 user_hset 字段为 user1，值为 沉默王二
-> hset user_hset user1 沉默王二
+## 创建 hash，key 为 user_hset 字段为 user1，值为 musk
+> hset user_hset user1 musk
 1
 > hset user_hset user2 沉默王三
 1
@@ -108,15 +108,15 @@ user1
 user2
 ## 所有值
 > hvals user_hset
-沉默王二
+musk
 沉默王三
 ## 字段 user1 的值
 > hget user_hset user1
-沉默王二
+musk
 ## 获取 key 为 user_hset 的所有字段和值
 > hgetall user_hset
 user1
-沉默王二
+musk
 user2
 沉默王三
 ## 更新字段
@@ -139,39 +139,39 @@ user2
 list 是一个简单的字符串列表，按照插入顺序排序。
 
 ```
-## 添加 key 为 user_list value 为 沉默王二、沉默万三的集合
-> lpush user_list 沉默王二 沉默王三
+## 添加 key 为 user_list value 为 musk、沉默万三的集合
+> lpush user_list musk 沉默王三
 2
 ## 查询
 > lrange user_list 0 -1
 沉默王三
-沉默王二
+musk
 ## 往尾部添加
-> rpush user_list 沉默王二是沙比
+> rpush user_list musk是沙比
 3
 ## 头部添加
-> lpush user_list 沉默王二是傻叉
+> lpush user_list musk是傻叉
 4
 > lrange user_list 0 -1
-沉默王二是傻叉
+musk是傻叉
 沉默王三
-沉默王二
-沉默王二是沙比
+musk
+musk是沙比
 ## 更新 index 为 0 的值
 > lset user_list 0 沉默王四
 OK
 > lrange user_list 0 -1
 沉默王四
 沉默王三
-沉默王二
-沉默王二是沙比
+musk
+musk是沙比
 ## 删除 index 为 0 的值
 > lrem user_list 0 沉默王四
 1
 > lrange user_list 0 -1
 沉默王三
-沉默王二
-沉默王二是沙比
+musk
+musk是沙比
 ```
 
 **4）set**
@@ -179,26 +179,26 @@ OK
 set 是 string 类型的无序集合，不允许有重复的元素。
 
 ```
-## 添加 key 为 user_set value 为沉默王二 沉默王三 沉默王二的狗腿子的集合
-> sadd user_set 沉默王二 沉默王三 沉默王二的狗腿子
+## 添加 key 为 user_set value 为musk 沉默王三 musk的狗腿子的集合
+> sadd user_set musk 沉默王三 musk的狗腿子
 3
 ## 查询
 > smembers user_set
-沉默王二
-沉默王二的狗腿子
+musk
+musk的狗腿子
 沉默王三
-## 删除 value 为沉默王二的元素
-> srem user_set 沉默王二
+## 删除 value 为musk的元素
+> srem user_set musk
 1
 > smembers user_set
-沉默王二的狗腿子
+musk的狗腿子
 沉默王三
 ## 添加
-> sadd user_set 沉默王二
+> sadd user_set musk
 1
 > smembers user_set
-沉默王二
-沉默王二的狗腿子
+musk
+musk的狗腿子
 沉默王三
 ```
 
@@ -209,21 +209,21 @@ sorted set 是 string 类型的有序集合，不允许有重复的元素。
 ```
 > FLUSHDB
 OK
-## 添加 key 为 user_zset 分数为 1 值为沉默王二、分数为 2 值为沉默王三、分数为 3 值为沉默王二的狗腿子
-> zadd user_zset 1 沉默王二 2 沉默王三 3 沉默王二的狗腿子
+## 添加 key 为 user_zset 分数为 1 值为musk、分数为 2 值为沉默王三、分数为 3 值为musk的狗腿子
+> zadd user_zset 1 musk 2 沉默王三 3 musk的狗腿子
 3
 ## 查询
 > zrange user_zset 0 -1
-沉默王二
+musk
 沉默王三
-沉默王二的狗腿子
+musk的狗腿子
 ## 反转
 > zrevrange user_zset 0 -1
-沉默王二的狗腿子
+musk的狗腿子
 沉默王三
-沉默王二
-## 查询元素沉默王二的分数
-> zscore user_zset 沉默王二
+musk
+## 查询元素musk的分数
+> zscore user_zset musk
 1
 ```
 
@@ -264,24 +264,24 @@ class CodingmoreRedisApplicationTests {
     @Test
     public void testRedis() {
         // 添加
-        redisTemplate.opsForValue().set("name","沉默王二");
+        redisTemplate.opsForValue().set("name","musk");
         // 查询
         System.out.println(redisTemplate.opsForValue().get("name"));
         // 删除
         redisTemplate.delete("name");
         // 更新
-        redisTemplate.opsForValue().set("name","沉默王二的狗腿子");
+        redisTemplate.opsForValue().set("name","musk的狗腿子");
         // 查询
         System.out.println(redisTemplate.opsForValue().get("name"));
 
         // 添加
-        stringRedisTemplate.opsForValue().set("name","沉默王二");
+        stringRedisTemplate.opsForValue().set("name","musk");
         // 查询
         System.out.println(stringRedisTemplate.opsForValue().get("name"));
         // 删除
         stringRedisTemplate.delete("name");
         // 更新
-        stringRedisTemplate.opsForValue().set("name","沉默王二的狗腿子");
+        stringRedisTemplate.opsForValue().set("name","musk的狗腿子");
         // 查询
         System.out.println(stringRedisTemplate.opsForValue().get("name"));
 

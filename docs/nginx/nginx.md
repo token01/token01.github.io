@@ -179,7 +179,7 @@ root 我指定了 `/home/www` 目录，首页文件为 index.html。这个文件
 <!DOCTYPE html>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>沉默王二</title>
+<title>musk</title>
   <body>
     <img src="niubi.jpeg" />
   </body>

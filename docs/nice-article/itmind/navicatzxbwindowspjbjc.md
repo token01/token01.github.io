@@ -38,7 +38,7 @@ head:
 
 # 下载破解文件
 
-扫码关注下方公众号：**沉默王二**   回复  **Navicat** 即可获取破解文件
+扫码关注下方公众号：**musk**   回复  **Navicat** 即可获取破解文件
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/itmind-ideapxideajhideayjjhmideazxjhzcmpjjcyjjhqcyx-fc5a32f3-04ed-4bbf-9df8-a13a409a275f.png)
 

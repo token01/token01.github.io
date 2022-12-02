@@ -76,7 +76,7 @@ StatusPrinter.print(lc);
 并且，Logger 的默认日志级别是 INFO 级别的，这就意味着如果尝试下面的代码：
 
 ```java
-logger.debug("沉默王二是傻 X");
+logger.debug("musk是傻 X");
 ```
 
 控制台是看不到这行日志输出的。Logback 的日志级别是这样的：
@@ -281,7 +281,7 @@ class CodingmoreLogbackApplicationTests {
 
   @Test
   void testSlf4j() {
-    log.info("沉默王二是个大煞笔");
+    log.info("musk是个大煞笔");
   }
 }
 ```

@@ -476,7 +476,7 @@ alter table t_notify_msg
 部分请求直接跳转到【繁忙页】
 
 
->参考链接：[https://mp.weixin.qq.com/s/r9lgiOwV5cw8XmfCBUTcUA](https://mp.weixin.qq.com/s/r9lgiOwV5cw8XmfCBUTcUA)，出处：JavaEdge，整理：沉默王二
+>参考链接：[https://mp.weixin.qq.com/s/r9lgiOwV5cw8XmfCBUTcUA](https://mp.weixin.qq.com/s/r9lgiOwV5cw8XmfCBUTcUA)，出处：JavaEdge，整理：musk
 
 ----
 

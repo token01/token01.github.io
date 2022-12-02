@@ -16,7 +16,7 @@ head:
 
 “假如你真的这么觉得，那可要注意了，事情远没这么简单。”我微笑着说。
 
-假如现在有这样一串字符序列“沉默王二，一枚有趣的程序员”，需要按照中文逗号“，”进行拆分，这意味着第一串字符序列为逗号前面的“沉默王二”，第二串字符序列为逗号后面的“一枚有趣的程序员”。
+假如现在有这样一串字符序列“musk，一枚有趣的程序员”，需要按照中文逗号“，”进行拆分，这意味着第一串字符序列为逗号前面的“musk”，第二串字符序列为逗号后面的“一枚有趣的程序员”。
 
 “这不等于没说吗？哥！”还没等我说，三妹就打断了我。
 
@@ -25,7 +25,7 @@ head:
 ```java
 public class Test {
     public static void main(String[] args) {
-        String cmower = "沉默王二，一枚有趣的程序员";
+        String cmower = "musk，一枚有趣的程序员";
         if (cmower.contains("，")) {
             String [] parts = cmower.split("，");
             System.out.println("第一部分：" + parts[0] +" 第二部分：" + parts[1]);
@@ -39,7 +39,7 @@ public class Test {
 “三妹你看，这段代码挺严谨的吧？”我说，“来看一下程序的输出结果。”
 
 ```
-第一部分：沉默王二 第二部分：一枚有趣的程序员
+第一部分：musk 第二部分：一枚有趣的程序员
 ```
 
 “的确和预期完全一致。”三妹说。
@@ -78,7 +78,7 @@ public class Test {
 “好了，来用英文逗点 `.` 替换一下分隔符。”我说。
 
 ```java
-String cmower = "沉默王二.一枚有趣的程序员";
+String cmower = "musk.一枚有趣的程序员";
 if (cmower.contains(".")) {
     String [] parts = cmower.split("\\.");
     System.out.println("第一部分：" + parts[0] +" 第二部分：" + parts[1]);
@@ -120,7 +120,7 @@ public class TestPatternSplit {
     private static Pattern twopart = Pattern.compile("\\.");
 
     public static void main(String[] args) {
-        String [] parts = twopart.split("沉默王二.一枚有趣的程序员");
+        String [] parts = twopart.split("musk.一枚有趣的程序员");
         System.out.println("第一部分：" + parts[0] +" 第二部分：" + parts[1]);
     }
 }
@@ -138,8 +138,8 @@ public class TestPatternMatch {
     private static Pattern twopart = Pattern.compile("(.+)\\.(.+)");
 
     public static void main(String[] args) {
-        checkString("沉默王二.一枚有趣的程序员");
-        checkString("沉默王二.");
+        checkString("musk.一枚有趣的程序员");
+        checkString("musk.");
         checkString(".一枚有趣的程序员");
     }
 
@@ -159,7 +159,7 @@ public class TestPatternMatch {
 来看一下程序的输出结果：
 
 ```java
-第一部分：沉默王二 第二部分：一枚有趣的程序员
+第一部分：musk 第二部分：一枚有趣的程序员
 不匹配
 不匹配
 ```
@@ -167,7 +167,7 @@ public class TestPatternMatch {
 不过，使用 Matcher 来匹配一些简单的字符串时相对比较沉重一些，使用 String 类的 `split()` 仍然是首选，因为该方法还有其他一些牛逼的功能。比如说，如果你想把分隔符包裹在拆分后的字符串的第一部分，可以这样做：
 
 ```java
-String cmower = "沉默王二，一枚有趣的程序员";
+String cmower = "musk，一枚有趣的程序员";
 if (cmower.contains("，")) {
     String [] parts = cmower.split("(?<=，)");
     System.out.println("第一部分：" + parts[0] +" 第二部分：" + parts[1]);
@@ -177,7 +177,7 @@ if (cmower.contains("，")) {
 程序输出的结果如下所示：
 
 ```
-第一部分：沉默王二， 第二部分：一枚有趣的程序员
+第一部分：musk， 第二部分：一枚有趣的程序员
 ```
 
 可以看到分隔符“，”包裹在了第一部分，如果希望包裹在第二部分，可以这样做：
@@ -195,7 +195,7 @@ String [] parts = cmower.split("(?=，)");
 “`split()` 方法可以传递 2 个参数，第一个为分隔符，第二个为拆分的字符串个数。”我说。
 
 ```java
-String cmower = "沉默王二，一枚有趣的程序员，宠爱他";
+String cmower = "musk，一枚有趣的程序员，宠爱他";
 if (cmower.contains("，")) {
     String [] parts = cmower.split("，", 2);
     System.out.println("第一部分：" + parts[0] +" 第二部分：" + parts[1]);
@@ -211,7 +211,7 @@ if (cmower.contains("，")) {
 来看一下程序输出的结果：
 
 ```
-第一部分：沉默王二 第二部分：一枚有趣的程序员，宠爱他
+第一部分：musk 第二部分：一枚有趣的程序员，宠爱他
 ```
 
 “没想到啊，这个字符串拆分还挺讲究的呀！”三妹感慨地说。

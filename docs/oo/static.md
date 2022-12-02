@@ -54,13 +54,13 @@ public class Student {
     }
 
     public static void main(String[] args) {
-        Student s1 = new Student("沉默王二", 18);
+        Student s1 = new Student("musk", 18);
         Student s2 = new Student("沉默王三", 16);
     }
 }
 ```
 
-“瞧，三妹。s1 和 s2 这两个引用变量存放在栈区（stack），沉默王二+18 这个对象和沉默王三+16 这个对象存放在堆区（heap），school 这个静态变量存放在静态区。”
+“瞧，三妹。s1 和 s2 这两个引用变量存放在栈区（stack），musk+18 这个对象和沉默王三+16 这个对象存放在堆区（heap），school 这个静态变量存放在静态区。”
 
 “等等，哥，栈、堆、静态区？”三妹的脸上塞满了疑惑。
 
@@ -186,7 +186,7 @@ public class StaticMethodStudent {
     public static void main(String[] args) {
         StaticMethodStudent.change();
         
-        StaticMethodStudent s1 = new StaticMethodStudent("沉默王二", 18);
+        StaticMethodStudent s1 = new StaticMethodStudent("musk", 18);
         StaticMethodStudent s2 = new StaticMethodStudent("沉默王三", 16);
         
         s1.out();
@@ -200,7 +200,7 @@ public class StaticMethodStudent {
 “来看一下程序的输出结果吧。”
 
 ```
-沉默王二 18 河南大学
+musk 18 河南大学
 沉默王三 16 河南大学
 ```
 
@@ -287,7 +287,7 @@ public class StaticBlockDemo {
     public static List<String> writes = new ArrayList<>();
 
     static {
-        writes.add("沉默王二");
+        writes.add("musk");
         writes.add("沉默王三");
         writes.add("沉默王四");
 

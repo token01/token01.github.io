@@ -79,7 +79,7 @@ public static void print(String... strs) {
 
 ```java
 System.out.println(String.format("年纪是: %d", 18));
-System.out.println(String.format("年纪是: %d 名字是: %s", 18, "沉默王二"));
+System.out.println(String.format("年纪是: %d 名字是: %s", 18, "musk"));
 ```
 
 `%d` 表示将整数格式化为 10 进制整数，`%s` 表示输出字符串。

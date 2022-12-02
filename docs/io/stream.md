@@ -487,7 +487,7 @@ public class Copy {
 
 到这里，字节流OutputStream与InputStream就讲清楚了。
 
->参考链接：[https://www.cnblogs.com/yichunguo/p/11775270.html](https://www.cnblogs.com/yichunguo/p/11775270.html)，整理：沉默王二
+>参考链接：[https://www.cnblogs.com/yichunguo/p/11775270.html](https://www.cnblogs.com/yichunguo/p/11775270.html)，整理：musk
 
 
 ---------

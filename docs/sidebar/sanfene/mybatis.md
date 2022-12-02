@@ -12,7 +12,7 @@ head:
       content: MyBatis面试题,MyBatis,面试题,八股文
 ---
 
-> 图文详解 20 道MyBatis面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：沉默王二，戳[转载链接](https://mp.weixin.qq.com/s/en2RgcVx52Ql3tYGLfv3Kw)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/O_5Id2o9IP4loPazJuiHng)。
+> 图文详解 20 道MyBatis面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：musk，戳[转载链接](https://mp.weixin.qq.com/s/en2RgcVx52Ql3tYGLfv3Kw)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/O_5Id2o9IP4loPazJuiHng)。
 
 大家好，我是musk呀，面渣逆袭系列继续，这节我们的主角是MyBatis，作为当前国内最流行的ORM框架，是我们这些crud选手最趁手的工具，赶紧来看看面试都会问哪些问题吧。
 
@@ -1015,7 +1015,7 @@ MyBatis使用RowBounds对象进行分页，它是针对ResultSet结果集执行�
 
 ----
 
-> 图文详解 20 道MyBatis面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：沉默王二，戳[转载链接](https://mp.weixin.qq.com/s/en2RgcVx52Ql3tYGLfv3Kw)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/O_5Id2o9IP4loPazJuiHng)。
+> 图文详解 20 道MyBatis面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：musk，戳[转载链接](https://mp.weixin.qq.com/s/en2RgcVx52Ql3tYGLfv3Kw)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/O_5Id2o9IP4loPazJuiHng)。
 
 
   

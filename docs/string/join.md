@@ -25,7 +25,7 @@ head:
 class Demo {
     public static void main(String[] args) {
         String chenmo = "沉默";
-        String wanger = "王二";
+        String wanger = "musk";
         System.out.println(chenmo + wanger);
     }
 }
@@ -46,7 +46,7 @@ class Demo {
     Code:
        0: ldc           #2                  // String 沉默
        2: astore_1
-       3: ldc           #3                  // String 王二
+       3: ldc           #3                  // String musk
        5: astore_2
        6: getstatic     #4                  // Field java/lang/System.out:Ljava/io/PrintStream;
        9: new           #5                  // class java/lang/StringBuilder
@@ -76,7 +76,7 @@ class Demo {
 class Demo {
     public static void main(String[] args) {
         String chenmo = "沉默";
-        String wanger = "王二";
+        String wanger = "musk";
         System.out.println((new StringBuilder(String.valueOf(chenmo))).append(wanger).toString());
     }
 }
@@ -111,7 +111,7 @@ public class com.itwanger.thirtyseven.Demo {
       15: ldc           #4                  // String 沉默
       17: invokespecial #5                  // Method java/lang/String."<init>":(Ljava/lang/String;)V
       20: astore_3
-      21: ldc           #6                  // String 王二
+      21: ldc           #6                  // String musk
       23: astore        4
       25: aload_1
       26: aload_3
@@ -140,7 +140,7 @@ class Demo {
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i < 10; i++) {
             String chenmo = "沉默";
-            String wanger = "王二";
+            String wanger = "musk";
             sb.append(chenmo);
             sb.append(wanger);
         }
@@ -256,7 +256,7 @@ public synchronized StringBuffer append(String str) {
 
 ```java
 String chenmo = "沉默";
-String wanger = "王二";
+String wanger = "musk";
 System.out.println(chenmo.concat(wanger));
 ```
 
@@ -297,7 +297,7 @@ String 类有一个静态方法 `join()`，可以这样来使用。
 
 ```java
 String chenmo = "沉默";
-String wanger = "王二";
+String wanger = "musk";
 String cmower = String.join("", chenmo, wanger);
 System.out.println(cmower);
 ```
@@ -305,10 +305,10 @@ System.out.println(cmower);
 第一个参数为字符串连接符，比如说：
 
 ```java
-String message = String.join("-", "王二", "太特么", "有趣了");
+String message = String.join("-", "musk", "太特么", "有趣了");
 ```
 
-输出结果为：`王二-太特么-有趣了`。
+输出结果为：`musk-太特么-有趣了`。
 
 来看一下 join 方法的源码：
 
@@ -331,7 +331,7 @@ public static String join(CharSequence delimiter, CharSequence... elements) {
 
 ```java
 String chenmo = "沉默";
-String wanger = "王二";
+String wanger = "musk";
 StringUtils.join(chenmo, wanger);
 ```
 

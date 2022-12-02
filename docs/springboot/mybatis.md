@@ -121,7 +121,7 @@ class CodingmoreMybatisApplicationTests {
 
 	@Test
 	void testInsert() {
-		userMapper.insert(User.builder().age(18).name("沉默王二").password("123456").build());
+		userMapper.insert(User.builder().age(18).name("musk").password("123456").build());
 		userMapper.insert(User.builder().age(18).name("沉默王三").password("123456").build());
 		userMapper.insert(User.builder().age(18).name("沉默王四").password("123456").build());
 		log.info("查询所有：{}",userMapper.getAll().stream().toArray());
@@ -261,7 +261,7 @@ mybatis:
 void testPostInsert() {
     postMapper.insert(Posts.builder()
             .postAuthor(1L)
-            .postTitle("沉默王二")
+            .postTitle("musk")
             .postContent("123456")
             .build());
     log.info("查询所有：{}",postMapper.getAll().stream().toArray());
@@ -278,7 +278,7 @@ List<Posts> testPostQuery() {
 void testPostUpdate() {
     Posts one = postMapper.getOne(1L);
     log.info("更新前{}", one);
-    one.setPostContent("沉默王二是沙比");
+    one.setPostContent("musk是沙比");
     postMapper.update(one);
     log.info("更新后{}", postMapper.getOne(1L));
 }

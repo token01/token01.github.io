@@ -188,7 +188,7 @@ public class RedisTest {
         Jedis jedis = new Jedis("localhost", 6379);
 
         Gson gson = new Gson();
-        UserInfo userInfo = new UserInfo("沉默王二", 18);
+        UserInfo userInfo = new UserInfo("musk", 18);
 
         jedis.set(REDIS_KEY, gson.toJson(userInfo));
         UserInfo getUserInfoFromRedis = gson.fromJson(jedis.get(REDIS_KEY),UserInfo.class);
@@ -221,7 +221,7 @@ Jedis jedis = new Jedis("localhost", 6379);
 好了，来看一下程序的输出结果：
 
 ```
-get：UserInfo{name='沉默王二', age=18}
+get：UserInfo{name='musk', age=18}
 exists：true
 del：1
 get：null

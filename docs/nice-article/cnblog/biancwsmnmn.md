@@ -286,4 +286,4 @@ trans\_id 由客户端根据当前时间毫秒数生成（后面会说为啥取�
 
 ![](https://img2022.cnblogs.com/blog/1997761/202204/1997761-20220422101501383-874386105.png)
 
->转载链接：[https://www.cnblogs.com/linvanda/p/16172767.html](https://www.cnblogs.com/linvanda/p/16172767.html)，整理：沉默王二
+>转载链接：[https://www.cnblogs.com/linvanda/p/16172767.html](https://www.cnblogs.com/linvanda/p/16172767.html)，整理：musk

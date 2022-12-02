@@ -49,7 +49,7 @@ public class TransientTest {
     public static void main(String[] args) {
         
         User user = new User();
-        user.setUsername("沉默王二");
+        user.setUsername("musk");
         user.setPasswd("123456");
         
         System.out.println("read before Serializable: ");
@@ -157,7 +157,7 @@ public class TransientTest {
     public static void main(String[] args) {
         
         User user = new User();
-        user.setUsername("沉默王二");
+        user.setUsername("musk");
         user.setPasswd("123456");
         
         System.out.println("read before Serializable: ");
@@ -233,7 +233,7 @@ username: jmwang
 password: null
 ```
 
-这说明反序列化后类中 static 型变量 username 的值为当前 JVM 中对应 static 变量的值，为修改后 jmwang，而不是序列化时的值 沉默王二。
+这说明反序列化后类中 static 型变量 username 的值为当前 JVM 中对应 static 变量的值，为修改后 jmwang，而不是序列化时的值 musk。
 
 ## 3\. transient 使用细节——被 transient 关键字修饰的变量真的不能被序列化吗？
 
@@ -302,7 +302,7 @@ content 变量会被序列化吗？好吧，我把答案都输出来了，是的
 
 因此第二个例子输出的是变量 content 初始化的内容，而不是 null。
 
-> 参考链接：[https://www.cnblogs.com/lanxuezaipiao/p/3369962.html](https://www.cnblogs.com/lanxuezaipiao/p/3369962.html)，整理：沉默王二
+> 参考链接：[https://www.cnblogs.com/lanxuezaipiao/p/3369962.html](https://www.cnblogs.com/lanxuezaipiao/p/3369962.html)，整理：musk
 
 ---------
 

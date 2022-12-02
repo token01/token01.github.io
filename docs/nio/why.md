@@ -139,7 +139,7 @@ NIO的**魅力：在网络中使用IO就可以体现出来了**！
 *   后面会说到网络中使用NIO，不急哈~
 
 
->参考链接：[https://www.zhihu.com/question/29005375/answer/667616386](https://www.zhihu.com/question/29005375/answer/667616386)，整理：沉默王二
+>参考链接：[https://www.zhihu.com/question/29005375/answer/667616386](https://www.zhihu.com/question/29005375/answer/667616386)，整理：musk
 
 ---------
 

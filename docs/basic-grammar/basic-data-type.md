@@ -40,7 +40,7 @@ Java 中的数据类型可分为 2 种：
 
 ```java
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 public class LocalVar {
     private int a;
@@ -269,7 +269,7 @@ String 是最典型的引用数据类型，所以我们就拿 String 类举例�
 
 ```java
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 public class LocalRef {
     private String a;
@@ -300,7 +300,7 @@ null 在 Java 中是一个很神奇的存在，在你以后的程序生涯中，
 
 ```java
 /**
- * @author 微信搜「沉默王二」，回复关键字 java
+ * @author 微信搜「musk」，回复关键字 java
  */
 public class ArrayDemo {
     public static void main(String[] args) {
@@ -338,7 +338,7 @@ public final class String
 
 ```java
 /**
- * @author 微信搜「沉默王二」，回复关键字 Java
+ * @author 微信搜「musk」，回复关键字 Java
  */
 public class IntefaceDemo {
     public static void main(String[] args) {

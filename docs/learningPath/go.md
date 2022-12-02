@@ -136,7 +136,7 @@ Google 和字节两家大厂对 Go 的大力投入，在一定程度上又加速
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/go-14.jpg)
 
-<!-- 需要的小伙伴请长按识别/扫描下方的二维码关注作者的原创公众号「**沉默王二**」回复关键字「**go**」就可以拉取到了。
+<!-- 需要的小伙伴请长按识别/扫描下方的二维码关注作者的原创公众号「**musk**」回复关键字「**go**」就可以拉取到了。
 
 ![扫码关注后回复「go」关键字](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png) -->
 
@@ -164,7 +164,7 @@ Google 和字节两家大厂对 Go 的大力投入，在一定程度上又加速
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/go-4b3b67f3-ebe0-4311-8c7c-7e87f89ccdc7.jpg)
 
-<!-- 需要的小伙伴请长按识别/扫描下方的二维码关注作者的原创公众号「**沉默王二**」回复关键字「**go**」就可以拉取到了。
+<!-- 需要的小伙伴请长按识别/扫描下方的二维码关注作者的原创公众号「**musk**」回复关键字「**go**」就可以拉取到了。
 
 ![扫码关注后回复「go」关键字](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png) -->
 

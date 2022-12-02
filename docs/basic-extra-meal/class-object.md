@@ -25,7 +25,7 @@ Java 对象模型中：
 
 针对这个问题，我在知乎上看到了 R 大的一个回答，正好解答了我心中的疑惑，就分享出来给各位小伙伴一个参考和启发~
 
->作者：RednaxelaFX，整理：沉默王二，参考链接：[https://www.zhihu.com/question/30301819/answer/47539163](https://www.zhihu.com/question/30301819/answer/47539163)
+>作者：RednaxelaFX，整理：musk，参考链接：[https://www.zhihu.com/question/30301819/answer/47539163](https://www.zhihu.com/question/30301819/answer/47539163)
 
 -----
 

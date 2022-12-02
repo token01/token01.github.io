@@ -92,7 +92,7 @@ LinkedList<String> list = new LinkedList();
 可以调用 add 方法添加元素：
 
 ```java
-list.add("沉默王二");
+list.add("musk");
 list.add("沉默王三");
 list.add("沉默王四");
 ```

@@ -25,7 +25,7 @@ head:
 
 ```java
 /**
- * 微信搜索「沉默王二」，回复 Java
+ * 微信搜索「musk」，回复 Java
  */
 public class ArithmeticOperator {
     public static void main(String[] args) {
@@ -54,7 +54,7 @@ public class ArithmeticOperator {
 
 ```java
 /**
- * 微信搜索「沉默王二」，回复 Java
+ * 微信搜索「musk」，回复 Java
  */
 public class ArithmeticOperator {
     public static void main(String[] args) {
@@ -129,7 +129,7 @@ System.out.println(y + " " + x);// 10 11
 
 ```java
 /**
- * 微信搜索「沉默王二」，回复 Java
+ * 微信搜索「musk」，回复 Java
  */
 public class RelationOperator {
     public static void main(String[] args) {
@@ -150,7 +150,7 @@ public class RelationOperator {
 
 ```java
 /**
- * 微信搜索「沉默王二」，回复 Java
+ * 微信搜索「musk」，回复 Java
  */
 public class BitOperator {
     public static void main(String[] args) {
@@ -170,7 +170,7 @@ PS：现代的二进制记数系统由戈特弗里德·威廉·莱布尼茨于 1
 
 ```java
 /**
- * 微信搜索「沉默王二」，回复 Java
+ * 微信搜索「musk」，回复 Java
  */
 public class BitOperator {
     public static void main(String[] args) {
@@ -323,7 +323,7 @@ public class AssignmentOperator1 {
 
 ```java
 /**
- * 微信搜索「沉默王二」，回复 Java
+ * 微信搜索「musk」，回复 Java
  */
 public class BigIntMulti {
     public static void main(String[] args) {
@@ -339,7 +339,7 @@ public class BigIntMulti {
 
 ```
 /**
- * 微信搜索「沉默王二」，回复 Java
+ * 微信搜索「musk」，回复 Java
  */
 public class BigIntMulti {
     public static void main(String[] args) {

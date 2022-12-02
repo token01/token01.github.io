@@ -198,11 +198,11 @@ public final class Writer {
 
 ```java
 Writer writer = new Writer();
-writer.setName("沉默王二");
-System.out.println(writer.getName()); // 沉默王二
+writer.setName("musk");
+System.out.println(writer.getName()); // musk
 ```
 
-“Writer 的 name 字段的默认值是 null，但可以通过 settter 方法将其更改为沉默王二。也就是说，如果一个类只是 final 的，那么它并不是不可变的全部条件。”
+“Writer 的 name 字段的默认值是 null，但可以通过 settter 方法将其更改为musk。也就是说，如果一个类只是 final 的，那么它并不是不可变的全部条件。”
 
 “关于不可变类，我之前也单独讲过一篇，你一会去看看。”
 

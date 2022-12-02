@@ -215,4 +215,4 @@ idea里面直接可以看zookeeper的节点信息，非常方便。
 
 
 
->作者：铂赛东，原文链接：[https://juejin.cn/post/7028025194048405534](https://juejin.cn/post/7028025194048405534)，整理：沉默王二
+>作者：铂赛东，原文链接：[https://juejin.cn/post/7028025194048405534](https://juejin.cn/post/7028025194048405534)，整理：musk

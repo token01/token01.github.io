@@ -310,7 +310,7 @@ head:
 如果在有些业务场景中，用户并发量大，并且需要保存的数量也很多时，可以分库分表。
 
 
->转载链接：[https://mp.weixin.qq.com/s/klkD8xea0gQ96Mh1Q1MHLw](https://mp.weixin.qq.com/s/klkD8xea0gQ96Mh1Q1MHLw)，出处：macrozheng，整理：沉默王二
+>转载链接：[https://mp.weixin.qq.com/s/klkD8xea0gQ96Mh1Q1MHLw](https://mp.weixin.qq.com/s/klkD8xea0gQ96Mh1Q1MHLw)，出处：macrozheng，整理：musk
 
 ----
 

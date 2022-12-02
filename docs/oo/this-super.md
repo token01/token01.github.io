@@ -48,7 +48,7 @@ public class WithoutThisStudent {
     }
 
     public static void main(String[] args) {
-        WithoutThisStudent s1 = new WithoutThisStudent("沉默王二", 18);
+        WithoutThisStudent s1 = new WithoutThisStudent("musk", 18);
         WithoutThisStudent s2 = new WithoutThisStudent("沉默王三", 16);
 
         s1.out();
@@ -95,7 +95,7 @@ public class WithThisStudent {
     }
 
     public static void main(String[] args) {
-        WithThisStudent s1 = new WithThisStudent("沉默王二", 18);
+        WithThisStudent s1 = new WithThisStudent("musk", 18);
         WithThisStudent s2 = new WithThisStudent("沉默王三", 16);
 
         s1.out();
@@ -107,7 +107,7 @@ public class WithThisStudent {
 “再来看一下程序的输出结果。”
 
 ```
-沉默王二 18
+musk 18
 沉默王三 16
 ```
 
@@ -513,7 +513,7 @@ class Emp extends Person {
 
 public class CallParentParamConstrutor {
     public static void main(String[] args) {
-        new Emp(1, "沉默王二", 20000f).display();
+        new Emp(1, "musk", 20000f).display();
     }
 }
 ```
@@ -523,7 +523,7 @@ public class CallParentParamConstrutor {
 “来看一下输出结果。”
 
 ```
-1 沉默王二 20000.0
+1 musk 20000.0
 ```
 
 三妹点了点头，所有所思。

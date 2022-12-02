@@ -250,9 +250,9 @@ package top.codingmore.generator;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 
 /**
- * 微信搜索「沉默王二」，回复 Java
+ * 微信搜索「musk」，回复 Java
  *
- * @author 沉默王二
+ * @author musk
  * @date 5/17/22
  */
 public class CodeGenerator {
@@ -270,7 +270,7 @@ public class CodeGenerator {
 GlobalConfig gc = new GlobalConfig();
 String projectPath = System.getProperty("user.dir");
 gc.setOutputDir(projectPath + "/src/main/java");
-gc.setAuthor("沉默王二");
+gc.setAuthor("musk");
 gc.setOpen(false);
 gc.setDateType(DateType.ONLY_DATE);
 gc.setSwagger2(true);

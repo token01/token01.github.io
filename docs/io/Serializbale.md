@@ -62,7 +62,7 @@ class Wanger {
 }
 ```
 
-再来创建一个测试类，通过 `ObjectOutputStream` 将“18 岁的王二”写入到文件当中，实际上就是一种序列化的过程；再通过 `ObjectInputStream` 将“18 岁的王二”从文件中读出来，实际上就是一种反序列化的过程。
+再来创建一个测试类，通过 `ObjectOutputStream` 将“18 岁的musk”写入到文件当中，实际上就是一种序列化的过程；再通过 `ObjectInputStream` 将“18 岁的musk”从文件中读出来，实际上就是一种反序列化的过程。
 
 ```java
 public class Test {
@@ -70,7 +70,7 @@ public class Test {
     public static void main(String[] args) {
       // 初始化
         Wanger wanger = new Wanger();
-        wanger.setName("王二");
+        wanger.setName("musk");
         wanger.setAge(18);
         System.out.println(wanger);
 
@@ -226,7 +226,7 @@ class Wanger implements Serializable {
 ```java
 // 初始化
 Wanger wanger = new Wanger();
-wanger.setName("王二");
+wanger.setName("musk");
 wanger.setAge(18);
 System.out.println(wanger);
 
@@ -247,8 +247,8 @@ try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File(
 } catch (IOException | ClassNotFoundException e) {
     e.printStackTrace();
 }
-// Wanger{name=王二,age=18,pre=沉默,meizi=王三}
-// Wanger{name=王二,age=18,pre=不沉默,meizi=null}
+// Wanger{name=musk,age=18,pre=沉默,meizi=王三}
+// Wanger{name=musk,age=18,pre=不沉默,meizi=null}
 
 ```
 
@@ -342,7 +342,7 @@ java.io.InvalidClassException: com.cmower.java_demo.xuliehua1.Wanger; no valid c
 ```java
 // 初始化
 Wanger wanger = new Wanger();
-wanger.setName("王二");
+wanger.setName("musk");
 wanger.setAge(18);
 System.out.println(wanger);
 
@@ -360,7 +360,7 @@ try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File(
 } catch (IOException | ClassNotFoundException e) {
 	e.printStackTrace();
 }
-// Wanger{name=王二,age=18}
+// Wanger{name=musk,age=18}
 // Wanger{name=null,age=0}
 ```
 
@@ -392,8 +392,8 @@ public void readExternal(ObjectInput in) throws IOException, ClassNotFoundExcept
 
 再运行一次测试了类，你会发现对象可以正常地序列化和反序列化了。
 
->序列化前：Wanger{name=王二,age=18}
-序列化后：Wanger{name=王二,age=18}
+>序列化前：Wanger{name=musk,age=18}
+序列化后：Wanger{name=musk,age=18}
 
 ## 05、再来点甜点
 
@@ -445,7 +445,7 @@ class Wanger implements Serializable {
 ```java
 // 初始化
 Wanger wanger = new Wanger();
-wanger.setName("王二");
+wanger.setName("musk");
 wanger.setAge(18);
 System.out.println(wanger);
 

@@ -7,7 +7,7 @@ tag:
 
 # 可能是把ZooKeeper概念讲的最清楚的一篇文章
 
-整理：沉默王二，戳[转载链接](https://mp.weixin.qq.com/s/-evZg0epRrOr1IwQ3GJ2Zg)，作者：月伴飞鱼，戳[原文链接](https://mp.weixin.qq.com/s/B2ngp0q5kdWsCNH8sw_5DA)。
+整理：musk，戳[转载链接](https://mp.weixin.qq.com/s/-evZg0epRrOr1IwQ3GJ2Zg)，作者：月伴飞鱼，戳[原文链接](https://mp.weixin.qq.com/s/B2ngp0q5kdWsCNH8sw_5DA)。
 
 ## 一、基本介绍
 
@@ -24,14 +24,13 @@ ZK可以提供诸如数据发布/订阅、负载均衡、命名服务、分布�
 - 「可靠性」：一旦服务端成功应用了一个事务，则其引起的改变会一直保留，直到被另外一个事务所更改；
 - 「实时性」：一旦一个事务被成功应用后，Zookeeper 可以保证客户端立即可以读取到这个事务变更后的最新状态的数据（「一段时间」）。
 
-
 ## 二、数据模型
 
 ZooKeeper 中的数据模型是一种树形结构，非常像电脑中的文件系统，有一个根文件夹，下面还有很多子文件夹。
 
-*   ZooKeeper的数据模型也具有一个固定的根节点`（/）`，我们可以在根节点下创建子节点，并在子节点下继续创建下一级节点。
+- ZooKeeper的数据模型也具有一个固定的根节点`（/）`，我们可以在根节点下创建子节点，并在子节点下继续创建下一级节点。
 
-*   ZooKeeper 树中的每一层级用斜杠`（/）`分隔开，且只能用绝对路径（如`get /work/task`）的方式查询 ZooKeeper 节点，而不能使用相对路径。
+- ZooKeeper 树中的每一层级用斜杠`（/）`分隔开，且只能用绝对路径（如`get /work/task`）的方式查询 ZooKeeper 节点，而不能使用相对路径。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/shujumoxing-1.png)
 
@@ -83,7 +82,7 @@ ZooKeeper 中的数据节点也分为持久节点、临时节点和有序节点�
 
 例如一个客户端创建了一个路径为 `works/task-`的有序节点，那么 ZooKeeper 将会生成一个序号并追加到该节点的路径后，最后该节点的路径为`works/task-1`。
 
-*   通过这种方式我们可以直观的查看到节点的创建顺序。
+- 通过这种方式我们可以直观的查看到节点的创建顺序。
 
 ZooKeeper 中的每个节点都维护有这些内容：一个二进制数组`（byte data[]）`，用来存储节点的数据、ACL 访问控制信息、子节点数据（因为临时节点不允许有子节点，所以其子节点字段为 null），除此之外每个数据节点还有一个记录自身状态信息的字段 stat。
 
@@ -164,16 +163,15 @@ new ZooKeeper(String connectString, int sessionTimeout, Watcher watcher)
 
 上面代码的意思是定义了一个了 ZooKeeper 客户端对象实例，并传入三个参数：
 
-*   connectString 服务端地址
+- connectString 服务端地址
 
-*   sessionTimeout：超时时间
+- sessionTimeout：超时时间
 
-*   Watcher：监控事件
+- Watcher：监控事件
 
 这个 Watcher 将作为整个 ZooKeeper 会话期间的上下文 ，一直被保存在客户端 ZKWatchManager 的 defaultWatcher 中。
 
 除此之外，ZooKeeper 客户端也可以通过 getData、exists 和 getChildren 三个接口来向 ZooKeeper 服务器注册 Watcher，从而方便地在不同的情况下添加 Watch 事件：
-
 
 ```
 getData(String path, Watcher watcher, Stat stat)
@@ -183,10 +181,9 @@ getData(String path, Watcher watcher, Stat stat)
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/watch-1.png)
 
-
 上图中列出了客户端在不同会话状态下，相应的在服务器节点所能支持的事件类型。
 
-*   例如在客户端连接服务端的时候，可以对数据节点的创建、删除、数据变更、子节点的更新等操作进行监控。
+- 例如在客户端连接服务端的时候，可以对数据节点的创建、删除、数据变更、子节点的更新等操作进行监控。
 
 **「当服务端某一节点发生数据变更操作时，所有曾经设置了该节点监控事件的客户端都会收到服务器的通知吗？」**
 
@@ -220,9 +217,9 @@ ZooKeeper 采用了两种模式结合的方式实现订阅发布功能。
 
 如`/confs/data_item1`。
 
-*   服务器集群客户端对该节点添加 Watch 事件监控，当集群中的服务启动时，会读取该节点数据获取数据配置信息。
+- 服务器集群客户端对该节点添加 Watch 事件监控，当集群中的服务启动时，会读取该节点数据获取数据配置信息。
 
-*   而当该节点数据发生变化时，ZooKeeper 服务器会发送 Watch 事件给各个客户端，集群中的客户端在接收到该通知后，重新读取节点的数据库配置信息。
+- 而当该节点数据发生变化时，ZooKeeper 服务器会发送 Watch 事件给各个客户端，集群中的客户端在接收到该通知后，重新读取节点的数据库配置信息。
 
 我们使用 Watch 机制实现了一个分布式环境下的配置管理功能，通过对 ZooKeeper 服务器节点添加数据变更事件，实现当数据库配置项信息变更后，集群中的各个客户端能接收到该变更事件的通知，并获取最新的配置信息。
 
@@ -246,11 +243,11 @@ ZooKeeper 的工作方式一般是通过客户端向服务端发送请求而实�
 
 这个数据结构由三个部分组成：分别是会话 ID（sessionID）、会话超时时间（TimeOut）、会话关闭状态（isClosing）
 
-*   会话 ID：会话 ID 作为一个会话的标识符，当我们创建一次会话的时候，ZooKeeper 会自动为其分配一个唯一的 ID 编码。
+- 会话 ID：会话 ID 作为一个会话的标识符，当我们创建一次会话的时候，ZooKeeper 会自动为其分配一个唯一的 ID 编码。
 
-*   会话超时时间：一般来说，一个会话的超时时间就是指一次会话从发起后到被服务器关闭的时长。而设置会话超时时间后，服务器会参考设置的超时时间，最终计算一个服务端自己的超时时间。而这个超时时间则是最终真正用于 ZooKeeper 中服务端用户会话管理的超时时间。
+- 会话超时时间：一般来说，一个会话的超时时间就是指一次会话从发起后到被服务器关闭的时长。而设置会话超时时间后，服务器会参考设置的超时时间，最终计算一个服务端自己的超时时间。而这个超时时间则是最终真正用于 ZooKeeper 中服务端用户会话管理的超时时间。
 
-*   会话关闭状态：会话关闭 isClosing 状态属性字段表示一个会话是否已经关闭。如果服务器检查到一个会话已经因为超时等原因失效时， ZooKeeper 会在该会话的 isClosing 属性值标记为关闭，再之后就不对该会话进行操作了。
+- 会话关闭状态：会话关闭 isClosing 状态属性字段表示一个会话是否已经关闭。如果服务器检查到一个会话已经因为超时等原因失效时， ZooKeeper 会在该会话的 isClosing 属性值标记为关闭，再之后就不对该会话进行操作了。
 
 **「会话状态」**
 
@@ -280,11 +277,11 @@ ZooKeeper 的工作方式一般是通过客户端向服务端发送请求而实�
 
 在 ZooKeeper 中，会话的超时异常包括客户端 readtimeout 异常和服务器端 sessionTimeout 异常。
 
-*   在我们平时的开发中，要明确这两个异常的不同之处在于一个是发生在客户端，而另一个是发生在服务端。
+- 在我们平时的开发中，要明确这两个异常的不同之处在于一个是发生在客户端，而另一个是发生在服务端。
 
 而对于那些对 ZooKeeper 接触不深的开发人员来说，他们常常踩坑的地方在于，虽然设置了超时间，但是在实际服务运行的时候 ZooKeeper 并没有按照设置的超时时间来管理会话。
 
-*   这是因为 ZooKeeper 实际起作用的超时时间是通过客户端和服务端协商决定。
+- 这是因为 ZooKeeper 实际起作用的超时时间是通过客户端和服务端协商决定。
 
 ZooKeeper 客户端在和服务端建立连接的时候，会提交一个客户端设置的会话超时时间，而该超时时间会和服务端设置的最大超时时间和最小超时时间进行比对，如果正好在其允许的范围内，则采用客户端的超时时间管理会话。
 
@@ -294,11 +291,11 @@ ZooKeeper 客户端在和服务端建立连接的时候，会提交一个客户�
 
 我们知道在 ZooKeeper 中为了保证一个会话的存活状态，客户端需要向服务器周期性地发送心跳信息。
 
-*   而客户端所发送的心跳信息可以是一个 ping 请求，也可以是一个普通的业务请求。
+- 而客户端所发送的心跳信息可以是一个 ping 请求，也可以是一个普通的业务请求。
 
 ZooKeeper 服务端接收请求后，会更新会话的过期时间，来保证会话的存活状态。
 
-*   所以在 ZooKeeper 的会话管理中，最主要的工作就是管理会话的过期时间。
+- 所以在 ZooKeeper 的会话管理中，最主要的工作就是管理会话的过期时间。
 
 > ❝
 >
@@ -322,17 +319,17 @@ ZooKeeper 这种分段的会话管理策略大大提高了计算会话过期的�
 
 ZooKeeper 底层实现的原理，核心的一点就是过期队列这个数据结构。所有会话过期的相关操作都是围绕这个队列进行的。
 
-*   可以说 ZooKeeper 底层就是采用这个队列结构来管理会话过期的。
+- 可以说 ZooKeeper 底层就是采用这个队列结构来管理会话过期的。
 
 **「一个会话过期队列是由若干个 bucket 组成的。」**
 
-*   bucket 是一个按照时间划分的区间。
+- bucket 是一个按照时间划分的区间。
 
-*   在 ZooKeeper 中，通常以 expirationInterval 为单位进行时间区间的划分，它是 ZooKeeper 分桶策略中用于划分时间区间的最小单位。
+- 在 ZooKeeper 中，通常以 expirationInterval 为单位进行时间区间的划分，它是 ZooKeeper 分桶策略中用于划分时间区间的最小单位。
 
-*   在 ZooKeeper 中，一个过期队列由不同的 bucket 组成。
+- 在 ZooKeeper 中，一个过期队列由不同的 bucket 组成。
 
-*   每个 bucket 中存放了在某一时间内过期的会话。
+- 每个 bucket 中存放了在某一时间内过期的会话。
 
 将会话按照不同的过期时间段分别维护到过期队列之后，在 ZooKeeper 服务运行的过程中，具体的执行过程如下图所示。
 
@@ -440,10 +437,10 @@ world 模式
 接下来就需要将自定义的权限控制注册到 ZooKeeper 服务器中，而注册的方式通常有两种。
 
 第一种是通过设置系统属性来注册自定义的权限控制器：
+
 ```
 -Dzookeeper.authProvider.x=CustomAuthenticationProvider
 ```
-
 
 另一种是在配置文件zoo.cfg中进行配置：
 
@@ -490,6 +487,7 @@ class test_jute implements Record{
   }
 }
 ```
+
 在序列化方法 serialize 中，我们要实现的逻辑是，首先通过字符类型参数 tag 传递标记序列化标识符，之后使用 writeLong 和 writeString 等方法分别将对象属性字段进行序列化。
 
 ```
@@ -500,6 +498,7 @@ public void serialize(OutpurArchive a_,String tag) throws ...{
   a_.endRecord(this,tag);
 }
 ```
+
 调用 derseralize 在实现反序列化的过程则与我们上边说的序列化过程正好相反。
 
 ```
@@ -510,6 +509,7 @@ public void deserialize(INputArchive a_,String tag) throws {
   a_.endRecord(tag);
 }
 ```
+
 序列化和反序列化的实现逻辑编码方式相对固定，首先通过 startRecord 开启一段序列化操作，之后通过 writeLong、writeString 或 readLong、 readString 等方法执行序列化或反序列化。
 
 本例中只是实现了长整型和字符型的序列化和反序列化操作，除此之外 ZooKeeper 中的 Jute 框架还支持整数类型（Int）、布尔类型（Bool）、双精度类型（Double）以及 Byte/Buffer 类型。
@@ -727,7 +727,7 @@ ZooKeeper 最核心的作用就是保证分布式系统的数据一致性，而�
 
 ZAB 协议算法（Zookeeper Atomic Broadcast  ，Zookeeper 原子广播协议）是 ZooKeeper 专门设计用来解决集群最终一致性问题的算法，它的两个核心功能点是崩溃恢复和原子广播协议。
 
-*   在整个 ZAB 协议的底层实现中，ZooKeeper 集群主要采用主从模式的系统架构方式来保证 ZooKeeper 集群系统的一致性。
+- 在整个 ZAB 协议的底层实现中，ZooKeeper 集群主要采用主从模式的系统架构方式来保证 ZooKeeper 集群系统的一致性。
 
 当接收到来自客户端的事务性会话请求后，系统集群采用主服务器来处理该条会话请求，经过主服务器处理的结果会通过网络发送给集群中其他从节点服务器进行数据同步操作。
 
@@ -775,18 +775,17 @@ ZAB 协议算法（Zookeeper Atomic Broadcast  ，Zookeeper 原子广播协议�
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/zab-1.png)
 
+- logicClock：用来记录服务器的投票轮次。logicClock 会从 1 开始计数，每当该台服务经过一轮投票后，logicClock 的数值就会加 1 。
 
-*   logicClock：用来记录服务器的投票轮次。logicClock 会从 1 开始计数，每当该台服务经过一轮投票后，logicClock 的数值就会加 1 。
+- state：用来标记当前服务器的状态。在 ZooKeeper 集群中一台服务器具有 LOOKING、FOLLOWING、LEADERING、OBSERVING 这四种状态。
 
-*   state：用来标记当前服务器的状态。在 ZooKeeper 集群中一台服务器具有 LOOKING、FOLLOWING、LEADERING、OBSERVING 这四种状态。
+- `self_id`：用来表示当前服务器的 ID 信息，该字段在 ZooKeeper 集群中主要用来作为服务器的身份标识符。
 
-*   `self_id`：用来表示当前服务器的 ID 信息，该字段在 ZooKeeper 集群中主要用来作为服务器的身份标识符。
+- `self_zxid`：当前服务器上所保存的数据的最大事务 ID ，从 0 开始计数。
 
-*   `self_zxid`：当前服务器上所保存的数据的最大事务 ID ，从 0 开始计数。
+- `vote_id`：投票要被推举的服务器的唯一 ID 。
 
-*   `vote_id`：投票要被推举的服务器的唯一 ID 。
-
-*   `vote_zxid`：被推举的服务器上所保存的数据的最大事务 ID ，从 0 开始计数。
+- `vote_zxid`：被推举的服务器上所保存的数据的最大事务 ID ，从 0 开始计数。
 
 当 ZooKeeper 集群需要重新选举出新的 Leader 服务器的时候，就会根据上面介绍的投票信息内容进行对比，以找出最适合的服务器。
 
@@ -801,7 +800,6 @@ ZAB 协议算法（Zookeeper Atomic Broadcast  ，Zookeeper 原子广播协议�
 Follow 服务器进行选票对比的过程，如下图所示。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/zab-2.png)
-
 
 首先，会对比 logicClock 服务器的投票轮次，当 logicClock 相同时，表明两张选票处于相同的投票阶段，并进入下一阶段，否则跳过。
 
@@ -818,7 +816,6 @@ Follow 服务器进行选票对比的过程，如下图所示。
 ZooKeeper 集群使用原子广播协议进行消息发送，该协议的底层实现过程与二阶段提交过程非常相似，如下图所示。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/zab-3.png)
-
 
 当要在集群中的其他角色服务器进行数据同步的时候，Leader 服务器将该操作过程封装成一个 Proposal 提交事务，并将其发送给集群中其他需要进行数据同步的服务器。
 
@@ -866,6 +863,7 @@ PurgeTxnLog 清理方式和我们上面介绍的方式十分相似，也是通�
 java -cp "$CLASSPATH" org.apache.zookeeper.server.PurgeTxnLog 
 echo "清理完成" 
 ```
+
 PurgeTxnLog 方式与 crontab 相比，使用起来更加容易而且也更加稳定安全，不过 crontab 方式更加灵活，我们可以根据不同的业务需求编写自己的清理逻辑。
 
 ## 十一、实现分布式锁
@@ -888,14 +886,13 @@ PurgeTxnLog 方式与 crontab 相比，使用起来更加容易而且也更加�
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/fenbushisuo-1.png)
 
-
 **「死锁风险:」**
 
 两种方案其实都是可行的，但是使用锁的时候一定要去规避死锁
 
-*   方案一看上去是没问题的，用的时候设置标识，用完清除标识，但是要是持有锁的线程发生了意外，释放锁的代码无法执行，锁就无法释放，其他线程就会一直等待锁，相关同步代码便无法执行
+- 方案一看上去是没问题的，用的时候设置标识，用完清除标识，但是要是持有锁的线程发生了意外，释放锁的代码无法执行，锁就无法释放，其他线程就会一直等待锁，相关同步代码便无法执行
 
-*   方案二也存在这个问题，但方案二可以利用ZK的临时顺序节点来解决这个问题，只要线程发生了异常导致程序中断，就会丢失与ZK的连接，ZK检测到该链接断开，就会自动删除该链接创建的临时节点，这样就可以达到即使占用锁的线程程序发生意外，也能保证锁正常释放的目的
+- 方案二也存在这个问题，但方案二可以利用ZK的临时顺序节点来解决这个问题，只要线程发生了异常导致程序中断，就会丢失与ZK的连接，ZK检测到该链接断开，就会自动删除该链接创建的临时节点，这样就可以达到即使占用锁的线程程序发生意外，也能保证锁正常释放的目的
 
 **「避免羊群效应」**
 
@@ -915,16 +912,15 @@ PurgeTxnLog 方式与 crontab 相比，使用起来更加容易而且也更加�
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/fenbushisuo-2.png)
 
-
 **「用 ZooKeeper 实现分布式锁的算法流程，根节点为 /lock：」**
 
-*   客户端连接 ZooKeeper，并`在/lock`下创建临时有序子节点，第一个客户端对应的子节点为`/lock/lock01/00000001`，第二个为 `/lock/lock01/00000002`；
+- 客户端连接 ZooKeeper，并`在/lock`下创建临时有序子节点，第一个客户端对应的子节点为`/lock/lock01/00000001`，第二个为 `/lock/lock01/00000002`；
 
-*   其他客户端获取`/lock01`下的子节点列表，判断自己创建的子节点是否为当前列表中序号最小的子节点；
+- 其他客户端获取`/lock01`下的子节点列表，判断自己创建的子节点是否为当前列表中序号最小的子节点；
 
-*   如果是则认为获得锁，执行业务代码，否则通过 watch 事件监听`/lock01`的子节点变更消息，获得变更通知后重复此步骤直至获得锁；
+- 如果是则认为获得锁，执行业务代码，否则通过 watch 事件监听`/lock01`的子节点变更消息，获得变更通知后重复此步骤直至获得锁；
 
-*   完成业务流程后，删除对应的子节点，释放分布式锁；
+- 完成业务流程后，删除对应的子节点，释放分布式锁；
 
 在实际开发中，可以应用 Apache Curator 来快速实现分布式锁，Curator 是 Netflix 公司开源的一个 ZooKeeper 客户端，对 ZooKeeper 原生 API 做了抽象和封装。
 
@@ -1028,25 +1024,23 @@ PurgeTxnLog 方式与 crontab 相比，使用起来更加容易而且也更加�
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/fuzaijunheng-1.png)
 
-
 整个实现的过程如下图所示。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/fuzaijunheng-2.png)
 
+- 首先，在接收到客户端的请求后，通过 getData 方法获取服务端 Severs 节点下的服务器列表，其中每个节点信息都存储有当前服务器的连接数。
 
-*   首先，在接收到客户端的请求后，通过 getData 方法获取服务端 Severs 节点下的服务器列表，其中每个节点信息都存储有当前服务器的连接数。
+- 通过判断选择最少的连接数作为当前会话的处理服务器，并通过 setData 方法将该节点连接数加 1。
 
-*   通过判断选择最少的连接数作为当前会话的处理服务器，并通过 setData 方法将该节点连接数加 1。
+- 最后，当客户端执行完毕，再调用 setData 方法将该节点信息减 1。
 
-*   最后，当客户端执行完毕，再调用 setData 方法将该节点信息减 1。
+- 我们定义当服务器接收到会话请求后。在 ZooKeeper 服务端增加连接数的 addBlance 方法。
 
-*   我们定义当服务器接收到会话请求后。在 ZooKeeper 服务端增加连接数的 addBlance 方法。
+- 我们通过 readData 方法获取服务器最新的连接数，之后将该连接数加 1，再通过 writeData 方法将新的连接数信息写入到服务端对应节点信息中。
 
-*   我们通过 readData 方法获取服务器最新的连接数，之后将该连接数加 1，再通过 writeData 方法将新的连接数信息写入到服务端对应节点信息中。
+- 当服务器处理完该会话请求后，需要更新服务端相关节点的连接数。
 
-*   当服务器处理完该会话请求后，需要更新服务端相关节点的连接数。
-
-*   具体的操作与 addBlance 方法基本一样，只是对获取的连接信息进行减一操作。
+- 具体的操作与 addBlance 方法基本一样，只是对获取的连接信息进行减一操作。
 
 **「这里注意：」**
 
@@ -1080,7 +1074,6 @@ Dubbo 是阿里巴巴开发的一套开源的技术框架，是一款高性能�
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/shiyonganli-1.png)
 
-
 **「Kafka与ZooKeeper」**
 
 **「Zookeeper的作用」**
@@ -1097,9 +1090,6 @@ Dubbo 是阿里巴巴开发的一套开源的技术框架，是一款高性能�
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/zookeeper/shiyonganli-2.png)
 
-
-
-整理：沉默王二，戳[转载链接](https://mp.weixin.qq.com/s/-evZg0epRrOr1IwQ3GJ2Zg)，作者：月伴飞鱼，戳[原文链接](https://mp.weixin.qq.com/s/B2ngp0q5kdWsCNH8sw_5DA)。
-
+整理：musk，戳[转载链接](https://mp.weixin.qq.com/s/-evZg0epRrOr1IwQ3GJ2Zg)，作者：月伴飞鱼，戳[原文链接](https://mp.weixin.qq.com/s/B2ngp0q5kdWsCNH8sw_5DA)。
 
 <img src="   ">

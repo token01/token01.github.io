@@ -404,7 +404,7 @@ public class BasicHttpServer {
 
 
 
->参考链接：[https://liuyueyi.github.io/hexblog/2018/12/30/181230-%E4%BD%BF%E7%94%A8Java-Socket%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/](https://liuyueyi.github.io/hexblog/2018/12/30/181230-%E4%BD%BF%E7%94%A8Java-Socket%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/)，整理：沉默王二
+>参考链接：[https://liuyueyi.github.io/hexblog/2018/12/30/181230-%E4%BD%BF%E7%94%A8Java-Socket%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/](https://liuyueyi.github.io/hexblog/2018/12/30/181230-%E4%BD%BF%E7%94%A8Java-Socket%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAhttp%E6%9C%8D%E5%8A%A1%E5%99%A8/)，整理：musk
 
 ---------
 

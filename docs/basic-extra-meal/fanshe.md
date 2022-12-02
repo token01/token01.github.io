@@ -18,7 +18,7 @@ head:
 
 ```java
 Writer writer = new Writer();
-writer.setName("沉默王二");
+writer.setName("musk");
 ```
 
 像上面这个例子，就可以理解为“正射”。而反射就意味着一开始我们不知道要初始化的类到底是什么，也就没法直接使用 `new` 关键字创建对象了。
@@ -30,7 +30,7 @@ Class clazz = Class.forName("com.itwanger.s39.Writer");
 Method method = clazz.getMethod("setName", String.class);
 Constructor constructor = clazz.getConstructor();
 Object object = constructor.newInstance();
-method.invoke(object,"沉默王二");
+method.invoke(object,"musk");
 ```
 
 像上面这个例子，就可以理解为“反射”。
@@ -83,7 +83,7 @@ public class Writer {
 public class ReflectionDemo1 {
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Writer writer = new Writer();
-        writer.setName("沉默王二");
+        writer.setName("musk");
         System.out.println(writer.getName());
 
         Class clazz = Class.forName("com.itwanger.s39.Writer");
@@ -91,7 +91,7 @@ public class ReflectionDemo1 {
         Object object = constructor.newInstance();
 
         Method setNameMethod = clazz.getMethod("setName", String.class);
-        setNameMethod.invoke(object, "沉默王二");
+        setNameMethod.invoke(object, "musk");
         Method getNameMethod = clazz.getMethod("getName");
         System.out.println(getNameMethod.invoke(object));
     }
@@ -101,8 +101,8 @@ public class ReflectionDemo1 {
 来看一下输出结果：
 
 ```
-沉默王二
-沉默王二
+musk
+musk
 ```
 
 只不过，反射的过程略显曲折了一些。
@@ -135,7 +135,7 @@ Method getNameMethod = clazz.getMethod("getName");
 第五步，通过 `invoke()` 方法执行：
 
 ```java
-setNameMethod.invoke(object, "沉默王二");
+setNameMethod.invoke(object, "musk");
 getNameMethod.invoke(object)
 ```
 

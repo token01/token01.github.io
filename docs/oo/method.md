@@ -65,11 +65,11 @@ Java 提供了大量预先定义好的方法供我们调用，也称为标准类
 
 ```java
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 public class PredefinedMethodDemo {
     public static void main(String[] args) {
-        System.out.println("沉默王二，一枚有趣的程序员");
+        System.out.println("musk，一枚有趣的程序员");
     }
 }
 ```
@@ -105,7 +105,7 @@ public static void findEvenOdd(int num) {
 
 ```java
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 public class EvenOddDemo {
     public static void main(String[] args) {
@@ -133,7 +133,7 @@ public class EvenOddDemo {
 
 ```java
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 public class InstanceMethodExample {
     public static void main(String[] args) {
@@ -158,7 +158,7 @@ getter 方法用来获取私有变量（private 修饰的字段）的值，sette
 
 ```java
 /**
- * @author 沉默王二，一枚有趣的程序员
+ * @author musk，一枚有趣的程序员
  */
 public class Person {
     private String name;
@@ -199,9 +199,9 @@ getter 方法以 get 开头，setter 方法以 set 开头。
 
 ```java
 /**
- * 微信搜索「沉默王二」，回复 Java
+ * 微信搜索「musk」，回复 Java
  *
- * @author 沉默王二
+ * @author musk
  * @date 8/9/22
  */
 public class StaticMethodExample {
@@ -232,7 +232,7 @@ Hutool的存在就是为了减少代码搜索成本，避免网络上参差不�
 
 ```java
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 abstract class AbstractDemo {
     abstract void display();
@@ -243,7 +243,7 @@ abstract class AbstractDemo {
 
 ```java
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 public class MyAbstractDemo extends AbstractDemo {
     @Override

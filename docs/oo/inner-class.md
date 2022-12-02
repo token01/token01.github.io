@@ -38,7 +38,7 @@ class Wanger {
 ```java
 public class Wanger {
     int age = 18;
-    private String name = "沉默王二";
+    private String name = "musk";
     static double money = 1;
 
     class Wangxiaoer {
@@ -57,7 +57,7 @@ public class Wanger {
 ```java
 public class Wanger {
     int age = 18;
-    private String name = "沉默王二";
+    private String name = "musk";
     static double money = 1;
 
     public Wanger () {
@@ -80,7 +80,7 @@ public class Wanger {
 ```java
 public class Wanger {
     int age = 18;
-    private String name = "沉默王二";
+    private String name = "musk";
     static double money = 1;
 
     public Wanger () {
@@ -194,7 +194,7 @@ public class Wangsi {
 - 4、内部类并没有令人迷惑的“is-a”关系，他就是一个独立的实体。
 - 5、内部类提供了更好的封装，除了该外围类，其他类都不能访问。
 
->参考链接：[https://www.cnblogs.com/dolphin0520/p/3811445.html](https://www.cnblogs.com/dolphin0520/p/3811445.html)，作者：Matrix海 子，编辑：沉默王二
+>参考链接：[https://www.cnblogs.com/dolphin0520/p/3811445.html](https://www.cnblogs.com/dolphin0520/p/3811445.html)，作者：Matrix海 子，编辑：musk
 
 
 ----

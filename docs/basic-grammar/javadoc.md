@@ -55,7 +55,7 @@ age 用于表示年纪
 name 用于表示姓名
 */ 
 int age = 18;
-String name = "沉默王二";
+String name = "musk";
 ```
 
 以 `/*` 开始，以 `*/` 结束，但不如用多个 `//` 来得痛快，因为 `*` 和 `/` 不在一起，敲起来麻烦。
@@ -64,7 +64,7 @@ String name = "沉默王二";
 // age 用于表示年纪
 // name 用于表示姓名
 int age = 18;
-String name = "沉默王二";
+String name = "musk";
 ```
 
 ### 03、文档注释
@@ -73,7 +73,7 @@ String name = "沉默王二";
 
 ```java
 /**
- * 微信搜索「沉默王二」，回复 Java
+ * 微信搜索「musk」，回复 Java
  */
 public class Demo {
     /**
@@ -151,8 +151,8 @@ Intellij IDEA 中可以在「File and Code Templates」中设置。
 
 ```
 /**
-* 微信搜索「沉默王二」，回复 Java
-* @author 沉默王二
+* 微信搜索「musk」，回复 Java
+* @author musk
 * @date ${DATE}
 */
 ```
@@ -161,9 +161,9 @@ Intellij IDEA 中可以在「File and Code Templates」中设置。
 
 ```java
 /**
- * 微信搜索「沉默王二」，回复 Java
+ * 微信搜索「musk」，回复 Java
  *
- * @author 沉默王二
+ * @author musk
  * @date 2020/11/16
  */
 public class Test {

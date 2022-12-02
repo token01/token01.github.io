@@ -114,7 +114,7 @@ try (ServerSocket server = new ServerSocket(8888);
 
         Scanner scanner = new Scanner(is)) {
     PrintWriter pw = new PrintWriter(new OutputStreamWriter(os, "gbk"), true);
-    pw.println("你好啊，欢迎关注「沉默王二」 公众号，回复关键字「2048」 领取程序员进阶必读资料包");
+    pw.println("你好啊，欢迎关注「musk」 公众号，回复关键字「2048」 领取程序员进阶必读资料包");
 
     boolean done = false;
     while (!done && scanner.hasNextLine()) {
@@ -152,7 +152,7 @@ OutputStream os = socket.getOutputStream();
 
 ```java
 PrintWriter pw = new PrintWriter(new OutputStreamWriter(os, "gbk"), true);
-pw.println("你好啊，欢迎关注「沉默王二」 公众号，回复关键字「2048」 领取程序员进阶必读资料包");
+pw.println("你好啊，欢迎关注「musk」 公众号，回复关键字「2048」 领取程序员进阶必读资料包");
 ```
 
 4）服务器端可以通过以下代码读取客户端发送过来的消息。

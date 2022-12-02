@@ -280,7 +280,7 @@ JDK 的其它常用类定义在`java.util.*`，`java.math.*`，`java.text.*`，�
 
 ---
 
-> 参考链接：[https://www.liaoxuefeng.com/wiki/1252599548343744/1260467032946976](https://www.liaoxuefeng.com/wiki/1252599548343744/1260467032946976)，整理：沉默王二
+> 参考链接：[https://www.liaoxuefeng.com/wiki/1252599548343744/1260467032946976](https://www.liaoxuefeng.com/wiki/1252599548343744/1260467032946976)，整理：musk
 
 
 ----

@@ -14,7 +14,7 @@ head:
 
 ![](https://files.mdnice.com/user/3903/3f5a9697-26a8-462b-aac4-4c873e65f041.png)
 
-作者：沉默王二<br>
+作者：musk<br>
 Java 程序员进阶之路：https://tobebetterjavaer.com
 
 大家好，我是musk呀。
@@ -25,7 +25,7 @@ Java 程序员进阶之路：https://tobebetterjavaer.com
 
 文末还一些musk对于“**如何选择互联网还是军工研究院**”的看法，希望和大家多多交流，如果你有任何“实习”及“求职”相关的问题，也欢迎和musk交流～～ 祝大家都能找到理想的工作！飞黄腾达！
 
->作者：学长聊就业求职，来源：https://www.nowcoder.com/discuss/1093701，整理：沉默王二
+>作者：学长聊就业求职，来源：https://www.nowcoder.com/discuss/1093701，整理：musk
 
 ## 1、各类研究所offer待遇汇总
 

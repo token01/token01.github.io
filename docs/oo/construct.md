@@ -50,9 +50,9 @@ class class_name {
 
 ```java
 /**
- * 微信搜索「沉默王二」，回复 Java
+ * 微信搜索「musk」，回复 Java
  *
- * @author 沉默王二
+ * @author musk
  * @date 2020/11/26
  */
 public class Demo {
@@ -83,7 +83,7 @@ public class Demo {
 
 ```java
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 public class Bike {
     Bike(){
@@ -114,7 +114,7 @@ public class Bike {
 
 ```java
 /**
- * @author 沉默王二，一枚有趣的程序员
+ * @author musk，一枚有趣的程序员
  */
 public class Person {
     private String name;
@@ -142,7 +142,7 @@ public class Person {
 
 ```java
 /**
- * @author 沉默王二，一枚有趣的程序员
+ * @author musk，一枚有趣的程序员
  */
 public class ParamConstructorPerson {
     private String name;
@@ -158,7 +158,7 @@ public class ParamConstructorPerson {
     }
 
     public static void main(String[] args) {
-        ParamConstructorPerson p1 = new ParamConstructorPerson("沉默王二",18);
+        ParamConstructorPerson p1 = new ParamConstructorPerson("musk",18);
         p1.out();
 
         ParamConstructorPerson p2 = new ParamConstructorPerson("沉默王三",16);
@@ -170,7 +170,7 @@ public class ParamConstructorPerson {
 在上面的例子中，构造方法有两个参数（name 和 age），这样的话，我们在创建对象的时候就可以直接为 name 和 age 赋值了。
 
 ```java
-new ParamConstructorPerson("沉默王二",18);
+new ParamConstructorPerson("musk",18);
 new ParamConstructorPerson("沉默王三",16);
 ```
 
@@ -183,7 +183,7 @@ new ParamConstructorPerson("沉默王三",16);
 
 ```java
 /**
- * @author 沉默王二，一枚有趣的程序员
+ * @author musk，一枚有趣的程序员
  */
 public class OverloadingConstrutorPerson {
     private String name;
@@ -206,7 +206,7 @@ public class OverloadingConstrutorPerson {
     }
 
     public static void main(String[] args) {
-        OverloadingConstrutorPerson p1 = new OverloadingConstrutorPerson("沉默王二",18, 1);
+        OverloadingConstrutorPerson p1 = new OverloadingConstrutorPerson("musk",18, 1);
         p1.out();
 
         OverloadingConstrutorPerson p2 = new OverloadingConstrutorPerson("沉默王三",16);
@@ -238,7 +238,7 @@ public class OverloadingConstrutorPerson {
 
 ```java
 /**
- * @author 沉默王二，一枚有趣的程序员
+ * @author musk，一枚有趣的程序员
  */
 public class CopyConstrutorPerson {
     private String name;
@@ -259,7 +259,7 @@ public class CopyConstrutorPerson {
     }
 
     public static void main(String[] args) {
-        CopyConstrutorPerson p1 = new CopyConstrutorPerson("沉默王二",18);
+        CopyConstrutorPerson p1 = new CopyConstrutorPerson("musk",18);
         p1.out();
 
         CopyConstrutorPerson p2 = new CopyConstrutorPerson(p1);
@@ -274,7 +274,7 @@ public class CopyConstrutorPerson {
 
 ```java
 /**
- * @author 沉默王二，一枚有趣的程序员
+ * @author musk，一枚有趣的程序员
  */
 public class CopyValuePerson {
     private String name;
@@ -293,7 +293,7 @@ public class CopyValuePerson {
     }
 
     public static void main(String[] args) {
-        CopyValuePerson p1 = new CopyValuePerson("沉默王二",18);
+        CopyValuePerson p1 = new CopyValuePerson("musk",18);
         p1.out();
 
         CopyValuePerson p2 = new CopyValuePerson();
@@ -311,7 +311,7 @@ public class CopyValuePerson {
 
 ```java
 /**
- * @author 沉默王二，一枚有趣的程序员
+ * @author musk，一枚有趣的程序员
  */
 public class ClonePerson implements Cloneable {
     private String name;
@@ -332,7 +332,7 @@ public class ClonePerson implements Cloneable {
     }
 
     public static void main(String[] args) throws CloneNotSupportedException {
-        ClonePerson p1 = new ClonePerson("沉默王二",18);
+        ClonePerson p1 = new ClonePerson("musk",18);
         p1.out();
 
         ClonePerson p2 = (ClonePerson) p1.clone();

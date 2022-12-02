@@ -166,7 +166,7 @@ linux-0.11 的学习推荐《Linux 内核完全注释》，该书对 linux-0.11 
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/os-8.png)
 
-<!-- 需要的小伙伴请长按识别/扫描下方的二维码关注作者的原创公众号「**沉默王二**」回复关键字「**os**」就可以拉取到了。
+<!-- 需要的小伙伴请长按识别/扫描下方的二维码关注作者的原创公众号「**musk**」回复关键字「**os**」就可以拉取到了。
 
 ![扫码关注后回复「os」关键字](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png) -->
 

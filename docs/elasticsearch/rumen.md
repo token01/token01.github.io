@@ -137,7 +137,7 @@ public class ElasticsearchTest {
 
         IndexRequest indexRequest = new IndexRequest("writer")
                 .id("1")
-                .source("name", "沉默王二",
+                .source("name", "musk",
                         "age", 18,
                         "memo", "一枚有趣的程序员");
         IndexResponse indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
@@ -168,7 +168,7 @@ public class ElasticsearchTest {
 好了，来看一下程序的输出结果：
 
 ```
-{"name":"沉默王二","age":18,"memo":"一枚有趣的程序员"}
+{"name":"musk","age":18,"memo":"一枚有趣的程序员"}
 ```
 
 完全符合我们的预期，perfect！

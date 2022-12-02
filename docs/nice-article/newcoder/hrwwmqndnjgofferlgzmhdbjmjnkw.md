@@ -87,4 +87,4 @@ Q：你手上有offer，为什么还要来我们公司面试呢？
 
 挺难的，对于80%职场人来说，你还没有强到那个地步。 被问到薪资问题是，可以说其他offer给的年薪范围就好。最后，不管你有没有offer，都不要欺骗面试官。
 
->转载链接：[https://www.nowcoder.com/discuss/974125?channel=666&source_id=feed_index_nctrack&fromIframe=true](https://www.nowcoder.com/discuss/974125?channel=666&source_id=feed_index_nctrack&fromIframe=true)，整理：沉默王二
+>转载链接：[https://www.nowcoder.com/discuss/974125?channel=666&source_id=feed_index_nctrack&fromIframe=true](https://www.nowcoder.com/discuss/974125?channel=666&source_id=feed_index_nctrack&fromIframe=true)，整理：musk

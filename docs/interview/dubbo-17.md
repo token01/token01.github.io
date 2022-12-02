@@ -323,7 +323,7 @@ Zookeeper 中节点是有生命周期的，具体的生命周期取决于节点�
 
 
 
-> 参考链接：[https://mp.weixin.qq.com/s?\_\_biz=MzkwODE5ODM0Ng==&mid=2247491592&idx=1&sn=454ae3d6a661a1eb63ffbad767ccb479&chksm=c0cf08adf7b881bbfd7d2a2ad150e7621756ccc06a6ffacd52833e7f4b84d5d01e16e5a6770f&scene=27#wechat_redirect](https://mp.weixin.qq.com/s?__biz=MzkwODE5ODM0Ng==&mid=2247491592&idx=1&sn=454ae3d6a661a1eb63ffbad767ccb479&chksm=c0cf08adf7b881bbfd7d2a2ad150e7621756ccc06a6ffacd52833e7f4b84d5d01e16e5a6770f&scene=27#wechat_redirect)，作者：moon聊技术，整理：沉默王二
+> 参考链接：[https://mp.weixin.qq.com/s?\_\_biz=MzkwODE5ODM0Ng==&mid=2247491592&idx=1&sn=454ae3d6a661a1eb63ffbad767ccb479&chksm=c0cf08adf7b881bbfd7d2a2ad150e7621756ccc06a6ffacd52833e7f4b84d5d01e16e5a6770f&scene=27#wechat_redirect](https://mp.weixin.qq.com/s?__biz=MzkwODE5ODM0Ng==&mid=2247491592&idx=1&sn=454ae3d6a661a1eb63ffbad767ccb479&chksm=c0cf08adf7b881bbfd7d2a2ad150e7621756ccc06a6ffacd52833e7f4b84d5d01e16e5a6770f&scene=27#wechat_redirect)，作者：moon聊技术，整理：musk
 
 ---------
 

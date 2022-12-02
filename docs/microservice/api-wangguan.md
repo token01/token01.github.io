@@ -6,7 +6,7 @@ tag:
 title: 微服务网关：从对比到选型，由理论到实践
 ---
 
-> 整理：沉默王二，戳[转载链接](https://mp.weixin.qq.com/s/b2xf4GiJksBQqjHVpsh49Q)，作者：楼仔，戳[原文链接](https://mp.weixin.qq.com/s/0Qupyl5eCyQGFEAIY6GxoQ)。
+> 整理：musk，戳[转载链接](https://mp.weixin.qq.com/s/b2xf4GiJksBQqjHVpsh49Q)，作者：楼仔，戳[原文链接](https://mp.weixin.qq.com/s/0Qupyl5eCyQGFEAIY6GxoQ)。
 
 微服务近几年非常火，围绕微服务的技术生态也比较多，比如微服务网关、Docker、Kubernetes等。
 
@@ -202,6 +202,6 @@ hal-proxy模块是整个微服务网关最复杂，也是技术含量最高的�
 
 ----
 
-> 整理：沉默王二，戳[转载链接](https://mp.weixin.qq.com/s/b2xf4GiJksBQqjHVpsh49Q)，作者：楼仔，戳[原文链接](https://mp.weixin.qq.com/s/0Qupyl5eCyQGFEAIY6GxoQ)。
+> 整理：musk，戳[转载链接](https://mp.weixin.qq.com/s/b2xf4GiJksBQqjHVpsh49Q)，作者：楼仔，戳[原文链接](https://mp.weixin.qq.com/s/0Qupyl5eCyQGFEAIY6GxoQ)。
 
   

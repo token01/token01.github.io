@@ -105,8 +105,8 @@ Gson gson = new Gson();
 int one = gson.fromJson("1", int.class);
 Integer two = gson.fromJson("2", Integer.class);
 Boolean false1 = gson.fromJson("false", Boolean.class);
-String str = gson.fromJson("\"王二\"", String.class);
-String[] anotherStr = gson.fromJson("[\"沉默\",\"王二\"]", String[].class);
+String str = gson.fromJson("\"musk\"", String.class);
+String[] anotherStr = gson.fromJson("[\"沉默\",\"musk\"]", String[].class);
 
 System.out.println(one);
 System.out.println(two);
@@ -123,8 +123,8 @@ System.out.println(Arrays.toString(anotherStr));
 1
 2
 false
-王二
-[沉默, 王二]
+musk
+[musk]
 ```
 
 上面的例子都比较简单，还体现不出来我的威力。
@@ -134,7 +134,7 @@ false
 ```java
 public class Writer {
     private int age = 18;
-    private String name = "王二";
+    private String name = "musk";
     private transient int sex = 1;
 }
 ```
@@ -151,7 +151,7 @@ System.out.println(json);
 用法和之前一样简单，来看一下输出结果：
 
 ```
-{"age":18,"name":"王二"}
+{"age":18,"name":"musk"}
 ```
 
 同样，可以将结果反序列化：
@@ -299,7 +299,7 @@ debug 进入 `toJson()` 方法内部查看的话，就可以看到 foo 的真实
 
 ```java
 List list = new ArrayList();
-list.add("沉默王二");
+list.add("musk");
 list.add(18);
 list.add(new Event("gson", "google"));
 ```
@@ -328,7 +328,7 @@ System.out.println(json);
 输出结果如下所示：
 
 ```
-["沉默王二",18,{"name":"gson","source":"google"}]
+["musk",18,{"name":"gson","source":"google"}]
 ```
 
 反序列化的时候，就需要花点心思才能拿到 Event 对象。
@@ -354,7 +354,7 @@ Event event = gson.fromJson(array.get(2), Event.class);
 ```java
 public class Writer {
     private int age = 18;
-    private String name = "沉默王二";
+    private String name = "musk";
 
     public static void main(String[] args) {
         Writer writer = new Writer();
@@ -372,10 +372,10 @@ public class Writer {
 来对比一下输出结果：
 
 ```
-{"age":18,"name":"沉默王二"}
+{"age":18,"name":"musk"}
 {
   "age": 18,
-  "name": "沉默王二"
+  "name": "musk"
 }
 ```
 

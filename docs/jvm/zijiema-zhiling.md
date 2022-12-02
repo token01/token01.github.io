@@ -101,7 +101,7 @@ public void pushConstLdc() {
     // 其他 int
     int ldc = 32768;
     String aconst = null;
-    String IdcString = "沉默王二";
+    String IdcString = "musk";
 }
 ```
 
@@ -114,7 +114,7 @@ public void pushConstLdc() {
 - sipush 32767：将 32767 入栈。范围 [-32768,32767]。
 - ldc #6 <32768>：将常量池中下标为 6 的常量 32768 入栈。
 - aconst_null：将 null 入栈。
-- ldc #7 <沉默王二>：将常量池中下标为 7 的常量“沉默王二”入栈。
+- ldc #7 <musk>：将常量池中下标为 7 的常量“musk”入栈。
 
 **3）将栈顶的数据出栈并装入局部变量表中**
 
@@ -267,7 +267,7 @@ public void updown() {
 
 ```java
 public void newObject() {
-    String name = new String("沉默王二");
+    String name = new String("musk");
     File file = new File("无愁河的浪荡汉子.book");
     int [] ages = {};
 }

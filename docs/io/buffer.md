@@ -398,7 +398,7 @@ public class BufferedTest {
 
 不过，由于字符流本身就用到了缓冲区，所以字符缓冲流就不像字节缓冲流那样，性能会有质的提升。
 
->参考链接：[https://www.cnblogs.com/yichunguo/p/11775270.html](https://www.cnblogs.com/yichunguo/p/11775270.html)，整理：沉默王二
+>参考链接：[https://www.cnblogs.com/yichunguo/p/11775270.html](https://www.cnblogs.com/yichunguo/p/11775270.html)，整理：musk
 
 
 ---------

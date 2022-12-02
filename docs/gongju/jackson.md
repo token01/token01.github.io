@@ -66,14 +66,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * 微信搜索「沉默王二」，回复 Java
+ * 微信搜索「musk」，回复 Java
  *
- * @author 沉默王二
+ * @author musk
  * @date 2020/11/26
  */
 public class Demo {
     public static void main(String[] args) throws JsonProcessingException {
-        Writer wanger = new Writer("沉默王二", 18);
+        Writer wanger = new Writer("musk", 18);
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = mapper.writerWithDefaultPrettyPrinter()
                 .writeValueAsString(wanger);
@@ -112,7 +112,7 @@ class Writer {
 
 ```
 {
-  "name" : "沉默王二",
+  "name" : "musk",
   "age" : 18
 }
 ```
@@ -139,16 +139,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * 微信搜索「沉默王二」，回复 Java
+ * 微信搜索「musk」，回复 Java
  *
- * @author 沉默王二
+ * @author musk
  * @date 2020/11/26
  */
 public class Demo {
     public static void main(String[] args) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = "{\n" +
-                "  \"name\" : \"沉默王二\",\n" +
+                "  \"name\" : \"musk\",\n" +
                 "  \"age\" : 18\n" +
                 "}";
         Writer deserializedWriter = mapper.readValue(jsonString, Writer.class);
@@ -175,7 +175,7 @@ class Writer{
 程序输出结果如下所示：
 
 ```
-Writer{name='沉默王二', age=18}
+Writer{name='musk', age=18}
 ```
 
 PS：如果反序列化的对象有带参的构造方法，它必须有一个空的默认构造方法，否则将会抛出 `InvalidDefinitionException` 一行。
@@ -183,7 +183,7 @@ PS：如果反序列化的对象有带参的构造方法，它必须有一个空
 ```
 Exception in thread "main" com.fasterxml.jackson.databind.exc.InvalidDefinitionException: Cannot construct instance of `com.itwanger.jackson.Writer` (no Creators, like default construct, exist): cannot deserialize from Object value (no delegate- or property-based Creator)
  at [Source: (String)"{
-  "name" : "沉默王二",
+  "name" : "musk",
   "age" : 18
 }"; line: 2, column: 3]
 	at com.fasterxml.jackson.databind.exc.InvalidDefinitionException.from(InvalidDefinitionException.java:67)
@@ -208,18 +208,18 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * 微信搜索「沉默王二」，回复 Java
+ * 微信搜索「musk」，回复 Java
  *
- * @author 沉默王二
+ * @author musk
  * @date 2020/11/26
  */
 public class JsonNodeDemo {
     public static void main(String[] args) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        String json = "{ \"name\" : \"沉默王二\", \"age\" : 18 }";
+        String json = "{ \"name\" : \"musk\", \"age\" : 18 }";
         JsonNode jsonNode = mapper.readTree(json);
         String name = jsonNode.get("name").asText();
-        System.out.println(name); // 沉默王二
+        System.out.println(name); // musk
     }
 }
 ```
@@ -234,15 +234,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 
 /**
- * 微信搜索「沉默王二」，回复 Java
+ * 微信搜索「musk」，回复 Java
  *
- * @author 沉默王二
+ * @author musk
  * @date 2020/11/26
  */
 public class TypeReferenceDemo {
     public static void main(String[] args) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        String json = "[{ \"name\" : \"沉默王三\", \"age\" : 18 }, { \"name\" : \"沉默王二\", \"age\" : 19 }]";
+        String json = "[{ \"name\" : \"沉默王三\", \"age\" : 18 }, { \"name\" : \"musk\", \"age\" : 19 }]";
         List<Author> listAuthor = mapper.readValue(json, new TypeReference<List<Author>>(){});
         System.out.println(listAuthor);
     }
@@ -267,7 +267,7 @@ Jackson 之所以牛掰的一个很重要的因素是可以实现高度灵活的
 
 ```
 String jsonString = "{\n" +
-                "  \"name\" : \"沉默王二\",\n" +
+                "  \"name\" : \"musk\",\n" +
                 "  \"age\" : 18\n" +
                 "  \"sex\" : \"男\",\n" +
                 "}";
@@ -296,7 +296,7 @@ Writer deserializedWriter = mapper.readValue(jsonString, Writer.class);
 ```
 Exception in thread "main" com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field "sex" (class com.itwanger.jackson.Writer), not marked as ignorable (2 known properties: "name", "age"])
  at [Source: (String)"{
-  "name" : "沉默王二",
+  "name" : "musk",
   "age" : 18,
   "sex" : "男"
 }"; line: 4, column: 12] (through reference chain: com.itwanger.jackson.Writer["sex"])
@@ -359,7 +359,7 @@ public void setBirthday(Date birthday) {
 
 ```java
 ObjectMapper mapper = new ObjectMapper();
-Writer wanger = new Writer("沉默王二", 18);
+Writer wanger = new Writer("musk", 18);
 wanger.setBirthday(new Date());
 String jsonString = mapper.writerWithDefaultPrettyPrinter()
                 .writeValueAsString(wanger);
@@ -371,7 +371,7 @@ System.out.println(jsonString);
 ```java
 ObjectMapper mapper = new ObjectMapper();
 mapper.setDateFormat(StdDateFormat.getDateTimeInstance());
-Writer wanger = new Writer("沉默王二", 18);
+Writer wanger = new Writer("musk", 18);
 wanger.setBirthday(new Date());
 String jsonString = mapper.writerWithDefaultPrettyPrinter()
                 .writeValueAsString(wanger);
@@ -382,7 +382,7 @@ System.out.println(jsonString);
 
 ```
 {
-  "name" : "沉默王二",
+  "name" : "musk",
   "age" : 18,
   "birthday" : "2020年11月26日 上午11:09:51"
 }
@@ -420,9 +420,9 @@ class Writer{
 
 ```java
 /**
- * 微信搜索「沉默王二」，回复 Java
+ * 微信搜索「musk」，回复 Java
  *
- * @author 沉默王二
+ * @author musk
  * @date 2020/11/26
  */
 public class CustomSerializer extends StdSerializer<Man> {
@@ -477,7 +477,7 @@ SimpleModule module =
         new SimpleModule("CustomSerializer", new Version(1, 0, 0, null, null, null));
 module.addSerializer(Man.class, new CustomSerializer());
 mapper.registerModule(module);
-Man man = new Man( 18,"沉默王二");
+Man man = new Man( 18,"musk");
 String json = mapper.writeValueAsString(man);
 System.out.println(json);
 ```
@@ -485,7 +485,7 @@ System.out.println(json);
 程序输出结果如下所示：
 
 ```
-{"name":"沉默王二"}
+{"name":"musk"}
 ```
 
 自定义序列化类 CustomSerializer 中没有添加 age 字段，所以只输出了 name 字段。

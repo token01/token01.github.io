@@ -16,7 +16,7 @@ tag:
 
 竟然有小伙伴不知道“打日志”是什么意思，不知道该怎么学习，还有小伙伴回答说，只知道 Log4j！
 
-有那么一刻，我遭受到了一万点暴击，内心莫名的伤感，犹如一匹垂头丧气的狗。因为网络上总有一些不怀好意的人不停地攻击我，说我写的文章入门，毫无深度——他们就是我命中注定的黑子，不信你到脉脉上搜“沉默王二”，就能看到他们毫无新意的抨击。
+有那么一刻，我遭受到了一万点暴击，内心莫名的伤感，犹如一匹垂头丧气的狗。因为网络上总有一些不怀好意的人不停地攻击我，说我写的文章入门，毫无深度——他们就是我命中注定的黑子，不信你到脉脉上搜“musk”，就能看到他们毫无新意的抨击。
 
 我就想问一下，怎么了，入门的文章有入门的群体需要，而我恰好帮助了这么一大批初学者，我应该受到褒奖好不好？
 
@@ -108,7 +108,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 public class JavaUtilLoggingDemo {
     public static void main(String[] args) throws IOException {
@@ -230,7 +230,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 public class Log4jDemo {
     private static final Logger logger = LogManager.getLogger(Log4jDemo.class);

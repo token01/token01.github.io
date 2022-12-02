@@ -1468,4 +1468,4 @@ Pull有个缺点是，如果broker没有可供消费的消息，将导致consume
 
 实时流计算有两个特点，一个是实时，随时可以看数据；另一个是流。
 
->转载链接：[https://mp.weixin.qq.com/s?__biz=MzUyOTg1OTkyMA==&mid=2247487063&idx=1&sn=d7c65359630a67695a079d62fce989c0&chksm=fa5bda68cd2c537ed32003d5a98705e85c6b7a47afe0f837cebd27a5f33a8a11231d3eb9c1c5&scene=27#wechat_redirect](https://mp.weixin.qq.com/s?__biz=MzUyOTg1OTkyMA==&mid=2247487063&idx=1&sn=d7c65359630a67695a079d62fce989c0&chksm=fa5bda68cd2c537ed32003d5a98705e85c6b7a47afe0f837cebd27a5f33a8a11231d3eb9c1c5&scene=27#wechat_redirect)，出处：月伴飞鱼，整理：沉默王二
+>转载链接：[https://mp.weixin.qq.com/s?__biz=MzUyOTg1OTkyMA==&mid=2247487063&idx=1&sn=d7c65359630a67695a079d62fce989c0&chksm=fa5bda68cd2c537ed32003d5a98705e85c6b7a47afe0f837cebd27a5f33a8a11231d3eb9c1c5&scene=27#wechat_redirect](https://mp.weixin.qq.com/s?__biz=MzUyOTg1OTkyMA==&mid=2247487063&idx=1&sn=d7c65359630a67695a079d62fce989c0&chksm=fa5bda68cd2c537ed32003d5a98705e85c6b7a47afe0f837cebd27a5f33a8a11231d3eb9c1c5&scene=27#wechat_redirect)，出处：月伴飞鱼，整理：musk

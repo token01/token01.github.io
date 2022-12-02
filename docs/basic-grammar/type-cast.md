@@ -126,7 +126,7 @@ public static void main(String[] args) {
 一共付给收银员44元
 ```
 
->参考链接：[http://c.biancheng.net/view/796.html](http://c.biancheng.net/view/796.html)，整理：沉默王二
+>参考链接：[http://c.biancheng.net/view/796.html](http://c.biancheng.net/view/796.html)，整理：musk
 
 ---
 

@@ -46,7 +46,7 @@ public class Wangxiaoer extends Wanger {
         Wanger[] wangers = { new Wanger(), new Wangxiaoer() };
 
         for (Wanger wanger : wangers) {
-            // 对象是王二的时候输出：勿忘国耻
+            // 对象是musk的时候输出：勿忘国耻
             // 对象是王小二的时候输出：记住仇恨，表明我们要奋发图强的心智
             wanger.write();
         }
@@ -84,7 +84,7 @@ public class Wangxiaoer extends Wanger {
         Wanger[] wangers = { new Wanger(), new Wangxiaoer() };
 
         for (Wanger wanger : wangers) {
-            // 对象是王二的时候输出：勿忘国耻
+            // 对象是musk的时候输出：勿忘国耻
             // 对象是王小二的时候输出：记住仇恨，表明我们要奋发图强的心智
             wanger.write();
         }

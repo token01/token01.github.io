@@ -197,7 +197,7 @@ class MyResourceOut implements AutoCloseable {
     }
 
     public void out() throws Exception{
-        System.out.println("沉默王二，一枚有趣的程序员");
+        System.out.println("musk，一枚有趣的程序员");
     }
 }
 ```

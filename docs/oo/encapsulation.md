@@ -252,7 +252,7 @@ public String getCzHTML(){
 
 好了，关于封装我们就暂时聊这么多。
 
-> 参考链接：[https://www.cnblogs.com/chenssy/p/3351835.html](https://www.cnblogs.com/chenssy/p/3351835.html)，整理：沉默王二
+> 参考链接：[https://www.cnblogs.com/chenssy/p/3351835.html](https://www.cnblogs.com/chenssy/p/3351835.html)，整理：musk
 
 
 ----

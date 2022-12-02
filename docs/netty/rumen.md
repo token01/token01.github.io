@@ -1427,7 +1427,7 @@ public EventExecutor next() {
 
 > **本文已收录到Github精选，欢迎Star**：[https://github.com/yehongzhi/...](https://link.segmentfault.com/?enc=Up4ACYihRk%2FfeK3YIE0jdg%3D%3D.7eSfdNi91PJV%2FFOh2KGSbCu2rF9eE4tACnVfo4rs7H0TdQHIiFfjfGECYjaUYsTM)
 
->转载链接：[https://segmentfault.com/a/1190000023840032](https://segmentfault.com/a/1190000023840032)，整理：沉默王二
+>转载链接：[https://segmentfault.com/a/1190000023840032](https://segmentfault.com/a/1190000023840032)，整理：musk
 
 
 

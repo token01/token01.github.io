@@ -29,7 +29,7 @@ Java 变量就好像一个容器，可以保存程序在运行过程中的值，
 
 ```java
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 public class LocalVariable {
     public static void main(String[] args) {
@@ -58,7 +58,7 @@ public class LocalVariable {
 
 ```java
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 public class InstanceVariable {
     int data = 88;
@@ -87,7 +87,7 @@ public class InstanceVariable {
 
 ```java
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 public class StaticVariable {
     static int data = 99;
@@ -123,7 +123,7 @@ Java 要求常量名必须大写。来看下面这个示例：
 
 ```java
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 public class FinalVariable {
     final String CHEN = "沉";

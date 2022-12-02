@@ -109,7 +109,7 @@ MongoDB 命名源于英文单词 hu**mongo**us，意思是「巨大无比」，�
 
 ```
 {
-    name: "沉默王二",
+    name: "musk",
     age: 18,
     hobbies: ["写作", "敲代码"]
 }
@@ -147,7 +147,7 @@ public class MongoDBTest {
         MongoDatabase database = mongoClient.getDatabase("mydb");
         MongoCollection<Document> collection = database.getCollection("test");
 
-        Document doc = new Document("name", "沉默王二")
+        Document doc = new Document("name", "musk")
                 .append("age", "18")
                 .append("hobbies", Arrays.asList("写作", "敲代码"));
         collection.insertOne(doc);
@@ -177,7 +177,7 @@ MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
 有了文档对象（`MongoCollection<Document>`）后，就可以往里面添加具体的文档内容了。
 
 ```java
- Document doc = new Document("name", "沉默王二")
+ Document doc = new Document("name", "musk")
                 .append("age", "18")
                 .append("hobbies", Arrays.asList("写作", "敲代码"));
 ```
@@ -194,7 +194,7 @@ Document 对象来源于 org.bson 包下，可以在实例化该对象之后通�
 
 ```
 集合大小：1
-文档内容：{"_id": {"$oid": "5ebcaa76465cab3f18b93e1a"}, "name": "沉默王二", "age": "18", "hobbies": ["写作", "敲代码"]}
+文档内容：{"_id": {"$oid": "5ebcaa76465cab3f18b93e1a"}, "name": "musk", "age": "18", "hobbies": ["写作", "敲代码"]}
 ```
 
 完全符合我们的预期，perfect！

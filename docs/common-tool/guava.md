@@ -179,7 +179,7 @@ return joiner.join("雷军", null, "乔布斯");
 Splitter.on(',')
         .trimResults()
         .omitEmptyStrings()
-        .split("雷军,乔布斯,,   沉默王二");
+        .split("雷军,乔布斯,,   musk");
 ```
 
 ## 06、缓存

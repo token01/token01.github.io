@@ -134,7 +134,7 @@ head:
 1.  Git、Maven/Gradle 等原理和命令的使用、Docker
 2.  场景题：（所谓面试造火箭）比如如何设计一个秒杀系统，设计一个消息中间件有哪些重点等，主要考察对系统的宏观理解、对基础知识和项目经验的综合运用。
 
-> 参考链接：[https://www.zhihu.com/question/403508943/answer/2036074069](https://www.zhihu.com/question/403508943/answer/2036074069)，整理：沉默王二
+> 参考链接：[https://www.zhihu.com/question/403508943/answer/2036074069](https://www.zhihu.com/question/403508943/answer/2036074069)，整理：musk
 
 ----
 

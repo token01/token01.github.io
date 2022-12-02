@@ -13,7 +13,7 @@ head:
 ---
 
 
-> 图文详解 30 道Java集合框架面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：沉默王二，戳[转载链接](https://mp.weixin.qq.com/s/ptbM0EqlnCWeWm9VdSCDLg)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/SHkQ7LEOT0itt4bXMoDBPw)。
+> 图文详解 30 道Java集合框架面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：musk，戳[转载链接](https://mp.weixin.qq.com/s/ptbM0EqlnCWeWm9VdSCDLg)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/SHkQ7LEOT0itt4bXMoDBPw)。
 
 ## 引言
 
@@ -689,7 +689,7 @@ if (e != null) { // existing mapping for key
 
 ----
 
-> 图文详解 30 道Java集合框架面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：沉默王二，戳[转载链接](https://mp.weixin.qq.com/s/ptbM0EqlnCWeWm9VdSCDLg)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/SHkQ7LEOT0itt4bXMoDBPw)。
+> 图文详解 30 道Java集合框架面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：musk，戳[转载链接](https://mp.weixin.qq.com/s/ptbM0EqlnCWeWm9VdSCDLg)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/SHkQ7LEOT0itt4bXMoDBPw)。
 
   
 

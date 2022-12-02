@@ -22,7 +22,7 @@ Java 在 1.5 时增加了泛型机制，据说专家们为此花费了 5 年左�
 
 ```java
 ArrayList<String> list = new ArrayList<String>();
-list.add("沉默王二");
+list.add("musk");
 String str = list.get(0);
 ```
 
@@ -50,7 +50,7 @@ class Arraylist {
 
 ```java
 Arraylist list = new Arraylist();
-list.add("沉默王二");
+list.add("musk");
 list.add(new Date());
 String str = (String)list.get(0);
 ```
@@ -154,7 +154,7 @@ class Wanglaoer {
 
 class Wanger extends Wanglaoer{
     public String toString() {
-        return "王二";
+        return "musk";
     }
 }
 

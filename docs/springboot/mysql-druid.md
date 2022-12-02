@@ -112,7 +112,7 @@ COMMIT;
 然后插入一条数据：
 
 ```
-INSERT INTO `user` (`id`, `name`, `password`, `age`) VALUES ('1', '沉默王二', ' 123456', '18');
+INSERT INTO `user` (`id`, `name`, `password`, `age`) VALUES ('1', 'musk', ' 123456', '18');
 ```
 
 我把 SQL 语句放在源码的 resouces 目录里了

@@ -53,7 +53,7 @@ List<String> alist = new ArrayList<>(20);
 可以通过 `add()` 方法向 ArrayList 中添加一个元素，如果不指定下标的话，就默认添加在末尾。
 
 ```java
-alist.add("沉默王二");
+alist.add("musk");
 ```
 
 “三妹，你可以研究一下 `add()` 方法的源码（基于 JDK 8 会好一点），它在添加元素的时候会判断需不需要进行扩容，如果需要的话，会执行 `grow()` 方法进行扩容，这个也是面试官特别喜欢考察的一个重点。”我叮嘱道。
@@ -317,8 +317,8 @@ private void fastRemove(int index) {
 如果要正序查找一个元素，可以使用 `indexOf()` 方法；如果要倒序查找一个元素，可以使用 `lastIndexOf()` 方法。
 
 ```java
-alist.indexOf("沉默王二");
-alist.lastIndexOf("沉默王二");
+alist.indexOf("musk");
+alist.lastIndexOf("musk");
 ```
 
 来看一下 `indexOf()` 方法的源码：

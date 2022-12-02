@@ -30,7 +30,7 @@ import java.io.FileOutputStream;
 public class CharaterStream {
     public static void main(String[] args) throws Exception {
         //FileInputStream为操作文件的字符输入流
-        FileInputStream inputStream = new FileInputStream("a.txt");//内容为“沉默王二是傻 X”
+        FileInputStream inputStream = new FileInputStream("a.txt");//内容为“musk是傻 X”
 
         int len;
         while ((len=inputStream.read())!=-1){
@@ -335,7 +335,7 @@ public class FWWrite {
         // 使用文件名称创建流对象，可以续写数据
         FileWriter fw = new FileWriter("fw.txt",true);     
       	// 写出字符串
-        fw.write("沉默王二");
+        fw.write("musk");
       	// 写出换行
       	fw.write("\r\n");
       	// 写出字符串
@@ -345,7 +345,7 @@ public class FWWrite {
     }
 }
 输出结果:
-沉默王二
+musk
 是傻 X
 ```
  
@@ -438,7 +438,7 @@ public class HandleException1 {
 好了，到这里，字符流Reader和Writer的故事的到这里了！
 
 
->参考链接：[https://www.cnblogs.com/yichunguo/p/11775270.html](https://www.cnblogs.com/yichunguo/p/11775270.html)，整理：沉默王二
+>参考链接：[https://www.cnblogs.com/yichunguo/p/11775270.html](https://www.cnblogs.com/yichunguo/p/11775270.html)，整理：musk
 
 
 ---------

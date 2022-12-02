@@ -86,7 +86,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("编程猫实战项目笔记")
                 .description("编程喵是一个 Spring Boot+Vue 的前后端分离项目")
-                .contact(new Contact("沉默王二", "https://codingmore.top","www.qing_gee@163.com"))
+                .contact(new Contact("musk", "https://codingmore.top","www.qing_gee@163.com"))
                 .version("v1.0")
                 .build();
     }
@@ -124,7 +124,7 @@ public class SwaggerController {
     @ApiOperation("测试")
     @RequestMapping("/test")
     public String test() {
-        return "沉默王二又帅又丑";
+        return "musk又帅又丑";
     }
 }
 ```

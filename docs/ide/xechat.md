@@ -44,7 +44,7 @@ head:
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/ide/xechat-0de879be-2a64-4c85-b9ee-e92500a0a907.png)
 
-输入 `#login 沉默王二` 就可以登录了。 之后就可以把天聊起来了。
+输入 `#login musk` 就可以登录了。 之后就可以把天聊起来了。
 
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/ide/xechat-020bfafc-8874-4fda-a9a0-b9ac9d628234.png)

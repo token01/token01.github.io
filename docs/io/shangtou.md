@@ -168,7 +168,7 @@ FileOutputStream 的例子：
 
 ```java
 FileOutputStream fos = new FileOutputStream("fos.txt");
-fos.write("沉默王二".getBytes());
+fos.write("musk".getBytes());
 fos.close();
 ```
 
@@ -190,7 +190,7 @@ FileWriter 的例子：
 
 ```java
 FileWriter fileWriter = new FileWriter("fw.txt");
-char[] chars = "沉默王二".toCharArray();
+char[] chars = "musk".toCharArray();
 fileWriter.write(chars, 0, chars.length);
 fileWriter.close();
 ```
@@ -206,7 +206,7 @@ ByteArrayInputStream 的例子：
 ```java
 InputStream is =new BufferedInputStream(
         new ByteArrayInputStream(
-                "沉默王二".getBytes(StandardCharsets.UTF_8)));
+                "musk".getBytes(StandardCharsets.UTF_8)));
 //操作
 byte[] flush =new byte[1024];
 int len =0;
@@ -221,7 +221,7 @@ ByteArrayOutputStream 的例子：
 
 ```java
 ByteArrayOutputStream bos =new ByteArrayOutputStream();
-byte[] info ="沉默王二".getBytes();
+byte[] info ="musk".getBytes();
 bos.write(info, 0, info.length);
 //获取数据
 byte[] dest =bos.toByteArray();
@@ -243,7 +243,7 @@ Thread thread1 = new Thread(new Runnable() {
     @Override
     public void run() {
         try {
-            pipedOutputStream.write("沉默王二".getBytes(StandardCharsets.UTF_8));
+            pipedOutputStream.write("musk".getBytes(StandardCharsets.UTF_8));
             pipedOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -320,7 +320,7 @@ CPU 很快，它比内存快 100 倍，比磁盘快百万倍。那也就意味�
 恐怕 Java 程序员一生当中最常用的就是打印流了：`System.out` 其实返回的就是一个 PrintStream 对象，可以用来打印各式各样的对象。
 
 ```java
-System.out.println("沉默王二是真的二！");
+System.out.println("musk是真的二！");
 ```
 
 PrintStream 最终输出的是字节数据，而 PrintWriter 则是扩展了 Writer 接口，所以它的 `print()/println()` 方法最终输出的是字符数据。使用上几乎和 PrintStream 一模一样。
@@ -328,7 +328,7 @@ PrintStream 最终输出的是字节数据，而 PrintWriter 则是扩展了 Wri
 ```java
 StringWriter buffer = new StringWriter();
 try (PrintWriter pw = new PrintWriter(buffer)) {
-    pw.println("沉默王二");
+    pw.println("musk");
 }
 System.out.println(buffer.toString());
 ```
@@ -340,7 +340,7 @@ System.out.println(buffer.toString());
 ```java
 ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 try (ObjectOutputStream output = new ObjectOutputStream(buffer)) {
-    output.writeUTF("沉默王二");
+    output.writeUTF("musk");
 }
 System.out.println(Arrays.toString(buffer.toByteArray()));
 ```

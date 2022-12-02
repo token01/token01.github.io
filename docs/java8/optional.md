@@ -75,7 +75,7 @@ public class OptionalDemo {
     public static Optional<Member> getMemberByIdFromDB() {
         boolean hasName = true;
         if (hasName) {
-            return Optional.of(new Member("沉默王二"));
+            return Optional.of(new Member("musk"));
         }
         return Optional.empty();
     }
@@ -107,8 +107,8 @@ System.out.println(empty); // 输出：Optional.empty
 2）可以使用静态方法 `of()` 创建一个非空的 Optional 对象
 
 ```java
-Optional<String> opt = Optional.of("沉默王二");
-System.out.println(opt); // 输出：Optional[沉默王二]
+Optional<String> opt = Optional.of("musk");
+System.out.println(opt); // 输出：Optional[musk]
 ```
 
 当然了，传递给 `of()` 方法的参数必须是非空的，也就是说不能为 null，否则仍然会抛出 NullPointerException。
@@ -133,7 +133,7 @@ System.out.println(optOrNull); // 输出：Optional.empty
 可以通过方法 `isPresent()` 判断一个 Optional 对象是否存在，如果存在，该方法返回 true，否则返回 false——取代了 `obj != null` 的判断。
 
 ```java
-Optional<String> opt = Optional.of("沉默王二");
+Optional<String> opt = Optional.of("musk");
 System.out.println(opt.isPresent()); // 输出：true
 
 Optional<String> optOrNull = Optional.ofNullable(null);
@@ -143,7 +143,7 @@ System.out.println(opt.isPresent()); // 输出：false
 Java 11 后还可以通过方法 `isEmpty()` 判断与 `isPresent()` 相反的结果。
 
 ```java
-Optional<String> opt = Optional.of("沉默王二");
+Optional<String> opt = Optional.of("musk");
 System.out.println(opt.isPresent()); // 输出：false
 
 Optional<String> optOrNull = Optional.ofNullable(null);
@@ -164,14 +164,14 @@ if (optOrNull.isPresent()) {
 有了 `ifPresent()` 之后，情况就完全不同了，可以直接将 Lambda 表达式传递给该方法，代码更加简洁，更加直观。
 
 ```java
-Optional<String> opt = Optional.of("沉默王二");
+Optional<String> opt = Optional.of("musk");
 opt.ifPresent(str -> System.out.println(str.length()));
 ```
 
 Java 9 后还可以通过方法 `ifPresentOrElse(action, emptyAction)` 执行两种结果，非空时执行 action，空时执行 emptyAction。
 
 ```java
-Optional<String> opt = Optional.of("沉默王二");
+Optional<String> opt = Optional.of("musk");
 opt.ifPresentOrElse(str -> System.out.println(str.length()), () -> System.out.println("为空"));
 ```
 
@@ -183,16 +183,16 @@ opt.ifPresentOrElse(str -> System.out.println(str.length()), () -> System.out.pr
 
 ```java
 String nullName = null;
-String name = Optional.ofNullable(nullName).orElse("沉默王二");
-System.out.println(name); // 输出：沉默王二
+String name = Optional.ofNullable(nullName).orElse("musk");
+System.out.println(name); // 输出：musk
 ```
 
 `orElseGet()` 方法与 `orElse()` 方法类似，但参数类型不同。如果 Optional 对象中的值为 null，则执行参数中的函数。
 
 ```java
 String nullName = null;
-String name = Optional.ofNullable(nullName).orElseGet(()->"沉默王二");
-System.out.println(name); // 输出：沉默王二
+String name = Optional.ofNullable(nullName).orElseGet(()->"musk");
+System.out.println(name); // 输出：musk
 ```
 
 从输出结果以及代码的形式上来看，这两个方法极其相似，这不免引起我们的怀疑，Java 类库的设计者有必要这样做吗？
@@ -202,7 +202,7 @@ System.out.println(name); // 输出：沉默王二
 ```java
 public static String getDefaultValue() {
     System.out.println("getDefaultValue");
-    return "沉默王二";
+    return "musk";
 }
 ```
 
@@ -320,7 +320,7 @@ System.out.println(result);
 ```java
 public class OptionalMapDemo {
     public static void main(String[] args) {
-        String name = "沉默王二";
+        String name = "musk";
         Optional<String> nameOptional = Optional.of(name);
         Optional<Integer> intOpt = nameOptional
                 .map(String::length);

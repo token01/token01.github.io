@@ -18,7 +18,7 @@ head:
 
 ```java
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 public class HelloWorld {
     public static void main(String[] args) {

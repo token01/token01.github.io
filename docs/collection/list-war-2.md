@@ -371,7 +371,7 @@ public class ArrayListTest {
         long timeStart = System.currentTimeMillis();
 
         while (i < num) {
-            list.add(0, i + "沉默王二");
+            list.add(0, i + "musk");
             i++;
         }
         long timeEnd = System.currentTimeMillis();
@@ -381,7 +381,7 @@ public class ArrayListTest {
 }
 
 /**
- * @author 微信搜「沉默王二」，回复关键字 PDF
+ * @author 微信搜「musk」，回复关键字 PDF
  */
 public class LinkedListTest {
     public static void addFromHeaderTest(int num) {
@@ -389,7 +389,7 @@ public class LinkedListTest {
         int i = 0;
         long timeStart = System.currentTimeMillis();
         while (i < num) {
-            list.addFirst(i + "沉默王二");
+            list.addFirst(i + "musk");
             i++;
         }
         long timeEnd = System.currentTimeMillis();
@@ -419,7 +419,7 @@ public class ArrayListTest {
         long timeStart = System.currentTimeMillis();
         while (i < num) {
             int temp = list.size();
-            list.add(temp / 2, i + "沉默王二");
+            list.add(temp / 2, i + "musk");
             i++;
         }
         long timeEnd = System.currentTimeMillis();
@@ -435,7 +435,7 @@ public class LinkedListTest {
         long timeStart = System.currentTimeMillis();
         while (i < num) {
             int temp = list.size();
-            list.add(temp / 2, i + "沉默王二");
+            list.add(temp / 2, i + "musk");
             i++;
         }
         long timeEnd = System.currentTimeMillis();
@@ -465,7 +465,7 @@ public class ArrayListTest {
         long timeStart = System.currentTimeMillis();
 
         while (i < num) {
-            list.add(i + "沉默王二");
+            list.add(i + "musk");
             i++;
         }
 
@@ -481,7 +481,7 @@ public class LinkedListTest {
         int i = 0;
         long timeStart = System.currentTimeMillis();
         while (i < num) {
-            list.add(i + "沉默王二");
+            list.add(i + "musk");
             i++;
         }
         long timeEnd = System.currentTimeMillis();

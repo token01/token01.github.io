@@ -11,7 +11,7 @@ category:
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/haibukuaiyongmybatisplusshoubashoujiaoni-ed20d595-a4a8-42af-bcbe-7afa578ad065.jpg)
 
->原文链接：https://juejin.cn/post/7054726274362638350 作者：我犟不过你，整理：沉默王二
+>原文链接：https://juejin.cn/post/7054726274362638350 作者：我犟不过你，整理：musk
 
 关于 mybatis-plus 是什么，不多做介绍了，看官方文档：[https://baomidou.com/](https://baomidou.com/)，咱们直接代码撸起来。
 

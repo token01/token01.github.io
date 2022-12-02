@@ -681,4 +681,4 @@ git push -f origin feat-xxx
 
 ![](https://img2022.cnblogs.com/blog/998740/202207/998740-20220708215826771-456239763.jpg)
 
->转载链接：[https://www.cnblogs.com/daniel-hutao/p/open-a-pr-in-github.html](https://www.cnblogs.com/daniel-hutao/p/open-a-pr-in-github.html)，整理：沉默王二
+>转载链接：[https://www.cnblogs.com/daniel-hutao/p/open-a-pr-in-github.html](https://www.cnblogs.com/daniel-hutao/p/open-a-pr-in-github.html)，整理：musk

@@ -38,7 +38,7 @@ head:
 ```java
 public class LocalVaraiablesTable {
     private void write(int age) {
-        String name = "沉默王二";
+        String name = "musk";
     }
 }
 ```
@@ -68,7 +68,7 @@ public static void method() {
     // ①
     if (true) {
         // ②
-        String name = "沉默王二";
+        String name = "musk";
     }
     // ③
     if(true) {

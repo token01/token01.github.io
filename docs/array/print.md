@@ -23,7 +23,7 @@ head:
 来看这样一个例子。
 
 ```
-String [] cmowers = {"沉默","王二","一枚有趣的程序员"};
+String [] cmowers = {"沉默","musk","一枚有趣的程序员"};
 System.out.println(cmowers);
 ```
 
@@ -83,7 +83,7 @@ Arrays.stream(cmowers).forEach(System.out::println);
 
 ```
 沉默
-王二
+musk
 一枚有趣的程序员
 ```
 
@@ -118,14 +118,14 @@ for (String s : cmowers) {
 “三妹，你不要笑，来，怀揣着愉快的心情看一下代码示例。”
 
 ```java
-String [] cmowers = {"沉默","王二","一枚有趣的程序员"};
+String [] cmowers = {"沉默","musk","一枚有趣的程序员"};
 System.out.println(Arrays.toString(cmowers));
 ```
 
 程序打印结果：
 
 ```
-[沉默, 王二, 一枚有趣的程序员]
+[musk, 一枚有趣的程序员]
 ```
 
 哇，打印格式不要太完美，不多不少！完全是我们预期的结果：`[]` 表明是一个数组，`,` 点和空格用来分割元素。
@@ -135,14 +135,14 @@ System.out.println(Arrays.toString(cmowers));
 “可以使用 `Arrays.deepToString()` 方法。”
 
 ```java
-String[][] deepArray = new String[][] {{"沉默", "王二"}, {"一枚有趣的程序员"}};
+String[][] deepArray = new String[][] {{"沉默", "musk"}, {"一枚有趣的程序员"}};
 System.out.println(Arrays.deepToString(deepArray));
 ```
 
 打印结果如下所示。
 
 ```
-[[沉默, 王二], [一枚有趣的程序员]]
+[[musk], [一枚有趣的程序员]]
 ```
 
 -------
@@ -159,15 +159,4 @@ System.out.println(Arrays.deepToString(deepArray));
 
 “可以借助 Intellij IDEA 生成重写的  `toString()` 方法，特别方便。”
 
-“好的，哥，我记住了。以后遇到的话，我注意下。你去休息吧，我来敲一下你提到的这些代码，练一练。”
-
-“OK，我走，我走。”
-
-
 ----
-
-  
-
- 
-
-  

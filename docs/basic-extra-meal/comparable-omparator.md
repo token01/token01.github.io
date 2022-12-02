@@ -44,7 +44,7 @@ public class Cmower implements Comparable<Cmower> {
     }
 
     public static void main(String[] args) {
-        Cmower wanger = new Cmower(19,"沉默王二");
+        Cmower wanger = new Cmower(19,"musk");
         Cmower wangsan = new Cmower(16,"沉默王三");
 
         if (wanger.compareTo(wangsan) < 0) {
@@ -59,7 +59,7 @@ public class Cmower implements Comparable<Cmower> {
 在上面的示例中，我创建了一个 Cmower 类，它有两个字段：age 和 name。Cmower 类实现了 Comparable 接口，并重写了 `compareTo()` 方法。
 
 
-程序输出的结果是“沉默王三比较年轻有为”，因为他比沉默王二小三岁。这个结果有什么凭证吗？
+程序输出的结果是“沉默王三比较年轻有为”，因为他比musk小三岁。这个结果有什么凭证吗？
 
 凭证就在于 `compareTo()` 方法，该方法的返回值可能为负数，零或者正数，代表的意思是该对象按照排序的规则小于、等于或者大于要比较的对象。如果指定对象的类型与此对象不能进行比较，则引发 `ClassCastException` 异常（自从有了泛型，这种情况就少有发生了）。
 
@@ -130,7 +130,7 @@ public class CmowerNameComparator implements Comparator<Cmower> {
 3）再来看测试类。
 
 ```java
-Cmower wanger = new Cmower(19,"沉默王二");
+Cmower wanger = new Cmower(19,"musk");
 Cmower wangsan = new Cmower(16,"沉默王三");
 Cmower wangyi = new Cmower(28,"沉默王一");
 
@@ -150,11 +150,11 @@ for (Cmower c : list) {
 
 ```
 沉默王三
-沉默王二
+musk
 沉默王一
 ```
 
-这意味着沉默王三的年纪比沉默王二小，排在第一位；沉默王一的年纪比沉默王二大，排在第三位。和我们的预期完全符合。
+这意味着沉默王三的年纪比musk小，排在第一位；沉默王一的年纪比musk大，排在第三位。和我们的预期完全符合。
 
 ## 03、到底该用哪一个呢？
 

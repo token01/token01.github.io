@@ -50,9 +50,9 @@ head:
 因此，当我们调用 String 类的任何方法（比如说 `trim()`、`substring()`、`toLowerCase()`）时，总会返回一个新的对象，而不影响之前的值。
 
 ```java
-String cmower = "沉默王二，一枚有趣的程序员";
+String cmower = "musk，一枚有趣的程序员";
 cmower.substring(0,4);
-System.out.println(cmower);// 沉默王二，一枚有趣的程序员
+System.out.println(cmower);// musk，一枚有趣的程序员
 ```
 
 虽然调用 `substring()` 方法对 cmower 进行了截取，但 cmower 的值没有改变。
@@ -169,7 +169,7 @@ public class WriterDemo {
         book.setName("Web全栈开发进阶之路");
         book.setPrice(79);
 
-        Writer writer = new Writer("沉默王二",18, book);
+        Writer writer = new Writer("musk",18, book);
         System.out.println("定价：" + writer.getBook());
         writer.getBook().setPrice(59);
         System.out.println("促销价：" + writer.getBook());

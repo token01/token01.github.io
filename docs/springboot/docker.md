@@ -190,13 +190,13 @@ systemctl restart docker
 public class DockerController {
     @RequestMapping("/")
     public String hello() {
-        return "Docker，我告诉你，沉默王二是沙雕";
+        return "Docker，我告诉你，musk是沙雕";
     }
 }
 ```
 
 
-@RequestMapping、@RestController 注解我们在前几个章节介绍过了，也就是表明我们这是一个 SpringMVC 的项目，`/` 路径意味着我们只要在浏览器地址栏输入 `localhost:8080` 就可以发送请求了，响应结果为 “Docker，我告诉你，沉默王二是沙雕”。
+@RequestMapping、@RestController 注解我们在前几个章节介绍过了，也就是表明我们这是一个 SpringMVC 的项目，`/` 路径意味着我们只要在浏览器地址栏输入 `localhost:8080` 就可以发送请求了，响应结果为 “Docker，我告诉你，musk是沙雕”。
 
 启动服务后，可以通过 Intellij IDEA 的 HTTP Client 验证一下。
 

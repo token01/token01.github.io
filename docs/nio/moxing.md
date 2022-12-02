@@ -144,7 +144,7 @@ select/epoll的优势并不是对于单个连接能处理得更快，而是**在
 
 *   听广播取餐，**广播不是为我一个人服务**。广播喊到我了，我过去取就Ok了。
 
->参考链接：[https://www.zhihu.com/question/29005375/answer/667616386](https://www.zhihu.com/question/29005375/answer/667616386)，整理：沉默王二
+>参考链接：[https://www.zhihu.com/question/29005375/answer/667616386](https://www.zhihu.com/question/29005375/answer/667616386)，整理：musk
 
 ---------
 

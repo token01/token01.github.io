@@ -146,14 +146,14 @@ public class VarargsDemo
 
 ```java
 VarargsDemo demo = new VarargsDemo();
-String[] anArray = new String[] {"沉默王二", "一枚有趣的程序员"};
+String[] anArray = new String[] {"musk", "一枚有趣的程序员"};
 demo.varargsMethod(anArray);
 ```
 
 也可以直接传递多个字符串，通过逗号隔开的方式：
 
 ```java
-demo.varargsMethod("沉默王二", "一枚有趣的程序员");
+demo.varargsMethod("musk", "一枚有趣的程序员");
 ```
 
 在 Java 中，数组与 List 关系非常密切。List 封装了很多常用的方法，方便我们对集合进行一些操作，而如果直接操作数组的话，有很多不便，因为数组本身没有提供这些封装好的操作，所以有时候我们需要把数组转成 List。
@@ -193,7 +193,7 @@ new ArrayList<>(Arrays.asList(anArray));
 Java 8 新增了 Stream 流的概念，这就意味着我们也可以将数组转成 Stream 进行操作。
 
 ```java
-String[] anArray = new String[] {"沉默王二", "一枚有趣的程序员", "好好珍重他"};
+String[] anArray = new String[] {"musk", "一枚有趣的程序员", "好好珍重他"};
 Stream<String> aStream = Arrays.stream(anArray);
 ```
 
@@ -254,9 +254,3 @@ int index = Arrays.binarySearch(anArray, 4);
 “除了一维数组，还有二维数组，三妹你可以去研究下，比如说用二维数组打印一下杨辉三角。”说完，我就去阳台上休息了，留三妹在那里学习，不能打扰她。
 
 ----
-
-  
-
- 
-
-  

@@ -122,14 +122,14 @@ System.out.println(Arrays.toString(abridgementExpanded));
 
 ```java
 String[] stutter = new String[4];
-Arrays.fill(stutter, "沉默王二");
+Arrays.fill(stutter, "musk");
 System.out.println(Arrays.toString(stutter));
 ```
 
-使用 new 关键字创建了一个长度为 4 的数组，然后使用 `fill()` 方法将 4 个位置填充为“沉默王二”，来看一下输出结果：
+使用 new 关键字创建了一个长度为 4 的数组，然后使用 `fill()` 方法将 4 个位置填充为“musk”，来看一下输出结果：
 
 ```
-[沉默王二, 沉默王二, 沉默王二, 沉默王二]
+[musk, musk, musk, musk]
 ```
 
 如果想要一个元素完全相同的数组时， `fill()` 方法就派上用场了。
@@ -153,7 +153,7 @@ true
 false
 ```
 
-指定的数组为沉默王二四个字，比较的数组一个是沉默王二，一个是沉默王三，所以 result 为 true，result1 为 false。
+指定的数组为musk四个字，比较的数组一个是musk，一个是沉默王三，所以 result 为 true，result1 为 false。
 
 简单看一下 `equals()` 方法的源码：
 

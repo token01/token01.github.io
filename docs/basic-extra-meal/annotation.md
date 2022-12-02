@@ -32,7 +32,7 @@ public class AutowiredTest {
     private String name;
 
     public static void main(String[] args) {
-        System.out.println("沉默王二，一枚有趣的程序员");
+        System.out.println("musk，一枚有趣的程序员");
     }
 }
 ```
@@ -105,7 +105,7 @@ public @interface JsonField {
 
 “为什么参数名要为 value 呢？有什么特殊的含义吗？”三妹问。
 
-“当然是有的，value 允许注解的使用者提供一个无需指定名字的参数。举个例子，我们可以在一个字段上使用 `@JsonField(value = "沉默王二")`，也可以把 `value =` 省略，变成 `@JsonField("沉默王二")`。”我说。
+“当然是有的，value 允许注解的使用者提供一个无需指定名字的参数。举个例子，我们可以在一个字段上使用 `@JsonField(value = "musk")`，也可以把 `value =` 省略，变成 `@JsonField("musk")`。”我说。
 
 
 
@@ -203,7 +203,7 @@ public class JsonSerializer {
 ```java
 public class JsonFieldTest {
     public static void main(String[] args) throws IllegalAccessException {
-        Writer cmower = new Writer(18,"沉默王二","Web全栈开发进阶之路");
+        Writer cmower = new Writer(18,"musk","Web全栈开发进阶之路");
         System.out.println(JsonSerializer.serialize(cmower));
     }
 }
@@ -212,7 +212,7 @@ public class JsonFieldTest {
 程序输出结果如下：
 
 ```
-{"bookName":"Web全栈开发进阶之路","writerName":"沉默王二"}
+{"bookName":"Web全栈开发进阶之路","writerName":"musk"}
 ```
 
 从结果上来看：

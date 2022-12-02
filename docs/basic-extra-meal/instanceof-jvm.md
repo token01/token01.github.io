@@ -17,7 +17,7 @@ head:
 
 我唯唯诺诺，强装镇定，只好把 R 大的一篇回答甩给了他，并且叮嘱他：“认认真真看，玩完后要是还不明白，再来问我。。。”
 
->作者：RednaxelaFX，整理：沉默王二，链接：[https://www.zhihu.com/question/21574535/answer/18998914](https://www.zhihu.com/question/21574535/answer/18998914)
+>作者：RednaxelaFX，整理：musk，链接：[https://www.zhihu.com/question/21574535/answer/18998914](https://www.zhihu.com/question/21574535/answer/18998914)
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/basic-extra-meal/instanceof-jvm-b676fee6-bfd4-4ae9-9c7b-e488e345f775.gif)
 

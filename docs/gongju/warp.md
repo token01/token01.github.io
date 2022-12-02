@@ -83,7 +83,7 @@ Warp 解决的第一个痛点，就是减少配置、方便输入、优化输出
 
 Warp 的智能提示也更加“智能化”，它会猜测你下一步的命令到底输入什么。
 
-比如说我的工作目录下有一个 README.md 的文件，那当我输入 `echo '沉默王二' >>`的时候它会把 `README.md` 提示在后面。
+比如说我的工作目录下有一个 README.md 的文件，那当我输入 `echo 'musk' >>`的时候它会把 `README.md` 提示在后面。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/warp-8948ab59-3ce8-4b04-80a5-ecd7663e1034.png)
 

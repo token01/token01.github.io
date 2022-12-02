@@ -140,7 +140,7 @@ category:
 - 最后建议大家也可以将自己学到的技术分享出去，做好记录成长的同时，也能不断的提高自己的知名度。
 
 
-> 转载链接：[https://www.cnblogs.com/jackyfei/p/12313526.html](https://www.cnblogs.com/jackyfei/p/12313526.html)，整理：沉默王二
+> 转载链接：[https://www.cnblogs.com/jackyfei/p/12313526.html](https://www.cnblogs.com/jackyfei/p/12313526.html)，整理：musk
 
 ----
 

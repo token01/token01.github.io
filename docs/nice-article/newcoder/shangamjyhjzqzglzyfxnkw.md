@@ -13,14 +13,14 @@ head:
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/newcoder-shangamjyhjzqzglzyfxnkw-1568572d-3fc7-458b-8892-b67d6bdba6c5.png)
 
-作者：沉默王二<br>
+作者：musk<br>
 Java 程序员进阶之路：https://tobebetterjavaer.com
 
 大家好，我是musk呀。
 
 之前给[球友](https://mp.weixin.qq.com/s/e5Q4aJCX9xccTzBBGepx4g)们分享过一篇我在牛客上刷到的《**银行开发岗求职攻略**》，今天同步到公众号上来，希望能给更多正在准备秋招的小伙伴一些帮助和启发👍。这篇文章会带你全方位了解银行开发岗求职的每一个环节。
 
->参考链接：[https://www.nowcoder.com/discuss/843133](https://www.nowcoder.com/discuss/843133)，整理：沉默王二
+>参考链接：[https://www.nowcoder.com/discuss/843133](https://www.nowcoder.com/discuss/843133)，整理：musk
 
 ## 银行分类
 

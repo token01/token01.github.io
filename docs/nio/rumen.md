@@ -130,7 +130,7 @@ public static void main(String[] args) {
         System.out.println("--------------------------------------");
 
         // 添加一些数据到缓冲区中         
-        String s = "沉默王二";
+        String s = "musk";
         byteBuffer.put(s.getBytes());
 
         // 看一下初始时4个核心变量的值         
@@ -327,7 +327,7 @@ FileChannel.open(Paths.get("F:\\3yBlog\\JavaEE常用框架\\Elasticsearch就是�
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nio/rumen-dba55dfc-48df-4111-884d-d67227b7723a.jpg)
 
->参考链接：[https://www.zhihu.com/question/29005375/answer/667616386](https://www.zhihu.com/question/29005375/answer/667616386)，整理：沉默王二
+>参考链接：[https://www.zhihu.com/question/29005375/answer/667616386](https://www.zhihu.com/question/29005375/answer/667616386)，整理：musk
 
 ---------
 

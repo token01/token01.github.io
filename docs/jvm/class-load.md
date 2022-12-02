@@ -36,7 +36,7 @@ package com.cmower.java_demo;
 public class Test {
 
     public static void main(String[] args) {
-        System.out.println("沉默王二");
+        System.out.println("musk");
     }
 
 }
@@ -91,13 +91,13 @@ JVM 会在该阶段对类变量（也称为静态变量，`static` 关键字修�
 
 ```java
 public String chenmo = "沉默";
-public static String wanger = "王二";
-public static final String cmower = "沉默王二";
+public static String wanger = "musk";
+public static final String cmower = "musk";
 ```
 
-chenmo 不会被分配内存，而 wanger 会；但 wanger 的初始值不是“王二”而是 `null`。
+chenmo 不会被分配内存，而 wanger 会；但 wanger 的初始值不是“musk”而是 `null`。
 
-需要注意的是，`static final` 修饰的变量被称作为常量，和类变量不同。常量一旦赋值就不会改变了，所以 cmower 在准备阶段的值为“沉默王二”而不是 `null`。
+需要注意的是，`static final` 修饰的变量被称作为常量，和类变量不同。常量一旦赋值就不会改变了，所以 cmower 在准备阶段的值为“musk”而不是 `null`。
 
 4）Resolution（解析）
 
@@ -118,7 +118,7 @@ what？符号引用，直接引用？
 oh，no，上面这段话说得很抽象，不好理解，对不对，我来举个例子。
 
 ```java
-String cmower = new String("沉默王二");
+String cmower = new String("musk");
 ```
 
 上面这段代码使用了 `new` 关键字来实例化一个字符串对象，那么这时候，就会调用 String 类的构造方法对 cmower 进行实例化。

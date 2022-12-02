@@ -70,7 +70,7 @@ Date date = Convert.toDate(dateStr);
 把字符串转成 Unicode：
 
 ```java
-String unicodeStr = "沉默王二";
+String unicodeStr = "musk";
 String unicode = Convert.strToUnicode(unicodeStr);
 ```
 
@@ -186,8 +186,8 @@ Hutool 封装的字符串工具类 StrUtil 和 Apache Commons Lang 包中的 Str
 
 ```java
 String template = "{}，一枚沉默但有趣的程序员，喜欢他的文章的话，请微信搜索{}";
-String str = StrUtil.format(template, "沉默王二", "沉默王二");
-// 沉默王二，一枚沉默但有趣的程序员，喜欢他的文章的话，请微信搜索沉默王二
+String str = StrUtil.format(template, "musk", "musk");
+// musk，一枚沉默但有趣的程序员，喜欢他的文章的话，请微信搜索musk
 ```
 
 ## 06、反射工具
@@ -217,7 +217,7 @@ public class ReflectDemo {
     }
 
     public void print() {
-        System.out.println("我是沉默王二");
+        System.out.println("我是musk");
     }
 
     public static void main(String[] args) throws IllegalAccessException {
@@ -281,7 +281,7 @@ Java 中的 HashMap 是强类型的，而 Hutool 封装的 Dict 对键的类型�
 ```java
 Dict dict = Dict.create()
         .set("age", 18)
-        .set("name", "沉默王二")
+        .set("name", "musk")
         .set("birthday", DateTime.now());
 
 int age = dict.getInt("age");
@@ -296,7 +296,7 @@ String name = dict.getStr("name");
 public class ConsoleDemo {
     public static void main(String[] args) {
         // 打印字符串
-        Console.log("沉默王二，一枚有趣的程序员");
+        Console.log("musk，一枚有趣的程序员");
 
         // 打印字符串模板
         Console.log("洛阳是{}朝古都",13);
@@ -320,7 +320,7 @@ public class ConsoleDemo {
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/common-tool/hutool-05.png)
 
 ```java
-Validator.isEmail("沉默王二");
+Validator.isEmail("musk");
 Validator.isMobile("itwanger.com");
 ```
 
@@ -330,7 +330,7 @@ Guava 中提供了一种特殊的 Map 结构，叫做 BiMap，实现了一种双
 
 ```java
 BiMap<String, String> biMap = new BiMap<>(new HashMap<>());
-biMap.put("wanger", "沉默王二");
+biMap.put("wanger", "musk");
 biMap.put("wangsan", "沉默王三");
 
 // get value by key
@@ -338,7 +338,7 @@ biMap.get("wanger");
 biMap.get("wangsan");
 
 // get key by value
-biMap.getKey("沉默王二");
+biMap.getKey("musk");
 biMap.getKey("沉默王三");
 ```
 
@@ -376,7 +376,7 @@ ImgUtil.cut(
 ImgUtil.pressText(//
         FileUtil.file("hutool/wangsan.jpg"),
         FileUtil.file("hutool/wangsan_logo.jpg"),
-        "沉默王二", Color.WHITE,
+        "musk", Color.WHITE,
         new Font("黑体", Font.BOLD, 100),
         0,
         0,
@@ -401,7 +401,7 @@ ImgUtil.pressText(//
 先整个配置文件 example.setting，内容如下：
 
 ```
-name=沉默王二
+name=musk
 age=18
 ```
 
@@ -415,7 +415,7 @@ public class SettingDemo {
         Setting setting = new Setting(SETTING);
 
         // 读取
-        setting.getStr("name", "沉默王二");
+        setting.getStr("name", "musk");
 
         // 在配置文件变更时自动加载
         setting.autoLoad(true);
@@ -446,7 +446,7 @@ public class LogDemo {
 如果不想创建 Log 对象的话，可以使用 StaticLog，顾名思义，一个提供了静态方法的日志类。
 
 ```java
-StaticLog.info("爽啊 {}.", "沉默王二的文章");
+StaticLog.info("爽啊 {}.", "musk的文章");
 ```
 
 ## 16、缓存工具
@@ -458,7 +458,7 @@ CacheUtil 是 Hutool 封装的创建缓存的快捷工具类，可以创建不�
 ```java
 Cache<String, String> fifoCache = CacheUtil.newFIFOCache(3);
 fifoCache.put("key1", "沉默王一");
-fifoCache.put("key2", "沉默王二");
+fifoCache.put("key2", "musk");
 fifoCache.put("key3", "沉默王三");
 fifoCache.put("key4", "沉默王四");
 
@@ -474,7 +474,7 @@ Cache<String, String> lfuCache = CacheUtil.newLFUCache(3);
 lfuCache.put("key1", "沉默王一");
 // 使用次数+1
 lfuCache.get("key1");
-lfuCache.put("key2", "沉默王二");
+lfuCache.put("key2", "musk");
 lfuCache.put("key3", "沉默王三");
 lfuCache.put("key4", "沉默王四");
 
@@ -489,7 +489,7 @@ String value3 = lfuCache.get("key3");
 Cache<String, String> lruCache = CacheUtil.newLRUCache(3);
 
 lruCache.put("key1", "沉默王一");
-lruCache.put("key2", "沉默王二");
+lruCache.put("key2", "musk");
 lruCache.put("key3", "沉默王三");
 // 使用时间近了
 lruCache.get("key1");
@@ -540,7 +540,7 @@ Hutool 针对这三种情况都做了封装：
 public class SecureUtilDemo {
     static AES aes = SecureUtil.aes();
     public static void main(String[] args) {
-        String encry = aes.encryptHex("沉默王二");
+        String encry = aes.encryptHex("musk");
         System.out.println(encry);
         String oo = aes.decryptStr(encry);
         System.out.println(oo);

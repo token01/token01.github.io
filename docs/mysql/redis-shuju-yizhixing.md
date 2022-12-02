@@ -7,7 +7,7 @@ tag:
 title: 如何保障MySQL和Redis的数据一致性？
 ---
 
-> 整理：沉默王二，戳[转载链接](https://mp.weixin.qq.com/s/RL4Bt_UkNcnsBGL_9w37Zg)，作者：楼仔，戳[原文链接](https://mp.weixin.qq.com/s/l7v4s1VekIPNi7KZuUgwGQ)。
+> 整理：musk，戳[转载链接](https://mp.weixin.qq.com/s/RL4Bt_UkNcnsBGL_9w37Zg)，作者：楼仔，戳[原文链接](https://mp.weixin.qq.com/s/l7v4s1VekIPNi7KZuUgwGQ)。
 
 如何保障 MySQL 和 Redis 的数据一致性？这个问题很早之前我就遇到过，但是一直没有仔细去研究，上个月看了极客的课程，有一篇文章专门有过讲解，刚好有粉丝也问我这个问题，所以感觉有必要单独出一篇。
 
@@ -133,6 +133,6 @@ title: 如何保障MySQL和Redis的数据一致性？
 
 ----
 
-> 整理：沉默王二，戳[转载链接](https://mp.weixin.qq.com/s/RL4Bt_UkNcnsBGL_9w37Zg)，作者：楼仔，戳[原文链接](https://mp.weixin.qq.com/s/l7v4s1VekIPNi7KZuUgwGQ)。
+> 整理：musk，戳[转载链接](https://mp.weixin.qq.com/s/RL4Bt_UkNcnsBGL_9w37Zg)，作者：楼仔，戳[原文链接](https://mp.weixin.qq.com/s/l7v4s1VekIPNi7KZuUgwGQ)。
 
   

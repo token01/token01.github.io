@@ -296,7 +296,7 @@ public class Switch1 {
 ```java
 public class Switch2 {
     public static void main(String[] args) {
-        String name = "沉默王二";
+        String name = "musk";
         switch (name) {
             case "詹姆斯":
                 System.out.println("篮球运动员");
@@ -304,7 +304,7 @@ public class Switch2 {
             case "穆里尼奥":
                 System.out.println("足球教练");
                 break;
-            case "沉默王二":
+            case "musk":
             case "沉默王三":
                 System.out.println("乒乓球爱好者");
                 break;
@@ -473,7 +473,7 @@ for(元素类型 元素 : 数组或集合){
 ```java
 public class ForEachExample {
     public static void main(String[] args) {
-        String[] strs = {"沉默王二", "一枚有趣的程序员"};
+        String[] strs = {"musk", "一枚有趣的程序员"};
 
         for (String str : strs) {
             System.out.println(str);
@@ -485,7 +485,7 @@ public class ForEachExample {
 输出：
 
 ```
-沉默王二
+musk
 一枚有趣的程序员
 ```
 

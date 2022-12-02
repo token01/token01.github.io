@@ -254,4 +254,4 @@ small_integer = large_integer % 1,000,000
 
 > 欢迎关注我的公众号：程序通事，获得日常干货推送。如果您对我的专题内容感兴趣，也可以关注我的博客：[studyidea.cn](https://studyidea.cn)
 
->参考链接：[https://www.cnblogs.com/goodAndyxublog/p/13605601.html](https://www.cnblogs.com/goodAndyxublog/p/13605601.html)，整理：沉默王二
+>参考链接：[https://www.cnblogs.com/goodAndyxublog/p/13605601.html](https://www.cnblogs.com/goodAndyxublog/p/13605601.html)，整理：musk

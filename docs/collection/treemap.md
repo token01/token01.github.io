@@ -71,11 +71,11 @@ TreeMap 由红黑树实现，可以保持元素的自然顺序，或者实现了
 
 ```
 TreeMap<Integer,String> mapInt = new TreeMap<>();
-mapInt.put(3, "沉默王二");
-mapInt.put(2, "沉默王二");
-mapInt.put(1, "沉默王二");
-mapInt.put(5, "沉默王二");
-mapInt.put(4, "沉默王二");
+mapInt.put(3, "musk");
+mapInt.put(2, "musk");
+mapInt.put(1, "musk");
+mapInt.put(5, "musk");
+mapInt.put(4, "musk");
 
 System.out.println(mapInt);
 ```
@@ -83,7 +83,7 @@ System.out.println(mapInt);
 输出结果如下所示：
 
 ```
-{1=沉默王二, 2=沉默王二, 3=沉默王二, 4=沉默王二, 5=沉默王二}
+{1=musk, 2=musk, 3=musk, 4=musk, 5=musk}
 ```
 
 TreeMap 是怎么做到的呢？想一探究竟，就得上源码了，来看 TreeMap 的 `put()` 方法（省去了一部分，版本为 JDK 14）：
@@ -147,11 +147,11 @@ public int compareTo(String anotherString) {
 
 ```
 TreeMap<String,String> mapString = new TreeMap<>();
-mapString.put("c", "沉默王二");
-mapString.put("b", "沉默王二");
-mapString.put("a", "沉默王二");
-mapString.put("e", "沉默王二");
-mapString.put("d", "沉默王二");
+mapString.put("c", "musk");
+mapString.put("b", "musk");
+mapString.put("a", "musk");
+mapString.put("e", "musk");
+mapString.put("d", "musk");
 
 System.out.println(mapString);
 ```
@@ -159,7 +159,7 @@ System.out.println(mapString);
 输出结果如下所示：
 
 ```
-{a=沉默王二, b=沉默王二, c=沉默王二, d=沉默王二, e=沉默王二}
+{a=musk, b=musk, c=musk, d=musk, e=musk}
 ```
 
 字母的升序，对吧？
@@ -170,11 +170,11 @@ System.out.println(mapString);
 
 ```
 TreeMap<Integer,String> mapIntReverse = new TreeMap<>(Comparator.reverseOrder());
-mapIntReverse.put(3, "沉默王二");
-mapIntReverse.put(2, "沉默王二");
-mapIntReverse.put(1, "沉默王二");
-mapIntReverse.put(5, "沉默王二");
-mapIntReverse.put(4, "沉默王二");
+mapIntReverse.put(3, "musk");
+mapIntReverse.put(2, "musk");
+mapIntReverse.put(1, "musk");
+mapIntReverse.put(5, "musk");
+mapIntReverse.put(4, "musk");
 
 System.out.println(mapIntReverse);
 ```
@@ -192,7 +192,7 @@ public TreeMap(Comparator<? super K> comparator) {
 所以，输出结果如下所示：
 
 ```
-{5=沉默王二, 4=沉默王二, 3=沉默王二, 2=沉默王二, 1=沉默王二}
+{5=musk, 4=musk, 3=musk, 2=musk, 1=musk}
 ```
 
 HashMap 是无序的，插入的顺序随着元素的增加会不停地变动。但 TreeMap 能够至始至终按照指定的顺序排列，这对于需要自定义排序的场景，实在是太有用了！

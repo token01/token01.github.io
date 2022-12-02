@@ -129,7 +129,7 @@ rabbitmq-plugins enable rabbitmq_management
 你好呀，小巷。
 你走了以后我每天都感到很闷，就像堂吉诃德一样，每天想念托波索的达辛妮亚。我现在已经养成了一种习惯，就是每两三天就要找你说几句不想对别人说的话。
 。。。。。。
-王二，5月20日
+musk，5月20日
 
 那这封情书要寄给小巷，我就需要跑到邮局，买上邮票，投递到邮箱当中。女朋友要收到这封情书，就需要邮递员尽心尽力，不要弄丢了。
 
@@ -148,7 +148,7 @@ public class Wanger {
             channel.queueDeclare(QUEUE_NAME, false, false, false, null);
             String message = "小巷，我喜欢你。";
             channel.basicPublish("", QUEUE_NAME, null, message.getBytes(StandardCharsets.UTF_8));
-            System.out.println(" [王二] 发送 '" + message + "'");
+            System.out.println(" [musk] 发送 '" + message + "'");
         }
     }
 }

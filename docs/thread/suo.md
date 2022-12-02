@@ -427,7 +427,7 @@ protected final int tryAcquireShared(int unused) {
 
 *   家琪，美团点评后端工程师。2017 年加入美团点评，负责美团点评境内度假的业务开发。
 
->参考链接：[https://tech.meituan.com/2018/11/15/java-lock.html](https://tech.meituan.com/2018/11/15/java-lock.html)，整理：沉默王二
+>参考链接：[https://tech.meituan.com/2018/11/15/java-lock.html](https://tech.meituan.com/2018/11/15/java-lock.html)，整理：musk
 
 ----
 

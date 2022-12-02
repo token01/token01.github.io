@@ -49,7 +49,7 @@ public class Test {
     public static void main(String[] args) {
         Writer writer = new Writer();
         writer.setAge(18);
-        writer.setName("沉默王二");
+        writer.setName("musk");
 
         String json = JSON.toJSONString(writer);
         System.out.println(json);
@@ -70,7 +70,7 @@ Writer 是一个普通的 Java 类，有两个字段，分别是 age 和 name，
 来看一下打印后的结果。
 
 ```
-{"age":18,"name":"沉默王二"}
+{"age":18,"name":"musk"}
 ```
 
 如果想反序列化的话，执行以下的代码即可。
@@ -84,7 +84,7 @@ Writer writer1 = JSON.parseObject(json, Writer.class);
 如果想把 JSON 字符串转成集合的话，需要调用另外一个静态方法 `JSON.parseArray()`。
 
 ```java
-List<Writer> list = JSON.parseArray("[{\"age\":18,\"name\":\"沉默王二\"},{\"age\":19,\"name\":\"沉默王一\"}]", Writer.class);
+List<Writer> list = JSON.parseArray("[{\"age\":18,\"name\":\"musk\"},{\"age\":19,\"name\":\"沉默王一\"}]", Writer.class);
 ```
 
 如果没有特殊要求的话，我敢这么说，以上 3 个方法就可以覆盖到你绝大多数的业务场景了。
@@ -148,7 +148,7 @@ class Writer {
 ```java
 Writer writer = new Writer();
 writer.setAge(18);
-writer.setName("沉默王二");
+writer.setName("musk");
 writer.setBirthday(new Date());
 
 String json = JSON.toJSONString(writer);

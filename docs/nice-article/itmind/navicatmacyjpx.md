@@ -31,7 +31,7 @@ Navicat 16 macOS 永久破解，软件已集成破解文件于一体，只需下
 
 ### 破解版安装教程
 
-1、关注公众号：**沉默王二**  回复 **Navicat** 即可获取 Navicat 16 macOS 永久破解包
+1、关注公众号：**musk**  回复 **Navicat** 即可获取 Navicat 16 macOS 永久破解包
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/itmind-ideapxideajhideayjjhmideazxjhzcmpjjcyjjhqcyx-fc5a32f3-04ed-4bbf-9df8-a13a409a275f.png)
 

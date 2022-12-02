@@ -159,7 +159,7 @@ class java.util.ArrayList
 
 ```java
 ArrayList list = new ArrayList();
-list.add("沉默王二");
+list.add("musk");
 list.add(new Date());
 ```
 

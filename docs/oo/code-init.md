@@ -37,7 +37,7 @@ public class Bike {
 
     {
         list = new ArrayList<>();
-        list.add("沉默王二");
+        list.add("musk");
         list.add("沉默王三");
     }
 

@@ -186,7 +186,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 public class MyInterceptorController {
     @RequestMapping("/hello")
     public String hello() {
-        return "沉默王二是傻X";
+        return "musk是傻X";
     }
 }
 ```

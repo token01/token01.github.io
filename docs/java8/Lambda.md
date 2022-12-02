@@ -22,10 +22,10 @@ head:
 Lambda 表达式描述了一个代码块（或者叫匿名方法），可以将其作为参数传递给构造方法或者普通方法以便后续执行。考虑下面这段代码：
 
 ```java
-() -> System.out.println("沉默王二")
+() -> System.out.println("musk")
 ```
 
-来从左到右解释一下，`()` 为 Lambda 表达式的参数列表（本例中没有参数），`->` 标识这串代码为 Lambda 表达式（也就是说，看到 `->` 就知道这是 Lambda），`System.out.println("沉默王二")` 为要执行的代码，即将“沉默王二”打印到标准输出流。
+来从左到右解释一下，`()` 为 Lambda 表达式的参数列表（本例中没有参数），`->` 标识这串代码为 Lambda 表达式（也就是说，看到 `->` 就知道这是 Lambda），`System.out.println("musk")` 为要执行的代码，即将“musk”打印到标准输出流。
 
 有点 Java 基础的同学应该不会对 Runnable 接口感到陌生，这是多线程的一个基础接口，它的定义如下：
 
@@ -53,7 +53,7 @@ public class LamadaTest {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                System.out.println("沉默王二");
+                System.out.println("musk");
             }
         }).start();
     }
@@ -65,7 +65,7 @@ public class LamadaTest {
 ```java
 public class LamadaTest {
     public static void main(String[] args) {
-        new Thread(() -> System.out.println("沉默王二")).start();
+        new Thread(() -> System.out.println("musk")).start();
     }
 }
 ```
@@ -93,7 +93,7 @@ public class LamadaTest {
 1）为变量赋值，示例如下：
 
 ```java
-Runnable r = () -> { System.out.println("沉默王二"); };
+Runnable r = () -> { System.out.println("musk"); };
 r.run();
 ```
 
@@ -119,7 +119,7 @@ final PathMatcher matchers[] =
 4）作为普通方法或者构造方法的参数，示例如下：
 
 ```java
-new Thread(() -> System.out.println("沉默王二")).start();
+new Thread(() -> System.out.println("musk")).start();
 ```
 
 需要注意 Lambda 表达式的作用域范围。

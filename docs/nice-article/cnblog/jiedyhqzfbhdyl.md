@@ -197,4 +197,4 @@ category:
 最后聊了下银行卡支付对接过程中一些问题，有些例子，可以集成到测试案例中。每当对接一个渠道时，就可以按照案例执行。
 
 
->参考链接：[https://www.cnblogs.com/goodAndyxublog/p/12914676.html](https://www.cnblogs.com/goodAndyxublog/p/12914676.html)，整理：沉默王二
+>参考链接：[https://www.cnblogs.com/goodAndyxublog/p/12914676.html](https://www.cnblogs.com/goodAndyxublog/p/12914676.html)，整理：musk

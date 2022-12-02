@@ -510,7 +510,7 @@ public class ThreadLocalDemo {
 
 ---
 
-> 编辑：沉默王二，更多关于并发编程的源码分析，可以参考[并发编程知识总结](https://github.com/CL0610/Java-concurrency)这个开源知识库。
+> 编辑：musk，更多关于并发编程的源码分析，可以参考[并发编程知识总结](https://github.com/CL0610/Java-concurrency)这个开源知识库。
 
 ---
 

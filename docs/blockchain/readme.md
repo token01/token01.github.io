@@ -2,6 +2,10 @@
 title: Web3.0进阶之路
 isOriginal: true
 headerDepth: 1
+category:
+  - 区块链学习
+tag:
+  - 区块链学习
 description: 凤凰蜕变进阶之路，小白的零基础软件教程，从入门到进阶
 head:
   - - meta

@@ -21,10 +21,10 @@ projects:
   - icon: article
     name: 学习路线
     desc: CS 学习指南
-    link: /xuexiluxian/
+    link: /learningPath/
 
   - icon: friend
-    name: 面渣逆袭
+    name: 面试逆袭
     desc: 面试找工作前必刷
     link: /sidebar/sanfene/nixi.md
 

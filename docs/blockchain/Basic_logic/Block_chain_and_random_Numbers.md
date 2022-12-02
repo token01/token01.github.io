@@ -1,6 +1,6 @@
 ---
 title: 区块链与随机数
-shortTitle: 区块链详细介绍 
+shortTitle: 区块链与随机数 
 category:
   - 区块链
 tag:

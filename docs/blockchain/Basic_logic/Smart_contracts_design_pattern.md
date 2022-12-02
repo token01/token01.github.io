@@ -1,6 +1,6 @@
 ---
-title: 区块链-设计模式
-shortTitle: 区块链-设计模式 
+title: 区块链之设计模式
+shortTitle: 区块链之设计模式 
 category:
   - 区块链
 tag:

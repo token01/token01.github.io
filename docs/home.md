@@ -14,15 +14,15 @@ head:
 
 ## 为什么会有这个开源知识库
 
-
 <!-- 知识库取名 **toBeBetterJavaer**，即 **To Be Better Javaer**，意为「成为一名更好的 Java 程序员」，是自学 Java 以来所有原创文章和学习资料的大聚合。内容包括 Java 基础、Java 并发编程、Java 虚拟机、Java 企业级开发、Java 面试等核心知识点。据说每一个优秀的 Java 程序员都喜欢她，风趣幽默、通俗易懂。学 Java，就认准 Java 程序员进阶之路😄。
   -->
  知识库旨在为学习 Java 的小伙伴提供一系列：
- - **优质的原创 Java 教程**
- - **全面清晰的 Java 学习路线**
- - **免费但靠谱的 Java 学习资料**
- - **精选的 Java 岗求职面试指南**
- - **Java 企业级开发所需的必备技术**
+
+- **优质的原创 Java 教程**
+- **全面清晰的 Java 学习路线**
+- **免费但靠谱的 Java 学习资料**
+- **精选的 Java 岗求职面试指南**
+- **Java 企业级开发所需的必备技术**
 
 赠人玫瑰手有余香。知识库会持续保持**更新**，欢迎收藏品鉴！推荐你通过在线阅读网站进行阅读，体验更好，速度更快！
 
@@ -36,19 +36,19 @@ head:
 
 除了 Java 学习路线，还有 C语言、C++、Python、Go 语言、操作系统、前端、数据结构与算法、 大数据、Android、MySQL等硬核学习路线，欢迎收藏品鉴！
 
-* [Java学习路线一条龙版（建议收藏🔥）](learningPath/java/yitiaolong.md)
-* [Java并发编程学习路线（建议收藏🔥）](learningPath/java/thread.md)
-* [Java虚拟机学习路线（建议收藏🔥）](learningPath/java/jvm.md)
-* [C语言学习路线（建议收藏🔥）](learningPath/c.md)
-* [C++学习路线（建议收藏🔥）](learningPath/ccc.md)
-* [Python学习路线（建议收藏🔥）](learningPath/python.md)
-* [Go语言学习路线（建议收藏🔥）](learningPath/go.md)
-* [操作系统学习路线（建议收藏🔥）](learningPath/os.md)
-* [前端学习路线（建议收藏🔥）](learningPath/qianduan.md)
-* [算法和数据结构学习路线（建议收藏🔥）](learningPath/algorithm.md)
-* [大数据学习路线（建议收藏🔥）](learningPath/bigdata.md)
-* [Android 安卓学习路线（建议收藏🔥）](learningPath/android.md)
-* [MySQL 学习路线（建议收藏🔥）](learningPath/mysql.md)
+- [Java学习路线一条龙版（建议收藏🔥）](learningPath/java/yitiaolong.md)
+- [Java并发编程学习路线（建议收藏🔥）](learningPath/java/thread.md)
+- [Java虚拟机学习路线（建议收藏🔥）](learningPath/java/jvm.md)
+- [C语言学习路线（建议收藏🔥）](learningPath/c.md)
+- [C++学习路线（建议收藏🔥）](learningPath/ccc.md)
+- [Python学习路线（建议收藏🔥）](learningPath/python.md)
+- [Go语言学习路线（建议收藏🔥）](learningPath/go.md)
+- [操作系统学习路线（建议收藏🔥）](learningPath/os.md)
+- [前端学习路线（建议收藏🔥）](learningPath/qianduan.md)
+- [算法和数据结构学习路线（建议收藏🔥）](learningPath/algorithm.md)
+- [大数据学习路线（建议收藏🔥）](learningPath/bigdata.md)
+- [Android 安卓学习路线（建议收藏🔥）](learningPath/android.md)
+- [MySQL 学习路线（建议收藏🔥）](learningPath/mysql.md)
 
 ## 面渣逆袭
 
@@ -66,7 +66,6 @@ head:
 - [面渣逆袭（计算机网络八股文面试题）必看👍](sidebar/sanfene/network.md)
 - [面渣逆袭（RocketMQ八股文面试题）必看👍](sidebar/sanfene/rocketmq.md)
 
-
 ## Java 核心
 
 **Java 核心非常重要**！我将其分成了Java 基础篇（包括基础语法、面向对象、集合框架、异常处理、Java IO 等）、Java 并发篇和 Java 虚拟机篇。
@@ -79,7 +78,6 @@ head:
 - [安装Java开发工具包JDK](overview/jdk-install-config.md)
 - [安装集成开发环境Intellij IDEA](overview/IDEA-install-config.md)
 - [编写第一个Java程序：Hello World](overview/hello-world.md)
-
 
 ### Java基础语法
 
@@ -139,7 +137,6 @@ head:
 - [详解 Java 中的优先级队列（PriorityQueue 附源码分析）](collection/PriorityQueue.md)
 - [Java WeakHashMap详解（附源码分析）](collection/WeakHashMap.md)
 
-
 ### Java输入输出
 
 - [看完这篇，Java IO 不再混乱！](io/shangtou.md)
@@ -152,7 +149,6 @@ head:
 - [Java Serializable：明明就一个空的接口嘛](io/Serializbale.md)
 - [招银面试官：说说Java transient关键字](io/transient.md)
 - [Java打印流：PrintStream & PrintWriter](io/print.md)
-
 
 ### 异常处理
 
@@ -212,9 +208,7 @@ head:
 - [使用Java NIO完成网络通信](nio/network-connect.md)
 - [如何给女朋友解释什么是 BIO、NIO 和 AIO？](nio/BIONIOAIO.md)
 
-
 ### Java并发编程
-
 
 - [室友打了一把王者就学会了创建Java线程的3种方式](thread/wangzhe-thread.md)
 - [Java线程的6种状态及切换(透彻讲解)](thread/thread-state-and-method.md)
@@ -246,7 +240,6 @@ head:
 - [深入理解Java并发编程之Fork/Join框架](thread/fork-join.md)
 - [从根上理解生产者-消费者模式](thread/shengchanzhe-xiaofeizhe.md)
 
-
 ### Java虚拟机
 
 - [什么是JVM？](jvm/what-is-jvm.md)
@@ -272,9 +265,8 @@ head:
 
 ## Java企业级开发
 
- - **到底能不能成为一名合格的 Java 程序员，从理论走向实战？Java 企业级开发这部分内容就是一个分水岭**！
- - 纸上得来终觉浅，须知此事要躬行。
-
+- **到底能不能成为一名合格的 Java 程序员，从理论走向实战？Java 企业级开发这部分内容就是一个分水岭**！
+- 纸上得来终觉浅，须知此事要躬行。
 
 ### 开发/构建工具
 
@@ -295,7 +287,6 @@ head:
 > Maven 是目前比较流行的一个项目构建工具，基于 pom 坐标来帮助我们管理第三方依赖，以及项目打包。
 
 - [终于把项目构建神器Maven捋清楚了~](maven/maven.md)
-
 
 #### Git
 
@@ -356,7 +347,6 @@ head:
 - [Logback：Spring Boot内置的日志处理框架](gongju/logback.md)
 - [SLF4J：阿里巴巴强制使用的日志门面担当](gongju/slf4j.md)
 
-
 ### 分布式
 
 - [全文搜索引擎Elasticsearch入门教程](elasticsearch/rumen.md)
@@ -371,9 +361,7 @@ head:
 
 ## 数据库
 
-
 **简而言之，就是按照数据结构来组织、存储和管理数据的仓库**。几乎所有的 Java 后端开发都要学习数据库这块的知识，包括关系型数据库 MySQL，缓存中间件 Redis，非关系型数据库 MongoDB 等。
-
 
 ### MySQL
 
@@ -384,12 +372,9 @@ head:
 - [Redis入门(适合新手)](redis/rumen.md)
 - [聊聊缓存雪崩、穿透、击穿](redis/xuebeng-chuantou-jichuan.md)
 
-
-
 ### MongoDB
 
 - [MongoDB最基础入门教程](mongodb/rumen.md)
-
 
 ## 计算机基础
 
@@ -400,9 +385,7 @@ head:
 
 ## 求职面试
 
-
 **学习了那么多 Java 知识，耗费了无数的脑细胞，熬掉了无数根秀发，为的是什么？当然是谋取一份心仪的 offer 了**。那八股文、面试题、城市选择、优质面经又怎能少得了呢？千淘万漉虽辛苦，吹尽狂沙始到金。
-
 
 ### 面试题&八股文
 
@@ -418,7 +401,6 @@ head:
 - [携程面试官👤：大文件上传时如何做到秒传？](interview/mianshiguan-bigfile-miaochuan.md)
 - [阿里面试官👤：为什么要分库分表？](interview/mianshiguan-fenkufenbiao.md)
 - [淘宝面试官👤：优惠券系统该如何设计？](interview/mianshiguan-youhuiquan.md)
-
 
 ### 学习建议
 
@@ -436,7 +418,3 @@ head:
 - [不到 20 人的 IT 公司该去吗？](xuexijianyi/20ren-it-quma.md)
 - [本科生如何才能进入腾讯、阿里等一流的互联网公司？](xuexijianyi/benkesheng-ali-tengxun.md)
 - [计算机考研 408 统考该如何准备？](xuexijianyi/408.md)
-
-
-
-

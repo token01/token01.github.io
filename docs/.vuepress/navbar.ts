@@ -14,7 +14,7 @@ export default navbar([
   { 
     text: "Web3.0进阶之路", 
     icon: "lujing", 
-    link: "/blockchain" 
+    link: "/blockchain/" 
   },
   // { 
   //   text: "知识星球", 
@@ -31,7 +31,7 @@ export default navbar([
     icon: "youzhi",
     children: [
       { 
-        text: "面渣逆袭", 
+        text: "面试逆袭", 
         icon: "zhunbei", 
         link: "/sidebar/sanfene/nixi.md" 
       },

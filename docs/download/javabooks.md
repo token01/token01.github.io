@@ -4,15 +4,13 @@
   <a href="https://www.zhihu.com/people/cmower"><img src="https://img.shields.io/badge/知乎-musk-informational.svg?style=for-the-badge" alt="知乎"></a>
   <a href="https://blog.csdn.net/qing_gee"><img src="https://img.shields.io/badge/CSDN-musk-important.svg?style=for-the-badge" alt="CSDN"></a>
   <a href="https://space.bilibili.com/513340480"><img src="https://img.shields.io/badge/哔哩哔哩-musk-9cf?style=for-the-badge" alt="哔哩哔哩"></a>
-  <a href="https://github.com/token01/token01.github.io"><img src="https://img.shields.io/badge/GitHub-凤凰蜕变进阶之路-critical.svg?style=for-the-badge" alt="凤凰蜕变进阶之路"></a> 
+  <a href="https://github.com/token01/token01.github.io"><img src="https://img.shields.io/badge/GitHub-凤凰蜕变进阶之路-critical.svg?style=for-the-badge" alt="凤凰蜕变进阶之路"></a>
   <a href="https://github.com/itwanger/JavaBooks"><img src="https://img.shields.io/badge/PDF-免费计算机书籍-lightgrey.svg?style=for-the-badge" alt="免费PDF"></a>
 </p>
 
-
 #### 1、👉 如果国内访问Github网速较慢，我在码云也放了一份书籍资源，国内访问速度更快，<a href="https://gitee.com/itwanger/JavaBooks" target="_blank">点此直达 </a>
 
-本仓库**持续更新**中，后续会陆续分享更多经典电子书，**强烈建议大家 Star 下本仓库**，下次找书可以直接 **Ctrl + F**，找书再也不愁 ！ 
-
+本仓库**持续更新**中，后续会陆续分享更多经典电子书，**强烈建议大家 Star 下本仓库**，下次找书可以直接 **Ctrl + F**，找书再也不愁 ！
 
 #### 2、🔥🔥🔥凤凰蜕变进阶之路
 
@@ -24,82 +22,66 @@
   </a>
 </div>
 
-  
+#### 3、👍🏻一位美团后端研发工程师的面渣逆袭手册，<a href="https://tobebetterjavaer.com/sidebar/sanfene/nixi.html" target="_blank">点此一键免费获取</a>
 
-#### 3、👍🏻一位美团后端研发工程师的面渣逆袭手册，<a href="https://tobebetterjavaer.com/sidebar/sanfene/nixi.html" target="_blank">点此一键免费获取</a> 
-
-#### 4、⭐可能是2022年全网最全的学习和找工作的PDF资源，<a href="https://tobebetterjavaer.com/pdf/" target="_blank">点此一键免费获取</a> 
+#### 4、⭐可能是2022年全网最全的学习和找工作的PDF资源，<a href="https://tobebetterjavaer.com/pdf/" target="_blank">点此一键免费获取</a>
 
 #### 5、😜发现一个相当不错的计算机各类种语言&学科学习路线， <a href="https://tobebetterjavaer.com/xuexiluxian/" target="_blank">点此查看</a>
 
-#### 6、赞赏
-
-<div align=left>
-    <p>这些书籍基本都是我从一个盗版电子书网站上收集到的，网址是：kanshuy1234.com，现在分享出来希望能对大家有所帮助，自己也花了很久时间整理出来的。<br><br>
-      如果觉得本仓库有用，赏赐一块钱，买杯奶茶喝可好？感谢您了~</p>
-<figure class="half" align="center">
-    <img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/weixin-zhifu.png" width="260px" />
-</figure></div>
-
-
->点击下列目录直接跳转书籍所在类别，但有时目录跳转会失灵...如果没有没有正常跳转可以动动小手向下拉即可，全部的书籍都在本页面。 
->
->笔者是一个人在维护这个仓库，本地大概是1100多本书了，需要一步步慢慢上传，我只能在闲暇时间慢慢更新，目前已经更新超过1000+了，如果没有您要用的书，可以加一下 **个人微信**([qing_gee](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/qing_gee_noname.jpg))，注明来意，我会慢慢添加上去的。一个人的力量是有限的，请谅解一下。
-
-- [01、入门](#入门)
-- [02、工具](#工具)
-- [03、框架](#框架)
-  - [Struts2](#Struts2)
-  - [Spring](#Spring)
-  - [Netty](#Netty)
-- [04、数据库](#10、数据库)
-  - [SQL](#SQL)
-  - [MySQL](#MySQL)
-  - [Redis](#Redis)
-  - [MongoDB](#MongoDB)
-- [05、并发编程](#并发编程)
-- [06、JVM](#JVM)
-- [07、性能优化](#性能优化)
-- [08、设计模式](#设计模式)
-- [09、操作系统](#操作系统)
-  - [Linux 基础知识](#Linux基础知识)
-  - [Linux 环境编程](#Linux环境编程)
-  - [Linux 内核](#Linux内核)
-- [10、计算机网络](#计算机网络)
-  - [Linux 网络编程](#Linux网络编程)
+- [入门](#入门)
+- [工具](#工具)
+- [框架](#框架)
+  - [Struts2](#struts2)
+  - [Spring](#spring)
+  - [Netty](#netty)
+- [数据库](#数据库)
+  - [SQL](#sql)
+  - [MySQL](#mysql)
+  - [Redis](#redis)
+  - [MongoDB](#mongodb)
+- [并发编程](#并发编程)
+- [JVM](#jvm)
+- [性能优化](#性能优化)
+- [设计模式](#设计模式)
+- [操作系统](#操作系统)
+  - [Linux基础知识](#linux基础知识)
+  - [Linux环境编程](#linux环境编程)
+  - [Linux内核](#linux内核)
+- [计算机网络](#计算机网络)
+  - [Linux网络编程](#linux网络编程)
   - [wireshark](#wireshark)
-- [11、数据结构与算法](#数据结构与算法)
-- [12、面试](#面试)
-- [13、大数据](#大数据)
-- [14、架构](#架构)
-- [15、管理](#管理)
-- [16、扩展](#扩展)
-  - [领域驱动设计](#DDD)
+- [数据结构与算法](#数据结构与算法)
+- [面试](#面试)
+- [大数据](#大数据)
+- [架构](#架构)
+- [扩展](#扩展)
+  - [其他语言](#其他语言)
+    - [C](#c)
+    - [C++](#c-1)
+    - [JavaScript](#javascript)
+    - [Python](#python)
+    - [go](#go)
+    - [Android](#android)
+    - [JavaWeb](#javaweb)
+    - [JSP](#jsp)
+    - [Kotlin](#kotlin)
+    - [groovy](#groovy)
+  - [DDD](#ddd)
   - [区块链](#区块链)
   - [人工智能](#人工智能)
   - [搜索引擎](#搜索引擎)
   - [网络安全](#网络安全)
   - [消息队列](#消息队列)
   - [云计算](#云计算)
-  - [AR&VR](#AR&VR)
-  - [Docker](#Docker)
-  - [Kubernets](#Kubernets)
-  - [IoT](#IoT)
+  - [AR\&VR](#arvr)
+  - [Docker](#docker)
+  - [IoT](#iot)
+  - [Kubernets](#kubernets)
   - [测试](#测试)
-  - [其他语言](#其他语言)
-    - [Android](#Android)
-    - [C](#C)
-    - [C++](#C++)
-    - [JavaScript](#JavaScript)
-    - [Python](#Python)
-    - [go](#go)
-    - [JavaWeb](#JavaWeb)
-    - [JSP](#JSP)
-    - [Kotlin](#Kotlin)
-- [17、加餐](#加餐)
-- [18、活着](#活着)
+- [管理](#管理)
+- [加餐](#加餐)
+- [活着](#活着)
 - [免责声明](#免责声明)
-
 
 简单说一下我为什么要花半个多月的时间来整理这份书单。主要是因为很多读者的知识体系是零散的，不成系统的，况且技术书籍这么庞杂。有了我这份清单之后，那些没有经验或者经验有限的初学者，在学习的时候思路瞬间就开阔了许多：少走弯路，利用有限的精力，更加高效地学习。
 
@@ -114,28 +96,27 @@
 
 最后，不管怎样，活着最重要！
 
-
 ## 入门
 
 - Java 程序员进阶之路       [百度云下载链接](https://pan.baidu.com/s/1UkyKSmQ_oabpY6HJZyl7pw)  密码:v0i5
 - GitHub 上标星 115k+ 的 Java 教程       [百度云下载链接](https://pan.baidu.com/s/1rT0l5ynzAQLF--efyRHzQw)  密码:dz95
-- Head First Java       [百度云下载链接](https://pan.baidu.com/s/14VZolSYQcyGKaG2WRpPB_w) 提取码:c07s 
-- Java 核心技术卷       [百度云下载链接](https://pan.baidu.com/s/1Um_boa6CusUAfjIY6x6Gzw) 提取码:1fvj 
+- Head First Java       [百度云下载链接](https://pan.baidu.com/s/14VZolSYQcyGKaG2WRpPB_w) 提取码:c07s
+- Java 核心技术卷       [百度云下载链接](https://pan.baidu.com/s/1Um_boa6CusUAfjIY6x6Gzw) 提取码:1fvj
 - Java 编程思想       [百度云下载链接](https://pan.baidu.com/s/1cQYOWEMmHy8Z60I_NXRqug)  密码:9xcr
-- Java 8 实战       [百度云下载链接](https://pan.baidu.com/s/1h377QitObb4cbwXgTuV8Ww) 提取码:nfbm 
-- Java 核心知识点整理       [百度云下载链接](https://pan.baidu.com/s/1AkY43NQeejg4SON8PtSnOg) 提取码:e6tl 
-- Java 基础核心总结       [百度云下载链接](https://pan.baidu.com/s/1vFDVc214I00m3VGbZkHxLA) 提取码:x2qi 
-- 第一行代码 Java       [百度云下载链接](https://pan.baidu.com/s/1EWIs7BcMNZK13uUsh2oyeQ) 提取码:zhuk 
-- 疯狂 Java 讲义       [百度云下载链接](https://pan.baidu.com/s/1XLWhznze2wJ9rPBJVnBKQQ) 提取码:em2k 
-- 黑马程序员 Java 自学宝典       [百度云下载链接](https://pan.baidu.com/s/1PE3qsG3p5pTZgG252PlFTw) 提取码:7mm0 
-- Java 软件开发复习提纲       [百度云下载链接](https://pan.baidu.com/s/1VDewdGcBg7_cNgY-7t0lqA) 提取码:ztfu 
-- Java 程序设计语言       [百度云下载链接](https://pan.baidu.com/s/1aDRIyY7vdls-zW_YEj32mw) 提取码:xc2a 
-- Java 从入门到精通       [百度云下载链接](https://pan.baidu.com/s/1Bxlq1KYU9WBHtZpaMtaA8A) 提取码:2msp 
-- Java 从小白到大牛       [百度云下载链接](https://pan.baidu.com/s/1YR7wXL68vvukGCWfjby4sg) 提取码:4oon 
-- Java 技术手册       [百度云下载链接](https://pan.baidu.com/s/1KYNE4yjt1DiizuZ7Fjl0Cw) 提取码:wx6l 
-- Java 趣味编程 100 例       [百度云下载链接](https://pan.baidu.com/s/1mxipMmn_4fY1AeLxqvp6Tw) 提取码:gfaq 
-- Java 入门 123       [百度云下载链接](https://pan.baidu.com/s/1l5b7HByO2adddG3qpjSvnA) 提取码:tdb0 
-- Java 网络编程       [百度云下载链接](https://pan.baidu.com/s/156lbtD6AAidIpgn6hdflsw) 提取码:6ovu 
+- Java 8 实战       [百度云下载链接](https://pan.baidu.com/s/1h377QitObb4cbwXgTuV8Ww) 提取码:nfbm
+- Java 核心知识点整理       [百度云下载链接](https://pan.baidu.com/s/1AkY43NQeejg4SON8PtSnOg) 提取码:e6tl
+- Java 基础核心总结       [百度云下载链接](https://pan.baidu.com/s/1vFDVc214I00m3VGbZkHxLA) 提取码:x2qi
+- 第一行代码 Java       [百度云下载链接](https://pan.baidu.com/s/1EWIs7BcMNZK13uUsh2oyeQ) 提取码:zhuk
+- 疯狂 Java 讲义       [百度云下载链接](https://pan.baidu.com/s/1XLWhznze2wJ9rPBJVnBKQQ) 提取码:em2k
+- 黑马程序员 Java 自学宝典       [百度云下载链接](https://pan.baidu.com/s/1PE3qsG3p5pTZgG252PlFTw) 提取码:7mm0
+- Java 软件开发复习提纲       [百度云下载链接](https://pan.baidu.com/s/1VDewdGcBg7_cNgY-7t0lqA) 提取码:ztfu
+- Java 程序设计语言       [百度云下载链接](https://pan.baidu.com/s/1aDRIyY7vdls-zW_YEj32mw) 提取码:xc2a
+- Java 从入门到精通       [百度云下载链接](https://pan.baidu.com/s/1Bxlq1KYU9WBHtZpaMtaA8A) 提取码:2msp
+- Java 从小白到大牛       [百度云下载链接](https://pan.baidu.com/s/1YR7wXL68vvukGCWfjby4sg) 提取码:4oon
+- Java 技术手册       [百度云下载链接](https://pan.baidu.com/s/1KYNE4yjt1DiizuZ7Fjl0Cw) 提取码:wx6l
+- Java 趣味编程 100 例       [百度云下载链接](https://pan.baidu.com/s/1mxipMmn_4fY1AeLxqvp6Tw) 提取码:gfaq
+- Java 入门 123       [百度云下载链接](https://pan.baidu.com/s/1l5b7HByO2adddG3qpjSvnA) 提取码:tdb0
+- Java 网络编程       [百度云下载链接](https://pan.baidu.com/s/156lbtD6AAidIpgn6hdflsw) 提取码:6ovu
 
 ## 工具
 
@@ -174,8 +155,6 @@
 - Netty 权威指南       [百度云下载链接](https://pan.baidu.com/s/1cjDt7j3KiQ-pNyB8AF7CBQ)  密码:4n6n
 - Netty 实战       [百度云下载链接](https://pan.baidu.com/s/1mBEwTjs-e-TQXKGwjx2dcg)  密码:gy3p
 
-
-
 ## 数据库
 
 - 数据库系统基础教程       [百度云下载链接](https://pan.baidu.com/s/10aDnMcJiFooUEssYajBUmQ)  密码:nmee
@@ -197,7 +176,6 @@
 - MySQL 性能调优与架构设计       [百度云下载链接](https://pan.baidu.com/s/1hHbIbpsu-7g76r54GUVCIg)  密码:1464
 - 高性能 MySQL       [百度云下载链接](https://pan.baidu.com/s/1aLK0Spq0FzmGpuWwaj9mPw)  密码:bxrk
 
-
 ### Redis
 
 - Redis 入门指南       [百度云下载链接](https://pan.baidu.com/s/1dgNSFQ1R8pAejRnfZeSl-Q)  密码:e2sk
@@ -211,8 +189,6 @@
 
 - MongoDB 权威指南       [百度云下载链接](https://pan.baidu.com/s/1mTlTzrVG5P-C0iXUz780Fg)  密码:zivs
 - MongoDB实战(第二版)       [百度云下载链接](https://pan.baidu.com/s/1M2kPlol1eBE6E2vvqvGl1Q)  密码:bhxe
-
-
 
 ## 并发编程
 
@@ -231,7 +207,6 @@
 - 深入理解 Java 内存模型       [百度云下载链接](https://pan.baidu.com/s/19LNAAX9S282D0W0tt-cbMQ)  密码:k3c6
 - 实战 Java 虚拟机 JVM 故障诊断与性能优化       [百度云下载链接](https://pan.baidu.com/s/1oOozhf6F0V9c817e59BbPQ)  密码:jzd7
 - Java JDK 学习笔记       [百度云下载链接](https://pan.baidu.com/s/1g-FsMSsPipStu_XIszLLVQ)  密码:9o05
-
 
 ## 性能优化
 
@@ -259,7 +234,7 @@
 - 设计模式：可复用面向对象软件的基础       [百度云下载链接](https://pan.baidu.com/s/1slrm1KYHCeHmQKPROa5Veg)  密码:rdgw
 - 设计模式之禅       [百度云下载链接](https://pan.baidu.com/s/18joTXLSy6kl6i7qhBGVRtg)  密码:x0wx
 - 深入浅出设计模式       [百度云下载链接](https://pan.baidu.com/s/1BEkq5XVOwEIP2MEuv4yh6w)  密码:yuvv
--  Head First 设计模式       [百度云下载链接](https://pan.baidu.com/s/1AcfqcEJQ2aGck4WfmOIz4Q)  密码:gkn5
+- Head First 设计模式       [百度云下载链接](https://pan.baidu.com/s/1AcfqcEJQ2aGck4WfmOIz4Q)  密码:gkn5
 
 ## 操作系统
 
@@ -284,7 +259,6 @@
 - Linux 程序设计       [百度云下载链接](https://pan.baidu.com/s/1hcYZfNBPR5GtZnRZd3u6LA)  密码:cems
 - Linux 命令行与 shell 脚本编程大全       [百度云下载链接](https://pan.baidu.com/s/1MZMxMiB52t_xO5OPHrLtlg)  密码:tr5u
 
-
 ### Linux环境编程
 
 - Linux-Unix 系统编程手册       [百度云下载链接](https://pan.baidu.com/s/1WC2CuSMtozOljYGw9g6YJQ)  密码:7i9n
@@ -295,8 +269,8 @@
 
 - 深入理解 Linux 内核       [百度云下载链接](https://pan.baidu.com/s/1HPDJYuDd82mzq8aKLIYY9g)  密码:imav
 - 深入 Linux 内核架构       [百度云下载链接](https://pan.baidu.com/s/1p-R31fBFdYTIonnrBFMPTg)  密码:vnhj
--  Linux 内核源代码情景分析       [百度云下载链接](https://pan.baidu.com/s/1wjIi4vsR2RBdBz_fjC-LTw)  密码:o08i
--  Linux内核完全注释(附linux0.11内核源码,超全注释)       [百度云下载链接](https://pan.baidu.com/s/1LSM5C2ANvzj45aEHaXCg3Q)  密码:4azv
+- Linux 内核源代码情景分析       [百度云下载链接](https://pan.baidu.com/s/1wjIi4vsR2RBdBz_fjC-LTw)  密码:o08i
+- Linux内核完全注释(附linux0.11内核源码,超全注释)       [百度云下载链接](https://pan.baidu.com/s/1LSM5C2ANvzj45aEHaXCg3Q)  密码:4azv
 
 ## 计算机网络
 
@@ -337,7 +311,6 @@
 - Java 常用算法       [百度云下载链接](https://pan.baidu.com/s/1NUvhGjiNW28X27-qXCM9Xg)  密码:ybvr
 - Java 数据结构和算法       [百度云下载链接](https://pan.baidu.com/s/1d8gX-_4iyayZO_PXZwK9sw)  密码:qupj
 - BAT LeetCode 刷题手册       [百度云下载链接](https://pan.baidu.com/s/12RT8pRk6OUNa1PuYkqZliw)  密码:8w3m
-
 
 ## 面试
 
@@ -381,7 +354,6 @@
 - 大型网站系统与 Java 中间件实践       [百度云下载链接](https://pan.baidu.com/s/1c7weFVZi1OIAhjb17GEZyw)  密码:tboh
 - 亿级流量网站架构核心技术       [百度云下载链接](https://pan.baidu.com/s/15LQ2KMvZ_8tD59WX748zug)  密码:fwer
 
-
 ## 扩展
 
 ### 其他语言
@@ -397,10 +369,7 @@
 - 深度探索 C 对象模型       [百度云下载链接](https://pan.baidu.com/s/1JXIxf_fA0M6rYm3F7Coccg)  密码:z6vp
 - 数据结构与算法分析——C 语言描述       [百度云下载链接](https://pan.baidu.com/s/1rCZM79EsH7HJ4YO6CPa3lA)  密码:k7kj
 
-
-
 #### C++
-
 
 - 牛客校招面试题（附答案与解析）c++篇       [百度云下载链接](https://pan.baidu.com/s/18B9DHuYZPgj2mgLb4ETqKA)  密码:h7im
 - C++ 面试题库       [百度云下载链接](https://pan.baidu.com/s/1fBLDu3sOw3qaQuWMblac4w)  密码:qhrg
@@ -445,7 +414,6 @@
 - JavaScript语言精粹       [百度云下载链接](https://pan.baidu.com/s/1leL0I7j0PCU02LJnWLImDw)  密码:h347
 - JavaScript 异步编程       [百度云下载链接](https://pan.baidu.com/s/1fKQnAtwGP8UryU2iBJtkoQ)  密码:xeab
 - JavaScript 开发技术大全       [百度云下载链接](https://pan.baidu.com/s/1EiJw6t5JzyGEMglYlCn_pw)  密码:5tdd
-
 
 #### Python
 
@@ -509,7 +477,9 @@
 - 领域驱动设计精简版       [百度云下载链接](https://pan.baidu.com/s/1YnPwZMmcZfD9n7Vx7L3oYA)  密码:9e3x
 
 ### 区块链
+
 ### 人工智能
+
 - 机器学习与实战       [百度云下载链接](https://pan.baidu.com/s/1O9q1c7pODoZjZcV1w5QjSg)  密码:buvz
 
 ### 搜索引擎
@@ -532,6 +502,7 @@
 - 大话云计算       [百度云下载链接](https://pan.baidu.com/s/1p4t9IftbE3BwmQoucKHnjQ)  密码:efwj
 
 ### AR&VR
+
 ### Docker
 
 - 第一本Docker书       [百度云下载链接](https://pan.baidu.com/s/1haknxDmxy8Zb3tkBuue3vg)  密码:7dz6
@@ -539,6 +510,7 @@
 - Spring Cloud与Docker微服务架构实战       [百度云下载链接](https://pan.baidu.com/s/1I8TGhywKGbH35UXU-D2hOQ)  密码:yeem
 
 ### IoT
+
 ### Kubernets
 
 - KUBERNETES权威指南  从DOCKET到KURBERNETES实践全接触       [百度云下载链接](https://pan.baidu.com/s/19POddjLvy6PaADvaC1yLYg)  密码:njo1
@@ -546,7 +518,6 @@
 ### 测试
 
 - 有效的单元测试       [百度云下载链接](https://pan.baidu.com/s/1nIxtJNYpYIGBJY_RXNLx4g)  密码:kbc4
-
 
 ## 管理
 
@@ -594,9 +565,6 @@
 - 程序员健康指南       [百度云下载链接](https://pan.baidu.com/s/1EssOkFfZV93QIB9IAFmjmw)  密码:pl0i
 - 颈椎康复指南       [百度云下载链接](https://pan.baidu.com/s/1AdqcGTLOUkQxrFFURNYq7A)  密码:ouhh
 - 刷爆朋友圈的互联网公司作息表格       [百度云下载链接](https://pan.baidu.com/s/1r7kdeKx8_nq2kASOVnGRGQ)  密码:ssuy
-
-
-
 
 ## 免责声明
 

@@ -1,13 +1,5 @@
 import { sidebar } from "vuepress-theme-hope";
 export const sidebarConfig = sidebar({
-  "/zhishixingqiu/": [
-    "readme.md",
-    "map",
-    "may",
-    "june",
-    "july",
-    "august"
-  ],
   // 你可以省略 .md 扩展名，以 / 结尾的路径会被推断为 /README.md(区分大小写)
   "/nice-article/itmind/": [
     "readme.md",
@@ -22,6 +14,56 @@ export const sidebarConfig = sidebar({
     "xshellazpjbjcxshellpxffxbxt",
     "pycharmjhpxmazjcnyrgxxbxt",
   ],
+
+  // 区块链学习路线
+  "/blockchain/": [
+    "The_white_paper_the_currency",
+    "White_paper_the_etheric_lane",
+    {
+      text: "区块链基础知识",
+      prefix: "Basic_logic/",
+      collapsible: true,
+      children: [
+        "Block_chain_concept",
+        "Block_chain_and_random_Numbers",
+        "Chain_block_design",
+        "Intelligent_contract_solidity",
+        "League_chain",
+        "Smart_contracts_design_pattern",
+      ],
+    },
+    {
+      text: "区块链组件",
+      prefix: "component/p2p",
+      collapsible: true,
+      children: [
+        "Some_of_the_design_ideas_of_P2P_network",
+        "Introduction_to_libp2p_autoNAT_network",
+        "Introduction_to_libp2p_MDNS_network",
+        "Introduction_to_p2p_network_transmission_of_NAT",
+        "Introduction_to_libp2p_multiAddress_network",
+        "Introduction_to_p2p_network_transport_protocol",
+        "Introduction_to_the_relay_of_p2p_network_protocol",
+   
+      ],
+    },
+
+  ],
+  "/sidebar/sanfene/": [
+    "nixi",
+    "javase",
+    "collection",
+    "javathread",
+    "jvm",
+    "spring",
+    "redis",
+    "mybatis",
+    "mysql",
+    "os",
+    "network",
+    "rocketmq",
+  ],
+// 学习路线
   "/learningPath/": [
     {
       text: "Java学习路线",
@@ -43,22 +85,8 @@ export const sidebarConfig = sidebar({
     "bigdata",
     "android",
     "mysql",
-    "donet",
   ],
-  "/sidebar/sanfene/": [
-    "nixi",
-    "javase",
-    "collection",
-    "javathread",
-    "jvm",
-    "spring",
-    "redis",
-    "mybatis",
-    "mysql",
-    "os",
-    "network",
-    "rocketmq",
-  ],
+    
   // 必须放在最后面
   "/": [
     {

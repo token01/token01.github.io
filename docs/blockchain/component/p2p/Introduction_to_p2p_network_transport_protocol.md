@@ -1,6 +1,6 @@
 ---
-title: 浅谈p2p网络之传输协议
-shortTitle: 浅谈p2p网络之传输协议
+title: 浅谈libp2p网络之传输协议
+shortTitle: 浅谈libp2p网络之传输协议
 category:
   - 区块链
 tag:

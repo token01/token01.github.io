@@ -1,6 +1,6 @@
 ---
-title: 区块链-Solidity
-shortTitle: 区块链-网络介绍 
+title: Solidity基础知识
+shortTitle: Solidity基础知识
 category:
   - 区块链
 tag:

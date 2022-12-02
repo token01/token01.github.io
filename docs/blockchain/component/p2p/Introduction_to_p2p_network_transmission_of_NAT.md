@@ -1,6 +1,6 @@
 ---
-title: 浅谈p2p网络之NAT传输
-shortTitle: 浅谈p2p网络之NAT传输
+title: 浅谈libp2p网络之NAT传输
+shortTitle: 浅谈libp2p网络之NAT传输
 category:
   - 区块链
 tag:

@@ -1,6 +1,6 @@
 ---
-title: 关于P2P网络的一些设计想法
-shortTitle: 关于P2P网络的一些设计想法
+title: 关于libp2p网络的一些设计想法
+shortTitle: 关于libp2p网络的一些设计想法
 category:
   - 区块链
 tag:

@@ -13,9 +13,6 @@ tag:
 
 经过三天三夜的学习，总算是入了 Elasticsearch 的门，我就决定把这些心得体会分享出来，感兴趣的小伙伴可以作为参考。遇到文章中有错误的地方，不要手下留情，过来捶我，只要不打脸就好。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/elasticsearch/rumen-ebb2bdbc-2cdb-4540-b48f-41f92c848f2f.jpg)
-
-
 ### 01、Elasticsearch 是什么
 
 >Elasticsearch 是一个分布式、RESTful 风格的搜索和数据分析引擎，能够解决不断涌现出的各种用例。 作为 Elastic Stack 的核心，它集中存储您的数据，帮助您发现意料之中以及意料之外的情况。
@@ -108,7 +105,6 @@ Elasticsearch 是免安装的，只需要把 zip 包解压就可以了。
 
 看完上面这幅图（来源于网络，侵删），是不是瞬间就清晰了。向 Elasticsearch 中存储数据，其实就是向 Elasticsearch 中的 index 下面的 type 中存储 JSON 类型的数据。
 
-
 ### 05、在 Java 中使用 Elasticsearch
 
 有些小伙伴可能会问，“musk，我是一名 Java 程序员，我该如何在 Java 中使用 Elasticsearch 呢？”这个问题问得好，这就来，这就来。
@@ -177,13 +173,8 @@ public class ElasticsearchTest {
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/elasticsearch/rumen-64baa243-0075-436e-a070-f28813fee284.jpg)
 
-
-
-
 ### 06、鸣谢
 
 好了，我亲爱的小伙伴们，以上就是本文的全部内容了，是不是看完后很想实操一把 Elasticsearch，赶快行动吧！如果你在学习的过程中遇到了问题，欢迎随时和我交流，虽然我也是个菜鸟，但我有热情啊。
 
 另外，如果你想写入门级别的文章，这篇就是最好的范例。
-
-  

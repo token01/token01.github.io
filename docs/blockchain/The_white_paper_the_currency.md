@@ -1,6 +1,6 @@
 ---
-title: 区块链-比特币
-shortTitle: 区块链-比特币 
+title: 比特币白皮书
+shortTitle: 比特币白皮书
 category:
   - 区块链
 tag:

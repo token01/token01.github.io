@@ -1,6 +1,6 @@
 ---
-title: 区块链-联盟链
-shortTitle: 区块链-网络介绍 
+title: 区块链之联盟链知识
+shortTitle: 区块链之联盟链知识 
 category:
   - 区块链
 tag:

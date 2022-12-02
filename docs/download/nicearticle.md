@@ -37,7 +37,6 @@
 - [视频学习胜过读书吗？](https://mp.weixin.qq.com/s/mzbDZCWbfTMvDdh-tQivwg)
 - [计算机专业，暑假需要提前自学吗？](https://mp.weixin.qq.com/s/BR0w_bok3MJ2jRFEQR_yTQ)
 - [计算机专业应该怎样规划自己的大学四年？](https://mp.weixin.qq.com/s/prclU2IGTlfPqOqFX7CHnA)
-- [大学计算机系最努力的同学都是如何学习的？](/xianliaolaoke/daxue-nuli-jisuanji.md)
 - [编程语言该如何选择？](https://mp.weixin.qq.com/s/uh9lAgXQ6I2EwqNxXhA-EQ)
 - [如何才能把团队给带散？](https://mp.weixin.qq.com/s/GzqBuOjRmzbmTNUBKWqmCA)
 - [为什么程序员会有代码能跑就不要动的观点？](https://mp.weixin.qq.com/s/n-ef_q3PIHfa9je1Ndoo3g)
@@ -94,7 +93,6 @@
 - [转眼就来字节六个月了，真的不一样](https://mp.weixin.qq.com/s/jG7DLrCFf_pYoMLFiVbaaA)
 - [在监狱里编程是一种什么体验（上）？](https://mp.weixin.qq.com/s/ci5Meem_d3g2BphDmMP8VQ)
 - [29 岁，非科班零基础，想兼职做外包。。](https://mp.weixin.qq.com/s/CTTlnXNXY9j3Bm3_4gmIbw)
-- [30岁女程序员，做建材生意4年，想重回软件开发...](/xianliaolaoke/chengxuyuannv-chonghui-java.md)
 - [就离谱.......这个产品小姐姐也太会撩了吧](https://mp.weixin.qq.com/s/Oml9oWQHIR1aYWSJQDXWVQ)
 - [王小波的计算机水平有多好？](https://mp.weixin.qq.com/s/Ad_6DMt0tTzF6lYu3EUm0A)
 - [为了一个 deadline，清华毕业的 IT 老乡猝死在马桶上](https://mp.weixin.qq.com/s/j54Kh2p8cAtIZprScN4_dg)
@@ -118,25 +116,6 @@
 - [37岁老码农找工作](https://mp.weixin.qq.com/s/0wslDH_9oaVHfepGLJ113w)
 - [一个培训班出来的程序员](https://mp.weixin.qq.com/s/3JXhx1ut4VgmCr766Ig3ng)
 - [如何才能把团队给带散？](https://mp.weixin.qq.com/s/GzqBuOjRmzbmTNUBKWqmCA)
-
-
-### 闲聊唠嗑
-
-- [约河科大软工专业的 4 位学弟一起撸了个串](https://mp.weixin.qq.com/s/nhDBZGmN3-pZQD2AxMhFhA)
-- [带妹来和父母团聚了！](/xianliaolaoke/fumutuanju.md)
-- [愤怒！这个阿里云工程师的甩锅能力，真的超级高水平！](/xianliaolaoke/aliyun-shuaiguo-gongchengshi.md)
-- [差点散伙！](/xianliaolaoke/chadiansanhuo.md)
-- [滴滴程序员被亲戚鄙视：年薪八十万还不如二本教书的...](https://mp.weixin.qq.com/s/iDQiMaTo4Pi8fqnUxAsWuQ)
-- [和华为的大佬一起创业了！](https://mp.weixin.qq.com/s/LfJR6qIZ7fRorIs22VNSOA)
-- [带妹来青岛了！](https://mp.weixin.qq.com/s/TUdQI4B9_VLSrzLekp6JsA)
-- [母亲节快乐！](https://mp.weixin.qq.com/s/VgixuYkIkyMfK1aGM6sBSQ)
-- [大学同学考研成功了！](https://mp.weixin.qq.com/s/U44Js0_KQbv_9osV75lOuA)
-- [打算在县城“买”片地](https://mp.weixin.qq.com/s/KRaSFlMTYV_3GoCv4aDRWA)
-- [曝下 955 加班少的公司名单！](https://mp.weixin.qq.com/s/qR_MmaKfVHERuAz987MzyA)
-- [我身边的 3 个女神](https://mp.weixin.qq.com/s/kZ7simp8xSniK-E-AmVJCw)
-- [住过窑洞的人](https://mp.weixin.qq.com/s/CDXyVL39aIQuvD4jssObTw)
-
-
 
 
 ### 人生建议

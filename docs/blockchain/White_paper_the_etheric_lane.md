@@ -1,6 +1,6 @@
 ---
-title: 区块链-以太坊白皮书
-shortTitle: 区块链-以太坊白皮书
+title: 以太坊白皮书
+shortTitle: 以太坊白皮书
 category:
   - 区块链
 tag:

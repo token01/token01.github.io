@@ -24,7 +24,7 @@ export default navbar([
   {
     text: "学习路线",
     icon: "luxian",
-    link: "/xuexiluxian/"
+    link: "/learningPath/"
   },
   {
     text: "珍藏资源",

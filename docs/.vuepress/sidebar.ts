@@ -22,7 +22,7 @@ export const sidebarConfig = sidebar({
     "xshellazpjbjcxshellpxffxbxt",
     "pycharmjhpxmazjcnyrgxxbxt",
   ],
-  "/xuexiluxian/": [
+  "/learningPath/": [
     {
       text: "Java学习路线",
       prefix: "java/",

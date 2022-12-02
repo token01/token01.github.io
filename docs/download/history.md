@@ -54,7 +54,7 @@
 ### 2022年04月02日
 
 - [杨锅锅同学提出错误：浮点多了个long, 整数少了个int](/sidebar/sanfene/javase.md)
-- [增加数据结构与算法的学习路线](/xuexiluxian/algorithm.md)
+- [增加数据结构与算法的学习路线](/learningPath/algorithm.md)
 
 ### 2022年03月31日
 
@@ -62,9 +62,9 @@
 
 ### 2022年03月29日
 
-- [修改学习路线部分的404错误](/xuexiluxian/)
-- [增加Java整体学习路线](/xuexiluxian/java/yitiaolong.md)
-- [增加Java虚拟机学习路线](/xuexiluxian/java/jvm.md)
+- [修改学习路线部分的404错误](/learningPath/)
+- [增加Java整体学习路线](/learningPath/java/yitiaolong.md)
+- [增加Java虚拟机学习路线](/learningPath/java/jvm.md)
 
 ### 2022年03月27日
 

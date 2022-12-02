@@ -1,8 +1,18 @@
-> 死磕以太坊源码分析之txpool
+---
+title: 浅谈以太坊源码分析之txpool
+shortTitle: 浅谈以太坊源码分析之txpool
+category:
+  - 区块链
+tag:
+  - 浅谈以太坊源码分析
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识  
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
+> 浅谈以太坊源码分析之txpool
 >
-> 请结合以下代码阅读:https://github.com/blockchainGuide/
->
-> 写文章不易，也希望大家多多指出问题
 
 
 ## 交易池概念原理

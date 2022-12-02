@@ -1,13 +1,20 @@
-> 死磕以太坊源码分析之EVM如何调用ABI编码的外部方法
->
-> 配合以下代码进行阅读：https://github.com/blockchainGuide/
->
-> 写文不易，给个小关注，有什么问题可以指出，便于大家交流学习。
+---
+title: 浅谈以太坊源码分析之EVM如何调用ABI编码的外部方法
+shortTitle: 浅谈以太坊源码分析之EVM如何调用ABI编码的外部方法
+category:
+  - 区块链
+tag:
+  - 浅谈以太坊源码分析
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识  
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
+> 浅谈以太坊源码分析之EVM如何调用ABI编码的外部方法
 >
 
 ![image-20210113191423657](https://tva1.sinaimg.cn/large/008eGmZEgy1gmma6b1e5zj312g0pmnpe.jpg)
-
-
 
 ## 前言
 
@@ -79,8 +86,6 @@ contract C {
 'ee919d50'
 ```
 
-
-
 ## 应用二进制接口（ABI）
 
 对于EVM而言，交易的输入数据(`calldata`)只是一个字节序列。EVM内部不支持调用方法。
@@ -112,12 +117,10 @@ contract C {
 由于没有参数，输入数据就只有方法选择器了。我们可以发送一个`eth_call`请求给任意的以太坊节点。对于这个例子，我们依然将请求发送给 infura.io的公共以太坊节点：
 
 ```go
-$ curl -X POST \-H "Content-Type: application/json" \"[https://rinkeby.infura.io/YOUR_INFURA_TOKEN](https://rinkeby.infura.io/YOUR_INFURA_TOKEN)" \--data '{"jsonrpc": "2.0","id": 1,"method": "eth_call","params": [{"to": "0x62650ae5c5777d1660cc17fcd4f48f6a66b9a4c2","data": "0xd46300fd"},"latest"]}'
+curl -X POST \-H "Content-Type: application/json" \"[https://rinkeby.infura.io/YOUR_INFURA_TOKEN](https://rinkeby.infura.io/YOUR_INFURA_TOKEN)" \--data '{"jsonrpc": "2.0","id": 1,"method": "eth_call","params": [{"to": "0x62650ae5c5777d1660cc17fcd4f48f6a66b9a4c2","data": "0xd46300fd"},"latest"]}'
 ```
 
 根据ABI，该字节应该会解释为`0x1`数值。
-
-
 
 ## 外部方法调用的汇编
 
@@ -552,7 +555,7 @@ ethereum.abi.encode_abi(
 
 ABI展示了另外一个底层设计的奇特例子，通过gas成本结构进行激励。
 
-> ### 负整数….
+> ### 负整数…
 
 一般使用叫做 [补码](https://en.wikipedia.org/wiki/Two's_complement)的方式来表达负整数。`int8`类型`-1`的数值编码会都是1。`1111 1111`。
 
@@ -577,5 +580,4 @@ ABI被指定为一个低级格式，但是在功能上更像一个跨语言RPC�
 - 交易就像请求
 - ABI是数据交换格式，就像[Protocol Buffer](https://en.wikipedia.org/wiki/Protocol_Buffers)。
 
-> 翻译自 https://medium.com/@hayeah/diving-into-the-ethereum-vm-part-2-storage-layout-bc5349cb11b7
-
+> 翻译自 <https://medium.com/@hayeah/diving-into-the-ethereum-vm-part-2-storage-layout-bc5349cb11b7>

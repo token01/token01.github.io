@@ -1,8 +1,19 @@
+---
+title: 浅谈p2p网络之relay协议
+shortTitle: 浅谈p2p网络之relay协议
+category:
+  - 区块链
+tag:
+  - 浅谈libp2p网络
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 以太坊白皮书
+---
 > 当一个对等端无法监听公共地址时，它可以拨出到中继对等端，这将保持长期连接打开。其他对等方将能够使用p2p电路地址通过中继对等方拨号，从而将流量转发到其目的地。
 >
 > 中继连接是端到端加密的，这意味着充当中继的对等方无法读取或篡改流经连接的任何流量
-
-
 
 ## 应用场景
 
@@ -18,8 +29,6 @@
 
 中继R将连接请求转发到节点A，并最终中继A和B发送的所有数据。
 
-
-
 ## 参考
 
-https://github.com/libp2p/specs/blob/master/relay/circuit-v2.md
+<https://github.com/libp2p/specs/blob/master/relay/circuit-v2.md>

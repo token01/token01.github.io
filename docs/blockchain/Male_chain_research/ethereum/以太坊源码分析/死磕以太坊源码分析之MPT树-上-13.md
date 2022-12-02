@@ -1,4 +1,17 @@
-> 死磕以太坊源码分析之MPT树-上
+---
+title: 浅谈以太坊源码分析之MPT树-上
+shortTitle: 浅谈以太坊源码分析之MPT树-上
+category:
+  - 区块链
+tag:
+  - 浅谈以太坊源码分析
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识  
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
+> 浅谈以太坊源码分析之MPT树-上
 >
 
 ## 前缀树Trie

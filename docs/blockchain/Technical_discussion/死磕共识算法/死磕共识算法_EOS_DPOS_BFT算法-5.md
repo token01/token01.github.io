@@ -1,4 +1,4 @@
-> 死磕共识算法|DPOS(委托股权证明)算法
+> 浅谈共识算法|DPOS(委托股权证明)算法
 >
 > 配合以下代码进行阅读：https://github.com/blockchainGuide/
 >

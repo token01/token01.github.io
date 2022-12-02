@@ -1,20 +1,28 @@
-> https://www.jianshu.com/p/f71707892eb2
+---
+title: 浅谈p2p网络之NAT传输
+shortTitle: 浅谈p2p网络之NAT传输
+category:
+  - 区块链
+tag:
+  - 浅谈libp2p网络
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 以太坊白皮书
+---
 
-
+> <https://www.jianshu.com/p/f71707892eb2>
 
 ## NAT简介
 
 NAT（Network Address Translation，网络地址转换），也叫做网络掩蔽或者IP掩蔽。NAT是一种网络地址翻译技术，主要是将内部的私有IP地址（private IP）转换成可以在公网使用的公网IP（public IP）
-
-
 
 ## NAT类型
 
 在[STUN](https://info.support.huawei.com/info-finder/encyclopedia/zh/STUN.html)标准中，根据私网IP地址和端口到NAT出口的公网IP地址和端口的映射方式，把NAT分为如下四种类型，详见下图。
 
 ![image-20221014180441215](https://tva1.sinaimg.cn/large/008vxvgGgy1h74z5hxjujj311y0q042f.jpg)
-
-
 
 ### 完全锥型NAT
 
@@ -37,4 +45,3 @@ NAT（Network Address Translation，网络地址转换），也叫做网络掩�
 这和端口限制锥型NAT不同，端口限制锥型NAT是所有请求映射到相同的公网IP地址和端口，而对称NAT是不同的请求有不同的映射。
 
 ## NAT工作原理
-

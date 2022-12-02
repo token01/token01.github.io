@@ -1,10 +1,16 @@
-> 死磕以太坊源码分析之downloader同步
->
-> **需要配合注释代码看**：https://github.com/blockchainGuide/ 给个star哦
->
-> *这篇文章篇幅较长，能看下去的是条汉子，建议收藏*
->
-> 希望读者在阅读过程中，指出问题，给个关注，一起探讨。
+---
+title: 浅谈以太坊源码分析之downloader同步
+shortTitle: 浅谈以太坊源码分析之downloader同步
+category:
+  - 区块链
+tag:
+  - 浅谈以太坊源码分析
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识  
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
 
 ## 概览
 
@@ -18,23 +24,21 @@
 
 - `statesync.go` ：同步`state`对象
 
-  
-
 ## 同步模式
 
- ### full  sync
+### full  sync
 
 full 模式会在数据库中保存所有区块数据，同步时从远程节点同步 header 和 body 数据，而state 和 receipt 数据则是在本地计算出来的。
 
 在 full 模式下，downloader 会同步区块的 header 和 body 数据组成一个区块，然后通过 blockchain 模块的 `BlockChain.InsertChain` 向数据库中插入区块。在 `BlockChain.InsertChain` 中，会逐个计算和验证每个块的 `state` 和 `recepit` 等数据，如果一切正常就将区块数据以及自己计算得到的 `state`、`recepit` 数据一起写入到数据库中。
 
-### fast sync 
+### fast sync
 
  `fast` 模式下，`recepit` 不再由本地计算，而是和区块数据一样，直接由 `downloader` 从其它节点中同步；`state` 数据并不会全部计算和下载，而是选一个较新的区块（称之为 `pivot`）的 `state` 进行下载，以这个区块为分界，之前的区块是没有 `state` 数据的，之后的区块会像 `full` 模式下一样在本地计算 `state`。因此在 `fast` 模式下，同步的数据除了 `header` 和 body，还有 `receipt`，以及 `pivot` 区块的 `state`。
 
 因此 `fast` 模式忽略了大部分 `state` 数据，并且使用网络直接同步 `receipt` 数据的方式替换了 full 模式下的本地计算，所以比较快。
 
-### light sync 
+### light sync
 
 light 模式也叫做轻模式，它只对区块头进行同步，而不同步其它的数据。
 
@@ -46,7 +50,7 @@ SyncMode:
 
 ## 区块下载流程
 
-> 图片只是大概的描述一下，实际还是要结合代码，**所有区块链相关文章合集**，https://github.com/blockchainGuide/
+> 图片只是大概的描述一下，实际还是要结合代码，**所有区块链相关文章合集**，<https://github.com/blockchainGuide/>
 >
 > 同时希望结识更多区块链圈子的人，可以star上面项目，持续更新
 
@@ -64,11 +68,11 @@ SyncMode:
 
 ```go
 currentBlock := pm.blockchain.CurrentBlock()
-	td := pm.blockchain.GetTd(currentBlock.Hash(), currentBlock.NumberU64())
-	pHead, pTd := peer.Head()
-	if pTd.Cmp(td) <= 0 {
-		return
-	}
+ td := pm.blockchain.GetTd(currentBlock.Hash(), currentBlock.NumberU64())
+ pHead, pTd := peer.Head()
+ if pTd.Cmp(td) <= 0 {
+  return
+ }
 ```
 
 ②：开启`downloader`的同步
@@ -106,8 +110,6 @@ syncWithPeer大概做了以下几件事：
 
 -------
 
-
-
 ## findAncestor
 
 同步首要的是**确定同步区块的区间**：顶部为远程节点的最高区块，底部为两个节点都拥有的相同区块的最高高度（祖先区块）。`findAncestor`就是用来找祖先区块。函数分析如下：
@@ -116,18 +118,18 @@ syncWithPeer大概做了以下几件事：
 
 ```go
 var (
-		floor        = int64(-1) // 底部
-		localHeight  uint64  // 本地最高高度
-		remoteHeight = remoteHeader.Number.Uint64() // 远程节点最高高度
-	)
+  floor        = int64(-1) // 底部
+  localHeight  uint64  // 本地最高高度
+  remoteHeight = remoteHeader.Number.Uint64() // 远程节点最高高度
+ )
 switch d.mode {
-	case FullSync:
-		localHeight = d.blockchain.CurrentBlock().NumberU64()
-	case FastSync:
-		localHeight = d.blockchain.CurrentFastBlock().NumberU64()
-	default:
-		localHeight = d.lightchain.CurrentHeader().Number.Uint64()
-	}
+ case FullSync:
+  localHeight = d.blockchain.CurrentBlock().NumberU64()
+ case FastSync:
+  localHeight = d.blockchain.CurrentFastBlock().NumberU64()
+ default:
+  localHeight = d.lightchain.CurrentHeader().Number.Uint64()
+ }
 ```
 
 ②：计算同步的高度区间和间隔
@@ -157,36 +159,36 @@ go p.peer.RequestHeadersByNumber(uint64(from), count, skip, false)
 ```go
 //----①
 if packet.PeerId() != p.id {
-				log.Debug("Received headers from incorrect peer", "peer", packet.PeerId())
-				break
-			}
+    log.Debug("Received headers from incorrect peer", "peer", packet.PeerId())
+    break
+   }
 //-----②
 headers := packet.(*headerPack).headers
-			if len(headers) == 0 {
-				p.log.Warn("Empty head header set")
+   if len(headers) == 0 {
+    p.log.Warn("Empty head header set")
         return 0
       }
 //-----③
 for i, header := range headers {
-				expectNumber := from + int64(i)*int64(skip+1)
-				if number := header.Number.Int64(); number != expectNumber { // 验证这些返回的header是否是我们上面请求的headers
-					p.log.Warn("Head headers broke chain ordering", "index", i, "requested", expectNumber, "received", number)
-					return 0, errInvalidChain
-				}
-			}
+    expectNumber := from + int64(i)*int64(skip+1)
+    if number := header.Number.Int64(); number != expectNumber { // 验证这些返回的header是否是我们上面请求的headers
+     p.log.Warn("Head headers broke chain ordering", "index", i, "requested", expectNumber, "received", number)
+     return 0, errInvalidChain
+    }
+   }
 //-----④
 // 检查是否找到共同祖先
-			finished = true
-			//注意这里是从headers最后一个元素开始查找，也就是高度最高的区块。
-			for i := len(headers) - 1; i >= 0; i-- {
-				// 跳过不在我们请求的高度区间内的区块
-				if headers[i].Number.Int64() < from || headers[i].Number.Uint64() > max {
-					continue
-				}
-				// //检查我们本地是否已经有某个区块了，如果有就算是找到了共同祖先，
-				//并将共同祖先的哈希和高度设置在number和hash变量中。
-				h := headers[i].Hash()
-				n := headers[i].Number.Uint64()
+   finished = true
+   //注意这里是从headers最后一个元素开始查找，也就是高度最高的区块。
+   for i := len(headers) - 1; i >= 0; i-- {
+    // 跳过不在我们请求的高度区间内的区块
+    if headers[i].Number.Int64() < from || headers[i].Number.Uint64() > max {
+     continue
+    }
+    // //检查我们本地是否已经有某个区块了，如果有就算是找到了共同祖先，
+    //并将共同祖先的哈希和高度设置在number和hash变量中。
+    h := headers[i].Hash()
+    n := headers[i].Number.Uint64()
 
         
         
@@ -232,18 +234,18 @@ type queue struct {
   blockPendPool map[string]*fetchRequest //当前的正在处理的块（body)检索操作
   blockDonePool map[common.Hash]struct{} //已经完成的块（body)
   
-	receiptTaskPool map[common.Hash]*types.Header //待处理的收据检索任务，将哈希映射到header
-	receiptTaskQueue *prque.Prque //标头的优先级队列,以用于获取收据
-	receiptPendPool map[string]*fetchRequest //当前的正在处理的收据检索操作
-	receiptDonePool map[common.Hash]struct{} //已经完成的收据
-	
-	resultCache []*fetchResult //下载但尚未交付获取结果
-	resultOffset uint64 //区块链中第一个缓存的获取结果的偏移量
-	resultSize common.StorageSize // 块的近似大小
+ receiptTaskPool map[common.Hash]*types.Header //待处理的收据检索任务，将哈希映射到header
+ receiptTaskQueue *prque.Prque //标头的优先级队列,以用于获取收据
+ receiptPendPool map[string]*fetchRequest //当前的正在处理的收据检索操作
+ receiptDonePool map[common.Hash]struct{} //已经完成的收据
+ 
+ resultCache []*fetchResult //下载但尚未交付获取结果
+ resultOffset uint64 //区块链中第一个缓存的获取结果的偏移量
+ resultSize common.StorageSize // 块的近似大小
 
-	lock   *sync.Mutex
-	active *sync.Cond
-	closed bool
+ lock   *sync.Mutex
+ active *sync.Cond
+ closed bool
   
 }
 ```
@@ -265,7 +267,7 @@ type queue struct {
 
   `InFlight`表示是否有正在获取XXX的请求，包括：`InFlightHeaders`、`InFlightBlocks`、`InFlightReceipts`，都是通过判断`len(q.receiptPendPool) > 0` 来确认。
 
--  `ShouldThrottle`
+- `ShouldThrottle`
 
    `ShouldThrottle`表示检查是否应该限制下载XXX，包括:`ShouldThrottleBlocks`、`ShouldThrottleReceipts`，主要是为了防止下载过程中本地内存占用过大。
 
@@ -316,8 +318,8 @@ func (q *queue) ScheduleSkeleton(from uint64, skeleton []*types.Header) {
 ```go
 headerTaskPool = {
   10: headerOf_19,
-	20: headerOf_20,
-	30: headerOf_39,
+ 20: headerOf_20,
+ 30: headerOf_39,
 }
 ```
 
@@ -329,39 +331,39 @@ headerTaskPool = {
 
 ```go
 reserve  = func(p *peerConnection, count int) (*fetchRequest, bool, error) {
-			return d.queue.ReserveHeaders(p, count), false, nil
-		}
+   return d.queue.ReserveHeaders(p, count), false, nil
+  }
 ```
 
 ```go
 func (q *queue) ReserveHeaders(p *peerConnection, count int) *fetchRequest {
   if _, ok := q.headerPendPool[p.id]; ok {
-		return nil
-	} //①
+  return nil
+ } //①
   ...
   send, skip := uint64(0), []uint64{}
-	for send == 0 && !q.headerTaskQueue.Empty() {
-		from, _ := q.headerTaskQueue.Pop()
-		if q.headerPeerMiss[p.id] != nil {
-			if _, ok := q.headerPeerMiss[p.id][from.(uint64)]; ok {
-				skip = append(skip, from.(uint64))
-				continue
-			}
-		}
-		send = from.(uint64) // ②
-	}
+ for send == 0 && !q.headerTaskQueue.Empty() {
+  from, _ := q.headerTaskQueue.Pop()
+  if q.headerPeerMiss[p.id] != nil {
+   if _, ok := q.headerPeerMiss[p.id][from.(uint64)]; ok {
+    skip = append(skip, from.(uint64))
+    continue
+   }
+  }
+  send = from.(uint64) // ②
+ }
   
  ...
   for _, from := range skip {
-		q.headerTaskQueue.Push(from, -int64(from))
-	} // ③
+  q.headerTaskQueue.Push(from, -int64(from))
+ } // ③
   ...
   request := &fetchRequest{
-		Peer: p,
-		From: send,
-		Time: time.Now(),
-	}
-	q.headerPendPool[p.id] = request // ④
+  Peer: p,
+  From: send,
+  Time: time.Now(),
+ }
+ q.headerPendPool[p.id] = request // ④
   
 }
 ```
@@ -388,23 +390,23 @@ fetch = func(p *peerConnection, req *fetchRequest) error {
 
 ```go
 deliver = func(packet dataPack) (int, error) {
-			pack := packet.(*headerPack)
-			return d.queue.DeliverHeaders(pack.peerID, pack.headers, d.headerProcCh)
-		}
+   pack := packet.(*headerPack)
+   return d.queue.DeliverHeaders(pack.peerID, pack.headers, d.headerProcCh)
+  }
 ```
 
 ①：如果发现下载数据的节点没有在 `queue.headerPendPool` 中，就直接返回错误；否则就继续处理，并将节点记录从 `queue.headerPendPool` 中删除。
 
 ```go
 request := q.headerPendPool[id]
-	if request == nil {
-		return 0, errNoFetchesPending
-	}
-	headerReqTimer.UpdateSince(request.Time)
-	delete(q.headerPendPool, id)
+ if request == nil {
+  return 0, errNoFetchesPending
+ }
+ headerReqTimer.UpdateSince(request.Time)
+ delete(q.headerPendPool, id)
 ```
 
-②：验证`headers` 
+②：验证`headers`
 
 包括三方面验证：
 
@@ -414,64 +416,64 @@ request := q.headerPendPool[id]
 
 ```go
 if accepted {
-		//检查起始区块的高度和哈希
-		if headers[0].Number.Uint64() != request.From {
-			...
-			accepted = false
-		} else if headers[len(headers)-1].Hash() != target {
-			...
-			accepted = false
-		}
-	}
-	if accepted {
-		for i, header := range headers[1:] {
-			hash := header.Hash() // 检查高度的连接性
-			if want := request.From + 1 + uint64(i); header.Number.Uint64() != want {
-				...
-			}
-			if headers[i].Hash() != header.ParentHash { // 检查哈希的连接性
-				...
-			}
-		}
-	}
+  //检查起始区块的高度和哈希
+  if headers[0].Number.Uint64() != request.From {
+   ...
+   accepted = false
+  } else if headers[len(headers)-1].Hash() != target {
+   ...
+   accepted = false
+  }
+ }
+ if accepted {
+  for i, header := range headers[1:] {
+   hash := header.Hash() // 检查高度的连接性
+   if want := request.From + 1 + uint64(i); header.Number.Uint64() != want {
+    ...
+   }
+   if headers[i].Hash() != header.ParentHash { // 检查哈希的连接性
+    ...
+   }
+  }
+ }
 ```
 
 ③： 将无效数据存入`headerPeerMiss`，并将这组区块起始高度重新放入`headerTaskQueue`
 
 ```go
 if !accepted {
-	...
-		miss := q.headerPeerMiss[id]
-		if miss == nil {
-			q.headerPeerMiss[id] = make(map[uint64]struct{})
-			miss = q.headerPeerMiss[id]
-		}
-		miss[request.From] = struct{}{}
-		q.headerTaskQueue.Push(request.From, -int64(request.From))
-		return 0, errors.New("delivery not accepted")
-	}
+ ...
+  miss := q.headerPeerMiss[id]
+  if miss == nil {
+   q.headerPeerMiss[id] = make(map[uint64]struct{})
+   miss = q.headerPeerMiss[id]
+  }
+  miss[request.From] = struct{}{}
+  q.headerTaskQueue.Push(request.From, -int64(request.From))
+  return 0, errors.New("delivery not accepted")
+ }
 ```
 
 ④：保存数据，并通知`headerProcCh`处理新的`header`
 
 ```go
 if ready > 0 {
-		process := make([]*types.Header, ready)
-		copy(process, q.headerResults[q.headerProced:q.headerProced+ready])
-		select {
-		case headerProcCh <- process:
-			q.headerProced += len(process)
-		default:
-		}
-	}
+  process := make([]*types.Header, ready)
+  copy(process, q.headerResults[q.headerProced:q.headerProced+ready])
+  select {
+  case headerProcCh <- process:
+   q.headerProced += len(process)
+  default:
+  }
+ }
 ```
 
 ⑤：发送消息给.`headerContCh`，通知`skeleton` 都被下载完了
 
 ```go
 if len(q.headerTaskPool) == 0 {
-		q.headerContCh <- false
-	}
+  q.headerContCh <- false
+ }
 ```
 
 `DeliverHeaders` 会对数据进行检验和保存，并发送 channel 消息给 `Downloader.processHeaders` 和 `Downloader.fetchParts`的 `wakeCh` 参数。
@@ -488,22 +490,22 @@ inserts := d.queue.Schedule(chunk, origin)
 
 ```GO
 func (q *queue) Schedule(headers []*types.Header, from uint64) []*types.Header {
-	inserts := make([]*types.Header, 0, len(headers))
-	for _, header := range headers {
+ inserts := make([]*types.Header, 0, len(headers))
+ for _, header := range headers {
     //校验
     ...
-		q.blockTaskPool[hash] = header
-		q.blockTaskQueue.Push(header, -int64(header.Number.Uint64()))
+  q.blockTaskPool[hash] = header
+  q.blockTaskQueue.Push(header, -int64(header.Number.Uint64()))
 
-		if q.mode == FastSync {
-			q.receiptTaskPool[hash] = header
-			q.receiptTaskQueue.Push(header, -int64(header.Number.Uint64()))
-		}
-		inserts = append(inserts, header)
-		q.headerHead = hash
-		from++
-	}
-	return inserts
+  if q.mode == FastSync {
+   q.receiptTaskPool[hash] = header
+   q.receiptTaskQueue.Push(header, -int64(header.Number.Uint64()))
+  }
+  inserts = append(inserts, header)
+  q.headerHead = hash
+  from++
+ }
+ return inserts
 }
 ```
 
@@ -517,11 +519,11 @@ func (q *queue) Schedule(headers []*types.Header, from uint64) []*types.Header {
 
 ```go
 for _, ch := range []chan bool{d.bodyWakeCh, d.receiptWakeCh} {
-				select {
-				case ch <- true:
-				default:
-				}
-			}
+    select {
+    case ch <- true:
+    default:
+    }
+   }
 ```
 
 而`fetchXXX` 会调用`fetchParts`，逻辑类似上面的的，`reserve`最终则会调用`reserveHeaders`，`deliver` 最终调用的是 `queue.deliver`.
@@ -562,39 +564,39 @@ space := q.resultSlots(pendPool, donePool)
 
 ```go
 for proc := 0; proc < space && len(send) < count && !taskQueue.Empty(); proc++ {
-		header := taskQueue.PopItem().(*types.Header)
-		hash := header.Hash()
-		index := int(header.Number.Int64() - int64(q.resultOffset))
-		if index >= len(q.resultCache) || index < 0 {
-			....
-		}
-		if q.resultCache[index] == nil {
-			components := 1
-			if q.mode == FastSync {
-				components = 2
-			}
-			q.resultCache[index] = &fetchResult{
-				Pending: components,
-				Hash:    hash,
-				Header:  header,
-			}
-		}
+  header := taskQueue.PopItem().(*types.Header)
+  hash := header.Hash()
+  index := int(header.Number.Int64() - int64(q.resultOffset))
+  if index >= len(q.resultCache) || index < 0 {
+   ....
+  }
+  if q.resultCache[index] == nil {
+   components := 1
+   if q.mode == FastSync {
+    components = 2
+   }
+   q.resultCache[index] = &fetchResult{
+    Pending: components,
+    Hash:    hash,
+    Header:  header,
+   }
+  }
   
-		if isNoop(header) {
-			donePool[hash] = struct{}{}
-			delete(taskPool, hash)
+  if isNoop(header) {
+   donePool[hash] = struct{}{}
+   delete(taskPool, hash)
 
-			space, proc = space-1, proc-1
-			q.resultCache[index].Pending--
-			progress = true
-			continue
-		}
-		if p.Lacks(hash) {
-			skip = append(skip, header)
-		} else {
-			send = append(send, header)
-		}
-	}
+   space, proc = space-1, proc-1
+   q.resultCache[index].Pending--
+   progress = true
+   continue
+  }
+  if p.Lacks(hash) {
+   skip = append(skip, header)
+  } else {
+   send = append(send, header)
+  }
+ }
 ```
 
 最后就是构造 `fetchRequest` 结构并返回。
@@ -609,10 +611,10 @@ for proc := 0; proc < space && len(send) < count && !taskQueue.Empty(); proc++ {
 
 ```go
 if results == 0 {
-		for _, header := range request.Headers {
-			request.Peer.MarkLacking(header.Hash())
-		}
-	}
+  for _, header := range request.Headers {
+   request.Peer.MarkLacking(header.Hash())
+  }
+ }
 ```
 
 ②：循环处理数据，通过调用`reconstruct` 填充 `resultCache[index]` 中的相应的字段
@@ -621,9 +623,9 @@ if results == 0 {
 for i, header := range request.Headers {
   ...
   if err := reconstruct(header, i, q.resultCache[index]); err != nil {
-			failure = err
-			break
-		}
+   failure = err
+   break
+  }
 }
 ```
 
@@ -631,10 +633,10 @@ for i, header := range request.Headers {
 
 ```go
 for _, header := range request.Headers {
-		if header != nil {
-			taskQueue.Push(header, -int64(header.Number.Uint64()))
-		}
-	}
+  if header != nil {
+   taskQueue.Push(header, -int64(header.Number.Uint64()))
+  }
+ }
 ```
 
 ④：如果有数据被验证通过且写入 `queue.resultCache` 中了（`accepted` > 0），发送 `queue.active` 消息。`Results` 会等待这这个信号。
@@ -677,59 +679,59 @@ for _, header := range request.Headers {
 
 ```go
 if packet.PeerId() != p.id {
-				log.Debug("Received skeleton from incorrect peer", "peer", packet.PeerId())
-				break
-			}
+    log.Debug("Received skeleton from incorrect peer", "peer", packet.PeerId())
+    break
+   }
 ```
 
 2.2 如果`skeleton`已经下载完毕，则需要继续填充`skeleton`
 
 ```go
 if packet.Items() == 0 && skeleton {
-				skeleton = false
-				getHeaders(from)
-				continue
-			}
+    skeleton = false
+    getHeaders(from)
+    continue
+   }
 ```
 
 2.3 整个`skeleton`填充完成，并且没有要获取的`header`了，要通知`headerProcCh`全部完成
 
 ```go
 if packet.Items() == 0 {
-				//下载pivot时不要中止标头的提取
-				if atomic.LoadInt32(&d.committed) == 0 && pivot <= from {
-					p.log.Debug("No headers, waiting for pivot commit")
-					select {
-					case <-time.After(fsHeaderContCheck):
-						getHeaders(from)
-						continue
-					case <-d.cancelCh:
-						return errCanceled
-					}
-				}
-				//完成Pivot操作（或不进行快速同步），并且没有头文件，终止该过程
-				p.log.Debug("No more headers available")
-				select {
-				case d.headerProcCh <- nil:
-					return nil
-				case <-d.cancelCh:
-					return errCanceled
-				}
-			}
+    //下载pivot时不要中止标头的提取
+    if atomic.LoadInt32(&d.committed) == 0 && pivot <= from {
+     p.log.Debug("No headers, waiting for pivot commit")
+     select {
+     case <-time.After(fsHeaderContCheck):
+      getHeaders(from)
+      continue
+     case <-d.cancelCh:
+      return errCanceled
+     }
+    }
+    //完成Pivot操作（或不进行快速同步），并且没有头文件，终止该过程
+    p.log.Debug("No more headers available")
+    select {
+    case d.headerProcCh <- nil:
+     return nil
+    case <-d.cancelCh:
+     return errCanceled
+    }
+   }
 ```
 
 2.4 当`header`有数据并且是在获取`skeleton`的时候，调用`fillHeaderSkeleton`填充`skeleton`
 
 ```go
 if skeleton {
-				filled, proced, err := d.fillHeaderSkeleton(from, headers)
-				if err != nil {
-					p.log.Debug("Skeleton chain invalid", "err", err)
-					return errInvalidChain
-				}
-				headers = filled[proced:]
-				from += uint64(proced)
-			}
+    filled, proced, err := d.fillHeaderSkeleton(from, headers)
+    if err != nil {
+     p.log.Debug("Skeleton chain invalid", "err", err)
+     return errInvalidChain
+    }
+    headers = filled[proced:]
+    from += uint64(proced)
+   }
 ```
 
 2.5 如果当前处理的不是 `skeleton`，表明区块同步得差不多了，处理尾部的一些区块
@@ -738,25 +740,25 @@ if skeleton {
 
 ```go
 if head+uint64(reorgProtThreshold) < headers[n-1].Number.Uint64() {
-						delay := reorgProtHeaderDelay
-						if delay > n {
-							delay = n
-						}
-						headers = headers[:n-delay]
-					}
+      delay := reorgProtHeaderDelay
+      if delay > n {
+       delay = n
+      }
+      headers = headers[:n-delay]
+     }
 ```
 
 2.6 如果还有 `header` 未处理，发给 `headerProcCh` 进行处理，`Downloader.processHeaders` 会等待这个 channel 的消息并进行处理；
 
 ```go
 if len(headers) > 0 {
-				...
-				select {
-				case d.headerProcCh <- headers:
-				case <-d.cancelCh:
-					return errCanceled
-				}
-				from += uint64(len(headers))
+    ...
+    select {
+    case d.headerProcCh <- headers:
+    case <-d.cancelCh:
+     return errCanceled
+    }
+    from += uint64(len(headers))
   getHeaders(from)
 }
 ```
@@ -765,13 +767,13 @@ if len(headers) > 0 {
 
 ```go
 p.log.Trace("All headers delayed, waiting")
-				select {
-				case <-time.After(fsHeaderContCheck):
-					getHeaders(from)
-					continue
-				case <-d.cancelCh:
-					return errCanceled
-				}
+    select {
+    case <-time.After(fsHeaderContCheck):
+     getHeaders(from)
+     continue
+    case <-d.cancelCh:
+     return errCanceled
+    }
 ```
 
 这段代码后来才加上的，其 commit 的记录在[这里](https://github.com/ethereum/go-ethereum/commit/6ee3b26f447459d3f3a316dbb572e461a273e193#diff-c2fa15e758e986688c646459d8970a50)，而 「pull request」 在[这里](https://github.com/ethereum/go-ethereum/pull/17839)。从 「pull request」 中作者的解释我们可以了解这段代码的逻辑和功能：这个修改主要是为了解决经常出现的 「invalid hash chain」 错误，出现这个错误的原因是因为在我们上一次从远程节点获取到一些区块并将它们加入到本地的主链的过程中，远程节点发生了 reorg 操作（参见[这篇文章](https://yangzhe.me/2019/03/24/ethereum-blockchain/)里关于「主链与侧链」的介绍 ）；当我们再次根据高度请求新的区块时，对方返回给我们的是它的新的主链上的区块，而我们没有这个链上的历史区块，因此在本地写入区块时就会返回 「invalid hash chain」 错误。
@@ -802,14 +804,14 @@ p.log.Trace("All headers delayed, waiting")
 func (d *Downloader) fetchParts(...) error {
   ...
   for {
-		select {
-		case <-d.cancelCh:
-		case packet := <-deliveryCh:
-		case cont := <-wakeCh:
-		case <-ticker.C:
-		case <-update:
-		...
-	}
+  select {
+  case <-d.cancelCh:
+  case packet := <-deliveryCh:
+  case cont := <-wakeCh:
+  case <-ticker.C:
+  case <-update:
+  ...
+ }
 }
 ```
 
@@ -821,25 +823,25 @@ func (d *Downloader) fetchParts(...) error {
 
 ```go
 case packet := <-deliveryCh:
-			if peer := d.peers.Peer(packet.PeerId()); peer != nil {
-				accepted, err := deliver(packet)//传递接收到的数据块并检查链有效性
-				if err == errInvalidChain {
-					return err
+   if peer := d.peers.Peer(packet.PeerId()); peer != nil {
+    accepted, err := deliver(packet)//传递接收到的数据块并检查链有效性
+    if err == errInvalidChain {
+     return err
         }
-				if err != errStaleDelivery {
-					setIdle(peer, accepted)
-				}
-				switch {
-				case err == nil && packet.Items() == 0:
-					...
-				case err == nil:
-				...
-				}
-			}
-			select {
-			case update <- struct{}{}:
-			default:
-			}
+    if err != errStaleDelivery {
+     setIdle(peer, accepted)
+    }
+    switch {
+    case err == nil && packet.Items() == 0:
+     ...
+    case err == nil:
+    ...
+    }
+   }
+   select {
+   case update <- struct{}{}:
+   default:
+   }
 ```
 
 收到下载数据后判断节点是否有效，如果节点没有被移除，则会通过`deliver`传递接收到的下载数据。如果没有任何错误，则通知`update`处理。
@@ -852,13 +854,13 @@ case packet := <-deliveryCh:
 
 ```GO
 case cont := <-wakeCh:
-			if !cont {
-				finished = true
-			}
-			select {
-			case update <- struct{}{}:
-			default:
-			}
+   if !cont {
+    finished = true
+   }
+   select {
+   case update <- struct{}{}:
+   default:
+   }
 ```
 
 首先我们通过调用fetchParts传递的参数知道，`wakeCh` 的值其实是 `queue.headerContCh`。在 `queue.DeliverHeaders` 中发现所有需要下戴的 header 都下载完成了时，才会发送 false 给这个 channel。`fetchParts` 在收到这个消息时，就知道没有 header 需要下载了。代码如下：
@@ -887,7 +889,7 @@ func (d *Downloader) processHeaders(origin uint64, pivot uint64, td *big.Int) er
                     case <-d.cancelCh:
                     }
                 }
-						...
+      ...
             }
             ...
             for _, ch := range []chan bool{d.bodyWakeCh, d.receiptWakeCh} {
@@ -905,10 +907,10 @@ func (d *Downloader) processHeaders(origin uint64, pivot uint64, td *big.Int) er
 
 ```go
 case <-ticker.C:
-			select {
-			case update <- struct{}{}:
-			default:
-			}
+   select {
+   case update <- struct{}{}:
+   default:
+   }
 
 ```
 
@@ -922,21 +924,21 @@ case <-ticker.C:
 
 ```go
 if d.peers.Len() == 0 {
-				return errNoPeers
-			}
+    return errNoPeers
+   }
 for pid, fails := range expire() {
   if peer := d.peers.Peer(pid); peer != nil {
     if fails > 2 {
-						...
-						setIdle(peer, 0)
-					} else {
-					...
-						if d.dropPeer == nil {
-						} else {
-							d.dropPeer(pid)
-							....
-						}
-					}
+      ...
+      setIdle(peer, 0)
+     } else {
+     ...
+      if d.dropPeer == nil {
+      } else {
+       d.dropPeer(pid)
+       ....
+      }
+     }
   }
 ```
 
@@ -946,12 +948,12 @@ for pid, fails := range expire() {
 
 ```go
 if pending() == 0 {
-				if !inFlight() && finished {
-				...
-					return nil
-				}
-				break
-			}
+    if !inFlight() && finished {
+    ...
+     return nil
+    }
+    break
+   }
 ```
 
 2.4.3 使用空闲节点，调用`fetch`函数发送数据请求
@@ -966,34 +968,34 @@ if pending() == 0 {
 
 ```go
 progressed, throttled, running := false, false, inFlight()
-			idles, total := idle()
-			for _, peer := range idles {
-				if throttle() {
-					...
+   idles, total := idle()
+   for _, peer := range idles {
+    if throttle() {
+     ...
         }
-				if pending() == 0 {
-					break
-				}
-				request, progress, err := reserve(peer, capacity(peer))
-				if err != nil {
-					return err
-				}
-				if progress {
-					progressed = true
-				}
+    if pending() == 0 {
+     break
+    }
+    request, progress, err := reserve(peer, capacity(peer))
+    if err != nil {
+     return err
+    }
+    if progress {
+     progressed = true
+    }
         if request == nil {
-					continue
-				}
-				if request.From > 0 {
-				...
-				}
-				...
-				if err := fetch(peer, request); err != nil {
-				...
-			}
-			if !progressed && !throttled && !running && len(idles) == total && pending() > 0 {
-				return errPeersUnavailable
-			}
+     continue
+    }
+    if request.From > 0 {
+    ...
+    }
+    ...
+    if err := fetch(peer, request); err != nil {
+    ...
+   }
+   if !progressed && !throttled && !running && len(idles) == total && pending() > 0 {
+    return errPeersUnavailable
+   }
 ```
 
 简单来概括这段代码就是：使用空闲节点下载数据，判断是否需要暂停，或者数据是否已经下载完成；之后选取数据进行下载；最后，如果没有遇到空块需要下载、且没有暂停下载和所有有效节点都空闲和确实有数据需要下载，但下载没有运行起来，就返回 `errPeersUnavailable` 错误。
@@ -1012,33 +1014,33 @@ progressed, throttled, running := false, false, inFlight()
 
 ```go
 for _, ch := range []chan bool{d.bodyWakeCh, d.receiptWakeCh} {
-					select {
-					case ch <- false:
-					case <-d.cancelCh:
-					}
-				}
+     select {
+     case ch <- false:
+     case <-d.cancelCh:
+     }
+    }
 ```
 
 1.2 若没有检索到任何`header`，说明他们的`TD`小于我们的，或者已经通过我们的`fetcher`模块进行了同步。
 
 ```go
 if d.mode != LightSync {
-					head := d.blockchain.CurrentBlock()
-					if !gotHeaders && td.Cmp(d.blockchain.GetTd(head.Hash(), head.NumberU64())) > 0 {
-						return errStallingPeer
-					}
-				}
+     head := d.blockchain.CurrentBlock()
+     if !gotHeaders && td.Cmp(d.blockchain.GetTd(head.Hash(), head.NumberU64())) > 0 {
+      return errStallingPeer
+     }
+    }
 ```
 
 1.3 如果是`fast`或者`light` 同步，确保传递了`header`
 
 ```GO
 if d.mode == FastSync || d.mode == LightSync {
-					head := d.lightchain.CurrentHeader()
-					if td.Cmp(d.lightchain.GetTd(head.Hash(), head.Number.Uint64())) > 0 {
-						return errStallingPeer
-					}
-				}
+     head := d.lightchain.CurrentHeader()
+     if td.Cmp(d.lightchain.GetTd(head.Hash(), head.Number.Uint64())) > 0 {
+      return errStallingPeer
+     }
+    }
 ```
 
 ②：如果`headers`的长度大于 0
@@ -1067,21 +1069,21 @@ if d.mode == FullSync || d.mode == FastSync {
 
 ```go
 if d.syncStatsChainHeight < origin {
-				d.syncStatsChainHeight = origin - 1
-			}
+    d.syncStatsChainHeight = origin - 1
+   }
 for _, ch := range []chan bool{d.bodyWakeCh, d.receiptWakeCh} {
-				select {
-				case ch <- true:
-				default:
-				}
-			}
+    select {
+    case ch <- true:
+    default:
+    }
+   }
 ```
 
 到此处理`Headers`的分析就完成了。
 
 ------
 
-## 同步bodies 
+## 同步bodies
 
 同步`bodies` 则是由`fetchBodies`函数完成的。
 
@@ -1109,10 +1111,6 @@ for _, ch := range []chan bool{d.bodyWakeCh, d.receiptWakeCh} {
 
 -------
 
-
-
-
-
 ## 同步状态
 
 这里我们讲两种模式下的状态同步：
@@ -1126,25 +1124,25 @@ for _, ch := range []chan bool{d.bodyWakeCh, d.receiptWakeCh} {
 
 ```go
 func (d *Downloader) processFullSyncContent() error {
-	for {
-		results := d.queue.Results(true)
-		...
-		if err := d.importBlockResults(results); err != nil ...
-	}
+ for {
+  results := d.queue.Results(true)
+  ...
+  if err := d.importBlockResults(results); err != nil ...
+ }
 }
 ```
 
 ```go
 func (d *Downloader) importBlockResults(results []*fetchResult) error {
-	...
-	select {
+ ...
+ select {
 ...
-	blocks := make([]*types.Block, len(results))
-	for i, result := range results {
-		blocks[i] = types.NewBlockWithHeader(result.Header).WithBody(result.Transactions, result.Uncles)
-	}
-	if index, err := d.blockchain.InsertChain(blocks); err != nil {
-		....
+ blocks := make([]*types.Block, len(results))
+ for i, result := range results {
+  blocks[i] = types.NewBlockWithHeader(result.Header).WithBody(result.Transactions, result.Uncles)
+ }
+ if index, err := d.blockchain.InsertChain(blocks); err != nil {
+  ....
 }
 ```
 
@@ -1174,9 +1172,9 @@ sync := d.syncState(latest.Root)
 
 ```go
 pivot := uint64(0)
-	if height := latest.Number.Uint64(); height > uint64(fsMinFullBlocks) {
-		pivot = height - uint64(fsMinFullBlocks)
-	}
+ if height := latest.Number.Uint64(); height > uint64(fsMinFullBlocks) {
+  pivot = height - uint64(fsMinFullBlocks)
+ }
 ```
 
 ```go
@@ -1193,26 +1191,24 @@ d.commitFastSyncData(beforeP, sync);
 
 ```go
 if err := d.commitPivotBlock(P); err != nil {
-					return err
-				}
+     return err
+    }
 ```
 
 ⑤：对`afterP`调用`d.importBlockResults`，将`body`插入区块链，而不插入`receipt`。因为是最后 64 个区块，所以此时数据库中只有`header`和`body`，没有`receipt`和状态，要通过`fullSync`模式进行最后的同步。
 
 ```go
 if err := d.importBlockResults(afterP); err != nil {
-			return err
-		}
+   return err
+  }
 ```
 
 到此为止整个Downloader同步完成了。
 
-
-
 ## 参考
 
-> https://mindcarver.cn
+> <https://mindcarver.cn>
 >
-> https://github.com/ethereum/go-ethereum/pull/1889
+> <https://github.com/ethereum/go-ethereum/pull/1889>
 >
-> https://yangzhe.me/2019/05/09/ethereum-downloader/#fetchparts
+> <https://yangzhe.me/2019/05/09/ethereum-downloader/#fetchparts>

@@ -1,4 +1,4 @@
-> 死磕共识算法|实用拜占庭容错算法(PBFT)
+> 浅谈共识算法|实用拜占庭容错算法(PBFT)
 >
 > 配合以下代码进行阅读：https://github.com/blockchainGuide/
 >

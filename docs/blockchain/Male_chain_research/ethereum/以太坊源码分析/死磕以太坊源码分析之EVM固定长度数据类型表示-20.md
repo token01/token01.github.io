@@ -1,12 +1,19 @@
-> 死磕以太坊源码分析之EVM固定长度数据类型表示
->
-> 配合以下代码进行阅读：https://github.com/blockchainGuide/
->
-> 写文不易，给个小关注，有什么问题可以指出，便于大家交流学习。
->
-> 翻译自 https://medium.com/@hayeah/diving-into-the-ethereum-vm-part-2-storage-layout-bc5349cb11b7
+---
+title: 浅谈以太坊源码分析之EVM固定长度数据类型表示
+shortTitle: 浅谈以太坊源码分析之EVM固定长度数据类型表示
+category:
+  - 区块链
+tag:
+  - 浅谈以太坊源码分析
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识  
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
+> 浅谈以太坊源码分析之EVM固定长度数据类型表示
 
-
+> 翻译自 <https://medium.com/@hayeah/diving-into-the-ethereum-vm-part-2-storage-layout-bc5349cb11b7>
 
 我们先看一个简单的`Solidity`合约的汇编代码：
 
@@ -65,8 +72,6 @@ EVM的存储器对于合约来说就像一个无限的自动收报机磁带，�
 
 以一个简单的合约来演示一下0值的行为：
 
-
-
 ```jsx
 pragma solidity ^0.4.11;
 contract C {
@@ -92,15 +97,11 @@ contract C {
 
 编译一下再看：
 
-
-
 ```cpp
-$ solc --bin --asm --optimize c-many-variables.sol
+solc --bin --asm --optimize c-many-variables.sol
 ```
 
 汇编代码：
-
-
 
 ```cpp
 // sstore(0x5, 0xc0fefe)
@@ -115,8 +116,6 @@ tag_2:
 这样的话，我们只需要为存储`0x5`进行付费。
 
 如果我们手动编写汇编代码的话，我们可以选择任意的存储位置，而用不着"扩展"存储器：
-
-
 
 ```cpp
 // 编写一个任意的存储位置
@@ -142,7 +141,7 @@ contract C {
 编译：
 
 ```cpp
-$ solc --bin --asm --optimize c-zero-value.sol
+solc --bin --asm --optimize c-zero-value.sol
 ```
 
 汇编代码：
@@ -197,10 +196,8 @@ contract C {
 
 编译一下：
 
-
-
 ```cpp
-$ solc --bin --asm --optimize c-struct-fields.sol
+solc --bin --asm --optimize c-struct-fields.sol
 ```
 
 然后我们看见一模一样的汇编代码：
@@ -233,7 +230,7 @@ contract C {
 编译：
 
 ```cpp
-$ solc --bin --asm --optimize c-static-array.sol
+solc --bin --asm --optimize c-static-array.sol
 ```
 
 汇编代码：
@@ -282,7 +279,7 @@ tag_2:
 让我们再次编译数组合约，这次去掉优化的选项：
 
 ```cpp
-$ solc --bin --asm c-static-array.sol
+solc --bin --asm c-static-array.sol
 ```
 
 汇编代码在下面已经注释了，并且打印出每条指令的机器状态：
@@ -350,7 +347,7 @@ contract C {
 编译：
 
 ```cpp
-$ solc --bin --asm --optimize c-many-variables--packing.sol
+solc --bin --asm --optimize c-many-variables--packing.sol
 ```
 
 汇编代码：
@@ -422,7 +419,7 @@ contract C {
 编译：
 
 ```cpp
-$ solc --bin --asm --optimize c-many-variables--packing-helpers.sol
+solc --bin --asm --optimize c-many-variables--packing-helpers.sol
 ```
 
 输出的汇编代码太多了，我们忽略了大多数的细节，只关注结构体：
@@ -554,6 +551,3 @@ $ solc --bin --asm --optimize c-static-array--packing.sol | grep -E '(sstore|slo
 我们可以肯定Solidity编译器在未来肯定会改良。对于现在而言，很不幸，我们不能盲目的相信它的优化器。
 
 它需要你真正的理解存储变量。
-
-
-

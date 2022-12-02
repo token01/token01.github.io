@@ -1,7 +1,16 @@
-> 文章以及资料（开源）：[github地址](https://github.com/mindcarver/blockchain_guide)  
-
-[TOC]
-
+---
+title: 钱包知识系列
+shortTitle: 钱包知识系列
+category:
+  - 区块链
+tag:
+  - 钱包系列
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识 
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
 
 ## 密码
 

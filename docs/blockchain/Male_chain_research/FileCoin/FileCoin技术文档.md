@@ -1,12 +1,23 @@
-> 翻译自：https://spec.filecoin.io/#section-systems.filecoin_vm.interpreter
+---
+title: fileCoin技术文档
+shortTitle: fileCoin技术文档
+category:
+  - 区块链
+tag:
+  - fileCoin
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识 
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
+> 翻译自：<https://spec.filecoin.io/#section-systems.filecoin_vm.interpreter>
 
 # 1. 介绍
 
 Filecoin是一个基于区块链机制的分布式存储网络。Filecoin矿工可以选择为网络提供存储容量，从而通过定期生成加密证明来获得Filecoin加密货币(FIL)的单位，证明他们正在提供指定的容量。此外，Filecoin允许各方通过Filecoin区块链上的共享分类账记录的交易来交换Filecoin货币。然而，Filecoin并没有使用工作量证明来维护链上的共识，而是使用了存储证明本身:一个矿工在共识协议中的能力与它提供的存储量成比例。
 
 Filecoin区块链不仅维护Filecoin交易和账户的分类账本，还实现了Filecoin VM，这是一个可复制的状态机，在网络上的参与者之间执行各种加密合约和市场机制。这些合约包括存储交易，客户向矿工支付FIL货币，以换取存储客户请求的特定文件数据。通过Filecoin VM的分布式实现，存储交易和其他记录在链上的合约机制将随着时间的推移继续处理，而不需要原始各方(如请求数据存储的客户端)的进一步交互。
-
-
 
 ## 1.2 架构图
 
@@ -19,12 +30,12 @@ Actor状态图：
 - **Data structures**是带有语义标记的数据成员(例如，结构、接口或枚举)的集合。
 - **Function**是不依赖于外部状态的计算过程(例如，数学函数或不引用全局变量的编程语言函数)
 - **Components**是一组功能，在实现结构中被表示为单个软件单元。根据语言和特定组件的选择，这可能对应于单个软件模块、运行主循环的线程或进程、磁盘支持的数据库或各种其他设计选择。例如，ChainSync是一个组件:它可以被实现为一个进程或线程运行单个指定的主循环，它等待网络消息，并通过记录和/或转发块数据来响应。
--  **api**是将消息传递给组件的接口。一个给定子协议的客户端视图，例如向一个miner节点的Storage Provider组件请求在存储市场中存储文件，可能需要执行一系列的API请求。
+- **api**是将消息传递给组件的接口。一个给定子协议的客户端视图，例如向一个miner节点的Storage Provider组件请求在存储市场中存储文件，可能需要执行一系列的API请求。
 - **Nodes**是与协议交互的完整的软件和硬件系统。一个节点可能会不断地运行上述几个组件，参与多个子系统，并在本地和/或通过网络公开api，这取决于节点配置。术语“完整节点”是指运行上述所有组件并支持规范中详细描述的所有api的系统。
 - **Subsystems**是整个Filecoin协议的概念划分，要么是按照完整的协议(如存储市场或检索市场)，要么是按照功能(如VM - Virtual Machine)。它们不一定对应于任何特定的节点或软件组件。
 - **Actor**是体现在Filecoin VM状态中的虚拟实体。协议参与者类似于智能合约的参与者;参与者携带FIL货币余额，并可以通过VM的操作与其他参与者交互，但并不一定对应于任何特定的节点或软件组件。
 
-## 1.4 FileCoin VM 
+## 1.4 FileCoin VM
 
  Filecoin的大多数用户所面对的功能(支付、存储市场、能量表等)是通过Filecoin虚拟机(Filecoin VM)管理的。该网络生成一系列区块，并同意哪个区块链是正确的。每个块包含一系列称为消息的状态转换，以及应用这些消息后的当前全局状态检查点。
 
@@ -143,7 +154,7 @@ Filecoin实现可以支持以下子系统或节点类型：
 - **Retrieval Miner Node（检索矿工节点）：**此节点类型扩展了**Chain Verifier节点**以添加*检索矿工*功能，即参与了检索市场。这样，此节点类型需要实现*检索市场提供者*服务，并能够通过数据传输模块进行数据传输。
 - **Storage Miner Node：**这种类型的节点必须实现验证，创建和添加块以扩展区块链所需的所有必需功能。它应实施链验证，存储挖掘和存储市场提供商服务，并能够通过数据传输模块进行数据传输。
 
-#### 2.1.1.1[ 节点接口](https://spec.filecoin.io/#section-systems.filecoin_nodes.node_types.node-interface)
+#### 2.1.1.1[节点接口](https://spec.filecoin.io/#section-systems.filecoin_nodes.node_types.node-interface)
 
 可以在[此处](https://github.com/filecoin-project/lotus/blob/master/node/repo/interface.go)找到Node接口的Lotus实现 。
 
@@ -508,7 +519,7 @@ Piece数据结构用于证明存储任意IPLD图和客户端数据。该图显�
 
 使用数据传输协议作为独立的libp2p通讯机制并不是硬性要求-只要双方都实现了可以与对方通信的数据传输子系统，任何传输机制（包括离线机制）都是可以接受的。
 
-#### 2.2.3.7[ 数据结构](https://spec.filecoin.io/#section-systems.filecoin_files.data_transfer.data-structures)
+#### 2.2.3.7[数据结构](https://spec.filecoin.io/#section-systems.filecoin_files.data_transfer.data-structures)
 
 [示例：数据传输类型](https://spec.filecoin.io/#example-data-transfer-types)
 
@@ -516,13 +527,13 @@ Piece数据结构用于证明存储任意IPLD图和客户端数据。该图显�
 package datatransfer
 
 import (
-	"fmt"
+ "fmt"
 
-	"github.com/ipfs/go-cid"
-	"github.com/ipld/go-ipld-prime"
-	"github.com/libp2p/go-libp2p-core/peer"
+ "github.com/ipfs/go-cid"
+ "github.com/ipld/go-ipld-prime"
+ "github.com/libp2p/go-libp2p-core/peer"
 
-	"github.com/filecoin-project/go-data-transfer/encoding"
+ "github.com/filecoin-project/go-data-transfer/encoding"
 )
 
 //go:generate cbor-gen-for ChannelID
@@ -537,9 +548,9 @@ const EmptyTypeIdentifier = TypeIdentifier("")
 // Registerable is a type of object in a registry. It must be encodable and must
 // have a single method that uniquely identifies its type
 type Registerable interface {
-	encoding.Encodable
-	// Type is a unique string identifier for this voucher type
-	Type() TypeIdentifier
+ encoding.Encodable
+ // Type is a unique string identifier for this voucher type
+ Type() TypeIdentifier
 }
 
 // Voucher is used to validate
@@ -559,94 +570,94 @@ type TransferID uint64
 // ChannelID is a unique identifier for a channel, distinct by both the other
 // party's peer ID + the transfer ID
 type ChannelID struct {
-	Initiator peer.ID
-	Responder peer.ID
-	ID        TransferID
+ Initiator peer.ID
+ Responder peer.ID
+ ID        TransferID
 }
 
 func (c ChannelID) String() string {
-	return fmt.Sprintf("%s-%s-%d", c.Initiator, c.Responder, c.ID)
+ return fmt.Sprintf("%s-%s-%d", c.Initiator, c.Responder, c.ID)
 }
 
 // OtherParty returns the peer on the other side of the request, depending
 // on whether this peer is the initiator or responder
 func (c ChannelID) OtherParty(thisPeer peer.ID) peer.ID {
-	if thisPeer == c.Initiator {
-		return c.Responder
-	}
-	return c.Initiator
+ if thisPeer == c.Initiator {
+  return c.Responder
+ }
+ return c.Initiator
 }
 
 // Channel represents all the parameters for a single data transfer
 type Channel interface {
-	// TransferID returns the transfer id for this channel
-	TransferID() TransferID
+ // TransferID returns the transfer id for this channel
+ TransferID() TransferID
 
-	// BaseCID returns the CID that is at the root of this data transfer
-	BaseCID() cid.Cid
+ // BaseCID returns the CID that is at the root of this data transfer
+ BaseCID() cid.Cid
 
-	// Selector returns the IPLD selector for this data transfer (represented as
-	// an IPLD node)
-	Selector() ipld.Node
+ // Selector returns the IPLD selector for this data transfer (represented as
+ // an IPLD node)
+ Selector() ipld.Node
 
-	// Voucher returns the voucher for this data transfer
-	Voucher() Voucher
+ // Voucher returns the voucher for this data transfer
+ Voucher() Voucher
 
-	// Sender returns the peer id for the node that is sending data
-	Sender() peer.ID
+ // Sender returns the peer id for the node that is sending data
+ Sender() peer.ID
 
-	// Recipient returns the peer id for the node that is receiving data
-	Recipient() peer.ID
+ // Recipient returns the peer id for the node that is receiving data
+ Recipient() peer.ID
 
-	// TotalSize returns the total size for the data being transferred
-	TotalSize() uint64
+ // TotalSize returns the total size for the data being transferred
+ TotalSize() uint64
 
-	// IsPull returns whether this is a pull request
-	IsPull() bool
+ // IsPull returns whether this is a pull request
+ IsPull() bool
 
-	// ChannelID returns the ChannelID for this request
-	ChannelID() ChannelID
+ // ChannelID returns the ChannelID for this request
+ ChannelID() ChannelID
 
-	// OtherPeer returns the counter party peer for this channel
-	OtherPeer() peer.ID
+ // OtherPeer returns the counter party peer for this channel
+ OtherPeer() peer.ID
 }
 
 // ChannelState is channel parameters plus it's current state
 type ChannelState interface {
-	Channel
+ Channel
 
-	// SelfPeer returns the peer this channel belongs to
-	SelfPeer() peer.ID
+ // SelfPeer returns the peer this channel belongs to
+ SelfPeer() peer.ID
 
-	// Status is the current status of this channel
-	Status() Status
+ // Status is the current status of this channel
+ Status() Status
 
-	// Sent returns the number of bytes sent
-	Sent() uint64
+ // Sent returns the number of bytes sent
+ Sent() uint64
 
-	// Received returns the number of bytes received
-	Received() uint64
+ // Received returns the number of bytes received
+ Received() uint64
 
-	// Message offers additional information about the current status
-	Message() string
+ // Message offers additional information about the current status
+ Message() string
 
-	// Vouchers returns all vouchers sent on this channel
-	Vouchers() []Voucher
+ // Vouchers returns all vouchers sent on this channel
+ Vouchers() []Voucher
 
-	// VoucherResults are results of vouchers sent on the channel
-	VoucherResults() []VoucherResult
+ // VoucherResults are results of vouchers sent on the channel
+ VoucherResults() []VoucherResult
 
-	// LastVoucher returns the last voucher sent on the channel
-	LastVoucher() Voucher
+ // LastVoucher returns the last voucher sent on the channel
+ LastVoucher() Voucher
 
-	// LastVoucherResult returns the last voucher result sent on the channel
-	LastVoucherResult() VoucherResult
+ // LastVoucherResult returns the last voucher result sent on the channel
+ LastVoucherResult() VoucherResult
 
-	// ReceivedCids returns the cids received so far on the channel
-	ReceivedCids() []cid.Cid
+ // ReceivedCids returns the cids received so far on the channel
+ ReceivedCids() []cid.Cid
 
-	// Queued returns the number of bytes read from the node and queued for sending
-	Queued() uint64
+ // Queued returns the number of bytes read from the node and queued for sending
+ Queued() uint64
 }
 ```
 
@@ -659,82 +670,82 @@ package datatransfer
 type Status uint64
 
 const (
-	// Requested means a data transfer was requested by has not yet been approved
-	Requested Status = iota
+ // Requested means a data transfer was requested by has not yet been approved
+ Requested Status = iota
 
-	// Ongoing means the data transfer is in progress
-	Ongoing
+ // Ongoing means the data transfer is in progress
+ Ongoing
 
-	// TransferFinished indicates the initiator is done sending/receiving
-	// data but is awaiting confirmation from the responder
-	TransferFinished
+ // TransferFinished indicates the initiator is done sending/receiving
+ // data but is awaiting confirmation from the responder
+ TransferFinished
 
-	// ResponderCompleted indicates the initiator received a message from the
-	// responder that it's completed
-	ResponderCompleted
+ // ResponderCompleted indicates the initiator received a message from the
+ // responder that it's completed
+ ResponderCompleted
 
-	// Finalizing means the responder is awaiting a final message from the initator to
-	// consider the transfer done
-	Finalizing
+ // Finalizing means the responder is awaiting a final message from the initator to
+ // consider the transfer done
+ Finalizing
 
-	// Completing just means we have some final cleanup for a completed request
-	Completing
+ // Completing just means we have some final cleanup for a completed request
+ Completing
 
-	// Completed means the data transfer is completed successfully
-	Completed
+ // Completed means the data transfer is completed successfully
+ Completed
 
-	// Failing just means we have some final cleanup for a failed request
-	Failing
+ // Failing just means we have some final cleanup for a failed request
+ Failing
 
-	// Failed means the data transfer failed
-	Failed
+ // Failed means the data transfer failed
+ Failed
 
-	// Cancelling just means we have some final cleanup for a cancelled request
-	Cancelling
+ // Cancelling just means we have some final cleanup for a cancelled request
+ Cancelling
 
-	// Cancelled means the data transfer ended prematurely
-	Cancelled
+ // Cancelled means the data transfer ended prematurely
+ Cancelled
 
-	// InitiatorPaused means the data sender has paused the channel (only the sender can unpause this)
-	InitiatorPaused
+ // InitiatorPaused means the data sender has paused the channel (only the sender can unpause this)
+ InitiatorPaused
 
-	// ResponderPaused means the data receiver has paused the channel (only the receiver can unpause this)
-	ResponderPaused
+ // ResponderPaused means the data receiver has paused the channel (only the receiver can unpause this)
+ ResponderPaused
 
-	// BothPaused means both sender and receiver have paused the channel seperately (both must unpause)
-	BothPaused
+ // BothPaused means both sender and receiver have paused the channel seperately (both must unpause)
+ BothPaused
 
-	// ResponderFinalizing is a unique state where the responder is awaiting a final voucher
-	ResponderFinalizing
+ // ResponderFinalizing is a unique state where the responder is awaiting a final voucher
+ ResponderFinalizing
 
-	// ResponderFinalizingTransferFinished is a unique state where the responder is awaiting a final voucher
-	// and we have received all data
-	ResponderFinalizingTransferFinished
+ // ResponderFinalizingTransferFinished is a unique state where the responder is awaiting a final voucher
+ // and we have received all data
+ ResponderFinalizingTransferFinished
 
-	// ChannelNotFoundError means the searched for data transfer does not exist
-	ChannelNotFoundError
+ // ChannelNotFoundError means the searched for data transfer does not exist
+ ChannelNotFoundError
 )
 
 // Statuses are human readable names for data transfer states
 var Statuses = map[Status]string{
-	// Requested means a data transfer was requested by has not yet been approved
-	Requested:                           "Requested",
-	Ongoing:                             "Ongoing",
-	TransferFinished:                    "TransferFinished",
-	ResponderCompleted:                  "ResponderCompleted",
-	Finalizing:                          "Finalizing",
-	Completing:                          "Completing",
-	Completed:                           "Completed",
-	Failing:                             "Failing",
-	Failed:                              "Failed",
-	Cancelling:                          "Cancelling",
-	Cancelled:                           "Cancelled",
-	InitiatorPaused:                     "InitiatorPaused",
-	ResponderPaused:                     "ResponderPaused",
-	BothPaused:                          "BothPaused",
-	ResponderFinalizing:                 "ResponderFinalizing",
-	ResponderFinalizingTransferFinished: "ResponderFinalizingTransferFinished",
-	ChannelNotFoundError:                "ChannelNotFoundError",
+ // Requested means a data transfer was requested by has not yet been approved
+ Requested:                           "Requested",
+ Ongoing:                             "Ongoing",
+ TransferFinished:                    "TransferFinished",
+ ResponderCompleted:                  "ResponderCompleted",
+ Finalizing:                          "Finalizing",
+ Completing:                          "Completing",
+ Completed:                           "Completed",
+ Failing:                             "Failing",
+ Failed:                              "Failed",
+ Cancelling:                          "Cancelling",
+ Cancelled:                           "Cancelled",
+ InitiatorPaused:                     "InitiatorPaused",
+ ResponderPaused:                     "ResponderPaused",
+ BothPaused:                          "BothPaused",
+ ResponderFinalizing:                 "ResponderFinalizing",
+ ResponderFinalizingTransferFinished: "ResponderFinalizingTransferFinished",
+ ChannelNotFoundError:                "ChannelNotFoundError",
 }
 ```
 
@@ -745,66 +756,66 @@ var Statuses = map[Status]string{
 ```go
 type Manager interface {
 
-	// Start initializes data transfer processing
-	Start(ctx context.Context) error
+ // Start initializes data transfer processing
+ Start(ctx context.Context) error
 
-	// OnReady registers a listener for when the data transfer comes on line
-	OnReady(ReadyFunc)
+ // OnReady registers a listener for when the data transfer comes on line
+ OnReady(ReadyFunc)
 
-	// Stop terminates all data transfers and ends processing
-	Stop(ctx context.Context) error
+ // Stop terminates all data transfers and ends processing
+ Stop(ctx context.Context) error
 
-	// RegisterVoucherType registers a validator for the given voucher type
-	// will error if voucher type does not implement voucher
-	// or if there is a voucher type registered with an identical identifier
-	RegisterVoucherType(voucherType Voucher, validator RequestValidator) error
+ // RegisterVoucherType registers a validator for the given voucher type
+ // will error if voucher type does not implement voucher
+ // or if there is a voucher type registered with an identical identifier
+ RegisterVoucherType(voucherType Voucher, validator RequestValidator) error
 
-	// RegisterRevalidator registers a revalidator for the given voucher type
-	// Note: this is the voucher type used to revalidate. It can share a name
-	// with the initial validator type and CAN be the same type, or a different type.
-	// The revalidator can simply be the sampe as the original request validator,
-	// or a different validator that satisfies the revalidator interface.
-	RegisterRevalidator(voucherType Voucher, revalidator Revalidator) error
+ // RegisterRevalidator registers a revalidator for the given voucher type
+ // Note: this is the voucher type used to revalidate. It can share a name
+ // with the initial validator type and CAN be the same type, or a different type.
+ // The revalidator can simply be the sampe as the original request validator,
+ // or a different validator that satisfies the revalidator interface.
+ RegisterRevalidator(voucherType Voucher, revalidator Revalidator) error
 
-	// RegisterVoucherResultType allows deserialization of a voucher result,
-	// so that a listener can read the metadata
-	RegisterVoucherResultType(resultType VoucherResult) error
+ // RegisterVoucherResultType allows deserialization of a voucher result,
+ // so that a listener can read the metadata
+ RegisterVoucherResultType(resultType VoucherResult) error
 
-	// RegisterTransportConfigurer registers the given transport configurer to be run on requests with the given voucher
-	// type
-	RegisterTransportConfigurer(voucherType Voucher, configurer TransportConfigurer) error
+ // RegisterTransportConfigurer registers the given transport configurer to be run on requests with the given voucher
+ // type
+ RegisterTransportConfigurer(voucherType Voucher, configurer TransportConfigurer) error
 
-	// open a data transfer that will send data to the recipient peer and
-	// transfer parts of the piece that match the selector
-	OpenPushDataChannel(ctx context.Context, to peer.ID, voucher Voucher, baseCid cid.Cid, selector ipld.Node) (ChannelID, error)
+ // open a data transfer that will send data to the recipient peer and
+ // transfer parts of the piece that match the selector
+ OpenPushDataChannel(ctx context.Context, to peer.ID, voucher Voucher, baseCid cid.Cid, selector ipld.Node) (ChannelID, error)
 
-	// open a data transfer that will request data from the sending peer and
-	// transfer parts of the piece that match the selector
-	OpenPullDataChannel(ctx context.Context, to peer.ID, voucher Voucher, baseCid cid.Cid, selector ipld.Node) (ChannelID, error)
+ // open a data transfer that will request data from the sending peer and
+ // transfer parts of the piece that match the selector
+ OpenPullDataChannel(ctx context.Context, to peer.ID, voucher Voucher, baseCid cid.Cid, selector ipld.Node) (ChannelID, error)
 
-	// send an intermediate voucher as needed when the receiver sends a request for revalidation
-	SendVoucher(ctx context.Context, chid ChannelID, voucher Voucher) error
+ // send an intermediate voucher as needed when the receiver sends a request for revalidation
+ SendVoucher(ctx context.Context, chid ChannelID, voucher Voucher) error
 
-	// close an open channel (effectively a cancel)
-	CloseDataTransferChannel(ctx context.Context, chid ChannelID) error
+ // close an open channel (effectively a cancel)
+ CloseDataTransferChannel(ctx context.Context, chid ChannelID) error
 
-	// pause a data transfer channel (only allowed if transport supports it)
-	PauseDataTransferChannel(ctx context.Context, chid ChannelID) error
+ // pause a data transfer channel (only allowed if transport supports it)
+ PauseDataTransferChannel(ctx context.Context, chid ChannelID) error
 
-	// resume a data transfer channel (only allowed if transport supports it)
-	ResumeDataTransferChannel(ctx context.Context, chid ChannelID) error
+ // resume a data transfer channel (only allowed if transport supports it)
+ ResumeDataTransferChannel(ctx context.Context, chid ChannelID) error
 
-	// get status of a transfer
-	TransferChannelStatus(ctx context.Context, x ChannelID) Status
+ // get status of a transfer
+ TransferChannelStatus(ctx context.Context, x ChannelID) Status
 
-	// get notified when certain types of events happen
-	SubscribeToEvents(subscriber Subscriber) Unsubscribe
+ // get notified when certain types of events happen
+ SubscribeToEvents(subscriber Subscriber) Unsubscribe
 
-	// get all in progress transfers
-	InProgressChannels(ctx context.Context) (map[ChannelID]ChannelState, error)
+ // get all in progress transfers
+ InProgressChannels(ctx context.Context) (map[ChannelID]ChannelState, error)
 
-	// RestartDataTransferChannel restarts an existing data transfer channel
-	RestartDataTransferChannel(ctx context.Context, chid ChannelID) error
+ // RestartDataTransferChannel restarts an existing data transfer channel
+ RestartDataTransferChannel(ctx context.Context, chid ChannelID) error
 }
 ```
 
@@ -854,31 +865,31 @@ Filecoin虚拟机（VM）是负责执行所有参与者代码的系统组件。�
 package builtin
 
 import (
-	addr "github.com/filecoin-project/go-address"
+ addr "github.com/filecoin-project/go-address"
 )
 
 // Addresses for singleton system actors.
 var (
-	// Distinguished AccountActor that is the source of system implicit messages.
-	SystemActorAddr           = mustMakeAddress(0)
-	InitActorAddr             = mustMakeAddress(1)
-	RewardActorAddr           = mustMakeAddress(2)
-	CronActorAddr             = mustMakeAddress(3)
-	StoragePowerActorAddr     = mustMakeAddress(4)
-	StorageMarketActorAddr    = mustMakeAddress(5)
-	VerifiedRegistryActorAddr = mustMakeAddress(6)
-	// Distinguished AccountActor that is the destination of all burnt funds.
-	BurntFundsActorAddr = mustMakeAddress(99)
+ // Distinguished AccountActor that is the source of system implicit messages.
+ SystemActorAddr           = mustMakeAddress(0)
+ InitActorAddr             = mustMakeAddress(1)
+ RewardActorAddr           = mustMakeAddress(2)
+ CronActorAddr             = mustMakeAddress(3)
+ StoragePowerActorAddr     = mustMakeAddress(4)
+ StorageMarketActorAddr    = mustMakeAddress(5)
+ VerifiedRegistryActorAddr = mustMakeAddress(6)
+ // Distinguished AccountActor that is the destination of all burnt funds.
+ BurntFundsActorAddr = mustMakeAddress(99)
 )
 
 const FirstNonSingletonActorId = 100
 
 func mustMakeAddress(id uint64) addr.Address {
-	address, err := addr.NewIDAddress(id)
-	if err != nil {
-		panic(err)
-	}
-	return address
+ address, err := addr.NewIDAddress(id)
+ if err != nil {
+  panic(err)
+ }
+ return address
 }
 ```
 
@@ -894,13 +905,13 @@ StateTree存储参与者的ID。
 
 ```go
 type StateTree struct {
-	root        adt.Map
-	version     types.StateTreeVersion
-	info        cid.Cid
-	Store       cbor.IpldStore
-	lookupIDFun func(address.Address) (address.Address, error)
+ root        adt.Map
+ version     types.StateTreeVersion
+ info        cid.Cid
+ Store       cbor.IpldStore
+ lookupIDFun func(address.Address) (address.Address, error)
 
-	snaps *stateSnaps
+ snaps *stateSnaps
 }
 ```
 
@@ -923,8 +934,8 @@ type StateTree struct {
 
 ```go
 type SignedMessage struct {
-	Message   Message
-	Signature crypto.Signature
+ Message   Message
+ Signature crypto.Signature
 }
 ```
 
@@ -939,28 +950,28 @@ type SignedMessage struct {
 
 ```go
 type Message struct {
-	// Version of this message (has to be non-negative)
-	Version uint64
+ // Version of this message (has to be non-negative)
+ Version uint64
 
-	// Address of the receiving actor.
-	To   address.Address
-	// Address of the sending actor.
-	From address.Address
+ // Address of the receiving actor.
+ To   address.Address
+ // Address of the sending actor.
+ From address.Address
 
-	CallSeqNum uint64
+ CallSeqNum uint64
 
-	// Value to transfer from sender's to receiver's balance.
-	Value BigInt
+ // Value to transfer from sender's to receiver's balance.
+ Value BigInt
 
-	// GasPrice is a Gas-to-FIL cost
-	GasPrice BigInt
-	// Maximum Gas to be spent on the processing of this message
-	GasLimit int64
+ // GasPrice is a Gas-to-FIL cost
+ GasPrice BigInt
+ // Maximum Gas to be spent on the processing of this message
+ GasLimit int64
 
-	// Optional method to invoke on receiver, zero for a plain value transfer.
-	Method abi.MethodNum
-	//Serialized parameters to the method.
-	Params []byte
+ // Optional method to invoke on receiver, zero for a plain value transfer.
+ Method abi.MethodNum
+ //Serialized parameters to the method.
+ Params []byte
 }
 ```
 
@@ -980,9 +991,9 @@ type Message struct {
 
 ```go
 type MessageReceipt struct {
-	ExitCode exitcode.ExitCode
-	Return   []byte
-	GasUsed  int64
+ ExitCode exitcode.ExitCode
+ Return   []byte
+ GasUsed  int64
 }
 ```
 
@@ -996,204 +1007,204 @@ type MessageReceipt struct {
 package types
 
 import (
-	"bytes"
-	"encoding/json"
-	"fmt"
+ "bytes"
+ "encoding/json"
+ "fmt"
 
-	"github.com/filecoin-project/go-state-types/abi"
-	"github.com/filecoin-project/go-state-types/big"
-	"github.com/filecoin-project/lotus/build"
-	block "github.com/ipfs/go-block-format"
-	"github.com/ipfs/go-cid"
-	xerrors "golang.org/x/xerrors"
+ "github.com/filecoin-project/go-state-types/abi"
+ "github.com/filecoin-project/go-state-types/big"
+ "github.com/filecoin-project/lotus/build"
+ block "github.com/ipfs/go-block-format"
+ "github.com/ipfs/go-cid"
+ xerrors "golang.org/x/xerrors"
 
-	"github.com/filecoin-project/go-address"
+ "github.com/filecoin-project/go-address"
 )
 
 const MessageVersion = 0
 
 type ChainMsg interface {
-	Cid() cid.Cid
-	VMMessage() *Message
-	ToStorageBlock() (block.Block, error)
-	// FIXME: This is the *message* length, this name is misleading.
-	ChainLength() int
+ Cid() cid.Cid
+ VMMessage() *Message
+ ToStorageBlock() (block.Block, error)
+ // FIXME: This is the *message* length, this name is misleading.
+ ChainLength() int
 }
 
 type Message struct {
-	Version uint64
+ Version uint64
 
-	To   address.Address
-	From address.Address
+ To   address.Address
+ From address.Address
 
-	Nonce uint64
+ Nonce uint64
 
-	Value abi.TokenAmount
+ Value abi.TokenAmount
 
-	GasLimit   int64
-	GasFeeCap  abi.TokenAmount
-	GasPremium abi.TokenAmount
+ GasLimit   int64
+ GasFeeCap  abi.TokenAmount
+ GasPremium abi.TokenAmount
 
-	Method abi.MethodNum
-	Params []byte
+ Method abi.MethodNum
+ Params []byte
 }
 
 func (m *Message) Caller() address.Address {
-	return m.From
+ return m.From
 }
 
 func (m *Message) Receiver() address.Address {
-	return m.To
+ return m.To
 }
 
 func (m *Message) ValueReceived() abi.TokenAmount {
-	return m.Value
+ return m.Value
 }
 
 func DecodeMessage(b []byte) (*Message, error) {
-	var msg Message
-	if err := msg.UnmarshalCBOR(bytes.NewReader(b)); err != nil {
-		return nil, err
-	}
+ var msg Message
+ if err := msg.UnmarshalCBOR(bytes.NewReader(b)); err != nil {
+  return nil, err
+ }
 
-	if msg.Version != MessageVersion {
-		return nil, fmt.Errorf("decoded message had incorrect version (%d)", msg.Version)
-	}
+ if msg.Version != MessageVersion {
+  return nil, fmt.Errorf("decoded message had incorrect version (%d)", msg.Version)
+ }
 
-	return &msg, nil
+ return &msg, nil
 }
 
 func (m *Message) Serialize() ([]byte, error) {
-	buf := new(bytes.Buffer)
-	if err := m.MarshalCBOR(buf); err != nil {
-		return nil, err
-	}
-	return buf.Bytes(), nil
+ buf := new(bytes.Buffer)
+ if err := m.MarshalCBOR(buf); err != nil {
+  return nil, err
+ }
+ return buf.Bytes(), nil
 }
 
 func (m *Message) ChainLength() int {
-	ser, err := m.Serialize()
-	if err != nil {
-		panic(err)
-	}
-	return len(ser)
+ ser, err := m.Serialize()
+ if err != nil {
+  panic(err)
+ }
+ return len(ser)
 }
 
 func (m *Message) ToStorageBlock() (block.Block, error) {
-	data, err := m.Serialize()
-	if err != nil {
-		return nil, err
-	}
+ data, err := m.Serialize()
+ if err != nil {
+  return nil, err
+ }
 
-	c, err := abi.CidBuilder.Sum(data)
-	if err != nil {
-		return nil, err
-	}
+ c, err := abi.CidBuilder.Sum(data)
+ if err != nil {
+  return nil, err
+ }
 
-	return block.NewBlockWithCid(data, c)
+ return block.NewBlockWithCid(data, c)
 }
 
 func (m *Message) Cid() cid.Cid {
-	b, err := m.ToStorageBlock()
-	if err != nil {
-		panic(fmt.Sprintf("failed to marshal message: %s", err)) // I think this is maybe sketchy, what happens if we try to serialize a message with an undefined address in it?
-	}
+ b, err := m.ToStorageBlock()
+ if err != nil {
+  panic(fmt.Sprintf("failed to marshal message: %s", err)) // I think this is maybe sketchy, what happens if we try to serialize a message with an undefined address in it?
+ }
 
-	return b.Cid()
+ return b.Cid()
 }
 
 type mCid struct {
-	*RawMessage
-	CID cid.Cid
+ *RawMessage
+ CID cid.Cid
 }
 
 type RawMessage Message
 
 func (m *Message) MarshalJSON() ([]byte, error) {
-	return json.Marshal(&mCid{
-		RawMessage: (*RawMessage)(m),
-		CID:        m.Cid(),
-	})
+ return json.Marshal(&mCid{
+  RawMessage: (*RawMessage)(m),
+  CID:        m.Cid(),
+ })
 }
 
 func (m *Message) RequiredFunds() BigInt {
-	return BigMul(m.GasFeeCap, NewInt(uint64(m.GasLimit)))
+ return BigMul(m.GasFeeCap, NewInt(uint64(m.GasLimit)))
 }
 
 func (m *Message) VMMessage() *Message {
-	return m
+ return m
 }
 
 func (m *Message) Equals(o *Message) bool {
-	return m.Cid() == o.Cid()
+ return m.Cid() == o.Cid()
 }
 
 func (m *Message) EqualCall(o *Message) bool {
-	m1 := *m
-	m2 := *o
+ m1 := *m
+ m2 := *o
 
-	m1.GasLimit, m2.GasLimit = 0, 0
-	m1.GasFeeCap, m2.GasFeeCap = big.Zero(), big.Zero()
-	m1.GasPremium, m2.GasPremium = big.Zero(), big.Zero()
+ m1.GasLimit, m2.GasLimit = 0, 0
+ m1.GasFeeCap, m2.GasFeeCap = big.Zero(), big.Zero()
+ m1.GasPremium, m2.GasPremium = big.Zero(), big.Zero()
 
-	return (&m1).Equals(&m2)
+ return (&m1).Equals(&m2)
 }
 
 func (m *Message) ValidForBlockInclusion(minGas int64) error {
-	if m.Version != 0 {
-		return xerrors.New("'Version' unsupported")
-	}
+ if m.Version != 0 {
+  return xerrors.New("'Version' unsupported")
+ }
 
-	if m.To == address.Undef {
-		return xerrors.New("'To' address cannot be empty")
-	}
+ if m.To == address.Undef {
+  return xerrors.New("'To' address cannot be empty")
+ }
 
-	if m.From == address.Undef {
-		return xerrors.New("'From' address cannot be empty")
-	}
+ if m.From == address.Undef {
+  return xerrors.New("'From' address cannot be empty")
+ }
 
-	if m.Value.Int == nil {
-		return xerrors.New("'Value' cannot be nil")
-	}
+ if m.Value.Int == nil {
+  return xerrors.New("'Value' cannot be nil")
+ }
 
-	if m.Value.LessThan(big.Zero()) {
-		return xerrors.New("'Value' field cannot be negative")
-	}
+ if m.Value.LessThan(big.Zero()) {
+  return xerrors.New("'Value' field cannot be negative")
+ }
 
-	if m.Value.GreaterThan(TotalFilecoinInt) {
-		return xerrors.New("'Value' field cannot be greater than total filecoin supply")
-	}
+ if m.Value.GreaterThan(TotalFilecoinInt) {
+  return xerrors.New("'Value' field cannot be greater than total filecoin supply")
+ }
 
-	if m.GasFeeCap.Int == nil {
-		return xerrors.New("'GasFeeCap' cannot be nil")
-	}
+ if m.GasFeeCap.Int == nil {
+  return xerrors.New("'GasFeeCap' cannot be nil")
+ }
 
-	if m.GasFeeCap.LessThan(big.Zero()) {
-		return xerrors.New("'GasFeeCap' field cannot be negative")
-	}
+ if m.GasFeeCap.LessThan(big.Zero()) {
+  return xerrors.New("'GasFeeCap' field cannot be negative")
+ }
 
-	if m.GasPremium.Int == nil {
-		return xerrors.New("'GasPremium' cannot be nil")
-	}
+ if m.GasPremium.Int == nil {
+  return xerrors.New("'GasPremium' cannot be nil")
+ }
 
-	if m.GasPremium.LessThan(big.Zero()) {
-		return xerrors.New("'GasPremium' field cannot be negative")
-	}
+ if m.GasPremium.LessThan(big.Zero()) {
+  return xerrors.New("'GasPremium' field cannot be negative")
+ }
 
-	if m.GasPremium.GreaterThan(m.GasFeeCap) {
-		return xerrors.New("'GasFeeCap' less than 'GasPremium'")
-	}
+ if m.GasPremium.GreaterThan(m.GasFeeCap) {
+  return xerrors.New("'GasFeeCap' less than 'GasPremium'")
+ }
 
-	if m.GasLimit > build.BlockGasLimit {
-		return xerrors.New("'GasLimit' field cannot be greater than a block's gas limit")
-	}
+ if m.GasLimit > build.BlockGasLimit {
+  return xerrors.New("'GasLimit' field cannot be greater than a block's gas limit")
+ }
 
-	// since prices might vary with time, this is technically semantic validation
-	if m.GasLimit < minGas {
-		return xerrors.Errorf("'GasLimit' field cannot be less than the cost of storing a message on chain %d < %d", m.GasLimit, minGas)
-	}
+ // since prices might vary with time, this is technically semantic validation
+ if m.GasLimit < minGas {
+  return xerrors.Errorf("'GasLimit' field cannot be less than the cost of storing a message on chain %d < %d", m.GasLimit, minGas)
+ }
 
-	return nil
+ return nil
 }
 
 const TestGasLimit = 100e6
@@ -1213,9 +1224,9 @@ const TestGasLimit = 100e6
 
 ```go
 type MessageReceipt struct {
-	ExitCode exitcode.ExitCode
-	Return   []byte
-	GasUsed  int64
+ ExitCode exitcode.ExitCode
+ Return   []byte
+ GasUsed  int64
 }
 ```
 
@@ -1259,35 +1270,35 @@ ComputeGasOverestimationBurn计算要退款的燃气量和要燃烧的燃气量�
 
 ```go
 func ComputeGasOverestimationBurn(gasUsed, gasLimit int64) (int64, int64) {
-	if gasUsed == 0 {
-		return 0, gasLimit
-	}
+ if gasUsed == 0 {
+  return 0, gasLimit
+ }
 
-	// over = gasLimit/gasUsed - 1 - 0.1
-	// over = min(over, 1)
-	// gasToBurn = (gasLimit - gasUsed) * over
+ // over = gasLimit/gasUsed - 1 - 0.1
+ // over = min(over, 1)
+ // gasToBurn = (gasLimit - gasUsed) * over
 
-	// so to factor out division from `over`
-	// over*gasUsed = min(gasLimit - (11*gasUsed)/10, gasUsed)
-	// gasToBurn = ((gasLimit - gasUsed)*over*gasUsed) / gasUsed
-	over := gasLimit - (gasOveruseNum*gasUsed)/gasOveruseDenom
-	if over < 0 {
-		return gasLimit - gasUsed, 0
-	}
+ // so to factor out division from `over`
+ // over*gasUsed = min(gasLimit - (11*gasUsed)/10, gasUsed)
+ // gasToBurn = ((gasLimit - gasUsed)*over*gasUsed) / gasUsed
+ over := gasLimit - (gasOveruseNum*gasUsed)/gasOveruseDenom
+ if over < 0 {
+  return gasLimit - gasUsed, 0
+ }
 
-	// if we want sharper scaling it goes here:
-	// over *= 2
+ // if we want sharper scaling it goes here:
+ // over *= 2
 
-	if over > gasUsed {
-		over = gasUsed
-	}
+ if over > gasUsed {
+  over = gasUsed
+ }
 
-	// needs bigint, as it overflows in pathological case gasLimit > 2^32 gasUsed = gasLimit / 2
-	gasToBurn := big.NewInt(gasLimit - gasUsed)
-	gasToBurn = big.Mul(gasToBurn, big.NewInt(over))
-	gasToBurn = big.Div(gasToBurn, big.NewInt(gasUsed))
+ // needs bigint, as it overflows in pathological case gasLimit > 2^32 gasUsed = gasLimit / 2
+ gasToBurn := big.NewInt(gasLimit - gasUsed)
+ gasToBurn = big.Mul(gasToBurn, big.NewInt(over))
+ gasToBurn = big.Div(gasToBurn, big.NewInt(gasUsed))
 
-	return gasLimit - gasUsed - gasToBurn.Int64(), gasToBurn.Int64()
+ return gasLimit - gasUsed - gasToBurn.Int64(), gasToBurn.Int64()
 }
 ```
 
@@ -1295,37 +1306,37 @@ func ComputeGasOverestimationBurn(gasUsed, gasLimit int64) (int64, int64) {
 
 ```go
 func ComputeNextBaseFee(baseFee types.BigInt, gasLimitUsed int64, noOfBlocks int, epoch abi.ChainEpoch) types.BigInt {
-	// deta := gasLimitUsed/noOfBlocks - build.BlockGasTarget
-	// change := baseFee * deta / BlockGasTarget
-	// nextBaseFee = baseFee + change
-	// nextBaseFee = max(nextBaseFee, build.MinimumBaseFee)
+ // deta := gasLimitUsed/noOfBlocks - build.BlockGasTarget
+ // change := baseFee * deta / BlockGasTarget
+ // nextBaseFee = baseFee + change
+ // nextBaseFee = max(nextBaseFee, build.MinimumBaseFee)
 
-	var delta int64
-	if epoch > build.UpgradeSmokeHeight {
-		delta = gasLimitUsed / int64(noOfBlocks)
-		delta -= build.BlockGasTarget
-	} else {
-		delta = build.PackingEfficiencyDenom * gasLimitUsed / (int64(noOfBlocks) * build.PackingEfficiencyNum)
-		delta -= build.BlockGasTarget
-	}
+ var delta int64
+ if epoch > build.UpgradeSmokeHeight {
+  delta = gasLimitUsed / int64(noOfBlocks)
+  delta -= build.BlockGasTarget
+ } else {
+  delta = build.PackingEfficiencyDenom * gasLimitUsed / (int64(noOfBlocks) * build.PackingEfficiencyNum)
+  delta -= build.BlockGasTarget
+ }
 
-	// cap change at 12.5% (BaseFeeMaxChangeDenom) by capping delta
-	if delta > build.BlockGasTarget {
-		delta = build.BlockGasTarget
-	}
-	if delta < -build.BlockGasTarget {
-		delta = -build.BlockGasTarget
-	}
+ // cap change at 12.5% (BaseFeeMaxChangeDenom) by capping delta
+ if delta > build.BlockGasTarget {
+  delta = build.BlockGasTarget
+ }
+ if delta < -build.BlockGasTarget {
+  delta = -build.BlockGasTarget
+ }
 
-	change := big.Mul(baseFee, big.NewInt(delta))
-	change = big.Div(change, big.NewInt(build.BlockGasTarget))
-	change = big.Div(change, big.NewInt(build.BaseFeeMaxChangeDenom))
+ change := big.Mul(baseFee, big.NewInt(delta))
+ change = big.Div(change, big.NewInt(build.BlockGasTarget))
+ change = big.Div(change, big.NewInt(build.BaseFeeMaxChangeDenom))
 
-	nextBaseFee := big.Add(baseFee, change)
-	if big.Cmp(nextBaseFee, big.NewInt(build.MinimumBaseFee)) < 0 {
-		nextBaseFee = big.NewInt(build.MinimumBaseFee)
-	}
-	return nextBaseFee
+ nextBaseFee := big.Add(baseFee, change)
+ if big.Cmp(nextBaseFee, big.NewInt(build.MinimumBaseFee)) < 0 {
+  nextBaseFee = big.NewInt(build.MinimumBaseFee)
+ }
+ return nextBaseFee
 }
 ```
 
@@ -1358,7 +1369,7 @@ VM处理需要两个系统参与者：
 - `VerifiedRegistryActor`：负责管理已验证的客户[ [Verifreg Actor Repo](https://github.com/filecoin-project/specs-actors/blob/master/actors/builtin/verifreg/verified_registry_actor.go) ]
 - `SystemActor`：普通系统演员[ [System Actor Repo](https://github.com/filecoin-project/specs-actors/blob/master/actors/builtin/system/system_actor.go) ]
 
-#### 2.3.6.1[ CronActor](https://spec.filecoin.io/#section-systems.filecoin_vm.sysactors.cronactor)
+#### 2.3.6.1[CronActor](https://spec.filecoin.io/#section-systems.filecoin_vm.sysactors.cronactor)
 
 内置在创世状态中，`CronActor`的分派表调用`StoragePowerActor`和`StorageMarketActor`，以维护内部状态并处理延迟的事件。在网络升级后，它原则上可以调用其他参与者。
 
@@ -1368,68 +1379,68 @@ VM处理需要两个系统参与者：
 package cron
 
 import (
-	"github.com/filecoin-project/go-state-types/abi"
-	"github.com/filecoin-project/go-state-types/cbor"
-	cron0 "github.com/filecoin-project/specs-actors/actors/builtin/cron"
-	"github.com/ipfs/go-cid"
+ "github.com/filecoin-project/go-state-types/abi"
+ "github.com/filecoin-project/go-state-types/cbor"
+ cron0 "github.com/filecoin-project/specs-actors/actors/builtin/cron"
+ "github.com/ipfs/go-cid"
 
-	"github.com/filecoin-project/specs-actors/v2/actors/builtin"
-	"github.com/filecoin-project/specs-actors/v2/actors/runtime"
+ "github.com/filecoin-project/specs-actors/v2/actors/builtin"
+ "github.com/filecoin-project/specs-actors/v2/actors/runtime"
 )
 
 // The cron actor is a built-in singleton that sends messages to other registered actors at the end of each epoch.
 type Actor struct{}
 
 func (a Actor) Exports() []interface{} {
-	return []interface{}{
-		builtin.MethodConstructor: a.Constructor,
-		2:                         a.EpochTick,
-	}
+ return []interface{}{
+  builtin.MethodConstructor: a.Constructor,
+  2:                         a.EpochTick,
+ }
 }
 
 func (a Actor) Code() cid.Cid {
-	return builtin.CronActorCodeID
+ return builtin.CronActorCodeID
 }
 
 func (a Actor) IsSingleton() bool {
-	return true
+ return true
 }
 
 func (a Actor) State() cbor.Er {
-	return new(State)
+ return new(State)
 }
 
 var _ runtime.VMActor = Actor{}
 
 //type ConstructorParams struct {
-//	Entries []Entry
+// Entries []Entry
 //}
 type ConstructorParams = cron0.ConstructorParams
 
 type EntryParam = cron0.Entry
 
 func (a Actor) Constructor(rt runtime.Runtime, params *ConstructorParams) *abi.EmptyValue {
-	rt.ValidateImmediateCallerIs(builtin.SystemActorAddr)
-	entries := make([]Entry, len(params.Entries))
-	for i, e := range params.Entries {
-		entries[i] = Entry(e) // Identical
-	}
-	rt.StateCreate(ConstructState(entries))
-	return nil
+ rt.ValidateImmediateCallerIs(builtin.SystemActorAddr)
+ entries := make([]Entry, len(params.Entries))
+ for i, e := range params.Entries {
+  entries[i] = Entry(e) // Identical
+ }
+ rt.StateCreate(ConstructState(entries))
+ return nil
 }
 
 // Invoked by the system after all other messages in the epoch have been processed.
 func (a Actor) EpochTick(rt runtime.Runtime, _ *abi.EmptyValue) *abi.EmptyValue {
-	rt.ValidateImmediateCallerIs(builtin.SystemActorAddr)
+ rt.ValidateImmediateCallerIs(builtin.SystemActorAddr)
 
-	var st State
-	rt.StateReadonly(&st)
-	for _, entry := range st.Entries {
-		_ = rt.Send(entry.Receiver, entry.MethodNum, nil, abi.NewTokenAmount(0), &builtin.Discard{})
-		// Any error and return value are ignored.
-	}
+ var st State
+ rt.StateReadonly(&st)
+ for _, entry := range st.Entries {
+  _ = rt.Send(entry.Receiver, entry.MethodNum, nil, abi.NewTokenAmount(0), &builtin.Discard{})
+  // Any error and return value are ignored.
+ }
 
-	return nil
+ return nil
 }
 ```
 
@@ -1445,17 +1456,17 @@ func (a Actor) EpochTick(rt runtime.Runtime, _ *abi.EmptyValue) *abi.EmptyValue 
 package init
 
 import (
-	addr "github.com/filecoin-project/go-address"
-	"github.com/filecoin-project/go-state-types/abi"
-	"github.com/filecoin-project/go-state-types/cbor"
-	"github.com/filecoin-project/go-state-types/exitcode"
-	init0 "github.com/filecoin-project/specs-actors/actors/builtin/init"
-	cid "github.com/ipfs/go-cid"
+ addr "github.com/filecoin-project/go-address"
+ "github.com/filecoin-project/go-state-types/abi"
+ "github.com/filecoin-project/go-state-types/cbor"
+ "github.com/filecoin-project/go-state-types/exitcode"
+ init0 "github.com/filecoin-project/specs-actors/actors/builtin/init"
+ cid "github.com/ipfs/go-cid"
 
-	"github.com/filecoin-project/specs-actors/v2/actors/builtin"
-	"github.com/filecoin-project/specs-actors/v2/actors/runtime"
-	autil "github.com/filecoin-project/specs-actors/v2/actors/util"
-	"github.com/filecoin-project/specs-actors/v2/actors/util/adt"
+ "github.com/filecoin-project/specs-actors/v2/actors/builtin"
+ "github.com/filecoin-project/specs-actors/v2/actors/runtime"
+ autil "github.com/filecoin-project/specs-actors/v2/actors/util"
+ "github.com/filecoin-project/specs-actors/v2/actors/util/adt"
 )
 
 // The init actor uniquely has the power to create new actors.
@@ -1463,18 +1474,18 @@ import (
 type Actor struct{}
 
 func (a Actor) Exports() []interface{} {
-	return []interface{}{
-		builtin.MethodConstructor: a.Constructor,
-		2:                         a.Exec,
-	}
+ return []interface{}{
+  builtin.MethodConstructor: a.Constructor,
+  2:                         a.Exec,
+ }
 }
 
 func (a Actor) Code() cid.Cid {
-	return builtin.InitActorCodeID
+ return builtin.InitActorCodeID
 }
 
 func (a Actor) IsSingleton() bool {
-	return true
+ return true
 }
 
 func (a Actor) State() cbor.Er { return new(State) }
@@ -1482,78 +1493,78 @@ func (a Actor) State() cbor.Er { return new(State) }
 var _ runtime.VMActor = Actor{}
 
 //type ConstructorParams struct {
-//	NetworkName string
+// NetworkName string
 //}
 type ConstructorParams = init0.ConstructorParams
 
 func (a Actor) Constructor(rt runtime.Runtime, params *ConstructorParams) *abi.EmptyValue {
-	rt.ValidateImmediateCallerIs(builtin.SystemActorAddr)
-	emptyMap, err := adt.MakeEmptyMap(adt.AsStore(rt)).Root()
-	builtin.RequireNoErr(rt, err, exitcode.ErrIllegalState, "failed to construct state")
+ rt.ValidateImmediateCallerIs(builtin.SystemActorAddr)
+ emptyMap, err := adt.MakeEmptyMap(adt.AsStore(rt)).Root()
+ builtin.RequireNoErr(rt, err, exitcode.ErrIllegalState, "failed to construct state")
 
-	st := ConstructState(emptyMap, params.NetworkName)
-	rt.StateCreate(st)
-	return nil
+ st := ConstructState(emptyMap, params.NetworkName)
+ rt.StateCreate(st)
+ return nil
 }
 
 //type ExecParams struct {
-//	CodeCID           cid.Cid `checked:"true"` // invalid CIDs won't get committed to the state tree
-//	ConstructorParams []byte
+// CodeCID           cid.Cid `checked:"true"` // invalid CIDs won't get committed to the state tree
+// ConstructorParams []byte
 //}
 type ExecParams = init0.ExecParams
 
 //type ExecReturn struct {
-//	IDAddress     addr.Address // The canonical ID-based address for the actor.
-//	RobustAddress addr.Address // A more expensive but re-org-safe address for the newly created actor.
+// IDAddress     addr.Address // The canonical ID-based address for the actor.
+// RobustAddress addr.Address // A more expensive but re-org-safe address for the newly created actor.
 //}
 type ExecReturn = init0.ExecReturn
 
 func (a Actor) Exec(rt runtime.Runtime, params *ExecParams) *ExecReturn {
-	rt.ValidateImmediateCallerAcceptAny()
-	callerCodeCID, ok := rt.GetActorCodeCID(rt.Caller())
-	autil.AssertMsg(ok, "no code for actor at %s", rt.Caller())
-	if !canExec(callerCodeCID, params.CodeCID) {
-		rt.Abortf(exitcode.ErrForbidden, "caller type %v cannot exec actor type %v", callerCodeCID, params.CodeCID)
-	}
+ rt.ValidateImmediateCallerAcceptAny()
+ callerCodeCID, ok := rt.GetActorCodeCID(rt.Caller())
+ autil.AssertMsg(ok, "no code for actor at %s", rt.Caller())
+ if !canExec(callerCodeCID, params.CodeCID) {
+  rt.Abortf(exitcode.ErrForbidden, "caller type %v cannot exec actor type %v", callerCodeCID, params.CodeCID)
+ }
 
-	// Compute a re-org-stable address.
-	// This address exists for use by messages coming from outside the system, in order to
-	// stably address the newly created actor even if a chain re-org causes it to end up with
-	// a different ID.
-	uniqueAddress := rt.NewActorAddress()
+ // Compute a re-org-stable address.
+ // This address exists for use by messages coming from outside the system, in order to
+ // stably address the newly created actor even if a chain re-org causes it to end up with
+ // a different ID.
+ uniqueAddress := rt.NewActorAddress()
 
-	// Allocate an ID for this actor.
-	// Store mapping of pubkey or actor address to actor ID
-	var st State
-	var idAddr addr.Address
-	rt.StateTransaction(&st, func() {
-		var err error
-		idAddr, err = st.MapAddressToNewID(adt.AsStore(rt), uniqueAddress)
-		builtin.RequireNoErr(rt, err, exitcode.ErrIllegalState, "failed to allocate ID address")
-	})
+ // Allocate an ID for this actor.
+ // Store mapping of pubkey or actor address to actor ID
+ var st State
+ var idAddr addr.Address
+ rt.StateTransaction(&st, func() {
+  var err error
+  idAddr, err = st.MapAddressToNewID(adt.AsStore(rt), uniqueAddress)
+  builtin.RequireNoErr(rt, err, exitcode.ErrIllegalState, "failed to allocate ID address")
+ })
 
-	// Create an empty actor.
-	rt.CreateActor(params.CodeCID, idAddr)
+ // Create an empty actor.
+ rt.CreateActor(params.CodeCID, idAddr)
 
-	// Invoke constructor.
-	code := rt.Send(idAddr, builtin.MethodConstructor, builtin.CBORBytes(params.ConstructorParams), rt.ValueReceived(), &builtin.Discard{})
-	builtin.RequireSuccess(rt, code, "constructor failed")
+ // Invoke constructor.
+ code := rt.Send(idAddr, builtin.MethodConstructor, builtin.CBORBytes(params.ConstructorParams), rt.ValueReceived(), &builtin.Discard{})
+ builtin.RequireSuccess(rt, code, "constructor failed")
 
-	return &ExecReturn{IDAddress: idAddr, RobustAddress: uniqueAddress}
+ return &ExecReturn{IDAddress: idAddr, RobustAddress: uniqueAddress}
 }
 
 func canExec(callerCodeID cid.Cid, execCodeID cid.Cid) bool {
-	switch execCodeID {
-	case builtin.StorageMinerActorCodeID:
-		if callerCodeID == builtin.StoragePowerActorCodeID {
-			return true
-		}
-		return false
-	case builtin.PaymentChannelActorCodeID, builtin.MultisigActorCodeID:
-		return true
-	default:
-		return false
-	}
+ switch execCodeID {
+ case builtin.StorageMinerActorCodeID:
+  if callerCodeID == builtin.StoragePowerActorCodeID {
+   return true
+  }
+  return false
+ case builtin.PaymentChannelActorCodeID, builtin.MultisigActorCodeID:
+  return true
+ default:
+  return false
+ }
 }
 ```
 
@@ -1567,18 +1578,18 @@ func canExec(callerCodeID cid.Cid, execCodeID cid.Cid) bool {
 package reward
 
 import (
-	"github.com/filecoin-project/go-state-types/abi"
-	"github.com/filecoin-project/go-state-types/big"
-	"github.com/filecoin-project/go-state-types/cbor"
-	"github.com/filecoin-project/go-state-types/exitcode"
-	rtt "github.com/filecoin-project/go-state-types/rt"
-	reward0 "github.com/filecoin-project/specs-actors/actors/builtin/reward"
-	"github.com/ipfs/go-cid"
+ "github.com/filecoin-project/go-state-types/abi"
+ "github.com/filecoin-project/go-state-types/big"
+ "github.com/filecoin-project/go-state-types/cbor"
+ "github.com/filecoin-project/go-state-types/exitcode"
+ rtt "github.com/filecoin-project/go-state-types/rt"
+ reward0 "github.com/filecoin-project/specs-actors/actors/builtin/reward"
+ "github.com/ipfs/go-cid"
 
-	"github.com/filecoin-project/specs-actors/v2/actors/builtin"
-	"github.com/filecoin-project/specs-actors/v2/actors/runtime"
-	. "github.com/filecoin-project/specs-actors/v2/actors/util"
-	"github.com/filecoin-project/specs-actors/v2/actors/util/smoothing"
+ "github.com/filecoin-project/specs-actors/v2/actors/builtin"
+ "github.com/filecoin-project/specs-actors/v2/actors/runtime"
+ . "github.com/filecoin-project/specs-actors/v2/actors/util"
+ "github.com/filecoin-project/specs-actors/v2/actors/util/smoothing"
 )
 
 // PenaltyMultiplier is the factor miner penaltys are scaled up by
@@ -1587,45 +1598,45 @@ const PenaltyMultiplier = 3
 type Actor struct{}
 
 func (a Actor) Exports() []interface{} {
-	return []interface{}{
-		builtin.MethodConstructor: a.Constructor,
-		2:                         a.AwardBlockReward,
-		3:                         a.ThisEpochReward,
-		4:                         a.UpdateNetworkKPI,
-	}
+ return []interface{}{
+  builtin.MethodConstructor: a.Constructor,
+  2:                         a.AwardBlockReward,
+  3:                         a.ThisEpochReward,
+  4:                         a.UpdateNetworkKPI,
+ }
 }
 
 func (a Actor) Code() cid.Cid {
-	return builtin.RewardActorCodeID
+ return builtin.RewardActorCodeID
 }
 
 func (a Actor) IsSingleton() bool {
-	return true
+ return true
 }
 
 func (a Actor) State() cbor.Er {
-	return new(State)
+ return new(State)
 }
 
 var _ runtime.VMActor = Actor{}
 
 func (a Actor) Constructor(rt runtime.Runtime, currRealizedPower *abi.StoragePower) *abi.EmptyValue {
-	rt.ValidateImmediateCallerIs(builtin.SystemActorAddr)
+ rt.ValidateImmediateCallerIs(builtin.SystemActorAddr)
 
-	if currRealizedPower == nil {
-		rt.Abortf(exitcode.ErrIllegalArgument, "argument should not be nil")
-		return nil // linter does not understand abort exiting
-	}
-	st := ConstructState(*currRealizedPower)
-	rt.StateCreate(st)
-	return nil
+ if currRealizedPower == nil {
+  rt.Abortf(exitcode.ErrIllegalArgument, "argument should not be nil")
+  return nil // linter does not understand abort exiting
+ }
+ st := ConstructState(*currRealizedPower)
+ rt.StateCreate(st)
+ return nil
 }
 
 //type AwardBlockRewardParams struct {
-//	Miner     address.Address
-//	Penalty   abi.TokenAmount // penalty for including bad messages in a block, >= 0
-//	GasReward abi.TokenAmount // gas reward from all gas fees in a block, >= 0
-//	WinCount  int64           // number of reward units won, > 0
+// Miner     address.Address
+// Penalty   abi.TokenAmount // penalty for including bad messages in a block, >= 0
+// GasReward abi.TokenAmount // gas reward from all gas fees in a block, >= 0
+// WinCount  int64           // number of reward units won, > 0
 //}
 type AwardBlockRewardParams = reward0.AwardBlockRewardParams
 
@@ -1640,110 +1651,110 @@ type AwardBlockRewardParams = reward0.AwardBlockRewardParams
 // The reward is reduced before the residual is credited to the block producer, by:
 // - a penalty amount, provided as a parameter, which is burnt,
 func (a Actor) AwardBlockReward(rt runtime.Runtime, params *AwardBlockRewardParams) *abi.EmptyValue {
-	rt.ValidateImmediateCallerIs(builtin.SystemActorAddr)
-	priorBalance := rt.CurrentBalance()
-	if params.Penalty.LessThan(big.Zero()) {
-		rt.Abortf(exitcode.ErrIllegalArgument, "negative penalty %v", params.Penalty)
-	}
-	if params.GasReward.LessThan(big.Zero()) {
-		rt.Abortf(exitcode.ErrIllegalArgument, "negative gas reward %v", params.GasReward)
-	}
-	if priorBalance.LessThan(params.GasReward) {
-		rt.Abortf(exitcode.ErrIllegalState, "actor current balance %v insufficient to pay gas reward %v",
-			priorBalance, params.GasReward)
-	}
-	if params.WinCount <= 0 {
-		rt.Abortf(exitcode.ErrIllegalArgument, "invalid win count %d", params.WinCount)
-	}
+ rt.ValidateImmediateCallerIs(builtin.SystemActorAddr)
+ priorBalance := rt.CurrentBalance()
+ if params.Penalty.LessThan(big.Zero()) {
+  rt.Abortf(exitcode.ErrIllegalArgument, "negative penalty %v", params.Penalty)
+ }
+ if params.GasReward.LessThan(big.Zero()) {
+  rt.Abortf(exitcode.ErrIllegalArgument, "negative gas reward %v", params.GasReward)
+ }
+ if priorBalance.LessThan(params.GasReward) {
+  rt.Abortf(exitcode.ErrIllegalState, "actor current balance %v insufficient to pay gas reward %v",
+   priorBalance, params.GasReward)
+ }
+ if params.WinCount <= 0 {
+  rt.Abortf(exitcode.ErrIllegalArgument, "invalid win count %d", params.WinCount)
+ }
 
-	minerAddr, ok := rt.ResolveAddress(params.Miner)
-	if !ok {
-		rt.Abortf(exitcode.ErrNotFound, "failed to resolve given owner address")
-	}
-	// The miner penalty is scaled up by a factor of PenaltyMultiplier
-	penalty := big.Mul(big.NewInt(PenaltyMultiplier), params.Penalty)
-	totalReward := big.Zero()
-	var st State
-	rt.StateTransaction(&st, func() {
-		blockReward := big.Mul(st.ThisEpochReward, big.NewInt(params.WinCount))
-		blockReward = big.Div(blockReward, big.NewInt(builtin.ExpectedLeadersPerEpoch))
-		totalReward = big.Add(blockReward, params.GasReward)
-		currBalance := rt.CurrentBalance()
-		if totalReward.GreaterThan(currBalance) {
-			rt.Log(rtt.WARN, "reward actor balance %d below totalReward expected %d, paying out rest of balance", currBalance, totalReward)
-			totalReward = currBalance
+ minerAddr, ok := rt.ResolveAddress(params.Miner)
+ if !ok {
+  rt.Abortf(exitcode.ErrNotFound, "failed to resolve given owner address")
+ }
+ // The miner penalty is scaled up by a factor of PenaltyMultiplier
+ penalty := big.Mul(big.NewInt(PenaltyMultiplier), params.Penalty)
+ totalReward := big.Zero()
+ var st State
+ rt.StateTransaction(&st, func() {
+  blockReward := big.Mul(st.ThisEpochReward, big.NewInt(params.WinCount))
+  blockReward = big.Div(blockReward, big.NewInt(builtin.ExpectedLeadersPerEpoch))
+  totalReward = big.Add(blockReward, params.GasReward)
+  currBalance := rt.CurrentBalance()
+  if totalReward.GreaterThan(currBalance) {
+   rt.Log(rtt.WARN, "reward actor balance %d below totalReward expected %d, paying out rest of balance", currBalance, totalReward)
+   totalReward = currBalance
 
-			blockReward = big.Sub(totalReward, params.GasReward)
-			// Since we have already asserted the balance is greater than gas reward blockReward is >= 0
-			AssertMsg(blockReward.GreaterThanEqual(big.Zero()), "programming error, block reward is %v below zero", blockReward)
-		}
-		st.TotalStoragePowerReward = big.Add(st.TotalStoragePowerReward, blockReward)
-	})
+   blockReward = big.Sub(totalReward, params.GasReward)
+   // Since we have already asserted the balance is greater than gas reward blockReward is >= 0
+   AssertMsg(blockReward.GreaterThanEqual(big.Zero()), "programming error, block reward is %v below zero", blockReward)
+  }
+  st.TotalStoragePowerReward = big.Add(st.TotalStoragePowerReward, blockReward)
+ })
 
-	AssertMsg(totalReward.LessThanEqual(priorBalance), "reward %v exceeds balance %v", totalReward, priorBalance)
+ AssertMsg(totalReward.LessThanEqual(priorBalance), "reward %v exceeds balance %v", totalReward, priorBalance)
 
-	// if this fails, we can assume the miner is responsible and avoid failing here.
-	rewardParams := builtin.ApplyRewardParams{
-		Reward:  totalReward,
-		Penalty: penalty,
-	}
-	code := rt.Send(minerAddr, builtin.MethodsMiner.ApplyRewards, &rewardParams, totalReward, &builtin.Discard{})
-	if !code.IsSuccess() {
-		rt.Log(rtt.ERROR, "failed to send ApplyRewards call to the miner actor with funds: %v, code: %v", totalReward, code)
-		code := rt.Send(builtin.BurntFundsActorAddr, builtin.MethodSend, nil, totalReward, &builtin.Discard{})
-		if !code.IsSuccess() {
-			rt.Log(rtt.ERROR, "failed to send unsent reward to the burnt funds actor, code: %v", code)
-		}
-	}
+ // if this fails, we can assume the miner is responsible and avoid failing here.
+ rewardParams := builtin.ApplyRewardParams{
+  Reward:  totalReward,
+  Penalty: penalty,
+ }
+ code := rt.Send(minerAddr, builtin.MethodsMiner.ApplyRewards, &rewardParams, totalReward, &builtin.Discard{})
+ if !code.IsSuccess() {
+  rt.Log(rtt.ERROR, "failed to send ApplyRewards call to the miner actor with funds: %v, code: %v", totalReward, code)
+  code := rt.Send(builtin.BurntFundsActorAddr, builtin.MethodSend, nil, totalReward, &builtin.Discard{})
+  if !code.IsSuccess() {
+   rt.Log(rtt.ERROR, "failed to send unsent reward to the burnt funds actor, code: %v", code)
+  }
+ }
 
-	return nil
+ return nil
 }
 
 // Changed since v0:
 // - removed ThisEpochReward (unsmoothed)
 type ThisEpochRewardReturn struct {
-	ThisEpochRewardSmoothed smoothing.FilterEstimate
-	ThisEpochBaselinePower  abi.StoragePower
+ ThisEpochRewardSmoothed smoothing.FilterEstimate
+ ThisEpochBaselinePower  abi.StoragePower
 }
 
 // The award value used for the current epoch, updated at the end of an epoch
 // through cron tick.  In the case previous epochs were null blocks this
 // is the reward value as calculated at the last non-null epoch.
 func (a Actor) ThisEpochReward(rt runtime.Runtime, _ *abi.EmptyValue) *ThisEpochRewardReturn {
-	rt.ValidateImmediateCallerAcceptAny()
+ rt.ValidateImmediateCallerAcceptAny()
 
-	var st State
-	rt.StateReadonly(&st)
-	return &ThisEpochRewardReturn{
-		ThisEpochRewardSmoothed: st.ThisEpochRewardSmoothed,
-		ThisEpochBaselinePower:  st.ThisEpochBaselinePower,
-	}
+ var st State
+ rt.StateReadonly(&st)
+ return &ThisEpochRewardReturn{
+  ThisEpochRewardSmoothed: st.ThisEpochRewardSmoothed,
+  ThisEpochBaselinePower:  st.ThisEpochBaselinePower,
+ }
 }
 
 // Called at the end of each epoch by the power actor (in turn by its cron hook).
 // This is only invoked for non-empty tipsets, but catches up any number of null
 // epochs to compute the next epoch reward.
 func (a Actor) UpdateNetworkKPI(rt runtime.Runtime, currRealizedPower *abi.StoragePower) *abi.EmptyValue {
-	rt.ValidateImmediateCallerIs(builtin.StoragePowerActorAddr)
-	if currRealizedPower == nil {
-		rt.Abortf(exitcode.ErrIllegalArgument, "arugment should not be nil")
-	}
+ rt.ValidateImmediateCallerIs(builtin.StoragePowerActorAddr)
+ if currRealizedPower == nil {
+  rt.Abortf(exitcode.ErrIllegalArgument, "arugment should not be nil")
+ }
 
-	var st State
-	rt.StateTransaction(&st, func() {
-		prev := st.Epoch
-		// if there were null runs catch up the computation until
-		// st.Epoch == rt.CurrEpoch()
-		for st.Epoch < rt.CurrEpoch() {
-			// Update to next epoch to process null rounds
-			st.updateToNextEpoch(*currRealizedPower)
-		}
+ var st State
+ rt.StateTransaction(&st, func() {
+  prev := st.Epoch
+  // if there were null runs catch up the computation until
+  // st.Epoch == rt.CurrEpoch()
+  for st.Epoch < rt.CurrEpoch() {
+   // Update to next epoch to process null rounds
+   st.updateToNextEpoch(*currRealizedPower)
+  }
 
-		st.updateToNextEpochWithReward(*currRealizedPower)
-		// only update smoothed estimates after updating reward and epoch
-		st.updateSmoothedEstimates(st.Epoch - prev)
-	})
-	return nil
+  st.updateToNextEpochWithReward(*currRealizedPower)
+  // only update smoothed estimates after updating reward and epoch
+  st.updateSmoothedEstimates(st.Epoch - prev)
+ })
+ return nil
 }
 ```
 
@@ -1757,61 +1768,61 @@ func (a Actor) UpdateNetworkKPI(rt runtime.Runtime, currRealizedPower *abi.Stora
 package account
 
 import (
-	addr "github.com/filecoin-project/go-address"
-	"github.com/filecoin-project/go-state-types/abi"
-	"github.com/filecoin-project/go-state-types/cbor"
-	"github.com/filecoin-project/go-state-types/exitcode"
-	"github.com/ipfs/go-cid"
+ addr "github.com/filecoin-project/go-address"
+ "github.com/filecoin-project/go-state-types/abi"
+ "github.com/filecoin-project/go-state-types/cbor"
+ "github.com/filecoin-project/go-state-types/exitcode"
+ "github.com/ipfs/go-cid"
 
-	"github.com/filecoin-project/specs-actors/v2/actors/builtin"
-	"github.com/filecoin-project/specs-actors/v2/actors/runtime"
+ "github.com/filecoin-project/specs-actors/v2/actors/builtin"
+ "github.com/filecoin-project/specs-actors/v2/actors/runtime"
 )
 
 type Actor struct{}
 
 func (a Actor) Exports() []interface{} {
-	return []interface{}{
-		1: a.Constructor,
-		2: a.PubkeyAddress,
-	}
+ return []interface{}{
+  1: a.Constructor,
+  2: a.PubkeyAddress,
+ }
 }
 
 func (a Actor) Code() cid.Cid {
-	return builtin.AccountActorCodeID
+ return builtin.AccountActorCodeID
 }
 
 func (a Actor) State() cbor.Er {
-	return new(State)
+ return new(State)
 }
 
 var _ runtime.VMActor = Actor{}
 
 type State struct {
-	Address addr.Address
+ Address addr.Address
 }
 
 func (a Actor) Constructor(rt runtime.Runtime, address *addr.Address) *abi.EmptyValue {
-	// Account actors are created implicitly by sending a message to a pubkey-style address.
-	// This constructor is not invoked by the InitActor, but by the system.
-	rt.ValidateImmediateCallerIs(builtin.SystemActorAddr)
-	switch address.Protocol() {
-	case addr.SECP256K1:
-	case addr.BLS:
-		break // ok
-	default:
-		rt.Abortf(exitcode.ErrIllegalArgument, "address must use BLS or SECP protocol, got %v", address.Protocol())
-	}
-	st := State{Address: *address}
-	rt.StateCreate(&st)
-	return nil
+ // Account actors are created implicitly by sending a message to a pubkey-style address.
+ // This constructor is not invoked by the InitActor, but by the system.
+ rt.ValidateImmediateCallerIs(builtin.SystemActorAddr)
+ switch address.Protocol() {
+ case addr.SECP256K1:
+ case addr.BLS:
+  break // ok
+ default:
+  rt.Abortf(exitcode.ErrIllegalArgument, "address must use BLS or SECP protocol, got %v", address.Protocol())
+ }
+ st := State{Address: *address}
+ rt.StateCreate(&st)
+ return nil
 }
 
 // Fetches the pubkey-type address from this actor.
 func (a Actor) PubkeyAddress(rt runtime.Runtime, _ *abi.EmptyValue) *addr.Address {
-	rt.ValidateImmediateCallerAcceptAny()
-	var st State
-	rt.StateReadonly(&st)
-	return &st.Address
+ rt.ValidateImmediateCallerAcceptAny()
+ var st State
+ rt.StateReadonly(&st)
+ return &st.Address
 }
 ```
 
@@ -1919,9 +1930,9 @@ Filecoin区块链中的Block结构包括：i）Block Header，ii）Block内的�
 
 ```go
 type FullBlock struct {
-	Header        *BlockHeader
-	BlsMessages   []*Message
-	SecpkMessages []*SignedMessage
+ Header        *BlockHeader
+ BlsMessages   []*Message
+ SecpkMessages []*SignedMessage
 }
 ```
 
@@ -1936,41 +1947,41 @@ A`BlockHeader`是块的规范表示。BlockHeader在矿工节点之间传播。�
 
 ```go
 type BlockHeader struct {
-	Miner address.Address // 0
+ Miner address.Address // 0
 
-	Ticket *Ticket // 1
+ Ticket *Ticket // 1
 
-	ElectionProof *ElectionProof // 2
+ ElectionProof *ElectionProof // 2
 
-	BeaconEntries []BeaconEntry // 3
+ BeaconEntries []BeaconEntry // 3
 
-	WinPoStProof []proof2.PoStProof // 4
+ WinPoStProof []proof2.PoStProof // 4
 
-	Parents []cid.Cid // 5
+ Parents []cid.Cid // 5
 
-	ParentWeight BigInt // 6
+ ParentWeight BigInt // 6
 
-	Height abi.ChainEpoch // 7
+ Height abi.ChainEpoch // 7
 
-	ParentStateRoot cid.Cid // 8
+ ParentStateRoot cid.Cid // 8
 
-	ParentMessageReceipts cid.Cid // 8
+ ParentMessageReceipts cid.Cid // 8
 
-	Messages cid.Cid // 10
+ Messages cid.Cid // 10
 
-	BLSAggregate *crypto.Signature // 11
+ BLSAggregate *crypto.Signature // 11
 
-	Timestamp uint64 // 12
+ Timestamp uint64 // 12
 
-	BlockSig *crypto.Signature // 13
+ BlockSig *crypto.Signature // 13
 
-	ForkSignaling uint64 // 14
+ ForkSignaling uint64 // 14
 
-	// ParentBaseFee is the base fee after executing parent tipset
-	ParentBaseFee abi.TokenAmount // 15
+ // ParentBaseFee is the base fee after executing parent tipset
+ ParentBaseFee abi.TokenAmount // 15
 
-	// internal
-	validated bool // true if the signature has been validated
+ // internal
+ validated bool // true if the signature has been validated
 }
 ```
 
@@ -1978,7 +1989,7 @@ type BlockHeader struct {
 
 ```go
 type Ticket struct {
-	VRFProof []byte
+ VRFProof []byte
 }
 ```
 
@@ -1986,8 +1997,8 @@ type Ticket struct {
 
 ```go
 type ElectionProof struct {
-	WinCount int64
-	VRFProof []byte
+ WinCount int64
+ VRFProof []byte
 }
 ```
 
@@ -1995,8 +2006,8 @@ type ElectionProof struct {
 
 ```go
 type BeaconEntry struct {
-	Round uint64
-	Data  []byte
+ Round uint64
+ Data  []byte
 }
 ```
 
@@ -2014,21 +2025,21 @@ func IsTicketWinner(vrfTicket []byte, mypow BigInt, totpow BigInt) bool
 
 ```go
 type Message struct {
-	Version uint64
+ Version uint64
 
-	To   address.Address
-	From address.Address
+ To   address.Address
+ From address.Address
 
-	Nonce uint64
+ Nonce uint64
 
-	Value abi.TokenAmount
+ Value abi.TokenAmount
 
-	GasLimit   int64
-	GasFeeCap  abi.TokenAmount
-	GasPremium abi.TokenAmount
+ GasLimit   int64
+ GasFeeCap  abi.TokenAmount
+ GasPremium abi.TokenAmount
 
-	Method abi.MethodNum
-	Params []byte
+ Method abi.MethodNum
+ Params []byte
 }
 ```
 
@@ -2038,60 +2049,60 @@ type Message struct {
 
 ```go
 func (m *Message) ValidForBlockInclusion(minGas int64) error {
-	if m.Version != 0 {
-		return xerrors.New("'Version' unsupported")
-	}
+ if m.Version != 0 {
+  return xerrors.New("'Version' unsupported")
+ }
 
-	if m.To == address.Undef {
-		return xerrors.New("'To' address cannot be empty")
-	}
+ if m.To == address.Undef {
+  return xerrors.New("'To' address cannot be empty")
+ }
 
-	if m.From == address.Undef {
-		return xerrors.New("'From' address cannot be empty")
-	}
+ if m.From == address.Undef {
+  return xerrors.New("'From' address cannot be empty")
+ }
 
-	if m.Value.Int == nil {
-		return xerrors.New("'Value' cannot be nil")
-	}
+ if m.Value.Int == nil {
+  return xerrors.New("'Value' cannot be nil")
+ }
 
-	if m.Value.LessThan(big.Zero()) {
-		return xerrors.New("'Value' field cannot be negative")
-	}
+ if m.Value.LessThan(big.Zero()) {
+  return xerrors.New("'Value' field cannot be negative")
+ }
 
-	if m.Value.GreaterThan(TotalFilecoinInt) {
-		return xerrors.New("'Value' field cannot be greater than total filecoin supply")
-	}
+ if m.Value.GreaterThan(TotalFilecoinInt) {
+  return xerrors.New("'Value' field cannot be greater than total filecoin supply")
+ }
 
-	if m.GasFeeCap.Int == nil {
-		return xerrors.New("'GasFeeCap' cannot be nil")
-	}
+ if m.GasFeeCap.Int == nil {
+  return xerrors.New("'GasFeeCap' cannot be nil")
+ }
 
-	if m.GasFeeCap.LessThan(big.Zero()) {
-		return xerrors.New("'GasFeeCap' field cannot be negative")
-	}
+ if m.GasFeeCap.LessThan(big.Zero()) {
+  return xerrors.New("'GasFeeCap' field cannot be negative")
+ }
 
-	if m.GasPremium.Int == nil {
-		return xerrors.New("'GasPremium' cannot be nil")
-	}
+ if m.GasPremium.Int == nil {
+  return xerrors.New("'GasPremium' cannot be nil")
+ }
 
-	if m.GasPremium.LessThan(big.Zero()) {
-		return xerrors.New("'GasPremium' field cannot be negative")
-	}
+ if m.GasPremium.LessThan(big.Zero()) {
+  return xerrors.New("'GasPremium' field cannot be negative")
+ }
 
-	if m.GasPremium.GreaterThan(m.GasFeeCap) {
-		return xerrors.New("'GasFeeCap' less than 'GasPremium'")
-	}
+ if m.GasPremium.GreaterThan(m.GasFeeCap) {
+  return xerrors.New("'GasFeeCap' less than 'GasPremium'")
+ }
 
-	if m.GasLimit > build.BlockGasLimit {
-		return xerrors.New("'GasLimit' field cannot be greater than a block's gas limit")
-	}
+ if m.GasLimit > build.BlockGasLimit {
+  return xerrors.New("'GasLimit' field cannot be greater than a block's gas limit")
+ }
 
-	// since prices might vary with time, this is technically semantic validation
-	if m.GasLimit < minGas {
-		return xerrors.Errorf("'GasLimit' field cannot be less than the cost of storing a message on chain %d < %d", m.GasLimit, minGas)
-	}
+ // since prices might vary with time, this is technically semantic validation
+ if m.GasLimit < minGas {
+  return xerrors.Errorf("'GasLimit' field cannot be less than the cost of storing a message on chain %d < %d", m.GasLimit, minGas)
+ }
 
-	return nil
+ return nil
 }
 ```
 
@@ -2156,288 +2167,288 @@ ValidateBlock应该与spec.validation.md中的“语义验证”匹配
 
 ```go
 func (syncer *Syncer) ValidateBlock(ctx context.Context, b *types.FullBlock, useCache bool) (err error) {
-	defer func() {
-		// b.Cid() could panic for empty blocks that are used in tests.
-		if rerr := recover(); rerr != nil {
-			err = xerrors.Errorf("validate block panic: %w", rerr)
-			return
-		}
-	}()
+ defer func() {
+  // b.Cid() could panic for empty blocks that are used in tests.
+  if rerr := recover(); rerr != nil {
+   err = xerrors.Errorf("validate block panic: %w", rerr)
+   return
+  }
+ }()
 
-	if useCache {
-		isValidated, err := syncer.store.IsBlockValidated(ctx, b.Cid())
-		if err != nil {
-			return xerrors.Errorf("check block validation cache %s: %w", b.Cid(), err)
-		}
+ if useCache {
+  isValidated, err := syncer.store.IsBlockValidated(ctx, b.Cid())
+  if err != nil {
+   return xerrors.Errorf("check block validation cache %s: %w", b.Cid(), err)
+  }
 
-		if isValidated {
-			return nil
-		}
-	}
+  if isValidated {
+   return nil
+  }
+ }
 
-	validationStart := build.Clock.Now()
-	defer func() {
-		stats.Record(ctx, metrics.BlockValidationDurationMilliseconds.M(metrics.SinceInMilliseconds(validationStart)))
-		log.Infow("block validation", "took", time.Since(validationStart), "height", b.Header.Height, "age", time.Since(time.Unix(int64(b.Header.Timestamp), 0)))
-	}()
+ validationStart := build.Clock.Now()
+ defer func() {
+  stats.Record(ctx, metrics.BlockValidationDurationMilliseconds.M(metrics.SinceInMilliseconds(validationStart)))
+  log.Infow("block validation", "took", time.Since(validationStart), "height", b.Header.Height, "age", time.Since(time.Unix(int64(b.Header.Timestamp), 0)))
+ }()
 
-	ctx, span := trace.StartSpan(ctx, "validateBlock")
-	defer span.End()
+ ctx, span := trace.StartSpan(ctx, "validateBlock")
+ defer span.End()
 
-	if err := blockSanityChecks(b.Header); err != nil {
-		return xerrors.Errorf("incoming header failed basic sanity checks: %w", err)
-	}
+ if err := blockSanityChecks(b.Header); err != nil {
+  return xerrors.Errorf("incoming header failed basic sanity checks: %w", err)
+ }
 
-	h := b.Header
+ h := b.Header
 
-	baseTs, err := syncer.store.LoadTipSet(types.NewTipSetKey(h.Parents...))
-	if err != nil {
-		return xerrors.Errorf("load parent tipset failed (%s): %w", h.Parents, err)
-	}
+ baseTs, err := syncer.store.LoadTipSet(types.NewTipSetKey(h.Parents...))
+ if err != nil {
+  return xerrors.Errorf("load parent tipset failed (%s): %w", h.Parents, err)
+ }
 
-	lbts, lbst, err := stmgr.GetLookbackTipSetForRound(ctx, syncer.sm, baseTs, h.Height)
-	if err != nil {
-		return xerrors.Errorf("failed to get lookback tipset for block: %w", err)
-	}
+ lbts, lbst, err := stmgr.GetLookbackTipSetForRound(ctx, syncer.sm, baseTs, h.Height)
+ if err != nil {
+  return xerrors.Errorf("failed to get lookback tipset for block: %w", err)
+ }
 
-	prevBeacon, err := syncer.store.GetLatestBeaconEntry(baseTs)
-	if err != nil {
-		return xerrors.Errorf("failed to get latest beacon entry: %w", err)
-	}
+ prevBeacon, err := syncer.store.GetLatestBeaconEntry(baseTs)
+ if err != nil {
+  return xerrors.Errorf("failed to get latest beacon entry: %w", err)
+ }
 
-	// fast checks first
-	nulls := h.Height - (baseTs.Height() + 1)
-	if tgtTs := baseTs.MinTimestamp() + build.BlockDelaySecs*uint64(nulls+1); h.Timestamp != tgtTs {
-		return xerrors.Errorf("block has wrong timestamp: %d != %d", h.Timestamp, tgtTs)
-	}
+ // fast checks first
+ nulls := h.Height - (baseTs.Height() + 1)
+ if tgtTs := baseTs.MinTimestamp() + build.BlockDelaySecs*uint64(nulls+1); h.Timestamp != tgtTs {
+  return xerrors.Errorf("block has wrong timestamp: %d != %d", h.Timestamp, tgtTs)
+ }
 
-	now := uint64(build.Clock.Now().Unix())
-	if h.Timestamp > now+build.AllowableClockDriftSecs {
-		return xerrors.Errorf("block was from the future (now=%d, blk=%d): %w", now, h.Timestamp, ErrTemporal)
-	}
-	if h.Timestamp > now {
-		log.Warn("Got block from the future, but within threshold", h.Timestamp, build.Clock.Now().Unix())
-	}
+ now := uint64(build.Clock.Now().Unix())
+ if h.Timestamp > now+build.AllowableClockDriftSecs {
+  return xerrors.Errorf("block was from the future (now=%d, blk=%d): %w", now, h.Timestamp, ErrTemporal)
+ }
+ if h.Timestamp > now {
+  log.Warn("Got block from the future, but within threshold", h.Timestamp, build.Clock.Now().Unix())
+ }
 
-	msgsCheck := async.Err(func() error {
-		if err := syncer.checkBlockMessages(ctx, b, baseTs); err != nil {
-			return xerrors.Errorf("block had invalid messages: %w", err)
-		}
-		return nil
-	})
+ msgsCheck := async.Err(func() error {
+  if err := syncer.checkBlockMessages(ctx, b, baseTs); err != nil {
+   return xerrors.Errorf("block had invalid messages: %w", err)
+  }
+  return nil
+ })
 
-	minerCheck := async.Err(func() error {
-		if err := syncer.minerIsValid(ctx, h.Miner, baseTs); err != nil {
-			return xerrors.Errorf("minerIsValid failed: %w", err)
-		}
-		return nil
-	})
+ minerCheck := async.Err(func() error {
+  if err := syncer.minerIsValid(ctx, h.Miner, baseTs); err != nil {
+   return xerrors.Errorf("minerIsValid failed: %w", err)
+  }
+  return nil
+ })
 
-	baseFeeCheck := async.Err(func() error {
-		baseFee, err := syncer.store.ComputeBaseFee(ctx, baseTs)
-		if err != nil {
-			return xerrors.Errorf("computing base fee: %w", err)
-		}
-		if types.BigCmp(baseFee, b.Header.ParentBaseFee) != 0 {
-			return xerrors.Errorf("base fee doesn't match: %s (header) != %s (computed)",
-				b.Header.ParentBaseFee, baseFee)
-		}
-		return nil
-	})
-	pweight, err := syncer.store.Weight(ctx, baseTs)
-	if err != nil {
-		return xerrors.Errorf("getting parent weight: %w", err)
-	}
+ baseFeeCheck := async.Err(func() error {
+  baseFee, err := syncer.store.ComputeBaseFee(ctx, baseTs)
+  if err != nil {
+   return xerrors.Errorf("computing base fee: %w", err)
+  }
+  if types.BigCmp(baseFee, b.Header.ParentBaseFee) != 0 {
+   return xerrors.Errorf("base fee doesn't match: %s (header) != %s (computed)",
+    b.Header.ParentBaseFee, baseFee)
+  }
+  return nil
+ })
+ pweight, err := syncer.store.Weight(ctx, baseTs)
+ if err != nil {
+  return xerrors.Errorf("getting parent weight: %w", err)
+ }
 
-	if types.BigCmp(pweight, b.Header.ParentWeight) != 0 {
-		return xerrors.Errorf("parrent weight different: %s (header) != %s (computed)",
-			b.Header.ParentWeight, pweight)
-	}
+ if types.BigCmp(pweight, b.Header.ParentWeight) != 0 {
+  return xerrors.Errorf("parrent weight different: %s (header) != %s (computed)",
+   b.Header.ParentWeight, pweight)
+ }
 
-	stateRootCheck := async.Err(func() error {
-		stateroot, precp, err := syncer.sm.TipSetState(ctx, baseTs)
-		if err != nil {
-			return xerrors.Errorf("get tipsetstate(%d, %s) failed: %w", h.Height, h.Parents, err)
-		}
+ stateRootCheck := async.Err(func() error {
+  stateroot, precp, err := syncer.sm.TipSetState(ctx, baseTs)
+  if err != nil {
+   return xerrors.Errorf("get tipsetstate(%d, %s) failed: %w", h.Height, h.Parents, err)
+  }
 
-		if stateroot != h.ParentStateRoot {
-			msgs, err := syncer.store.MessagesForTipset(baseTs)
-			if err != nil {
-				log.Error("failed to load messages for tipset during tipset state mismatch error: ", err)
-			} else {
-				log.Warn("Messages for tipset with mismatching state:")
-				for i, m := range msgs {
-					mm := m.VMMessage()
-					log.Warnf("Message[%d]: from=%s to=%s method=%d params=%x", i, mm.From, mm.To, mm.Method, mm.Params)
-				}
-			}
+  if stateroot != h.ParentStateRoot {
+   msgs, err := syncer.store.MessagesForTipset(baseTs)
+   if err != nil {
+    log.Error("failed to load messages for tipset during tipset state mismatch error: ", err)
+   } else {
+    log.Warn("Messages for tipset with mismatching state:")
+    for i, m := range msgs {
+     mm := m.VMMessage()
+     log.Warnf("Message[%d]: from=%s to=%s method=%d params=%x", i, mm.From, mm.To, mm.Method, mm.Params)
+    }
+   }
 
-			return xerrors.Errorf("parent state root did not match computed state (%s != %s)", stateroot, h.ParentStateRoot)
-		}
+   return xerrors.Errorf("parent state root did not match computed state (%s != %s)", stateroot, h.ParentStateRoot)
+  }
 
-		if precp != h.ParentMessageReceipts {
-			return xerrors.Errorf("parent receipts root did not match computed value (%s != %s)", precp, h.ParentMessageReceipts)
-		}
+  if precp != h.ParentMessageReceipts {
+   return xerrors.Errorf("parent receipts root did not match computed value (%s != %s)", precp, h.ParentMessageReceipts)
+  }
 
-		return nil
-	})
+  return nil
+ })
 
-	// Stuff that needs worker address
-	waddr, err := stmgr.GetMinerWorkerRaw(ctx, syncer.sm, lbst, h.Miner)
-	if err != nil {
-		return xerrors.Errorf("GetMinerWorkerRaw failed: %w", err)
-	}
+ // Stuff that needs worker address
+ waddr, err := stmgr.GetMinerWorkerRaw(ctx, syncer.sm, lbst, h.Miner)
+ if err != nil {
+  return xerrors.Errorf("GetMinerWorkerRaw failed: %w", err)
+ }
 
-	winnerCheck := async.Err(func() error {
-		if h.ElectionProof.WinCount < 1 {
-			return xerrors.Errorf("block is not claiming to be a winner")
-		}
+ winnerCheck := async.Err(func() error {
+  if h.ElectionProof.WinCount < 1 {
+   return xerrors.Errorf("block is not claiming to be a winner")
+  }
 
-		eligible, err := stmgr.MinerEligibleToMine(ctx, syncer.sm, h.Miner, baseTs, lbts)
-		if err != nil {
-			return xerrors.Errorf("determining if miner has min power failed: %w", err)
-		}
+  eligible, err := stmgr.MinerEligibleToMine(ctx, syncer.sm, h.Miner, baseTs, lbts)
+  if err != nil {
+   return xerrors.Errorf("determining if miner has min power failed: %w", err)
+  }
 
-		if !eligible {
-			return xerrors.New("block's miner is ineligible to mine")
-		}
+  if !eligible {
+   return xerrors.New("block's miner is ineligible to mine")
+  }
 
-		rBeacon := *prevBeacon
-		if len(h.BeaconEntries) != 0 {
-			rBeacon = h.BeaconEntries[len(h.BeaconEntries)-1]
-		}
-		buf := new(bytes.Buffer)
-		if err := h.Miner.MarshalCBOR(buf); err != nil {
-			return xerrors.Errorf("failed to marshal miner address to cbor: %w", err)
-		}
+  rBeacon := *prevBeacon
+  if len(h.BeaconEntries) != 0 {
+   rBeacon = h.BeaconEntries[len(h.BeaconEntries)-1]
+  }
+  buf := new(bytes.Buffer)
+  if err := h.Miner.MarshalCBOR(buf); err != nil {
+   return xerrors.Errorf("failed to marshal miner address to cbor: %w", err)
+  }
 
-		vrfBase, err := store.DrawRandomness(rBeacon.Data, crypto.DomainSeparationTag_ElectionProofProduction, h.Height, buf.Bytes())
-		if err != nil {
-			return xerrors.Errorf("could not draw randomness: %w", err)
-		}
+  vrfBase, err := store.DrawRandomness(rBeacon.Data, crypto.DomainSeparationTag_ElectionProofProduction, h.Height, buf.Bytes())
+  if err != nil {
+   return xerrors.Errorf("could not draw randomness: %w", err)
+  }
 
-		if err := VerifyElectionPoStVRF(ctx, waddr, vrfBase, h.ElectionProof.VRFProof); err != nil {
-			return xerrors.Errorf("validating block election proof failed: %w", err)
-		}
+  if err := VerifyElectionPoStVRF(ctx, waddr, vrfBase, h.ElectionProof.VRFProof); err != nil {
+   return xerrors.Errorf("validating block election proof failed: %w", err)
+  }
 
-		slashed, err := stmgr.GetMinerSlashed(ctx, syncer.sm, baseTs, h.Miner)
-		if err != nil {
-			return xerrors.Errorf("failed to check if block miner was slashed: %w", err)
-		}
+  slashed, err := stmgr.GetMinerSlashed(ctx, syncer.sm, baseTs, h.Miner)
+  if err != nil {
+   return xerrors.Errorf("failed to check if block miner was slashed: %w", err)
+  }
 
-		if slashed {
-			return xerrors.Errorf("received block was from slashed or invalid miner")
-		}
+  if slashed {
+   return xerrors.Errorf("received block was from slashed or invalid miner")
+  }
 
-		mpow, tpow, _, err := stmgr.GetPowerRaw(ctx, syncer.sm, lbst, h.Miner)
-		if err != nil {
-			return xerrors.Errorf("failed getting power: %w", err)
-		}
+  mpow, tpow, _, err := stmgr.GetPowerRaw(ctx, syncer.sm, lbst, h.Miner)
+  if err != nil {
+   return xerrors.Errorf("failed getting power: %w", err)
+  }
 
-		j := h.ElectionProof.ComputeWinCount(mpow.QualityAdjPower, tpow.QualityAdjPower)
-		if h.ElectionProof.WinCount != j {
-			return xerrors.Errorf("miner claims wrong number of wins: miner: %d, computed: %d", h.ElectionProof.WinCount, j)
-		}
+  j := h.ElectionProof.ComputeWinCount(mpow.QualityAdjPower, tpow.QualityAdjPower)
+  if h.ElectionProof.WinCount != j {
+   return xerrors.Errorf("miner claims wrong number of wins: miner: %d, computed: %d", h.ElectionProof.WinCount, j)
+  }
 
-		return nil
-	})
+  return nil
+ })
 
-	blockSigCheck := async.Err(func() error {
-		if err := sigs.CheckBlockSignature(ctx, h, waddr); err != nil {
-			return xerrors.Errorf("check block signature failed: %w", err)
-		}
-		return nil
-	})
+ blockSigCheck := async.Err(func() error {
+  if err := sigs.CheckBlockSignature(ctx, h, waddr); err != nil {
+   return xerrors.Errorf("check block signature failed: %w", err)
+  }
+  return nil
+ })
 
-	beaconValuesCheck := async.Err(func() error {
-		if os.Getenv("LOTUS_IGNORE_DRAND") == "_yes_" {
-			return nil
-		}
+ beaconValuesCheck := async.Err(func() error {
+  if os.Getenv("LOTUS_IGNORE_DRAND") == "_yes_" {
+   return nil
+  }
 
-		if err := beacon.ValidateBlockValues(syncer.beacon, h, baseTs.Height(), *prevBeacon); err != nil {
-			return xerrors.Errorf("failed to validate blocks random beacon values: %w", err)
-		}
-		return nil
-	})
+  if err := beacon.ValidateBlockValues(syncer.beacon, h, baseTs.Height(), *prevBeacon); err != nil {
+   return xerrors.Errorf("failed to validate blocks random beacon values: %w", err)
+  }
+  return nil
+ })
 
-	tktsCheck := async.Err(func() error {
-		buf := new(bytes.Buffer)
-		if err := h.Miner.MarshalCBOR(buf); err != nil {
-			return xerrors.Errorf("failed to marshal miner address to cbor: %w", err)
-		}
+ tktsCheck := async.Err(func() error {
+  buf := new(bytes.Buffer)
+  if err := h.Miner.MarshalCBOR(buf); err != nil {
+   return xerrors.Errorf("failed to marshal miner address to cbor: %w", err)
+  }
 
-		if h.Height > build.UpgradeSmokeHeight {
-			buf.Write(baseTs.MinTicket().VRFProof)
-		}
+  if h.Height > build.UpgradeSmokeHeight {
+   buf.Write(baseTs.MinTicket().VRFProof)
+  }
 
-		beaconBase := *prevBeacon
-		if len(h.BeaconEntries) != 0 {
-			beaconBase = h.BeaconEntries[len(h.BeaconEntries)-1]
-		}
+  beaconBase := *prevBeacon
+  if len(h.BeaconEntries) != 0 {
+   beaconBase = h.BeaconEntries[len(h.BeaconEntries)-1]
+  }
 
-		vrfBase, err := store.DrawRandomness(beaconBase.Data, crypto.DomainSeparationTag_TicketProduction, h.Height-build.TicketRandomnessLookback, buf.Bytes())
-		if err != nil {
-			return xerrors.Errorf("failed to compute vrf base for ticket: %w", err)
-		}
+  vrfBase, err := store.DrawRandomness(beaconBase.Data, crypto.DomainSeparationTag_TicketProduction, h.Height-build.TicketRandomnessLookback, buf.Bytes())
+  if err != nil {
+   return xerrors.Errorf("failed to compute vrf base for ticket: %w", err)
+  }
 
-		err = VerifyElectionPoStVRF(ctx, waddr, vrfBase, h.Ticket.VRFProof)
-		if err != nil {
-			return xerrors.Errorf("validating block tickets failed: %w", err)
-		}
-		return nil
-	})
+  err = VerifyElectionPoStVRF(ctx, waddr, vrfBase, h.Ticket.VRFProof)
+  if err != nil {
+   return xerrors.Errorf("validating block tickets failed: %w", err)
+  }
+  return nil
+ })
 
-	wproofCheck := async.Err(func() error {
-		if err := syncer.VerifyWinningPoStProof(ctx, h, *prevBeacon, lbst, waddr); err != nil {
-			return xerrors.Errorf("invalid election post: %w", err)
-		}
-		return nil
-	})
+ wproofCheck := async.Err(func() error {
+  if err := syncer.VerifyWinningPoStProof(ctx, h, *prevBeacon, lbst, waddr); err != nil {
+   return xerrors.Errorf("invalid election post: %w", err)
+  }
+  return nil
+ })
 
-	await := []async.ErrorFuture{
-		minerCheck,
-		tktsCheck,
-		blockSigCheck,
-		beaconValuesCheck,
-		wproofCheck,
-		winnerCheck,
-		msgsCheck,
-		baseFeeCheck,
-		stateRootCheck,
-	}
+ await := []async.ErrorFuture{
+  minerCheck,
+  tktsCheck,
+  blockSigCheck,
+  beaconValuesCheck,
+  wproofCheck,
+  winnerCheck,
+  msgsCheck,
+  baseFeeCheck,
+  stateRootCheck,
+ }
 
-	var merr error
-	for _, fut := range await {
-		if err := fut.AwaitContext(ctx); err != nil {
-			merr = multierror.Append(merr, err)
-		}
-	}
-	if merr != nil {
-		mulErr := merr.(*multierror.Error)
-		mulErr.ErrorFormat = func(es []error) string {
-			if len(es) == 1 {
-				return fmt.Sprintf("1 error occurred:\n\t* %+v\n\n", es[0])
-			}
+ var merr error
+ for _, fut := range await {
+  if err := fut.AwaitContext(ctx); err != nil {
+   merr = multierror.Append(merr, err)
+  }
+ }
+ if merr != nil {
+  mulErr := merr.(*multierror.Error)
+  mulErr.ErrorFormat = func(es []error) string {
+   if len(es) == 1 {
+    return fmt.Sprintf("1 error occurred:\n\t* %+v\n\n", es[0])
+   }
 
-			points := make([]string, len(es))
-			for i, err := range es {
-				points[i] = fmt.Sprintf("* %+v", err)
-			}
+   points := make([]string, len(es))
+   for i, err := range es {
+    points[i] = fmt.Sprintf("* %+v", err)
+   }
 
-			return fmt.Sprintf(
-				"%d errors occurred:\n\t%s\n\n",
-				len(es), strings.Join(points, "\n\t"))
-		}
-		return mulErr
-	}
+   return fmt.Sprintf(
+    "%d errors occurred:\n\t%s\n\n",
+    len(es), strings.Join(points, "\n\t"))
+  }
+  return mulErr
+ }
 
-	if useCache {
-		if err := syncer.store.MarkBlockAsValidated(ctx, b.Cid()); err != nil {
-			return xerrors.Errorf("caching block validation %s: %w", b.Cid(), err)
-		}
-	}
+ if useCache {
+  if err := syncer.store.MarkBlockAsValidated(ctx, b.Cid()); err != nil {
+   return xerrors.Errorf("caching block validation %s: %w", b.Cid(), err)
+  }
+ }
 
-	return nil
+ return nil
 }
 ```
 
@@ -2471,7 +2482,7 @@ func (syncer *Syncer) ValidateBlock(ctx context.Context, b *types.FullBlock, use
 
     - 在适当的时期之前，不应拒绝具有未来时期的模块，但不应对其进行评估（验证或包含在提示集中）
 
-  - 不过去比软终结更远通过SPC定义的 
+  - 不过去比软终结更远通过SPC定义的
 
     终局性
 
@@ -2617,9 +2628,9 @@ Lotus实现中的主要Tipset结构包括以下内容：
 
 ```go
 type TipSet struct {
-	cids   []cid.Cid
-	blks   []*BlockHeader
-	height abi.ChainEpoch
+ cids   []cid.Cid
+ blks   []*BlockHeader
+ height abi.ChainEpoch
 }
 ```
 
@@ -2635,36 +2646,36 @@ Tipset的语义验证包括以下检查。
 
 ```go
 func NewTipSet(blks []*BlockHeader) (*TipSet, error) {
-	if len(blks) == 0 {
-		return nil, xerrors.Errorf("NewTipSet called with zero length array of blocks")
-	}
+ if len(blks) == 0 {
+  return nil, xerrors.Errorf("NewTipSet called with zero length array of blocks")
+ }
 
-	sort.Slice(blks, tipsetSortFunc(blks))
+ sort.Slice(blks, tipsetSortFunc(blks))
 
-	var ts TipSet
-	ts.cids = []cid.Cid{blks[0].Cid()}
-	ts.blks = blks
-	for _, b := range blks[1:] {
-		if b.Height != blks[0].Height {
-			return nil, fmt.Errorf("cannot create tipset with mismatching heights")
-		}
+ var ts TipSet
+ ts.cids = []cid.Cid{blks[0].Cid()}
+ ts.blks = blks
+ for _, b := range blks[1:] {
+  if b.Height != blks[0].Height {
+   return nil, fmt.Errorf("cannot create tipset with mismatching heights")
+  }
 
-		if len(blks[0].Parents) != len(b.Parents) {
-			return nil, fmt.Errorf("cannot create tipset with mismatching number of parents")
-		}
+  if len(blks[0].Parents) != len(b.Parents) {
+   return nil, fmt.Errorf("cannot create tipset with mismatching number of parents")
+  }
 
-		for i, cid := range b.Parents {
-			if cid != blks[0].Parents[i] {
-				return nil, fmt.Errorf("cannot create tipset with mismatching parents")
-			}
-		}
+  for i, cid := range b.Parents {
+   if cid != blks[0].Parents[i] {
+    return nil, fmt.Errorf("cannot create tipset with mismatching parents")
+   }
+  }
 
-		ts.cids = append(ts.cids, b.Cid())
+  ts.cids = append(ts.cids, b.Cid())
 
-	}
-	ts.height = blks[0].Height
+ }
+ ts.height = blks[0].Height
 
-	return &ts, nil
+ return &ts, nil
 }
 ```
 
@@ -2897,7 +2908,7 @@ Peer Exchange允许应用程序从一组已知的对等方进行引导，而无�
 
 使用明确的对等协议，运营商必须指定加入节点时节点应连接到的对等方列表。该协议必须具有可用于指定这些选项的选项。对于每个显式对等方，路由器必须建立并维持双向（对等）连接。
 
-#### 2.4.3[ 渐进块验证](https://spec.filecoin.io/#section-systems.filecoin_blockchain.chainsync.progressive-block-validation)
+#### 2.4.3[渐进块验证](https://spec.filecoin.io/#section-systems.filecoin_blockchain.chainsync.progressive-block-validation)
 
 - 为了使资源支出最小化，可以逐步进行[区块](https://spec.filecoin.io/#section-systems.filecoin_blockchain.struct.block)验证。
 - 验证计算量很大，并且是严重的DOS攻击媒介。
@@ -2986,19 +2997,19 @@ Drand链的根信任是从build.DrandChain配置的。
 
 ```go
 type DrandBeacon struct {
-	client dclient.Client
+ client dclient.Client
 
-	pubkey kyber.Point
+ pubkey kyber.Point
 
-	// seconds
-	interval time.Duration
+ // seconds
+ interval time.Duration
 
-	drandGenTime uint64
-	filGenTime   uint64
-	filRoundTime uint64
+ drandGenTime uint64
+ filGenTime   uint64
+ filRoundTime uint64
 
-	cacheLk    sync.Mutex
-	localCache map[uint64]types.BeaconEntry
+ cacheLk    sync.Mutex
+ localCache map[uint64]types.BeaconEntry
 }
 ```
 
@@ -3006,63 +3017,63 @@ type DrandBeacon struct {
 
 ```go
 func BeaconEntriesForBlock(ctx context.Context, bSchedule Schedule, epoch abi.ChainEpoch, parentEpoch abi.ChainEpoch, prev types.BeaconEntry) ([]types.BeaconEntry, error) {
-	{
-		parentBeacon := bSchedule.BeaconForEpoch(parentEpoch)
-		currBeacon := bSchedule.BeaconForEpoch(epoch)
-		if parentBeacon != currBeacon {
-			// Fork logic
-			round := currBeacon.MaxBeaconRoundForEpoch(epoch)
-			out := make([]types.BeaconEntry, 2)
-			rch := currBeacon.Entry(ctx, round-1)
-			res := <-rch
-			if res.Err != nil {
-				return nil, xerrors.Errorf("getting entry %d returned error: %w", round-1, res.Err)
-			}
-			out[0] = res.Entry
-			rch = currBeacon.Entry(ctx, round)
-			res = <-rch
-			if res.Err != nil {
-				return nil, xerrors.Errorf("getting entry %d returned error: %w", round, res.Err)
-			}
-			out[1] = res.Entry
-			return out, nil
-		}
-	}
+ {
+  parentBeacon := bSchedule.BeaconForEpoch(parentEpoch)
+  currBeacon := bSchedule.BeaconForEpoch(epoch)
+  if parentBeacon != currBeacon {
+   // Fork logic
+   round := currBeacon.MaxBeaconRoundForEpoch(epoch)
+   out := make([]types.BeaconEntry, 2)
+   rch := currBeacon.Entry(ctx, round-1)
+   res := <-rch
+   if res.Err != nil {
+    return nil, xerrors.Errorf("getting entry %d returned error: %w", round-1, res.Err)
+   }
+   out[0] = res.Entry
+   rch = currBeacon.Entry(ctx, round)
+   res = <-rch
+   if res.Err != nil {
+    return nil, xerrors.Errorf("getting entry %d returned error: %w", round, res.Err)
+   }
+   out[1] = res.Entry
+   return out, nil
+  }
+ }
 
-	beacon := bSchedule.BeaconForEpoch(epoch)
+ beacon := bSchedule.BeaconForEpoch(epoch)
 
-	start := build.Clock.Now()
+ start := build.Clock.Now()
 
-	maxRound := beacon.MaxBeaconRoundForEpoch(epoch)
-	if maxRound == prev.Round {
-		return nil, nil
-	}
+ maxRound := beacon.MaxBeaconRoundForEpoch(epoch)
+ if maxRound == prev.Round {
+  return nil, nil
+ }
 
-	// TODO: this is a sketchy way to handle the genesis block not having a beacon entry
-	if prev.Round == 0 {
-		prev.Round = maxRound - 1
-	}
+ // TODO: this is a sketchy way to handle the genesis block not having a beacon entry
+ if prev.Round == 0 {
+  prev.Round = maxRound - 1
+ }
 
-	cur := maxRound
-	var out []types.BeaconEntry
-	for cur > prev.Round {
-		rch := beacon.Entry(ctx, cur)
-		select {
-		case resp := <-rch:
-			if resp.Err != nil {
-				return nil, xerrors.Errorf("beacon entry request returned error: %w", resp.Err)
-			}
+ cur := maxRound
+ var out []types.BeaconEntry
+ for cur > prev.Round {
+  rch := beacon.Entry(ctx, cur)
+  select {
+  case resp := <-rch:
+   if resp.Err != nil {
+    return nil, xerrors.Errorf("beacon entry request returned error: %w", resp.Err)
+   }
 
-			out = append(out, resp.Entry)
-			cur = resp.Entry.Round - 1
-		case <-ctx.Done():
-			return nil, xerrors.Errorf("context timed out waiting on beacon entry to come back for epoch %d: %w", epoch, ctx.Err())
-		}
-	}
+   out = append(out, resp.Entry)
+   cur = resp.Entry.Round - 1
+  case <-ctx.Done():
+   return nil, xerrors.Errorf("context timed out waiting on beacon entry to come back for epoch %d: %w", epoch, ctx.Err())
+  }
+ }
 
-	log.Debugw("fetching beacon entries", "took", build.Clock.Since(start), "numEntries", len(out))
-	reverse(out)
-	return out, nil
+ log.Debugw("fetching beacon entries", "took", build.Clock.Since(start), "numEntries", len(out))
+ reverse(out)
+ return out, nil
 }
 ```
 
@@ -3070,10 +3081,10 @@ func BeaconEntriesForBlock(ctx context.Context, bSchedule Schedule, epoch abi.Ch
 
 ```go
 func (db *DrandBeacon) MaxBeaconRoundForEpoch(filEpoch abi.ChainEpoch) uint64 {
-	// TODO: sometimes the genesis time for filecoin is zero and this goes negative
-	latestTs := ((uint64(filEpoch) * db.filRoundTime) + db.filGenTime) - db.filRoundTime
-	dround := (latestTs - db.drandGenTime) / uint64(db.interval.Seconds())
-	return dround
+ // TODO: sometimes the genesis time for filecoin is zero and this goes negative
+ latestTs := ((uint64(filEpoch) * db.filRoundTime) + db.filGenTime) - db.filRoundTime
+ dround := (latestTs - db.drandGenTime) / uint64(db.interval.Seconds())
+ return dround
 }
 ```
 
@@ -3087,50 +3098,50 @@ Filecoin链将包含从Filecoin起源到当前区块的整个信标输出。
 
 ```go
 func ValidateBlockValues(bSchedule Schedule, h *types.BlockHeader, parentEpoch abi.ChainEpoch,
-	prevEntry types.BeaconEntry) error {
-	{
-		parentBeacon := bSchedule.BeaconForEpoch(parentEpoch)
-		currBeacon := bSchedule.BeaconForEpoch(h.Height)
-		if parentBeacon != currBeacon {
-			if len(h.BeaconEntries) != 2 {
-				return xerrors.Errorf("expected two beacon entries at beacon fork, got %d", len(h.BeaconEntries))
-			}
-			err := currBeacon.VerifyEntry(h.BeaconEntries[1], h.BeaconEntries[0])
-			if err != nil {
-				return xerrors.Errorf("beacon at fork point invalid: (%v, %v): %w",
-					h.BeaconEntries[1], h.BeaconEntries[0], err)
-			}
-			return nil
-		}
-	}
+ prevEntry types.BeaconEntry) error {
+ {
+  parentBeacon := bSchedule.BeaconForEpoch(parentEpoch)
+  currBeacon := bSchedule.BeaconForEpoch(h.Height)
+  if parentBeacon != currBeacon {
+   if len(h.BeaconEntries) != 2 {
+    return xerrors.Errorf("expected two beacon entries at beacon fork, got %d", len(h.BeaconEntries))
+   }
+   err := currBeacon.VerifyEntry(h.BeaconEntries[1], h.BeaconEntries[0])
+   if err != nil {
+    return xerrors.Errorf("beacon at fork point invalid: (%v, %v): %w",
+     h.BeaconEntries[1], h.BeaconEntries[0], err)
+   }
+   return nil
+  }
+ }
 
-	// TODO: fork logic
-	b := bSchedule.BeaconForEpoch(h.Height)
-	maxRound := b.MaxBeaconRoundForEpoch(h.Height)
-	if maxRound == prevEntry.Round {
-		if len(h.BeaconEntries) != 0 {
-			return xerrors.Errorf("expected not to have any beacon entries in this block, got %d", len(h.BeaconEntries))
-		}
-		return nil
-	}
+ // TODO: fork logic
+ b := bSchedule.BeaconForEpoch(h.Height)
+ maxRound := b.MaxBeaconRoundForEpoch(h.Height)
+ if maxRound == prevEntry.Round {
+  if len(h.BeaconEntries) != 0 {
+   return xerrors.Errorf("expected not to have any beacon entries in this block, got %d", len(h.BeaconEntries))
+  }
+  return nil
+ }
 
-	if len(h.BeaconEntries) == 0 {
-		return xerrors.Errorf("expected to have beacon entries in this block, but didn't find any")
-	}
+ if len(h.BeaconEntries) == 0 {
+  return xerrors.Errorf("expected to have beacon entries in this block, but didn't find any")
+ }
 
-	last := h.BeaconEntries[len(h.BeaconEntries)-1]
-	if last.Round != maxRound {
-		return xerrors.Errorf("expected final beacon entry in block to be at round %d, got %d", maxRound, last.Round)
-	}
+ last := h.BeaconEntries[len(h.BeaconEntries)-1]
+ if last.Round != maxRound {
+  return xerrors.Errorf("expected final beacon entry in block to be at round %d, got %d", maxRound, last.Round)
+ }
 
-	for i, e := range h.BeaconEntries {
-		if err := b.VerifyEntry(e, prevEntry); err != nil {
-			return xerrors.Errorf("beacon entry %d (%d - %x (%d)) was invalid: %w", i, e.Round, e.Data, len(e.Data), err)
-		}
-		prevEntry = e
-	}
+ for i, e := range h.BeaconEntries {
+  if err := b.VerifyEntry(e, prevEntry); err != nil {
+   return xerrors.Errorf("beacon entry %d (%d - %x (%d)) was invalid: %w", i, e.Round, e.Data, len(e.Data), err)
+  }
+  prevEntry = e
+ }
 
-	return nil
+ return nil
 }
 ```
 
@@ -3179,36 +3190,36 @@ newTicketRandomness = VRF_miner(H(TicketProdDST || index || Serialization(randSe
 
 ```go
 type State struct {
-	TotalRawBytePower abi.StoragePower
-	// TotalBytesCommitted includes claims from miners below min power threshold
-	TotalBytesCommitted  abi.StoragePower
-	TotalQualityAdjPower abi.StoragePower
-	// TotalQABytesCommitted includes claims from miners below min power threshold
-	TotalQABytesCommitted abi.StoragePower
-	TotalPledgeCollateral abi.TokenAmount
+ TotalRawBytePower abi.StoragePower
+ // TotalBytesCommitted includes claims from miners below min power threshold
+ TotalBytesCommitted  abi.StoragePower
+ TotalQualityAdjPower abi.StoragePower
+ // TotalQABytesCommitted includes claims from miners below min power threshold
+ TotalQABytesCommitted abi.StoragePower
+ TotalPledgeCollateral abi.TokenAmount
 
-	// These fields are set once per epoch in the previous cron tick and used
-	// for consistent values across a single epoch's state transition.
-	ThisEpochRawBytePower     abi.StoragePower
-	ThisEpochQualityAdjPower  abi.StoragePower
-	ThisEpochPledgeCollateral abi.TokenAmount
-	ThisEpochQAPowerSmoothed  smoothing.FilterEstimate
+ // These fields are set once per epoch in the previous cron tick and used
+ // for consistent values across a single epoch's state transition.
+ ThisEpochRawBytePower     abi.StoragePower
+ ThisEpochQualityAdjPower  abi.StoragePower
+ ThisEpochPledgeCollateral abi.TokenAmount
+ ThisEpochQAPowerSmoothed  smoothing.FilterEstimate
 
-	MinerCount int64
-	// Number of miners having proven the minimum consensus power.
-	MinerAboveMinPowerCount int64
+ MinerCount int64
+ // Number of miners having proven the minimum consensus power.
+ MinerAboveMinPowerCount int64
 
-	// A queue of events to be triggered by cron, indexed by epoch.
-	CronEventQueue cid.Cid // Multimap, (HAMT[ChainEpoch]AMT[CronEvent])
+ // A queue of events to be triggered by cron, indexed by epoch.
+ CronEventQueue cid.Cid // Multimap, (HAMT[ChainEpoch]AMT[CronEvent])
 
-	// First epoch in which a cron task may be stored.
-	// Cron will iterate every epoch between this and the current epoch inclusively to find tasks to execute.
-	FirstCronEpoch abi.ChainEpoch
+ // First epoch in which a cron task may be stored.
+ // Cron will iterate every epoch between this and the current epoch inclusively to find tasks to execute.
+ FirstCronEpoch abi.ChainEpoch
 
-	// Claimed power for each miner.
-	Claims cid.Cid // Map, HAMT[address]Claim
+ // Claimed power for each miner.
+ Claims cid.Cid // Map, HAMT[address]Claim
 
-	ProofValidationBatch *cid.Cid // Multimap, (HAMT[Address]AMT[SealVerifyInfo])
+ ProofValidationBatch *cid.Cid // Multimap, (HAMT[Address]AMT[SealVerifyInfo])
 }
 ```
 
@@ -3218,17 +3229,17 @@ type State struct {
 
 ```go
 func (a Actor) Exports() []interface{} {
-	return []interface{}{
-		builtin.MethodConstructor: a.Constructor,
-		2:                         a.CreateMiner,
-		3:                         a.UpdateClaimedPower,
-		4:                         a.EnrollCronEvent,
-		5:                         a.OnEpochTickEnd,
-		6:                         a.UpdatePledgeTotal,
-		7:                         nil, // deprecated
-		8:                         a.SubmitPoRepForBulkVerify,
-		9:                         a.CurrentTotalPower,
-	}
+ return []interface{}{
+  builtin.MethodConstructor: a.Constructor,
+  2:                         a.CreateMiner,
+  3:                         a.UpdateClaimedPower,
+  4:                         a.EnrollCronEvent,
+  5:                         a.OnEpochTickEnd,
+  6:                         a.UpdatePledgeTotal,
+  7:                         nil, // deprecated
+  8:                         a.SubmitPoRepForBulkVerify,
+  9:                         a.CurrentTotalPower,
+ }
 }
 ```
 
@@ -3240,12 +3251,12 @@ func (a Actor) Exports() []interface{} {
 
 ```go
 type MinerConstructorParams struct {
-	OwnerAddr     addr.Address
-	WorkerAddr    addr.Address
-	ControlAddrs  []addr.Address
-	SealProofType abi.RegisteredSealProof
-	PeerId        abi.PeerID
-	Multiaddrs    []abi.Multiaddrs
+ OwnerAddr     addr.Address
+ WorkerAddr    addr.Address
+ ControlAddrs  []addr.Address
+ SealProofType abi.RegisteredSealProof
+ PeerId        abi.PeerID
+ Multiaddrs    []abi.Multiaddrs
 }
 ```
 
@@ -3285,10 +3296,3 @@ SPC提供了一个功率表抽象，可随时间跟踪矿工功率（即矿工�
 - 影响共识功率的故障，更一般而言，尤其是未承诺的功率故障（即， [存储故障](https://spec.filecoin.io/#section-systems.filecoin_markets.onchain_storage_market.faults.storage-faults)），将由`CronActor`自动报告，或者当矿工终止扇区的时间早于承诺的持续时间时，将报告这些[故障](https://spec.filecoin.io/#section-systems.filecoin_markets.onchain_storage_market.faults.storage-faults)。
 
 有关质押抵押品的更详细讨论，请参阅 [矿工抵押品部分](https://spec.filecoin.io/#section-systems.filecoin_mining.miner_collaterals)。
-
-
-
-
-
-
-

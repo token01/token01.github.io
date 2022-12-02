@@ -1,8 +1,19 @@
-> 死磕hyperledger fabric源码|kafka共识排序
+---
+title: 浅谈hyperledger fabric源码|Endorser节点背书服务
+shortTitle: 浅谈hyperledger fabric源码|Endorser节点背书服务
+category:
+  - 区块链
+tag:
+  - 浅谈hyperledger fabric源码
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识  
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
+
+> 浅谈hyperledger fabric源码|kafka共识排序
 >
-> 文章及代码：https://github.com/blockchainGuide/
->
-> 分支：v1.1.0
 
 ![d1e794177969e09552b173b7d6eaea19](https://tva1.sinaimg.cn/large/008eGmZEgy1gmzuqmak04j30zk0m8weu.jpg)
 

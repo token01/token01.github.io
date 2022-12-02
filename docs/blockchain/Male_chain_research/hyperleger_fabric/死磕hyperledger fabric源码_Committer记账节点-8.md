@@ -1,8 +1,18 @@
-> 死磕hyperledger fabric源码|Committer记账节点
+---
+title: 浅谈hyperledger fabric源码|Committer记账节点
+shortTitle: 浅谈hyperledger fabric源码|Committer记账节点
+category:
+  - 区块链
+tag:
+  - 浅谈hyperledger fabric源码
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识  
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
+> 浅谈hyperledger fabric源码|Committer记账节点
 >
-> 文章及代码：https://github.com/blockchainGuide/
->
-> 分支：v1.1.0
 
 ![facdd49577decf1dc62abc9fc97caf97](https://tva1.sinaimg.cn/large/008eGmZEgy1gn3h9nzkclj31c00u0wt0.jpg)
 

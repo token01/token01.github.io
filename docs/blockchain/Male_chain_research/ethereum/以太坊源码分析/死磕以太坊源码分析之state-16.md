@@ -1,8 +1,17 @@
-> 死磕以太坊源码分析之state
->
-> 配合以下代码进行阅读：https://github.com/blockchainGuide/
->
-> 希望读者在阅读过程中发现问题可以及时评论哦，大家一起进步。
+---
+title: 浅谈以太坊源码分析之state
+shortTitle: 浅谈以太坊源码分析之state
+category:
+  - 区块链
+tag:
+  - 浅谈以太坊源码分析
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识  
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
+> 浅谈以太坊源码分析之state
 
 ## 源码目录
 
@@ -41,7 +50,7 @@
 3. **storageRoot**:  账户存储树的Root根，用来存储合约信息
 4. **codeHash**: 账户的 EVM 代码哈希值，当这个地址接收到一个消息调用时，这些代码会被执行; 它和其它字段不同，创建后不可更改。如果 codeHash 为空，则说明该账户是一个简单的外部账户，只存在 `nonce` 和 `balance`。
 
-接下来将会分析State相关的一些类，着重关注`statedb.go、state_object.go、database.go`,其中涉及的Trie相关的代码可以参照：[死磕以太坊源码分析之MPT树-下](https://github.com/blockchainGuide/)
+接下来将会分析State相关的一些类，着重关注`statedb.go、state_object.go、database.go`,其中涉及的Trie相关的代码可以参照：[浅谈以太坊源码分析之MPT树-下](https://github.com/blockchainGuide/)
 
 ### 关键的数据结构
 
@@ -220,7 +229,7 @@ func (s *stateObject) CommitTrie(db Database) error {
 }
 ```
 
-第一件事会在下面继续讲，第二件事可以参照我之前关于 [死磕以太坊源码分析之MPT树-下](https://github.com/blockchainGuide/)的讲解。
+第一件事会在下面继续讲，第二件事可以参照我之前关于 [浅谈以太坊源码分析之MPT树-下](https://github.com/blockchainGuide/)的讲解。
 
 ①：**将缓存的存储修改写入对象的存储Trie**
 

@@ -1,9 +1,18 @@
-> 死磕hyperledger fabric源码|Deliver区块分发
+---
+title: 浅谈hyperledger fabric源码|Deliver区块分发
+shortTitle: 浅谈hyperledger fabric源码|Deliver区块分发
+category:
+  - 区块链
+tag:
+  - 浅谈hyperledger fabric源码
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识  
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
+> 浅谈hyperledger fabric源码|Deliver区块分发
 >
-> 文章及代码：https://github.com/blockchainGuide/
->
-> 分支：v1.1.0
-
 ![00a1ba6f145942b3fdb1a7b63964967e](https://tva1.sinaimg.cn/large/008eGmZEgy1gn0uq99cf2j31hc0u0k1k.jpg)
 
 

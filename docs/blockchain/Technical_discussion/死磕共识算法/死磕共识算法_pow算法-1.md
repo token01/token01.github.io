@@ -1,4 +1,4 @@
-> 死磕共识算法|pow算法
+> 浅谈共识算法|pow算法
 >
 > 配合以下代码进行阅读：https://github.com/blockchainGuide/
 >
@@ -60,7 +60,7 @@ S系列算法实际是一种串联思路，只要其中一种算法被破解，�
 
 ## ETHASH
 
-Ethash是以太坊上面使用的POW算法，具体的介绍可以查看此文（**建议关注此公号**）：[死磕以太坊源码分析之ETHASH算法](https://mp.weixin.qq.com/s?__biz=MzU2MjY5MzcyMQ==&mid=2247484167&idx=1&sn=1cbec62883c0200c7be39e6986cd53e4&scene=19#wechat_redirect)
+Ethash是以太坊上面使用的POW算法，具体的介绍可以查看此文（**建议关注此公号**）：[浅谈以太坊源码分析之ETHASH算法](https://mp.weixin.qq.com/s?__biz=MzU2MjY5MzcyMQ==&mid=2247484167&idx=1&sn=1cbec62883c0200c7be39e6986cd53e4&scene=19#wechat_redirect)
 
 
 

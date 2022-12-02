@@ -1,4 +1,17 @@
-> 死磕以太坊源码分析之Ethash共识算法
+---
+title: 浅谈以太坊源码分析之Ethash共识算法
+shortTitle: 浅谈以太坊源码分析之Ethash共识算法
+category:
+  - 区块链
+tag:
+  - 浅谈以太坊源码分析
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识  
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
+> 浅谈以太坊源码分析之Ethash共识算法
 >
 > 代码分支：https://github.com/ethereum/go-ethereum/tree/v1.9.9
 

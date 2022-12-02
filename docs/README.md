@@ -4,7 +4,7 @@ icon: home
 title: 主页
 heroImage: http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/logo.png
 heroText: 技术进阶之路
-tagline: 这是一份通俗易懂、风趣幽默的Java学习指南，内容涵盖Java基础、Java并发编程、Java虚拟机、Java企业级开发、Java面试等核心知识点。学Java，就认准技术进阶之路😄
+tagline: 😏汇聚知识 🤖 开源工具 ,😂效率方法、探索认知的自我提升笔记😄
 actions:
   - text: 立马上路→
     link: /home.md

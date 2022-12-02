@@ -1,8 +1,19 @@
-> 死磕hyperledger fabric源码|Order节点概述
+---
+title: 浅谈hyperledger fabric源码|Order节点概述
+shortTitle: 浅谈hyperledger fabric源码|Order节点概述
+category:
+  - 区块链
+tag:
+  - 浅谈hyperledger fabric源码
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识  
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
+> 浅谈hyperledger fabric源码|Order节点概述
 >
-> 文章及代码：https://github.com/blockchainGuide/
->
-> 分支：v1.1.0
+
 
 ![bcc633a6c26528720cf16ed170f6a141](https://tva1.sinaimg.cn/large/008eGmZEgy1gn15th0ollj31c00u0qcl.jpg)
 

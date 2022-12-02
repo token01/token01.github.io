@@ -1,8 +1,17 @@
-> 死磕以太坊源码分析之EVM指令集
->
-> 配合以下代码进行阅读：https://github.com/blockchainGuide/
->
-> 写文不易，给个小关注，有什么问题可以指出，便于大家交流学习。
+---
+title: 浅谈以太坊源码分析之EVM指令集
+shortTitle: 浅谈以太坊源码分析之EVM指令集
+category:
+  - 区块链
+tag:
+  - 浅谈以太坊源码分析
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识  
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
+> 浅谈以太坊源码分析之EVM指令集
 >
 > 以下指令集持续更新，最新文章请参考上面
 

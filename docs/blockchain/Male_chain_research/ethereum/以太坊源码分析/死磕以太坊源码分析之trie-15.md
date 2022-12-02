@@ -1,12 +1,17 @@
-> 死磕以太坊源码分析之Trie树
->
-> 配合以下代码进行阅读：https://github.com/blockchainGuide/
->
-> 希望读者在阅读过程中发现问题可以及时评论哦，大家一起进步。
-
-
-
-
+---
+title: 浅谈以太坊源码分析之Trie树
+shortTitle: 浅谈以太坊源码分析之Trie树
+category:
+  - 区块链
+tag:
+  - 浅谈以太坊源码分析
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识  
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
+> 浅谈以太坊源码分析之Trie树
 
 ## 参考
 

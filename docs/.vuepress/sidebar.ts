@@ -44,7 +44,24 @@ export const sidebarConfig = sidebar({
         "Introduction_to_libp2p_multiAddress_network",
         "Introduction_to_p2p_network_transport_protocol",
         "Introduction_to_the_relay_of_p2p_network_protocol",
-   
+      ],
+    },
+    {
+      text: "区块链公链研究",
+      prefix: "Male_chain_research",
+      collapsible: true,
+      children: [
+        "cosmos/Cosmos_source",
+        "ethereum/Etheric_fang_basic_theory_part/The_wallet_series/0.Rounding",
+        "ethereum/Etheric_fang_basic_theory_part/1.What_is_the_etheric_lane",
+        "ethereum/Etheric_fang_basic_theory_part/2.The_etheric_lanes_and_related_terms",
+        "ethereum/Etheric_fang_basic_theory_part/3.The_etheric_fang_launch_parameters_explanation",
+        "ethereum/Etheric_fang_source_analysis/p2p/1.Etheric_fang_source_analysis_of_p2p_network_boot",
+        "ethereum/Etheric_fang_source_analysis/p2p/2.Etheric_fang_Kademlia_algorithm_of_the_source_code_analysis",
+        "ethereum/Etheric_fang_source_analysis/p2p/3.Etheric_fang_source_analysis_of_p2p_nodes_found",
+        "ethereum/Etheric_fang_source_analysis/p2p/4.Etheric_fang_RLPX_agreement",
+        "ethereum/Etheric_fang_source_analysis/p2p/5.Etheric_fang_source_analysis_of_block_and_radio",
+        "ethereum/Etheric_fang_source_analysis/p2p/6.Etheric_fang_Fetcher_synchronization_of_the_source_code_analysis",
       ],
     },
 

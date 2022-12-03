@@ -160,7 +160,6 @@ B 站上浙江大学的一个数据结构课非常不错，很系统很经典。
 
 >GitHub 地址：[https://github.com/CYBruce/DataStructure_Algorithm_ZJU](https://github.com/CYBruce/DataStructure_Algorithm_ZJU)
 
-
 ### **2）书籍**
 
 入门阶段推荐陈小玉老师的《[趣学数据结构](https://book.douban.com/book/subject/34785269/)》和《[趣学算法](https://book.douban.com/subject/27109832/)》。
@@ -169,8 +168,6 @@ B 站上浙江大学的一个数据结构课非常不错，很系统很经典。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/algorithm-18b8f9d6-cbfa-482f-80a0-57081e3616d8.png)
 
-
-
 算法领域的经典参考书《[算法 4](https://book.douban.com/subject/19952400/)》也非常值得推荐，里面的代码是用 Java 实现的，所以 Java 开发者可以直接选用这本书。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/algorithm-766885af-dfac-452f-b110-c9ca89a0bb9a.png)
@@ -178,7 +175,6 @@ B 站上浙江大学的一个数据结构课非常不错，很系统很经典。
 学霸型人才可以直接刷《[算法导论](https://book.douban.com/subject/20432061/)》，严谨全面，可以直接拿来作为研究生阶段的算法课程教材。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/algorithm-fc895095-927c-42a4-a934-f98371a6f376.png)
-
 
 ### **3）开源电子书**
 
@@ -211,7 +207,6 @@ B 站上浙江大学的一个数据结构课非常不错，很系统很经典。
 算法的难点在于，没办法在脑例子抽象出它的步骤，那 VisuAlgo 就是一个非常值得推荐的可视化算法网站。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/algorithm-b0d17b5d-d13a-46aa-a8b0-6b16772a30a6.png)
-
 
 ### **5）付费专栏**
 
@@ -258,10 +253,3 @@ musk有个老乡，阿秀，凭借自己的努力考上了研究生，并且在�
 祝顺利！
 
 ---------
-
-  
-
- 
-
-
-  

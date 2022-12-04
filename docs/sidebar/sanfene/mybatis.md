@@ -1,10 +1,10 @@
 ---
-title: 面渣逆袭（MyBatis面试题八股文）必看👍
-shortTitle: 面渣逆袭-MyBatis
+title: 面试逆袭（MyBatis面试题八股文）必看👍
+shortTitle: 面试逆袭-MyBatis
 category:
-  - 面渣逆袭
+  - 面试逆袭
 tag:
-  - 面渣逆袭
+  - 面试逆袭
 description: 图文详解 20 道MyBatis面试高频题，这次吊打面试官，我觉得稳了（手动 dog）
 head:
   - - meta
@@ -14,7 +14,7 @@ head:
 
 > 图文详解 20 道MyBatis面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：musk，戳[转载链接](https://mp.weixin.qq.com/s/en2RgcVx52Ql3tYGLfv3Kw)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/O_5Id2o9IP4loPazJuiHng)。
 
-大家好，我是musk呀，面渣逆袭系列继续，这节我们的主角是MyBatis，作为当前国内最流行的ORM框架，是我们这些crud选手最趁手的工具，赶紧来看看面试都会问哪些问题吧。
+大家好，我是musk呀，面试逆袭系列继续，这节我们的主角是MyBatis，作为当前国内最流行的ORM框架，是我们这些crud选手最趁手的工具，赶紧来看看面试都会问哪些问题吧。
 
 ## 基础
 
@@ -1001,17 +1001,17 @@ MyBatis使用RowBounds对象进行分页，它是针对ResultSet结果集执行�
 
 **系列内容**：
 
-- [面渣逆袭 Java SE 篇👍](https://tobebetterjavaer.com/sidebar/sanfene/javase.html)
-- [面渣逆袭 Java 集合框架篇👍](https://tobebetterjavaer.com/sidebar/sanfene/javathread.html)
-- [面渣逆袭 Java 并发编程篇👍](https://tobebetterjavaer.com/sidebar/sanfene/collection.html)
-- [面渣逆袭 JVM 篇👍](https://tobebetterjavaer.com/sidebar/sanfene/jvm.html)
-- [面渣逆袭 Spring 篇👍](https://tobebetterjavaer.com/sidebar/sanfene/spring.html)
-- [面渣逆袭 Redis 篇👍](https://tobebetterjavaer.com/sidebar/sanfene/redis.html)
-- [面渣逆袭 MyBatis 篇👍](https://tobebetterjavaer.com/sidebar/sanfene/mybatis.html)
-- [面渣逆袭 MySQL 篇👍](https://tobebetterjavaer.com/sidebar/sanfene/mysql.html)
-- [面渣逆袭操作系统篇👍](https://tobebetterjavaer.com/sidebar/sanfene/os.html)
-- [面渣逆袭计算机网络篇👍](https://tobebetterjavaer.com/sidebar/sanfene/network.html)
-- [面渣逆袭RocketMQ篇👍](https://tobebetterjavaer.com/sidebar/sanfene/rocketmq.html)
+- [面试逆袭 Java SE 篇👍](https://tobebetterjavaer.com/sidebar/sanfene/javase.html)
+- [面试逆袭 Java 集合框架篇👍](https://tobebetterjavaer.com/sidebar/sanfene/javathread.html)
+- [面试逆袭 Java 并发编程篇👍](https://tobebetterjavaer.com/sidebar/sanfene/collection.html)
+- [面试逆袭 JVM 篇👍](https://tobebetterjavaer.com/sidebar/sanfene/jvm.html)
+- [面试逆袭 Spring 篇👍](https://tobebetterjavaer.com/sidebar/sanfene/spring.html)
+- [面试逆袭 Redis 篇👍](https://tobebetterjavaer.com/sidebar/sanfene/redis.html)
+- [面试逆袭 MyBatis 篇👍](https://tobebetterjavaer.com/sidebar/sanfene/mybatis.html)
+- [面试逆袭 MySQL 篇👍](https://tobebetterjavaer.com/sidebar/sanfene/mysql.html)
+- [面试逆袭操作系统篇👍](https://tobebetterjavaer.com/sidebar/sanfene/os.html)
+- [面试逆袭计算机网络篇👍](https://tobebetterjavaer.com/sidebar/sanfene/network.html)
+- [面试逆袭RocketMQ篇👍](https://tobebetterjavaer.com/sidebar/sanfene/rocketmq.html)
 
 ----
 

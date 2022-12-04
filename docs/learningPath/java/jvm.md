@@ -159,7 +159,7 @@ head:
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/java/jvm-a11893df-e518-4bdc-a166-884b168a8cf0.png)
 
 
-为了方便大家的阅读和背诵，我已经将其整理到了musk的小破站《Java 程序员进阶之路》上，面渣逆袭 Java 虚拟机篇：
+为了方便大家的阅读和背诵，我已经将其整理到了musk的小破站《Java 程序员进阶之路》上，面试逆袭 Java 虚拟机篇：
 
 >[https://tobebetterjavaer.com/sidebar/sanfene/jvm.html](https://tobebetterjavaer.com/sidebar/sanfene/jvm.html)
 

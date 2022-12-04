@@ -22,7 +22,7 @@
   </a>
 </div>
 
-#### 3、👍🏻一位美团后端研发工程师的面渣逆袭手册，<a href="https://tobebetterjavaer.com/sidebar/sanfene/nixi.html" target="_blank">点此一键免费获取</a>
+#### 3、👍🏻一位美团后端研发工程师的面试逆袭手册，<a href="https://tobebetterjavaer.com/sidebar/sanfene/nixi.html" target="_blank">点此一键免费获取</a>
 
 #### 4、⭐可能是2022年全网最全的学习和找工作的PDF资源，<a href="https://tobebetterjavaer.com/pdf/" target="_blank">点此一键免费获取</a>
 

@@ -136,7 +136,7 @@ head:
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/java-thread-7.png)
 
-为了方便大家的阅读和背诵，我已经将其整理到了musk的小破站《Java 程序员进阶之路》上，面渣逆袭 Java 并发篇：
+为了方便大家的阅读和背诵，我已经将其整理到了musk的小破站《Java 程序员进阶之路》上，面试逆袭 Java 并发篇：
 
 >[https://tobebetterjavaer.com/sidebar/sanfene/javathread.html](https://tobebetterjavaer.com/sidebar/sanfene/javathread.html)
 

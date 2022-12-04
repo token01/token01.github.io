@@ -34,7 +34,7 @@ export default defineUserConfig({
       {
         name: "keywords",
         content:
-          "Java, Java基础, 并发编程, JVM, 虚拟机, 数据库, MySQL, Spring, Redis, MyBatis, SpringBoot, IDEA, 求职面试, 面渣逆袭, 学习路线",
+          "Java, Java基础, 并发编程, JVM, 虚拟机, 数据库, MySQL, Spring, Redis, MyBatis, SpringBoot, IDEA, 求职面试, 面试逆袭, 学习路线",
       },
     ],
     ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }],

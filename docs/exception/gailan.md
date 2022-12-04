@@ -55,7 +55,7 @@ public class Demo {
 
 ```
 Exception in thread "main" java.lang.ArithmeticException: / by zero
-	at com.itwanger.s41.Demo.main(Demo.java:8)
+ at com.itwanger.s41.Demo.main(Demo.java:8)
 ```
 
 “你看，三妹，这个原生的异常信息对用户来说，显然是不太容易理解的，但对于我们开发者来说，简直不要太直白了——很容易就能定位到异常发生的根源。”
@@ -102,7 +102,6 @@ checked 异常（检查型异常）在源代码里必须显式地捕获或者抛
 
 - NoClassDefFoundError：程序在编译时可以找到所依赖的类，但是在运行时找不到指定的类文件，导致抛出该错误；原因可能是 jar 包缺失或者调用了初始化失败的类。
 - ClassNotFoundException：当动态加载 Class 对象的时候找不到对应的类时抛出该异常；原因可能是要加载的类不存在或者类名写错了。
-
 
 其次，像 IOException、ClassNotFoundException、SQLException 都属于 checked 异常；像 RuntimeException 以及子类 ArithmeticException、ClassCastException、ArrayIndexOutOfBoundsException、NullPointerException，都属于 unchecked 异常。
 
@@ -467,9 +466,3 @@ static int test2 () {
 至于参数 status 的值也很好理解，如果是异常退出，设置为非 0 即可，通常用 1 来表示；如果是想正常退出程序，用 0 表示即可。
 
 ----
-
-  
-
- 
-
-  

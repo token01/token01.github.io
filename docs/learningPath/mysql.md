@@ -220,7 +220,7 @@ Windows 的话，在 Java 程序员进阶之路上分享过破解方法：
 
 那既然学了 MySQL，就要检验学习成果，怎么检验呢？
 
-准备面试的同学可以刷一波《[面渣逆袭 MySQL 篇](https://tobebetterjavaer.com/sidebar/sanfene/mysql.html)》，准备和面试官来回拉扯哈。
+准备面试的同学可以刷一波《[面试逆袭 MySQL 篇](https://tobebetterjavaer.com/sidebar/sanfene/mysql.html)》，准备和面试官来回拉扯哈。
 
 星球用户可以在星球的[知识图谱](https://t.zsxq.com/04FuZrRVf)里获取 PDF 版本。
 

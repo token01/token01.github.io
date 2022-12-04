@@ -50,21 +50,21 @@ head:
 - [Android 安卓学习路线（建议收藏🔥）](learningPath/android.md)
 - [MySQL 学习路线（建议收藏🔥）](learningPath/mysql.md)
 
-## 面渣逆袭
+## 面试逆袭
 
 **面试前必读系列**！包括 Java 基础、Java 集合框架、Java 并发编程、Java 虚拟机、Spring、Redis、MyBatis、MySQL、操作系统、计算机网络、RocketMQ 等等。
 
-- [面渣逆袭（Java 基础篇八股文面试题）必看👍](sidebar/sanfene/javase.md)
-- [面渣逆袭（Java 集合框架篇八股文面试题）必看👍](sidebar/sanfene/collection.md)
-- [面渣逆袭（Java 并发编程篇八股文面试题）必看👍](sidebar/sanfene/javathread.md)
-- [面渣逆袭（Java 虚拟机篇八股文面试题）必看👍](sidebar/sanfene/jvm.md)
-- [面渣逆袭（Spring八股文面试题）必看👍](sidebar/sanfene/spring.md)
-- [面渣逆袭（Redis八股文面试题）必看👍](sidebar/sanfene/redis.md)
-- [面渣逆袭（MyBatis八股文面试题）必看👍](sidebar/sanfene/mybatis.md)
-- [面渣逆袭（MySQL八股文面试题）必看👍](sidebar/sanfene/mysql.md)
-- [面渣逆袭（操作系统八股文面试题）必看👍](sidebar/sanfene/os.md)
-- [面渣逆袭（计算机网络八股文面试题）必看👍](sidebar/sanfene/network.md)
-- [面渣逆袭（RocketMQ八股文面试题）必看👍](sidebar/sanfene/rocketmq.md)
+- [面试逆袭（Java 基础篇八股文面试题）必看👍](sidebar/sanfene/javase.md)
+- [面试逆袭（Java 集合框架篇八股文面试题）必看👍](sidebar/sanfene/collection.md)
+- [面试逆袭（Java 并发编程篇八股文面试题）必看👍](sidebar/sanfene/javathread.md)
+- [面试逆袭（Java 虚拟机篇八股文面试题）必看👍](sidebar/sanfene/jvm.md)
+- [面试逆袭（Spring八股文面试题）必看👍](sidebar/sanfene/spring.md)
+- [面试逆袭（Redis八股文面试题）必看👍](sidebar/sanfene/redis.md)
+- [面试逆袭（MyBatis八股文面试题）必看👍](sidebar/sanfene/mybatis.md)
+- [面试逆袭（MySQL八股文面试题）必看👍](sidebar/sanfene/mysql.md)
+- [面试逆袭（操作系统八股文面试题）必看👍](sidebar/sanfene/os.md)
+- [面试逆袭（计算机网络八股文面试题）必看👍](sidebar/sanfene/network.md)
+- [面试逆袭（RocketMQ八股文面试题）必看👍](sidebar/sanfene/rocketmq.md)
 
 ## Java 核心
 

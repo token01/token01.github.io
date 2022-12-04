@@ -474,7 +474,7 @@ var sidebarConfig = sidebar({
             },
             {
               text: "\u6574\u5408Knife4j",
-              link: "gongju/knife4j"
+              link: "tool/knife4j"
             },
             {
               text: "\u6574\u5408SpringTask",
@@ -504,13 +504,13 @@ var sidebarConfig = sidebar({
           text: "3.6 \u8F85\u52A9\u5DE5\u5177",
           collapsible: true,
           children: [
-            "gongju/choco",
-            "gongju/brew",
-            "gongju/tabby",
-            "gongju/warp",
-            "gongju/windterm",
-            "gongju/chiner",
-            "gongju/DBeaver"
+            "tool/choco",
+            "tool/brew",
+            "tool/tabby",
+            "tool/warp",
+            "tool/windterm",
+            "tool/chiner",
+            "tool/DBeaver"
           ]
         },
         {
@@ -519,39 +519,39 @@ var sidebarConfig = sidebar({
           children: [
             {
               text: "HTTP\u8C03\u7528\u6846\u67B6Forest",
-              link: "gongju/forest"
+              link: "tool/forest"
             },
             {
               text: "\u5355\u5143\u6D4B\u8BD5Junit",
-              link: "gongju/junit"
+              link: "tool/junit"
             },
             {
               text: "\u963F\u91CC\u5F00\u6E90\u7684fastjson",
-              link: "gongju/fastjson"
+              link: "tool/fastjson"
             },
             {
               text: "\u8C37\u6B4C\u5F00\u6E90\u7684Gson",
-              link: "gongju/gson"
+              link: "tool/gson"
             },
             {
               text: "SpringBoot\u5185\u7F6E\u7684Jackson",
-              link: "gongju/jackson"
+              link: "tool/jackson"
             },
             {
               text: "\u65E5\u5FD7\u6846\u67B6\u7684\u9F3B\u7956Log4j",
-              link: "gongju/log4j"
+              link: "tool/log4j"
             },
             {
               text: "\u9AD8\u6027\u80FD\u65E5\u5FD7\u6846\u67B6Log4j2",
-              link: "gongju/log4j2"
+              link: "tool/log4j2"
             },
             {
               text: "Spring Boot\u5185\u7F6E\u7684Logback",
-              link: "gongju/logback"
+              link: "tool/logback"
             },
             {
               text: "\u65E5\u5FD7\u95E8\u9762SLF4J",
-              link: "gongju/slf4j"
+              link: "tool/slf4j"
             }
           ]
         },
@@ -693,7 +693,7 @@ var sidebarConfig = sidebar({
     {
       text: "\u4E03\u3001\u5B66\u4E60\u5EFA\u8BAE",
       collapsible: true,
-      prefix: "xuexijianyi/",
+      prefix: "study_suggest/",
       children: [
         "LearnCS-ByYourself",
         "read-csapp",

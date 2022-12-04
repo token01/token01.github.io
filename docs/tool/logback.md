@@ -10,7 +10,7 @@ tag:
 
 我们项目之前用的 Log4j，在我看来，已经足够用了，毕竟是小公司，性能上的要求没那么苛刻。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/logback-320329e9-a754-427f-8a19-2e4f809b6a6f.png)
+![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/logback-320329e9-a754-427f-8a19-2e4f809b6a6f.png)
 
 [Log4j](https://mp.weixin.qq.com/s/AXgNnJe8djD901EmhFkWUg) 介绍过了，[SLF4J](https://mp.weixin.qq.com/s/EhKf1rHWL-QII0f6eo0uVA) 也介绍过了，那接下来，你懂的，Logback 就要隆重地登场了，毕竟它哥仨有一个爹，那就是巨佬 Ceki Gulcu。
 
@@ -18,19 +18,19 @@ tag:
 
 1）非常自然地实现了 SLF4J，不需要像 Log4j 和 JUL 那样加一个适配层。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/logback-6ba1b465-5533-49dd-b875-48a10ba29f8e.png)
+![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/logback-6ba1b465-5533-49dd-b875-48a10ba29f8e.png)
 
 2）Spring Boot 的默认日志框架使用的是 Logback。一旦某款工具库成为了默认选项，那就说明这款工具已经超过了其他竞品。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/logback-2696cd8b-7e8c-4476-9a06-272fd22fa4b6.png)
+![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/logback-2696cd8b-7e8c-4476-9a06-272fd22fa4b6.png)
 
 注意看下图（证据找到了，来自 [Spring Boot 官网](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-logging)）：
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/logback-82d78a15-8ae0-4377-a7af-aebd5cda4fda.png)
+![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/logback-82d78a15-8ae0-4377-a7af-aebd5cda4fda.png)
 
 也可以通过源码的形式看得到：
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/logback-2df2d06e-1b01-428b-8444-d765056e25bb.png)
+![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/logback-2df2d06e-1b01-428b-8444-d765056e25bb.png)
 
 
 3）支持自动重新加载配置文件，不需要另外创建扫描线程来监视。
@@ -51,7 +51,7 @@ tag:
 
 Maven 会自动导入另外两个依赖：
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/logback-1f7d8e00-4be6-4863-940c-037862ad2c41.png)
+![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/logback-1f7d8e00-4be6-4863-940c-037862ad2c41.png)
 
 logback-core 是 Logback 的核心，logback-classic 是 SLF4J 的实现。
 
@@ -119,7 +119,7 @@ StatusPrinter.print(lc);
 
 Logback 的配置文件非常灵活，最基本的结构为 `<configuration>` 元素，包含 0 或多个 `<appender>` 元素，其后跟 0 或多个 `<logger>` 元素，其后再跟最多只能存在一个的 `<root>` 元素。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/logback-b81ab795-2a2c-44c3-a4b8-b96ef78dcd88.png)
+![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/logback-b81ab795-2a2c-44c3-a4b8-b96ef78dcd88.png)
 
 
 **1）配置 appender**，也就是配置日志的输出目的地，通过 name 属性指定名字，通过 class 属性指定目的地：
@@ -140,7 +140,7 @@ pattern 用来指定日志的输出格式：
 
 反例（没有指定 -5 的情况）：
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/logback-b30bc0ca-5c78-4853-922b-36bb0c7d8628.png)
+![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/logback-b30bc0ca-5c78-4853-922b-36bb0c7d8628.png)
 
 
 - `%logger{length}`：logger 的名称，length 用来缩短名称。没有指定表示完整输出；0 表示只输出 logger 最右边点号之后的字符串；其他数字表示输出小数点最后边点号之前的字符数量。
@@ -231,7 +231,7 @@ log4j.appender.E.layout.ConversionPattern = %d{yyyy-MM-dd HH:mm:ss}  [ %t:%r ] -
 
 粘贴到该网址的文本域：
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/logback-6c934584-3624-4f40-8108-13bfffc0c40b.png)
+![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/logback-6c934584-3624-4f40-8108-13bfffc0c40b.png)
 
 点击「Translate」，可以得到以下内容：
 
@@ -288,7 +288,7 @@ log4j.appender.E.layout.ConversionPattern = %d{yyyy-MM-dd HH:mm:ss}  [ %t:%r ] -
 
 可以确认一下内容，发现三个 appender 都在。 
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/logback-7a0edcdf-8706-4a83-9c09-413fc07967ad.png)
+![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/logback-7a0edcdf-8706-4a83-9c09-413fc07967ad.png)
 
 但是呢，转换后的文件并不能直接使用，需要稍微做一些调整，因为：
 
@@ -392,7 +392,7 @@ public class Test {
 
 运行后，可以在 target 目录下看到两个文件：debug.log 和 errror.log。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/logback-536aa50e-b195-403e-8409-85e4f6966522.png)
+![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/logback-536aa50e-b195-403e-8409-85e4f6966522.png)
 
 到此为止，项目已经从 Log4j 切换到 Logback 了，过程非常的丝滑顺畅，嘿嘿。
 

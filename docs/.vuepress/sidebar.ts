@@ -460,7 +460,7 @@ export const sidebarConfig = sidebar({
             },
             {
               text: "整合Knife4j",
-              link: "gongju/knife4j"
+              link: "tool/knife4j"
             },
             {
               text: "整合SpringTask",
@@ -490,13 +490,13 @@ export const sidebarConfig = sidebar({
           text: "3.6 辅助工具",
           collapsible: true,
           children: [
-            "gongju/choco",
-            "gongju/brew",
-            "gongju/tabby",
-            "gongju/warp",
-            "gongju/windterm",
-            "gongju/chiner",
-            "gongju/DBeaver",
+            "tool/choco",
+            "tool/brew",
+            "tool/tabby",
+            "tool/warp",
+            "tool/windterm",
+            "tool/chiner",
+            "tool/DBeaver",
           ],
         },
         {
@@ -505,39 +505,39 @@ export const sidebarConfig = sidebar({
           children: [
             {
               text: "HTTP调用框架Forest",
-              link: "gongju/forest",
+              link: "tool/forest",
             },
             {
               text: "单元测试Junit",
-              link: "gongju/junit",
+              link: "tool/junit",
             },
             {
               text: "阿里开源的fastjson",
-              link: "gongju/fastjson",
+              link: "tool/fastjson",
             },
             {
               text: "谷歌开源的Gson",
-              link: "gongju/gson",
+              link: "tool/gson",
             },
             {
               text: "SpringBoot内置的Jackson",
-              link: "gongju/jackson",
+              link: "tool/jackson",
             },
             {
               text: "日志框架的鼻祖Log4j",
-              link: "gongju/log4j",
+              link: "tool/log4j",
             },
             {
               text: "高性能日志框架Log4j2",
-              link: "gongju/log4j2",
+              link: "tool/log4j2",
             },
             {
               text: "Spring Boot内置的Logback",
-              link: "gongju/logback",
+              link: "tool/logback",
             },
             {
               text: "日志门面SLF4J",
-              link: "gongju/slf4j",
+              link: "tool/slf4j",
             },
             
           ],
@@ -656,7 +656,7 @@ export const sidebarConfig = sidebar({
     {
       text: "七、学习建议",
       collapsible: true,
-      prefix: "xuexijianyi/",
+      prefix: "study_suggest/",
       children: [
           "LearnCS-ByYourself",
           "read-csapp",

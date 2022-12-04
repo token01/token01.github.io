@@ -75,17 +75,17 @@ JVM (Java Virtual Machine) ，也就是 Java 虚拟机，由一套字节码指�
 
 Windows 用户建议先安装 Chocolatey，这是一个Windows下的命令行软件管理器，可以方便开发者像在Linux下使用yum命令来安装软件，或者像在macOS下使用brew 命令来安装软件，非常酷炫。
 
-[Chocolatey：Windows的命令行软件管理神器](https://tobebetterjavaer.com/gongju/choco.html)
+[Chocolatey：Windows的命令行软件管理神器](https://tobebetterjavaer.com/tool/choco.html)
 
 安装完成后，直接执行 `choco install jdk8` 就可以安装 JDK 8 了，并且会自动将Java加入到环境变量中，不用再去「我的电脑」「环境变量」中新建 JAVA_HOME 并复制 JDK 安装路径配置 PATH 变量了
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/choco-80a6ced8-c25d-4371-8096-b95be48af768)
+![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/choco-80a6ced8-c25d-4371-8096-b95be48af768)
 
 ## macOS 用户
 
 macOS 用户建议先安装 Homebrew，这是一个 macOS 下的命令行软件管理器，可以通过一行命令安装 Apple（或 Linux 系统）没有预装但你需要的软件。
 
-[Homebrew：macOS的命令行软件管理神器](https://tobebetterjavaer.com/gongju/brew.html)
+[Homebrew：macOS的命令行软件管理神器](https://tobebetterjavaer.com/tool/brew.html)
 
 安装完成后，直接执行 `brew install openjdk@8` 就可以安装 JDK 8 了。
 
@@ -111,13 +111,13 @@ jenv add /usr/local/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home/
 ```
 
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/brew-b126c35d-edab-48a9-9543-831cfd0a51c6.png)
+![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/brew-b126c35d-edab-48a9-9543-831cfd0a51c6.png)
 
 
 JDK 的安装路径可以通过下图的位置查找。
 
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/brew-a32accec-4044-480c-a8c8-3781bc5048b5.png)
+![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/brew-a32accec-4044-480c-a8c8-3781bc5048b5.png)
 
 管理：
 
@@ -127,7 +127,7 @@ jenv global 17.0.3
 ```
 
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongju/brew-cc01fad8-53e9-4474-8923-08e97ac7090a.png)
+![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/brew-cc01fad8-53e9-4474-8923-08e97ac7090a.png)
 
 是不是贼方便？再也不用整这 `echo 'export PATH="/usr/local/opt/openjdk@17/bin:$PATH"' >> ~/.zshrc` 玩意了！爽，实在是爽！
 

@@ -28,7 +28,7 @@ shortTitle: Windows下如何运行编程喵源码
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/windows-codingmore-run-de0cd3fc-6120-46b3-bf3d-0d67af8f7065.png)
 
 
-第二个条件，JDK 8，可以通过 [Chocolatey](https://tobebetterjavaer.com/gongju/choco.html)（Windows 软件包管理器）安装，非常方便（前提条件是你得科学上网，否则速度会非常慢，如果不能科学上网我也会提供另外一种常规的方式）。
+第二个条件，JDK 8，可以通过 [Chocolatey](https://tobebetterjavaer.com/tool/choco.html)（Windows 软件包管理器）安装，非常方便（前提条件是你得科学上网，否则速度会非常慢，如果不能科学上网我也会提供另外一种常规的方式）。
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/springboot/windows-codingmore-run-c6463fd3-ad81-46e9-9517-95591d506f32.png)
 

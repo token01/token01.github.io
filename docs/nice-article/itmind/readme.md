@@ -19,11 +19,6 @@ head:
 - [IDEA 2022.1 最新激活码、注册码（永久激活，持续更新中~ ](ideapjazjczxjhmzcmyjjhcxgxz.md)
 - [2022 Intellij IDEA最新激活码,IDEA稳定专属激活码](ideajhmideajhmideapxideajhmideazcmideayjjhm.md)
 
-## Navicat
-
-- [Navicat 16 macOS 永久破解](navicatmacyjpx.md)
-- [Navicat 16 Windows 永久破解](navicatzxbwindowspjbjc.md)
-
 ## typora
 
 - [Typora macOS 永久破解](typoramaczwpjbhyjjdkptmarkdownbjqmksimacsocom.md)

@@ -71,7 +71,7 @@ head:
 ### 🌉主流区块链研究
 
 - [cosmos-框架学习（建议收藏🔥）](Male_chain_research/cosmos/Cosmos_source.md)
-- [以太坊-钱包知识系列（建议收藏🔥）](Male_chain_research/ethereum/Etheric_fang_basic_theory_part/The_wallet_series/0.Rounding_out_the_private_key_password_keystore_and_mnemonic_words.md)
+- [以太坊-钱包知识系列（建议收藏🔥）](Male_chain_research/ethereum/Etheric_fang_basic_theory_part/The_wallet_series/0.Rounding.md)
 - [以太坊-什么是以太坊（建议收藏🔥）](Male_chain_research/ethereum/Etheric_fang_basic_theory_part/1.What_is_the_etheric_lane.md)
 - [以太坊-以太坊相关术语（建议收藏🔥）](Male_chain_research/ethereum/Etheric_fang_basic_theory_part/2.The_etheric_lanes_and_related_terms.md)
 - [以太坊-以太坊启动参数相关详解（建议收藏🔥）](Male_chain_research/ethereum/Etheric_fang_basic_theory_part/3.The_etheric_fang_launch_parameters_explanation.md)

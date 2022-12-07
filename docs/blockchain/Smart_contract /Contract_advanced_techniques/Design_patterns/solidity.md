@@ -1,3 +1,16 @@
+---
+title: 浅谈以太坊智能合约
+shortTitle: 浅谈以太坊智能合约
+category:
+  - 区块链
+tag:
+  - 浅谈以太坊智能合约
+description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识  
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
 https://blog.csdn.net/Tesla_Zhou/article/details/111743243
 
 https://www.yisu.com/zixun/515955.html

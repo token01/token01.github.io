@@ -19,10 +19,9 @@ head:
 
 ## 01、if-else 相关
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-01.png)
+![图片](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-01.png)
 
-
-**1）if 语句**
+### 1 if 语句
 
 if 语句的格式如下：
 
@@ -34,8 +33,7 @@ if(布尔表达式){
 
 画个流程图表示一下：
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-02.png)
-
+![图片](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-02.png)
 
 来写个示例：
 
@@ -52,11 +50,11 @@ public class IfExample {
 
 输出：
 
-```
+```js
 青春年华
 ```
 
-**2）if-else 语句**
+### 2）if-else 语句
 
 if-else 语句的格式如下:
 
@@ -70,8 +68,7 @@ if(布尔表达式){
 
 画个流程图表示一下：
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-03.png)
-
+![图片](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-03.png)
 
 来写个示例：
 
@@ -90,7 +87,7 @@ public class IfElseExample {
 
 输出：
 
-```
+```js
 而立之年
 ```
 
@@ -111,7 +108,7 @@ public class LeapYear {
 
 输出：
 
-```
+```js
 闰年
 ```
 
@@ -129,11 +126,11 @@ public class IfElseTernaryExample {
 
 输出：
 
-```
+```js
 奇数
 ```
 
-**3）if-else-if 语句**
+### 3）if-else-if 语句
 
 if-else-if 语句的格式如下：
 
@@ -154,8 +151,7 @@ else{
 
 画个流程图表示一下：
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-04.png)
-
+![图片](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-04.png)
 
 来写个示例：
 
@@ -178,11 +174,11 @@ public class IfElseIfExample {
 
 输出：
 
-```
+```js
 而立之年
 ```
 
-**4）if 嵌套语句**
+### 4）if 嵌套语句
 
 if 嵌套语句的格式如下：
 
@@ -197,8 +193,7 @@ if(外侧条件){
 
 画个流程图表示一下：
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-05.png)
-
+![图片](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-05.png)
 
 来写个示例：
 
@@ -218,7 +213,7 @@ public class NestedIfExample {
 
 输出：
 
-```
+```js
 女生法定结婚年龄
 ```
 
@@ -253,13 +248,9 @@ default: // 该关键字是可选项
 
 - default 关键字也是可选的。
 
-
-
 画个流程图：
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-06.png)
-
-
+![图片](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-06.png)
 
 来个示例：
 
@@ -287,7 +278,7 @@ public class Switch1 {
 
 输出：
 
-```
+```js
 上学
 ```
 
@@ -319,7 +310,7 @@ public class Switch2 {
 
 输出：
 
-```
+```js
 乒乓球爱好者
 ```
 
@@ -359,15 +350,15 @@ public class SwitchEnumDemo {
 
 输出：
 
-```
+```js
 篮球运动员詹姆斯
 ```
 
 ## 03、for 循环
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-07.png)
+![tupian](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-07.png)
 
-**1）普通 for 循环**
+### 1）普通 for 循环
 
 普通的 for 循环可以分为 4 个部分：
 
@@ -379,11 +370,7 @@ public class SwitchEnumDemo {
 
 4）自增/自减：初始变量变化的方式。
 
-
-
 来看一下普通 for 循环的格式：
-
-
 
 ```java
 for(初始变量;条件;自增/自减){  
@@ -391,14 +378,9 @@ for(初始变量;条件;自增/自减){
 }  
 ```
 
-
-
 画个流程图：
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-08.png)
-
-
-
+![图片](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-08.png)
 
 来个示例：
 
@@ -414,12 +396,8 @@ public class ForExample {
 
 输出：
 
-```
-沉默王三好美啊
-沉默王三好美啊
-沉默王三好美啊
-沉默王三好美啊
-沉默王三好美啊
+```js
+好
 ```
 
 “哎呀，musk，你真的是变着法夸我啊。”
@@ -445,7 +423,7 @@ public class PyramidForExample {
 
 打印出什么玩意呢？
 
-```
+```js
 ❤
 ❤❤
 ❤❤❤
@@ -457,7 +435,7 @@ public class PyramidForExample {
 
 “嘿嘿。”
 
-**2）for-each**
+### 2）for-each
 
 for-each 循环通常用于遍历数组和集合，它的使用规则比普通的 for 循环还要简单，不需要初始变量，不需要条件，不需要下标来自增或者自减。来看一下语法：
 
@@ -466,7 +444,6 @@ for(元素类型 元素 : 数组或集合){
 // 要执行的代码
 }  
 ```
-
 
 来看一下示例：
 
@@ -484,7 +461,7 @@ public class ForEachExample {
 
 输出：
 
-```
+```js
 musk
 一枚有趣的程序员
 ```
@@ -493,7 +470,7 @@ musk
 
 “嘿嘿，三妹，你这样说哥会脸红的。”
 
-**3）无限 for 循环**
+### 3）无限 for 循环
 
 “三妹，你想不想体验一下无限 for 循环的威力，也就是死循环。”
 
@@ -513,7 +490,7 @@ public class InfinitiveForExample {
 
 输出：
 
-```
+```js
 停不下来。。。。
 停不下来。。。。
 停不下来。。。。
@@ -526,23 +503,15 @@ public class InfinitiveForExample {
 
 来看一下 while 循环的格式：
 
-
-
 ```java
 while(条件){  
 //循环体  
 }  
 ```
 
-
-
 画个流程图：
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-09.png)
-
-
-
-
+![图片](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-09.png)
 
 来个示例：
 
@@ -567,15 +536,11 @@ public class WhileExample {
 
 “对了，你可真聪明。”
 
+```js
+好好
+好好
+好好
 ```
-沉默王三
-沉默王三
-沉默王三
-沉默王三
-沉默王三
-```
-
-
 
 “三妹，你想不想体验一下无限 while 循环的威力，也就是死循环。”
 
@@ -595,7 +560,7 @@ public class InfinitiveWhileExample {
 
 输出：
 
-```
+```js
 停不下来。。。。
 停不下来。。。。
 停不下来。。。。
@@ -608,24 +573,15 @@ public class InfinitiveWhileExample {
 
 来看一下 do-while 循环的格式：
 
-
-
 ```java
 do{  
 // 循环体
 }while(提交);  
 ```
 
-
-
 画个流程图：
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-10.png)
-
-
-
-
-
+![图片](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-10.png)
 
 来个示例：
 
@@ -650,15 +606,11 @@ public class DoWhileExample {
 
 “对了，你可真聪明。”
 
+```js
+haohao
+haohao
+haohao
 ```
-沉默王三
-沉默王三
-沉默王三
-沉默王三
-沉默王三
-```
-
-
 
 “三妹，你想不想体验一下无限 do-while 循环的威力......”
 
@@ -678,7 +630,7 @@ public class InfinitiveDoWhileExample {
 
 输出：
 
-```
+```js
 停不下来。。。。
 停不下来。。。。
 停不下来。。。。
@@ -687,7 +639,7 @@ public class InfinitiveDoWhileExample {
 
 把 do-while 的条件设置为 true，并且循环体中没有 break 关键字的话，程序一旦运行起来，就根本停不下来了，除非强制停止。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-11.png)
+![图片](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-11.png)
 
 ## 06、break
 
@@ -697,9 +649,7 @@ break 关键字通常用于中断循环或 switch 语句，它在指定条件下
 
 来画个流程图感受一下：
 
-
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-12.png)
-
+![图片](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/control/thirteen-12.png)
 
 用在 for 循环中的示例：
 
@@ -794,7 +744,7 @@ public class ContinueDemo {
 
 输出：
 
-```
+```js
 1
 2
 3
@@ -830,7 +780,7 @@ public class ContinueInnerDemo {
 
 打印出什么玩意呢？
 
-```
+```js
 1 1
 1 2
 1 3
@@ -863,7 +813,7 @@ public class ContinueWhileDemo {
 
 输出：
 
-```
+```js
 1
 2
 3
@@ -898,7 +848,7 @@ public class ContinueDoWhileDemo {
 
 输出：
 
-```
+```shell
 1
 2
 3
@@ -912,11 +862,4 @@ public class ContinueDoWhileDemo {
 
 注意：同样的，如果把 if 条件中的“i++”省略掉的话，程序就会进入死循环，一直在 continue。
 
-
 ---
-
-  
-
- 
-
-  

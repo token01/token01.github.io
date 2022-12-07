@@ -247,7 +247,6 @@ head:
 - [我竟然不再抗拒Java的类加载机制了](jvm/class-load.md)
 - [详解Java的类文件（class文件）结构](jvm/class-file-jiegou.md)
 - [从javap的角度轻松看懂字节码](jvm/bytecode.md)
-- [JVM字节码指令详解](jvm/zijiema-zhiling.md)
 - [虚拟机是如何执行字节码指令的？](jvm/how-jvm-run-zijiema-zhiling.md)
 - [HSDB（Hotspot Debugger）从入门到实战](jvm/hsdb.md)
 - [史上最通俗易懂的ASM教程](jvm/asm.md)

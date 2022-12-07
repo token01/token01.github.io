@@ -14,7 +14,7 @@ actions:
     type: default
 ---
 
-## 推荐阅读 
+## 推荐阅读
 
 - [学习路线👉](/learningPath/) : 一份涵盖 Java、C 语言、C++、Python、Go、操作系统、前端、数据结构与算法、 大数据、Android、MySQL、.NET的全方位编程学习路线！清晰且有效！
 - [面试逆袭📗](sidebar/sanfene/nixi.md) ：面试前必刷，硬核理解版八股文，包括 Java 基础（JavaSE）、Java 集合框架、Java 并发编程（Java 多线程）、Java 虚拟机（JVM）、Spring、Redis、MyBatis、MySQL、操作系统、计算机网络、RocketMQ等等，助你拿到心仪 offer！

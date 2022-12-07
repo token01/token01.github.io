@@ -12,4 +12,4 @@ head:
     content: web3.0 区块链 基础知识 P2P网络 
 ---
 
-https://github.com/maxwoe/solidity_patterns.git
+<https://github.com/maxwoe/solidity_patterns.git>

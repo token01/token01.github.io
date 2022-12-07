@@ -14,7 +14,7 @@
 
 ### 视频教程
 
-- [推荐 2 个 Java 练手项目（云E办、仿网易云音乐）](/kaiyuan/yuneban-wangyiyunyinyue.md)
+<!-- - [推荐 2 个 Java 练手项目（云E办、仿网易云音乐）](/kaiyuan/yuneban-wangyiyunyinyue.md) -->
 - [中国大学 mooc 国防科技大学计算机基础课](https://mp.weixin.qq.com/s/QpT6jbTAxAoCr-YeiMmFNg)
 - [B 站， YYDS！看了这些 Java视频，我直呼好家伙！！！](https://mp.weixin.qq.com/s/rRNYGNwuPdpSJHycP8J37g)
 - [哈佛大学的 CS50](https://mp.weixin.qq.com/s/s3e21hF7jmq1lQP-0J1zXA)

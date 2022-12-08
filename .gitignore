@@ -4,3 +4,26 @@ docs/.vuepress/.cache
 docs/.vuepress/dist
 docs/_temp
 docs/_gsdata_
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+**/*.log
+
+tests/**/coverage/
+tests/e2e/reports
+selenium-debug.log
+
+# Editor directories and files
+.idea
+.vscode
+.obsidian
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.local
+
+package-lock.json
+yarn.lock
+Footer

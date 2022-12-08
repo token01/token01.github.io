@@ -12,7 +12,7 @@ tag:
 
 我是 fastjson，是个地地道道的杭州土著，但我始终怀揣着一颗走向全世界的雄心。这不，我在 GitHub 上的简介都换成了英文，国际范十足吧？
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/fastjson-0576767f-c447-49f1-83a3-6971782c4d52.png)
+![iamges](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/fastjson-0576767f-c447-49f1-83a3-6971782c4d52.png)
 
 如果你的英语功底没有我家老板 666 的话，我可以简单地翻译下（说人话，不装逼）。
 

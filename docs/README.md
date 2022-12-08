@@ -21,11 +21,6 @@ actions:
 - [Java程序员常读书单📚](/pdf/)：超1000本PDF，助力Java 程序员构建最强知识体系，涵盖Java、设计模式、数据库、数据结构与算法、大数据、架构、其他编程语言等等，再也不用辛苦去找下载地址了，这里全都有。
 
 <!-- ## 公众号
-
-  
-
-
-
 ## star趋势图
 
 [![Star History Chart](https://api.star-history.com/svg?repos=itwanger/toBeBetterJavaer&type=Date)](https://star-history.com/#itwanger/toBeBetterJavaer&Date)
@@ -38,9 +33,6 @@ actions:
 <div align="left">
     <img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/weixin-zhifu.png" width="260px">
 </div> -->
-
-
-
 
 ## 参与贡献
 

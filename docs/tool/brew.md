@@ -16,7 +16,7 @@ head:
 
 本来打算在公司偷偷摸摸给星球的用户写一篇编程喵整合 MongoDB 的文章，结果在通过 brew 安装 MongoDB 的时候竟然报错了。原因很简单，公司这台 Mac 上的 homebrew 环境没有配置好。刚好 Java 程序员进阶之路上缺少这样一篇内容。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/brew-c6756a26-8767-4135-be4c-b31d42de2a89.png)
+![image](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tool/brew-c6756a26-8767-4135-be4c-b31d42de2a89.png)
 
 所以我就想，不如趁机水一篇吧，啊，不不不，趁机给小伙伴们普及一下 Homebrew 吧！瞧我这该死的大公无私的心（手动狗头）。
 

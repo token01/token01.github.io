@@ -30,7 +30,7 @@ jobs:
           cache: npm
 
       - name: 安装依赖
-        run: npm install
+        run: npm install --frozen-lockfile
 
       - name: 构建文档
         env:

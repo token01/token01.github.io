@@ -64,7 +64,7 @@ export default defineUserConfig({
     // 允许网站通过支持该特性的浏览器将网站作为 App 安装在对应平台上。
     pwaPlugin({
       // favicon.ico一般用于作为缩略的网站标志,它显示位于浏览器的地址栏或者在标签上,用于显示网站的logo,
-      favicon: "https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/favicon.ico",
+      favicon: "/favicon.ico",
       // 主题色
       themeColor: "#096dd9",
       apple: {

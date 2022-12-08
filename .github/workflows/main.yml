@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  LearnData-build:
+  Learning-Notes-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️

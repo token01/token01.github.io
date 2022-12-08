@@ -10,7 +10,7 @@ order: 1
 # 是否为长文章，会被放置于博客页
 article: false
 # 设置作者
-author: LearnNotes
+author: LearnData
 # 设置写作时间
 date: 2022-09-01
 # 一个页面可以有多个分类

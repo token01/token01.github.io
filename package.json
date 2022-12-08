@@ -1,28 +1,22 @@
 {
-  "name": "awesome-idea",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "git@github.com:CodingDocs/awesome-idea.git",
-  "author": "Guide",
+  "name": "learn-data",
+  "version": "1.0.6",
   "license": "MIT",
+  "type": "module",
   "scripts": {
-    "vite-build": "vuepress-vite build docs",
-    "vite-clean-serve": "vuepress-vite dev docs --clean-cache",
-    "vite-serve": "vuepress-vite dev docs",
-    "webpack-build": "vuepress-webpack build docs",
-    "webpack-clean-serve": "vuepress-webpack dev docs --clean-cache",
-    "webpack-serve": "vuepress-webpack dev docs"
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "docs:clean-dev": "vuepress dev docs --clean-cache"
   },
-  "devDependencies": {
-    "@vuepress/plugin-search": "2.0.0-beta.36",
-    "vuepress-theme-hope": "2.0.0-beta.28",
-    "vuepress-vite": "2.0.0-beta.36",
-    "vuepress-webpack": "2.0.0-beta.36",
-    "@vuepress/client": "2.0.0-beta.51",
-    "@vuepress/plugin-docsearch": "^2.0.0-beta.51",
-    "vue": "^3.2.29",
-    "vuepress": "2.0.0-beta.51",
-    "vuepress-plugin-comment2": "2.0.0-beta.100",
-    "vuepress-plugin-pwa2":"2.0.0-beta.100"
+  "dependencies": {
+    "@vuepress/client": "2.0.0-beta.53",
+    "@vuepress/plugin-docsearch": "2.0.0-beta.53",
+    "@vuepress/plugin-google-analytics": "2.0.0-beta.53",
+    "@vuepress/plugin-search": "2.0.0-beta.53",
+    "@vuepress/utils": "2.0.0-beta.53",
+    "pnpm": "^7.17.1",
+    "vue": "^3.2.45",
+    "vuepress": "2.0.0-beta.53",
+    "vuepress-theme-hope": "2.0.0-beta.132"
   }
 }

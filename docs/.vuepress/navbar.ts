@@ -11,11 +11,11 @@ export default navbar([
     icon: "lujing", 
     link: "/home.md" 
   },
-  // { 
-  //   text: "Web3.0进阶之路", 
-  //   icon: "lujing", 
-  //   link: "/blockchain/" 
-  // },
+  { 
+    text: "Web3.0进阶之路", 
+    icon: "lujing", 
+    link: "/blockchain/" 
+  },
   // { 
   //   text: "知识星球", 
   //   icon: "Artboard", 

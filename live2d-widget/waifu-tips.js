@@ -66,7 +66,7 @@ function loadWidget(config) {
 			} else {
 				const script = document.createElement("script");
 				//script.src = "https://fastly.jsdelivr.net/gh/stevenjoezhang/asteroids/asteroids.js";
-				script.src = "https://oss.abelsun.tech/asteroids.min.js";
+				script.src = "https://oss.newzone.top/asteroids.min.js";
 				document.head.appendChild(script);
 			};
 			window.alert("一起来打飞机吧~ 点击「确定」，你的飞船（长三角形）就会出现在页面左上角。\n\n使用方向键控制飞船，「向上键」代表前进，「左右键」代表转向，「空格键」代表射击。\n\n点击 Esc 键退出游戏。\n按 B 键后页面会出现红框，这表示敌人。\n你的分数会显示在右下角。");

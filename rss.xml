@@ -1,44 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <atom:link href="https://abelsun.tech/rss.xml" rel="self" type="application/rss+xml"/>
-    <title>LearnNotes</title>
-    <link>https://abelsun.tech/</link>
-    <description>开源工具、编程知识、效率方法、有趣内容的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
+    <atom:link href="https://newzone.top/rss.xml" rel="self" type="application/rss+xml"/>
+    <title>LearnData-开源笔记</title>
+    <link>https://newzone.top/</link>
+    <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Mon, 21 Nov 2022 06:38:11 GMT</pubDate>
-    <lastBuildDate>Mon, 21 Nov 2022 06:38:11 GMT</lastBuildDate>
+    <pubDate>Fri, 09 Dec 2022 05:58:44 GMT</pubDate>
+    <lastBuildDate>Fri, 09 Dec 2022 05:58:44 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
-    <category>随笔</category>
     <category>工具</category>
+    <category>自动化</category>
     <category>系统</category>
     <category>网络</category>
     <category>服务器</category>
-    <category>自动化</category>
-    <item>
-      <title>浅谈技术-回顾</title>
-      <link>https://abelsun.tech/_posts/2022-11-16-Introduction-to-technology.html</link>
-      <guid>https://abelsun.tech/_posts/2022-11-16-Introduction-to-technology.html</guid>
-      <source url="https://abelsun.tech/rss.xml">浅谈技术-回顾</source>
-      <description>没有核心技术能不能开发出成功的产品？ 在辞职闭关的这段时间，学着学着我逐渐越来越迷茫，不知道这些知识能够运用在那里，后来每次一看数学书，我就开始想睡觉，逐渐数学书成为我助眠的工具，再过一阵子，我就放弃走这条路了，自我感觉不去学校是不可能走科研这条路的，因此我放弃了，当时我用一句话安慰自己——If you accept your limitation，y...</description>
-      <category>随笔</category>
-      <pubDate>Wed, 16 Nov 2022 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>没有核心技术能不能开发出成功的产品？
-在辞职闭关的这段时间，学着学着我逐渐越来越迷茫，不知道这些知识能够运用在那里，后来每次一看数学书，我就开始想睡觉，逐渐数学书成为我助眠的工具，再过一阵子，我就放弃走这条路了，自我感觉不去学校是不可能走科研这条路的，因此我放弃了，当时我用一句话安慰自己——If you accept your limitation，you go beyond them。</p>
-<p>这些年，我看到许多名校毕业的高材生取得成功，比如香港科技大学毕业的大疆创始人等等，我总感觉掌握核心技术才能获得成功，而像我这样，仅仅是有不错的编程思想、有一定技术广度，能写出比较好看的代码，但却写不出艰深的代码，比如操作系统、数据库等等，总感觉自己的职业发展有上限，也做过技术经理等岗位，尝试横向发展，不可否认，这是许多人的出路，但人总要做自己喜欢的事情，我想没有太多热爱编程的人喜欢做管理。</p>
-<p>既然不喜欢做管理，也没掌握什么底层核心技术，那如何突破上限呢？近期我有了不一样的看法，且听我说一说。</p>
-<p>由于打算开始独立开发者生涯，我首先瞄准了做工具，而不是我擅长的 sass 服务，因为对于个人开发者而言，做 sass 需要投入太多的时间精力以及服务器等资源，风险较高，而个人做的话也很难比的上企业所提供的服务。我看许多个人开发者也是在做工具，这样的成本比较可控，对于许多客户端开发者，这是很不错的思路，但我是一个服务端的架构师，做客户端并不是我擅长的，如果做主要以服务端为核心的 sass 服务，能不能成功？</p>
-<p>在经过一段时间的思考，我想是可以的。很重要的原因在于我想通了一点，能不能做成一件事，不光在于有没有掌握核心技术，拿中外合资企业来说，很多核心技术我们国家还没有掌握，但并不妨碍那些企业获得成功，而他们的优势就在于技术整合，现如今软件行业经过高度的抽象，做一个大型系统，也是可以通过整合各种技术来实现，并不需要我们做太多的底层技术研发，对于做架构而言就像是搭积木，只要懂得组合各种技术，搭建出一套承载千万级用户的系统并非难事，并不需要你懂的多么艰深的数学算法，当然如果能够设计出优秀的数学算法，那优势就更加明显了。</p>
-<p>重点在于，即使不掌握核心技术，只懂技术的组合也是可以构建强大的企业级应用，就像是中外合资企业，合作方负责提供核心技术，我们只管技术的组合，我们受限于他人的技术，但只要保持良好的合作，并不妨碍我们做出好的应用，尤其是在云计算已经占领大部分市场的时候，做 sass 服务，就像是与云计算厂商合作，云厂商提供核心服务，我们只需将这些技术组合好。</p>
-]]></content:encoded>
-    </item>
     <item>
       <title>电脑上实现微信双开，无需网页版或第三方软件</title>
-      <link>https://abelsun.tech/_posts/2017-04-18-wechat_multi_open.html</link>
-      <guid>https://abelsun.tech/_posts/2017-04-18-wechat_multi_open.html</guid>
-      <source url="https://abelsun.tech/rss.xml">电脑上实现微信双开，无需网页版或第三方软件</source>
-      <description>由于工作原因，有时候我们需要在电脑上登录多个微信。但微信限制一个客户端只能登陆一个账号，PC 端 + 网页版就成了通用方案，操作效率下降许多。 其实我们还有更好的办法。在微信 PC 版之余，同时安装微信 For Windows，就能实现客户端双开！ 微信 For Windows 安装 打开「运行」对话框，输入并启动「应用商店」或「Microsoft S...</description>
+      <link>https://newzone.top/_posts/2017-04-18-wechat_multi_open.html</link>
+      <guid>https://newzone.top/_posts/2017-04-18-wechat_multi_open.html</guid>
+      <source url="https://newzone.top/rss.xml">电脑上实现微信双开，无需网页版或第三方软件</source>
       <category>工具</category>
       <pubDate>Tue, 18 Apr 2017 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>由于工作原因，有时候我们需要在电脑上登录多个微信。但微信限制一个客户端只能登陆一个账号，PC 端 + 网页版就成了通用方案，操作效率下降许多。</p>
@@ -64,11 +45,94 @@
       <enclosure url="http://tc.seoipo.com/2022-05-06-04-21-30.png" type="image/png"/>
     </item>
     <item>
+      <title>RSS 入门篇：Feed43&amp;FeedEx-为静态网页定制 RSS 源</title>
+      <link>https://newzone.top/_posts/2017-04-22-rss_feed43_feedex.html</link>
+      <guid>https://newzone.top/_posts/2017-04-22-rss_feed43_feedex.html</guid>
+      <source url="https://newzone.top/rss.xml">RSS 入门篇：Feed43&amp;FeedEx-为静态网页定制 RSS 源</source>
+      <category>自动化</category>
+      <pubDate>Sat, 22 Apr 2017 12:54:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>迷上 IFTTT 后急需 RSS 来监测网页，找到免费的 FEED43。网上有很多教程，但对新手都不够友好，就重新整理了一份。</p>
+<p><strong>► 开始烧制属于自己的 feed</strong></p>
+<h2 id="_1-进入网页" tabindex="-1"> 1. 进入网页</h2>
+<p><a href="http://www.feed43.com/" target="_blank" rel="noopener noreferrer">FEED43</a> 无需注册，点击 Create your own feed 直接使用。</p>
+<p><img src="https://pic1.zhimg.com/v2-b5da0b08f632376fad3925a779e373b4_r.jpg" alt="" loading="lazy"></p>
+<h2 id="_2-选定-rss-网页" tabindex="-1"> 2. 选定 RSS 网页</h2>
+<p>将目标网址添入 Step1. Specify source page address (URL)，将输入的源代码复制到 txt 文档中（方便之后写抓取规则）</p>
+<p><img src="https://pic1.zhimg.com/v2-1b687a5b1c325ba6d04fbdcc13b95668_r.jpg" alt="" loading="lazy"></p>
+<p>如果 Page Source 显示为乱码，Encoding 可设为 <strong>UTF-8</strong> 。</p>
+<h2 id="_3-定制-rss-抓取规则" tabindex="-1"> 3. 定制 RSS 抓取规则</h2>
+<p>Global Search Pattern 是选择你要搜索的范围。可以不填，这样会搜索整个页面，一般新手都选择整个页面，即空白。Item (repeatable) Search Pattern 这部分最重要，是我们要抓取的内容。</p>
+<p><img src="https://pic1.zhimg.com/v2-b1fa90c59739bddc0c27134cd36ba6bc_r.jpg" alt="" loading="lazy"></p>
+<p>仔细查看 Step1 中的源代码，找到区需要抓取的部分，输入到 Item (repeatable) Search Pattern。</p>
+<p>测试网址：<code>http://news.163.com/special/0001386F/rank_whole.html</code>。</p>
+<p>需要抓取的源代码：</p>
+<div data-ext="html"><pre><code><span><span><span>&lt;</span>tr</span><span>></span></span>
+  <span><span><span>&lt;</span>td</span> <span>class</span><span><span>=</span><span>"</span>red<span>"</span></span><span>></span></span>
+    <span><span><span>&lt;</span>span</span><span>></span></span>2<span><span><span>&lt;/</span>span</span>
+    <span>></span></span><span><span><span>&lt;</span>a</span> <span>href</span><span><span>=</span><span>"</span>更时尚更运动 车展实拍解析红旗 H5<span>"</span></span>
+      <span>></span></span>更时尚更运动 车展实拍解析红旗 H5<span><span><span>&lt;/</span>a</span>
+    <span>></span></span>
+  <span><span><span>&lt;/</span>td</span><span>></span></span>
+  <span><span><span>&lt;</span>td</span> <span>class</span><span><span>=</span><span>"</span>cBlue<span>"</span></span><span>></span></span>11211615<span><span><span>&lt;/</span>td</span><span>></span></span>
+<span><span><span>&lt;/</span>tr</span><span>></span></span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p><img src="https://pic2.zhimg.com/v2-cf6dbf2c09189f7517ec63abdc80c50d_r.jpg" alt="" loading="lazy"></p>
+<p><strong>抓取规则</strong>：</p>
+<div data-ext="html"><pre><code><span><span><span>&lt;</span>tr</span><span>></span></span>
+  {*}
+  <span><span><span>&lt;</span>td</span> <span>class</span><span><span>=</span><span>"</span>{*}<span>"</span></span><span>></span></span><span><span><span>&lt;</span>span</span><span>></span></span>{*}<span><span><span>&lt;/</span>span</span><span>></span></span><span><span><span>&lt;</span>a</span> <span>href</span><span><span>=</span><span>"</span>{%}<span>"</span></span><span>></span></span>{%}<span><span><span>&lt;/</span>a</span><span>></span></span><span><span><span>&lt;/</span>td</span><span>></span></span>
+  {*}
+  <span><span><span>&lt;</span>td</span> <span>class</span><span><span>=</span><span>"</span>cBlue<span>"</span></span><span>></span></span>{*}<span><span><span>&lt;/</span>td</span><span>></span></span>
+  {*}
+<span><span><span>&lt;/</span>tr</span><span>></span></span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>点击 Extract，进行抓取。</p>
+<p><img src="https://pic4.zhimg.com/v2-e9486741a6229ab258a95147f584571b_r.jpg" alt="" loading="lazy"></p>
+<h2 id="_4-整理-rss-输入格式" tabindex="-1"> 4. 整理 rss 输入格式</h2>
+<p>Define output format，一般情况下前面三个会已经写好，后三个就将前面得出的 item 里面的元素填入即可，我这里{%1}对应的是链接所以填入 Link，{%2}对于标题就填入 Title。</p>
+<p><img src="https://pic1.zhimg.com/v2-b4614f5c46090f2eb762aac87d604350_r.jpg" alt="" loading="lazy"></p>
+<p>然后点击 preview，完成制作，同时出现预览。</p>
+<p><img src="https://pic2.zhimg.com/v2-498bf1f1c0b14da172498b58f59e39b9_r.jpg" alt="" loading="lazy"></p>
+<p>如果注册了 FEED43 的账号，可以修改 rss 地址，但不能改为中文，否则会 rss 出错。</p>
+<h2 id="_5-获取-rss-地址" tabindex="-1"> 5. 获取 RSS 地址</h2>
+<p>点击 Feed URL 可得 rss 地址，我这里是 <a href="https://www.feed43.com/dianji.xml" target="_blank" rel="noopener noreferrer">https://www.feed43.com/dianji.xml</a></p>
+<p><img src="https://pic1.zhimg.com/v2-f3b00e876d8df136f7d354b4fc22f900_r.jpg" alt="" loading="lazy"></p>
+<p>在 RSS reader 中展示为</p>
+<p><img src="https://pic4.zhimg.com/v2-6d8f503ff3da16eb985ca1d3ae2de98f_r.jpg" alt="" loading="lazy"></p>
+<h2 id="_6-全文抓取" tabindex="-1"> 6. 全文抓取</h2>
+<p>feed43 导出的条目必须点击链接才能看到内容。在 rss 展示全文，需要通过 FeedEx 再转一次。注意：feed43 免费用户过多，<strong>需在浏览器中打开一次才能得到真实链接</strong> (一般为 <code>http://node2.feed43.com</code>)，FeedEx 需使用真实链接，一般 3 分钟内转换好。</p>
+<p>FeedEx：<a href="https://feedex.net/" target="_blank" rel="noopener noreferrer">https://feedex.net/</a></p>
+<p><img src="https://pic4.zhimg.com/v2-8e3701adffa1d6fb4ea10dda2704988b_r.jpg" alt="" loading="lazy"></p>
+<p>feeds43 免费版每 6 小时抓取一次，显示最新的 20 条内容。</p>
+<p>如果网页源更新较频繁的话，可使用 RSSHub 和 Huginn。</p>
+<h2 id="rss-合集" tabindex="-1"> RSS 合集</h2>
+<p>汇总的 RSS 永久订阅 feeds，均通过 RSSHub 和 Huginn 制作。如果有兴趣自制 RSS，可参考以下教程。</p>
+<ul>
+<li>
+<p><a href="https://newzone.top/_posts/2017-04-22-rss_feed43_feedex.html" target="_blank" rel="noopener noreferrer">RSS 入门篇：FEED43&amp;FeedEx-为静态网页定制 RSS 源</a></p>
+</li>
+<li>
+<p><a href="https://newzone.top/_posts/2018-10-07-huginn_scraping_any_website.html" target="_blank" rel="noopener noreferrer">RSS 进阶篇：Huginn - 真·为任意网页定制 RSS 源（PhantomJs 抓取）</a></p>
+</li>
+<li>
+<p><a href="https://newzone.top/_posts/2019-04-01-rsshub_noob.html" target="_blank" rel="noopener noreferrer">RSS 速成篇：RSSHub 捡现成的轮子</a></p>
+</li>
+<li>
+<p><a href="https://newzone.top/_posts/2020-03-25-rsshub_on_vps.html" target="_blank" rel="noopener noreferrer">RSS 速成篇 2：RSSHub 自部署</a></p>
+</li>
+<li>
+<p><a href="https://newzone.top/_posts/2021-10-23-nas_with_rsshub_and_huginn.html" target="_blank" rel="noopener noreferrer">RSS 完结篇：节省千元服务费，RSSHub、Huginn 转移 NAS</a></p>
+</li>
+<li>
+<p><a href="https://newzone.top/_posts/2022-03-17-rss_persistent_link_collection.html" target="_blank" rel="noopener noreferrer">RSS 汇总篇：RSS 永久链接合集，拒绝 RSS 失效</a></p>
+</li>
+</ul>
+]]></content:encoded>
+      <enclosure url="https://pic1.zhimg.com/v2-b5da0b08f632376fad3925a779e373b4_r.jpg" type="image/jpeg"/>
+    </item>
+    <item>
       <title>office 2016 安装程序报错解决办法</title>
-      <link>https://abelsun.tech/_posts/2017-07-28-office_2016_installer_error.html</link>
-      <guid>https://abelsun.tech/_posts/2017-07-28-office_2016_installer_error.html</guid>
-      <source url="https://abelsun.tech/rss.xml">office 2016 安装程序报错解决办法</source>
-      <description>重新安装 Office 系统或更改安装组件时，经常提示：「找不到有效的安装源」，但实际这些文件都能在安装包内找到。这是由于注册表和组件而导致的报错，「找不到有效的安装源」并不是真实原因，解决方法查看下方。 解决方法 1. 打开 regedit.exe，在注册表中找到路径 计算机\HKEYLOCALMACHINE\SOFTWARE\Microsoft\O...</description>
+      <link>https://newzone.top/_posts/2017-07-28-office_2016_installer_error.html</link>
+      <guid>https://newzone.top/_posts/2017-07-28-office_2016_installer_error.html</guid>
+      <source url="https://newzone.top/rss.xml">office 2016 安装程序报错解决办法</source>
       <category>系统</category>
       <pubDate>Fri, 28 Jul 2017 11:02:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>重新安装 Office 系统或更改安装组件时，经常提示：「找不到有效的安装源」，但实际这些文件都能在安装包内找到。这是由于注册表和组件而导致的报错，<strong>「找不到有效的安装源」并不是真实原因</strong>，解决方法查看下方。</p>
@@ -108,10 +172,9 @@ MSOCache 其它的目录下内容同样根据注册表的内容把它指示的�
     </item>
     <item>
       <title>OneNote 2016 无法登陆问题解决</title>
-      <link>https://abelsun.tech/_posts/2017-07-29-onenote_2016_cannot_be_logged_in.html</link>
-      <guid>https://abelsun.tech/_posts/2017-07-29-onenote_2016_cannot_be_logged_in.html</guid>
-      <source url="https://abelsun.tech/rss.xml">OneNote 2016 无法登陆问题解决</source>
-      <description>OneNote 安装后，提示输入账号，但点击「下一步」始终没反应，无法进行登陆。 打开 IE 浏览器，访问 live.com，如果网页提示「登录需要启动 JavaScript」，说明问题的根源出在 IE 的设置上。 点击「IE 设置」&gt;「Internet 选项」&gt;「安全」&gt;「自定义级别」，然后启用脚本选项的「Java 小程序脚本」和「活动脚本」。 完成...</description>
+      <link>https://newzone.top/_posts/2017-07-29-onenote_2016_cannot_be_logged_in.html</link>
+      <guid>https://newzone.top/_posts/2017-07-29-onenote_2016_cannot_be_logged_in.html</guid>
+      <source url="https://newzone.top/rss.xml">OneNote 2016 无法登陆问题解决</source>
       <category>系统</category>
       <pubDate>Sat, 29 Jul 2017 15:19:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>OneNote 安装后，提示输入账号，但点击「下一步」始终没反应，无法进行登陆。</p>
@@ -128,10 +191,9 @@ MSOCache 其它的目录下内容同样根据注册表的内容把它指示的�
     </item>
     <item>
       <title>电脑关机了，第二天一看确又开着的？让系统正常关机！</title>
-      <link>https://abelsun.tech/_posts/2017-09-02-forced_shutdown.html</link>
-      <guid>https://abelsun.tech/_posts/2017-09-02-forced_shutdown.html</guid>
-      <source url="https://abelsun.tech/rss.xml">电脑关机了，第二天一看确又开着的？让系统正常关机！</source>
-      <description>电脑晚上明明按下关机键，第二天早上却发现电脑开了一晚上？ 这是因为后台应用程序和 GUI 应用程序在阻止或取消关机，系统未能按正常关机。按下列方法授予系统自动关机权限，就能让系统正常关机。 方法如下： 1. 点击「开始菜单」，搜索「Regedit」，进入注册表编辑器。 2. 打开窗口后，在注册表上方菜单中输入 计算机\HKEYCURRENTUSER\C...</description>
+      <link>https://newzone.top/_posts/2017-09-02-forced_shutdown.html</link>
+      <guid>https://newzone.top/_posts/2017-09-02-forced_shutdown.html</guid>
+      <source url="https://newzone.top/rss.xml">电脑关机了，第二天一看确又开着的？让系统正常关机！</source>
       <category>系统</category>
       <pubDate>Sat, 02 Sep 2017 00:38:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>电脑晚上明明按下关机键，第二天早上却发现电脑开了一晚上？</p>
@@ -175,10 +237,9 @@ MSOCache 其它的目录下内容同样根据注册表的内容把它指示的�
     </item>
     <item>
       <title>加速 SMB 协议，让 PC 变身小型 NAS</title>
-      <link>https://abelsun.tech/_posts/2017-09-03-smb_lan_sharing.html</link>
-      <guid>https://abelsun.tech/_posts/2017-09-03-smb_lan_sharing.html</guid>
-      <source url="https://abelsun.tech/rss.xml">加速 SMB 协议，让 PC 变身小型 NAS</source>
-      <description>Windows 系统开启 SMB 协议： 1. 打开「控制面板」窗口，在「类别」查看方式下单击「程序」。 2. 打开「程序」窗口，单击「启用或关闭 windows 功能」。 3. 打开「windows 功能」窗口，勾选 SMB 直通。 4. 勾选「远程差分压缩 API 支持」。 网上很多教程都要求关闭“远程差分压缩”复选框，这是对“远程差分压缩”的误解...</description>
+      <link>https://newzone.top/_posts/2017-09-03-smb_lan_sharing.html</link>
+      <guid>https://newzone.top/_posts/2017-09-03-smb_lan_sharing.html</guid>
+      <source url="https://newzone.top/rss.xml">加速 SMB 协议，让 PC 变身小型 NAS</source>
       <category>系统</category>
       <pubDate>Sun, 03 Sep 2017 20:57:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>Windows 系统开启 SMB 协议：</p>
@@ -207,10 +268,9 @@ MSOCache 其它的目录下内容同样根据注册表的内容把它指示的�
     </item>
     <item>
       <title>光猫改造 篇一：超级管理员密码破解（E8-C-EPON RG201O-CA_V1A2)</title>
-      <link>https://abelsun.tech/_posts/2017-10-18-light_cat_e8-c-epon_admin.html</link>
-      <guid>https://abelsun.tech/_posts/2017-10-18-light_cat_e8-c-epon_admin.html</guid>
-      <source url="https://abelsun.tech/rss.xml">光猫改造 篇一：超级管理员密码破解（E8-C-EPON RG201O-CA_V1A2)</source>
-      <description>为什么要获得光猫超级密码？ 端口映射 (eMule high ID)、桥接模式（路由器掌控拨号，不能兼容固定电话）。网上关于光猫超级密码的获取攻略都在 2012-14 年，已经无法使用了。 测试环境 运营商：上海电信 设备：贝尔 E8-C-EPON 硬件版本：RG201O-CA_V1A2 软件版本：E201OCAA2V11S 光猫超级密码破解步骤 1....</description>
+      <link>https://newzone.top/_posts/2017-10-18-light_cat_e8-c-epon_admin.html</link>
+      <guid>https://newzone.top/_posts/2017-10-18-light_cat_e8-c-epon_admin.html</guid>
+      <source url="https://newzone.top/rss.xml">光猫改造 篇一：超级管理员密码破解（E8-C-EPON RG201O-CA_V1A2)</source>
       <category>网络</category>
       <pubDate>Wed, 18 Oct 2017 18:28:00 GMT</pubDate>
       <content:encoded><![CDATA[<h2 id="为什么要获得光猫超级密码" tabindex="-1"> 为什么要获得光猫超级密码？</h2>
@@ -245,13 +305,12 @@ MSOCache 其它的目录下内容同样根据注册表的内容把它指示的�
     </item>
     <item>
       <title>光猫改造 篇二：光猫 + 路由器，实现端口映射</title>
-      <link>https://abelsun.tech/_posts/2017-10-18-light_cat_port_forwarding.html</link>
-      <guid>https://abelsun.tech/_posts/2017-10-18-light_cat_port_forwarding.html</guid>
-      <source url="https://abelsun.tech/rss.xml">光猫改造 篇二：光猫 + 路由器，实现端口映射</source>
-      <description>光猫默认没有管理权限，需要先获得光猫的超管密码，参考 光猫改造 篇一：超级管理员密码破解（E8-C-EPON RG201O-CAV1A2） (https://abelsun.tech/posts/2017-10-18-LightcatE8-C-EPON_admin.html)。 光猫端口映射步骤： 1. 登陆光猫管理地址 192.168.1.1，应用 ...</description>
+      <link>https://newzone.top/_posts/2017-10-18-light_cat_port_forwarding.html</link>
+      <guid>https://newzone.top/_posts/2017-10-18-light_cat_port_forwarding.html</guid>
+      <source url="https://newzone.top/rss.xml">光猫改造 篇二：光猫 + 路由器，实现端口映射</source>
       <category>网络</category>
       <pubDate>Wed, 18 Oct 2017 22:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>光猫默认没有管理权限，需要先获得光猫的超管密码，参考 <a href="https://abelsun.tech/_posts/2017-10-18-Light_cat_E8-C-EPON_admin.html" target="_blank" rel="noopener noreferrer">光猫改造 篇一：超级管理员密码破解（E8-C-EPON RG201O-CA_V1A2）</a>。</p>
+      <content:encoded><![CDATA[<p>光猫默认没有管理权限，需要先获得光猫的超管密码，参考 <a href="https://newzone.top/_posts/2017-10-18-Light_cat_E8-C-EPON_admin.html" target="_blank" rel="noopener noreferrer">光猫改造 篇一：超级管理员密码破解（E8-C-EPON RG201O-CA_V1A2）</a>。</p>
 <p><strong>光猫端口映射步骤：</strong></p>
 <ol>
 <li>
@@ -273,10 +332,9 @@ MSOCache 其它的目录下内容同样根据注册表的内容把它指示的�
     </item>
     <item>
       <title>小型网站管理员，快放弃 CDN！</title>
-      <link>https://abelsun.tech/_posts/2018-01-19-forget_the_cdn.html</link>
-      <guid>https://abelsun.tech/_posts/2018-01-19-forget_the_cdn.html</guid>
-      <source url="https://abelsun.tech/rss.xml">小型网站管理员，快放弃 CDN！</source>
-      <description>CDN 的全称是 Content Delivery Network，即内容分发网络。其基本思路是尽可能避开互联网上有可能影响数据传输速度和稳定性的瓶颈和环节，使内容传输的更快、更稳定。通过在网络各处放置节点服务器所构成的在现有的互联网基础之上的一层智能虚拟网络，CDN 系统能够实时地根据网络流量和各节点的连接、负载状况以及到用户的距离和响应时间等综合信...</description>
+      <link>https://newzone.top/_posts/2018-01-19-forget_the_cdn.html</link>
+      <guid>https://newzone.top/_posts/2018-01-19-forget_the_cdn.html</guid>
+      <source url="https://newzone.top/rss.xml">小型网站管理员，快放弃 CDN！</source>
       <category>服务器</category>
       <pubDate>Fri, 19 Jan 2018 12:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<blockquote>
@@ -298,10 +356,9 @@ MSOCache 其它的目录下内容同样根据注册表的内容把它指示的�
     </item>
     <item>
       <title>雇个机器人帮你干活</title>
-      <link>https://abelsun.tech/_posts/2018-01-31-hire_a_robot.html</link>
-      <guid>https://abelsun.tech/_posts/2018-01-31-hire_a_robot.html</guid>
-      <source url="https://abelsun.tech/rss.xml">雇个机器人帮你干活</source>
-      <description>机器人会取代你工作！ 计算云会取代你工作！ AI 会取代你的工作！ 我相信科技终究有一天会消灭所有工作，但我们这代人的无奈就是很难等到这一天。 作为懒人、宅男，等不及了怎么办？ 既然还没被取代，那就雇个机器人帮你干活！ 我每天第一件事是去各个网站看热门新闻、行业资料。以前是用 RSS，但 RSS 被视为落后，越来越多的网站不再提供 RSS 源。离开 R...</description>
+      <link>https://newzone.top/_posts/2018-01-31-hire_a_robot.html</link>
+      <guid>https://newzone.top/_posts/2018-01-31-hire_a_robot.html</guid>
+      <source url="https://newzone.top/rss.xml">雇个机器人帮你干活</source>
       <category>自动化</category>
       <pubDate>Wed, 31 Jan 2018 22:51:00 GMT</pubDate>
       <content:encoded><![CDATA[<blockquote>

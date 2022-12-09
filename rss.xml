@@ -6,387 +6,1367 @@
     <link>https://newzone.top/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Fri, 09 Dec 2022 05:58:44 GMT</pubDate>
-    <lastBuildDate>Fri, 09 Dec 2022 05:58:44 GMT</lastBuildDate>
+    <pubDate>Fri, 09 Dec 2022 06:10:42 GMT</pubDate>
+    <lastBuildDate>Fri, 09 Dec 2022 06:10:42 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
-    <category>工具</category>
-    <category>自动化</category>
-    <category>系统</category>
-    <category>网络</category>
-    <category>服务器</category>
+    <category>学习建议</category>
+    <category>知乎</category>
     <item>
-      <title>电脑上实现微信双开，无需网页版或第三方软件</title>
-      <link>https://newzone.top/_posts/2017-04-18-wechat_multi_open.html</link>
-      <guid>https://newzone.top/_posts/2017-04-18-wechat_multi_open.html</guid>
-      <source url="https://newzone.top/rss.xml">电脑上实现微信双开，无需网页版或第三方软件</source>
-      <category>工具</category>
-      <pubDate>Tue, 18 Apr 2017 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>由于工作原因，有时候我们需要在电脑上登录多个微信。但微信限制一个客户端只能登陆一个账号，PC 端 + 网页版就成了通用方案，操作效率下降许多。</p>
-<p>其实我们还有更好的办法。在微信 PC 版之余，同时安装微信 For Windows，就能实现客户端双开！</p>
-<h2 id="微信-for-windows-安装" tabindex="-1"> 微信 For Windows 安装</h2>
-<p>打开「运行」对话框，输入并启动「应用商店」或「Microsoft Store」，搜索并安装 <code>微信 For Windows</code>。</p>
-<p><img src="http://tc.seoipo.com/2022-05-06-04-21-30.png" alt="" loading="lazy"></p>
-<p>安装好后，就能与微信 PC 版一齐启动，互不干扰。</p>
-<p><img src="http://tc.seoipo.com/2022-05-06-04-21-40.png" alt="" loading="lazy"></p>
-<h2 id="开机启动两个微信" tabindex="-1"> 开机启动两个微信</h2>
-<p>找到系统启动文件夹，文件夹路径为：<code>%AppData%\Microsoft\Windows\Start Menu\Programs\Startup</code>。或者打开「运行」对话框，输入命令「shell:startup」，回车即可打开「启动文件夹」。</p>
-<p>将微信 for windows 10 的快捷方式放到「启动」文件夹里。</p>
-<p><img src="http://tc.seoipo.com/2022-05-06-04-23-49.png" alt="" loading="lazy"></p>
-<p>三开的话，可以在 Microsoft Store 上安装 微信 (UWP) 。</p>
-<p>如果还需要继续多开微信，可以参考 @刘舒怡 的方法：</p>
-<blockquote>
-<p>只要在 2 秒内快速连续双击打开软件，就能弹出很多登录界面，你想登多少个就登多少个</p>
-</blockquote>
-<p>另外，有人专门开发了微信/QQ 多开的补丁，需要四开以上的可以试试 <a href="https://github.com/huiyadanli/RevokeMsgPatcher" target="_blank" rel="noopener noreferrer">RevokeMsgPatcher</a>。</p>
-<p>但多开补丁风险未知，我只用了其中的防撤回功能，需谨慎使用多开补丁。</p>
-<p>国内搬运地址：<a href="https://wwz.lanzouf.com/ij0oz05ns3di" target="_blank" rel="noopener noreferrer">RevokeMsgPatcher.v1.5.zip</a></p>
-]]></content:encoded>
-      <enclosure url="http://tc.seoipo.com/2022-05-06-04-21-30.png" type="image/png"/>
-    </item>
-    <item>
-      <title>RSS 入门篇：Feed43&amp;FeedEx-为静态网页定制 RSS 源</title>
-      <link>https://newzone.top/_posts/2017-04-22-rss_feed43_feedex.html</link>
-      <guid>https://newzone.top/_posts/2017-04-22-rss_feed43_feedex.html</guid>
-      <source url="https://newzone.top/rss.xml">RSS 入门篇：Feed43&amp;FeedEx-为静态网页定制 RSS 源</source>
-      <category>自动化</category>
-      <pubDate>Sat, 22 Apr 2017 12:54:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>迷上 IFTTT 后急需 RSS 来监测网页，找到免费的 FEED43。网上有很多教程，但对新手都不够友好，就重新整理了一份。</p>
-<p><strong>► 开始烧制属于自己的 feed</strong></p>
-<h2 id="_1-进入网页" tabindex="-1"> 1. 进入网页</h2>
-<p><a href="http://www.feed43.com/" target="_blank" rel="noopener noreferrer">FEED43</a> 无需注册，点击 Create your own feed 直接使用。</p>
-<p><img src="https://pic1.zhimg.com/v2-b5da0b08f632376fad3925a779e373b4_r.jpg" alt="" loading="lazy"></p>
-<h2 id="_2-选定-rss-网页" tabindex="-1"> 2. 选定 RSS 网页</h2>
-<p>将目标网址添入 Step1. Specify source page address (URL)，将输入的源代码复制到 txt 文档中（方便之后写抓取规则）</p>
-<p><img src="https://pic1.zhimg.com/v2-1b687a5b1c325ba6d04fbdcc13b95668_r.jpg" alt="" loading="lazy"></p>
-<p>如果 Page Source 显示为乱码，Encoding 可设为 <strong>UTF-8</strong> 。</p>
-<h2 id="_3-定制-rss-抓取规则" tabindex="-1"> 3. 定制 RSS 抓取规则</h2>
-<p>Global Search Pattern 是选择你要搜索的范围。可以不填，这样会搜索整个页面，一般新手都选择整个页面，即空白。Item (repeatable) Search Pattern 这部分最重要，是我们要抓取的内容。</p>
-<p><img src="https://pic1.zhimg.com/v2-b1fa90c59739bddc0c27134cd36ba6bc_r.jpg" alt="" loading="lazy"></p>
-<p>仔细查看 Step1 中的源代码，找到区需要抓取的部分，输入到 Item (repeatable) Search Pattern。</p>
-<p>测试网址：<code>http://news.163.com/special/0001386F/rank_whole.html</code>。</p>
-<p>需要抓取的源代码：</p>
-<div data-ext="html"><pre><code><span><span><span>&lt;</span>tr</span><span>></span></span>
-  <span><span><span>&lt;</span>td</span> <span>class</span><span><span>=</span><span>"</span>red<span>"</span></span><span>></span></span>
-    <span><span><span>&lt;</span>span</span><span>></span></span>2<span><span><span>&lt;/</span>span</span>
-    <span>></span></span><span><span><span>&lt;</span>a</span> <span>href</span><span><span>=</span><span>"</span>更时尚更运动 车展实拍解析红旗 H5<span>"</span></span>
-      <span>></span></span>更时尚更运动 车展实拍解析红旗 H5<span><span><span>&lt;/</span>a</span>
-    <span>></span></span>
-  <span><span><span>&lt;/</span>td</span><span>></span></span>
-  <span><span><span>&lt;</span>td</span> <span>class</span><span><span>=</span><span>"</span>cBlue<span>"</span></span><span>></span></span>11211615<span><span><span>&lt;/</span>td</span><span>></span></span>
-<span><span><span>&lt;/</span>tr</span><span>></span></span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p><img src="https://pic2.zhimg.com/v2-cf6dbf2c09189f7517ec63abdc80c50d_r.jpg" alt="" loading="lazy"></p>
-<p><strong>抓取规则</strong>：</p>
-<div data-ext="html"><pre><code><span><span><span>&lt;</span>tr</span><span>></span></span>
-  {*}
-  <span><span><span>&lt;</span>td</span> <span>class</span><span><span>=</span><span>"</span>{*}<span>"</span></span><span>></span></span><span><span><span>&lt;</span>span</span><span>></span></span>{*}<span><span><span>&lt;/</span>span</span><span>></span></span><span><span><span>&lt;</span>a</span> <span>href</span><span><span>=</span><span>"</span>{%}<span>"</span></span><span>></span></span>{%}<span><span><span>&lt;/</span>a</span><span>></span></span><span><span><span>&lt;/</span>td</span><span>></span></span>
-  {*}
-  <span><span><span>&lt;</span>td</span> <span>class</span><span><span>=</span><span>"</span>cBlue<span>"</span></span><span>></span></span>{*}<span><span><span>&lt;/</span>td</span><span>></span></span>
-  {*}
-<span><span><span>&lt;/</span>tr</span><span>></span></span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>点击 Extract，进行抓取。</p>
-<p><img src="https://pic4.zhimg.com/v2-e9486741a6229ab258a95147f584571b_r.jpg" alt="" loading="lazy"></p>
-<h2 id="_4-整理-rss-输入格式" tabindex="-1"> 4. 整理 rss 输入格式</h2>
-<p>Define output format，一般情况下前面三个会已经写好，后三个就将前面得出的 item 里面的元素填入即可，我这里{%1}对应的是链接所以填入 Link，{%2}对于标题就填入 Title。</p>
-<p><img src="https://pic1.zhimg.com/v2-b4614f5c46090f2eb762aac87d604350_r.jpg" alt="" loading="lazy"></p>
-<p>然后点击 preview，完成制作，同时出现预览。</p>
-<p><img src="https://pic2.zhimg.com/v2-498bf1f1c0b14da172498b58f59e39b9_r.jpg" alt="" loading="lazy"></p>
-<p>如果注册了 FEED43 的账号，可以修改 rss 地址，但不能改为中文，否则会 rss 出错。</p>
-<h2 id="_5-获取-rss-地址" tabindex="-1"> 5. 获取 RSS 地址</h2>
-<p>点击 Feed URL 可得 rss 地址，我这里是 <a href="https://www.feed43.com/dianji.xml" target="_blank" rel="noopener noreferrer">https://www.feed43.com/dianji.xml</a></p>
-<p><img src="https://pic1.zhimg.com/v2-f3b00e876d8df136f7d354b4fc22f900_r.jpg" alt="" loading="lazy"></p>
-<p>在 RSS reader 中展示为</p>
-<p><img src="https://pic4.zhimg.com/v2-6d8f503ff3da16eb985ca1d3ae2de98f_r.jpg" alt="" loading="lazy"></p>
-<h2 id="_6-全文抓取" tabindex="-1"> 6. 全文抓取</h2>
-<p>feed43 导出的条目必须点击链接才能看到内容。在 rss 展示全文，需要通过 FeedEx 再转一次。注意：feed43 免费用户过多，<strong>需在浏览器中打开一次才能得到真实链接</strong> (一般为 <code>http://node2.feed43.com</code>)，FeedEx 需使用真实链接，一般 3 分钟内转换好。</p>
-<p>FeedEx：<a href="https://feedex.net/" target="_blank" rel="noopener noreferrer">https://feedex.net/</a></p>
-<p><img src="https://pic4.zhimg.com/v2-8e3701adffa1d6fb4ea10dda2704988b_r.jpg" alt="" loading="lazy"></p>
-<p>feeds43 免费版每 6 小时抓取一次，显示最新的 20 条内容。</p>
-<p>如果网页源更新较频繁的话，可使用 RSSHub 和 Huginn。</p>
-<h2 id="rss-合集" tabindex="-1"> RSS 合集</h2>
-<p>汇总的 RSS 永久订阅 feeds，均通过 RSSHub 和 Huginn 制作。如果有兴趣自制 RSS，可参考以下教程。</p>
-<ul>
-<li>
-<p><a href="https://newzone.top/_posts/2017-04-22-rss_feed43_feedex.html" target="_blank" rel="noopener noreferrer">RSS 入门篇：FEED43&amp;FeedEx-为静态网页定制 RSS 源</a></p>
-</li>
-<li>
-<p><a href="https://newzone.top/_posts/2018-10-07-huginn_scraping_any_website.html" target="_blank" rel="noopener noreferrer">RSS 进阶篇：Huginn - 真·为任意网页定制 RSS 源（PhantomJs 抓取）</a></p>
-</li>
-<li>
-<p><a href="https://newzone.top/_posts/2019-04-01-rsshub_noob.html" target="_blank" rel="noopener noreferrer">RSS 速成篇：RSSHub 捡现成的轮子</a></p>
-</li>
-<li>
-<p><a href="https://newzone.top/_posts/2020-03-25-rsshub_on_vps.html" target="_blank" rel="noopener noreferrer">RSS 速成篇 2：RSSHub 自部署</a></p>
-</li>
-<li>
-<p><a href="https://newzone.top/_posts/2021-10-23-nas_with_rsshub_and_huginn.html" target="_blank" rel="noopener noreferrer">RSS 完结篇：节省千元服务费，RSSHub、Huginn 转移 NAS</a></p>
-</li>
-<li>
-<p><a href="https://newzone.top/_posts/2022-03-17-rss_persistent_link_collection.html" target="_blank" rel="noopener noreferrer">RSS 汇总篇：RSS 永久链接合集，拒绝 RSS 失效</a></p>
-</li>
-</ul>
-]]></content:encoded>
-      <enclosure url="https://pic1.zhimg.com/v2-b5da0b08f632376fad3925a779e373b4_r.jpg" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>office 2016 安装程序报错解决办法</title>
-      <link>https://newzone.top/_posts/2017-07-28-office_2016_installer_error.html</link>
-      <guid>https://newzone.top/_posts/2017-07-28-office_2016_installer_error.html</guid>
-      <source url="https://newzone.top/rss.xml">office 2016 安装程序报错解决办法</source>
-      <category>系统</category>
-      <pubDate>Fri, 28 Jul 2017 11:02:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>重新安装 Office 系统或更改安装组件时，经常提示：「找不到有效的安装源」，但实际这些文件都能在安装包内找到。这是由于注册表和组件而导致的报错，<strong>「找不到有效的安装源」并不是真实原因</strong>，解决方法查看下方。</p>
-<p><img src="https://pic3.zhimg.com/v2-85bd2a49a47ee6d0c8eade7b3c249516_r.jpg" alt="" loading="lazy"></p>
-<h2 id="解决方法" tabindex="-1"> 解决方法</h2>
-<ol>
-<li>
-<p>打开 regedit.exe，在注册表中找到路径 <code>计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\Delivery\SourceEngine\Downloads\{90160000-00BA-0804-1000-0000000FF1CE}-C\Sources\PROPLUS16(RG)-6186D162</code>。</p>
-</li>
-<li>
-<p>修改 Path 数据，改为安装包位置，比如 <code>F:\5.软件资源\系统重装\SW_DVD5_Office_Professional_Plus_2016_64Bit_ChnSimp_MLF_X20-42426\groove.zh-cn</code>。</p>
-<p><img src="https://pic3.zhimg.com/v2-650ede86dd191a8f0a1cd6e9b815377a_r.jpg" alt="" loading="lazy"></p>
-</li>
-<li>
-<p>在 C 盘建立安装组件：</p>
-<ul>
-<li>把安装包路径 <code>\groove.zh-cn\</code> 下的文件复制到 <code>C:\MSOCache\All Users\{90160000-00BA-0804-1000-0000000FF1CE}-C</code> 目录下 (如果没有这个目录就自己建立)。</li>
-<li>把安装包路径 <code>\proplus.ww\</code> 下的文件复制到 <code>C:\MSOCache\All Users\{90160000-0011-0000-1000-0000000FF1CE}-C</code>。</li>
-</ul>
-</li>
-<li>
-<p>将需要的程序文件放入 MSOCache 路径
-MSOCache 其它的目录下内容同样根据注册表的内容把它指示的光盘中的安装文件复制到相应的目录下。如果没有那个目录就要自己建立，类似的目录一共有 12 个。
-如果不想全装可以只选择需要的软件，下面以 Onenote 和 Access 为例。</p>
-<ul>
-<li><strong>Onenote</strong> 把安装包路径 <code>\onenote.zh-cn\</code> 下的文件复制到 <code>C:\MSOCache\All Users\{90160000-00A1-0804-1000-0000000FF1CE}-CC</code>。</li>
-<li><strong>Access</strong> 把安装包路径 <code>\access.zh-cn\</code> 下的文件复制到 <code>C:\MSOCache\All Users\{90160000-0015-0804-1000-0000000FF1CE}-C</code>。</li>
-</ul>
-</li>
-<li>
-<p>最后进入安装包运行 setup.exe 安装正常。</p>
-</li>
-</ol>
-<p>Office 组件报错大都是由于 MSOCache 目录被删，建议安装 Office 后不要删除该目录。使用优化工具时，要注意保留 MSOCache 目录及其下的文件。</p>
-]]></content:encoded>
-      <enclosure url="https://pic3.zhimg.com/v2-85bd2a49a47ee6d0c8eade7b3c249516_r.jpg" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>OneNote 2016 无法登陆问题解决</title>
-      <link>https://newzone.top/_posts/2017-07-29-onenote_2016_cannot_be_logged_in.html</link>
-      <guid>https://newzone.top/_posts/2017-07-29-onenote_2016_cannot_be_logged_in.html</guid>
-      <source url="https://newzone.top/rss.xml">OneNote 2016 无法登陆问题解决</source>
-      <category>系统</category>
-      <pubDate>Sat, 29 Jul 2017 15:19:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>OneNote 安装后，提示输入账号，但点击「下一步」始终没反应，无法进行登陆。</p>
-<p><img src="https://pic4.zhimg.com/v2-d5945359b896ffd09d9973e9597ec06b_r.jpg" alt="" loading="lazy"></p>
-<p>打开 IE 浏览器，访问 <a href="http://live.com" target="_blank" rel="noopener noreferrer">live.com</a>，如果网页提示「登录需要启动 JavaScript」，说明问题的根源出在 IE 的设置上。</p>
-<p><img src="https://pic1.zhimg.com/v2-cc00b3039f755b92f9ae511c8b7debd0_r.jpg" alt="" loading="lazy"></p>
-<p>点击「IE 设置」&gt;「Internet 选项」&gt;「安全」&gt;「自定义级别」，然后启用脚本选项的「Java 小程序脚本」和「活动脚本」。</p>
-<p><img src="https://pic2.zhimg.com/v2-717bf3c8b62748b62a04219435b8a75d_r.jpg" alt="" loading="lazy"></p>
-<p><img src="https://pic4.zhimg.com/v2-25697b0c27aa8780c532b7a03a78dcbf_r.jpg" alt="" loading="lazy"></p>
-<p>完成设置后，即可正常登录并打开 OneNote。</p>
-<p><img src="https://pic4.zhimg.com/v2-ff20ef8aa22215cba64b879775dfdf4f_r.jpg" alt="" loading="lazy"></p>
-]]></content:encoded>
-      <enclosure url="https://pic4.zhimg.com/v2-d5945359b896ffd09d9973e9597ec06b_r.jpg" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>电脑关机了，第二天一看确又开着的？让系统正常关机！</title>
-      <link>https://newzone.top/_posts/2017-09-02-forced_shutdown.html</link>
-      <guid>https://newzone.top/_posts/2017-09-02-forced_shutdown.html</guid>
-      <source url="https://newzone.top/rss.xml">电脑关机了，第二天一看确又开着的？让系统正常关机！</source>
-      <category>系统</category>
-      <pubDate>Sat, 02 Sep 2017 00:38:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>电脑晚上明明按下关机键，第二天早上却发现电脑开了一晚上？</p>
-<p>这是因为后台应用程序和 GUI 应用程序在阻止或取消关机，系统未能按正常关机。按下列方法授予系统自动关机权限，就能让系统正常关机。</p>
-<p><strong>方法如下：</strong></p>
-<ol>
-<li>
-<p>点击「开始菜单」，搜索「Regedit」，进入注册表编辑器。</p>
-</li>
-<li>
-<p>打开窗口后，在注册表上方菜单中输入 <code>计算机\HKEY_CURRENT_USER\Control Panel\Desktop</code>。</p>
-</li>
-<li>
-<p>在右侧窗格中找到 <code>AutoEndTasks</code> 键值，如果没有，则新建一个名为 <code>AutoEndTasks</code> 的「字符串值」，并将键值的数值设为 <code>1</code>。AutoEndTasks 表示自动结束失去响应的程序任务，0 为 false，是默认值，表示不自动结束失去响应的程序；1 为 true，则表示电脑会自动结束失去响应的程序。</p>
-<p><img src="https://pic3.zhimg.com/v2-c643b9737b35f9dd9a8382c5653e3d3e_r.jpg" alt="" loading="lazy"></p>
-</li>
-<li>
-<p>查找或创建字符串值 <code>WaitToKillAppTimeout</code>，将数值设为 <code>2000</code>。2000 是毫秒，就是当有没有响应的程序时，等待 2 秒后会自动结束相应程序。</p>
-</li>
-</ol>
-<p>操作下，让电脑默认强制关机吧！</p>
-<p>——————————</p>
-<p>网上流行一种修改「gpedit.msc」来达到快速关机的方法，但试验无效，<strong>不能强制关机</strong>。</p>
-<ol>
-<li>
-<p>点击桌面左下角“windows”图标，选择“运行”选项；</p>
-</li>
-<li>
-<p>进入运行窗口，输入“gpedit.msc”命令，按下回车键确定；</p>
-</li>
-<li>
-<p>打开本地组策略编辑器界面，依次展开“计算机配置——管理模板——系统——关机选项”文件夹；鼠标右击右侧“关闭会阻止或取消关机的应用程序的自动终止功能”选项，接着选择“编辑”功能；将弹出窗口选项更改成“已启用”，然后点击“应用——确定”按钮。</p>
-<p><img src="https://pic4.zhimg.com/v2-4b736585b25509b036935a2f9c37d843_r.jpg" alt="" loading="lazy"></p>
-<p>但开启后，提示程序没有响应，无法关机。</p>
-<p><img src="https://pic4.zhimg.com/v2-46fafee0cb6e212e793fc80268ab0917_r.jpg" alt="" loading="lazy"></p>
-</li>
-</ol>
-<p>修改“gpedit.msc”可以关闭程序的关机权限，但没授予关机对程序的关闭权限，<strong>不能使用</strong>！</p>
-]]></content:encoded>
-      <enclosure url="https://pic3.zhimg.com/v2-c643b9737b35f9dd9a8382c5653e3d3e_r.jpg" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>加速 SMB 协议，让 PC 变身小型 NAS</title>
-      <link>https://newzone.top/_posts/2017-09-03-smb_lan_sharing.html</link>
-      <guid>https://newzone.top/_posts/2017-09-03-smb_lan_sharing.html</guid>
-      <source url="https://newzone.top/rss.xml">加速 SMB 协议，让 PC 变身小型 NAS</source>
-      <category>系统</category>
-      <pubDate>Sun, 03 Sep 2017 20:57:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>Windows 系统开启 SMB 协议：</p>
-<ol>
-<li>
-<p>打开「控制面板」窗口，在「类别」查看方式下单击「程序」。</p>
-<p><img src="https://pic1.zhimg.com/v2-af3e5c2a16a1f245ac6584097c53be60_r.jpg" alt="" loading="lazy"></p>
-</li>
-<li>
-<p>打开「程序」窗口，单击「启用或关闭 windows 功能」。</p>
-<p><img src="https://pic1.zhimg.com/v2-36207f67a5eb3aeb8ee7c1ae855b13dc_r.jpg" alt="" loading="lazy"></p>
-</li>
-<li>
-<p>打开「windows 功能」窗口，勾选 SMB 直通。</p>
-<p><img src="https://pic3.zhimg.com/v2-b1feb5554e6f1da003266be9cb470dfe_r.jpg" alt="" loading="lazy"></p>
-</li>
-<li>
-<p>勾选「远程差分压缩 API 支持」。</p>
-<p><img src="https://pic4.zhimg.com/v2-c5fc3e3d771b6e4bd2516372c69b340b_r.jpg" alt="" loading="lazy"></p>
-</li>
-</ol>
-<p>网上很多教程都要求关闭“远程差分压缩”复选框，这是对“远程差分压缩”的误解。</p>
-<p>官方解释：远程差分压缩 (RDC) 功能是一组应用程序编程接口 (API)，这些应用程序可用于确定某个文件集是否发生了变化，如果是，就检测哪部分文件进行了更改。RDC 检测文件中数据的插入、删除和重新排列，使应用程序能够仅复制文件的已更改部分。这对于在有限带宽网络（如广域网 (WAN) 连接）上复制文件非常有用。</p>
-]]></content:encoded>
-      <enclosure url="https://pic1.zhimg.com/v2-af3e5c2a16a1f245ac6584097c53be60_r.jpg" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>光猫改造 篇一：超级管理员密码破解（E8-C-EPON RG201O-CA_V1A2)</title>
-      <link>https://newzone.top/_posts/2017-10-18-light_cat_e8-c-epon_admin.html</link>
-      <guid>https://newzone.top/_posts/2017-10-18-light_cat_e8-c-epon_admin.html</guid>
-      <source url="https://newzone.top/rss.xml">光猫改造 篇一：超级管理员密码破解（E8-C-EPON RG201O-CA_V1A2)</source>
-      <category>网络</category>
-      <pubDate>Wed, 18 Oct 2017 18:28:00 GMT</pubDate>
-      <content:encoded><![CDATA[<h2 id="为什么要获得光猫超级密码" tabindex="-1"> 为什么要获得光猫超级密码？</h2>
-<p>*端口映射 (eMule high ID)、桥接模式（路由器掌控拨号，不能兼容固定电话）。*网上关于光猫超级密码的获取攻略都在 2012-14 年，已经无法使用了。</p>
-<h3 id="测试环境" tabindex="-1"> 测试环境</h3>
-<p>运营商：上海电信
-设备：贝尔 E8-C-EPON
-硬件版本：RG201O-CA_V1A2
-软件版本：E201OCAA2V11S</p>
-<h2 id="光猫超级密码破解步骤" tabindex="-1"> 光猫超级密码破解步骤</h2>
-<ol>
-<li>
-<p>地址栏输入 <code>192.168.1.1</code>，用户名：光猫背面，密码：光猫背面，登陆管理界面。</p>
-<p><img src="https://pic1.zhimg.com/v2-9e43bc86b9095f3f6c2cfa4bd58dcd68_r.jpg" alt="" loading="lazy"></p>
-</li>
-<li>
-<p>浏览器地址栏输入 <code>192.168.1.1/backupsettings.txt</code>，将 <code>backupsettings.txt</code> 文件导出并备份在电脑上。
-如果打不开上面的地址，改为输入 <code>192.168.1.1/backupsettings.conf</code>，并做好备份。</p>
-</li>
-<li>
-<p>打开下载好的文档 <code>backupsettings.txt</code> 或 <code>backupsettings.conf</code>，搜索 <code>TeleComAccount</code>，两个 password 间就是超级密码。超级账号是 telecomadmin。</p>
-<p><img src="https://pic3.zhimg.com/v2-ee441dd18cc8e5f6303fdaef82b6d476_r.jpg" alt="" loading="lazy"></p>
-</li>
-<li>
-<p>地址栏输入 <code>192.168.1.1</code>，用刚获取的超级密码登陆，然后开始端口映射和设备桥接了。</p>
-<p><img src="https://pic1.zhimg.com/v2-31d6bb6b90be541c186a360fe2dd323c_r.jpg" alt="" loading="lazy"></p>
-</li>
-</ol>
-<p>新装光猫无法获取超级密码的话，可直接使用运营商 app 进行映射。</p>
-]]></content:encoded>
-      <enclosure url="https://pic1.zhimg.com/v2-9e43bc86b9095f3f6c2cfa4bd58dcd68_r.jpg" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>光猫改造 篇二：光猫 + 路由器，实现端口映射</title>
-      <link>https://newzone.top/_posts/2017-10-18-light_cat_port_forwarding.html</link>
-      <guid>https://newzone.top/_posts/2017-10-18-light_cat_port_forwarding.html</guid>
-      <source url="https://newzone.top/rss.xml">光猫改造 篇二：光猫 + 路由器，实现端口映射</source>
-      <category>网络</category>
-      <pubDate>Wed, 18 Oct 2017 22:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>光猫默认没有管理权限，需要先获得光猫的超管密码，参考 <a href="https://newzone.top/_posts/2017-10-18-Light_cat_E8-C-EPON_admin.html" target="_blank" rel="noopener noreferrer">光猫改造 篇一：超级管理员密码破解（E8-C-EPON RG201O-CA_V1A2）</a>。</p>
-<p><strong>光猫端口映射步骤：</strong></p>
-<ol>
-<li>
-<p>登陆光猫管理地址 192.168.1.1，应用 → 高级 NAT 设置 →DMZ 设置，启用 DMZ 主机绑定路由器地址（路由器 WAN 口 IP 地址-192.168.1.X)</p>
-<p><img src="https://pic2.zhimg.com/v2-658d5433201b79da169a520f4b19d495_r.jpg" alt="" loading="lazy"></p>
-</li>
-<li>
-<p>登陆路由器管理地址 192.168.X.X。这里已梅林 AC5300 为图例。</p>
-<p><img src="https://pic4.zhimg.com/v2-32825a6d3d75f4bfe5668f1b0d6c6683_r.jpg" alt="" loading="lazy"></p>
-</li>
-<li>
-<p>在路由器设置选项中找到“端口转发”，按要求设置端口。我这是 eMule TCP 和 UDP 转发，设置完成后，变成 High ID。</p>
-<p><img src="https://pic2.zhimg.com/v2-8f3eb2c42fd5d1a98f1345c6a5855e99_r.jpg" alt="" loading="lazy"></p>
-<p><img src="https://pic2.zhimg.com/v2-b4f5179278da52409f4a04ce7d139f99_r.jpg" alt="" loading="lazy"></p>
-</li>
-</ol>
-]]></content:encoded>
-      <enclosure url="https://pic2.zhimg.com/v2-658d5433201b79da169a520f4b19d495_r.jpg" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>小型网站管理员，快放弃 CDN！</title>
-      <link>https://newzone.top/_posts/2018-01-19-forget_the_cdn.html</link>
-      <guid>https://newzone.top/_posts/2018-01-19-forget_the_cdn.html</guid>
-      <source url="https://newzone.top/rss.xml">小型网站管理员，快放弃 CDN！</source>
-      <category>服务器</category>
-      <pubDate>Fri, 19 Jan 2018 12:00:00 GMT</pubDate>
+      <title>不到 20 人的 IT 公司该去吗？</title>
+      <link>https://newzone.top/study_suggest/20ren-it-quma.html</link>
+      <guid>https://newzone.top/study_suggest/20ren-it-quma.html</guid>
+      <source url="https://newzone.top/rss.xml">不到 20 人的 IT 公司该去吗？</source>
+      <category>学习建议</category>
+      <pubDate>Sun, 04 Dec 2022 15:45:11 GMT</pubDate>
       <content:encoded><![CDATA[<blockquote>
-<p>CDN 的全称是 Content Delivery Network，即内容分发网络。其基本思路是尽可能避开互联网上有可能影响数据传输速度和稳定性的瓶颈和环节，使内容传输的更快、更稳定。通过在网络各处放置节点服务器所构成的在现有的互联网基础之上的一层智能虚拟网络，CDN 系统能够实时地根据网络流量和各节点的连接、负载状况以及到用户的距离和响应时间等综合信息将用户的请求重新导向离用户最近的服务节点上。其目的是使用户可就近取得所需内容，解决 Internet 网络拥挤的状况，提高用户访问网站的响应速度。</p>
+<p><a href="https://mp.weixin.qq.com/s/e5Q4aJCX9xccTzBBGepx4g" target="_blank" rel="noopener noreferrer">musk的编程星球</a>已经有 <strong>740 多名</strong> 球友加入了，如果你也需要一个良好的学习氛围，<a href="https://mp.weixin.qq.com/s/e5Q4aJCX9xccTzBBGepx4g" target="_blank" rel="noopener noreferrer">戳链接</a>加入我们吧！这是一个Java学习指南+编程实战+LeetCode 刷题的私密圈子，你可以向musk提问、帮你制定学习计划、和球友一起打卡成长，冲冲冲。</p>
 </blockquote>
-<p>国内 CDN 有阿里云、腾讯、百度、网宿、七牛云、又拍云等。</p>
-<p>这里以阿里云 CDN 为例。我之前使用阿里云全站 CDN，一直以为速度会加快。但命中率只有 7%，在更换为 ECS 后，命中率更降为 2%。</p>
-<p>更可怕的是，我提交工单后才得到的事实。<strong>CDN 运营商会根据 DNS 分配就近分配 CDN 节点，抓取网站缓存。</strong></p>
-<p>第一反应：「不错啊。如果网站在北京，访客在上海，直接访问上海的节点，速度必然要快一些。」</p>
-<p>但事实并没有这么完美。<strong>CDN 是根据本地 DNS 来分配节点。</strong></p>
-<p>你从上海放出访问申请，DNS 有可能帮你分配去广东的节点。极端情况下，有可能分配到不同运营商，<strong>导致无法打开网站。</strong></p>
-<p>我进行了三个测试，本地网络环境都是上海电信，更换了 DNS 设置。</p>
-<p>第一次测试使用 114DNS，分配了广州鹏博士网络，网站打不开。提交工单后，客服反映<strong>这个节点是局域网节点，只有鹏博士网络才能打开。</strong></p>
-<p>第二次测试使用电信默认 DNS，分配苏州电信，网站正常。</p>
-<p>第三次测试使用阿里云 DNS，分配杭州电信，网站正常</p>
-<p>后面两次虽然都能打开网站，但没有一个分配在上海电信，这种加速又能快多少呢？</p>
-<p>在网站<strong>配置足够、流量不大（日均访客 1000 以内）</strong> 时，不建议使用全站 CDN，这只会拖累访问体验。小网站只适合将图片部署在 CDN。</p>
+<p>周末就不分享技术了。今天早上在知乎看到一个挺有意思的话题：<strong>不到 20 人的 IT 公司该去吗</strong>？</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-budrditgsgqm-092ccdf7-12ac-4ca0-81b0-0d7fc193ffdc.jpg" alt="" loading="lazy"></p>
+<p>回答区有一位老哥分享了自己在一个20 来人的小公司的奇葩工作经历，分享一下。</p>
+<blockquote>
+<p>原回答地址：<a href="https://sourl.cn/hy9TD" target="_blank" rel="noopener noreferrer">https://sourl.cn/hy9TD</a></p>
+</blockquote>
+<p>下面是正文。</p>
+<p>刚到西安有幸加入了一个 20 来人的 it 公司。</p>
+<p>本来是不想去那种小公司的，为什么加入呢？<strong>原因大概有二</strong>：</p>
+<ul>
+<li>其一就是该公司号称是某互联网大厂旗下的子公司，公司资源共享。</li>
+<li>其二就是感觉经历了四面感觉心好累，不想再面试，就这个吧。</li>
+</ul>
+<h2 id="第一天" tabindex="-1"> 第一天</h2>
+<p>然鹅，当入职第一天开始我就渐渐发现情形怪异。</p>
+<p>第一天来前台报道，发现前台的人屌屌的，没有正式的着装，染着绿色的头发，嚼着口香糖。我心想，创业公司人性化吧。</p>
+<p>我：“您好，我今天入职。”</p>
+<p>前台：“奥，你叫啥”</p>
+<p>我：“我叫 xxx”</p>
+<p>前台：“奥，那你先填个表，我叫人事”</p>
+<p>坐了 20 分钟，没人理我。</p>
+<p>我：“那个人事怎么还不来”</p>
+<p>前台：“应该路上堵车了，要不你在等会”</p>
+<p>又过了二十分钟</p>
+<p>人事：“你叫 xxx 吧，那个稍等我打印下合同”</p>
+<p>我：“奥”</p>
+<p>人事：“合同需要你第 xx 页签下字，签完以后这两份我们需要邮寄回总部，所以就签完教给我就好了，我就在隔壁办公室”</p>
+<p>我：“好的”</p>
+<p>没有入职介绍，没有合同细节说明，没有入职小礼品，就这样签完合同来到了工位。</p>
+<p>部门人事过来招呼</p>
+<p>部门人事：“你就是 xx 吧，你的工位在那边，我给你开通一下 oa 系统，然后一会和我去领设备，一会我给你拉我们微信群，待会有个欢迎仪式，新人来要在群里发红包，今后靠老员工多多照顾”</p>
+<p>我：“还要发红包?呃”</p>
+<p>所谓的欢迎仪式真的好尴尬，就如同电视剧里演的一样，部门人事哐哐敲了几下桌子，大喊这，</p>
+<p>部门人事：“大家停一下手上的工作，今天我们有新鲜血液流入我们了，我们的团队又壮大了些”</p>
+<p>然后尴尬的一阵介绍，真的好尴尬，感觉大家都像打了鸡血一样的自来熟那么亲热。</p>
+<h2 id="第二天" tabindex="-1"> 第二天</h2>
+<p>第二天就开始了正常的工作，领导给我了一个 git 地址，说是我们的项目代码，给我两天时间熟悉一下，然后做一个 ppt 讲一下自己对这些的理解。</p>
+<p>我：“好的，那个，咱们自己测试服务器地址是啥？”</p>
+<p>领导：“嗯，我们现在还没有测试服务器，你自己本地搭建一个测试服务器吧”</p>
+<p>我：“那能保证我这个和线上环境一样吗？”</p>
+<p>领导：“没关系，我们都是这么弄得”</p>
+<p>我：“额。。。行吧”</p>
+<p><strong>我第一次见到这样的开发架构和流程，预感到后期会有大问题出现。</strong></p>
+<p>演示完项目理解，接了第一个活，我曾经预感到这套工作架构的问题终究出现了。</p>
+<p>一个项目我们四五个人开发，各自的测试环境不一致，测试环境测试成功后，提交代码。</p>
+<p><strong>致命的一点是：</strong></p>
+<p><strong>这样一个团队，竟然没有一个完整的代码上线流程。代码上线完全靠领导一人手动操作。</strong></p>
+<p>所以，终究，<strong>可怕的事情发生了。</strong></p>
+<p>各个开发测试环境无问题，上了线一堆 bug，由于手动上线的原因，经常会漏或者忘记上线。线上出现 bug 又得马上回滚，测试环境又无法查出问题。</p>
+<p>第一次的项目上线整整从下午五点上线到了晚上十点才结束。</p>
+<p><strong>我真的是大开眼界。</strong></p>
+<p>而且由于员工的过分热情奋斗经常，听老员工说公司有个不成文的规定，卡时间节点，定下来今天上线的项目，今天上不了线就不回家。</p>
+<h2 id="第三天" tabindex="-1"> 第三天</h2>
+<p>第三天，我给领导建议：“我建议先搭建好一套上线流程工具，我们再开发，至少我们有个和线上环境一致的测试服务器啊”</p>
+<p>领导：“这个我们一直和总部申请，现在业务也忙，我们自己没时间做这些”</p>
+<p>意思就是不想弄。</p>
+<p>无奈，我也不好再说什么，入职不到一个月，做了第一个项目，我开始有了想离职的念头。</p>
+<p>后续的工作，每天非常繁忙，同时对接三个业务，而且招聘里写的招高级工程师，工作是带领项目组，而发现来了之后大家都是高级工程师，都是硬干业务的。同时，招的是后端开发工程师，前端的活也一并扔给我来干了。</p>
+<h2 id="一个月后" tabindex="-1"> 一个月后</h2>
+<p>来了一个月了，我渐渐了解到我的同事的工作背景，他们有的以前是干过销售，有的是在做过软件外包，有的是当过机构老师。正经的计算机系出来的没几个，大多数是上了个编程培训班就出来找工作，混迹好几个小公司，后来到了这儿。</p>
+<p>产品经理设计了一个项目，写了一堆文字。</p>
+<p>我：“我想问下项目原型图有吗，或者 prd 文档模板”</p>
+<p>产品经理：“我写了个 word，你看看”</p>
+<p>我：“你这写的这我知道几个意思”</p>
+<p>产品经理：“按我写的做就好了”</p>
+<p>我：“额。。。”</p>
+<p><strong>我意识到又一个可怕的事情即将发生了。</strong></p>
+<p>由于产品经理不提供设计原型图 prd，只是单纯的用文字描写产品想法。再加上文字功底又不好。同一段文字不同人读理解的不同的意思。</p>
+<p>一个产品，几个开发做不同的东西，开发完成，产品经理说这都不是他想要的。开发说，按着你的文档做的，哪点对不上？产品经理说，你这理解的不对。</p>
+<p>于是，互撕开始了。</p>
+<p>无奈，最终，为了产品，项目推到重做。工作几天全是无用功。</p>
+<p><strong>压垮骆驼的最后一根稻草</strong></p>
+<p>离职的想法已经在我脑子里酝酿，最后让我下定决心的是一次业务上线。</p>
+<p>上线属于测试负责制。</p>
+<p>测试说这个东西上线有问题，就不允许开发走，哪怕耗在那没事可做。</p>
+<p>最后一次业务上线。</p>
+<p>晚上六点上线。</p>
+<p>我：“我代码提交了，我去吃饭，测好了告诉我”</p>
+<p>测试：“你先别走，万一有 bug 方便改”</p>
+<p>我：“我吃个饭就回来”</p>
+<p>测试：“好，有问题我给你打电话”</p>
+<p>刚到楼下，买了份饭，刚吃了两口，一阵急促电话铃。</p>
+<p>测试：“快上来，代码崩溃了，严重问题”</p>
+<p>我：“我吃完上来”</p>
+<p>测试：“别吃了，领导都看到了”</p>
+<p>无奈，我吃了一口，急匆匆上楼，上去一看，是因为数据类型问题，改了一个变量类型，好了，并不是什么大问题。</p>
+<p>测试：“你坐着别走了，有啥问题我好随时给你说”</p>
+<p>我：“奥”</p>
+<p>一晃时间到了九点，我看了看表，这测了两个多小时了，也没啥问题，上线吧。</p>
+<p>上线了，简单看看没啥问题。</p>
+<p>我：&quot;那我走了&quot;</p>
+<p>回家路上走到一半，有一阵仓促的电话铃声。</p>
+<p>测试：“快回来，线上 bug”</p>
+<p>我：“刚才测了两个多小时你说没问题，你同意上线了。十点多了，不行回滚明天搞吧。”</p>
+<p>测试：“不行，今天得上线，你快回来”</p>
+<p>我: &quot;我刚坐上车，你回滚代码，明天再搞吧&quot;</p>
+<p>测试：“那我给领导反馈”</p>
+<p>真的有点生气了，短短十分钟时间，领导的电话不间断的给我打了三次，我没有接听。</p>
+<p>我让司机掉了个头，回去了，花了三分钟时间，看了下线上 bug 是因为线上脏数据造成，删了几条数据，正常了，此时已经是快凌晨一点了。</p>
+<p>一句话没说，第二天来了，领导质问我怎么不接电话，告诉我说工作要认真，并且又重新派给我一个活，告诉我要认真对待。</p>
+<p><strong>我微微一笑，编辑好的离职邮件，点了发送键。并且请了剩余的年假。</strong></p>
+<h2 id="个人感受" tabindex="-1"> 个人感受</h2>
+<p>个人认为我们找工作的时候尽量应该比较小的公司，尤其是10、20人这种的小公司，遇到坑的概率非常大！并且，大部分这种规模的小公司最后都死掉了。</p>
+<p>不过，还是有少部分不错的小公司的，这个也不能一棒子打死。</p>
+<hr>
+<p>没有什么使我停留——除了目的，纵然岸旁有玫瑰、有绿荫、有宁静的港湾，我是不系之舟。</p>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/E2ko0I0Lts2yoIF-HLBOgw" target="_blank" rel="noopener noreferrer">再见，GitHub trending</a></li>
+<li><a href="https://mp.weixin.qq.com/s/nzR9eKFgEbpPFIkMF40vYw" target="_blank" rel="noopener noreferrer">钱付了订单还是未支付，怎么解决？</a></li>
+<li><a href="https://mp.weixin.qq.com/s/NT4fVbI8hDdN7MQkG2RNdQ" target="_blank" rel="noopener noreferrer">涨薪40%，从国企跳到一家小公司！</a></li>
+<li><a href="https://mp.weixin.qq.com/s/luKyE0O1eGBhUyBuoAONqA" target="_blank" rel="noopener noreferrer">暑假在富士康打工50天，感受如何？</a></li>
+<li><a href="https://mp.weixin.qq.com/s/duEzl6qiM59cHVdFhWB2FA" target="_blank" rel="noopener noreferrer">35 岁危机怎么破？</a></li>
+<li><a href="https://mp.weixin.qq.com/s/R8IonWhFfNk0H1vUgjEadg" target="_blank" rel="noopener noreferrer">面试通过，背调凉了！</a></li>
+<li><a href="https://mp.weixin.qq.com/s/iiGGsfvPzNIcWFdH0LStjw" target="_blank" rel="noopener noreferrer">推荐一些小而美的互联网公司</a></li>
+<li><a href="https://mp.weixin.qq.com/s/WO0MYpWI3m_18Yohe0SzMA" target="_blank" rel="noopener noreferrer">有哪些值得计算机专业加入的国企？</a></li>
+</ul>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-rumrabbitmqzypjdg-53717e59-63c9-44bd-99d3-dd2c26fe68bb.png" alt="" loading="lazy"></p>
+<hr>
+]]></content:encoded>
+      <enclosure url="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-budrditgsgqm-092ccdf7-12ac-4ca0-81b0-0d7fc193ffdc.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title>程序员 35 岁危机，如何破局 ？</title>
+      <link>https://newzone.top/study_suggest/35-weiji.html</link>
+      <guid>https://newzone.top/study_suggest/35-weiji.html</guid>
+      <source url="https://newzone.top/rss.xml">程序员 35 岁危机，如何破局 ？</source>
+      <description>工作可以是事业、是热爱，也可以只是一份工作，给自己留出转身的空间很有必要！</description>
+      <category>学习建议</category>
+      <pubDate>Sun, 04 Dec 2022 15:45:11 GMT</pubDate>
+      <content:encoded><![CDATA[<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-a1c73ba1-4f12-4bb9-a64b-14bb7cc86ec5.png" alt="" loading="lazy"></p>
+<p>作者：musk<br>
+Java 程序员进阶之路：<a href="https://tobebetterjavaer.com" target="_blank" rel="noopener noreferrer">https://tobebetterjavaer.com</a></p>
+<p>大家好，我是musk呀！今天周六，咱精神就不要绷那么紧了，来谈一个超级“轻松”的话题：35 岁中年危机。</p>
+<p>不得不说，任总的把寒气传递给每一个老百姓，杀伤力拉满，不少小伙伴都绷不住了，开始危机重重。<a href="https://mp.weixin.qq.com/s/e5Q4aJCX9xccTzBBGepx4g" target="_blank" rel="noopener noreferrer">musk的编程星球</a> VIP 群里，也有不少小伙伴唉声叹气，感觉情况糟糕至极。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-cc32ca43-8165-413b-9c8a-24cf0ebbe84b.png" alt="" loading="lazy"></p>
+<p>就连一个<strong>不满 25 岁的球友，也开始担心起 35 岁程序员中年危机</strong>了，问musk该怎么办？</p>
+<p>说句实在话，环境是没有以前好，但还没有到恐慌的地步啊，再说，25 岁就开始担心中年危机，着实有点早了呀！这期间还有 10 多年的美好岁月呀！</p>
+<p>我们是该未雨绸缪，但不应该杞人忧天啊，这种“<strong>危机病</strong>”必须得治。下面这部分内容是musk的“四贱客”，哦不，“四剑客”团队之一的楼仔写的，可以说是治好“35 岁”危机的良药！理解的非常深刻，道和术全都具备！</p>
+<p>相信很多小伙伴对这个话题感到焦虑，担心自己 35 岁之后会失业，因为前几年我也这样，不过目前要好很多，文末会讲。</p>
+<p>不 BB，上文章目录。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-a5f7d6a6-756e-44d8-95c7-7a5593e56c7f.jpg" alt="" loading="lazy"></p>
+<h2 id="_1-为什么会危机" tabindex="-1"> 1. 为什么会危机？</h2>
+<h3 id="_1-1-35-岁年龄特点" tabindex="-1"> 1.1 35 岁年龄特点</h3>
+<p>35 岁并不是真正的 35 岁，它是一个泛指，基本上来说就是 35-40 岁这段时间，<strong>所以后面我说的 “35 岁”，都是泛指 35-40 岁。</strong></p>
+<p>为什么会在这个阶段出现危机呢？</p>
+<ul>
+<li><strong>经济压力</strong>：这个年龄一般都有房贷、车贷、子女教育等，我认识很多同事，光房贷每月基本都要 6K-7K，再算每月的生活支出，很多都会月光；</li>
+<li><strong>家庭原因</strong>：这个年纪的人都已经成家，上有老下有小，需要平衡家庭和工作的关系；</li>
+<li><strong>身体素质</strong>：年龄的增加，身体素质大不如从前，不能熬夜；</li>
+<li><strong>个人学习</strong>：因为生活和家庭，能留给自己学习的时间不多，主动学习的欲望会明显降低。</li>
+</ul>
+<h3 id="_1-2-35-岁危机来源" tabindex="-1"> 1.2 35 岁危机来源</h3>
+<p>如果公司裁员，你是不是被最先裁掉的那一批？如果被裁掉，35 岁再出去求职，其它公司会不会要你？如果新公司给你 Offer，能否能达到你之前的水平，至少能保证你正常的生活开支？</p>
+<p><strong>怕被优化，怕年纪大了找不到工作，怕给你的薪资覆盖不了你现有的生活水平</strong>，这些其实都是我们危机感的来源。</p>
+<p>我们看看用人单位看大龄程序员的视角：</p>
+<ul>
+<li><strong>管理成本高</strong>：领导的那一套画饼方式已经不适用，年轻程序员容易管理；</li>
+<li><strong>经济成本高</strong>：要的工资一般都不低，同样的费用是年轻程序员的 2-4 倍；</li>
+<li><strong>精力跟不上</strong>：如果公司推崇加班文化，大龄程序员的精力确实不太能跟上；</li>
+<li><strong>家庭事情多</strong>：大龄程序员家庭琐事多，不像年轻程序员那么纯粹；</li>
+<li><strong>其它</strong>：学习和进取欲望降低、能力提升变慢、技术栈老旧、可塑性变差等、公司产品不需要过深的技术和业务积累。</li>
+</ul>
+<h3 id="_1-3-大龄程序员是否被排斥" tabindex="-1"> 1.3 大龄程序员是否被排斥</h3>
+<p>年轻程序员在写日常的业务代码，可能和大龄程序员差不多，但是当需要解决公司的技术性难题、或对项目重构时，大龄程序员就会发挥自身的优势：</p>
+<ul>
+<li>某种技术方向上有深厚积累；</li>
+<li>项目经验丰富；</li>
+<li>业务积累深厚；</li>
+<li>解决问题能力强；</li>
+<li>设计、架构、分析、规划等方面能力较强；</li>
+<li>大局观强，有情绪管理能力，稳定耐造。</li>
+</ul>
+<p><strong>所以我们和年轻程序员拼的不是代码能力，而是项目经验、设计能力和知识输出等。</strong></p>
+<p>如果你已经步入大龄行列，比如有 10 年工作经验，但是真实水平不到 5 年，被淘汰的概率会非常大。</p>
+<p>这里可以给出我的结论：</p>
+<ul>
+<li>“35 岁危机”是否存在？这个毋庸置疑，肯定是存在的。</li>
+<li>公司是否排斥大龄程序员呢？在我看来，<strong>公司排斥的不是大龄程序员，而是排斥能力和自己工龄不匹配的大龄程序员。</strong></li>
+</ul>
+<h2 id="_2-如何应对危机" tabindex="-1"> 2. 如何应对危机 ？</h2>
+<h3 id="_2-1-克服焦虑" tabindex="-1"> 2.1 克服焦虑</h3>
+<p>“35 岁危机”一直存在，准确来说大龄危机一直存在。</p>
+<p>拿我个人来说，我认为能做到 40 岁，但很难做到 45 岁，做到 50 岁更遥不可及（大神除外），所以危机无法避免，只能尽量去延长我在这个行业的生命线，并在“退休”前完成一定的财富积累。</p>
+<p>如果能有上面这个觉悟，其实就没有那么焦虑，因为我们最终都会离开这个行业，只是时间早晚的问题。</p>
+<p>所以我的目标就非常清晰：<strong>不是要守住程序员这个行业，而是尽量延长我在这个行业的生命线。</strong></p>
+<p>那如何才能延长职业生命线呢？答案是<strong>持续学习！</strong></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-ff036054-7e53-4a61-bf10-95ac18dbff2f.jpg" alt="" loading="lazy"></p>
+<p>IT 行业的技术更新换代非常快，对个人综合能力要求非常高，如果你不持续学习，等到年龄危机到来时还想躺赢，下一批裁员的可能就是你了。</p>
+<p>持续学习是一切的前提，但我们不能盲目去学习，需要提前做好职业规划。</p>
+<h3 id="_2-2-提前做好职业规划" tabindex="-1"> 2.2 提前做好职业规划</h3>
+<p>我们看看程序员常规的晋升和转型路线：</p>
+<ul>
+<li><strong>技术型</strong>：初级工程师-&gt;中级工程师-&gt;高级工程师-&gt;架构师(技术专家)-&gt;技术总监-&gt;CTO；</li>
+<li><strong>管理型</strong>：工程师-&gt;项目组长-&gt;项目经理-&gt;项目总监-&gt;技术总监-&gt;CTO；</li>
+<li><strong>交叉型</strong>：初级工程师-&gt;中级工程师-&gt;项目经理-&gt;技术总监-&gt;CTO(此路线技术和管理交叉进行，每个阶段做的事情不固定)；</li>
+<li><strong>转行型</strong>：初级工程师-&gt;转行产品、设计、销售、运营等。</li>
+</ul>
+<p>下面是更加详细的职业规划，尽量延长自己的生命线，甚至可以摆脱年龄的限制（能摆脱年龄限制，都是大神级别）：</p>
+<ul>
+<li>在某种开发技能上<strong>建立个人品牌</strong>，比如Java、微服务、Hadoop、高并发、C++ 等，而且你的品牌要被业内认可，这样的开发者实际上是以 “技术专家” 的身份存在。</li>
+<li>在组织内<strong>开发技能过硬、精通业务，成为复合型选手，占据难以替代的位置</strong>。这样的开发者，可以称之为高级开发工程师或者资深开发者，这样的角色，在一个合适的平台上可以受到重视，可以跟着平台发展，不用在意年龄。退一步讲，即便所在的平台倒掉了，也会有很多公司愿意要。</li>
+<li>成为<strong>善于架构某类软件服务的架构师</strong>。这是从高级开发工程师演进过来的更高级的角色，当你真正做过一些大型系统的架构工作，会有很多公司需要你，不必担心你的年龄，你工作自由了。</li>
+<li><strong>走向管理岗位，成为职业经理人</strong>。很多公司都有项目经理、技术经理、研发经理等管理角色，你需要能够真正做好管理工作。</li>
+</ul>
+<h2 id="_3-需要具备的核心技能" tabindex="-1"> 3. 需要具备的核心技能</h2>
+<h3 id="_3-1-技术方面" tabindex="-1"> 3.1 技术方面</h3>
+<p><strong>技术才是每一个程序员的安身立命之本</strong>，无论你处于哪个阶段，都不要把技术完全落下，区别只是在各个阶段对技术要求的侧重不同：</p>
+<ul>
+<li>初中高级程序员：一个技术强化的过程；</li>
+<li>专家：选择一个技术方向深耕，成为对应技术领域的专家；</li>
+<li>架构师：更偏向对项目整体架构的设计和把控能力；</li>
+<li>团队负责人到 CTO：管理职能更大于技术职能，更多的是对技术的宏观方向把控。</li>
+</ul>
+<p>技术方面主要有以下几点建议：</p>
+<ul>
+<li><strong>先广后深，打造自己的核心竞争力。</strong> 你可以是微服务领域的专家，也可以是 ES 大佬，或者精通 Flink。</li>
+<li><strong>拒绝啃老本。</strong> 不要在一个公司混了 3 年，出来找工作投简历，发现简历都投不出去，Spring Cloud 都不知道是什么，微服务、分布式完全没接触，还是只会基于 SSH 的 CURD。2/3 线城市还好说，在一线城市工作的，技术迭代更新比较快，一定要跟紧主流技术。</li>
+<li><strong>要形成自己的技术体系。</strong> 什么是技术体系，举个例子，你说自己会 MySQL 数据库，但是除了日常写 SQL 进行 CURD 的业务开发外，你还知道 MySQL 的运行架构，主流存储引擎的区别，主从同步原理、组复制、锁机制、分表分库、事务控制这些吗？围绕着技术名称的中心点，能像蜘蛛网那样扩散出去，形成有条理的网状结构，就形成了自己的技术体系。</li>
+<li><strong>尽可能做多做一些总结输出。</strong> 我目前的做法是将日常的一些学习笔记、人生感悟、bug 解决过程等先简单记录在有道笔记上面，后面再逐渐整理输出，既可以回顾总结反思，也能作为一些博客的内容输出。</li>
+<li><strong>不要浅谈技术</strong>（这点大家勿喷）。作为程序员，需要有一定的技术信仰，但也不能太过迷信技术。在职场中，<strong>你要比别人走的更高更远的话，只会敲代码实现一些业务功能是远远不够的</strong>。其实在很多开发公司，开发人员的地位都比较一般，来去匆匆，始终是底层的搬砖工。所以，不要傻傻地一头扎入了技术的海洋，每个人的精力都是有限的。除了技术实力外，你还需要有意识地培养自己的沟通表达能力、文档输出能力，比如项目说明文档、项目架构图、汇报 PPT、团队管理、项目管理、项目规范、抽象化思维、产品化思维等综合实力。</li>
+</ul>
+<h3 id="_3-2-架构和设计" tabindex="-1"> 3.2 架构和设计</h3>
+<p>架构师是很多开发者的终极技术梦想，能成为架构师的凤毛麟角。</p>
+<p>但是，<strong>每个人都必须要架构和设计软件的能力！</strong></p>
+<p>如果你没有架构、设计的能力，就无法站在更高维度去理解软件开发，就必然被迫奋战在最简单也最容易被替代的体力化的编码工作岗位，而这样的岗位，必然是拒绝大龄程序员的。</p>
+<p>所以，即便你还不是架构师，也不是技术经理，也不是管理人员，也不是需求分析师，你也需要在日常工作中拔高一点，经常性的、刻意地去想一想，系统的模块为什么这么划分，服务间的接口为什么这么设计，这个业务逻辑为什么要这样实现而不是那样实现。</p>
+<p>惟其如此，你才能慢慢理解别人的架构与设计，才能慢慢培养自己的架构与设计能力。</p>
+<h3 id="_3-3-业务能力" tabindex="-1"> 3.3 业务能力</h3>
+<p>所有开发者都要记住一点，开发者具有双重的行业属性：<strong>软件行业属性和软件所要解决的问题所属行业的属性。</strong></p>
+<p>软件所要解决的问题，就是我们通常所说的业务。比如支付宝的业务是支付问题，京东商城的业务是电子商务问题，携程的业务是机票和酒店预订问题。</p>
+<p>精通业务，可以成为开发者的优势，这是开发者在问题域构建起来的优势，即所谓的懂行。</p>
+<p>如果业务积累方面的优势和开发技能方面的优势能叠加起来，那这位开发者，就具有<strong>秒杀 85% 以上开发者的能力</strong>。</p>
+<p>再比如，目前国内技术人员太多，可替代性太强，做 Java 搞业务开发的，无非就是 Spring boot + MyBatis + MySQL，需要上微服务就采用 Spring Cloud 全家桶，通用型太强。</p>
+<p>而如果你既懂技术又熟悉核心业务流程，比如熟悉电商平台、支付系统、风控系统等的核心业务流程，那么你在团队的地位一定稳如泰山。</p>
+<h3 id="_3-4-软技能" tabindex="-1"> 3.4 软技能</h3>
+<p>《软件架构师的 12 项修炼》这本书里给出了软件架构师的金字塔能力模型：</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-c24a3550-d551-4f71-b209-f66d4675afc8.jpg" alt="" loading="lazy"></p>
+<p>这个模型，适用于绝大多数软件开发工程师，在这本书里，作者说这么一句话。</p>
+<p><strong>大多数时候所谓的“技术之玻璃天花板”，其实只是缺乏软技能而已</strong>。这些技能可以学到，缺乏的知识可以通过决定改变的努力来弥补。</p>
+<p>我们每位开发者都要牢记这句话，要清醒地意识到：</p>
+<ul>
+<li>不深入钻研，缺乏开发技术等硬技能，你很难在初期的职业生涯（0 ~ 5 年）中做出成绩<strong>占据重要位置</strong>；</li>
+<li>没有沟通、协商、领导力、语境切换、创新、认知等软技能，你很难在职场上<strong>走出高度</strong>。</li>
+</ul>
+<p>所以，在你掌握一定的开发技术可以搞定一些任务后，就要并行地去培养自己的软技能，比如沟通、表达、协商、演讲、辅导、写作、组织、规划、管理、汇报、商务谈判、创新、设计等等。</p>
+<p><strong>只有软技能匹配你的硬技能，你才能更好地发展</strong>，当你软硬结合，综合能力爆棚时，根本不用担心将来怎么找工作的问题，工作机会会跟着你跑，甚至有人会专门为你创造工作机会。</p>
+<h2 id="_4-其它建议" tabindex="-1"> 4. 其它建议</h2>
+<p>除了持续学习、往技术或者管理方向发展以外，我觉得有以下几点也需要重点关注。</p>
+<h3 id="_4-1-锻炼身体" tabindex="-1"> 4.1 锻炼身体</h3>
+<p>之所以写在最前面，因为身体是革命的本钱，有句话非常经典。</p>
+<p><strong>身体是 1，其他都是 0，没有 1，再多的 0 都是空。</strong></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-bc05d1ad-558b-420c-a033-0cf639e66953.jpg" alt="" loading="lazy"></p>
+<p>魔都一位技术人员，总以为自己年轻，身体硬扛得住，结果一次晕倒后，医院检查发现自己得了尿毒症，没有好的身体，你挣再多钱都没有意义，一旦你因为身体而离开人间，配偶、孩子、钱都是别人的了。</p>
+<h3 id="_4-2-发展副业" tabindex="-1"> 4.2 发展副业</h3>
+<p><strong>提前布局 PlanB，做好副业。</strong></p>
+<p>做副业的目的，就是增加自己的收入，同时也是倒逼你去学习更多的知识，让你的技术能力提升更快，也为你未来创业做准备，增加你抗风险的能力。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-ccd0adf8-31a0-4931-9cae-d53270fa5890.jpg" alt="" loading="lazy"></p>
+<p>除了以上好处，副业也会提升你的个人能力、扩大你的圈子。</p>
+<h3 id="_4-3-拓展圈子" tabindex="-1"> 4.3 拓展圈子</h3>
+<p>越是成功的人，他的圈子就越广，资源也越多，人生的路自然就越走越宽。</p>
+<p>最近一段时间认识musk后，我就发现，生活工作又了新的不一样，我进入了另外一个资源共享的圈子，我们做开源，做的不亦乐乎。</p>
+<p>所以多向上拓展你的圈子，多走近结交那些正能量、有想法、志同道合的人。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-a7825336-07e5-4414-8858-dec7c0a14b5b.jpg" alt="" loading="lazy"></p>
+<p>兴许下次换工作，是圈子里的人脉直接内推让你找到一份满意的工作，更有可能，圈子里的几个朋友因为某一个好点子直接走向创业之路。</p>
+<h2 id="_5-写在最后" tabindex="-1"> 5. 写在最后</h2>
+<p>再回到文章开头的问题，其实我 2 年前还很焦虑，但是现在不再焦虑，反倒信心更足了。</p>
+<p>我目前基本都是按照上面的轨迹去走，已经走了 2 年，各方面的软硬技能都已具备，<strong>所以在公司，基本不太担心被裁。</strong></p>
+<p>可能有同学会问，那当你 35 岁以后，万一公司倒闭了呢 ？</p>
+<p>如果自己还不到 40 岁，找一份大厂的工作，应该不难，如果到了 40 岁，我也完成一定的财富积累，<strong>手中有粮，心里不慌。</strong></p>
+<p>为了以后能有退路，我也在布局自己的 Plan B，扩展自己的人脉圈子，比如写公众号、搞创业项目。</p>
+<p><strong>如果副业能做起来，说不定以后就靠这谋生，如果没做起来，我也收获了人脉和经验，为下一次创业蓄力</strong>，何乐而不为呢？</p>
+<p>最后送上大家一句话：工作可以是事业、是热爱，也可以只是一份工作，<strong>给自己留出转身的空间很有必要</strong>，如果把工作看作一份经历和沿途的风景，在乎过程中的经历、感受多过最后的结果，可能会让人生更加充满期待。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-13911d3c-6806-4eab-81dc-319fbc0d2a0d.jpg" alt="" loading="lazy"></p>
+<h2 id="ending" tabindex="-1"> ending</h2>
+<p>一个人可以走得很快，但一群人才能走得更远。欢迎加入<a href="https://mp.weixin.qq.com/s/e5Q4aJCX9xccTzBBGepx4g" target="_blank" rel="noopener noreferrer">musk的编程星球</a>，目前已经有 <strong>710 多名</strong> 球友加入了。</p>
+<p>最近一段时间，musk也没闲着，和球友炳源一起，正在紧锣密鼓地更新 Java 版LeetCode 题解，我们并不刻意追求 beat 100%，但效率总是出乎意料的优秀。与此同时，我们也在力求每一个题解都能通俗易懂，深入到底层，给大家举一反三的能力。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-5788d535-ff4a-4af0-8ef5-0c56ffeedf0a.png" alt="" loading="lazy"></p>
+<p>就比如说为了讲清楚暴力算法和 KMP 算法的区别，我们可以说是煞费苦心。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-f0984121-b3cb-4476-961c-ae55f0eb7c5b.png" alt="" loading="lazy"></p>
+<p>除了星球提供的三份高质量专栏，《Java 面试指南》、《编程喵 🐱（Spring Boot+Vue 前后端分离）实战项目笔记》、《Java 版 LeetCode 刷题笔记》，这里也沉淀了非常多优质的内容，包括球友和musk分享的精华贴，还有musk精心回答过的球友提问。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-589510f2-4281-4ac3-b9ba-787d0d3105d3.png" alt="" loading="lazy"></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-826265f7-cead-4325-9d39-ec94951c0823.png" alt="" loading="lazy"></p>
+<p>如果你也需要一个良好的学习氛围，<a href="https://mp.weixin.qq.com/s/e5Q4aJCX9xccTzBBGepx4g" target="_blank" rel="noopener noreferrer">戳链接加入我们的大家庭吧</a>！这是一个 Java 学习指南 + 编程实战 + LeetCode 刷题的私密圈子，你可以向musk提问、帮你制定学习计划、跟着musk一起做实战项目，和球友一起打卡学习，自律得飞起！</p>
+<p>欢迎点击左下角<strong>阅读原文</strong>了解musk的编程星球详情，这可能是你学习求职路上最有含金量的一次点击。</p>
+<hr>
+<p>没有什么使我停留——除了目的，纵然岸旁有玫瑰、有绿荫、有宁静的港湾，我是不系之舟。</p>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/R8IonWhFfNk0H1vUgjEadg" target="_blank" rel="noopener noreferrer">面试通过，背调凉了！</a></li>
+<li><a href="https://mp.weixin.qq.com/s/iiGGsfvPzNIcWFdH0LStjw" target="_blank" rel="noopener noreferrer">推荐一些小而美的互联网公司</a></li>
+<li><a href="https://mp.weixin.qq.com/s/WO0MYpWI3m_18Yohe0SzMA" target="_blank" rel="noopener noreferrer">有哪些值得计算机专业加入的国企？</a></li>
+<li><a href="https://mp.weixin.qq.com/s/WjYQR90VHJ7OPDhA-55Iug" target="_blank" rel="noopener noreferrer">三十岁的我，自由了！</a></li>
+<li><a href="https://mp.weixin.qq.com/s/ja_fEGFBBWM3TLhdT0aeMw" target="_blank" rel="noopener noreferrer">今年这情况，真有点想读研了</a></li>
+<li><a href="https://mp.weixin.qq.com/s/lCdFvto1A7X4wHkJk4_iNA" target="_blank" rel="noopener noreferrer">如何防止订单重复支付？</a></li>
+<li><a href="https://mp.weixin.qq.com/s/yH42DxmRBSjrr0SW9N3MFg" target="_blank" rel="noopener noreferrer">专升本上岸的秘诀</a></li>
+<li><a href="https://mp.weixin.qq.com/s/miOagyv4x3HrqVaU38uh4w" target="_blank" rel="noopener noreferrer">愤怒，一个破培训班要价 28 万</a></li>
+</ul>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-rumrabbitmqzypjdg-53717e59-63c9-44bd-99d3-dd2c26fe68bb.png" alt="" loading="lazy"></p>
+<blockquote>
+<p>参考链接：<a href="https://mp.weixin.qq.com/s/jtwD0Iodg7-HsHEJh2ubZw" target="_blank" rel="noopener noreferrer">https://mp.weixin.qq.com/s/jtwD0Iodg7-HsHEJh2ubZw</a>，出处：楼仔，整理：musk</p>
+</blockquote>
+<hr>
+]]></content:encoded>
+      <enclosure url="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-a1c73ba1-4f12-4bb9-a64b-14bb7cc86ec5.png" type="image/png"/>
+    </item>
+    <item>
+      <title>计算机考研 408 统考该如何准备？</title>
+      <link>https://newzone.top/study_suggest/408.html</link>
+      <guid>https://newzone.top/study_suggest/408.html</guid>
+      <source url="https://newzone.top/rss.xml">计算机考研 408 统考该如何准备？</source>
+      <description>2020年一战上海交通大学计算机系上岸。个人背景是应用数学跨考计算机，本科绩点3.75+，放弃了学校的保研…</description>
+      <category>知乎</category>
+      <pubDate>Sun, 04 Dec 2022 15:45:11 GMT</pubDate>
+      <content:encoded><![CDATA[<p>最近有好几个球友问考研和保研的事情，也有一些球友问了musk到底如何备考 408 的事情，那借这个机会，就分享一篇网友若水如鱼的考研经验贴，供大家借鉴和参考（musk做了部分的删减和优化，并增加了一些其他的内容）。</p>
+<blockquote>
+<p>以下👇🏻是全文。</p>
+</blockquote>
+<p>简单做以下自我介绍，我是2020年一战<strong>上海交通大学</strong>计算机系上岸的。算是跨考计算机，本科绩点 3.75+，放弃了学校的保研资格。408 的四门专业课中，除了自己额外选修的数据结构外，其余三门专业课完全没有接触过。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-8b592fe3-70ca-4003-88b9-9c124cba6a43.jpg" alt="" loading="lazy"></p>
+<p>计算机基础综合408被誉为工科考研最难的专业课。（当然不包括清华的912哈哈哈~）包含4门计算机专业最核心的专业课，且没有官方指定的参考书，可以考察任何与这四门专业课相关的知识点。</p>
+<p>而且几乎每次考试，都会出现一些在常规课本上找不到的知识点。出题老师为了在卷面150分内尽可能的涵盖知识点，往往试卷中的每一道题，都是多知识点交叉，这一特点在大题中体现的尤为突出。408由于是联考，所以每次出题的老师并不固定，往往试卷的风格也相当多变。</p>
+<p>我个人正式的考研准备是从4月份开始，一直持续到12月考研前，总计<strong>二百七十余天</strong>。</p>
+<p>我在考研的初期，大概花了两天到三天的时间，把知乎和王道论坛上所有的408高分贴全部整理了一遍，因为虽然每个人之间个体存在差异，但我<strong>坚信高分的备考经验之间是一定存在共性的</strong>。</p>
+<p>我统计了这些经验贴中出现次数最多的参考书，标注出了每本书的精华部分。然后参照高分学长学姐们的复习规划，和反复被他们提及的复习方式，做了一份很详尽的复习安排。后面的复习过程，就可以用这份计划，确定自身的复习进度，做到心里有数。</p>
+<p><strong>建议大家如果有时间的话，复习安排一定要自己亲自做</strong>（由此可以看出，学习计划真的非常重要，球友们也一定要量身打造属于自己的学习计划）。因为每个人的实际情况不同，计划安排一定要根据自己的情况量身定做的，千万不要盲目照搬别人的计划，非常容易打乱了自己的节奏。</p>
+<h2 id="考研资料" tabindex="-1"> 考研资料</h2>
+<p>下面说一下复习过程中需要用到的资料，首先是<strong>王道</strong>和<strong>天勤</strong>的全套复习全书，对于考408的同学来说这两套书不用多说，果断全部入手。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-603fd711-e756-49fe-a3d1-eda7718e513a.jpg" alt="" loading="lazy"></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-690d0f2f-673b-4c3f-9f58-dac69766c8db.jpg" alt="" loading="lazy"></p>
+<p>然后必备的还有王道出的<strong>真题解析</strong>，这个也不用多说，重中之重，务必要研究透。最后用来练手的<strong>王道和天勤模拟题</strong>。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-b3cf8043-06be-48e2-b3c8-27c49ad334d4.jpg" alt="" loading="lazy"></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-9b7b8f7f-6097-40d3-95b1-9f4ca1292be9.jpg" alt="" loading="lazy"></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-2f64d876-04ba-40de-96e5-3b3a28115e1f.jpg" alt="" loading="lazy"></p>
+<p>其实我相信很多跨考的同学，在一开始复习408这四门专业课的时候，都是一种很懵的状态。四门专业课太繁杂了，相互交织在一起不知道该从哪里入手，我认为比较合理的顺序是<strong>数据结构</strong>--》<strong>计算机网络</strong>--》<strong>操作系统</strong>--》<strong>计算机组成原理</strong>。</p>
+<p>数据结构是基础中的基础，后面的三门专业课中或多或少都会涉及到数据结构的内容，所以我们把数据结构放在最开始学。然后是计算机网络，因为相对来说计网的知识点是相对孤立的，且以记背为主。需要理解的难点并不多，放在数据结构之后，可以作为一个缓冲，调节一下复习的节奏。然后是操作系统和计组，因为这两门课在一些知识点上是交叉的，有些经验贴可能会建议把两者放在一起复习。对于完全没有基础的跨考的同学，由于对这两门课整体的结构并没有一个宏观上清晰的认识，直接就把两门课结合在一起学，效果并不好。</p>
+<p>我个人的建议是第一遍学的时候，先学操作系统了解软件，再学计组了解底层的硬件，先对总体有一个大概的印象。等到第二轮复习时，再把两门课相关联的知识点，结合在一起学习。两门课相互关联的知识点如存储，O/I等也是考试的重难点，非常容易混淆，需要多次反复理解。我第二遍复习才大体上理解了这些知识点，到第三遍复习才做到了融会贯通。（tips：对于这些知识点，可以考虑自己整理一张表格，对照记忆，对理解知识点很有帮助）</p>
+<h2 id="时间进度" tabindex="-1"> 时间进度</h2>
+<p>我的专业课复习的时间进度具体如下：</p>
+<p>4.1—4.20 结合教材，大话数据结构，天勤数据结构复习全书，复习数据结构。（一天4小时左右）</p>
+<p>4.20—5.05 做完王道计算机网络上<strong>选择题</strong>，大题第一遍做的时候可以不做，复习主要看王道辅导书前面的知识点，有不懂的再参考教材。（有不懂的地方可以看看视频，如果学习能力较强的话，可以直接看书，比看视频节省很多时间）</p>
+<blockquote>
+<p>ps：王道前面整理的知识点真的很好，我一个完全没基础的小白，就靠直接看王道书前面的知识点，基本408入门完全足够了。</p>
+</blockquote>
+<p>5.05—6.05 做完王道操作系统和计算机组成原理的王道复习书，复习过程同计算机网络，只做选择题，大概15天一本（一天4.5小时左右）</p>
+<p>经过<strong>第一轮复习</strong>，对4门专业课的知识点有了一个粗浅的认识，会有很多不理解的知识点，留到第二轮复习再解决。接下来二刷的时候如果还是有很多知识点遗忘，不要紧，这是正常现象。</p>
+<p>6.05—6.20 全面复习数据结构知识点，及第一轮复习遗留下来的难点。写完王道数据结构辅导书，<strong>选择题和大题</strong>。</p>
+<p>6.20—8.25 依照类似的步骤，完成计网，操作系统，计组的王道复习全书的<strong>二刷</strong>。</p>
+<p>8.25—9.25 对照天勤408复习全书整理的知识点和教材，进行对4门课的知识点进行<strong>第三轮复习</strong>，查漏补缺。这里快速的把天勤复习全书上的题刷完。（整理出一份自己的重要知识点汇总，和易混知识点的对比，这一步很重要，是对前三轮复习的升华）</p>
+<p>9.25—10.15 做完408计算机综合11年真题，可以不按照卷子刷，但真题里的每道题每一个知识点都要搞懂，尤其是大题。408的大题比较难，但是有套路，摸清套路以后，就会发现每年的大题是很类似的。（第一次做的时候，找不到套路很正常，后面还会做很多遍真题，慢慢就会有感觉的）</p>
+<p>10.15—11.15 <strong>第四遍</strong>复习专业课，把王道书上的错题重刷，复习巩固知识点。</p>
+<p>11.15—12.20 做王道8套模拟题，和天勤8套模拟题，中间穿插真题的二刷，和专业课<strong>第5轮复习</strong>（其实王道的复习书上就会有真题，408的真题最后来来回回，起码会做到4，5遍）王道和天勤模拟题上的大题质量都一般，主要限时做上面的选择题，大题可以有选择性的做上面质量稍微高一些的题。</p>
+<h2 id="复习要点" tabindex="-1"> 复习要点</h2>
+<p>下面我再对各科的复习要点进行一些补充。</p>
+<h3 id="数据结构" tabindex="-1"> <em><strong>数据结构</strong></em></h3>
+<p>数据结构天勤的复习全书写的比较好，但是题目的数量不如王道多。所以复习的时候可以把天勤的书当教材，王道的书当习题集来用。可以买一本大话数据结构来当作补充的参考书。这本书比较通俗易懂，不推荐 严蔚敏版的数据结构，内容对于艰深了，对初学者十分劝退。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-d1e76126-5fd6-4a84-a6f5-a7f724594edf.jpg" alt="" loading="lazy"></p>
+<p>第一遍刷全书的时候像算法题之类的大题可以考虑不写，等二刷的时候再写。算法题可以考虑看晴神写的算法笔记（星球的百度网盘里有），算法的原理讲的很清晰细致，而且书上都是可以直接运行的代码，对于初学者十分友好。</p>
+<p>还有一本实战指南，上面是浙大PAT甲级和乙级题目的题解，其实对于跨考的同学，最好在准备初试的时候就顺便准备一下机试，这样不仅408中的算法题可以手到擒来，复试考机试的时候也更有底一些。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-e3c9b92a-2fc0-4497-850f-2c4d481121d0.jpg" alt="" loading="lazy"></p>
+<p>我在考研中间，去考过一次9月份的<strong>PAT甲级</strong>，最后得了80+。虽然分数不算高，但也是对自己努力成果的一种检验。如果考浙大的话，PAT可以作为复试时机试的分数，考其他学校，也可以作为复试时向老师展示自身编程能力的证明。</p>
+<h3 id="计算机网络" tabindex="-1"> <em><strong>计算机网络</strong></em></h3>
+<p>因为我是跨考，对计网完全没接触过，刚开始学的时候其实是挺心慌的。所以开始学的时候是先看视频再做王道上的题，后来发现这样复习效率太低，索性就直接看王道每章之前总结的知识点，然后做题。其实直接看王道书前总结的知识点，对于专业课的第一轮复习来说是完全足够的，有不懂的地方再直接看看教材就行了。就计网的知识点总结来说，天勤相应的更好一些。计网的教材就只需要<strong>谢希仁</strong>的计算机网络一本书就可以了，写的非常详细。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-fcde3b2f-067b-4431-8816-47fed10b9147.jpg" alt="" loading="lazy"></p>
+<p>等到第二轮，第三轮复习的时候，再把天勤复习全书和教材上的一些额外的知识点整理到王道的书上，或者单独做一份笔记都是可以的。</p>
+<h3 id="操作系统" tabindex="-1"> <em><strong>操作系统</strong></em></h3>
+<p>操作系统我觉得王道的书编的挺不错的，直接看王道就行。第二章的pv操作，一般出现在408的大题，考察的频率还是挺高的，大概三年两考。但是我觉得王道和天勤上的某些题难度是要比真题大的，所以把王道天勤上的模拟题都能全部搞懂的话，pv操作这道题肯定是没什么问题的。第三章的内存管理和文件管理是重难点，最好多结合几本书来理解，这里推荐<strong>操作系统概念</strong>，是浙大的教材，在操作系统的软件这一块写的相当不错。有条件的同学也可以和同学多讨论讨论或者看看网课，千万不要自己浅谈，真的很浪费时间。（我这块知识点，前前后后，直到第三轮复习才彻底搞懂）。最后的O/I章节可以看看<strong>计算机操作系统</strong>这本书，硬件讲的很不错。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-237c6fef-3d48-4042-9e25-bbfdff18bd43.jpg" alt="" loading="lazy"></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-eac450ce-25f3-42c3-992a-eb7667811298.jpg" alt="" loading="lazy"></p>
+<h3 id="计算机组成原理" tabindex="-1"> <em><strong>计算机组成原理</strong></em></h3>
+<p>计组算是我复习过程中困难最大的一门课了，其实现在回想起来，408中考察的机组并不难，甚至后期做真题时我最喜欢做的部分就是机组。只是因为我在复习的时候没有经验，在细枝末节上消耗了大量的精力，才在初期产生了计组很困难的错觉。</p>
+<p>第二章的数制与编码可能会让很多跨考的同学很不适应，但其实里面比较难的效验码的内容只需记住就行，不必深究其原理，考试也很少涉及。还有乘法、除法、算数逻辑单元的设计一类的知识点非常复杂，但在考试中几乎不会涉及，能理解当然最好，不能理解的话，千万不要浅谈。后面的部分我觉王道的知识点总结的相当不错，这里再推荐几本教材作为参考书<strong>白中英</strong>的计算机组成原理，这本书也是我的主力教材。<strong>陆遥</strong>的计组，对快表硬件之类讲的很清楚。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-df42dabd-45ac-42a3-814a-116378f5740d.jpg" alt="" loading="lazy"></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-f21555d8-149f-4bbb-8657-90b7384e4972.jpg" alt="" loading="lazy"></p>
+<p>再一个就是<strong>袁春风</strong>版的计算机组成与系统结构。袁春风据说是以前的<strong>命题人</strong>，计组的真题里有时会出现其他书上没有的知识点，多半可以在袁春风的书上找到。这本书和主要参考了计算机组成与设计 硬件软件接口，也就是所谓的黑书，看了这本的话，黑书就基本可以不用买了。最后总结一下，计组这门课，开始学的时候会感觉很难很复杂，但当你真的学懂了以后，会发现整个脉络是十分清晰的。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-ec6e8002-9358-4025-8e86-136b5bdf9f3c.jpg" alt="" loading="lazy"></p>
+<p>就我自己看下来，计组不推荐黑书，这个观点可能在某些同学看来算是政治不正确了。但我觉得考研唯一的目的就是要拿高分，黑书的知识点和考研不是直接相关，用它来复习考试很低效。况且很多国内的教材也很优秀，而且章节编排完全符合考研，把国内教材用好，对付408足够了。</p>
+<h2 id="总结" tabindex="-1"> 总结</h2>
+<p>对整个408的复习做一个总结，因为我是跨考，所以408的复习其实是占据了我考研复习非常多的精力的。前期每天<strong>4个小时</strong>，后期政治压力上来了，也基本保证每天<strong>3小时</strong>。408也是命题非常合理成熟的一门科目，当你水平到了，几乎不会有发挥失常的情况，它一定会给你一个满意的分数的。</p>
+<p>最后强调一个被无数大佬强调过的408复习准则——反复多次。前期可以跳过不太重要的知识点，随着后面一轮一轮的复习，再把这些知识点融入到自己的知识体系中。还有就是真题一定好好研究，命题老师经常喜欢把之前的真题改改，又出成新的题目。</p>
+<blockquote>
+<p>参考链接：<a href="https://www.zhihu.com/question/22823169/answer/1342552127" target="_blank" rel="noopener noreferrer">https://www.zhihu.com/question/22823169/answer/1342552127</a>，整理：musk</p>
+</blockquote>
+<hr>
+]]></content:encoded>
+      <enclosure url="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-8b592fe3-70ca-4003-88b9-9c124cba6a43.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title>计算机专业该如何自学编程，看哪些书哪些视频哪些教程？</title>
+      <link>https://newzone.top/study_suggest/LearnCS-ByYourself.html</link>
+      <guid>https://newzone.top/study_suggest/LearnCS-ByYourself.html</guid>
+      <source url="https://newzone.top/rss.xml">计算机专业该如何自学编程，看哪些书哪些视频哪些教程？</source>
+      <description>CS 自学指南（Java编程语言、数据库、数据结构与算法、计算机组成原理、操作系统、计算机网络、英语、简历、面试）</description>
+      <category>学习建议</category>
+      <pubDate>Sun, 04 Dec 2022 15:45:11 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="前言" tabindex="-1"> 前言</h2>
+<p>回想起我的大学之路，难免觉得有些遗憾，因为学校的整体教学水平有限，而自己又缺乏主动去学习的意愿，就导致蹉跎了不少光阴。</p>
+<p>幸好，工作中感受到生存的压力后幡然醒悟，因为我有这样一种紧迫感——再不抓紧点时间去学习，可能就像某某某同事一样被公司无情地辞退了。</p>
+<p>于是，我便真正走上了一条自学计算机的“不归路”。说“不归路”的原因在于，计算机科学是一个非常庞大的知识体系，我花了好多年的时间，仍然感觉到这条路上还有很多的未知等待我去探索。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-70e25595-b36b-408c-a8e4-3a67261826da.png" alt="" loading="lazy"></p>
+<p>但正因为有太多的未知需要我去探索，所以我每天都能感受到自己在进步，我完全不需要花费数年的光阴去攻读一个学位证书，仅仅依靠我自己，就能获得世界上一流水平的教育。</p>
+<p>互联网上到处都是可以学习的资源，然而精华与糟粕并存。我们需要的，不是“100G”的免费视频教程，或者“500本”的免费电子书，而是：</p>
+<ul>
+<li>我们应当学习哪些科目，为什么？</li>
+<li>对于这些科目，最好的书籍或者视频课程是什么？</li>
+</ul>
+<p>如果你要学习物理，我推荐你顺着物理的发展史学习，先学习牛顿的经典物理，再学习热力学、电磁学，然后学习相对论、量子力学这些彻底推翻经典物理的，最后学习电动力学这种硬核的。</p>
+<p>整个学习过程，是<strong>自底向上</strong>的。但是学计算机，这样行不通。</p>
+<p>先学习电路，然后学习冯诺依曼结构，造一台计算机？接着再学习如何用汇编写个 mini os？接着学习如何写一个简易版的编译器？最后再学习高级编程语言，比如说 Java、Python？</p>
+<p>显然这样是行不通的！计算机的学习最好是<strong>自顶向下</strong>。</p>
+<p>一开始，应该先学一门高级的编程语言，比如说 Java。之后，当你了解到 Java 的性能问题时，你才会发现，啊，原来 Java 是一门解释型的编程语言，而 C 语言是一门编译型的编程语言，所以 Unix/Linux 这种操作系统要用 C 语言来实现，因为要最大限度的利用硬件。</p>
+<p>当你学习到 Java 并发编程中的“原子性”、“同步”、“异步”、“进程”、“内存分配”这些概念的时候，你自然而然会产生很多疑问，然后就会去学习操作系统，学习计算机组成原理，然后你的一系列问题就会逐渐被解决。</p>
+<p>当你发现，用 Java 实现某个业务需求时，人家的算法实现比你快得多，你自然会好奇，为什么会这样？然后你发现人家用的数据结构和你的不同，然后你就会去学习数据结构，接着了解一些高效的算法，比如动态规划等。</p>
+<p><strong>跟着需求去学习，才能真正学好计算机</strong>。没有编程基础就去啃《深入理解计算机系统》这类黑皮书，你很快就会被劝退的。</p>
+<h2 id="编程语言" tabindex="-1"> 编程语言</h2>
+<p>编程语言有很多种，Java、Python、C/C++、Go、JavaScript 等等，新手往往会非常纠结，因为害怕失去，即便是还没有一丁点收获之前。</p>
+<p>选择 Java 吧，常听人说“人生苦短，我用 Python”；选择 Python 吧，常听人说“Go 是 Google 的亲儿子，发展势头正劲”；选择 Go 吧，常听人说“前端（JavaScript 必学）更容易学习一些”；选择 JavaScript 吧，常听人说“C/C++ 具备现代程序设计的基础要求，是很多编程语言的基础。”</p>
+<p>然后就麻了！怎么选呢？</p>
+<p>我是从大一就开始学习的 Java，当时没有选择，因为不知道还有其他编程语言（嘘），学校让学 Java 就学了 Java。只能说非常的幸运，选对了。</p>
+<p>你可以去编程语言排行榜（TIOBE，非常权威）看一下——关于近 10 年编程语言的变化。Java 长期霸占着这份榜单，并且还会持续更久，一门编程语言能有这么顽强的生命力，它一定有别的语言所没有的优点，它与生俱来的竞争力是别的语言无法取代的。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-322598db-68da-4003-ad38-430fed540d77.png" alt="" loading="lazy"></p>
+<h3 id="java-基础" tabindex="-1"> Java 基础</h3>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-ad65b6e6-7880-4c6d-9af2-24597046a77d.png" alt="" loading="lazy"></p>
+<p>可以直接看musk的 <a href="https://tobebetterjavaer.com/" target="_blank" rel="noopener noreferrer">Java 程序员进阶之路</a>，这是一份通俗易懂、风趣幽默的Java学习指南，内容涵盖Java基础、Java并发编程、Java虚拟机、Java企业级开发、Java面试等核心知识点。学Java，就认准凤凰蜕变进阶之路😄</p>
+<p>有了 Java 程序员进阶之路，你甚至不用去看《Java核心技术卷一》。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-52514452-0643-4c42-8e61-616ff04ed56c.png" alt="" loading="lazy"></p>
+<p>尽管《<a href="https://book.douban.com/subject/34898994/" target="_blank" rel="noopener noreferrer">Java核心技术卷一</a>》号称是一本非常适合拿来作为学习 Java 的入门书。</p>
+<ul>
+<li>第三章中的数据类型、变量与常量、运算符、字符串、输入与输出、控制流程、数组；</li>
+<li>第四章中的对象与类、构造方法、final、static、方法参数、方法重载、包、注释；</li>
+<li>第五章的继承、多态、抽象类、方法重写、枚举、反射；</li>
+<li>第六章的接口、Lambda 表达式、内部类、代理；</li>
+<li>第七章的异常、try-with-resource、日志；</li>
+<li>第八章的泛型；</li>
+<li>第九章的集合、链表、队列、Map、栈、算法；</li>
+<li>第十二章的并发编程、线程、同步、synchronized、volatile、原子性、死锁、阻塞队列、CurrentHashMap、CopyOnWriteArrayList、线程池、Callable与Future、fork-join框架、进程；</li>
+</ul>
+<p>因为这本书里囊括的 Java 基础知识，《Java 程序员进阶之路》网站上都囊括了！再推荐两套学习 Java 的视频，戳链接可直达。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-4f7920ff-0dd4-4070-af9d-9f19796efb6c.png" alt="" loading="lazy"></p>
+<p><a href="https://www.bilibili.com/video/BV1Rx411876f" target="_blank" rel="noopener noreferrer">一套是动力节点的，B 站上有超过一千万的播放量</a></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-c28c2bc4-7c46-4504-bcf2-da1c8a813153.png" alt="" loading="lazy"></p>
+<p><a href="https://www.bilibili.com/video/BV1Kb411W75N" target="_blank" rel="noopener noreferrer">一套是尚硅谷的，宋红康老师讲解的</a></p>
+<h3 id="并发编程" tabindex="-1"> 并发编程</h3>
+<p>并发编程的部分比较难一些，需要花时间和精力更专注地学一下。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-1f0a8b9d-43f4-42c1-9114-12103db32e80.png" alt="" loading="lazy"></p>
+<p>可以看一下这份《<a href="https://tobebetterjavaer.com/pdf/java-concurrent.html" target="_blank" rel="noopener noreferrer">深入浅出 Java 多线程</a>》，几位在大厂工作过的技术大佬开源的，为了写好这份小册子，他们阅读了大量的 Java 并发编程方面的书籍和技术博客，加上他们在工作中积累的一线开发经验，汇聚而成。</p>
+<p>我把并发编程中经常被问到的面试题列举一下，你可以拿来自测：</p>
+<ul>
+<li>并行和并发有什么区别?</li>
+<li>线程和进程的区别?</li>
+<li>守护线程是什么?</li>
+<li>创建线程有哪几种方式?</li>
+<li>说一下 runnable 和 callable 有什么区别?</li>
+<li>线程有哪些状态?</li>
+<li>sleep() 和 wait() 有什么区别?</li>
+<li>notify()和 notifyAll()有什么区别?</li>
+<li>线程的 run()和 start()有什么区别?</li>
+<li>创建线程池有哪几种方式?</li>
+<li>线程池都有哪些状态?</li>
+<li>线程池中 submit()和 execute()方法有什么区别?</li>
+<li>在 java 程序中怎么保证多线程的运行安全?</li>
+<li>多线程中 synchronized 锁升级的原理是什么?</li>
+<li>什么是死锁?</li>
+<li>怎么防止死锁?</li>
+<li>ThreadLocal 是什么?有哪些使用场景?</li>
+<li>说一下 synchronized 底层实现原理?</li>
+<li>synchronized 和 volatile 的区别是什么?</li>
+<li>synchronized 和 Lock 有什么区别?</li>
+<li>synchronized 和 ReentrantLock 区别是什么?</li>
+<li>说一下 atomic 的原理?</li>
+<li>Java 内存模型（JMM）、重排序与 happens-before 原则了解吗？</li>
+<li>AQS了解么？原理？AQS 常用组件：Semaphore (信号量)、CountDownLatch （倒计时器） CyclicBarrier(循环栅栏)</li>
+<li>ReentrantLock 、 ReentrantReadWriteLock</li>
+<li>CAS 了解么？原理？</li>
+<li>并发容器：ConcurrentHashMap 、 CopyOnWriteArrayList 、 ConcurrentLinkedQueueBlockingQueue 、ConcurrentSkipListMap</li>
+<li>Future 和 CompletableFuture</li>
+</ul>
+<h3 id="jvm" tabindex="-1"> JVM</h3>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-824cf838-00ac-4ebe-b887-3e1e212e5b54.png" alt="" loading="lazy"></p>
+<p>周志明老师的《<a href="https://book.douban.com/subject/34907497/" target="_blank" rel="noopener noreferrer">深入理解 Java 虚拟机</a>》绝对是学习 Java 虚拟机的首选。自 2011 年上市以来，前两版累计销量超过 30 万册，第 3 版在第 2 版的基础上做了重大修订，内容更丰富、实战性更强。</p>
+<ul>
+<li>第二部分（2-5章），主要涉及到内存管理、垃圾收集、性能监控等；</li>
+<li>第三部分（6-9章），主要涉及到类文件结构、类加载机制、字节码执行引擎等；</li>
+</ul>
+<p>第二部分和第三部分是学习的重点。我把 JVM 中经常被问到的面试题列举一下，你可以拿来自测：</p>
+<ul>
+<li>说一下 JVM 的主要组成部分?及其作用?</li>
+<li>说一下 JVM 运行时数据区?</li>
+<li>什么是双亲委派模型?</li>
+<li>说一下类装载的执行过程?</li>
+<li>怎么判断对象是否可以被回收?</li>
+<li>说一下 JVM 有哪些垃圾回收算法?</li>
+<li>说一下 JVM 有哪些垃圾回收器?</li>
+<li>详细介绍一下 CMS 垃圾回收器?</li>
+<li>新生代垃圾回收器和老生代垃圾回收器都有哪些?有什么区别?</li>
+<li>简述分代垃圾回收器是怎么工作的?</li>
+<li>说一下 JVM 调优的工具?</li>
+<li>常用的 JVM 调优的参数都有哪些?</li>
+</ul>
+<p>其实学习 Java 虚拟机不只是为了面试，还能帮我们更深入地理解 Java 这门语言，也能为线上排查问题打下基础。</p>
+<h3 id="spring" tabindex="-1"> Spring</h3>
+<p>网上总一些人，会很偏激，认为学 Spring 全家桶没什么用，他的理由是技术迭代太快，框架迟早是会被淘汰的，等你学会了，没准框架就过时了。还有一些人会杠，怎么 Java 程序员变成了 Spring 程序员呢？</p>
+<p>怎么说呢？对于 Java Web 开发来说，Spring 已经成为和 Java 核心库一样的基础设施，如果你想成为一名合格的 Java 程序员，Spring 是必经之路。</p>
+<p>另外，一个很重要的点，就是，自学的过程中，你是没有时间或者没有能力徒手撸一个像 Spring 这样强大的框架的。有了 Spring，就有 AOP 和 IoC，意味着你可以做一些企业级的开发了。再说，Spring 是建立在 Java 之上的一个框架，核心就是 AOP 和 IoC，如果 Java 基础不牢的话，也学不会 Spring。</p>
+<p>你可以先学习 SSM（Spring+Spring MVC+MyBatis），再学习 Spring Boot。Spring Boot 的出现，并不意味着 Spring 和 SpringMVC 已经过时了，从设计目的上来说，Spring Boot 只是实现了 Spring 的自动装配，降低了项目搭建的难度。</p>
+<p>推荐两个视频：</p>
+<ul>
+<li><a href="https://www.bilibili.com/video/BV1NX4y1G7wx" target="_blank" rel="noopener noreferrer">江南一点雨的 SSM 实战 100 集</a></li>
+<li><a href="https://www.bilibili.com/video/BV1PE411i7CV" target="_blank" rel="noopener noreferrer">狂神说的 SpringBoot 视频课</a></li>
+</ul>
+<h4 id="副本" tabindex="-1"> 副本</h4>
+<p>前面是主线，接下来是副本，有时间有精力就可以刷一波。刷副本的作用就是积累声望和经验，让你变得更强壮，好在下一关有更突出的表现。</p>
+<p>书籍：</p>
+<ul>
+<li>《<a href="https://book.douban.com/subject/2000732/" target="_blank" rel="noopener noreferrer">Head First Java</a>》</li>
+<li>《<a href="https://book.douban.com/subject/2130190/" target="_blank" rel="noopener noreferrer">Java 编程思想</a>》</li>
+<li>《<a href="https://book.douban.com/subject/10484692/" target="_blank" rel="noopener noreferrer">Java 并发编程实战</a>》</li>
+<li>《<a href="https://book.douban.com/subject/30412517/" target="_blank" rel="noopener noreferrer">Effective Java</a>》</li>
+<li>《<a href="https://mp.weixin.qq.com/s/6jDHa8UgN0Ceqn3nyQ7dUQ" target="_blank" rel="noopener noreferrer">阿里巴巴 Java 开发手册</a>》</li>
+<li>《<a href="https://book.douban.com/subject/4199741/" target="_blank" rel="noopener noreferrer">代码整洁之道</a>》</li>
+</ul>
+<p>视频：</p>
+<ul>
+<li><a href="https://www.bilibili.com/video/BV1DJ411B7cG" target="_blank" rel="noopener noreferrer">尚硅谷的 Intellij IDEA 视频课</a></li>
+<li><a href="https://www.bilibili.com/video/BV1TW411g7hP" target="_blank" rel="noopener noreferrer">尚硅谷的 Maven 视频课</a></li>
+<li><a href="https://www.bilibili.com/video/BV1FE411P7B3" target="_blank" rel="noopener noreferrer">狂神说的 Git 视频课</a></li>
+<li><a href="https://www.bilibili.com/video/av83622425" target="_blank" rel="noopener noreferrer">尚硅谷的 JVM 视频课</a></li>
+</ul>
+<p>开源&amp;官方文档：</p>
+<ul>
+<li><a href="https://mybatis.org/mybatis-3/zh/java-api.html" target="_blank" rel="noopener noreferrer">MyBatis 官方文档</a></li>
+<li><a href="https://dancon.gitbooks.io/intellij-idea/content/" target="_blank" rel="noopener noreferrer">Intellij IDEA 中文教程</a></li>
+</ul>
+<p>付费课程：</p>
+<ul>
+<li><a href="http://gk.link/a/10sUq" target="_blank" rel="noopener noreferrer">Java并发编程实战</a></li>
+<li><a href="http://gk.link/a/10sUp" target="_blank" rel="noopener noreferrer">深入拆解Java虚拟机</a></li>
+<li><a href="https://juejin.cn/book/6844733738119593991" target="_blank" rel="noopener noreferrer">Netty 入门与实战：仿写微信 IM 即时通讯系统</a></li>
+</ul>
+<h3 id="one-more-thing" tabindex="-1"> one more thing：</h3>
+<p>关于编程语言这块，我希望你能再学习一门编程语言，也就是 C 语言，不管是放在一开始学，还是放在学习 Java 语言之后再补，都是有必要的。</p>
+<p>因为我们学的是计算机科学（CS），C 语言是一门古老而常青的编程语言，具备现代程序设计的基础要求，它的语法是很多编程语言的基础，比如说 Java。</p>
+<p>给你推荐一门课，浙江大学翁恺教授的《<a href="https://www.icourse163.org/course/ZJU-199001?from=searchPage#/info" target="_blank" rel="noopener noreferrer">程序设计入门——C语言</a>》，国家级精品课，很适合初学者。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-2535b639-2213-4dcf-9d73-42595a5fcbc8.png" alt="" loading="lazy"></p>
+<p>翁恺老师在推荐这门课的时候说过，“这门课就是关于计算机的那些程序是如何被写出来的，写出来的这些人就是普通的人，那么我们当然也能学会怎么把程序写出来。学习编程最基础的那些东西，无非就是如何表达数据，如何计算，如何在计算的时候使用判断啊、循环啊这些手段。”</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-7c60d140-e4d5-449d-9026-67867b9fa008.png" alt="" loading="lazy"></p>
+<p>再推荐一本书，《<a href="https://book.douban.com/subject/1139336/" target="_blank" rel="noopener noreferrer">C 程序设计语言</a>》，我们熟知的“hello World”入门小程序其实就是由这本书首次引入的。对于学习计算机专业的同学来说，《C 程序设计语言》是一本必读的经典书。</p>
+<h2 id="数据库" tabindex="-1"> 数据库</h2>
+<p>学习一门编程语言，如果不去操作下数据，就感觉这门编程语言空有皮囊却没有灵魂。</p>
+<h3 id="sql" tabindex="-1"> SQL</h3>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-d0f18a18-a76a-413b-91b9-3dd7d99a2c76.png" alt="" loading="lazy"></p>
+<p>《<a href="https://book.douban.com/subject/35167240/" target="_blank" rel="noopener noreferrer">SQL 必知必会</a>》是麻省理工学院、伊利诺伊大学等众多大学的参考教材，这本书直接从 SQL 的 SELECT 开始，讲述了实际工作环境中最常用和最必需的 SQL 知识，实用性极强。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-e8761c04-2585-4bbc-b84b-fb5fd5c9ceaf.png" alt="" loading="lazy"></p>
+<p>CodeWithMosh 是目前市面上能找到的逻辑最清晰，最简单易懂的 SQL 视频教程。尤其对初学者而言，直接入手这个版本能塑造良好的 SQL 编写思维和逻辑能力。</p>
+<p><a href="https://www.bilibili.com/video/BV1UE41147KC" target="_blank" rel="noopener noreferrer">「中字」SQL进阶教程 | 史上最易懂SQL教程！10小时零基础成长SQL大师！！</a></p>
+<h3 id="mysql" tabindex="-1"> MySQL</h3>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-eb7ddcc0-4592-497a-abe4-356211e53577.png" alt="" loading="lazy"></p>
+<p>《<a href="https://book.douban.com/subject/23008813/" target="_blank" rel="noopener noreferrer">高性能 MySQL</a>》，业界公认的一本经典的 MySQL 读物，书中没有各种提升性能的秘籍，而是深入问题的核心，详细的解释了每种提升性能的原理，从而可以使你四两拨千斤。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-235a7d96-699d-4c8c-8f90-114f2aef22fc.png" alt="" loading="lazy"></p>
+<p>尚硅谷的这个视频课讲得真的挺不错的，<a href="https://www.bilibili.com/video/BV12b411K7Zu" target="_blank" rel="noopener noreferrer">MySQL_基础+高级篇</a>。</p>
+<h3 id="redis" tabindex="-1"> Redis</h3>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-f7d8b6a5-8764-41a9-8bb5-7a8a8f16a7f8.png" alt="" loading="lazy"></p>
+<p>《<a href="https://book.douban.com/subject/30386804/" target="_blank" rel="noopener noreferrer">Redis 深入历险核心原理与应用实战</a>》分为基础和应用篇、原理篇、集群篇、拓展篇、源码篇共 5 大块内容。基础和应用篇讲解对读者来说最有价值的内容，可以直接应用到实际工作中；原理篇、集群篇让开发者透过简单的技术表面看到精致的底层世界；拓展篇帮助读者拓展技术视野和夯实基础，便于进阶学习；源码篇让高阶的读者能够读懂源码，掌握核心技术实力。</p>
+<p>在线网站：</p>
+<ul>
+<li><a href="https://www.mysqltutorial.org/" target="_blank" rel="noopener noreferrer">MySQL Tutorial</a></li>
+</ul>
+<p>其他书籍：</p>
+<ul>
+<li><a href="https://book.douban.com/subject/3354490/" target="_blank" rel="noopener noreferrer">MySQL必知必会</a></li>
+<li><a href="https://book.douban.com/subject/24708143/" target="_blank" rel="noopener noreferrer">MySQL技术内幕-InnoDB存储引擎</a></li>
+</ul>
+<p>极客时间付费课程：</p>
+<ul>
+<li><a href="http://gk.link/a/10sUK" target="_blank" rel="noopener noreferrer">SQL必知必会-从入门到数据实战</a></li>
+<li><a href="http://gk.link/a/10sUL" target="_blank" rel="noopener noreferrer">MySQL必知必会-在真实项目中玩转 MySQL</a></li>
+<li><a href="http://gk.link/a/10sUM" target="_blank" rel="noopener noreferrer">MySQL实战45讲-从原理到实战，丁奇带你搞懂MySQL</a></li>
+<li><a href="http://gk.link/a/10sFU" target="_blank" rel="noopener noreferrer">Redis核心技术与实战-从原理到实战，彻底吃透 Redis</a></li>
+</ul>
+<h2 id="数据结构与算法" tabindex="-1"> 数据结构与算法</h2>
+<p>计算机科学所赋予人们的最大能量在于对常见算法和数据结构的熟悉。此外，这也可以训练一个人对于各种问题的解决能力，有助于其他领域的学习。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-120c9bac-6cfd-4e5d-9a26-124f6af4121e.png" alt="" loading="lazy"></p>
+<p>虽然名为《<a href="https://book.douban.com/subject/19952400/" target="_blank" rel="noopener noreferrer">算法</a>》，但算法是基于数据结构的，数组、队列、栈、堆、二叉树、哈希表等等，这些数据结构这本书都讲到了。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-019086f2-aa35-4e88-8fd5-a47b9363a89e.png" alt="" loading="lazy"></p>
+<p>如果你更喜欢视频课程，我推荐<a href="https://www.bilibili.com/video/BV1JW411i731" target="_blank" rel="noopener noreferrer">浙江大学的一个的视频课</a>，很系统很经典，适合小白入门。</p>
+<p>至于练习，我推荐你到 LeetCode 上刷题，Leetcode 上的问题往往有趣且带有良好的解法和讨论。此外，在竞争日益激烈的软件行业，这些问题可以帮助你评估自己应对技术面试中常见问题的能力。我建议你至少刷 300 道题，作为学习的一部分。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-bdca293f-0448-46db-b1b9-6e39949b7d8d.png" alt="" loading="lazy"></p>
+<p>我整理的这份 <a href="https://tobebetterjavaer.com/pdf/java-leetcode.html" target="_blank" rel="noopener noreferrer">LeetCode 刷题笔记</a>足足 300 道，对算法薄弱和需要提高算法的同学很有帮助。</p>
+<p>我的心得就是简单粗暴：从易到难，一遍一遍地刷，尽量使用自己熟悉的编程语言，比如说 Java 程序员尽量用 Java 来解题，这样刷题的幸福感也会提升很大一截。</p>
+<p>如果不是天赋异禀，不要怕，一开始就是抄题，先把别人的解题思路照着敲出来。刷的题多了，尽量控制一下刷题的时间，掐个点，不能让自己一直想、一直写下去，如果半个小时没有解出来，就果断放弃，去背别人的答案，不要觉得不好意思，等到真的熟了，再去想自己的解题思路。</p>
+<p>可以按照下面这个类型来刷就可以了。</p>
+<p>数组-&gt; 链表-&gt; 哈希表-&gt;字符串-&gt;栈-&gt;队列-&gt;树-&gt;回溯-&gt;贪心-&gt;动态规划-&gt;图</p>
+<p>其他书籍：</p>
+<ul>
+<li><a href="https://book.douban.com/subject/4048566/" target="_blank" rel="noopener noreferrer">算法设计手册</a></li>
+<li><a href="https://book.douban.com/subject/26302533/" target="_blank" rel="noopener noreferrer">编程珠玑</a></li>
+<li><a href="https://book.douban.com/subject/27008702/" target="_blank" rel="noopener noreferrer">剑指Offer：名企面试官精讲典型编程题</a></li>
+</ul>
+<p>极客时间付费课程：</p>
+<ul>
+<li><a href="http://gk.link/a/10sUU" target="_blank" rel="noopener noreferrer">数据结构与算法之美-为工程师量身打造的数据结构与算法私教课</a></li>
+</ul>
+<h2 id="计算机组成原理" tabindex="-1"> 计算机组成原理</h2>
+<p>计算机组成原理，也叫“计算机系统结构”，是了解软件底层的重要视角，但却很容易被忽略。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-05f90cc6-44bd-42eb-9d2c-23e47bb43db3.png" alt="" loading="lazy"></p>
+<p>《<a href="https://book.douban.com/subject/5333562/" target="_blank" rel="noopener noreferrer">深入理解计算机系统</a>》这本书站在程序员的视角，非常的使用。虽然计算机的系统结构比这本书涉及到的内容多得多，但却是一个很好的起点。</p>
+<p>其他书籍：</p>
+<ul>
+<li><a href="https://book.douban.com/subject/1998341/" target="_blank" rel="noopener noreferrer">计算机系统要素-从零开始构建现代计算机</a></li>
+<li><a href="https://book.douban.com/subject/26397183/" target="_blank" rel="noopener noreferrer">计算机是怎样跑起来的</a></li>
+<li><a href="https://book.douban.com/subject/27051076/" target="_blank" rel="noopener noreferrer">计算机组成原理</a></li>
+<li><a href="https://book.douban.com/subject/26604008/" target="_blank" rel="noopener noreferrer">计算机组成与设计-硬件/软件接口</a></li>
+<li><a href="https://book.douban.com/subject/4822685/" target="_blank" rel="noopener noreferrer">《编码-印尼在计算机软硬件背后的语言》</a></li>
+</ul>
+<p>视频课程：</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-0472d100-5b28-4ec9-a94c-217ad661a157.png" alt="" loading="lazy"></p>
+<p>弄明白了计算机的组成原理，也就对整个软件开发有了一个系统的认知，不论是计算机的硬件原理，还是软件架构，都能很好的驾驭，随之而来的，我们的职业发展机会也就更多了。如果想深入学习计算机组成原理的话，我推荐哈工大的这门视频课，整体评价非常高。</p>
+<p><a href="https://www.bilibili.com/video/BV1WW411Q7PF" target="_blank" rel="noopener noreferrer">哈尔滨工业大学-计算机组成原理（唐朔飞）</a></p>
+<p>付费课程：</p>
+<p>九阳真经是金庸小说《倚天屠龙记》中一本绝顶内功秘笈，程序员的「九阳真经」，我觉得就是计算机组成原理了，因为这里藏着 CPU 运行代码的秘密，藏着虚拟地址转换的秘密，藏着浮点数的秘密……</p>
+<p><a href="http://gk.link/a/10sUT" target="_blank" rel="noopener noreferrer">深入浅出计算机组成原理-带你掌握计算机体系全貌</a></p>
+<h2 id="操作系统" tabindex="-1"> 操作系统</h2>
+<p>为什么要学习操作系统呢？第一，面试要考；第二，无论学习哪门子编程语言，比如说 Java、C/C++，都需要和操作系统打交道，像 Java 中的多线程技术，其实是由操作系统来负责进程和线程管理的；第三，学习操作系统，还能学到内存分配方面的知识。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-e7f73611-9a4b-47a1-8703-73456cce988c.png" alt="" loading="lazy"></p>
+<p>《<a href="https://book.douban.com/subject/30297919/" target="_blank" rel="noopener noreferrer">操作系统概念</a>》 （“龙书”）和 《<a href="https://book.douban.com/subject/27096665/" target="_blank" rel="noopener noreferrer">现代操作系统</a>》 是操作系统领域的经典书籍。只不过，这两本书对学生来说，不是特别友好，所以遭到了很多批评。</p>
+<p>操作系统是计算机系统中负责管理各种软硬件资源的核心系统软件，为应用软件运行提供良好的环境。<a href="https://www.xuetangx.com/course/THU08091000267/5883104?channel=learn_title" target="_blank" rel="noopener noreferrer">清华大学操作系统课-学堂在线</a>这门课程以主流操作系统为实例，以教学操作系统 ucore 为实验环境，讲授操作系统的概念、基本原理和实现技术，是一门非常值得推荐的视频课。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-f43b517a-78c9-4064-836a-6eb275712f88.png" alt="" loading="lazy"></p>
+<p>副本-<a href="https://www.bilibili.com/video/av21376839" target="_blank" rel="noopener noreferrer">计算机科学速成课</a>：</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-bbcd0afb-a240-4b56-b3ba-ea8923878ddf.png" alt="" loading="lazy"></p>
+<p>非常值得每个程序员去刷一刷的，全部都是计算机专业需要掌握的知识点，至少是应该了解的知识点。英文中字版的，观看起来毫无压力。</p>
+<p>极客时间付费课程：</p>
+<ul>
+<li><a href="http://gk.link/a/10sUV" target="_blank" rel="noopener noreferrer">操作系统实战45讲-从0到1，实现自己的操作系统</a></li>
+<li><a href="http://gk.link/a/10sUW" target="_blank" rel="noopener noreferrer">趣谈Linux操作系统-像故事一样的操作系统入门课</a></li>
+</ul>
+<h3 id="计算机网络" tabindex="-1"> 计算机网络</h3>
+<p>鉴于那么多的关于网络服务端和客户端的软件工程，计算机网络是计算机科学中价值最为“立竿见影”的领域之一。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-1a95df68-4aab-4e2a-8f72-e14d629819fe.png" alt="" loading="lazy"></p>
+<p><a href="https://book.douban.com/subject/30280001/" target="_blank" rel="noopener noreferrer">计算机网络-自顶向下方法</a>是一本我比较钟爱的书籍，书中的小项目和习题非常值得练习，尤其是 <a href="https://gaia.cs.umass.edu/kurose_ross/wireshark.htm" target="_blank" rel="noopener noreferrer">Wireshark labs</a> 部分。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-dae8a174-e854-487a-badc-bb93ba6f4bbb.png" alt="" loading="lazy"></p>
+<p>B 站上的这个<a href="https://www.bilibili.com/video/BV1c4411d7jb" target="_blank" rel="noopener noreferrer">计算机网络微课堂</a>视频课非常不错，强烈推荐。</p>
+<p>其他书籍：</p>
+<ul>
+<li><a href="https://book.douban.com/subject/26941639/" target="_blank" rel="noopener noreferrer">网络是怎样连接的</a></li>
+<li><a href="https://book.douban.com/subject/25863515/" target="_blank" rel="noopener noreferrer">图解 HTTP</a></li>
+<li><a href="https://book.douban.com/subject/24737674/" target="_blank" rel="noopener noreferrer">图解TCP/IP</a></li>
+<li><a href="https://book.douban.com/subject/1088054/" target="_blank" rel="noopener noreferrer">TCP/IP详解 卷1：协议</a></li>
+</ul>
+<h3 id="前端-全栈" tabindex="-1"> 前端&amp;全栈</h3>
+<p>// TODO</p>
+<h3 id="分布式系统" tabindex="-1"> 分布式系统</h3>
+<p>// TODO</p>
+<h3 id="英语能力" tabindex="-1"> 英语能力</h3>
+<p>对于我们程序员来说，英语就好像空气一样重要，一呼一吸之间都离不开她。如果空气质量不那么好的话，你是不是就有点缺氧的感觉，同样的，如果英语功底差点意思的话，编程也会感到很吃力。</p>
+<p>英语用得好，你可以轻松地阅读和查看国外最新的技术文档。</p>
+<p>英语用得好，你可以徜徉在源码的海洋里，肆无忌惮地汲取精华。</p>
+<p>英语用得好，你可以惬意地聆听斯坦福等名校在网上的公开课，跟随真正的大牛，学到最原汁原味的技术。</p>
+<p>英语用得好，退一万步讲，你在敲代码的时候再也不用担心方法、变量和类的命名不够优雅了。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-0eee1a08-7b44-4311-9b00-ef01a0bc0909.png" alt="" loading="lazy"></p>
+<p>前新东方英语老师李笑来在 GitHub 上开源的这份英语学习教程还不错，英文名字叫《<a href="https://github.com/xiaolai/everyone-can-use-english" target="_blank" rel="noopener noreferrer">everyone can use english</a>》，中文名译作《<a href="https://mp.weixin.qq.com/s/yjBldT9YShWd6cnDIg6RuQ" target="_blank" rel="noopener noreferrer">人人都能用英语</a>》，已有 5.4k 的 star。</p>
+<h3 id="简历" tabindex="-1"> 简历</h3>
+<p>简历要怎么样写，才能打造一个独一无二的你呢？才能让招聘方知道你做过什么？能做什么呢？我来简单的列举一下。</p>
+<p>1）个人信息</p>
+<ul>
+<li>姓名</li>
+<li>年龄</li>
+<li>手机</li>
+<li>邮箱（推荐使用 Gmail，因为可以无形“高大上”，给招聘方一种专业的 feel）</li>
+</ul>
+<p>2）教育经历</p>
+<p>只写最高学历就行了；博士就写博士，没必要再写什么时候考的研；本科就写本科，没必要再写什么时候专升本。如果学历不好，也不要担心，可以在项目经验中多突出一些。</p>
+<p>3）工作经历</p>
+<p>可以根据招聘方的要求，适当地做一些调整，比如说，应聘的岗位是开发，就没有必要写之前做运维，做测试的工作经历。</p>
+<p>如果工作经验比较丰富的话，尽量按照时间倒序来写，因为越后面的项目，肯定难度更大，技术含量更高，对吧，不要一步一个台阶往下迈。</p>
+<p>懂得适可而止，不要事无巨细，把所有项目的细节都罗列上。只需要交代三个重要的项目就行了。项目的背景是什么，你在其中的职责，项目用到的技术栈（最好是招聘信息上要求的那些），最好突出你做出了哪些特殊的贡献（证明你确实有能力）。</p>
+<p>4）加分项</p>
+<ul>
+<li>有一个访问量很不错的博客。</li>
+<li>有一个星标很高的开源作品。</li>
+<li>出过一些技术图书。</li>
+<li>在行业大会上做过分享。</li>
+<li>参加过一些出名的竞赛，获得过优异的成绩。</li>
+<li>记住一点，简历并不是单纯意义上的自我介绍，比如说我是musk，今年 18 岁，来自洛阳，毕业于某某学校。这样的简历太苍白了。</li>
+</ul>
+<p>简历就好像电梯广告的单页一样，它富有鲜活的生命力，它在呐喊，它不需要过多的润色，只需要铿锵有力、赤裸裸的“炫耀”。</p>
+<p>比如说我是musk， 2019 年参与了 XXX 项目的开发。作为项目团队的核心 开发人员，我不仅能够提前完成自己的开发任务，还设计了一个高效的缓存中间件，大大提高了系统的性能。</p>
+<p>该中间件上线后，Web 前端性能从 10 QPS 提升到 120 QPS，服务器由 10 台缩减为 5 台。</p>
+<p>鉴于之前的良好表现，我在 2020 年升任项目的主要负责人，虽然小组成员只有 15 个，但硬生生地肩负起了每天超过 2000 万的 PV。</p>
+<p>看，这样的简历是不是让人耳目一新，证明自己价值的同时，没有过多的粉饰，让招聘方觉得你很靠谱，迫切地想要把你这个人才“抢”到手，免费被别的公司挖走了。</p>
+<p>简历上的内容不要太多，尽量不要超过一页，因为招聘方没有那么多时间去翻看你的简历。我是挺相信第一印象的，好的简历看一眼就会过目不忘，真的。</p>
+<p><a href="https://tobebetterjavaer.com/pdf/jianli.html" target="_blank" rel="noopener noreferrer">入职阿里后，才知道原来简历这么写</a></p>
+<h2 id="面经-面试题" tabindex="-1"> 面经&amp;面试题</h2>
+<p>你可以把我整理的这份题库过一下，题库分为十九个模块，分别是：Java 基础、容器、多线程、反射、对象拷贝、Java Web 模块、异常、网络、设计模式、Spring/Spring MVC、Spring Boot/Spring Cloud、Hibernate、Mybatis、RabbitMQ、Kafka、Zookeeper、MySql、Redis、JVM，足足 208 道：</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-37cbc58f-2ced-4334-abc5-d74263008d80.png" alt="" loading="lazy"></p>
+<p><a href="https://tobebetterjavaer.com/pdf/programmer-111.html" target="_blank" rel="noopener noreferrer">可能是2021年最全最硬核的Java面试 “备战” 资料</a></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-57502a19-c872-4a02-8347-3a4231cffd7e.png" alt="" loading="lazy"></p>
+<p><a href="https://mp.weixin.qq.com/s/s0_XzGjHcgk2RwbCRzmgHg" target="_blank" rel="noopener noreferrer">不好意思！GitHub 星标 100k+的这份面试攻略让我膨胀了</a></p>
+<h2 id="全部汇总" tabindex="-1"> 全部汇总</h2>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-8614a576-2644-4f7a-a0b3-b133c6b35f45.png" alt="" loading="lazy"></p>
+<p>我把所有的电子书都放在另外一个仓库了：</p>
+<ul>
+<li>GitHub：<a href="https://github.com/itwanger/JavaBooks" target="_blank" rel="noopener noreferrer">https://github.com/itwanger/JavaBooks</a></li>
+<li>码云：<a href="https://gitee.com/itwanger/JavaBooks" target="_blank" rel="noopener noreferrer">https://gitee.com/itwanger/JavaBooks</a></li>
+</ul>
+<h2 id="常见问题解答" tabindex="-1"> 常见问题解答</h2>
+<h3 id="这份自学指南的目标受众是" tabindex="-1"> 这份自学指南的目标受众是？</h3>
+<ul>
+<li>自学软件的工程师</li>
+<li>培训班的学生</li>
+<li>“早熟的”高中生</li>
+<li>想要变得牛逼的大学生</li>
+<li>想要进阶的初级工程师</li>
+</ul>
+<h3 id="一定要严格遵守推荐的学习次序吗" tabindex="-1"> 一定要严格遵守推荐的学习次序吗？</h3>
+<p>我推荐的次序主要是为了帮助你起步，如果你出于某种强烈的意愿而倾向以不同的顺序学习，也没有关系，勇敢开始吧！</p>
+<p>一个重要的“先决条件”是：</p>
+<ul>
+<li>你最好先从一门编程语言开始，然后不断纵向和横向扩展；</li>
+<li>你最好先学计算机组成原理再学操作系统；</li>
+<li>你最好先学计算机网络和操作系统再学分布式系统；</li>
+</ul>
+<h3 id="xx编程语言怎么样" tabindex="-1"> XX编程语言怎么样?</h3>
+<p>学习一门特定的编程语言和学习计算机科学的一个领域完全不在一个维度——相比之下，学习编程语言更容易一些；如果你已经熟悉一门编程语言，比如说 Java 或者 C 语言，再学习另外一门编程语言也会非常轻松。</p>
+<h3 id="xx流行技术怎么样" tabindex="-1"> XX流行技术怎么样?</h3>
+<p>没有任何一种技术的重要程度可以和学习计算机科学的核心部分相媲美，不过，你对学习一门流行的技术充满热情是一件很值得褒奖的事情。</p>
+<h3 id="这份指南是谁写的" tabindex="-1"> 这份指南是谁写的？</h3>
+<p>主笔为<strong>musk</strong>，可以微信搜索“musk”关注我的微信公众号。只要有足够的时间和动力，我非常有信心，你可以自学完以上所有课程。</p>
+<p><strong>所涉及到的电子书，可以通过下面这个仓库下载</strong>：</p>
+<ul>
+<li>GitHub：<a href="https://github.com/itwanger/JavaBooks" target="_blank" rel="noopener noreferrer">https://github.com/itwanger/JavaBooks</a></li>
+<li>码云：<a href="https://gitee.com/itwanger/JavaBooks" target="_blank" rel="noopener noreferrer">https://gitee.com/itwanger/JavaBooks</a></li>
+</ul>
+]]></content:encoded>
+      <enclosure url="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-70e25595-b36b-408c-a8e4-3a67261826da.png" type="image/png"/>
+    </item>
+    <item>
+      <title>本科生如何才能进入腾讯、阿里等一流的互联网公司？</title>
+      <link>https://newzone.top/study_suggest/benkesheng-ali-tengxun.html</link>
+      <guid>https://newzone.top/study_suggest/benkesheng-ali-tengxun.html</guid>
+      <source url="https://newzone.top/rss.xml">本科生如何才能进入腾讯、阿里等一流的互联网公司？</source>
+      <category>学习建议</category>
+      <pubDate>Sun, 04 Dec 2022 15:45:11 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="前言" tabindex="-1"> 前言</h2>
+<p>这么多年来我有一件事情一直在坚持，那就是做笔记和写博客。</p>
+<p>做笔记，就是记录学习中大大小小的事情，可能是面试问题，可能是一周的学习计划，也可能知识一个知识点，总归都是值得记录的东西，对我来说，就是一种积累。而对于博客，我从一开始只用于记录项目，到后来做转载，再到后来写原创，整理系列文章，则更像是一种沉淀。</p>
+<p>但是在春招刚刚结束的这段时间，我发现一个问题，之前学过的东西忘记了很多，特别是那些理解的不够深的知识点，总是特别容易忘记。另外我发现，虽然我在笔记中记录了很多的知识点和面试题，但是往往我只看过一次，不会再去看第二次。</p>
+<p><strong>这也意味着，虽然记录的内容很多，但是真正消化吸收的内容很少，脑子里充斥着总是那些零碎的知识点和面试问题，对于完整的知识体系知之甚少。这些问题在春招期间也不断地暴露出来，让我思考了很久。</strong></p>
+<p>面对如此窘境，我想做出改变，趁着现在时间充裕，我想要为这些内容做一次减法，并且借此机会，推翻自己原有的知识体系，重建新的知识框架。简单说来，就是重新开始学习Java后端，这次我要用一种更高效的方式，避免走之前走的弯路，要用最高效，最合理的方式去复习。由于我之前已经有基础，所以我对完成这一目标有信心，相应地我也为此做出了明确且详细的学习计划。</p>
+<h3 id="具体可靠的学习计划" tabindex="-1"> <strong>“具体可靠的学习计划”</strong></h3>
+<p>在三个月的时间里，我首先按照Java后端路线图安排好复习计划，每个知识点都会对应安排一段时间，比如我可能花一天时间复习“Java反射”，两天时间复习“设计模式”，一周的时间用于复习&quot;JVM虚拟机”。我一般会在月初做好整个月的计划，然后根据进度做一些微调，但是基本上我都可以跟上进度，并且是在复习到位的前提下。</p>
+<p>所以我觉得，对于秋招这一场苦战，指定计划尤为重要，一旦计划定下来，战略目标清晰，对应的战术制定也会变得清晰，执行力也会随之变强。</p>
+<h3 id="写博客整合知识点" tabindex="-1"> <strong>“写博客整合知识点”</strong></h3>
+<p>至于复习方法，我主要通过看高质量博客，并且结合代码实践的方式巩固这部分知识点，比如今天学习“concurrenthashmap”，我会去找两三篇比较好的博客先看看，主要是源码解读方面的，然后我会把它们进行整合，如果有遗漏的知识点我会再进行补充，有时候我还会自己去看看JDK源码，以便更好地理解博客内容，完成知识整合之后，我就会对应地整理出一篇博客出来，发在我的个人博客上。</p>
+<p>除此之外，当我完成了一整个专题的复习之后，我会把这些文章整理成一个专题，比如上面说的“concurrenthashmap”，实际上属于Java并发包，所以我会专门做一个博客专栏，用来完成Java并发系列的文章专题。<strong>对于每一个文章专题，我都会先理清这个专题一共有哪些内容，然后再开始整理。比如对于Java并发包，我会先写Java多线程基础的文章，再写JMM内存模型的文章，接着一步步着手写Java线程池，阻塞队列，工具类，原子类等等。这样一来这部分内容就复习完毕了，写系列文章的好处就在于，我可以从头到尾理清脉络，并且对于每一部分的知识点都做了比较好的总结。</strong></p>
+<p>对于博客的选择，我吸取了之前的教训，宁愿花半小时看一篇高质量文章，也不花10分钟看5篇烂文章。深度阅读的好处，就是可以让这部分内容更好地融入你脑内的知识体系，而不是像其他快餐文章一样转瞬即逝。</p>
+<h3 id="做项目巩固实践能力" tabindex="-1"> <strong>“做项目巩固实践能力”</strong></h3>
+<p>由于之前在实习期间参加的项目都比较大，我接触的模块也比较单一，没有对整体项目有一个很好的把握，所以我决定趁这段时间再巩固一下我的项目实践能力，这里的能力主要是指的是对项目架构的把握能力，以及对业务开发的熟练度，当然也包括对各种常用后端技术的熟悉程度。</p>
+<p><strong>我花了大概一个月的时间完成了两个项目的开发，当然主要也是模仿两个开源项目做了，这两个项目都使用SpringBoot快速开发，并且用到一些常用的后端技术比如redis，云存储，以及一些常见Web框架，除此之外还涉及到了solr，爬虫等技术。虽然项目不算很难，但是我在这段时间里很快地熟悉了完整项目开发的流程，并且每天做迭代，通过Git来跟进版本，每个版本都会写清所做的内容，这也让我对项目的架构非常熟悉。</strong></p>
+<p>在项目之余，我也找一些常用的后端组件来跑一跑demo，以便让我对这些技术有一个直观的了解，比如面试常问的dubbo，zookeeper，消息队列等组件。这些尝试也让我在理解它们的原理时更加得心应手了。</p>
+<h3 id="坚持刷题-注重方法" tabindex="-1"> <strong>“坚持刷题，注重方法”</strong></h3>
+<p><strong>算法题是秋招笔试面试中的重头戏，每个研发同学都免不了经历算法题的摧残，对我这么一个非科班同学来说，更是让人头大。正因为如此，我放弃了刷大量LeetCode题目的方法，选择了更加行之有效的刷题方式。</strong></p>
+<p><strong>首先我重新刷了一遍剑指offer，并且对每道题目进行总结，尽量保证每一道题都可以记在脑子里，众所周知剑指offer中的题是面试时非常喜欢考的，所以先搞定这部分题目是最为关键的。</strong></p>
+<p>搞定剑指offer之后，当然还要刷LeetCode了，LeetCode题目这么多，怎么选择呢，我没有按照tag刷，也没有按照顺序刷，而是参考当时一个大佬的LeetCode刷题指南来进行刷题的，他把每个类型的题目都做了归纳，每部分只放一些比较经典的题目。所以我前后大概刷了100多道LeetCode的题目，并且在第二遍刷题复习的时候，我也对这些题目做了一份总结。</p>
+<p><strong>除了上面两个经典题库，我还着重刷了大厂的历年真题，这部分我主要是通过牛客网的历年真题题库来完成刷题的。说实话，真题是非常重要的，因为公司出的题目不像平时的那些算法题，可能会出得非常奇葩，所以你如果不提前适应的话会比较吃亏。完成这部分题目之后，我对算法题的复习也基本告一段落了。</strong></p>
+<p>当我完成所有内容的复习时，提前批已经开始了。终于要上战场了，因为战前准备比较充分，所以我对秋招还是比较乐观的，但事实上，秋招不仅是攻坚战，而且是持久战，要笑到最后，确实也不是那么容易的事情。</p>
+<h2 id="重建知识体系-对学过的东西做减法" tabindex="-1"> 重建知识体系，对学过的东西做减法</h2>
+<p>前面提到我在秋招前完成了知识体系重建，那在这里我也想跟大家分享一下我当时大致的知识体系构成。就跟我前面说的一样，我选择重新再学一遍Java后端相关的技术内容，因为我知道大致的学习方向，并且有一定的基础，所以看很多文章变得更加得心应手，写文章和做总结也更加有底气了。</p>
+<p>首先在Java基础方面，我写了20多篇原创博客，主要是对Java核心技术的解析，比如“Java反射”，“Java序列化和反序列化”，“Java异常体系”等等。</p>
+<p>在Java集合类方面，我原创了部分文章，另外整合了一些比较好的技术文章，其中最主要的就是关于hashmap的文章，当时我整合的文章几乎没有遗漏任何一个知识点。</p>
+<p><strong>在Java并发编程方面，我主要参考了并发编程网以及一些优质博客的文章，先搞懂了Java并发原理，再一步步学习JUC并发包的组件，其中重点看了chm，并发工具类以及阻塞队列等JDK源码的解析文章，除此之外，我还会在IDE中跑JUC相关的emo，毕竟这方面的内容非常需要实践。</strong></p>
+<p>在Java网络编程方面，我先从最基础的socket入手，再讲到NIO,AIO，并且加入了几篇对Linux IO模型解析的文章，让整个知识体系更加完整（因为NIO是基于Linux Epoll实现的），接着我又加入了对Netty的探讨，以及Tomcat中对NIO的应用，可以说是把Java网络编程一些比较重要的部分都囊括进来了。<strong>为了更好理解这部分内容，我也在网上参考了很多客户端和服务端通信的demo，最后我分别用Socket，NIO,AIO以及Netty把C/S 通信的demo都写了一遍。</strong></p>
+<p>在JVM虚拟机方面，我则按照《深入理解JVM虚拟机》这本书的行文脉络进行文章的整理。<strong>在搞定JVM基本原理以后，我着重了解了JVM调优和实践中常遇到的问题，并且整理了常用的JVM调优工具，场景问题以及调优实践的案例，这也是因为面试中对JVM调优实践越来越重视了。</strong></p>
+<p>在JavaWeb方面，我从Java Web相关技术的发展入手，一步步了解了每种技术存在的意义，比如JSP，Servlet，JDBC，Spring等等，然后对每种技术进行了比较全面的了解，并且着重地看了Spring和SpringMVC的源码分析文章，另外一方面，我花了很多时间去研究Tomcat的工作原理。除此之外，JavaWeb项目中常用的maven，日志组件，甚至是单测试组件，也纳入了我的系列文章里。</p>
+<p><strong>在数据库和缓存方面，我主要学习了MySQL和Redis这两种最常用的数据库。对于Mysql，我从简单的sql开始了解，然后开始了解sql优化，MySQL的存储引擎和索引，事务及锁，还有更复杂的主从复制，分库分表等内容。对于Redis，我也是从简单的api入手，然后去了解每一种数据结构的底层实现原理，接着尝试去学习Redis的持久化方式，以及作为缓存常需要考虑的技术点，当然，也包括Redis的分布式锁实现，以及它的分布式集群方案。</strong></p>
+<p>最后一部分就是分布式相关的理论和技术了，这个也是困扰我很久的一块内容，我主要把这块内容分为两个部分，分别是分布式理论和分布式技术，理论方面，我先了解CAP,BASE等基本知识，然后开始学习一致性协议和算法，接着探讨分布式事务。**对于分布式技术，涉及的东西就更多了，例如分布式session，负载均衡，分布式锁等内容，这些知识点我都会用一到两篇文章去总结，对于分布式缓存，消息队列，以及分布式服务等内容，我会花比较多的时间去全面学习，然后总结出一个系列的文章出来。**当然，对于这些技术的学习主要还是停留在理论方面，在自己的项目中能用到的比较少。</p>
+<p>至此，我的知识体系基本构建完成，这也是我在秋招中能够成功闯过那么多面试的原因。</p>
+<h2 id="秋招之路-砥砺前行" tabindex="-1"> 秋招之路，砥砺前行</h2>
+<p>不管前期做了多少准备，到秋招的时候也不能掉以轻心，从七月底第一次面试到9月基本佛系，中间经历了大大小小的面试。</p>
+<p><strong>在完成知识体系重建以后，我把重点转向了另外几件事，一是完善和熟悉我的简历，以便在面试中能够比较好地发挥，二是持续刷题，保持对算法题和笔试真题的手感和熟练度，三则是看面经查缺补漏，我一直认为看面经是很重要的一项复习内容。</strong></p>
+<p><strong>就这样，我一边继续复习，以便开始了一场接一场的面试接力。</strong></p>
+<p>起初，我面了几家小公司练手，接着阿里的提前批接踵而至，我战战兢兢地参加了阿里中间件部门的面试，面难难度还算适中，一共四轮面试，当时我的表现也还不错，问题基本都答上来了。面完不到一周以后我就收到了通过的消息，当时还有点懵。没想到第一个offer这么快就来了。</p>
+<p>这段时间内，蚂蚁金服的两个部门也给了我面试机会，我都参加了它们的面试，并且顺利地拿到了其中一个部门的offer。由于我对蚂蚁这边的业务比较感兴趣，最终选择了蚂蚁金服的offer。</p>
+<p><strong>阿里提前批的胜利确实是意外之喜，但也大大地鼓舞了我，于是我又参加了百度和腾讯的提前批面试，由于百度的提前批不走流程，一共有四个部门面试了我，每个部门都有2到3轮面试，总计约为12次面试，到后来我已经快晕了，看到百度的电话就害怕，由于面试次数太多，有时候发挥确实也不是很好，我也没有特别在意，只当是在锻炼自己了。</strong></p>
+<p>百度的面试难度每个部门不一样，但是每次面试必写算法题，一写算法题，时间至少就是一个小时以上，每次面试完都有一种身体被掏空的感觉。</p>
+<p>经历了百度面试的摧残以后，我手写算法的速度也变快了，很多坑也被我填上了。接下来面对腾讯的面试，我也是既激动又担心，腾讯的面试难度比较大，对于操作系统和网络的知识喜欢深挖，问的东西也很有深度，面完前三面以后，第四面拖了3周才进行。当时三面面试官对我的评价比较好，也让我信心爆棚了好久。</p>
+<p>在等待腾讯终面的期间，我参加了今日头条的面试，当时有幸拿到了一个白金码，免去笔试，事实证明白金码作用真的很大。头条的面试难度和腾讯差不多，三轮面试，同样需要写各种算法，由于是视频面试，我可以清楚地看到，头条的面试官真的非常高冷啊。面完头条我的第一感觉就是应该挂了吧。没想到最后还是给了offer。</p>
+<p><strong>结束这几家大厂的面试之后，我觉得我的秋招已经接近尾声了，不过由于之前投的比较多，所以我又面了几家大公司，如网易，华为，快手等。到9月上旬的时候，我接连收到了bat和头条，网易的意向书，阿里最早，腾讯最晚，每收到一封意向书我都很开心，没想到最后我真的可以集齐bat等大厂的offer。</strong></p>
+<p>9月以后，除了偶尔和同学做几场大厂的笔试，我基本就佛系了。直到后来一些外企例如亚马逊，大摩开始笔试面试，我才又重新回到了状态。</p>
+<p>截止目前，我基本上把该拒绝的offer都拒绝了，综合各方面因素的考虑，最后应该会签阿里，原因是部门是我自己喜欢的，同时给的评级也比较高。虽然腾讯也给了sp，但是最后还是忍痛割爱啦。至于百度和头条，给的offer并不是很令人满意，所以就没有考虑了。</p>
+<p>至此，我的秋招之旅总算圆满结束。</p>
+<p>希望各位在未来也可以拿到自己理想中的offer！</p>
+<blockquote>
+<p>转载链接：<a href="https://www.zhihu.com/question/26406260/answer/569976835" target="_blank" rel="noopener noreferrer">https://www.zhihu.com/question/26406260/answer/569976835</a></p>
+</blockquote>
+<hr>
 ]]></content:encoded>
     </item>
     <item>
-      <title>雇个机器人帮你干活</title>
-      <link>https://newzone.top/_posts/2018-01-31-hire_a_robot.html</link>
-      <guid>https://newzone.top/_posts/2018-01-31-hire_a_robot.html</guid>
-      <source url="https://newzone.top/rss.xml">雇个机器人帮你干活</source>
-      <category>自动化</category>
-      <pubDate>Wed, 31 Jan 2018 22:51:00 GMT</pubDate>
-      <content:encoded><![CDATA[<blockquote>
-<p>机器人会取代你工作！
-计算云会取代你工作！
-AI 会取代你的工作！</p>
-</blockquote>
-<p>我相信科技终究有一天会消灭所有工作，但我们这代人的无奈就是很难等到这一天。</p>
-<p>作为懒人、宅男，等不及了怎么办？</p>
-<p>既然还没被取代，那就<strong>雇个机器人帮你干活</strong>！</p>
-<p>我每天第一件事是去各个网站看热门新闻、行业资料。以前是用 RSS，但 RSS 被视为落后，越来越多的网站不再提供 RSS 源。离开 RSS，我就一直没找到更合适的方法去将内容聚合起来，不得不在一个个网站间疲于奔命，逐渐不再看内容。</p>
-<blockquote>
-<p>RSS(Really Simple Syndication) 是一种描述和同步网站内容的格式，是使用最广泛的 XML 应用。简易信息聚合（也叫聚合内容）是一种 RSS 基于 XML 标准，在互联网上被广泛采用的内容包装和投递协议。</p>
-</blockquote>
+      <title>大裁员下，程序员如何做“副业”？</title>
+      <link>https://newzone.top/study_suggest/chengxuyuan-fuye.html</link>
+      <guid>https://newzone.top/study_suggest/chengxuyuan-fuye.html</guid>
+      <source url="https://newzone.top/rss.xml">大裁员下，程序员如何做“副业”？</source>
+      <category>学习建议</category>
+      <pubDate>Sun, 04 Dec 2022 15:45:11 GMT</pubDate>
+      <content:encoded><![CDATA[<p>前几天有幸看了尤雨溪尤大的直播，他们谈到一个话题，是说目前前端人，或者是整个程序员群体如何做副业？近年来互联网行情下降，好多人都在思考要不要搞个副业来抵御风险。</p>
+<p>这不又来事了，这两天又爆了互联网大裁员。继阿里“向社会输送人才”之后，京东又搞了个“毕业礼”，整的小伙伴们人心惶惶。副业的关注度又一波升级。</p>
+<p>那今天我们就来聊聊，程序员做副业这件事。</p>
+<h2 id="为什么程序员都想着做副业" tabindex="-1"> 为什么程序员都想着做副业？</h2>
+<p>我理解今天的程序员为什么都有做副业的想法，原因不外乎两个方面。</p>
+<p>一是互联网的爆发期已过，以前程序员体量小，会点基本技能就可以不愁工作，薪资也非常可观，但现在随着大量人员涌入，各种名校高学历的加入内卷，我们突然发现没什么竞争优势了。</p>
+<p>二是互联网开发圈这种畸形的工作氛围，熬夜加班过于严重，消耗生命力来赶进度。特别是大厂，钱是给的多，但是透支强度懂得都懂，说句不好听的是拿命换钱。</p>
+<p>以前大家听这些可能只是自嘲一下，随着脉脉上不断爆出大厂程序员加班猝死的消息，大家开始慌了，原来比起收入，健康才是我们终身的财富。</p>
+<p>当然还有一个原因，不只是程序员的职业阴霾，但程序员首当其冲，那就是 “35 岁危机”。</p>
+<p>程序员是拼学习能力和创造能力的职业，不进则退的规则远大于其他行业。35 以后，如果你不是真的热爱这个行业，那么你会发现，20 多岁的那种学习钻研的毅力已经没有了。再加上身体状况大不如前，加班扛不动，各方面你怎么和新来的小伙子们拼？</p>
+<p>以上的种种情况，再加上网络上疯狂的制造焦虑，我们自己也突然有了种随时会降薪，随时会被裁，随时要加入内卷，甚至随时会没命的担忧，开始想后路了。不行搞点副业？不行创个业？</p>
+<p>所以如果你今天在技术社区发一篇“程序员如何搞副业”的文章，点击率一定翻倍。根本原因，就是大家对未来的担忧。</p>
+<p>卷不动怎么办？遇到 35 岁危机怎么办？大家都想着规避风险，这才不得不去关注副业。</p>
+<h2 id="怎么看-加班内卷-和-35-岁危机" tabindex="-1"> 怎么看 “加班内卷” 和 “35 岁危机”？</h2>
+<p>这两个现象是程序员焦虑的主要来源，看似避无可避，可有没有想过根本原因是什么？</p>
+<p>我们再往深剖一下这两个问题，其实大家担心的是：“如果这种加班状态持续到 35 岁，我能不能撑得住？到时候竞争力下降，我会不会被新人替代？”</p>
+<p>但是我想说一个误区，就是初中级别的程序员，需要大量的写代码来提升自己的技术能力，不断的投入时间学习，研究，拓宽视野。但是到了高级别的程序员，比如带团队的 leader，架构师，写代码一定是越来越少的。</p>
+<p>对于这些人来说，他们不需要通过加班来发挥价值，他们有自己的核心竞争力和不可替代性，写代码也是写一些核心的关键的代码，更多的时间关注技术选型和解决问题的方案。所以说程序员的职业生涯不会一直伴随着加班，当你拥有核心竞争力，你的工作方式反而会很自由。</p>
+<p>那什么是核心竞争力？我说一句话大家一定会有体会：你的技术 leader，<strong>一个决策可以让团队的开发效率提升 10 倍，也可能让团队的开发效率降低 10 倍</strong>，有可能最后还出不了成果，甚至告诉你这个不行得重来！</p>
+<p>这就是核心竞争力呀！一个程序员对技术选型，解决方案的评估和判断，这才是他的核心竞争力。这种竞争力不是你刷一堆算法，背一堆八股文，学很多面试技巧，他就能有的。这些东西是需要你经过几年大量的 <strong>写代码+学习+尝试+思考</strong> 才能培养出的能力。</p>
+<p>所以说，我们所谓的 “加班内卷” 和 “35 岁危机”，得分两个阶段来看。</p>
+<h3 id="工作五年内" tabindex="-1"> 工作五年内</h3>
+<p>如果你是工作的前五年，这个阶段你精力旺盛，学习能力强劲，那就是要卷的啊。趁着职业上升的黄金时期，花大量的时间和精力做积累，不断做加法，尽力尝试着去拓宽技术视野，让自己成为一个独当一面的人。这样你才能积累到别人无法超越的高度。</p>
+<p>如果这个阶段你躺平了，你想着反正大家都在卷，我不想参与其中，每天上班空闲摸个鱼也挺好的。那这样持续几年，除了业务代码熟练一些，你在技术深度广度上都没多大的长进。当你发现公司的新人越来越厉害，他们带来的技术让你应接不暇的时候，你突然发现卧槽，危机真的来了，这个时候再卷是不是晚了？</p>
+<p>我不是鼓励大家内卷，相反我很反对做那些没什么意义光是自我消耗的事情。但是努力和积累永远不是卷，更不是不想奋斗的借口。如果卷真的避免不了，那一定要“卷的有价值”。</p>
+<p>比起内卷，其实我更鼓励大家“外卷”。外卷到意思就是当你在某个领域积累了一定经验后，要试着跳出当前的圈子，去探索一下外面的世界。</p>
+<p>比如你是一个前端程序员，尽管你的 Title 是“前端”，但你不能一直只在前端的圈子里打转。作为一个程序员，只要涉及到程序开发的，前端后端产品服务器，你都要接触，这样你的视野才会变的更广，看问题的角度更多，随之你的判断能力和才会得到提升。</p>
+<p>大家总觉得，一个前端就该专攻 js，只有准备向全栈发展才会接触后端。其实不是的，接触并不代表一定要做，了解整体可以培养你的全局观。比如你遇到了一个难题，你只会在前端的范畴研究，可能这个问题在后端处理只是一行代码的事情，可你不知道呀，所以会浪费很多时间。</p>
+<h3 id="工作五年后" tabindex="-1"> 工作五年后</h3>
+<p>如果你已经工作五年以上，上面说的你都没做到，眼看着自己快奔三了，还是一线开发，依然没有形成核心竞争力，这个时候 35 岁危机袭面而来。你面对一浪强过一浪的后浪，有心追赶但是明显吃力，这个时候即使老板不会裁你，你心中也会忐忐忑忑，害怕自己某一天突然失业。</p>
+<p>但是如果上面说的你都做到了，工作五年后，你多半会带一个小团队，或者成为架构师。不管有没有进入大厂，你总会在一个地方持续发挥着自己的不可替代性。</p>
+<p>工作的基本任务你会安排给组内小伙伴，架构和难题自己攻克，长期下来，你会越来越值钱，这是再厉害的应届生都做不到的，这个时候你会有 35 岁危机吗？自然不会。</p>
+<p>而且我有一个预感，程序员这个行业一定是越做越自由的。当你能力出众，技术超群，地域已经限制不了你，你可以选择任意地方的工作，并不一定要守在某一家公司，某一个城市。</p>
+<p>或许有一天你可以在三亚海边租个小房子，每天早上起来晒晒太阳，打开电脑，安排好今天的工作，然后看看前沿技术资讯，review 一下同事的代码，花几个小时解决掉剩余的难题，然后眯着眼继续晒太阳。</p>
+<p>聊这些就比较理想了，未来还是要展望的嘛。但是核心思想就是，如果你五年内没有做好积累，形成自己的核心竞争力，那么 35 岁危机也许真的离你不远。反之，则是另外一种状况。</p>
+<h2 id="怎么做副业" tabindex="-1"> 怎么做副业</h2>
+<p>上面说，程序员的 35 岁危机本质是因为没有核心竞争力。再回到做副业这件事，怎么做副业能帮我们抵抗 35 岁危机？</p>
+<p>既然危机来源于核心竞争力，那么副业的目的一定是帮助我们提升核心竞争力。</p>
+<p>这里大家也会有一个误区，认为做副业的目的是为了赚钱，开辟一条新的收入途径。这个也不能算错，但是你想啊，一个年薪百万的程序员需要做副业吗？</p>
+<p>人的精力有限，如果你的副业不是为了帮你巩固主业，而是分走了你投入在主业上的一部分精力，可能你真的赚了笔钱，但长远来看肯定没有你持续提升带来的收入更多。</p>
+<p>核心竞争力除了硬实力，当然也包括这些：</p>
 <ul>
-<li><input type="checkbox" id="task-item-0" disabled="disabled"><label for="task-item-0"> 增加 <code>Alfred</code> 搜索</label></li>
+<li>名气</li>
+<li>口碑</li>
+<li>帮助别人</li>
+<li>分享技术</li>
+<li>分享思想</li>
 </ul>
-<p><strong>直到遇到了我的第一个机器人雇员 <a href="https://github.com/huginn/huginn" target="_blank" rel="noopener noreferrer">Huginn</a></strong></p>
-<blockquote>
-<p>Huginn 是一个可以创建为你在线执行自动化任务的系统。Huginn 可以读取网页，监测事件并且执行符合你需求的动作。Huginn 通过 agents 创建并执行任务（事件流）。你可以将它看作是一个运行在你自己服务器上的 IFTTT 或 Zapier。</p>
-</blockquote>
-<p>Huginn 帮我将所有信息聚合成 RSS，24 小时帮我获取我要的内容。</p>
+<p>名气不用说，在任何圈子积累了名气路就会顺畅许多；口碑呢就是说你这个人的办事能力，靠不靠谱；帮助别人是你有没有带动别人一起成长的能力；分享最关键了，你的任意优势，包括技术和思想，如果你认为是有价值的，那就分享出来啊，这样别人才能在更多方面了解你，这是你简历之外的另一张名片。</p>
+<p>如果你做副业的目标是为了增加上面几个方面的软实力，OK，这就是最棒的。这些方面可能短期看不到回报，光是付出了，但是坚持下去，一定会给你带来意料之外的惊喜。</p>
+<p>具体到做副业的方式有哪些？我认为两个足矣：</p>
 <ul>
-<li><a href="http://news.163.com/rank" target="_blank" rel="noopener noreferrer">网易热门新闻</a>：抓取网易顶贴最多的 100 条新闻</li>
-<li><a href="http://top.baidu.com/buzz?b=1" target="_blank" rel="noopener noreferrer">百度实时热点</a>：实时更新每天的百度热点</li>
-<li><a href="https://www.guokr.com/" target="_blank" rel="noopener noreferrer">果壳网</a>：果壳首页推荐，官方更新速度较慢，刚好可以了解些奇思妙想</li>
-<li>工作类：梅花、SocialBeta、数英网、艾瑞网</li>
+<li><strong>写文章</strong></li>
+<li><strong>录视频</strong></li>
 </ul>
+<p>写文章真的是一个非常非常好的学习总结方式。人的听和看的能力是天生的，但是读和写的能力是需要后天培养的。比如你看一个技术视频，看完貌似学会了。十分钟后让你写一下这个视频的关键信息，你一想，哎刚才是什么来着？好像记不清了。有些东西你以为掌握了，但是让你写的时候，你才发现那也许是错觉。</p>
+<p>写文章会逼着你回忆和思考，没有真正吸收和消化的东西，你是写不出来的。所以坚持写文会提升我们的思考力和总结概括能力。还有你工作中遇到的重要问题和解决方案，如果不记下来，过几个月多半会忘。等到要写简历的时候，突然发现好像没什么可写，这是非常不划算的事情。</p>
+<p>除此之外，你还可以把自己的文章发表到社区，会得到很多读者的反馈，这个会给到你非常正向的鼓励，也有利于查漏补缺，同时也会慢慢积累你的口碑和名气。</p>
+<p>不过开始写文章的时候会比较痛苦，写的不好，还憋不出来。其实我现在也是这个状态，一篇文章得写一周，一句话改来改去总觉得不通顺，总觉得结构设计差点意思。不过只能硬着头皮写，写的多了总会得心应手的。</p>
+<p>至于录视频，我最近才发现这个事的好处，有点后知后觉了哈。</p>
+<p>不得不承认我们程序员大多都宅，不爱说话，表达能力一般般。好多人更愿意写几行代码，也不愿意多说一句话。但是你想啊，如果有一天你的技术非常厉害了，你要把自己的经验分享给别人，如果你不能很精简的表达出关键点并且让别人听得懂的话，这是不是成了你的短板？</p>
+<p>录视频虽然也是总结，思考，但比起写文章，它对表达能力的要求更高。表达能力是你往上走的通用能力，如果你想成为管理层几乎必备。但是呢我们工作和生活环境中表达的机会又很少，如果你可以尝试通过录视频来分享你的技术，一来有的聊，二来练习面对镜头的心态和语言组织，这是非常好的锻炼。</p>
+<p>总之呢，打造核心竞争力，不仅仅是代码，不断突破自己的局限，才是正道。</p>
+<p>本文聊的做副业并没有聊怎么赚钱，而是赚“核心竞争力”，这个东西虽然不能直接带来票子，但又何尝不是你抵御风险的底气呢？</p>
+<p>转载链接：<a href="https://juejin.cn/post/7080694504914681864" target="_blank" rel="noopener noreferrer">https://juejin.cn/post/7080694504914681864</a></p>
+<hr>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>电子信息工程最好的出路的是什么？</title>
+      <link>https://newzone.top/study_suggest/electron-information-engineering.html</link>
+      <guid>https://newzone.top/study_suggest/electron-information-engineering.html</guid>
+      <source url="https://newzone.top/rss.xml">电子信息工程最好的出路的是什么？</source>
+      <category>学习建议</category>
+      <pubDate>Sun, 04 Dec 2022 15:45:11 GMT</pubDate>
+      <content:encoded><![CDATA[<p><strong>最好的出路，在我看来是读研，然后做 IC；如果不想读研，想早点赚钱，建议转计算机专业；如果还想折中，考虑做嵌入式</strong>。</p>
+<p>说下我了解到的。</p>
+<h2 id="一、ic" tabindex="-1"> 一、IC</h2>
+<p>IC 就是半导体元件产品的统称，主要分为数字 IC 和模拟 IC。数字 IC 就是传递、加工、处理数字信号的 IC；模拟 IC 是处理连续性的光、声音、速度、温度等自然模拟信号的 IC。</p>
+<p>数字电路 IC 处理的是数字信号的器件，比如 CPU、逻辑电路等；模拟电路 IC 处理的是提供模拟信号的器件，比如运算放大器、线性稳压器。</p>
+<p>模拟 IC 的厂商国内外知名的不多，比如说国外的德州仪器，国内的艾为电子。</p>
+<p>反观数字 IC，国内外知名公司真不少，比如说 nvdia、AMD、中兴、海思等。</p>
+<p>从入门门槛上来看，模拟比数字的门槛高一些，模拟如果想做的好一点，研究生学历是必须的，读博更好；数字门槛也不能说低，如果足够优秀，本科也是可以顺利就职的，版图岗位的要求更低一些，只有要数电、模电的基础，对大专生也是比较友好的。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-30e29fba-9b5d-40da-bda1-dbd0e81b8247.png" alt="" loading="lazy"></p>
+<p>至于薪资的话，如果是名校出身的科班生，50 万的薪资可以说羡煞旁人了。</p>
+<h2 id="二、计算机专业" tabindex="-1"> 二、计算机专业</h2>
+<p>从技术应用的角度来看，在相当长的时间里，社会对计算机从业人员的缺口都非常大。因为，各行各业都需要计算机专业的人员参与进来，进行数字化的改造。<strong>举个例子，我在某 2 线城市的 5 年计划中，看到这样一条：</strong></p>
+<p>未来5年内，借助互联网技术，着重提升群众办事的满意度，从原来“只跑一次”，变成“一次也不用跑”，打造“24小时不打烊”的政府窗口。</p>
+<p><strong>大家想一下，按这个思路，各行各业，全国上下铺开，是多么大的一个工程量，对计算机从业人员的需求量，可想而知。</strong></p>
+<p><strong>另外，像专业领域的软件，完全被国外吊打。</strong></p>
+<ul>
+<li>AutoCAD、solidworks、proe、creo等3维设计软件，实体制造业，包括家电、家居、装修、机械、服装设备、各种设备制造、生产线制造</li>
+<li>Adobe家族，设计、阅读行业，设计行业</li>
+<li>ansys、fluent、MATLAB，结构应力分析、流体分析，所有有中高端实体产业、大型企业、科研所、尖端行业</li>
+<li>CATIA 汽车行业、新能源行业</li>
+<li>protel，电气行业，电路设计等等，涉及所有通电的数码设备，小到耳机，大到手机、笔记本显示器、家电等等</li>
+</ul>
+<p><strong>这些专业领域的软件，就需要更多计算机专业的人员参与进来，并且坚持做 5-10 年才有可能赶得上。</strong></p>
+<p>所以，电子信息工程专业转计算机专业也是一个非常好的选择。</p>
+<p>计算机行业对于普通人来说，仍然是改变命运的绝好机会。相对来说，传统行业更注重资源，背景、人脉尤其重要，普通出身的人想要晋升，难度相当于爬 90 度的梯子。当然了，如果能把传统行业和互联网结合起来，那一定也能创造出巨大的价值。</p>
+<p>古人云：两害相权取其轻。</p>
+<p>往下看，是待遇低微、前途灰暗、血肉磨坊般的传统工科；</p>
+<p>往上看，是门槛高、依赖家庭资源、依赖学校出身的金、法、医；</p>
+<p>中间的计算机，算是这个时代给予贫寒子弟仅有的一点温柔。反正我就是靠着计算机专业完成逆袭的。晒张图，这是我的家乡，虽然树很多、空气也很新鲜，但确实比较穷。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-4e3f8c93-9df5-48dd-9824-79005d5c5518.png" alt="" loading="lazy"></p>
+<p>我之所以能够逆袭成功，因素有很多，但我想以下这三点非常重要：</p>
+<ul>
+<li>父母的支持</li>
+<li>自己的努力</li>
+<li><strong>选择了计算机专业</strong></li>
+</ul>
+<p><strong>这里也分享一套非常完整的计算机必读的经典书籍，对计算机专业的同学会有非常大的帮助，这也是我十多年编程生涯里留下的宝藏</strong>：<a href="https://tobebetterjavaer.com/download/java.html" target="_blank" rel="noopener noreferrer">计算机经典书单</a></p>
+<p><strong>里面的书单真的非常 nice，不管是学习编程的新手，还是工作多年的老手，应该都很有帮助</strong>：</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-e40c4215-3078-42b3-8ab6-fe84c34d0a07.jpg" alt="" loading="lazy"></p>
+<p>戳：<a href="https://tobebetterjavaer.com/download/java.html" target="_blank" rel="noopener noreferrer">计算机必读经典书单（可 download）！</a></p>
+<p>这里重申一下我学习计算机的理论观点吧，如果要转计算机的话，我想对你快速建立起自己的知识体系很有帮助！</p>
+<p>如果你要学习物理，我推荐你顺着物理的发展史学习，先学习牛顿的经典物理，再学习热力学、电磁学，然后学习相对论、量子力学这些彻底推翻经典物理的，最后学习电动力学这种硬核的。</p>
+<p>整个学习过程，是自底向上的。但是学计算机，这样行不通。</p>
+<p>先学习电路，然后学习冯诺依曼结构，造一台计算机？接着再学习如何用汇编写个 mini os？接着学习如何写一个简易版的编译器？最后再学习高级编程语言，比如说 Java、Python？</p>
+<p>显然这样是行不通的！<strong>计算机的学习最好是自顶向下</strong>。</p>
+<p>什么是顶？我想一门高级的编程语言就是，比如说 Java、C++、Python！</p>
+<p>当你学习到 Java 并发编程中的“原子性”、“同步”、“异步”、“进程”、“内存分配”这些概念的时候，你自然而然会产生很多疑问，然后就会去学习计算机组成原理、操作系统，然后你的一系列问题就会逐渐被解决。</p>
+<p>当你发现，用 Java 实现某个业务需求时，人家的算法实现比你快得多，你自然会好奇，为什么会这样？然后你发现人家用的数据结构和你的不同，然后你就会去学习数据结构，接着了解一些高效的算法，比如动态规划等。</p>
+<p><strong>那么接下来，再来说说计算机专业的学习路线吧，需要的学习路线的同学可以 mark 了！非常硬核，值得收藏和点赞。</strong></p>
+<h3 id="一、java-语言基础" tabindex="-1"> 一、Java 语言基础</h3>
+<p>初学者可以到通过《<a href="https://tobebetterjavaer.com" target="_blank" rel="noopener noreferrer">Java 程序员进阶之路</a>》进行学习，也就是本站，这是一个风趣幽默、通俗易懂的 Java 教程，对 Java 初学者极度友好和舒适，内容包括但不限于 Java 语法、Java 集合框架、Java IO、Java 并发编程、Java 虚拟机等核心知识点。</p>
+<blockquote>
+<p>更详细的学习路线戳：<a href="https://tobebetterjavaer.com/xuexiluxian/java/yitiaolong.html" target="_blank" rel="noopener noreferrer">https://tobebetterjavaer.com/xuexiluxian/java/yitiaolong.html</a></p>
+</blockquote>
+<h3 id="二、开发框架" tabindex="-1"> 二、开发框架</h3>
+<p>可能很多人会对开发框架嗤之以鼻，感觉学这个没多大用处，提升不了你的技术功底。但是呢，如果你想做练手项目，没有开发框架的帮助，很难。</p>
+<p>Java 之所以流行，很重要的一部分原因就是拥有 Spring 系列框架这个大杀器，包括 SSM（Spring+SpringMVC+MyBatis）、Spring Boot、Spring Cloud。</p>
+<p>我们只是不应该停留在只会用的层面上，要懂背后的原理。说一千道一万，Spring 的核心就两个概念：AOP、IoC。</p>
+<p>AOP（Aspect-Oriented Programming），也就是面向切面编程，能够将那些与业务无关，却为业务模块所共同调用的逻辑或责任（例如事务处理、日志管理、权限控制等）封装起来，便于减少系统的重复代码，降低模块间的耦合度，并有利于未来的可拓展性和可维护性。</p>
+<p>IoC（Inverse of Control），也就是控制反转，是一种设计思想，就是将原本在程序中手动创建对象的控制权，交由 Spring 框架来管理。</p>
+<p>先学习 SSM，再学习 Spring Boot。Spring Boot 的出现，并不意味着 Spring 和 SpringMVC 已经过时了，从设计目的上来说，Spring Boot 只是实现了 Spring 的自动装配，降低了项目搭建的难度。</p>
+<p>从技术角度来说，Spring Boot 的底层依然是 Spring 的核心机制，也就是 AOP 和 IoC，Spring Boot 只是一个承载者。在我看来，学习 Spring 的正确路径应该是 Spring -&gt; Servlet -&gt; Spring MVC -&gt; Spring Boot。</p>
+<h3 id="三、数据库" tabindex="-1"> 三、数据库</h3>
+<p>增删改查，增删改查，要想做一名只会 CRUD 的程序员，数据库这块是逃不掉的。不过，这里就不重点说了，推荐一些资源给大家。</p>
+<p>小破站上的三个视频。</p>
+<ul>
+<li>SQL：<a href="https://www.bilibili.com/video/BV1UE41147KC" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV1UE41147KC</a></li>
+<li>MySQL：<a href="https://www.bilibili.com/video/BV12b411K7Zu" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV12b411K7Zu</a></li>
+<li>Redis：<a href="https://www.bilibili.com/video/BV1S54y1R7SB" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV1S54y1R7SB</a></li>
+</ul>
+<p>四本书。</p>
+<ul>
+<li>《SQL 必知必会》</li>
+<li>《高性能 MySQL》</li>
+<li>《MySQL 技术内幕-InnoDB 存储引擎》</li>
+<li>《Redis 深入历险核心原理与应用实战》</li>
+</ul>
+<h3 id="四、计算机组成原理" tabindex="-1"> 四、计算机组成原理</h3>
+<p>计算机是由 CPU、内存、输入输出设备，这些硬件组成的，但我们程序员，往往从事的是软件开发的工作，怎么在硬件和软件之间搭起一座桥梁呢？</p>
+<p>答案就是学习计算机组成原理。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-5270d8c0-5e03-4a06-924c-c9a8d25dd446.jpg" alt="" loading="lazy"></p>
+<p>计算机组成原理的知识点可以拆分为四个部分：</p>
+<ul>
+<li>计算机的基本组成硬件</li>
+<li>计算机的指令和计算</li>
+<li>处理器涉及</li>
+<li>存储器和 IO 设备</li>
+</ul>
+<p>按照冯诺依曼的体系结构，计算机分为运算器、控制器、存储器、输入输出设备；我们编写的代码，要想在计算机上运行，就需要通过编译器转成汇编代码，再经过汇编器转成一条条指令，这些指令的执行，是由控制器来完成的。</p>
+<p><strong>计算机组成原理该怎么学呢</strong>？</p>
+<p>如果英语功底非常不错的话，安利一门 Coursera 上的课程，从与非门到俄罗斯方块，简单来说，这门课会教你怎么从与非门开始造一台计算机。</p>
+<blockquote>
+<p>地址：<a href="https://www.coursera.org/learn/build-a-computer%E2%80%8Bwww.coursera.org/learn/build-a-computer" target="_blank" rel="noopener noreferrer">https://www.coursera.org/learn/build-a-computer​www.coursera.org/learn/build-a-computer</a></p>
+</blockquote>
+<p>这门课的视频拍的那叫一个优质，虽然没有中文翻译，但视频下方的字幕会有节奏的移动。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-a5f13f0d-c0e1-486a-933a-7bfa81983a6c.jpg" alt="" loading="lazy"></p>
+<p>国内的推荐哈工大的这门视频课，整体评价非常高（建议 1.5 倍速食用），戳：<a href="https://www.bilibili.com/video/BV1WW411Q7PF" target="_blank" rel="noopener noreferrer">计算机组成原理（唐朔飞）哔哩哔哩_bilibili</a></p>
+<h3 id="五、数据结构与算法" tabindex="-1"> 五、数据结构与算法</h3>
+<p>可能有人会觉得：就算不懂数据结构与算法，照样可以把 Java API、开发框架用得飞起？</p>
+<p>但这里我想表达的是：</p>
+<p><strong>1）数据结构与算法是很多大厂筛选人才的要素之一</strong>。</p>
+<p>这是因为校招的时候，参加面试的学生大多数都是没有实际项目经验的，公司只能通过考察这些基础知识来筛选。</p>
+<p>大厂不怕你没有项目经验，而怕你没有长期发展的潜力。所以，很多参加校招的同学，在面试前都会疯狂刷题的，至少会突击个 100 道左右的题目。</p>
+<p><strong>2）实际工作当中肯定是会用到的。</strong></p>
+<p>举个例子，存储某个业务数据时，你打算用 ArrayList 还是 LinkedList，它们底层用的是哪种数据结构，增删改查上有哪些优缺点？</p>
+<p>再比如，Redis 中的有序集合是用什么数据结构实现的？为什么要用跳表二不是二叉树呢？</p>
+<p>不懂数据结构和算法，行得通吗？</p>
+<p><strong>3）掌握了数据结构与算法，对阅读源码会有很大的帮助。</strong></p>
+<p>因为很多时候，源码当中都会考量到不同数据结构之间的优点和缺点。</p>
+<p>你比如说，HashMap 为什么在链表长度大于 8 的时候将其转为红黑树？为什么不能是二叉树？</p>
+<p><strong>那数据结构与算法该怎么学习呢？</strong></p>
+<p>我画了一张图，里面几乎涵盖了所有数据结构与算法书籍中都会讲到的知识点。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-46294124-8e8f-4d2e-ac48-f68a1be9b2ac.jpg" alt="" loading="lazy"></p>
+<p>如果英语功底不错的话，推荐国外的 MIT 6.006，是经典的数据结构和算法入门课程，涉及到排序、哈希、图论、动态规划。</p>
+<p><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/" target="_blank" rel="noopener noreferrer">https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/</a></p>
+<p>国内的推荐浙江大学的一个的课程，很系统很经典，适合小白入门。</p>
+<p><a href="https://www.bilibili.com/video/BV1JW411i731" target="_blank" rel="noopener noreferrer">数据结构-浙江大学_哔哩哔哩_bilibili</a></p>
+<p>至于练习，推荐到 LeetCode 或者牛客网上刷题吧，上面的问题往往有趣且带有良好的解法和讨论。此外，在竞争日益激烈的软件行业，这些问题可以帮助你评估自己应对技术面试中常见问题的能力。</p>
+<p>我的心得就是简单粗暴：从易到难，一遍一遍地刷，尽量使用自己熟悉的编程语言，比如说 Java 程序员尽量用 Java 来解题，这样刷题的幸福感也会提升很大一截。</p>
+<p>如果不是天赋异禀，不要怕，一开始就是抄题，先把别人的解题思路照着敲出来。刷的题多了，尽量控制一下刷题的时间，掐个点，不能让自己一直想、一直写下去，如果半个小时没有解出来，就果断放弃，去背别人的答案，不要觉得不好意思，等到真的熟了，再去想自己的解题思路。</p>
+<blockquote>
+<p>更详细的学习路线戳：<a href="https://tobebetterjavaer.com/xuexiluxian/algorithm.html" target="_blank" rel="noopener noreferrer">https://tobebetterjavaer.com/xuexiluxian/algorithm.html</a></p>
+</blockquote>
+<h3 id="六、操作系统" tabindex="-1"> 六、操作系统</h3>
+<p>操作系统是管理计算机硬件和软件资源的程序，是计算机的基石。</p>
+<p>操作系统负责的工作有：管理设备、文件读写、控制进程、管理内存等等，算是所有软件中的老大，掌握着生杀大权。推荐的学习资料有《现代操作系统》、《深入理解计算机系统》这两本书。</p>
+<p>考过研的同学应该知道《深入理解计算机系统》这本书是必读的，我自己最近又买了一本新的，算是我读的第二遍了。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-52358273-5b8b-416a-b466-986b5f3ee96a.jpg" alt="" loading="lazy"></p>
+<p>操作系统中的很多思想和经典算法，都可以在日常开发使用的各种工具或者框架中找到影子。</p>
+<p>比如说 Redis 和操作系统的高速缓存就很像，Redis 是用来解决程序处理速度和访问 MySQL 速度不对等的问题，而内存就是用来解决 CPU 处理速度和访问磁盘等外存速度不对等的问题。</p>
+<p>像操作系统，国内通常会考 PPT 上那些需要死记硬背的知识点，而国外往往会要求实现一个简单的操作系统内核。</p>
+<p>如果英语功底非常不错的话，推荐国外的 MIT6.828，是一门公认的硬核课程，是理论与实践相结合的经典。建议有一些 C语言语言的基础后，再来看这门课程，一定会大有所获。只要你跟着项目一步一步走，就能实现一个简单的操作系统内核。</p>
+<p>课程地址：<a href="https://pdos.csail.mit.edu/6.828/2018/schedule.html" target="_blank" rel="noopener noreferrer">6.828 / Fall 2018</a></p>
+<p>操作系统应该提供的功能：</p>
+<ol>
+<li>多进程支持</li>
+<li>进程间隔离</li>
+<li>受控制的进程间通信</li>
+</ol>
+<p>内核（<em>kernel</em>）是操作系统的核心，它是一种为运行的程序提供服务的特殊程序。每个运行着的程序叫做进程，每个进程的内存中存储着指令、数据和堆栈。一个计算机可以拥有多个进程，但是只能有一个内核。</p>
+<p>每当进程需要调用内核时，它会触发一个<em>system call</em>（系统调用），system call进入内核执行相应的服务然后返回。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-b7db672b-7a5a-443f-8a4d-5a8e1d65886c.jpg" alt="" loading="lazy"></p>
+<p>网友在学习这门课程的时候做的笔记：<a href="https://fanxiao.tech/posts/MIT-6S081-notes/" target="_blank" rel="noopener noreferrer">MIT 6.S081 Lecture Notes</a>，大家可以作为参考。</p>
+<p>国内的「清华大学公开课：操作系统」口碑也相当的不错。</p>
+<p><a href="https://open.163.com/newview/movie/courseintro%3Fnewurl%3DME1NSA351" target="_blank" rel="noopener noreferrer">清华大学公开课：操作系统</a></p>
+<p>还有哈工大的操作系统课：</p>
+<p><a href="https://www.bilibili.com/video/av17036347" target="_blank" rel="noopener noreferrer">操作系统哈尔滨工业大学李治军老师_哔哩哔哩_bilibili</a></p>
+<p>以“如何给一个拥有单核 CPU、内存、磁盘、键盘和显示器的基本计算机配备一个可实际运转的操作系统”这一基本问题作为主线，分为四大块：</p>
+<ul>
+<li>操作系统基础</li>
+<li>进程与线程</li>
+<li>内存管理</li>
+<li>设备驱动与文件系统</li>
+</ul>
+<p>下图是课程的封面，一个简易版的操作系统，和我们当前使用操作系统界面比起来，显然丑露无比，但它能让你体会到快乐——一种真正地学到了本领的快乐。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-cdccae94-aca8-4e88-b241-0b6d95dee5f9.jpg" alt="" loading="lazy"></p>
+<blockquote>
+<p>更详细的学习路线戳：<a href="https://tobebetterjavaer.com/xuexiluxian/os.html" target="_blank" rel="noopener noreferrer">https://tobebetterjavaer.com/xuexiluxian/os.html</a></p>
+</blockquote>
+<p>借这个机会，我希望把多年来整理的硬核学习资料分享出来，帮助到更多小伙伴，包括<strong>编程语言的入门教程，操作系统、计算机网络、数据结构与算法这种偏基础的硬核知识，以及能“吊打”面试官的八股文：</strong></p>
+
+<h2 id="三、嵌入式" tabindex="-1"> 三、嵌入式</h2>
+<p>嵌入式可以进一步细分为嵌入式硬件和嵌入式软件。</p>
+<p>嵌入式硬件工程师要求具备硬件工程师的基本技能，还必须完成部分软件工程师的工作，比如说能对底层驱动的嵌入式操作系统进行裁剪、移植。</p>
+<p>嵌入式硬件工程师的主要职责是为产品设计硬件电路原理图、PCB 板（印刷电路板），选择合适的元器件，焊接调试硬件电路板，保证硬件电路板的可靠性、稳定性和抗干扰能力。</p>
+<p>一个资深的嵌入式硬件工程师的年薪在 15-30 万左右。需要有非常扎实的理论知识，以及高频 CPU、多层 PCB 板的设计经验。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-34380fff-fcbd-4d1a-805d-72d38a1d8834.png" alt="" loading="lazy"></p>
+<p>嵌入式软件工程师指在 wince、linux 等嵌入式操作系统下进行用户应用软件开发的人员，硬件平台有手机、pad 等；开发工具有 wince 下的 evc，Linux 下的 QT 等。</p>
+<p>嵌入式软件工程师的主要职责是根据产品的功能需求设计出好的软件，让硬件工作起来。一般情况下，软件工程师的需求量更大一些。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-5e3615e1-54c3-41a2-beca-97fcac8bc2cb.png" alt="" loading="lazy"></p>
+<p>一个资深的嵌入式软件工程师的年薪也在 15-30 万左右。要熟练掌握 C/C++，熟练使用CortexM4系列单片机、RTOS(FreeRTOS, UcosII，RT-thread)等。</p>
+<p><strong>希望能给大家提供一点点帮助和启发~</strong></p>
+<hr>
+]]></content:encoded>
+      <enclosure url="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-30e29fba-9b5d-40da-bda1-dbd0e81b8247.png" type="image/png"/>
+    </item>
+    <item>
+      <title>如何获得高并发的经验？</title>
+      <link>https://newzone.top/study_suggest/gaobingfa-jingyan-hsmcomputer.html</link>
+      <guid>https://newzone.top/study_suggest/gaobingfa-jingyan-hsmcomputer.html</guid>
+      <source url="https://newzone.top/rss.xml">如何获得高并发的经验？</source>
+      <category>学习建议</category>
+      <pubDate>Sun, 04 Dec 2022 15:45:11 GMT</pubDate>
+      <content:encoded><![CDATA[<p><strong>先说结论。</strong></p>
+<p>1、首先得在自己电脑上鼓捣出 Redis，kafka，dubbo，mycat 等高并发分布式组件的环境，通过这些环境了解分布式组件的基本 api。</p>
+<p>2、为这些分布式组件找个项目场景，证明自己用过，并且解决过实际问题。这里需要指出的是，单纯背高并发的面试题没用。</p>
+<p>3、修改简历，找到高并发面试的机会，然后通过多场面试，不断调整自己讲述高并发项目经验的水平。这时，如果能直接用高并发的说辞进大厂，那是最好的，如果不能，找个过渡性的能提供高并发实践的岗位。</p>
+<p>4 **如果有高并发项目的实践经验，那么后面就不用说了，只要多解决实际问题，高并发技能一定能很快掌握。**这时掌握的高并发技能，就不是单纯的理论说辞和简单的 API 技能了，而是正宗的高并发项目实践技能。</p>
+<p>可以这样说，能否找到高并发项目的实践经验，决定着程序员能否升级到架构师，不过这不容易。下面讲一下我的一个朋友的经历，musk经常和他聊天，互相在知乎上点赞，哈哈哈。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/gaobingfa-jingyan-hsmcomputer-9c0199ae-e4ed-40d3-893a-74a87dcd1759.png" alt="" loading="lazy"></p>
+<p>1、17 年年初的时候，朋友在项目组里只用简单的 Spring + JDBC/ORM 做业务，开发是在 windows 上的，接触到的高并发组件，也就是 nginx 和 mysql 集群，加上一些 linux 上部署和调试组件的经验，并没有高并发组件的使用经验。</p>
+<p>相信当下不少球友和我这位朋友一样，只会做 windows 系统上的增删改查，没有任何分布式组件和高并发经验。</p>
+<p>那如果就这样下去，只会基本的增删改查，再干个几年，等年纪上来了，估计连跳槽的机会都没。</p>
+<p>2、后来，这位朋友就去背题，什么 redis 数据结构，dubbo 协议，kafka 流程等等，高并发情况下防幂等，netty 堆外内存的使用要点，jvm 调优等。凡是和高并发有关的，他基本都背了一下。然后就开始修改简历，就写，在 xx 项目里，并发量是每秒 xx，用到了 Redis,kafka, dubbo（省略其它分布式组件）等等，然后投简历。</p>
+<p>3、由于朋友当时的公司不错，所以投出去的简历很快得到回应，也得到了不少大厂的面试机会。刚开始面试时，Java、数据库等方面，朋友都是秒通过。但是如果问到分布式组件，朋友基本就说不上来。</p>
+<p>因为朋友背的都是脱离项目的理论，比如 mysql 集群的搭建方法和 redis 数据结构等，面试官是结合项目问的，比如问，你项目里 Redis 如何确保高可用，用 nginx 部署 spring boot 项目时，配置文件中注意的要点是什么。<strong>由于朋友是单纯背理论，所以就回答不上来。</strong></p>
+<p>4、尝试了几次，朋友意识到单纯背题一定不行，<strong>他就在他的电脑上，搭建了诸多高并发组件的开发环境。虽然组件在项目里都运行在 linux 上，但大多高并发组件都有 windows 版。</strong></p>
+<p>当时朋友搭建了 mysql 主从集群，redis 主从集群，rabbitmq, dubbo+zookeeper，nginx，mycat 等开发环境，了解各组件的基本用法，然后为每个组件找了个项目背景。比如说 redis，朋友就说，我们项目需要缓存员工信息，所以用到了 Redis 里的 xxx API，对应的 Java 代码是什么，类似的，为每个组件都找个了应用背景。</p>
+<p>5、这个时候朋友再去面试，在分布式组件方面，就能和面试官有来有去了，甚至还面试成功了几家小公司。但如果面试官问些实践要点，比如 redis 如何防穿透，redis cluster 的失效转移等，朋友就答不上来。<strong>所以朋友当时给面试官的印象是，有分布式组件的使用经验，也会用分布式组件开发基本的高并发技能，但缺乏系统的用分布式组件实现高并发的能力。</strong></p>
+<p>6、这个时候，朋友就回想起刚开始背题的一些内容，比如 netty 防堆外内存溢出，netty 如何解决半包粘包，redis 如何防穿透，mycat 如何实现读写分离，还有限流和熔断等机制等。<strong>这时朋友才感到，原来这些题目是要等掌握一定高并发说辞后再用，不是一开始就用的。</strong></p>
+<p><strong>明白这些以后就好办多了，这些技能和开发无关，只需要结合项目背景讲下实现要点。</strong></p>
+<p>比如以限流为例，先准备一个限流场景，比如公司查询系统每秒只能放 1000 个请求，然后说下实践要点，无非是 redis+lua，再说下异常情况下怎么处理，无非就超量情况下抛异常。其它熔断防穿透都要点都按这样准备。</p>
+<p>7、请注意，到了这个时间点，朋友的分布式高并发经验，也仅仅是停留在理论层面，但这个时候我去面试，就能通过用法+实践要点的说辞，成功把自己包装成有高并发项目经验的人了，后面的面试成功率就高很多了。</p>
+<p>不过在这个阶段，为了挑战大厂的岗位，<strong>朋友还准备了“项目中解决过的实际问题”。</strong></p>
+<p>套路说辞基本一样，首先遇到什么问题，比如 redis 穿透，或 oom 异常，或 kafka 私信堆积过多，然后说表现，表现无非是系统宕机，卡死，或功能异常，再说如何排查，无非是通过看日志，日志中遇到什么异常，发现什么问题，最后再说怎么解决的。</p>
+<p>网上这种问题一搜一大堆，但网上的说辞大多是纯理论的，**得为这些问题找个项目背景。**比如 xx 支付系统遇到 oom 异常，xx 优惠券分发系统遇到死信过多，xx 支付系统遇到 redis 穿透等等。</p>
+<p>8、也就是说，通过不断面试，朋友整理了高并发方面的<strong>基本用法+实践要点+解决过问题</strong>等说辞。这样虽然还是没高并发项目经验，但已经能确保进大厂了。<strong>事实上朋友就这样进大厂的。</strong></p>
+<p>9、进大厂以后，其实朋友的日子很难过，<strong>一方面项目组通过面试，认定他有高并发项目经验，其实他没有</strong>，但朋友不这样说，他就只能在原来的公司做基本的增删改查。</p>
+<p>这时，朋友除了自己到处查以外，只能一方面厚着脸皮到处问人，另一方面多加班。由于朋友的项目用到高并发，所以日常工作中有大量的开发，部署，调试机会，平时也经常解决高并发的问题。</p>
+<p>所以朋友的苦日子也就过了 3 个月，后面他不仅能解决高并发的问题，还能参加压力测试**，通过压力测试提升高并发的性能，做到这个程度，朋友才算真正获得了高并发的项目经验。**</p>
+<p>10、 <strong>掌握高并发经验的红利是相当大的</strong>。当朋友掌握高并发经验后，后面找工作，基本上大多数的技术面试都能过。</p>
+<p>musk就认识一个大佬，叫李智慧，由于有高并发架构的能力，目前在极客 xx 上出了一门高并发架构课，不知道有球友听说过吗？</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/gaobingfa-jingyan-hsmcomputer-81c5ab21-c5dd-48e8-8af2-b301cf04d9e2.png" alt="" loading="lazy"></p>
+<p>如果你也有高并发的经验，也可以进个外企养老，或者是找个小公司做技术总监，不至于在 35 岁被淘汰。</p>
+<p><strong>其实我发现，不少人掌握高并发技能的经历和musk的朋友很相似。</strong></p>
+<p>1、在公司项目没有提供高并发实践机会的前提下，通过背题等，哪怕根据一些所谓的思维导图，把相关全学了一遍。</p>
+<p>2、然后进入到提供高并发实践机会的项目里，得到相关经验。</p>
+<p>3、得到高并发的实践机会，通过项目真正掌握高并发的技能。</p>
+<p>最后做个总结，<strong>高并发能力包括哪些，如何该怎么掌握？这无法通过短短的文章来说明</strong>。</p>
+<p>但是，你就照着我在上文里给出的步骤，先搭建环境，再掌握分布式组件的基本用法，再了解高并发的实践要点和解决问题的说辞，你至少能通过面试得到高并发项目的实践机会。</p>
+<p>掌握高并发经验的难点在于得到实践机会，进了项目组，有了实践机会，高并发技巧就不用我说了，你自己就能知道如何掌握。</p>
+<p><strong>前文已经说了，要得到高并发经验，一般得分两步走，第一通过面试得到实践机会，第二在项目中提升，其实难点在第一点，在零基础前提下，准备高并发方面的面试，确实难。而通过面试找到项目实践机会后，可能会被人鄙视，也会被领导认为很水，但好歹得到了能进一步提升的机会。</strong></p>
+<p>这里特别提一句，大厂技术面试官一般眼睛都很毒，高并发项目经验，或者高并发方面只有理论经验的候选人，通过寥寥几个问题就能问出。这点大家不要有侥幸心理。</p>
+<p><strong>那在零基础前提下，准备高并发方面的面试的难点在哪里呢？</strong></p>
+<p>1、高并发的组件大多是运行在 linux 上，windows 很难搭建环境，没有环境其它就不用说了。</p>
+<p>2、零基础的球友，不知道高并发场景下的分布式组件怎么用，<strong>或者只知道如何用简单的 api</strong>。由于缺乏项目经验，所以也不知道分布式组件在项目里是怎么用的。</p>
+<p>3、在学分布式组件解决高并发问题方面，往往只会孤立地使用某个组件，比如孤立使用 redis 做缓存，孤立使用 rabbitmq 做消息中间件，但现实场景下，往往是综合使用多个分布式组件，协同解决高并发问题。</p>
+<p>4、由于只会理论，没有在项目里接触过高并发开发，<strong>所以普遍缺乏分析排查解决高并发方面问题的经验。</strong></p>
+<p>在高并发场景下，往往会用到集群，熔断，限流等。在使用高并发组件的时候，往往也会踩到不少坑，比如 mycat 方言不对，netty 半包，消息中间件重发等。</p>
+<p>**大厂面试官往往是会通过这些经常遇到的问题，来确认求职者的高并发方面的经验，**而一些没有高并发项目经验的求职者，在这方面往往是不堪一击的。</p>
+<p><strong>下面就以我考核高并发技能的方式，让大家体验一下零项目经验高并发求职者的难度。</strong></p>
+<p>1、不问概念，比如 redis 数据结构，netty 重要组件。因为零项目经验的高并发求职者一定背过。</p>
+<p>2、第一层难度，这块问题不固定，我先问，你项目里用到哪些分布式组件，然后指着用过的分布式组件，问下 Java 环境下的基本 api 和配置。比如用过 Redis 我就问 Jedis 的语法，用过 Netty 就问 java 层面如何做通讯协议，用过 RabbitMQ 就问 Spring Boot 要做哪些配置。</p>
+<p>我就问你用过的组件，java 里是怎么用的。我发现不少只会背理论的求职者，单纯讲组件（比如 Redis 或 netty 等）很熟悉，但不知道怎么和 Java 整合，这就说不过去了。</p>
+<p>3、第二层难度，有些求职者自己搭建过环境，知道分布式组件的 api。对这些求职者，我进一步提问，和我说下你用(Redis，Kafka，Netty，nginx 等的)分布式组件的项目场景，比如你说你用 Redis，你们项目的数据量是多少？你们项目是用单机版 Redis 还是 Redis 集群，如果是单机版 Redis，你们怎么确保高可用？</p>
+<p>这样当我结合项目背景问的时候，会发现不少高并发方面的求职者露馅。用他们的话说，nginx 都是部署在 windows 上的，redis 只用单机版，而且数据量不高。这也能说明不少求职者没有高并发分布式组件的使用经验。</p>
+<p>4、其实如果求职者能结合项目背景说分布式组件的用法，至少能说明有高并发的经验，在一些高并发要求比较低的岗位，这样的表现，至少在分布式组件这块，就可以过关了。但如果要面试资深开发或架构，那么还需要问 第三层难度，**即在高并发分布式组件方面解决过哪些问题？**这样能证明求职者有一定的高并发项目实践经验。</p>
+<p>这方面网上有现成的问题，比如 Dubbo 超时问题，多注册中心问题，Redis 内存溢出问题等。</p>
+<p>不过话说回来，零高并发项目经验的求职者，如果准备方法得当，其实也能通过项目背景和实际解决过的问题，证明自己有高并发项目经验。</p>
+<p><strong>也就是说，哪怕你高并发方面缺乏项目经验，只要好好准备，一样能通过面试得到实践机会，大家应当有信心。</strong></p>
+<p>我在文章里经常用到小二这个角色，那么接下来就以小二为例。</p>
+<p>1、小二具备 Spring Boot+JPA 开发经验，这其实也是高并发经验的基础。</p>
+<p>2、小二掌握了如何在 windows 环境下搭建 Redis,MyCAT,RabbitMQ，nginx，dubbo+zookeeper，MongoDB 等组件运行环境的步骤，请注意是 windows 环境，而不是 linux 环境。虽然生产环境中，这些组件都在 linux 环境下，因为大家平时都用 windows，而且这些组件在 windows 和 linux 环境下的开发差异不大。</p>
+<p>3、小二环境搭建好以后，首先运行一通 spring boot 整合诸多分布式组件的项目，这样他就知道怎么用，而不会仅仅知道怎么说。<strong>然后我就让他为每个组件，找个业务背景。</strong>。</p>
+<p>4、会用+结合业务背景使用高并发分布式组件以后，<strong>我再让小二背些分布式组件方面的常用坑，以及常规的使用经验</strong>，无非是 dubbo 调用超时，redis 超时，redis 内存溢出，dubbo 整合 zookeeper 的要点等。这方面不要太深，不用涉及到算法，也不用涉及到底层技能。而且这方面内容我书里大多也提到。<strong>最后我让小二通过秒杀案例，串起来讲多个分布式组件的使用要点。</strong></p>
+<p>**5、这个是要点，我让小二准备了不少解决高并发问题的说辞。**高并发问题其实也很普遍，无非是 redis 超时，kakfa 由于重发而导致的不幂等，dubbo 注册中西中心失效等。这些方面，我让我小弟准备哪些点呢？问题是如何发现（无非是通过日志告警或系统卡顿发现），如何排查（到 linux 看日志，日志中看到哪些具体的关键字），如何解决（改文件或改配置）</p>
+<p>参考链接：<a href="https://www.zhihu.com/question/40609661/answer/2245612049" target="_blank" rel="noopener noreferrer">https://www.zhihu.com/question/40609661/answer/2245612049</a></p>
+<p>高并发其实没有那么神秘，讲来讲去就是解决“有限资源与无限用户”的矛盾。你会发现目前主流的解决方案来来去去无非那几种，你如果有心，即使没做过，但是私底下练习过了，面试说出来也是可以过的。</p>
+<hr>
+]]></content:encoded>
+      <enclosure url="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/gaobingfa-jingyan-hsmcomputer-9c0199ae-e4ed-40d3-893a-74a87dcd1759.png" type="image/png"/>
+    </item>
+    <item>
+      <title>如何填报计算机大类高考填志愿，计科、人工智能、软工、大数据、物联网、网络工程该怎么选？</title>
+      <link>https://newzone.top/study_suggest/gaokao-zhiyuan-cs.html</link>
+      <guid>https://newzone.top/study_suggest/gaokao-zhiyuan-cs.html</guid>
+      <source url="https://newzone.top/rss.xml">如何填报计算机大类高考填志愿，计科、人工智能、软工、大数据、物联网、网络工程该怎么选？</source>
+      <description>如何填报计算机大类高考填志愿，计科、人工智能、软工、大数据、物联网、网络工程该怎么选？</description>
+      <category>学习建议</category>
+      <pubDate>Sun, 04 Dec 2022 15:45:11 GMT</pubDate>
+      <content:encoded><![CDATA[<p>大家好，我是musk呀！随着高考成绩的出炉，星球的 VIP 群里也是聊的热火朝天，作为过来人，大家都在弟弟妹妹的面前扮演着重要的角色，毕竟学校的选择/专业的选择/会决定你接下来的人生该往哪里走，走成什么样子！</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu/gaoktzyjsjjkrgznrgdsjwlwwlgcgzyx-7ee994ae-343f-4497-ae9a-4c2a501f09d2.png" alt="" loading="lazy"></p>
+<p>我当年读大学的时候根本就不知道计算机专业还可以分这么细：计科、人工智能、软工、大数据、物联网、网络工程、前端等等！</p>
+<p>高考完填报志愿的时候，第一志愿填的机械自动化，然而没有录取上，就调剂到了计算机网络专业了，糊里糊涂地就上了！</p>
+<p><strong>谁能想到，计算机专业这么香</strong>！本来是作为学校的垃圾专业，结果完全吊打其他专业。</p>
+<p>别的专业我不太了解，这里就姑且谈一谈计算机专业。首先，不要关什么卷不卷的问题，各行各业随着大学生数量的增加，哪能不卷呢？</p>
+<p><strong>计算机卷，是因为它热门</strong>！为什么热门，是因为它工资高！没别的，大家都是冲着高薪来的，就像我前段时间给大家聊过的一个读者，也是我老乡，字节 SSP，50 万的年包，普通人去任何专业，都很难拿到这个数。</p>
+<p>即便是有些小伙伴因为学历的原因，学习能力的原因，去了外包，也可以把整个家庭支撑起来。</p>
+<p>我这里就不劝大家盲目选择计算机专业了，就只谈谈计算机专业给我带来了什么，我对计算机专业有什么认识，大家作为参考。</p>
+<p>我的读者群体里还有一些家长级别的，也有一些初中生级别的，这篇文章应该能满足各个群体的需求，后续每年我也会在这个基础上进行版本迭代，方便大家参考。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu/gaoktzyjsjjkrgznrgdsjwlwwlgcgzyx-ff1497b7-b25d-4cd9-9c88-a7669ad80957.png" alt="" loading="lazy"></p>
+<p>作为一个普普通通的大学生，<strong>我就是靠计算机专业改变的命运</strong>！下面这张图是我老家的样子，老读者应该很有印象，老家不能说是穷乡僻壤，因为天很蓝，空气是真的润肺。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu/gaoktzyjsjjkrgznrgdsjwlwwlgcgzyx-546bf215-cf62-480e-8826-0672d40b90e3.png" alt="" loading="lazy"></p>
+<p>接下来我来说说，计科，人工智能，软工，大数据，物联网，网络工程，前端，到底该怎么选？</p>
+<p><strong>1）想考研、考博</strong></p>
+<p><strong>本科建议选计科，研究生以上阶段选人工智能、大数据</strong></p>
+<p><strong>2）大专、本科</strong></p>
+<p><strong>建议选计科、软工；选软工建议毕业后直接参加工作，选计科的话，可以考研，也可以工作，灵活。</strong></p>
+<p><strong>前端</strong>，很多女生或者不想卷的小伙伴觉得前端是个不错的方向，那确实这些年，前端发生了很大的变化，在软件开发中扮演的角色也越来越重要，界面做得不好看，用户基本上都懒得用。</p>
+<p>JSP 的年代，都是Java 后端的小伙伴直接把前端的活也给干了。现在都讲究前后端分离，并且前端也要工程化，所以前端这个岗位也越来越受到重视了。</p>
+<p><strong>网络工程</strong>，听起来还算是蛮高端大气上档次的，大家可以去百度百科或者维基百科看一下这个专业的解释。我的理解是网络工程是将计算机以及其他设备串联完成网络通信，以及智能化监控的学科。主要的分支有：路由交换、网络安全、无线网络等等。</p>
+<p><strong>物联网</strong>，也简称为 IoT，是近些年比较火的一个概念，是指将日常的物理对象连接到互联网的过程——从医疗设备，到可穿戴设备，小到智慧家居，大到智慧城市。相对来说，物联网还有很大的发展空间，比如智慧交通，再比如智慧农业，具体点的例子就是通过湿度传感器来自动触发灌溉等。</p>
+<p><strong>大数据</strong>，也就是 Big Data，我了解到的适用于大数据的技术有：分布式文件系统、分布式数据库、云计算平台、可扩展的存储系统等。奥巴马曾说“大数据”是未来的石油，可见其重要性。大数据专业是典型的交叉学科，不仅涉及到计算机，还会涉及到数学和统计学，不仅对学校的学科实力有要求，对个人的硬性基本功也是有要求的。</p>
+<p><strong>人工智能</strong>，研究使计算机来模拟人的某些思维过程和<strong>智能</strong>行为（如学习、推理、思考、规划等）的学科，研究生以上学历会更有优势。</p>
+<p><strong>软件工程</strong>专业是以计算机科学为基础的，更加强调软件开发的工程性，包括软件需求分析、软件设计、软件测试、软件维护和软件项目管理等。</p>
+<p><strong>计算机科学</strong>，也就是计科（Computer Science，简称 CS），不仅会研究计算机的硬件，也会研究计算机的软件，更具体的主题包括编程语言、程序设计等。</p>
+<p>计算机科学这一学术领域可以分为：<strong>计算机理论、信息和编码理论、算法和数据结构、形式化方法、编程语言等</strong>。</p>
+<p>偏实践的领域：<strong>计算机体系结构（或者叫计算机组成原理）、操作系统、计算机网络、安全性和密码学、人工智能、计算机图形学、人机交互、嵌入式系统和软件工程</strong>。</p>
+<p>也就是说，软工是计科的一个应用方向而已。</p>
+<p>再换句话说，<strong>可以无脑选计科</strong>！<strong>计科学得好，软工、大数据、物联网、网络工程、人工智能都是可以驾驭的</strong>。</p>
+<p>最近选学科这个话题在知乎很火，有很多相关话题了。看这个话题的要么是高考完选专业、选学校，要么是大一面临专业分流。</p>
+<p>讲良心话，不要对大学的教育有太高的期待，除非你上的是超一流的名校，遇到的是超一流的老师，多数时候，学习计算机还是要靠自学。</p>
+<p>我是科班出身，但你要问我大学到底学到了什么，我真有点不好意思，因为我大学学得一塌糊涂。之所以没有被辞退，或者挣到了一些钱，买了房、结了婚、买了车，<strong>靠的都是自学</strong>。</p>
+<p>有一说一，一开始，对于计算机，我也是学不进去，觉得自己就不是学计算机的料，但我始终没有放弃，从来没想着转行。</p>
+<p>学 Java，我一开始也是学的皮毛，也在 Swing 上花费了很多力气，觉得利用 Swing 做个计算器好像挺不错的。但后来我知道，Java 的核心和 Swing 没一丁点关系，重要的是 Java 语法、Java 集合框架、Java 网络编程、Java 并发编程和 Java 虚拟机。</p>
+<p>再比如说，我一开始也没有刷过 LeetCode 的，我那时候参加工作早，不刷 LeetCode 确实是可以找到工作的，但现在不同了。<strong>数据结构与算法是学习编程的基础，所以大家应该看到了，很多人都在刷 LeetCode。</strong></p>
+<p>还有，我看哈佛大学的 CS50，看计算机科学速成课，看清华大学的数据结构视频课，看翁凯教授的 C 语言程序设计，我一直吸收营养，更关键的是，我一直在输出，这让我的营养消化得很良好。</p>
+<p>我虽然没有读过研究生，但仍然有很多研究生的朋友和读者，他们来找我问问题的时候，我也能够从容应对。</p>
+<p>十多年的编程经验，让我对科班学习计算机有了新的认识。</p>
+<p>如果你要学习物理，我推荐你顺着物理的发展史学习，先学习牛顿的经典物理，再学习热力学、电磁学，然后学习相对论、量子力学这些彻底推翻经典物理的，最后学习电动力学这种硬核的。</p>
+<p>整个学习过程，是<strong>自底向上</strong>的。学计科也要这样吗？</p>
+<p>先学习电路，然后学习冯诺依曼结构，造一台计算机？接着再学习如何用汇编写个 mini os？接着学习如何写一个简易版的编译器？最后再学习高级编程语言，比如说 Java、Python、C++？</p>
+<p>显然这样是行不通的！计算机科学的学习最好是<strong>自顶向下</strong>。</p>
+<p>什么是顶？在我看来，就是一门高级的编程语言，比如说 Java、C++ 或者 Python。我个人从事 Java 后端开发的时间比较久，所以还是拿老本行来说。</p>
+<p>当你学习到 Java 并发编程中的“原子性”、“同步”、“异步”、“进程”、“内存分配”这些概念的时候，你自然而然会产生很多疑问，然后就会去学习<strong>操作系统，学习计算机组成原理</strong>，然后你的一系列问题就会逐渐被解决。</p>
+<p>当你在学习 Java 的时候遇到性能问题时，你就会去研究，啊，原来 <strong>Java 是一门解释型的编程语言，而 C 语言是一门编译型的编程语言</strong>，所以 Unix/Linux 这种操作系统要用 C 语言来实现，因为要最大限度的压榨硬件的瓶颈。</p>
+<p>当然了，Java 为了提升自身的性能也是费尽心思，比如说即时编译（JIT，Just-In-Time）通过在运行时将字节码编译为本机机器代码来提高性能；比如说垃圾回收机制的升级，从 GC 到 ZGC，GC 的痛点在于垃圾回收期间，所有的线程都会停止活动，等待 STW（Stop The World）的结束，而 ZGC 在标记、转移和重定位阶段几乎都是并发的，大大缩短了停顿的时间。</p>
+<p>当你用 Java 实现某个业务需求时，发现人家的算法实现比你快得多，你自然会好奇，为什么会这样？然后你发现人家用的数据结构和你的不同，接着你就会去学习数据结构，再了解一些高效的算法，比如动态规划等。</p>
+<p>你看，从学 Java 的语法开始，你一步步学到了操作系统、计算机组成原理、数据结构与算法。</p>
+<p><strong>跟着需求去学习，才能真正学好计算机科学</strong>。</p>
+<p>我也会给你推荐《CSAPP》这本黑皮书，毕竟永远的神，但如果你没有编程基础就去啃，你可能很快就会被劝退的；反而，一开始，你读一读我写的《<a href="https://tobebetterjavaer.com/" target="_blank" rel="noopener noreferrer">Java 程序员进阶之路</a>》，或者去 B 站上看尚硅谷或者动力节点这些培训机构的 Java 视频课，没准你会越学越觉得有信心——这么简单的东西，我这么聪明，还能学不会？你会有这种自信的错觉的！</p>
+<p>反而一开始去啃 CSAPP，你会感觉，老天！我特么是个废材啊，我学的什么鬼玩意，这竟然看不懂，学不会？</p>
+<p><strong>想成为优秀的计算机工程师，从大学开始，需要做哪些准备</strong>？我想这应该是很多小伙伴关心的问题，这里也顺带谈一谈。</p>
+<p>先上总结：</p>
+<ul>
+<li>大一，尽快学完一门编程语言，比如说 C 语言或者 Java 语言，有主动去刷 LeetCode 或者 OJ 的意愿；</li>
+<li>如果有可能，参加一些竞赛，比如说 ACM、蓝桥杯等；</li>
+<li>大学只要不挂科就行了，把重心放在专业知识上。</li>
+<li>注重抽象能力的培养，注重编程思维的提高。</li>
+<li>如果有可能，早点去实习，不要贪恋学校的安逸。</li>
+</ul>
+<p>接下来，我来说说，你最值得去花时间学习一些课程：</p>
+<ul>
+<li><strong>编程语言：C 语言或者 Java 语言</strong></li>
+<li><strong>数据结构与算法</strong></li>
+<li><strong>操作系统</strong></li>
+<li><strong>计算机网络</strong></li>
+<li><strong>计算机组成原理</strong></li>
+<li><strong>英语也不要落下</strong></li>
+</ul>
+<p>害，后悔呀，当年我上大学的时候就没有人给我指点指点，如果当时学了这些，现在估计能飞的更高。</p>
+<h2 id="一、编程语言" tabindex="-1"> 一、编程语言</h2>
+<p>先说 Java 吧。</p>
+<p>可以先看看我的《Java 程序员进阶之路》，里面涵盖了 Java 所有的知识点，包括 Java 语法、Java 集合框架、Java IO、Java 并发编程和 Java 虚拟机、Java 企业级开发所需要的知识，比如说 Git、Spring Boot，以及 MySql、Redis 等等。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu/gaoktzyjsjjkrgznrgdsjwlwwlgcgzyx-21e1cfcd-d772-48cd-b8c2-994c19e13ed6.png" alt="" loading="lazy"></p>
+<p>然后到 B 站上看看尚硅谷或者动力节点的视频课。</p>
+<p><a href="https://www.bilibili.com/video/BV1Kb411W75N" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV1Rx411876f</a></p>
+<p>再说说 C 语言吧。</p>
+<p>C 语言是一门古老而常青的编程语言，具备现代程序设计的基础要求，它的语法是很多编程语言的基础，比如说 Java。给你推荐一门课，浙江大学翁恺教授的《<a href="https://www.icourse163.org/course/ZJU-199001%3Ffrom%3DsearchPage%23/info" target="_blank" rel="noopener noreferrer">程序设计入门——C语言</a>》，国家级精品课，很适合初学者。</p>
+<h2 id="二、数据结构与算法" tabindex="-1"> 二、数据结构与算法</h2>
+<p>计算机科学所赋予人们的最大能量在于对常见算法和数据结构的熟悉。此外，这也可以训练一个人对于各种问题的解决能力，有助于其他领域的学习。</p>
+<p>推荐你到 LeetCode 上刷题，Leetcode 上的问题往往有趣且带有良好的解法和讨论。此外，在竞争日益激烈的软件行业，这些问题可以帮助你评估自己应对技术面试中常见问题的能力。我建议你至少刷 100 道题，作为学习的一部分。</p>
+<p>说一下我的刷题心得：从易到难，一遍一遍地刷，尽量使用自己熟悉的编程语言，比如说 Java 程序员尽量用 Java 来解题，这样刷题的幸福感也会提升很大一截。</p>
+<p>如果不是天赋异禀，不要怕，一开始就是抄题，先把别人的解题思路照着敲出来。刷的题多了，尽量控制一下刷题的时间，掐个点，不能让自己一直想、一直写下去，如果半个小时没有解出来，就果断放弃，去背别人的答案，不要觉得不好意思，等到真的熟了，再去想自己的解题思路。</p>
+<p>可以按照下面这个类型来刷就可以了。</p>
+<blockquote>
+<p>数组-&gt; 链表-&gt; 哈希表-&gt;字符串-&gt;栈-&gt;队列-&gt;树-&gt;回溯-&gt;贪心-&gt;动态规划-&gt;图</p>
+</blockquote>
+<h2 id="三、操作系统" tabindex="-1"> 三、操作系统</h2>
+<p>操作系统是计算机系统中负责管理各种软硬件资源的核心系统软件，为应用软件运行提供良好的环境。<a href="https://www.xuetangx.com/course/THU08091000267/5883104%3Fchannel%3Dlearn_title" target="_blank" rel="noopener noreferrer">清华大学操作系统课-学堂在线</a>这门课程以主流操作系统为实例，以教学操作系统 ucore 为实验环境，讲授操作系统的概念、基本原理和实现技术，是一门非常值得推荐的视频课。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu/gaoktzyjsjjkrgznrgdsjwlwwlgcgzyx-1fae0039-6b10-49c8-94e7-148e3f7f6db0.jpg" alt="" loading="lazy"></p>
+<p>书籍的话，推荐《<a href="https://book.douban.com/subject/30297919/" target="_blank" rel="noopener noreferrer">操作系统概念</a>》 （“龙书”）和 《<a href="https://book.douban.com/subject/27096665/" target="_blank" rel="noopener noreferrer">现代操作系统</a>》 ，是操作系统领域的经典书籍。学完操作系统，你要能回答这些问题：</p>
+<ul>
+<li>进程与线程简单介绍，区别，以及进程间通信方式，线程同步方式</li>
+<li>用户态和内核态</li>
+<li>内存管理：分页分段，虚拟内存，空闲地址管理方法</li>
+<li>死锁：死锁的必要条件，死锁的检测与恢复，死锁的预防，死锁的避免</li>
+<li>数据库系统</li>
+</ul>
+<h2 id="四、计算机网络" tabindex="-1"> 四、计算机网络</h2>
+<p>B 站上的这个<a href="https://www.bilibili.com/video/BV1c4411d7jb" target="_blank" rel="noopener noreferrer">计算机网络微课堂</a>视频课非常不错，强烈推荐。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu/gaoktzyjsjjkrgznrgdsjwlwwlgcgzyx-9988b7fd-2555-4185-bb21-202dc28098a3.jpg" alt="" loading="lazy"></p>
+<p>学完计算机网络，你要能回答以下这些问题：</p>
+<ul>
+<li>七层结构，简单介绍一下每一层。</li>
+<li>输入 URL 后，将发生什么？这个问题会涉及到很大一部分的计算机网络基础。</li>
+<li>HTTP 和 HTTPS，DNS 解析</li>
+<li>TCP、UDP、拥塞控制、三次握手、四次挥手、滑动窗口</li>
+<li>IP 和 ARP 协议</li>
+</ul>
+<h2 id="五、计算机组成原理" tabindex="-1"> 五、计算机组成原理</h2>
+<p>九阳真经是金庸小说《倚天屠龙记》中一本绝顶内功秘笈，程序员的「九阳真经」，我觉得就是计算机组成原理了，因为这里藏着 CPU 运行代码的秘密，藏着虚拟地址转换的秘密，藏着浮点数的秘密……</p>
+<p>弄明白了计算机的组成原理，也就对整个软件开发有了一个系统的认知，不论是计算机的硬件原理，还是软件架构，都能很好的驾驭，随之而来的，我们的职业发展机会也就更多了。如果想深入学习计算机组成原理的话，我推荐哈工大的这门视频课，整体评价非常高。</p>
+<p><a href="https://www.bilibili.com/video/BV1WW411Q7PF" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV1WW411Q7PF</a></p>
+<p>多说一句，对于我们程序员来说，英语就好像空气一样重要，一呼一吸之间都离不开她。如果空气质量不那么好的话，你是不是就有点缺氧的感觉，同样的，如果英语功底差点意思的话，编程也会感到很吃力。</p>
+<ul>
+<li>英语用得好，你可以轻松地阅读和查看国外最新的技术文档。</li>
+<li>英语用得好，你可以徜徉在源码的海洋里，肆无忌惮地汲取精华。</li>
+<li>英语用得好，你可以惬意地聆听斯坦福等名校在网上的公开课，跟随真正的大牛，学到最原汁原味的技术。</li>
+<li>英语用得好，退一万步讲，你在敲代码的时候再也不用担心方法、变量和类的命名不够优雅了。</li>
+</ul>
+<p>所以大学阶段，有机会的话，可以尝试多看一下英文的学习网站，一开始可能会很难，但是坚持下来，你就会感觉很值。</p>
+<p>---------手动分割线---------</p>
+<p><strong>说实话，把上面这些课学好了，国内的互联网大厂基本上可以随便挑了。</strong></p>
+<p><strong>不过，话又说回来，即便是你只学到 3-5 成，找一份自己心仪的工作还是不难的！</strong></p>
+<p><strong>另外，针对专业、城市、学校，说一点我的看法：</strong></p>
+<p>首先，<strong>一定要选一个好的专业</strong>。</p>
+<p>什么是好的专业？当前首选计算机专业，yyds！卷是因为热门，如果你不把握住机会非要去挑战冷门专业，我就不提哪些专业了，后果是很惨的。</p>
+<p>其次，<strong>尽量去大城市</strong>。</p>
+<p>什么是大城市，就不用我再赘述了。</p>
+<p>我妹去年高考完，我父母给的建议竟然是要不报考三门峡的一所大学吧，能上的概率会大一些。</p>
+<p>我当即就否决了，这不是害她嘛！</p>
+<p>我妹最终在洛阳上了大学，她的感受就是，哥，我以后再也不想回三门峡了，至少要在洛阳。</p>
+<p>别呀，即便是不去北京上海，去杭州、成都、武汉，哪怕苏州郑州也行啊。</p>
+<p>大城市带来的不只是机会，更多的是格局。这就是为什么，民国时的精英们都要出国留学。</p>
+<p>最后，<strong>选个声望值比较高的学校</strong>。</p>
+<p><strong>推荐你看看这个比赛的高校总榜，选计算机专业的心里就有数了</strong>。</p>
+<blockquote>
+<p><a href="https://gplt.patest.cn/rank/school" target="_blank" rel="noopener noreferrer">https://gplt.patest.cn/rank/school</a></p>
+</blockquote>
+<p>可能大部分普通人去不了 985、211，我这里仍然有一些建议。</p>
+<p>人生说长不长，说短也不短。</p>
+<p>没必要比一时的高低，在你的大学生活里，在你未来的职场生涯里，你仍然有机会完成超越和逆袭。</p>
+<p>我就不举别的例子了，也不是非要拿我自己来说事，而是我的确是很好的一个参照物，因为我的学历很一般，更没有大厂背景，我之所以还能在如此卷的行业里取得一些成绩，靠的是什么？</p>
+<p>我想，我的经验和心得，我的人生规划，更适合普通人作为参考，因为我都能做到，你凭什么不能！</p>
+<p>首先，<strong>努力</strong>是肯定的。</p>
+<p>任何时候，一个没有背景的人，你想要取得一点成绩，努力是必选项。你不一定非要超过别人，但至少要能保证，不能落后，差距不能被越拉越大。</p>
+<p>其次，你要学会<strong>改变</strong>。</p>
+<p>别人好的地方你要去学习，哪怕是模仿；眼睛里要有光，要能善于发现别人身上的长处和优点。</p>
+<p>隔一段时间，你就要脱一层皮，退掉身上那些落伍的东西。</p>
+<p>最后，你需要<strong>坚持</strong>。</p>
+<p>一件事，你没做，就是 0，做了就是 1；做了又放弃了，从 1 变成 0；坚持做，你才可能从 1 到 2，从 2 到 4，从 4 到 8，从 8 到 16。</p>
+<p>互联网上，到处都是学习资源，然而精华与糟粕并存。你所需要的：</p>
+<ul>
+<li>你应当学习<strong>哪些科目</strong>，为什么？</li>
+<li>对于这些科目，<strong>最好的书籍或者视频课程</strong>是什么？</li>
+</ul>
+<p>我把这两个问题都给解决了！大致按照列出的顺序，借助我所建议的教材或者视频课程（最好二者兼用），可以先花 100到200 个小时学习完其中一个科目，然后记着，你的整个职业生涯里，一定要不时地温习 。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu/gaoktzyjsjjkrgznrgdsjwlwwlgcgzyx-759d8f19-60af-4e07-a085-281a5329c481.jpg" alt="" loading="lazy"></p>
+<p>计算机专业可能是一个最不会说谎的专业，你选对了，你付出了，还是能从“卷”中走出来了的。<strong>高考改变命运，但你的人生本不应该只被一次成绩决定</strong>。</p>
+<hr>
+]]></content:encoded>
+      <enclosure url="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu/gaoktzyjsjjkrgznrgdsjwlwwlgcgzyx-7ee994ae-343f-4497-ae9a-4c2a501f09d2.png" type="image/png"/>
+    </item>
+    <item>
+      <title>怎么跟 HR 谈薪资？</title>
+      <link>https://newzone.top/study_suggest/hr-xinzi.html</link>
+      <guid>https://newzone.top/study_suggest/hr-xinzi.html</guid>
+      <source url="https://newzone.top/rss.xml">怎么跟 HR 谈薪资？</source>
+      <category>学习建议</category>
+      <pubDate>Sun, 04 Dec 2022 15:45:11 GMT</pubDate>
+      <content:encoded><![CDATA[<p>不玩虚的。先分享几个例子，最后再谈结论。</p>
+<p>我一朋友，Java后端开发，硕士，8年左右开发经验。跳槽前，在一个著名安全公司就职，纸面年薪，税前40万出头。</p>
+<p>坦率的说，40万年薪，无论是他的资历，还是市场行情，有点亏。再加上那段时间（2年前），朋友的工作不顺心（和新领导不对付），因此就动了跳槽的心。但在放开简历前，我俩先碰了头，一起合计下，主要职位和预期薪资。</p>
+<p>职位上。考虑到他的年龄和技术能力。我建议他，不要再投高开岗了，直接投team leader或开发经理。</p>
+<p>薪水上。参照身边人，及在线信息。我俩简单评估了下，觉得，以他的资历和能力，合理的薪资应该在50万至60万之间。</p>
+<p>接下来，朋友开放了简历，开始了忙碌的面试。其中，既有创业公司，也有行业巨头。有人家瞧上他，他瞧不上人家的。也有他瞧上人家，人家瞧不上他的。其中值得一说的，就是他后来跳槽的公司，一家在线出行巨头。</p>
+<p>面试安排在周六的下午。朋友发挥不错，公司的效率也很高。3轮技术面试，1轮hr面试，一个下午全部搞定。</p>
+<p>面试的最后，hr问朋友，期望的薪资是多少？朋友大着胆报了上限：60万。然后hr又问他现在的收入多少？朋友心想，既然想要60万，当前收入一定不能报低。于是，随口就说50万，但心里其实挺虚。</p>
+<p>很快，不到一周，hr就联系朋友，让他提供下收入证明。这下，朋友有点慌，觉得当时随口说的数字（50万），没想到人家还当真了。于是，就又找到我商量对策。</p>
+<p>我俩合计了半天，把工资、项目奖、年终奖、加班费都算上，也只勉强凑了45万。剩下的5万，绞尽脑汁，咋着都想不出。</p>
+<p>然而，此时，我突然想到了些东西，就问他：</p>
+<p>“原来你不是说过，你们公司还有一堆补充保险吗？这个也是合法收入呀！”</p>
+<p>朋友一听，精神一震，觉得是这个理。然后赶紧收集整理，别说，最后，硬是又凑出了4万。这样，账面的收入就有了49万。</p>
+<p>两天后，朋友收到了对方正式的offer，职位是team leader，综合年薪54万。也就说相对于当前（50万），加薪了8%。至于为什么是这个数字，我们随后再讲。</p>
+<p>再说我的一个另一个朋友。后端开发，硕士，工作6年，税前工资35万左右。坦率的说，也不高。因此，当年招聘旺季，也是四处投简历，四处面试。</p>
+<p>面试的过程，这里按下不表。最后，大大小小的offer没少拿，其中最满意的，是某电子商务网站（行业TOP2），但唯觉遗憾的是，薪水没有达到预期。</p>
+<p>他期望的薪水是50万。坦率的说，这个要求，以他的资历和能力，以及市场行情，不算过分。但最后，对方只开出45万的综合年薪。</p>
+<p>于是，朋友就很犹豫，心里不太能接受。但因为对方的行业地位，以及岗位不错，所以就不想轻易放弃。于是就和hr在微信里讨价还价。但无论如何，口舌没少费，对方hr只顾左而言他，始终强调岗位多重要，多有前途。但在核心的薪水上，始终不愿松口。</p>
+<p>时间稍微一拖，也许对方hr有业绩压力，急了，直接坦白说：</p>
+<p>“不是我不愿给你涨，我也就这么大权限。不瞒你，现在行业这么透明，谁也不会忽悠谁。不信你上网上问问！这次，我都是按照加薪30%的上限给你算的。”</p>
+<p>听到这，朋友就上网查了查，最后算是明白了。为什么对方始终不愿松口。原来，很多公司有规矩，若非特别，加薪幅度都会控制在10%~30之间。因此，按照这个算法，45万的年薪，已经是顶着上限给了，怪只怪他当前的基数不高。</p>
+<p>其实，朋友的真实想法，也不说在当下，一定要纠缠多出的几万块钱，而是想要一个公平价格。因此，这样一看，对方还真不是忽悠他，甚至是相当看重他。所以，心里就释然了。最终，“愉快”的接收了offer。</p>
+<p>通过上面的例子，说明，一个新工作，能拿到多少薪水。虽然不能说“谈判”没用，但作用确实有限。因为，公司在招聘新人的时候，在开出薪水前，一般会参照两个因素：行业薪水、候选人当前收入。而最终开出的薪水，一般不会超过两者的任一上限。</p>
+<p>例如第一个例子中，朋友拿到54万的年薪，但加薪幅度却只有8%，那是因为受限于行业薪水（50万~60万）。而第二个例子，同事虽然涨薪高达30%，但对薪水总值却不满意，那是因为吃亏在当前的收入不高（35万）。</p>
+<p>因此，于其说薪水是“谈判”出来，倒不如说是“算计”出来的。</p>
+<p>在职场上混，某个职位，因为行情的限制，薪水肯定存在某个上限。因此，在跳槽的时候，如果要持续追求薪水的上涨。除了不断提高自己的技能外，更要考虑目标职位的定位，其中既包括公司行业地位，也包括职位等级等。</p>
+<p>去年，我朋友公司的测试部门，要招聘一个测试开发。之后，朋友面试了不少人，其中有一个姑娘，尤其令他满意。面试之后，也大力的向测试leader推荐。</p>
+<p>但2个星期过后，消息传来，说和姑娘薪水没有谈妥，遗憾错过。因此，他还专门找了hr询问这事。说姑娘的能力确实不错，不录取有点遗憾了。</p>
+<p>hr很为难，说也觉得姑娘能力不错，但对方报价实在太高，公司接收不了。还说，对方当前的薪水，就是不涨薪，也几乎达到公司的上限。所以，最终，无论公司怎么满意，但因为岗位及政策的限制，双方都难达成一致。至于，所谓薪水“谈判”，一开始就没有任何基础。</p>
+<p>上面的3个例子，给我了我们很多启发。</p>
+<p>在跳槽之前，面试之前，做点功课，了解下行情。包括目标公司的行业地位，目标职位的行业中位工资。然后，再统计下自己当前的全部收入。这样就不难得出“合理”的薪水期望值。</p>
+<p>这样，在接下来的谈薪过程中，才能做到心中有数。不至于因为“买卖心不合”，或者根本无法谈，或者谈着谈着，谈崩了。</p>
+<p>但无论如何，虽然求职中，薪水谈判技巧很重要。但在技术行业，最最重要的还是技术本身。否则，即使我们如何精确“算”出了合理的薪水。但如果能力不到位，没有面试机会，或者有机会抓不住，则一切都是白搭。</p>
+<p>而且，我还真见过不少，因为个人能力特别突出，“异常”加薪的例子（例如50%）。所以，还是那句话：</p>
+<p><strong>在技术行业混，实力才是王道</strong>！
+转载链接：<a href="https://www.zhihu.com/question/34557602/answer/552456742" target="_blank" rel="noopener noreferrer">https://www.zhihu.com/question/34557602/answer/552456742</a></p>
+<hr>
 ]]></content:encoded>
     </item>
   </channel>

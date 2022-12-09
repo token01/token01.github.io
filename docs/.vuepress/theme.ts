@@ -93,7 +93,7 @@ export default hopeTheme({
     // 评论配置（仅做样例，记得更换）
     comment: {
       provider: "Waline",
-      serverURL: "https://waline.newzone.top",
+      serverURL: "https://waline.abelsun.tech",
       // 部署 Waline：https://waline.js.org/guide/get-started.html
       // pageview: true, // 浏览量统计
       // Waline 等级标签

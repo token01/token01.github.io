@@ -1,7 +1,7 @@
 ---
 title: Java变量：局部变量、成员变量、静态变量、常量
 shortTitle: Java 中的变量
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，Java变量：局部变量、成员变量、静态变量、常量
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，Java变量：局部变量、成员变量、静态变量、常量
 category:
   - Java 核心
 tag:
@@ -9,7 +9,7 @@ tag:
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,Java变量,局部变量,成员变量,静态变量,常量,变量
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,Java变量,局部变量,成员变量,静态变量,常量,变量
 ---
 
 

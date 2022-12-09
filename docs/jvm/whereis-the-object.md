@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java虚拟机
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，Java 创建的对象到底放在哪？
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，从入门到进阶，Java 创建的对象到底放在哪？
 head:
   - - meta
     - name: keywords
-      content: Java,JavaSE,教程,凤凰蜕变进阶之路,jvm,Java虚拟机
+      content: Java,JavaSE,教程,凤凰涅槃进阶之路,jvm,Java虚拟机
 ---
 
 # Java 创建的对象到底放在哪？

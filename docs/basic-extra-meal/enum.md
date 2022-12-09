@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java重要知识点
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，新来个技术总监，彻底把 Java 枚举(enum)讲清楚了
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，从入门到进阶，新来个技术总监，彻底把 Java 枚举(enum)讲清楚了
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,java,枚举,enum
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,java,枚举,enum
 ---
 
 “今天我们来学习枚举吧，三妹！”我说，“同学让你去她家玩了两天，感觉怎么样呀？”

@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java NIO
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，为什么我们要使用 Java NIO？
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，为什么我们要使用 Java NIO？
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,nio
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,nio
 ---
 
 我花了几天去了解**NIO的核心知识点**，期间看了《Java 编程思想》和《疯狂Java 讲义》的nio模块。**但是**，会发现看完了之后还是很**迷**，不知道NIO这是干嘛用的，而网上的资料与书上的知识点没有很好地对应。

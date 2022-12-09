@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - 集合框架（容器）
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，Java WeakHashMap详解（附源码分析）
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，Java WeakHashMap详解（附源码分析）
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,WeakHashMap
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,WeakHashMap
 ---
 
 

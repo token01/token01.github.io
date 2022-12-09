@@ -1,7 +1,7 @@
 ---
 title: Java 抽象类和接口的区别，看这一篇就够了
 shortTitle: Java抽象类和接口的区别
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，认真聊聊 Java抽象类和接口的区别
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，认真聊聊 Java抽象类和接口的区别
 category:
   - Java 核心
 tag:
@@ -9,7 +9,7 @@ tag:
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,Java 接口,接口,interface
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,Java 接口,接口,interface
 ---
 
 通过前面两篇，我们已经深入地了解了 Java 抽象类和 Java 接口，那这篇我们来重点说一下抽象类和接口之间的区别。

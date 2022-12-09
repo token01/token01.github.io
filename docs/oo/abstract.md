@@ -1,7 +1,7 @@
 ---
 title: Java抽象类，看这一篇就够了，豁然开朗
 shortTitle: Java抽象类
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，认真聊聊 Java抽象类
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，认真聊聊 Java抽象类
 category:
   - Java 核心
 tag:
@@ -9,7 +9,7 @@ tag:
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,Java抽象类,抽象类
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,Java抽象类,抽象类
 ---
 
 

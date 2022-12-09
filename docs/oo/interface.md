@@ -1,7 +1,7 @@
 ---
 title: Java接口，看这一篇就够了，简单易懂
 shortTitle: Java接口
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，认真聊聊Java接口
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，认真聊聊Java接口
 category:
   - Java 核心
 tag:
@@ -9,7 +9,7 @@ tag:
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,接口
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,接口
 ---
 
 “今天开始讲 Java 的接口。”我对三妹说，“对于面向对象编程来说，抽象是一个极具魅力的特征。如果一个程序员的抽象思维很差，那他在编程中就会遇到很多困难，无法把业务变成具体的代码。在 Java 中，可以通过两种形式来达到抽象的目的，一种上一篇的主角——[抽象类](https://tobebetterjavaer.com/oo/abstract.html)，另外一种就是今天的主角——接口。”

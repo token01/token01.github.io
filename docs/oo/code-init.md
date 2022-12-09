@@ -1,7 +1,7 @@
 ---
 title: Java中的代码初始化块：对成员变量进行更复杂的赋值
 shortTitle: Java中的代码初始化块
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，认真聊聊 Java中的代码初始化块：对成员变量进行更复杂的赋值
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，认真聊聊 Java中的代码初始化块：对成员变量进行更复杂的赋值
 category:
   - Java 核心
 tag:
@@ -9,7 +9,7 @@ tag:
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,Java代码初始化块,代码初始化块
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,Java代码初始化块,代码初始化块
 ---
 
 

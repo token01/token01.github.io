@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java重要知识点
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，一文彻底讲明白的Java中的浅拷贝与深拷贝
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，从入门到进阶，一文彻底讲明白的Java中的浅拷贝与深拷贝
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,java,深拷贝,浅拷贝
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,java,深拷贝,浅拷贝
 ---
 
 “哥，听说浅拷贝和深拷贝是 Java 面试中经常会被问到的一个问题，是这样吗？”

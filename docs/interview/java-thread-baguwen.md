@@ -5,7 +5,7 @@ category:
   - 求职面试
 tag:
   - 面试题&八股文
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，Java 并发编程背诵版八股文必看🍉
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，Java 并发编程背诵版八股文必看🍉
 head:
   - - meta
     - name: keywords

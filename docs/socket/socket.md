@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java网络编程
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，在 Java 中，网络套接字（Socket）扮演着“飞鸽传书”的角色。
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，在 Java 中，网络套接字（Socket）扮演着“飞鸽传书”的角色。
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,JavaSocket,java网络编程,socket,网络编程
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,JavaSocket,java网络编程,socket,网络编程
 ---
 
 在古代，由于通信不便利，一些聪明的人就利用鸽子会飞且飞得比较快、会辨认方向的优点，对其进行了驯化，用来进行消息的传递——也就是所谓的“飞鸽传书”。而在 Java 中，网络套接字（Socket）扮演了同样的角色。

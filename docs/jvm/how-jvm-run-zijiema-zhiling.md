@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java虚拟机
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，虚拟机是如何执行字节码指令的？
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，从入门到进阶，虚拟机是如何执行字节码指令的？
 head:
   - - meta
     - name: keywords
-      content: Java,JavaSE,教程,凤凰蜕变进阶之路,jvm,Java虚拟机,字节码指令
+      content: Java,JavaSE,教程,凤凰涅槃进阶之路,jvm,Java虚拟机,字节码指令
 ---
 
 # 虚拟机是如何执行字节码指令的？

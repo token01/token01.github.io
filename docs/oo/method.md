@@ -1,7 +1,7 @@
 ---
 title: Java中的方法：实例方法、静态方法、抽象方法
 shortTitle: Java 中的方法
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，Java中的方法：实例方法、静态方法、抽象方法
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，Java中的方法：实例方法、静态方法、抽象方法
 category:
   - Java 核心
 tag:
@@ -9,7 +9,7 @@ tag:
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,方法,实例方法,静态方法,抽象方法,java方法
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,方法,实例方法,静态方法,抽象方法,java方法
 ---
 
 

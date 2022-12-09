@@ -5,7 +5,7 @@ category:
   - 区块链
 tag:
   - cosmos框架学习
-description: 凤凰蜕变进阶之路 web3.0 区块链 区块链基础知识 
+description: 凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识 
 head:
 - - meta
   - name: keywords

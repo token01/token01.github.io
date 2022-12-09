@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java IO
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，Java转换流，解决字符与字节之间编码、解码的乱码问题
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，Java转换流，解决字符与字节之间编码、解码的乱码问题
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,Java IO,转换流,InputStreamReader,OutputStreamWriter,乱码,编码,解码
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,Java IO,转换流,InputStreamReader,OutputStreamWriter,乱码,编码,解码
 ---
 
 何谓转换流？为何由来？让我们暂时带着这两个问题来了解了解字符编码和字符集！

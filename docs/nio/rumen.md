@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java NIO
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，Java NIO 快速入门(buffer缓冲区、Channel管道、Selector选择器)
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，Java NIO 快速入门(buffer缓冲区、Channel管道、Selector选择器)
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,nio,buffer,channel,selector
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,nio,buffer,channel,selector
 ---
 
 首先我们来看看**IO和NIO的区别**：

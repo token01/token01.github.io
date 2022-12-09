@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java NIO
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，一文彻底理解 Java IO 模型(非阻塞 IO/IO多路复用/异步IO)
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，一文彻底理解 Java IO 模型(非阻塞 IO/IO多路复用/异步IO)
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,nio,多路复用,阻塞IO
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,nio,多路复用,阻塞IO
 ---
 
 

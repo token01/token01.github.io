@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java重要知识点
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，Java重写（Overriding）时应当遵守的11条规则
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，从入门到进阶，Java重写（Overriding）时应当遵守的11条规则
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,java,重写,Overriding
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,java,重写,Overriding
 ---
 
 

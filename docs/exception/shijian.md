@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - 异常处理
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，Java异常处理的20个最佳实践
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，从入门到进阶，Java异常处理的20个最佳实践
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,java,异常处理
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,java,异常处理
 ---
 
 

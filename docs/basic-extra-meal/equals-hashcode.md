@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java重要知识点
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，为什么重写equals方法的时候必须要重写hashCode方法
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，从入门到进阶，为什么重写equals方法的时候必须要重写hashCode方法
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,java,hashcode,equals
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,java,hashcode,equals
 ---
 
 “musk，我在读《Effective Java》 的时候，第 11 条规约说重写 equals 的时候必须要重写 hashCode 方法，这是为什么呀？”三妹单刀直入地问。

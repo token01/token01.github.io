@@ -1,7 +1,7 @@
 ---
 title: Java 包，优雅地解决类名冲突
 shortTitle: Java包可以优雅地解决类名冲突
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，Java包可以优雅地解决类名冲突
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，Java包可以优雅地解决类名冲突
 category:
   - Java 核心
 tag:
@@ -9,7 +9,7 @@ tag:
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,包,import,package
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,包,import,package
 ---
 
 ## package

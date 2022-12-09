@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java虚拟机
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，史上最通俗易懂的ASM教程
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，从入门到进阶，史上最通俗易懂的ASM教程
 head:
   - - meta
     - name: keywords
-      content: Java,JavaSE,教程,凤凰蜕变进阶之路,jvm,Java虚拟机,asm
+      content: Java,JavaSE,教程,凤凰涅槃进阶之路,jvm,Java虚拟机,asm
 ---
 
 # 史上最通俗易懂的ASM教程

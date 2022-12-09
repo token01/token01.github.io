@@ -1,7 +1,7 @@
 ---
 title: Java中的构造方法：对象创建时的必经之路
 shortTitle: Java 中的构造方法
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，认真聊聊 Java中的构造方法：对象创建时的必经之路
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，认真聊聊 Java中的构造方法：对象创建时的必经之路
 category:
   - Java 核心
 tag:
@@ -9,7 +9,7 @@ tag:
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,Java构造方法,构造方法
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,Java构造方法,构造方法
 ---
 
 

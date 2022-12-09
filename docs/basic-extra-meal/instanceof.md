@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java重要知识点
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，详解Java中instanceof关键字的用法
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，从入门到进阶，详解Java中instanceof关键字的用法
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,java,instanceof
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,java,instanceof
 ---
 
 

@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - 集合框架（容器）
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，Java中ArrayList和LinkedList的区别
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，Java中ArrayList和LinkedList的区别
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,LinkedList,ArrayList
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,LinkedList,ArrayList
 ---
 
 

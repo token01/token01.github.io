@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java IO
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，Java打印流：PrintStream & PrintWriter
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，Java打印流：PrintStream & PrintWriter
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,Java IO,打印流,PrintStream,PrintWriter
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,Java IO,打印流,PrintStream,PrintWriter
 ---
 
 ## 何谓打印流

@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java IO
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，详解 File、Path、Paths、Files，操作文件不再难
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，详解 File、Path、Paths、Files，操作文件不再难
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,Java IO,file,paths,files,path
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,Java IO,file,paths,files,path
 ---
 
 ## File 类

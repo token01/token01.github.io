@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java新特性
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，Java 8 Stream流详细用法
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，从入门到进阶，Java 8 Stream流详细用法
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,java8,stream
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,java8,stream
 ---
 
 两个星期以前，就有读者强烈要求我写一篇 Java Stream 流的文章，我说市面上不是已经有很多了吗，结果你猜他怎么说：“就想看你写的啊！”你看你看，多么苍白的喜欢啊。那就“勉为其难”写一篇吧，嘻嘻。

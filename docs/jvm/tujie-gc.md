@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - Java虚拟机
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，从入门到进阶，图解Java的垃圾回收机制
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，从入门到进阶，图解Java的垃圾回收机制
 head:
   - - meta
     - name: keywords
-      content: Java,JavaSE,教程,凤凰蜕变进阶之路,jvm,Java虚拟机,垃圾回收机制
+      content: Java,JavaSE,教程,凤凰涅槃进阶之路,jvm,Java虚拟机,垃圾回收机制
 ---
 
 # 图解Java的垃圾回收机制

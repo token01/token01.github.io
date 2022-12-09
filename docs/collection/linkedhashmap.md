@@ -5,11 +5,11 @@ category:
   - Java核心
 tag:
   - 集合框架（容器）
-description: 凤凰蜕变进阶之路，小白的零基础Java教程，Java LinkedHashMap详解
+description: 凤凰涅槃进阶之路，小白的零基础Java教程，Java LinkedHashMap详解
 head:
   - - meta
     - name: keywords
-      content: Java,Java SE,Java基础,Java教程,凤凰蜕变进阶之路,Java入门,教程,LinkedHashMap
+      content: Java,Java SE,Java基础,Java教程,凤凰涅槃进阶之路,Java入门,教程,LinkedHashMap
 ---
 
 俗话说了，“金无足赤人无完人”，HashMap 也不例外，有一种需求它就满足不了，假如我们需要一个按照插入顺序来排列的键值对集合，那 HashMap 就无能为力了。那该怎么办呢？必须得上今天这篇文章的主角：LinkedHashMap。

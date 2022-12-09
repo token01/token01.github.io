@@ -1,7 +1,7 @@
 import { docsearchPlugin } from "@vuepress/plugin-docsearch";
 import { commentPlugin } from "vuepress-plugin-comment2";
 import { pwaPlugin } from "vuepress-plugin-pwa2";
-import { defineUserConfig } from "vuepress";
+import { defineUserConfig, viteBundler } from "vuepress";
 import theme from "./theme";
 
 export default defineUserConfig({
@@ -15,7 +15,7 @@ export default defineUserConfig({
   dest: "./dist",
   // 如果你正在使用 PWA 插件，我们推荐在你的 VuePress 配置文件中设置 
   shouldPrefetch: false,
-
+  
   head: [
     // meta
     ["meta", { name: "robots", content: "all" }],
@@ -160,4 +160,10 @@ export default defineUserConfig({
   ],
 
   theme,
+  bundler: viteBundler({
+    
+    viteOptions: {
+    },
+    vuePluginOptions: {},
+  }),
 });

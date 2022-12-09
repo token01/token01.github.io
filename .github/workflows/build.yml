@@ -1,61 +1,48 @@
-name: docs build
+name: 部署文档
 
 on:
   push:
     branches:
       # 确保这是你正在使用的分支名称
       - main
+      
+env: # 设置环境变量
+  TZ: Asia/Shanghai # 时区（设置时区可使页面中的`最近更新时间`使用时区时间）
+
 
 jobs:
-  LearnData-build:
+  deploy-gh-pages:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
+      - name: Checkout
         uses: actions/checkout@v3
         with:
-          # 获取所有标记和分支的所有历史记录（updatetime 必须，否则每次都会变化）
           fetch-depth: 0
           # 如果你文档需要 Git 子模块，取消注释下一行
           # submodules: true
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 7
-          run_install: true
 
-      - name: Setup Node.js
+
+      - name: 设置 Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
-          cache: pnpm
+          node-version: 16
+          cache: npm
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: 安装依赖
+        run: npm install
 
-      - name: Build Docs
+      - name: 构建文档
         env:
           NODE_OPTIONS: --max_old_space_size=8192
         run: |-
-          pnpm run docs:build
+          npm run docs:build
           > docs/.vuepress/dist/.nojekyll
 
-      - name: Deploy
+      - name: 部署文档
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           # 这是文档部署到的分支名称
           branch: gh-pages
           folder: docs/.vuepress/dist
 
-      # ### 没有服务器的话，请删除本区块代码，防止报错 ###
-      # # 将页面推送到服务器，timeout 时间从默认的 1 分钟调整到 10 分钟。
-      # - name: 📂 Sync files
-      #   uses: SamKirkland/FTP-Deploy-Action@4.3.2
-      #   with:
-      #     local-dir: docs/.vuepress/dist/
-      #     server: ${{ secrets.ftp_host }}
-      #     username: ${{ secrets.ftp_username }}
-      #     password: ${{ secrets.ftp_password }}
-      #     port: ${{ secrets.ftp_port }} # 建议更改默认的 21 端口
-      #     timeout: 600000
-      # ### 没有服务器的话，请删除本区块代码，防止报错 ###

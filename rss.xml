@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
-    <atom:link href="https://newzone.top/rss.xml" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://bytecodes.tech/rss.xml" rel="self" type="application/rss+xml"/>
     <title>LearnData-开源笔记</title>
-    <link>https://newzone.top/</link>
+    <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Fri, 09 Dec 2022 07:31:42 GMT</pubDate>
-    <lastBuildDate>Fri, 09 Dec 2022 07:31:42 GMT</lastBuildDate>
+    <pubDate>Fri, 09 Dec 2022 07:38:08 GMT</pubDate>
+    <lastBuildDate>Fri, 09 Dec 2022 07:38:08 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>区块链</category>
     <item>
       <title>浅谈共识算法|POS算法</title>
-      <link>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/1.pow.html</link>
-      <guid>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/1.pow.html</guid>
-      <source url="https://newzone.top/rss.xml">浅谈共识算法|POS算法</source>
+      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/1.pow.html</link>
+      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/1.pow.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法|POS算法</source>
       <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
       <category>区块链</category>
       <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
@@ -67,9 +67,9 @@
     </item>
     <item>
       <title>浅谈共识算法_基于协约</title>
-      <link>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/10.BFT_agreement_as_whole.html</link>
-      <guid>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/10.BFT_agreement_as_whole.html</guid>
-      <source url="https://newzone.top/rss.xml">浅谈共识算法_基于协约</source>
+      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/10.BFT_agreement_as_whole.html</link>
+      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/10.BFT_agreement_as_whole.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法_基于协约</source>
       <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
       <category>区块链</category>
       <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
@@ -91,9 +91,9 @@
     </item>
     <item>
       <title>浅谈共识算法_消息处理</title>
-      <link>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/11.Istanbul_consensus_source_analysis.html</link>
-      <guid>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/11.Istanbul_consensus_source_analysis.html</guid>
-      <source url="https://newzone.top/rss.xml">浅谈共识算法_消息处理</source>
+      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/11.Istanbul_consensus_source_analysis.html</link>
+      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/11.Istanbul_consensus_source_analysis.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法_消息处理</source>
       <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
       <category>区块链</category>
       <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
@@ -242,9 +242,9 @@
     </item>
     <item>
       <title>浅谈共识算法|POS算法</title>
-      <link>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/2.POS-2.html</link>
-      <guid>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/2.POS-2.html</guid>
-      <source url="https://newzone.top/rss.xml">浅谈共识算法|POS算法</source>
+      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/2.POS-2.html</link>
+      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/2.POS-2.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法|POS算法</source>
       <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
       <category>区块链</category>
       <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
@@ -292,9 +292,9 @@
     </item>
     <item>
       <title>浅谈共识算法_Casper算法</title>
-      <link>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/3.consensus_algorithm_is_presented.html</link>
-      <guid>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/3.consensus_algorithm_is_presented.html</guid>
-      <source url="https://newzone.top/rss.xml">浅谈共识算法_Casper算法</source>
+      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/3.consensus_algorithm_is_presented.html</link>
+      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/3.consensus_algorithm_is_presented.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法_Casper算法</source>
       <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
       <category>区块链</category>
       <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
@@ -316,9 +316,9 @@
     </item>
     <item>
       <title>浅谈共识算法_DPOS(委托股权证明)算法</title>
-      <link>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/4.dpos.html</link>
-      <guid>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/4.dpos.html</guid>
-      <source url="https://newzone.top/rss.xml">浅谈共识算法_DPOS(委托股权证明)算法</source>
+      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/4.dpos.html</link>
+      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/4.dpos.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法_DPOS(委托股权证明)算法</source>
       <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
       <category>区块链</category>
       <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
@@ -407,9 +407,9 @@
     </item>
     <item>
       <title>浅谈共识算法_DPOS(委托股权证明)算法</title>
-      <link>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/5.EOS_DPOS_BFT.html</link>
-      <guid>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/5.EOS_DPOS_BFT.html</guid>
-      <source url="https://newzone.top/rss.xml">浅谈共识算法_DPOS(委托股权证明)算法</source>
+      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/5.EOS_DPOS_BFT.html</link>
+      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/5.EOS_DPOS_BFT.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法_DPOS(委托股权证明)算法</source>
       <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
       <category>区块链</category>
       <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
@@ -499,9 +499,9 @@
     </item>
     <item>
       <title>浅谈共识算法|Paxos算法</title>
-      <link>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/5.Paxos.html</link>
-      <guid>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/5.Paxos.html</guid>
-      <source url="https://newzone.top/rss.xml">浅谈共识算法|Paxos算法</source>
+      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/5.Paxos.html</link>
+      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/5.Paxos.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法|Paxos算法</source>
       <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
       <category>区块链</category>
       <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
@@ -692,9 +692,9 @@
     </item>
     <item>
       <title>浅谈共识算法|Raft算法</title>
-      <link>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/6.Raft.html</link>
-      <guid>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/6.Raft.html</guid>
-      <source url="https://newzone.top/rss.xml">浅谈共识算法|Raft算法</source>
+      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/6.Raft.html</link>
+      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/6.Raft.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法|Raft算法</source>
       <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
       <category>区块链</category>
       <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
@@ -865,9 +865,9 @@
     </item>
     <item>
       <title>浅谈共识算法|实用拜占庭容错算法(PBFT)</title>
-      <link>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/8.PBFT.html</link>
-      <guid>https://newzone.top/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/8.PBFT.html</guid>
-      <source url="https://newzone.top/rss.xml">浅谈共识算法|实用拜占庭容错算法(PBFT)</source>
+      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/8.PBFT.html</link>
+      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/8.PBFT.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法|实用拜占庭容错算法(PBFT)</source>
       <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
       <category>区块链</category>
       <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>

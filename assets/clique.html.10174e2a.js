@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper.cdc0426e.js";import{o as c,c as t}from"./app.8c636bb6.js";const o={};function r(_,n){return c(),t("div")}const a=e(o,[["render",r],["__file","clique.html.vue"]]);export{a as default};

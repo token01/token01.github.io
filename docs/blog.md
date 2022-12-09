@@ -1,36 +1,44 @@
 ---
+#博客首页设置：https://vuepress-theme-hope.github.io/v2/zh/guide/blog/home.html
 home: true
 layout: Blog
 icon: home
-title: 博客
-heroText: 野生架构师
-bgImage:  "/assets/icon/images.jpeg"
+bgImage: http://tc.seoipo.com/home-bg-1.jpg
+title: 互联网小白
+#heroImage: /logo.svg
+heroText: 互联网小白
 heroFullScreen: false
-tagline: 技术文通俗易懂，吹水文风趣幽默。
-projects:
-  - icon: project
-    name: 进阶之路
-    desc: 凤凰蜕变进阶之路
-    link: /home.md
+tagline: 盛年不重来，一日难再晨
+#projects:
+#  - icon: project
+#    name: 项目名称
+#    desc: 项目详细描述
+#    link: https://你的项目链接
+#
+#  - icon: link
+#    name: 链接名称
+#    desc: 链接详细描述
+#    link: https://链接地址
+#
+#  - icon: book
+#    name: 书籍名称
+#    desc: 书籍详细描述
+#    link: https://你的书籍链接
+#
+#  - icon: article
+#    name: 文章名称
+#    desc: 文章详细描述
+#    link: https://你的文章链接
+#
+#  - icon: friend
+#    name: 伙伴名称
+#    desc: 伙伴详细介绍
+#    link: https://你的伙伴链接
+#
+#  - icon: /logo.svg
+#    name: 自定义项目
+#    desc: 自定义详细介绍
+#    link: https://你的自定义链接
 
-  # - icon: book
-  #   name: Java电子书下载
-  #   desc: Java程序员常读书单，附下载地址
-  #   link: /download/java.md
-
-  - icon: article
-    name: 学习路线
-    desc: CS 学习指南
-    link: /learningPath/
-
-  - icon: friend
-    name: 面试逆袭
-    desc: 面试找工作前必刷
-    link: /sidebar/sanfene/nixi.md
-
-  - icon: zhongyaotishi
-    name: 破解合集
-    desc: 程序员常用工具聚集地
-    link: /nice-article/itmind/
-
+#footer: 自定义你的页脚文字
 ---

@@ -1,50 +1,56 @@
 import { navbar } from "vuepress-theme-hope";
 
+// 精选图标：https://vuepress-theme-hope.github.io/v2/zh/guide/interface/icon.html#iconfont-%E7%B2%BE%E9%80%89%E5%9B%BE%E6%A0%87
 export default navbar([
-  { 
-    text: "博客",
-    icon: "gaishu",
-    link: "/blog.md" 
-  },
-  { 
-    text: "Web2.0进阶之路", 
-    icon: "lujing", 
-    link: "/home.md" 
-  },
-  // { 
-  //   text: "Web3.0进阶之路", 
-  //   icon: "lujing", 
-  //   link: "/blockchain/" 
-  // },
-  // { 
-  //   text: "知识星球", 
-  //   icon: "Artboard", 
-  //   link: "/zhishixingqiu/" 
-  // },
+  { text: "博客", icon: "blog", link: "/blog" },
   {
-    text: "学习路线",
-    icon: "luxian",
-    link: "/learningPath/"
-  },
-  {
-    text: "珍藏资源",
-    icon: "youzhi",
+    text: "代码",
+    icon: "code",
+    prefix: "/",
     children: [
-      { 
-        text: "面试逆袭", 
-        icon: "zhunbei", 
-        link: "/sidebar/sanfene/nixi.md" 
+      "code/Markdown",
+      "code/AutoHotkey",
+      "code/Electron",
+      {
+        text: "页面开发",
+        icon: "vue",
+        prefix: "",
+        children: [
+          "web/VuePress",
+          "web/docsify",
+          "deploy/VPS",
+        ],
       },
-      // { 
-      //   text: "破解合集",
-      //   icon: "zhongyaotishi",
-      //   link: "/nice-article/itmind/" 
-      // },
     ],
   },
-  // {
-  //   text: "B站视频",
-  //   icon: "bzhan", 
-  //   link: "https://space.bilibili.com/513340480"
-  // },
+  {
+    text: "应用",
+    icon: "app",
+    prefix: "/",
+    children: [
+      "apps/Applist",
+      "apps/AppNotes",
+      "apps/Chrome",
+      {
+        text: "服务/系统",
+        icon: "any",
+        prefix: "",
+        children: [
+          "services/NAS",
+          "windows/faq",
+        ],
+      },
+    ],
+  },
+  {
+    text: "生活",
+    icon: "emmet",
+    prefix: "/family/",
+    children: [
+      "Diet",
+      "Shoppinglist",
+      "Coupon",
+    ],
+  },
+  { text: "工具收藏", icon: "tool", link: "https://nav.newzone.top/" },
 ]);

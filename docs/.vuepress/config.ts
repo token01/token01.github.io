@@ -2,6 +2,7 @@ import { docsearchPlugin } from "@vuepress/plugin-docsearch";
 import { commentPlugin } from "vuepress-plugin-comment2";
 import { pwaPlugin } from "vuepress-plugin-pwa2";
 import { defineUserConfig, viteBundler } from "vuepress";
+import { path } from "@vuepress/utils";
 import theme from "./theme";
 
 export default defineUserConfig({
@@ -15,7 +16,12 @@ export default defineUserConfig({
   dest: "./dist",
   // 如果你正在使用 PWA 插件，我们推荐在你的 VuePress 配置文件中设置 
   shouldPrefetch: false,
-  
+    // 修改页面模板，@vuepress-theme-hope/templates/index.build.html
+  // 配置参考：https://vuepress.github.io/zh/reference/theme-api.html#templatebuild
+  templateBuild: path.resolve(__dirname, "templateBuild.html"),
+
+  // 禁止文件夹生成静态文件，参考 [VuePress 文档]（https://v2.vuepress.vuejs.org/zh/guide/page.html#routing）
+  pagePatterns: ["**/*.md", "!_temp", "!.vuepress", "!node_modules"],
   head: [
     // meta
     ["meta", { name: "robots", content: "all" }],

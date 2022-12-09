@@ -15,7 +15,7 @@ export default sidebar({
     "pycharmjhpxmazjcnyrgxxbxt",
   ],
 
-  区块链学习路线
+  //区块链学习路线
   "/blockchain/": [
     "The_white_paper_the_currency",
     "White_paper_the_etheric_lane",

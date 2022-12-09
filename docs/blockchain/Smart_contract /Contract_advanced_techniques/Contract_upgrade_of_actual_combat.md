@@ -1,1 +1,0 @@
-https://github.com/NoharaHiroshi/upgradability-solidity-demo.git

@@ -62,6 +62,8 @@ export const sidebarConfig = sidebar({
         "ethereum/Etheric_fang_source_analysis/p2p/4.Etheric_fang_RLPX_agreement",
         "ethereum/Etheric_fang_source_analysis/p2p/5.Etheric_fang_source_analysis_of_block_and_radio",
         "ethereum/Etheric_fang_source_analysis/p2p/6.Etheric_fang_Fetcher_synchronization_of_the_source_code_analysis",
+      
+        "ethereum/Etheric_fang_source_analysis/1.etheric_fang_source_of_the_etheric_lanes_start_proces",
       ],
     },
 

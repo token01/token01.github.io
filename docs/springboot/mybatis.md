@@ -122,8 +122,8 @@ class CodingmoreMybatisApplicationTests {
 	@Test
 	void testInsert() {
 		userMapper.insert(User.builder().age(18).name("musk").password("123456").build());
-		userMapper.insert(User.builder().age(18).name("沉默王三").password("123456").build());
-		userMapper.insert(User.builder().age(18).name("沉默王四").password("123456").build());
+		userMapper.insert(User.builder().age(18).name("musk三").password("123456").build());
+		userMapper.insert(User.builder().age(18).name("musk四").password("123456").build());
 		log.info("查询所有：{}",userMapper.getAll().stream().toArray());
 	}
 

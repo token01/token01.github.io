@@ -153,7 +153,7 @@ true
 false
 ```
 
-指定的数组为musk四个字，比较的数组一个是musk，一个是沉默王三，所以 result 为 true，result1 为 false。
+指定的数组为musk四个字，比较的数组一个是musk，一个是musk三，所以 result 为 true，result1 为 false。
 
 简单看一下 `equals()` 方法的源码：
 

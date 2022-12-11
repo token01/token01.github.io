@@ -186,7 +186,7 @@ private void grow(int minCapacity) {
 除了 `add(E e)` 方法，还可以通过 `add(int index, E element)` 方法把元素添加到指定的位置：
 
 ```java
-alist.add(0, "沉默王三");
+alist.add(0, "musk三");
 ```
 
  `add(int index, E element)` 方法的源码如下：
@@ -217,10 +217,10 @@ public void add(int index, E element) {
 可以使用 `set()` 方法来更改 ArrayList 中的元素，需要提供下标和新元素。
 
 ```java
-alist.set(0, "沉默王四");
+alist.set(0, "musk四");
 ```
 
-假设原来 0 位置上的元素为“沉默王三”，现在可以将其更新为“沉默王四”。
+假设原来 0 位置上的元素为“musk三”，现在可以将其更新为“musk四”。
 
 来看一下 `set()` 方法的源码：
 
@@ -244,7 +244,7 @@ public E set(int index, E element) {
 
 ```java
 alist.remove(1);
-alist.remove("沉默王四");
+alist.remove("musk四");
 ```
 
 先来看 `remove(int index)` 方法的源码：

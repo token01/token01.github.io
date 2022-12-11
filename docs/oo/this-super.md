@@ -49,7 +49,7 @@ public class WithoutThisStudent {
 
     public static void main(String[] args) {
         WithoutThisStudent s1 = new WithoutThisStudent("musk", 18);
-        WithoutThisStudent s2 = new WithoutThisStudent("沉默王三", 16);
+        WithoutThisStudent s2 = new WithoutThisStudent("musk三", 16);
 
         s1.out();
         s2.out();
@@ -96,7 +96,7 @@ public class WithThisStudent {
 
     public static void main(String[] args) {
         WithThisStudent s1 = new WithThisStudent("musk", 18);
-        WithThisStudent s2 = new WithThisStudent("沉默王三", 16);
+        WithThisStudent s2 = new WithThisStudent("musk三", 16);
 
         s1.out();
         s2.out();
@@ -108,7 +108,7 @@ public class WithThisStudent {
 
 ```
 musk 18
-沉默王三 16
+musk三 16
 ```
 
 “这次，实例变量有值了，在构造方法中，`this.xxx` 指向的就是实例变量，而不再是参数本身了。”我慢吞吞地说着，“当然了，如果参数名和实例变量名不同的话，就不必使用 this 关键字，但我建议使用 this 关键字，这样的代码更有意义。”

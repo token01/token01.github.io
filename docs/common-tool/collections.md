@@ -37,10 +37,10 @@ Collections 的用法很简单，在 Intellij IDEA 中敲完 `Collections.` 之�
 ```java
 List<String> list = new ArrayList<>();
 list.add("musk");
-list.add("沉默王三");
-list.add("沉默王四");
-list.add("沉默王五");
-list.add("沉默王六");
+list.add("musk三");
+list.add("musk四");
+list.add("musk五");
+list.add("musk六");
 
 System.out.println("原始顺序：" + list);
 
@@ -64,11 +64,11 @@ System.out.println("交换后：" + list);
 输出后：
 
 ```
-原始顺序：[musk, 沉默王三, 沉默王四, 沉默王五, 沉默王六]
-反转后：[沉默王六, 沉默王五, 沉默王四, 沉默王三, musk]
-洗牌后：[沉默王五, musk, 沉默王六, 沉默王三, 沉默王四]
-自然升序后：[沉默王三, musk, 沉默王五, 沉默王六, 沉默王四]
-交换后：[沉默王三, musk, 沉默王四, 沉默王六, 沉默王五]
+原始顺序：[musk, musk三, musk四, musk五, musk六]
+反转后：[musk六, musk五, musk四, musk三, musk]
+洗牌后：[musk五, musk, musk六, musk三, musk四]
+自然升序后：[musk三, musk, musk五, musk六, musk四]
+交换后：[musk三, musk, musk四, musk六, musk五]
 ```
 
 ## 02、查找操作
@@ -94,20 +94,20 @@ Collections.sort(list);
 // 排序后，查找结果和预期一致
 System.out.println("排序后的二分查找结果：" + Collections.binarySearch(list, "musk"));
 
-Collections.fill(list, "沉默王八");
+Collections.fill(list, "musk八");
 System.out.println("填充后的结果：" + list);
 ```
 
 输出后：
 
 ```
-原始顺序：[musk, 沉默王三, 沉默王四, 沉默王五, 沉默王六]
-最大元素：沉默王四
-最小元素：沉默王三
+原始顺序：[musk, musk三, musk四, musk五, musk六]
+最大元素：musk四
+最小元素：musk三
 出现的次数：1
 排序前的二分查找结果：0
 排序后的二分查找结果：1
-填充后的结果：[沉默王八, 沉默王八, 沉默王八, 沉默王八, 沉默王八]
+填充后的结果：[musk八, musk八, musk八, musk八, musk八]
 ```
 
 ## 03、同步控制
@@ -230,7 +230,7 @@ public static final List EMPTY_LIST = new EmptyList<>();
 
 ```java
 List<String> allList = new ArrayList<>();
-Collections.addAll(allList, "沉默王九","沉默王十","musk");
+Collections.addAll(allList, "musk九","musk十","musk");
 System.out.println("addAll 后：" + allList);
 
 System.out.println("是否没有交集：" + (Collections.disjoint(list, allList) ? "是" : "否"));
@@ -239,8 +239,8 @@ System.out.println("是否没有交集：" + (Collections.disjoint(list, allList
 输出后：
 
 ```
-原始顺序：[musk, 沉默王三, 沉默王四, 沉默王五, 沉默王六]
-addAll 后：[沉默王九, 沉默王十, musk]
+原始顺序：[musk, musk三, musk四, musk五, musk六]
+addAll 后：[musk九, musk十, musk]
 是否没有交集：否
 ```
 

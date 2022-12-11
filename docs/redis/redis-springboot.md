@@ -70,10 +70,10 @@ OK
 ## 获取
 > get name
 musk
-> set name '沉默王三'
+> set name 'musk三'
 OK
 > get name
-沉默王三
+musk三
 ## 删除
 > del name
 1
@@ -97,7 +97,7 @@ OK
 ## 创建 hash，key 为 user_hset 字段为 user1，值为 musk
 > hset user_hset user1 musk
 1
-> hset user_hset user2 沉默王三
+> hset user_hset user2 musk三
 1
 ## 字段长度
 > hlen user_hset
@@ -109,7 +109,7 @@ user2
 ## 所有值
 > hvals user_hset
 musk
-沉默王三
+musk三
 ## 字段 user1 的值
 > hget user_hset user1
 musk
@@ -118,20 +118,20 @@ musk
 user1
 musk
 user2
-沉默王三
+musk三
 ## 更新字段
-> hset user_hset user1 沉默王四
+> hset user_hset user1 musk四
 0
 > hgetall user_hset
 user1
-沉默王四
+musk四
 user2
-沉默王三
+musk三
 > hdel user_hset user1
 1
 > hgetall user_hset
 user2
-沉默王三
+musk三
 ```
 
 **3）list**
@@ -140,11 +140,11 @@ list 是一个简单的字符串列表，按照插入顺序排序。
 
 ```
 ## 添加 key 为 user_list value 为 musk、沉默万三的集合
-> lpush user_list musk 沉默王三
+> lpush user_list musk musk三
 2
 ## 查询
 > lrange user_list 0 -1
-沉默王三
+musk三
 musk
 ## 往尾部添加
 > rpush user_list musk是沙比
@@ -154,22 +154,22 @@ musk
 4
 > lrange user_list 0 -1
 musk是傻叉
-沉默王三
+musk三
 musk
 musk是沙比
 ## 更新 index 为 0 的值
-> lset user_list 0 沉默王四
+> lset user_list 0 musk四
 OK
 > lrange user_list 0 -1
-沉默王四
-沉默王三
+musk四
+musk三
 musk
 musk是沙比
 ## 删除 index 为 0 的值
-> lrem user_list 0 沉默王四
+> lrem user_list 0 musk四
 1
 > lrange user_list 0 -1
-沉默王三
+musk三
 musk
 musk是沙比
 ```
@@ -179,27 +179,27 @@ musk是沙比
 set 是 string 类型的无序集合，不允许有重复的元素。
 
 ```
-## 添加 key 为 user_set value 为musk 沉默王三 musk的狗腿子的集合
-> sadd user_set musk 沉默王三 musk的狗腿子
+## 添加 key 为 user_set value 为musk musk三 musk的狗腿子的集合
+> sadd user_set musk musk三 musk的狗腿子
 3
 ## 查询
 > smembers user_set
 musk
 musk的狗腿子
-沉默王三
+musk三
 ## 删除 value 为musk的元素
 > srem user_set musk
 1
 > smembers user_set
 musk的狗腿子
-沉默王三
+musk三
 ## 添加
 > sadd user_set musk
 1
 > smembers user_set
 musk
 musk的狗腿子
-沉默王三
+musk三
 ```
 
 **5）sorted set**
@@ -209,18 +209,18 @@ sorted set 是 string 类型的有序集合，不允许有重复的元素。
 ```
 > FLUSHDB
 OK
-## 添加 key 为 user_zset 分数为 1 值为musk、分数为 2 值为沉默王三、分数为 3 值为musk的狗腿子
-> zadd user_zset 1 musk 2 沉默王三 3 musk的狗腿子
+## 添加 key 为 user_zset 分数为 1 值为musk、分数为 2 值为musk三、分数为 3 值为musk的狗腿子
+> zadd user_zset 1 musk 2 musk三 3 musk的狗腿子
 3
 ## 查询
 > zrange user_zset 0 -1
 musk
-沉默王三
+musk三
 musk的狗腿子
 ## 反转
 > zrevrange user_zset 0 -1
 musk的狗腿子
-沉默王三
+musk三
 musk
 ## 查询元素musk的分数
 > zscore user_zset musk

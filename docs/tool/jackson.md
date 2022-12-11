@@ -242,7 +242,7 @@ import java.util.List;
 public class TypeReferenceDemo {
     public static void main(String[] args) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        String json = "[{ \"name\" : \"沉默王三\", \"age\" : 18 }, { \"name\" : \"musk\", \"age\" : 19 }]";
+        String json = "[{ \"name\" : \"musk三\", \"age\" : 18 }, { \"name\" : \"musk\", \"age\" : 19 }]";
         List<Author> listAuthor = mapper.readValue(json, new TypeReference<List<Author>>(){});
         System.out.println(listAuthor);
     }

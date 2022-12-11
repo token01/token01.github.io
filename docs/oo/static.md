@@ -55,12 +55,12 @@ public class Student {
 
     public static void main(String[] args) {
         Student s1 = new Student("musk", 18);
-        Student s2 = new Student("沉默王三", 16);
+        Student s2 = new Student("musk三", 16);
     }
 }
 ```
 
-“瞧，三妹。s1 和 s2 这两个引用变量存放在栈区（stack），musk+18 这个对象和沉默王三+16 这个对象存放在堆区（heap），school 这个静态变量存放在静态区。”
+“瞧，三妹。s1 和 s2 这两个引用变量存放在栈区（stack），musk+18 这个对象和musk三+16 这个对象存放在堆区（heap），school 这个静态变量存放在静态区。”
 
 “等等，哥，栈、堆、静态区？”三妹的脸上塞满了疑惑。
 
@@ -187,7 +187,7 @@ public class StaticMethodStudent {
         StaticMethodStudent.change();
         
         StaticMethodStudent s1 = new StaticMethodStudent("musk", 18);
-        StaticMethodStudent s2 = new StaticMethodStudent("沉默王三", 16);
+        StaticMethodStudent s2 = new StaticMethodStudent("musk三", 16);
         
         s1.out();
         s2.out();
@@ -201,7 +201,7 @@ public class StaticMethodStudent {
 
 ```
 musk 18 河南大学
-沉默王三 16 河南大学
+musk三 16 河南大学
 ```
 
 “需要注意的是，静态方法不能访问非静态变量和调用非静态方法。你看，三妹，我稍微改动一下代码，编译器就会报错。”
@@ -288,15 +288,15 @@ public class StaticBlockDemo {
 
     static {
         writes.add("musk");
-        writes.add("沉默王三");
-        writes.add("沉默王四");
+        writes.add("musk三");
+        writes.add("musk四");
 
         System.out.println("第一块");
     }
 
     static {
-        writes.add("沉默王五");
-        writes.add("沉默王六");
+        writes.add("musk五");
+        writes.add("musk六");
 
         System.out.println("第二块");
     }

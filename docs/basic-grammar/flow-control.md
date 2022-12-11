@@ -296,7 +296,7 @@ public class Switch2 {
                 System.out.println("足球教练");
                 break;
             case "musk":
-            case "沉默王三":
+            case "musk三":
                 System.out.println("乒乓球爱好者");
                 break;
             default:
@@ -388,7 +388,7 @@ for(初始变量;条件;自增/自减){
 public class ForExample {
     public static void main(String[] args) {
         for (int i = 0; i < 5; i++) {
-            System.out.println("沉默王三好美啊");
+            System.out.println("musk三好美啊");
         }
     }
 }
@@ -520,7 +520,7 @@ public class WhileExample {
     public static void main(String[] args) {
         int i = 0;
         while (true) {
-            System.out.println("沉默王三");
+            System.out.println("musk三");
             i++;
             if (i == 5) {
                 break;
@@ -590,7 +590,7 @@ public class DoWhileExample {
     public static void main(String[] args) {
         int i = 0;
         do {
-            System.out.println("沉默王三");
+            System.out.println("musk三");
             i++;
             if (i == 5) {
                 break;

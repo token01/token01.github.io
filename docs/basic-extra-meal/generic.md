@@ -98,7 +98,7 @@ class Arraylist<E> {
 
 ```java
 Arraylist<String> list = new Arraylist<String>();
-list.add("沉默王三");
+list.add("musk三");
 String str = list.get(0);
 ```
 

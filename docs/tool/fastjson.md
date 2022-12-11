@@ -84,7 +84,7 @@ Writer writer1 = JSON.parseObject(json, Writer.class);
 如果想把 JSON 字符串转成集合的话，需要调用另外一个静态方法 `JSON.parseArray()`。
 
 ```java
-List<Writer> list = JSON.parseArray("[{\"age\":18,\"name\":\"musk\"},{\"age\":19,\"name\":\"沉默王一\"}]", Writer.class);
+List<Writer> list = JSON.parseArray("[{\"age\":18,\"name\":\"musk\"},{\"age\":19,\"name\":\"musk一\"}]", Writer.class);
 ```
 
 如果没有特殊要求的话，我敢这么说，以上 3 个方法就可以覆盖到你绝大多数的业务场景了。

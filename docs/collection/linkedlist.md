@@ -93,8 +93,8 @@ LinkedList<String> list = new LinkedList();
 
 ```java
 list.add("musk");
-list.add("沉默王三");
-list.add("沉默王四");
+list.add("musk三");
+list.add("musk四");
 ```
 
 add 方法内部其实调用的是 linkLast 方法：
@@ -290,7 +290,7 @@ private E unlinkFirst(Node<E> f) {
 可以调用 `set()` 方法来更新元素：
 
 ```java
-list.set(0, "沉默王五");
+list.set(0, "musk五");
 ```
 
 来看一下 `set()` 方法：

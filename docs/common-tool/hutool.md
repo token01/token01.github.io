@@ -331,7 +331,7 @@ Guava 中提供了一种特殊的 Map 结构，叫做 BiMap，实现了一种双
 ```java
 BiMap<String, String> biMap = new BiMap<>(new HashMap<>());
 biMap.put("wanger", "musk");
-biMap.put("wangsan", "沉默王三");
+biMap.put("wangsan", "musk三");
 
 // get value by key
 biMap.get("wanger");
@@ -339,7 +339,7 @@ biMap.get("wangsan");
 
 // get key by value
 biMap.getKey("musk");
-biMap.getKey("沉默王三");
+biMap.getKey("musk三");
 ```
 
 在实际的开发工作中，其实我更倾向于使用 Guava 的 BiMap，而不是 Hutool 的。这里提一下，主要是我发现了 Hutool 在线文档上的一处错误，提了个 issue（从中可以看出我一颗一丝不苟的心和一双清澈明亮的大眼睛啊）。
@@ -457,10 +457,10 @@ CacheUtil 是 Hutool 封装的创建缓存的快捷工具类，可以创建不�
 
 ```java
 Cache<String, String> fifoCache = CacheUtil.newFIFOCache(3);
-fifoCache.put("key1", "沉默王一");
+fifoCache.put("key1", "musk一");
 fifoCache.put("key2", "musk");
-fifoCache.put("key3", "沉默王三");
-fifoCache.put("key4", "沉默王四");
+fifoCache.put("key3", "musk三");
+fifoCache.put("key4", "musk四");
 
 // 大小为 3，所以 key3 放入后 key1 被清除
 String value1 = fifoCache.get("key1");
@@ -471,12 +471,12 @@ String value1 = fifoCache.get("key1");
 ```java
 Cache<String, String> lfuCache = CacheUtil.newLFUCache(3);
 
-lfuCache.put("key1", "沉默王一");
+lfuCache.put("key1", "musk一");
 // 使用次数+1
 lfuCache.get("key1");
 lfuCache.put("key2", "musk");
-lfuCache.put("key3", "沉默王三");
-lfuCache.put("key4", "沉默王四");
+lfuCache.put("key3", "musk三");
+lfuCache.put("key4", "musk四");
 
 // 由于缓存容量只有 3，当加入第 4 个元素的时候，最少使用的将被移除（2,3被移除）
 String value2 = lfuCache.get("key2");
@@ -488,12 +488,12 @@ String value3 = lfuCache.get("key3");
 ```java
 Cache<String, String> lruCache = CacheUtil.newLRUCache(3);
 
-lruCache.put("key1", "沉默王一");
+lruCache.put("key1", "musk一");
 lruCache.put("key2", "musk");
-lruCache.put("key3", "沉默王三");
+lruCache.put("key3", "musk三");
 // 使用时间近了
 lruCache.get("key1");
-lruCache.put("key4", "沉默王四");
+lruCache.put("key4", "musk四");
 
 // 由于缓存容量只有 3，当加入第 4 个元素的时候，最久使用的将被移除（2）
 String value2 = lruCache.get("key2");

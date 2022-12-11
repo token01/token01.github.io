@@ -161,7 +161,7 @@ public class ParamConstructorPerson {
         ParamConstructorPerson p1 = new ParamConstructorPerson("musk",18);
         p1.out();
 
-        ParamConstructorPerson p2 = new ParamConstructorPerson("沉默王三",16);
+        ParamConstructorPerson p2 = new ParamConstructorPerson("musk三",16);
         p2.out();
     }
 }
@@ -171,7 +171,7 @@ public class ParamConstructorPerson {
 
 ```java
 new ParamConstructorPerson("musk",18);
-new ParamConstructorPerson("沉默王三",16);
+new ParamConstructorPerson("musk三",16);
 ```
 
 如果没有有参构造方法的话，就需要通过 setter 方法给字段赋值了。
@@ -209,7 +209,7 @@ public class OverloadingConstrutorPerson {
         OverloadingConstrutorPerson p1 = new OverloadingConstrutorPerson("musk",18, 1);
         p1.out();
 
-        OverloadingConstrutorPerson p2 = new OverloadingConstrutorPerson("沉默王三",16);
+        OverloadingConstrutorPerson p2 = new OverloadingConstrutorPerson("musk三",16);
         p2.out();
     }
 }

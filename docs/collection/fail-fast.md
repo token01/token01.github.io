@@ -46,7 +46,7 @@ public void test(Wanger wanger) {
 ```java
 List<String> list = new ArrayList<>();
 list.add("musk");
-list.add("沉默王三");
+list.add("musk三");
 list.add("一个文章真特么有趣的程序员");
 
 for (String str : list) {
@@ -81,7 +81,7 @@ final void checkForComodification() {
 ```java
 List<String> list = new ArrayList();
 list.add("musk");
-list.add("沉默王三");
+list.add("musk三");
 list.add("一个文章真特么有趣的程序员");
 Iterator var2 = list.iterator();
 
@@ -172,7 +172,7 @@ modCount 的值变成了 4。
 ```java
 List<String> list = new ArrayList<>();
 list.add("musk");
-list.add("沉默王三");
+list.add("musk三");
 list.add("一个文章真特么有趣的程序员");
 
 for (String str : list) {
@@ -193,7 +193,7 @@ break 后循环就不再遍历了，意味着 Iterator 的 next 方法不再执�
 ```java
 List<String> list = new ArrayList<>();
 list.add("musk");
-list.add("沉默王三");
+list.add("musk三");
 list.add("一个文章真特么有趣的程序员");
 for (int i = 0, n = list.size(); i < n; i++) {
 	String str = list.get(i);
@@ -205,16 +205,16 @@ for (int i = 0, n = list.size(); i < n; i++) {
 
 for 循环虽然可以避开 fail-fast 保护机制，也就说 remove 元素后不再抛出异常；但是呢，这段程序在原则上是有问题的。为什么呢？
 
-第一次循环的时候，i 为 0，`list.size()` 为 3，当执行完 remove 方法后，i 为 1，`list.size()` 却变成了 2，因为 list 的大小在 remove 后发生了变化，也就意味着“沉默王三”这个元素被跳过了。能明白吗？
+第一次循环的时候，i 为 0，`list.size()` 为 3，当执行完 remove 方法后，i 为 1，`list.size()` 却变成了 2，因为 list 的大小在 remove 后发生了变化，也就意味着“musk三”这个元素被跳过了。能明白吗？
 
-remove 之前 `list.get(1)` 为“沉默王三”；但 remove 之后 `list.get(1)` 变成了“一个文章真特么有趣的程序员”，而 `list.get(0)` 变成了“沉默王三”。
+remove 之前 `list.get(1)` 为“musk三”；但 remove 之后 `list.get(1)` 变成了“一个文章真特么有趣的程序员”，而 `list.get(0)` 变成了“musk三”。
 
 ### **3）使用 Iterator**
 
 ```java
 List<String> list = new ArrayList<>();
 list.add("musk");
-list.add("沉默王三");
+list.add("musk三");
 list.add("一个文章真特么有趣的程序员");
 
 Iterator<String> itr = list.iterator();

@@ -30,7 +30,7 @@ head:
 
 知识库收录的核心内容就全在这里面了，大类分为 Java 核心、Java 企业级开发、数据库、计算机基础、求职面试、学习资源、程序人生，几乎你需要的这里都有。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tobebetterjavaer-map.png)
+![image](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/tobebetterjavaer-map.png)
 
 ## 学习路线
 
@@ -402,17 +402,17 @@ head:
 
 ### 学习建议
 
-- [计算机专业该如何自学编程，看哪些书籍哪些视频哪些教程？](study_suggest/LearnCS-ByYourself.md)
-- [如何阅读《深入理解计算机系统》这本书？](study_suggest/read-csapp.md)
-- [电子信息工程最好的出路的是什么？](study_suggest/electron-information-engineering.md)
-- [如何填报计算机大类高考填志愿，计科、人工智能、软工、大数据、物联网、网络工程该怎么选？](study_suggest/gaokao-zhiyuan-cs.md)
-- [测试开发工程师必读经典书籍有哪些？](study_suggest/test-programmer-read-books.md)
-- [校招 Java 后端开发应该掌握到什么程度？](study_suggest/xiaozhao-java-should-master.md)
-- [大裁员下，程序员如何做“副业”？](study_suggest/chengxuyuan-fuye.md)
-- [如何在繁重的工作中持续成长？](study_suggest/ruhzfzdgzzcxcz.md)
-- [如何获得高并发的经验？](study_suggest/gaobingfa-jingyan-hsmcomputer.md)
-- [怎么跟 HR 谈薪资？](study_suggest/hr-xinzi.md)
-- [程序员 35 岁危机，如何破局？](study_suggest/35-weiji.md)
-- [不到 20 人的 IT 公司该去吗？](study_suggest/20ren-it-quma.md)
-- [本科生如何才能进入腾讯、阿里等一流的互联网公司？](study_suggest/benkesheng-ali-tengxun.md)
-- [计算机考研 408 统考该如何准备？](study_suggest/408.md)
+- [计算机专业该如何自学编程，看哪些书籍哪些视频哪些教程？](studysuggest/LearnCS-ByYourself.md)
+- [如何阅读《深入理解计算机系统》这本书？](studysuggest/read-csapp.md)
+- [电子信息工程最好的出路的是什么？](studysuggest/electron-information-engineering.md)
+- [如何填报计算机大类高考填志愿，计科、人工智能、软工、大数据、物联网、网络工程该怎么选？](studysuggest/gaokao-zhiyuan-cs.md)
+- [测试开发工程师必读经典书籍有哪些？](studysuggest/test-programmer-read-books.md)
+- [校招 Java 后端开发应该掌握到什么程度？](studysuggest/xiaozhao-java-should-master.md)
+- [大裁员下，程序员如何做“副业”？](studysuggest/chengxuyuan-fuye.md)
+- [如何在繁重的工作中持续成长？](studysuggest/ruhzfzdgzzcxcz.md)
+- [如何获得高并发的经验？](studysuggest/gaobingfa-jingyan-hsmcomputer.md)
+- [怎么跟 HR 谈薪资？](studysuggest/hr-xinzi.md)
+- [程序员 35 岁危机，如何破局？](studysuggest/35-weiji.md)
+- [不到 20 人的 IT 公司该去吗？](studysuggest/20ren-it-quma.md)
+- [本科生如何才能进入腾讯、阿里等一流的互联网公司？](studysuggest/benkesheng-ali-tengxun.md)
+- [计算机考研 408 统考该如何准备？](studysuggest/408.md)

@@ -32,7 +32,7 @@ export default navbar([
       { 
         text: "面试逆袭", 
         icon: "zhunbei", 
-        link: "/sidebar/sanfene/nixi.md" 
+        link: "/sidebar/sanfene/README.md" 
       },
       // { 
       //   text: "破解合集",

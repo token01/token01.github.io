@@ -14,52 +14,61 @@ export default sidebar({
     "xshellazpjbjcxshellpxffxbxt",
     "pycharmjhpxmazjcnyrgxxbxt",
   ],
-
+  // //区块链学习路线
   "/blockchain/": "structure",
   "/blockchain/Basic_logic/": "structure",
   "/blockchain/component/": "structure",
   "/blockchain/Male_chain_research/": "structure",
   "/blockchain/Male_chain_research/cosmos": "structure",
   "/blockchain/Male_chain_research/ethereum": "structure",
-  // //区块链学习路线
-  "/sidebar/sanfene/": [
-    "nixi",
-    "javase",
-    "collection",
-    "javathread",
-    "jvm",
-    "spring",
-    "redis",
-    "mybatis",
-    "mysql",
-    "os",
-    "network",
-    "rocketmq",
-  ],
+  
+  
+  "/sidebar/": "structure",
+  "/sidebar/sanfene/": "structure",
+   
+  "/learningPath/" :"structure",
+  "/learningPath/java/": "structure",
+
+  // "/sidebar/sanfene/": [
+  //   "nixi",
+  //   "javase",
+  //   "collection",
+  //   "javathread",
+  //   "jvm",
+  //   "spring",
+  //   "redis",
+  //   "mybatis",
+  //   "mysql",
+  //   "os",
+  //   "network",
+  //   "rocketmq",
+  // ],
 // 学习路线
-  "/learningPath/": [
-    {
-      text: "Java学习路线",
-      prefix: "java/",
-      collapsible: true,
-      children: [
-        "yitiaolong",
-        "thread",
-        "jvm",
-      ],
-    },
-    "c",
-    "ccc",
-    "python",
-    "go",
-    "os",
-    "qianduan",
-    "algorithm",
-    "bigdata",
-    "android",
-    "mysql",
-  ],
+  // "/learningPath/": [
+  //   {
+  //     text: "Java学习路线",
+  //     prefix: "java/",
+  //     collapsible: true,
+  //     children: [
+  //       "yitiaolong",
+  //       "thread",
+  //       "jvm",
+  //     ],
+  //   },
+  //   "c",
+  //   "ccc",
+  //   "python",
+  //   "go",
+  //   "os",
+  //   "qianduan",
+  //   "algorithm",
+  //   "bigdata",
+  //   "android",
+  //   "mysql",
+  // ],
     
+
+
   // 必须放在最后面
   "/": [
     {
@@ -612,7 +621,7 @@ export default sidebar({
     {
       text: "七、学习建议",
       collapsible: true,
-      prefix: "study_suggest/",
+      prefix: "studysuggest/",
       children: [
           "LearnCS-ByYourself",
           "read-csapp",
@@ -643,6 +652,11 @@ export default sidebar({
     //   ],
     // },
   ],
+
+
+ 
+  
+
 });
 
 

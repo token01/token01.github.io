@@ -287,8 +287,8 @@ function unilateralOutcome(uint x) public returns(uint) {
 
 ```
 ********************
-最终的定稿 ： https://github.com/blockchainGuide/blockchainguide
-公众号 ： 区块链技术栈
+最终的定稿 ：  /blockchainguide
+公众号 ： Abel sun
 ********************
 ```
 

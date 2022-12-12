@@ -394,7 +394,7 @@ hardhat 的堆栈跟踪功能很强大，报错信息相对更具有可读性，
 ### 底层源码参考
 
 - [简书博客](https://www.jianshu.com/u/572268941378)，最初发表的文章主要是以太坊源码分析，对以太坊的函数做了说明。
-- [最近的源码分析文章](https://github.com/blockchainGuide/blockchainguide/tree/main/source_code_analysis/ethereum/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90)
+- [最近的源码分析文章]( /blockchainguide/tree/main/source_code_analysis/ethereum/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90)
 - [GitHub - ZtesoftCS/go-ethereum-code-analysis](https://github.com/ZtesoftCS/go-ethereum-code-analysis) 4年前的源码分析汇总
 - [go-ethereum 源码笔记（概览）](https://knarfeh.com/2018/03/10/go-ethereum 源码笔记（概览）/) 四年前的博客
 - [Introduction · Ethereum Development with Go](https://goethereumbook.org/zh/) 跟着用 Go 写简单区块链
@@ -408,6 +408,6 @@ hardhat 的堆栈跟踪功能很强大，报错信息相对更具有可读性，
 ## 参考资料
 
 - [smart-contract-development-best-practices](https://yos.io/2019/11/10/smart-contract-development-best-practices/)
-- https://github.com/blockchainGuide/blockchainguide
+-  /blockchainguide
 - https://ethereum.org/zh/
 

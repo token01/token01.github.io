@@ -1,6 +1,6 @@
-import  hopeTheme  from "vuepress-theme-hope";
+import  {hopeTheme}  from "vuepress-theme-hope";
 import navbar from "./navbar";
-import { sidebarConfig } from "./sidebar";
+import sidebar from "./sidebar";
 
 export default hopeTheme({
   // 主题选项：https://vuepress-theme-hope.github.io/v2/zh/config/theme/layout.html
@@ -51,7 +51,7 @@ export default hopeTheme({
   // navbarAutoHide: "always",
 
   // sidebar
-  sidebar: sidebarConfig,
+  sidebar: sidebar,
   // 侧边栏排序规则
   // sidebarSorter: ['readme', 'order', 'title'],
 

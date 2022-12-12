@@ -89,7 +89,7 @@ APPLY({ Alice: $50, Bob: $50 },"send $70 from Alice to Bob") = ERROR
 
 ### 默克尔树
 
-![img](./assets/img/merkle_tree_bitcoin.png)
+![img](../assets/img/merkle_tree_bitcoin.png)
 
 左：仅提供默克尔树（Merkle tree）上的少量节点已经足够给出分支的合法证明。
 右：任何对于默克尔树的任何部分进行改变的尝试都会最终导致链上某处的不一致。

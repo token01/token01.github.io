@@ -1,5 +1,4 @@
-import { path } from "@vuepress/utils";
-import { hopeTheme } from "vuepress-theme-hope";
+import  hopeTheme  from "vuepress-theme-hope";
 import navbar from "./navbar";
 import { sidebarConfig } from "./sidebar";
 

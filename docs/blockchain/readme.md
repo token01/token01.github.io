@@ -1,5 +1,5 @@
 ---
-title: Web3.0进阶之路
+title: 前言
 isOriginal: true
 headerDepth: 1
 category:
@@ -45,8 +45,8 @@ head:
 
 ### 🙅‍♀️白皮书
 
-- [区块链-比特币白皮书（建议收藏🔥）](The_white_paper_the_currency.md)
-- [区块链-以太坊白皮书（建议收藏🔥）](White_paper_the_etheric_lane.md)
+- [区块链-比特币白皮书（建议收藏🔥）](Basic_logic/The_white_paper_the_currency.md)
+- [区块链-以太坊白皮书（建议收藏🔥）](Basic_logic/White_paper_the_etheric_lane.md)
 
 ### 🐲基础概念
 
@@ -59,29 +59,28 @@ head:
 
 ### 🏃浅谈libp2p网络
 
-- [关于P2P网络的一些设计想法（建议收藏🔥）](component/p2p/Some_of_the_design_ideas_of_P2P_network.md)
-- [浅谈libp2p网络之autoNAT（建议收藏🔥）](component/p2p/Introduction_to_libp2p_autoNAT_network.md)
-- [浅谈libp2p网络之mdns（建议收藏🔥）](component/p2p/Introduction_to_libp2p_MDNS_network.md)
-- [浅谈libp2p网络之multiAddress（建议收藏🔥）](component/p2p/Introduction_to_libp2p_multiAddress_network.md)
-- [浅谈p2p网络之NAT传输（建议收藏🔥）](component/p2p/Introduction_to_libp2p_autoNAT_network.md)
-- [浅谈p2p网络之relay协议（建议收藏🔥）](component/p2p/Introduction_to_the_relay_of_p2p_network_protocol.md)
-- [浅谈p2p网络之传输协议（建议收藏🔥）](component/p2p/Introduction_to_p2p_network_transmission_of_NAT.md)
-
+- [关于P2P网络的一些设计想法（建议收藏🔥）](component/Some_of_the_design_ideas_of_P2P_network.md)
+- [浅谈libp2p网络之autoNAT（建议收藏🔥）](component/Introduction_to_libp2p_autoNAT_network.md)
+- [浅谈libp2p网络之mdns（建议收藏🔥）](component/Introduction_to_libp2p_MDNS_network.md)
+- [浅谈libp2p网络之multiAddress（建议收藏🔥）](component/Introduction_to_libp2p_multiAddress_network.md)
+- [浅谈p2p网络之NAT传输（建议收藏🔥）](component/Introduction_to_libp2p_autoNAT_network.md)
+- [浅谈p2p网络之relay协议（建议收藏🔥）](component/Introduction_to_the_relay_of_p2p_network_protocol.md)
+- [浅谈p2p网络之传输协议（建议收藏🔥）](component/Introduction_to_p2p_network_transmission_of_NAT.md)
 
 ### 🌉主流区块链研究
 
 - [cosmos-框架学习（建议收藏🔥）](Male_chain_research/cosmos/Cosmos_source.md)
-- [以太坊-钱包知识系列（建议收藏🔥）](Male_chain_research/ethereum/Etheric_fang_basic_theory_part/The_wallet_series/0.Rounding.md)
-- [以太坊-什么是以太坊（建议收藏🔥）](Male_chain_research/ethereum/Etheric_fang_basic_theory_part/1.What_is_the_etheric_lane.md)
-- [以太坊-以太坊相关术语（建议收藏🔥）](Male_chain_research/ethereum/Etheric_fang_basic_theory_part/2.The_etheric_lanes_and_related_terms.md)
-- [以太坊-以太坊启动参数相关详解（建议收藏🔥）](Male_chain_research/ethereum/Etheric_fang_basic_theory_part/3.The_etheric_fang_launch_parameters_explanation.md)
-- [以太坊-源码分析-P2P-浅谈以太坊源码分析之p2p网络启动（建议收藏🔥）](Male_chain_research/ethereum/Etheric_fang_source_analysis/p2p/1.Etheric_fang_source_analysis_of_p2p_network_boot.md)
-- [以太坊-源码分析-P2P-浅谈以太坊源码分析之Kademlia算法（建议收藏🔥）](Male_chain_research/ethereum/Etheric_fang_source_analysis/p2p/2.Etheric_fang_Kademlia_algorithm_of_the_source_code_analysis.md)
-- [以太坊-源码分析-P2P-浅谈以太坊源码分析之p2p节点发现（建议收藏🔥）](Male_chain_research/ethereum/Etheric_fang_source_analysis/p2p/3.Etheric_fang_source_analysis_of_p2p_nodes_found)
-- [以太坊-源码分析-P2P-浅谈以太坊源码分析之rlpx协议（建议收藏🔥）](Male_chain_research/ethereum/Etheric_fang_source_analysis/p2p/4.Etheric_fang_RLPX_agreement.md)
-- [以太坊-源码分析-P2P-浅谈以太坊源码分析之区块和交易广播（建议收藏🔥）](Male_chain_research/ethereum/Etheric_fang_source_analysis/p2p/5.Etheric_fang_source_analysis_of_block_and_radio.md)
-- [以太坊-源码分析-P2P-浅谈以太坊源码分析之Fetcher同步（建议收藏🔥）](Male_chain_research/ethereum/Etheric_fang_source_analysis/p2p/6.Etheric_fang_Fetcher_synchronization_of_the_source_code_analysis.md)
-- 
+- [以太坊-钱包知识系列（建议收藏🔥）](Male_chain_research/ethereum/0.Rounding.md)
+- [以太坊-什么是以太坊（建议收藏🔥）](Male_chain_research/ethereum/1.What_is_the_etheric_lane.md)
+- [以太坊-以太坊相关术语（建议收藏🔥）](Male_chain_research/ethereum/2.The_etheric_lanes_and_related_terms.md)
+- [以太坊-以太坊启动参数相关详解（建议收藏🔥）](Male_chain_research/ethereum/3.The_etheric_fang_launch_parameters_explanation.md)
+- [以太坊-源码分析-P2P-浅谈以太坊源码分析之p2p网络启动（建议收藏🔥）](Male_chain_research/ethereum/1.Etheric_fang_source_analysis_of_p2p_network_boot.md)
+- [以太坊-源码分析-P2P-浅谈以太坊源码分析之Kademlia算法（建议收藏🔥）](Male_chain_research/ethereum/2.Etheric_fang_Kademlia_algorithm_of_the_source_code_analysis.md)
+- [以太坊-源码分析-P2P-浅谈以太坊源码分析之p2p节点发现（建议收藏🔥）](Male_chain_research/ethereum/3.Etheric_fang_source_analysis_of_p2p_nodes_found)
+- [以太坊-源码分析-P2P-浅谈以太坊源码分析之rlpx协议（建议收藏🔥）](Male_chain_research/ethereum/4.Etheric_fang_RLPX_agreement.md)
+- [以太坊-源码分析-P2P-浅谈以太坊源码分析之区块和交易广播（建议收藏🔥）](Male_chain_research/ethereum/5.Etheric_fang_source_analysis_of_block_and_radio.md)
+- [以太坊-源码分析-P2P-浅谈以太坊源码分析之Fetcher同步（建议收藏🔥）](Male_chain_research/ethereum/6.Etheric_fang_Fetcher_synchronization_of_the_source_code_analysis.md)
+
 - [（建议收藏🔥）](Male_chain_research/ethereum/)
 - [（建议收藏🔥）](Male_chain_research/ethereum/)
 - [（建议收藏🔥）](Male_chain_research/ethereum/)
@@ -89,5 +88,4 @@ head:
 - [（建议收藏🔥）](Male_chain_research/ethereum/)
 - [（建议收藏🔥）](Male_chain_research/ethereum/)
 - [（建议收藏🔥）](Male_chain_research/ethereum/)
-- 
   

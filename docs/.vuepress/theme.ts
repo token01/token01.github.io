@@ -118,8 +118,6 @@ export default hopeTheme({
       */
     },
 
-    // 组件库
-    components: ["Badge", "BiliBili", "VideoPlayer", "YouTube"],
 
     // 禁用不需要的配置
     mdEnhance: {
@@ -132,10 +130,8 @@ export default hopeTheme({
       // echarts: true,
       // flowchart: true,
       gfm: true,
-      imageLazyload: true,
       // imageMark: true,
       imageSize: true,
-      imageTitle: true,
       include: true, //导入文件
       // katex: true,
       mark: true,

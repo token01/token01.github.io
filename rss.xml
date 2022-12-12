@@ -6,928 +6,714 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Mon, 12 Dec 2022 05:39:37 GMT</pubDate>
-    <lastBuildDate>Mon, 12 Dec 2022 05:39:37 GMT</lastBuildDate>
+    <pubDate>Mon, 12 Dec 2022 07:14:07 GMT</pubDate>
+    <lastBuildDate>Mon, 12 Dec 2022 07:14:07 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+    <category>区块链学习</category>
     <category>区块链</category>
     <item>
-      <title>浅谈共识算法|POS算法</title>
-      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/1.pow.html</link>
-      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/1.pow.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法|POS算法</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
+      <title>基础知识</title>
+      <link>https://bytecodes.tech/blockchain/Basic_logic/</link>
+      <guid>https://bytecodes.tech/blockchain/Basic_logic/</guid>
+      <source url="https://bytecodes.tech/rss.xml">基础知识</source>
+      <category>区块链学习</category>
+      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
+    </item>
+    <item>
+      <title>比特币白皮书</title>
+      <link>https://bytecodes.tech/blockchain/Basic_logic/The_white_paper_the_currency.html</link>
+      <guid>https://bytecodes.tech/blockchain/Basic_logic/The_white_paper_the_currency.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">比特币白皮书</source>
+      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识 P2P网络 Solidity 比特币</description>
       <category>区块链</category>
-      <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
+      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
       <content:encoded><![CDATA[<blockquote>
-<p>浅谈共识算法|pow算法</p>
+<p>比特币 white paper中英文对照版本，保持英文原版只字不差，排版尽量模拟原版</p>
 </blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn80djrtwej30d606tmxc.jpg" alt="f1"></p>
-<h2 id="概述" tabindex="-1"> 概述</h2>
-<p>工作量证明(<code>Proof Of Work</code>，简称<code>POW</code>)，简单理解就是一份证明，用来确认你做过一定量的工作。监测工作的整个过程通常是极为低效的，而通过对工作的结果进行认证来证明完成了相应的工作量，则是一种非常高效的方式。比如现实生活中的毕业证、驾驶证等等，也是通过检验结果的方式（通过相关的考试）所取得的证明。</p>
-<p>工作量证明系统（或者说协议、函数），是一种应对拒绝服务攻击和其他服务滥用的经济对策。它要求发起者进行一定量的运算，也就意味着需要消耗计算机一定的时间。这个概念由<strong>Cynthia Dwork</strong> 和<strong>Moni Naor</strong> 1993年在学术论文中首次提出。而工作量证明（<code>POW</code>）这个名词，则是在 1999 年 <strong>Markus Jakobsson</strong> 和<strong>Ari Juels</strong>的文章中才被真正提出。</p>
-<h2 id="主流pow共识使用的哈希算法" tabindex="-1"> 主流POW共识使用的哈希算法</h2>
-<p>实际不同的<code>POW</code>共识的核心就是<strong>不同的哈希算法</strong>，已经有很多<code>Hash</code>函数被设计出来并广泛应用，不过Hash函数一般安全寿命都不长，被认为安全的算法往往没能使用多久就被成功攻击，新的更安全的算法相继被设计出来，而每一个被公认为安全可靠的算法都有及其严格的审计过程。在币圈中我们经常说某某币发明了某种算法，其实主要都是使用那些被认证过的安全算法，或是单独使用，或是排列组合使用。</p>
-<h2 id="sha256" tabindex="-1"> SHA256</h2>
-<p><code>SHA-2</code>，名称来自于安全散列算法2（英语：<code>Secure Hash Algorithm 2</code>）的缩写，一种密码散列函数算法标准，由美国国家安全局研发，属于<code>SHA</code>算法之一，是<code>SHA-1</code>的后继者。<code>SHA-2</code>下又可再分为六个不同的算法标准。包括了：<code>SHA-224、SHA-256、SHA-384、SHA-512、SHA-512/224、SHA-512/256。</code></p>
-<p>具体的算法解释请查看此文：<a href="">Abel sun全景分析</a></p>
-<h2 id="scrypt" tabindex="-1"> SCRYPT</h2>
-<p><code>Scrypt</code>是内存依赖型的<code>POW</code>算法，莱特币采用此算法。第一个使用<code>Scrypt</code>算法的数字货币是<code>Tenebrix</code>，而后该算法被<strong>莱特币</strong>使用。莱特币创始人在莱特币创世帖中介绍了莱特币采用的共识机制，挖矿算法，发行总量，挖矿难度等相关重要信息。李启威说明了莱特币所使用的挖矿算法为数字货币<code>Tenebrix</code>所使用的<code>Scrypt</code>算法，是一种符合<code>PoW</code>共识机制的算法。<code>Scrypt</code>算法过程中也需要计算哈希值，但是，<code>Scrypt</code>计算过程中需要使用较多的内存资源。</p>
-<p>其它使用Scrypt算法的数字货币还有数码币（<code>DigitalCoin</code>）、狗狗币（<code>DogeCoin</code>）、幸运币（<code>LuckyCoin</code>）、世界币（<code>WorldCoin</code>）等。</p>
-<p>算法实现：<a href="https://www.imooc.com/article/50372" target="_blank" rel="noopener noreferrer">https://www.imooc.com/article/50372</a></p>
-<h2 id="串联算法" tabindex="-1"> 串联算法</h2>
-<p>重新排列组合是人类一贯以来最常用的创新发明方法。很快，有人不满足于使用单一<code>Hash</code>函数，2013年7月，夸克币（<code>Quark</code>）发布，首创使用多轮<code>Hash</code>算法，看似高大上，其实很简单，就是对输入数据运算了9次<code>hash</code>函数，前一轮运算结果作为后一轮运算的输入。这9轮Hash共使用6种加密算法，分别为<code>BLAKE, BMW, GROESTL, JH, KECCAK和SKEIN</code>，这些都是公认的安全<code>Hash</code>算法，并且早已存在现成的实现代码。</p>
-<p>这种多轮Hash一出现就给人造成直观上很安全很强大的感觉，追捧者无数。现今价格依然坚挺的达世币率先使用11种加密算法（<code>BLAKE, BMW, GROESTL, JH, KECCAK, SKEIN, LUFFA, CUBEHASH, SHAVITE, SIMD, ECHO</code>），美其名曰X11，紧接着X13，X15这一系列就有人开发出来了。</p>
-<p>S系列算法实际是一种串联思路，只要其中一种算法被破解，整个算法就被破解了，好比一根链条，环环相扣，只要其中一环断裂，整个链条就一分为二。</p>
-<h2 id="并联算法" tabindex="-1"> 并联算法</h2>
-<p><code>Heavycoin（HVC）</code>是第一个做了尝试的并联算法，其原理如下：</p>
-<ol>
-<li>对输入数据首先运行一次<code>HEFTY1</code>（一种<code>Hash</code>算法）运算，得到结果d1</li>
-<li>以<code>d1</code>为输入，依次进行<code>SHA256</code>、<code>KECCAK512</code>、<code>GROESTL512</code>、<code>BLAKE512</code>运算，分别获得输出<code>d2</code>,<code>d3</code>,<code>d4</code>和<code>d5</code></li>
-<li>分别提取<code>d2-d5</code>前64位，混淆后形成最终的<code>256</code>位Hash结果，作为区块ID。</li>
-</ol>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn950ksww1j31e60fetfh.jpg" alt="image-20210202134353334"></p>
-<p>之所以首先进行一轮<code>HEFTY1</code> 哈希，是因为HEFTY1 运算起来极其困难，其抵御矿机性能远超于<code>SCRYPT</code>。但与<code>SCRYPT</code>一样，安全性没有得到某个官方机构论证，于是加入后面的四种安全性已经得到公认的算法增强安全。</p>
-<p>对比串联和并联的方法，<code>Quark、X11，X13</code>等虽使用了多种<code>HASH</code>函数，但这些算法都是简单的将多种<code>HASH</code>函数串联在一起，仔细思考，其实没有提高整体的抗碰撞性，其安全性更是因木桶效应而由其中安全最弱的算法支撑，其中任何一种<code>Hash</code>函数遭遇碰撞性攻击，都会危及货币系统的安全性。</p>
-<p><code>HVC</code>从以上每种算法提取<code>64</code>位，经过融合成为最后的结果，实际上是将四种算法并联在一起，其中一种算法被破解只会危及其中<code>64</code>位，四中算法同时被破解才会危及货币系统的安全性。</p>
-<h2 id="ethash" tabindex="-1"> ETHASH</h2>
-<p>Ethash是以太坊上面使用的POW算法，具体的介绍可以查看此文（<strong>建议关注此公号</strong>）：<a href="https://mp.weixin.qq.com/s?__biz=MzU2MjY5MzcyMQ==&amp;mid=2247484167&amp;idx=1&amp;sn=1cbec62883c0200c7be39e6986cd53e4&amp;scene=19#wechat_redirect" target="_blank" rel="noopener noreferrer">浅谈以太坊源码分析之ETHASH算法</a></p>
-<h2 id="pow算法存在的问题" tabindex="-1"> POW算法存在的问题</h2>
-<ol>
-<li>算力竞争的设计导致了集中化的矿池：尽管PoW的目的是为了保证系统可以去中心化的运行，然而系统运行到现在，却事实上形成中心化程度很高的五大矿池。五大矿池垄断了世界上90%以上的算力，这可能导致大矿池破坏整个网络的行为</li>
-<li>算力竞争的设计导致了大量的能源消耗： 另外，PoW系统需要产生大量的能源消耗：比特币挖矿比159个国家消耗的能源还多；目前77.7%的全球比特币网络算力仍在中国境内；受益于内蒙古和四川两地充沛的电力资源，中国拥有世界上最多的比特币矿场；到2019年7月，比特币网络将需要比美国目前的用电量更多的电力；到2020年2月，它将使用和今天全世界一样多的电力</li>
-<li>业务处理性能低下：尽管投入了大量的能源支持系统的运行，但这些能源消耗绝大部份是用于工作量证明中的hash运算，处理交易业务的性能则非常低，例如比特币每秒只能进行大约7笔交易；以太坊每秒10-20笔。</li>
-</ol>
-<h2 id="参考" tabindex="-1"> 参考</h2>
+<p>Satoshi Nakamoto<br>
+<a href="mailto:satoshin@gmx.com">satoshin@gmx.com</a><br>
+<a href="http://www.bitcoin.org" target="_blank" rel="noopener noreferrer">www.bitcoin.org</a></p>
 <blockquote>
-<p><a href="https://web.xidian.edu.cn/qqpei/files/Blockchain/2Crypto.pdf" target="_blank" rel="noopener noreferrer">https://web.xidian.edu.cn/qqpei/files/Blockchain/2Crypto.pdf</a></p>
+<p><strong>Abstract.</strong>   A  purely   peer-to-peer   version   of   electronic   cash   would   allow   onlinepayments   to   be   sent   directly   from   one   party   to   another   without   going   through   afinancial institution.   Digital signatures provide part of the solution, but the mainbenefits are lost if a trusted third party is still required to prevent double-spending.We propose a solution to the double-spending problem using a peer-to-peer network.The   network   timestamps   transactions   by   hashing   them   into   an   ongoing   chain   ofhash-based proof-of-work, forming a record that cannot be changed without redoingthe proof-of-work.   The longest chain not only serves as proof of the sequence ofevents witnessed, but proof that it came from the largest pool of CPU power.   Aslong as a majority of CPU power is controlled by nodes that are not cooperating toattack the network,  they'll  generate the  longest  chain  and  outpace attackers.   Thenetwork itself requires minimal structure.   Messages are broadcast on a best effortbasis,   and   nodes   can   leave   and   rejoin   the   network   at   will,   accepting   the   longestproof-of-work chain as proof of what happened while they were gone.</p>
 </blockquote>
-]]></content:encoded>
-      <enclosure url="https://tva1.sinaimg.cn/large/008eGmZEgy1gn80djrtwej30d606tmxc.jpg" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>浅谈共识算法_基于协约</title>
-      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/10.BFT_agreement_as_whole.html</link>
-      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/10.BFT_agreement_as_whole.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法_基于协约</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
-      <category>区块链</category>
-      <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
-      <content:encoded><![CDATA[<h2 id="基于协约" tabindex="-1"> 基于协约</h2>
-<h2 id="pbft" tabindex="-1"> PBFT</h2>
-<h2 id="chain协议" tabindex="-1"> chain协议</h2>
-<h2 id="ring协议" tabindex="-1"> ring协议</h2>
-<h2 id="bft-smart协议" tabindex="-1"> BFT-Smart协议</h2>
 <blockquote>
-<p><a href="https://www.cnblogs.com/Evsward/p/bft-smart.html" target="_blank" rel="noopener noreferrer">https://www.cnblogs.com/Evsward/p/bft-smart.html</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/101270841" target="_blank" rel="noopener noreferrer">https://zhuanlan.zhihu.com/p/101270841</a></p>
+<p><strong>摘要。</strong> 一种完全的点对点电子现金应当允许在线支付从一方直接发送到另一方而不需要通过一个金融机构。数字签名提供了部分解决方案，但如果仍需一个可信任第三方来防止双重支付，那就失去了电子货币的主要优点。我们提出一种使用点对点网络解决双重支付问题的方案。该网络通过将交易哈希进一条持续增长的基于哈希的工作量证明链来给交易打上时间戳，形成一条除非重做工作量证明否则不能更改的记录。最长的链不仅是被见证事件序列的证据，而且也是它本身是由最大 CPU 算力池产生的证据。只要多数的 CPU 算力被不打算联合攻击网络的节点控制，这些节点就将生成最长的链而超过攻击者。这种网络本身只需极简的架构。信息将被尽力广播，节点可以随时离开和重新加入网络，只需接受最长的工作量证明链作为它们离开时发生事件的证据。</p>
 </blockquote>
-<h2 id="zyzzyva" tabindex="-1"> Zyzzyva</h2>
-<blockquote>
-<p><a href="http://sosp2007.org/papers/sosp052-kotla.pdf" target="_blank" rel="noopener noreferrer">http://sosp2007.org/papers/sosp052-kotla.pdf</a></p>
-<p><a href="https://www.jianshu.com/p/b4674d3f7ebd" target="_blank" rel="noopener noreferrer">https://www.jianshu.com/p/b4674d3f7ebd</a></p>
-</blockquote>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>浅谈共识算法_消息处理</title>
-      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/11.Istanbul_consensus_source_analysis.html</link>
-      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/11.Istanbul_consensus_source_analysis.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法_消息处理</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
-      <category>区块链</category>
-      <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
-      <content:encoded><![CDATA[<h2 id="handler-go-处理消息" tabindex="-1"> handler.go （处理消息）</h2>
-<h3 id="start" tabindex="-1"> start</h3>
+<h2 id="_1-introduction" tabindex="-1"> 1. Introduction</h2>
+<p>Commerce on the Internet has come to rely almost exclusively on financial institutions serving astrusted third  parties  to process electronic payments.   While the  system works  well enough formost   transactions,   it   still   suffers   from   the   inherent   weaknesses   of   the   trust   based   model.Completely non-reversible transactions are not really possible, since financial institutions cannotavoid   mediating   disputes.     The   cost   of   mediation   increases   transaction   costs,   limiting   theminimum practical transaction size and cutting off the possibility for small casual transactions,and   there   is   a   broader   cost   in   the   loss   of   ability   to   make   non-reversible   payments   for   non-reversible services.  With the possibility of reversal, the need for trust spreads.  Merchants mustbe wary of their customers, hassling them for more information than they would otherwise need.A certain percentage of fraud is accepted as unavoidable.  These costs and payment uncertaintiescan be avoided in person by using physical currency, but no mechanism exists to make paymentsover a communications channel without a trusted party.What is needed is an electronic payment system based on cryptographic proof instead of trust,allowing any two willing parties to transact directly with each other without the need for a trustedthird  party.
+Transactions  that  are  computationally  impractical  to   reverse   would  protect  sellersfrom fraud, and routine escrow mechanisms could easily be implemented to protect buyers.   Inthis paper, we propose a solution to the double-spending problem using a peer-to-peer distributedtimestamp server to generate computational proof of the chronological order of transactions.  Thesystem   is   secure   as   long   as   honest   nodes   collectively   control   more   CPU   power   than   anycooperating group of attacker nodes.</p>
+<h2 id="_1、简介" tabindex="-1"> 1、简介</h2>
+<p>互联网贸易已经变得几乎完全依赖金融机构作为可信任第三方来处理电子支付。尽管对于大部分交易这种系统运行得足够好，但仍需忍受基于信任模型这个固有缺点。由于金融机构不可避免的需要仲裁纠纷，完全的不可撤销交易实际是做不到的。仲裁成本增加了交易成本，限制了最小实际交易额度从而杜绝了日常小额交易的可能性，而且由于不支持不可撤销支付，对不可撤销服务进行支付将需要更大的成本。由于存在交易被撤销的可能性，对于信任的需求将更广泛。商家必须警惕他们的客户，麻烦他们提供更多他本不必要的信息。一定比例的欺诈被认为是不可避免的。虽可通过当面使用实物货币来避免这些成本及支付的不确定性，但不存在不引入一个可信任方而能在通信通道上进行支付的机制。
+我们需要的是一个基于密码学原理而不是信任的电子支付系统，该系统允许任何有交易意愿的双方能直接交易而不需要一个可信任第三方。交易在计算上的不可撤销将保护卖家不被欺诈，用来保护买家的程序化合约机制也应该较容易实现。在这篇论文中，我们提出一种使用点对点分布式时间戳服务器为基于时间的交易序列生成计算上的证据来解决双重支付问题的方案。只要诚实节点集体控制的CPU算力大于每一个合作攻击节点群的CPU算力，这个系统就是安全的。</p>
+<h2 id="_2-transactions" tabindex="-1"> 2. Transactions</h2>
+<p>We define an electronic coin as a chain of digital signatures.  Each owner transfers the coin to thenext by digitally signing a hash of the previous transaction and the public key of the next ownerand adding these to the end of the coin.  A payee can verify the signatures to verify the chain of ownership.</p>
+<h2 id="_2、交易" tabindex="-1"> 2、交易</h2>
+<p>我们定义一枚电子货币就是一条数字签名链。每个拥有者都通过将上一次交易和下一个拥有者的公钥的哈希值的数字签名添加到此货币末尾的方式将这枚货币转移给下一个拥有者。收款人可以通过验证数字签名来证实其为该链的所有者。
+<img src="@source/blockchain/assets/img/bitcoin-1.png" alt="bitcoin">
+The problem of course is the payee can't verify that one of the owners did not double-spendthe coin.  A common solution is to introduce a trusted central authority, or mint, that checks everytransaction for double spending.  After each transaction, the coin must be returned to the mint toissue a new coin, and only coins issued directly from the mint are trusted not to be double-spent.The   problem   with   this   solution   is   that   the   fate   of   the   entire   money   system   depends   on   thecompany running the mint, with every transaction having to go through them, just like a bank.<br>
+We   need   a   way   for   the   payee   to   know   that   the   previous   owners   did   not   sign   any   earliertransactions.   For our purposes, the earliest transaction is the one that counts, so we don't careabout later attempts to double-spend.  The only way to confirm the absence of a transaction is tobe aware of all transactions.  In the mint based model, the mint was aware of all transactions anddecided   which   arrived   first.    To  accomplish   this   without   a   trusted   party,   transactions   must   bepublicly announced [1], and we need a system for participants to agree on a single history of theorder in which they were received.  The payee needs proof that at the time of each transaction, themajority of nodes agreed it was the first received.<br>
+这里的问题是收款人不能证实拥有者之一没有对此货币进行双重支付。通常的做法是引入一个可信任的中央机构或铸币厂来检查每笔交易是否存在双重支付。每笔交易之后，都需要将这枚货币退回铸币厂以换取发行一枚新的货币，只有由铸币厂直接发行的货币才能被确认没有被双重支付。这个方案的问题在于整个货币系统的命运都依赖于运营铸币厂的公司，每笔交易都需要经过它们，就像银行一样。<br>
+我们需要一种能让收款人知道上一个货币拥有者 没有对任何更早的交易签名的方法。对我们来说，最早的那次交易是唯一有效的，所以我们不需要关心本次交易后面的双重支付尝试 。唯一能确保一笔交易不存在的方法是知晓所有之前的交易。在铸币厂模型中，铸币厂知晓所有交易并能确定哪笔交易最先到达。在不引入一个可信任方的前提下要达到这个目的， 所有交易就必须公开发布[1]，而且需要一个能让所有参与者对交易收到顺序的单一历史达成共识的系统。收款人在每笔交易时，都需要多数节点认同此交易是最先收到的证据。</p>
+<h2 id="_3-timestamp-server" tabindex="-1"> 3. Timestamp Server</h2>
+<p>The solution we propose begins with a timestamp server.  A timestamp server works by taking ahash   of   a   block   of   items   to   be   timestamped   and   widely   publishing   the   hash,   such   as   in   anewspaper or Usenet post [2-5].   The timestamp proves that the data must have existed at thetime, obviously, in order to get into the hash.  Each timestamp includes the previous timestamp inits hash, forming a chain, with each additional timestamp reinforcing the ones before it.</p>
+<h2 id="_3、时间戳服务器" tabindex="-1"> 3、时间戳服务器</h2>
+<p>我们提出的方案从时间戳服务器开始。时间戳服务器计算包含 多个需要被打时间戳的数据项的区块 的哈希  值并 广泛 地发布这个哈希值，就 像在报纸或  新闻组帖  子里[2-5]。时间戳能证明要得到这个哈希值，显然这些数据当时一定是存在的。每个时间戳的哈希值都纳 入了上一个时间戳，形成一条链，后面的时间戳进一步增强前一个时间戳。</p>
+<p><img src="@source/blockchain/assets/img/bitcoin-2.png" alt="bitcoin"></p>
+<h2 id="_4-proof-of-work" tabindex="-1"> 4. Proof-of-Work</h2>
+<p>To implement a distributed timestamp server on a peer-to-peer basis, we will need to use a proof-of-work system  similar to Adam  Back's  Hashcash  [6],  rather than  newspaper  or  Usenet  posts.The proof-of-work involves scanning for a value that when hashed, such as with SHA-256, thehash begins with a number of zero bits.  The average work required is exponential in the numberof zero bits required and can be verified by executing a single hash.<br>
+For our timestamp network, we implement the proof-of-work by incrementing a nonce in theblock until a value is found that gives the block's hash the required zero bits.   Once the CPUeffort   has   been   expended   to   make   it   satisfy   the   proof-of-work,   the   block   cannot   be   changedwithout  redoing  the   work.    As   later   blocks   are  chained   after  it,   the  work  to  change  the  blockwould include redoing all the blocks after it.</p>
+<h2 id="_4、工作量证明" tabindex="-1"> 4、工作量证明</h2>
+<p>为了实现一个基于点对点的时间戳服务器，我们需要使用一个类似Adam Back 提出的哈希货币[6] 的工作量证明系统，而不是报纸或新闻组帖子那样。工作量证明采取搜索一个数，使得被哈希时，如使用SHA-256，得到的哈希值以数个0比特开始。平均所需工作量将随所需 0比特呈指数级增长而验证却只需执行一次哈希。<br>
+对于我们的时间戳网络。我们通过在区块中加入一个随机数，直到使得区块的哈希值满足所需0比特的数被找到的方式实现工作量证明。一旦消耗了CPU算力使区块满足了工作量证明，那么除非重做这个工作否则就无法更改 区块 。由于后面的区块是链接在这个区块后面的，改变这个区块将需要重做所有后面的区块。
+<img src="@source/blockchain/assets/img/bitcoin-pow.png" alt="bitcoin">
+The proof-of-work also solves the problem of determining representation in majority decisionmaking.  If the majority were based on one-IP-address-one-vote, it could be subverted by anyoneable   to   allocate   many   IPs.     Proof-of-work   is   essentially   one-CPU-one-vote.     The   majoritydecision is represented by the longest chain, which has the greatest proof-of-work effort investedin it.  If a majority of CPU power is controlled by honest nodes, the honest chain will grow thefastest and outpace any competing chains.   To modify a past block, an attacker would have toredo the proof-of-work of the block and all blocks after it and then catch up with and surpass thework of the honest nodes.  We will show later that the probability of a slower attacker catching updiminishes exponentially as subsequent blocks are added.<br>
+To compensate for increasing hardware speed and varying interest in running nodes over time,the proof-of-work difficulty is determined by a moving average targeting an average number ofblocks per hour.  If they're generated too fast, the difficulty increases.<br>
+工作量证明同时解决了在多数决定中确定投票方式的问题。如果多数是按IP地址投票来决定，那么它将可能被能分配大量IP 地址的人破坏 。工作量证明本质上是 按CPU 投票。最长的链代表了多数决定，因为有最大的计算工作量证明的精力投入到这条链上。如果多数的CPU算力被诚实节点控制，诚实的链就会增长得最快并超过其他的竞争链。要修改过去的某区块，攻击者必须重做这个区块以及其后的所有区块的工作量证明从而赶上并超过诚实节点的工作。我们后面会证明随着后续的区块被添加一个更慢的攻击者赶上诚实节点的概率将呈指数级递减。<br>
+为了抵消硬件运算速度的增加及平衡不同时期运行节点的利益，工作量证明的难度将由移动平均数法来确定每小时生成区块的平均数。如果区块生成得过快，那么生成的难度就会增加。</p>
+<h2 id="_5-network" tabindex="-1"> 5. Network</h2>
+<p>The steps to run the network are as follows:</p>
 <ol>
-<li>startNewRound(common.Big0)</li>
-<li>subscribeEvents()</li>
-<li>handleEvents()
-<ul>
-<li>istanbul.RequestEvent{}</li>
-<li>istanbul.MessageEvent{}</li>
-<li>backlogEvent{}</li>
-<li>timeoutEvent{}</li>
-<li>istanbul.FinalCommittedEvent{}</li>
-</ul>
-</li>
+<li>New transactions are broadcast to all nodes.</li>
+<li>Each node collects new transactions into a block.</li>
+<li>Each node works on finding a difficult proof-of-work for its block.</li>
+<li>When a node finds a proof-of-work, it broadcasts the block to all nodes.</li>
+<li>Nodes accept the block only if all transactions in it are valid and not already spent.</li>
+<li>Nodes express their acceptance of the block by working on creating the next block in thechain, using the hash of the accepted block as the previous hash.</li>
 </ol>
-<h3 id="stop" tabindex="-1"> stop</h3>
+<p>Nodes   always   consider   the   longest   chain   to   be   the   correct   one   and   will   keep   working   onextending it.   If two nodes broadcast different versions of the next block simultaneously, somenodes may receive one or the other first.  In that case, they work on the first one they received,but save the other branch in case it becomes longer.  The tie will be broken when the next proof-of-work   is   found   and   one   branch   becomes   longer;   the   nodes   that   were   working   on   the   otherbranch will then switch to the longer one.<br>
+New transaction broadcasts do not necessarily need to reach all nodes.  As long as they reachmany nodes, they will get into a block before long.  Block broadcasts are also tolerant of droppedmessages.  If a node does not receive a block, it will request it when it receives the next block andrealizes it missed one.</p>
+<h2 id="_5、网络" tabindex="-1"> 5、网络</h2>
+<p>运行网络的步骤如下：</p>
 <ol>
-<li>roundChangeTimer.Stop()</li>
-<li>unsubscribeEvents()
-<ul>
-<li>events.Unsubscribe()timeoutSub.Unsubscribe()</li>
-<li>finalCommittedSub.Unsubscribe()</li>
-</ul>
-</li>
-<li>使得handler处于wait状态</li>
+<li>新交易向所有节点广播。</li>
+<li>每个节点将新交易收集到一个区块。</li>
+<li>每个节点为它的区块寻找工作量证明。</li>
+<li>当一个节点找到了工作量证明，就向所有节点广播这个区块。</li>
+<li>节点只有在区块内所有交易都是有效的且之前没有被支付的情况下接收这个区块。</li>
+<li>节点通过使用这个区块的哈希值作为上一个哈希值在链中创建下一个区块的方式表示对这个区块的接受。</li>
 </ol>
-<h3 id="handlemsg-handletimeoutmsg" tabindex="-1"> handleMsg&amp;handleTimeoutMsg</h3>
-<ol>
-<li>先进行msg的check</li>
-<li>如果是futureMsg，直接存储并returnErr</li>
-<li>接下来处理4个msg</li>
-</ol>
-<h2 id="startnewround" tabindex="-1"> startNewRound</h2>
-<ol>
-<li>
-<p>首先设置roundChange 为false，如果最新的proposer和proposal不存在，直接return</p>
-</li>
-<li>
-<p>第二个步骤有几个if else 需要拆解（TODO）</p>
-</li>
-<li>
-<p>如果roundChange为true，新建一个View，如果为false，sequence加1</p>
-</li>
-<li>
-<p>选出proposer（CalcProposer），根据valset、lastprotser、round进行选择</p>
-</li>
-<li>
-<p>设置状态为接收请求c.setState(StateAcceptRequest)。</p>
-<ul>
-<li>
-<p>发送istanbul.RequestEvent（把proposal扔出去）</p>
-</li>
-<li>
-<p>处理积压消息（Preprepare）</p>
-</li>
-<li>
-<p>发送backlogEvent事件</p>
-</li>
-<li>
-<p>endPreprepare：</p>
-</li>
-<li>
-<p>如果自己是proposer并且和proposal有着相同的sequence，那就广播preprepare消息</p>
-</li>
-<li>
-<p>广播途中将消息转换成payload 并返回</p>
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="handlepreprepare" tabindex="-1"> handlePreprepare</h2>
-<ul>
-<li>校验message ，如果是老的prepare消息，要commit 这个proposal,直接会到广播comiit消息</li>
-<li>校验消息来自当前的proposer</li>
-<li>校验我们接收到的proposal
-<ul>
-<li>check 坏块</li>
-<li>check block body(rehash)</li>
-<li>verifyHeader (TODO,重点了解)</li>
-</ul>
-</li>
-<li>校验之后，（TODO，逻辑？）</li>
-</ul>
-<p>6.如果锁定的proposal和接收到的proposal不一致就sendNextRoundChange，如果一样，就接收prepare消息并设置状态为StatePreprepared并且发送commit消息</p>
-<h2 id="handlecommit" tabindex="-1"> handleCommit</h2>
-<ol>
-<li>checkMessage</li>
-<li>verifyCommit</li>
-<li>acceptCommit(添加到commits中)</li>
-<li>有了足够的commit messages并且不是comiited状态将commit proposal</li>
-<li>Commit
-<ul>
-<li>设置状态为comitted</li>
-<li>创建commitSeals</li>
-<li>进入最终的commit代码
-<ul>
-<li>校验proposal是一个有效块</li>
-<li>seals写入到extra-data中（writeCommittedSeals 关键代码）</li>
-<li>更新block的header</li>
-<li>如果proposedBlockHash == commitedBlockHash ,那么就把block 扔到commitCh中去seal并且等待seal结果（这是proposer才会走的通道），直接返回；如果不一样，直接塞入到enqueue中（sb.broadcaster.Enqueue(fetcherID, block)）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="handleroundchange" tabindex="-1"> handleRoundChange</h2>
-<ol>
-<li>checkMessage</li>
-<li>roundChangeSet 添加消息</li>
-<li>只要达到了F+1个roundChange就构成了一个weak proof ,就可以检查此时的round是否比我们的round小，如果小就CatchUp,然后startNewRound（需要2F+1）</li>
-</ol>
-<h2 id="engine-go" tabindex="-1"> engine.go</h2>
-<h3 id="prepare" tabindex="-1"> prepare</h3>
-<p>准备header</p>
-<ol>
-<li>
-<p>sb.snapshot</p>
-</li>
-<li>
-<p>从candidates中随机设置coinbase</p>
-</li>
-<li>
-<p>prepareExtra（将快照中的validators添加到extraData的validators中），payload 数据就是编码后的IstanbulExtra，作为extra</p>
-<blockquote>
-<div><pre><code>types<span>.</span>IstanbulExtra<span>{</span>
-   Validators<span>:</span>    vals<span>,</span>
-   Seal<span>:</span>          <span>[</span><span>]</span><span>byte</span><span>{</span><span>}</span><span>,</span>
-   CommittedSeal<span>:</span> <span>[</span><span>]</span><span>[</span><span>]</span><span>byte</span><span>{</span><span>}</span><span>,</span>
+<p>节点总是认为最长的链为正确的并持续致力于延长它。如果两个节点同时广播了不同的下一个区块，有些节点可能先收到其中一个而其他节点先收到另一个。这种情况，节点基于他们收到的第一个区块工作，但是也保存另一个分支以防它变为更长的链。当下一个工作量证明被找到后，僵局就会被打破从而其中一个分支变得更长；在另一个分支上工作的节点将切换到更长的链上来。新交易的广播不必到达所有的节点。只要到达一些节点，不久就会进入到一个区块 。区块广播也是能容忍消息丢失的。如果一个节点没有收到某个区块 ，它将在收到下一个区块时发现它丢失了一个区块然后去请求这个区块。</p>
+<h2 id="_6-incentive" tabindex="-1"> 6. Incentive</h2>
+<p>By convention, the first transaction in a block is a special transaction that starts a new coin ownedby the creator of the block.  This adds an incentive for nodes to support the network, and providesa way to initially distribute coins into circulation, since there is no central authority to issue them.The steady addition of a constant of amount of new coins is analogous to gold miners expendingresources to add gold to circulation.  In our case, it is CPU time and electricity that is expended.<br>
+The incentive can also be funded with transaction fees.  If the output value of a transaction isless than its input value, the difference is a transaction fee that is added to the incentive value ofthe   block   containing   the   transaction.     Once   a   predetermined   number   of   coins   have   enteredcirculation, the incentive can transition entirely to transaction fees and be completely inflationfree.<br>
+The   incentive   may   help   encourage   nodes   to   stay   honest.     If   a   greedy   attacker   is   able   toassemble more CPU power than all the honest nodes, he would have to choose between using itto defraud people by stealing back his payments, or using it to generate new coins.  He ought tofind it more profitable to play by the rules, such rules that favour him with more new coins thaneveryone else combined, than to undermine the system and the validity of his own wealth.</p>
+<h2 id="_6、激励" tabindex="-1"> 6、激励</h2>
+<p>我们约定，区块中的第一笔交易是区块创建者开启一枚属于他的新货币的特殊的交易。这就增加了对支持网络的节点的激励 ，并提供了一种分发货币到流通领域的方法，因为这里没有中央机构来发行货币。新货币按固定量  稳定地增加就像金矿矿工消耗资源并增加黄金到流通领域一样。对我们而言，消耗的是 CPU 时间和电力。<br>
+激励也可以由交易费充当。如果交易的输出值小于其输入值，差价就作为交易费被加到包含此交易的区块的激励中  。一旦预定量的货币进入了流通领域，激励将变为只含有交易费，这样可以完全避免通货膨胀。<br>
+激励会有助于鼓励节点保持诚实。如果一个贪心的攻击者有能力聚集比所有诚实节点更多的CPU算力，他将面临是以骗回已付款的方式欺诈别人还是使用这些算力生成新货币的抉择。他将发现遵守规则比破坏系统和他自己财产的有效性更有利，因为这些规则准许他获得比所有其他人都多的新货币。</p>
+<h2 id="_7-reclaiming-disk-space" tabindex="-1"> 7. Reclaiming Disk Space</h2>
+<p>Once the latest transaction in a coin is buried under enough blocks, the spent transactions beforeit   can   be   discarded   to   save   disk   space.     To   facilitate   this   without   breaking   the   block's   hash,transactions are hashed in a Merkle Tree [7][2][5], with only the root included in the block's hash.Old blocks can then be compacted by stubbing off branches of the tree.   The interior hashes donot need to be stored.</p>
+<h2 id="_7、回收磁盘空间" tabindex="-1"> 7、回收磁盘空间</h2>
+<p>一旦某个货币的最新交易已经被足够多的区块覆盖，这之前的支付交易就可以被丢弃 以节省磁盘空间。为便于此而又不破坏区块的哈希值，交易将被哈希进默克尔树[7][2][5]，只有根节点被纳入到区块的哈希值。老的区块可通过剪除树枝的方式被压缩。树枝内部的哈希不需要被保存。</p>
+<p><img src="@source/blockchain/assets/img/bitcoin-disk-space.png" alt="bitcoin"></p>
+<p>A  block   header   with   no   transactions   would   be   about   80   bytes.     If   we   suppose   blocks   aregenerated every 10 minutes, 80 bytes <em>6</em> 24 * 365 = 4.2MB per year.  With computer systemstypically selling with 2GB of RAM as of 2008, and Moore's Law predicting current growth of1.2GB   per   year,   storage   should   not   be   a   problem   even   if   the   block   headers   must   be   kept   inmemory.</p>
+<p>每个不包含交易的区块头大约是 80 bytes。如果每10分钟生成一个区块 ，每年生成 80bytes <em>6</em> 24 * 365 = 4.2MB，2008年在售的典型计算机有2GB内存， 并且摩尔定律预测目前每年内存增加 1.2GB，所以就算区块头一定要存在内存里，存储也不是问题。</p>
+<h2 id="_8-simplified-payment-verification" tabindex="-1"> 8. Simplified Payment Verification</h2>
+<p>It is possible to verify payments without running a full network node.  A user only needs to keepa copy of the block headers of the longest proof-of-work chain, which he can get by queryingnetwork   nodes   until   he's   convinced   he   has   the   longest   chain,   and   obtain   the   Merkle   branchlinking   the   transaction   to   the   block   it's   timestamped   in.     He   can't   check   the   transaction   forhimself, but by linking it to a place in the chain, he can see that a network node has accepted it,and blocks added after it further confirm the network has accepted it.</p>
+<h2 id="_8、-简化的支付验证" tabindex="-1"> 8、 简化的支付验证</h2>
+<p>不运行一个完整的网络节点也是可以进行支付验证的。用户只需拥有一个最长工作量证明链的区块头副本，他可以通过向其他网络节点查询以确认他拥有了最长的链，并获取链接交易到给交易打时间戳区块的默克尔分支。虽然他自己不能核实这个交易，但如果交易已经链接到到链中的某个位置，就说明一个网络节点已经接受了此交易，而其后追加的区块进一步确认网络已经接受了它。</p>
+<p><img src="@source/blockchain/assets/img/bitcoin-simplified-payment.png" alt="bitcoin"></p>
+<p>As such, the verification is reliable as long as honest nodes control the network, but is morevulnerable   if   the   network   is   overpowered   by   an   attacker.     While   network   nodes   can   verifytransactions   for   themselves,   the   simplified   method   can   be   fooled   by   an   attacker's   fabricatedtransactions for as long as the attacker can continue to overpower the network.   One strategy toprotect against this would be to accept alerts from network nodes when they detect an invalidblock,   prompting   the   user's   software   to   download   the   full   block   and   alerted   transactions   toconfirm the inconsistency.  Businesses that receive frequent payments will probably still want torun their own nodes for more independent security and quicker verification.<br>
+同样地，只要诚实节点控制着网络这种简化验证就是可靠的，如果网络被攻击者控制简化验证会变得比较脆弱 。虽然网络节点可以验证他们自己的交易，但只要攻击者持续控制网络那么这种简化的方法就可能被攻击者的伪造交易欺骗。一种对策是接受其他网络节点发现一个无效区块时发出的警告，提醒用户软件下载整个区块和被警告的交易来检查一致性。为了更加独立的安全性以及更快的支付确认，收款频繁的公司可能仍需运行他们自己的节点。</p>
+<h2 id="_9-combining-and-splitting-value" tabindex="-1"> 9. Combining and Splitting Value</h2>
+<p>Although   it   would   be   possible   to   handle   coins   individually,   it   would   be   unwieldy   to   make   aseparate   transaction   for   every   cent   in   a   transfer.     To   allow   value   to   be   split   and   combined,transactions  contain  multiple  inputs  and  outputs.    Normally  there will  be either  a  single  inputfrom a larger previous transaction or multiple inputs combining smaller amounts, and at most twooutputs: one for the payment, and one returning the change, if any, back to the sender.</p>
+<h2 id="_9、合并和分割交易额" tabindex="-1"> 9、合并和分割交易额</h2>
+<p>尽管单独处理每个货币是可行的，但将一次转账按每一分拆成多次交易是笨拙的。为允许交易额被分割和合并，交易将包含多个输入值和输出值。通常是一个从之前交易而得的较大输入值或多个较小输入值的组合，以及最多两个输出值：一个作为支付，另一个作为找零，如果有的话，退还给支付发送方。</p>
+<p><img src="@source/blockchain/assets/img/bitcoin-transaction.png" alt="bitcoin"></p>
+<p>It should be noted that fan-out, where a transaction depends on several transactions, and thosetransactions depend on many more, is not a problem here.   There is never the need to extract acomplete standalone copy of a transaction's history.<br>
+注意这里的扇出，即一笔交易依赖数笔交易，这数笔交易又依赖更多的交易，在这里是不存在问题的。永远不会需要获取一笔交易历史的完整独立副本。</p>
+<h2 id="_10-privacy" tabindex="-1"> 10. Privacy</h2>
+<p>The traditional banking model achieves a level of privacy by limiting access to information to theparties involved and the trusted third party.   The necessity to announce all transactions publiclyprecludes this method, but privacy can still be maintained by breaking the flow of information inanother place: by keeping public keys anonymous.   The public can see that someone is sendingan amount to someone else, but without information linking the transaction to anyone.   This issimilar   to   the   level   of   information   released   by   stock   exchanges,   where   the   time   and   size   ofindividual trades, the &quot;tape&quot;, is made public, but without telling who the parties were.</p>
+<h2 id="_10、隐私" tabindex="-1"> 10、隐私</h2>
+<p>传统的银行模型通过限制参与方和可信任第三方对信息的访问来达到一定级别的隐私。交易必须要公开发布就不能使用这个方法，但隐私仍可在其他地方通过阻断信息流的方式来保护：那就是保持公钥匿名。 公众能看到有人正在发送一定量货币给其他人，但是不能将交易关联到某个人。这和证券交易所发布的信息级别类似，每笔交易的时间和交易量，即行情是公开的，但是不会显示交易双方是谁。</p>
+<p><img src="@source/blockchain/assets/img/bitcoin-privacy.png" alt="bitcoin"></p>
+<p>As an additional firewall, a new key pair should be used for each transaction to keep themfrom   being   linked   to   a   common   owner.     Some   linking   is   still   unavoidable   with   multi-inputtransactions, which necessarily reveal that their inputs were owned by the same owner.  The riskis that if the owner of a key is revealed, linking could reveal other transactions that belonged tothe same owner.<br>
+作为额外的防火墙 ，对每笔交易使用新密钥对可以防止他们被关联到一个共同的拥有者。由于多输入值交易存在，有些关联仍不可避免，因为多输入值交易必然暴露其多个输入是属于同一个拥有者的。风险就在于如果一个密钥的拥有者被暴露，关联性将暴露其他属于同一个拥有者的交易。</p>
+<h2 id="_11-calculations" tabindex="-1"> 11. Calculations</h2>
+<p>We consider the scenario of an attacker trying to generate an alternate chain faster than the honest chain. Even if this is accomplished, it does not throw the system open to arbitrary changes, such as creating value out of thin air or taking money that never belonged to the attacker. Nodes are not going to accept an invalid transaction as payment, and honest nodes will never accept a block containing them. An attacker can only try to change one of his own transactions to take back money he recently spent.</p>
+<h2 id="_11、计算" tabindex="-1"> 11、计算</h2>
+<p>假设一个场景，某个攻击者正在试图生成一个比诚实链更快的替代链。就算他成功了，也不能对系统做任意的修改，即，他不可能凭空制造出价值，也无法获取从未属于他的钱。网络节点不会把一笔无效交易当作支付，而诚实节点也永远不会接受一个包含这种支付的区块。攻击者最多只能修改属于他自己的交易，进而试图取回他已经花出去的钱。</p>
+<p>The race between the honest chain and an attacker chain can be characterized as a Binomial Random Walk. The success event is the honest chain being extended by one block, increasing its lead by +1, and the failure event is the attacker's chain being extended by one block, reducing the gap by -1.</p>
+<p>诚实链和攻击者之间的竞争可以用二项式随机漫步来描述。成功事件是诚实链刚刚被添加了一个新的区块，使得它的优势增加了 1；而失败事件是攻击者的链刚刚被增加了一个新的区块，使得诚实链的优势减少了 1。</p>
+<p>The probability of an attacker catching up from a given deficit is analogous to a Gambler's Ruin problem. Suppose a gambler with unlimited credit starts at a deficit and plays potentially an infinite number of trials to try to reach breakeven. We can calculate the probability he ever reaches breakeven, or that an attacker ever catches up with the honest chain, as follows[8]:</p>
+<p>攻击者能够从落后局面追平的概率类似于赌徒破产问题。假设，一个拿着无限筹码的赌徒，从亏空开始，允许他赌无限次，目标是填补上已有的亏空。我们能算出他最终能填补亏空的概率，也就是攻击者能够赶上诚实链的概率[8]，如下：</p>
+<p>$$
+\begin{eqnarray*}
+\large p &amp;=&amp; \text{ 诚实节点找到下一个区块的概率}\
+\large q &amp;=&amp; \text{ 攻击者找到下一个区块的概率}\
+\large q_z &amp;=&amp; \text{ 攻击者落后 $z$ 个区块却依然能够赶上的概率}
+\end{eqnarray*}
+$$</p>
+<p>$$
+\large q_z = \begin{Bmatrix}
+1 &amp; \textit{if}; p \leq q\
+(q/p)^z &amp; \textit{if}; p &gt; q
+\end{Bmatrix}
+$$</p>
+<p>Given our assumption that $p \gt q$, the probability drops exponentially as the number of blocks the attacker has to catch up with increases. With the odds against him, if he doesn't make a lucky lunge forward early on, his chances become vanishingly small as he falls further behind.</p>
+<p>既然我们已经假定 $p &gt; q$, 既然攻击者需要赶超的区块数量越来越多，那么其成功概率就会指数级下降。于赢面不利时，如果攻击者没有在起初就能幸运地做一个前移步刺，那么他的胜率将在他进一步落后的同时消弭殆尽。</p>
+<p>We now consider how long the recipient of a new transaction needs to wait before being sufficiently certain the sender can't change the transaction. We assume the sender is an attacker who wants to make the recipient believe he paid him for a while, then switch it to pay back to himself after some time has passed. The receiver will be alerted when that happens, but the sender hopes it will be too late.</p>
+<p>现在考虑一下一笔新交易的收款人需要等多久才能充分确定发款人不能更改这笔交易。我们假定发款人是个攻击者，妄图让收款人在一段时间里相信他已经支付对付款项，随后将这笔钱再转回给自己。发生这种情况时，收款人当然会收到警告，但发款人希望那时木已成舟。</p>
+<p>The receiver generates a new key pair and gives the public key to the sender shortly before signing. This prevents the sender from preparing a chain of blocks ahead of time by working on it continuously until he is lucky enough to get far enough ahead, then executing the transaction at that moment. Once the transaction is sent, the dishonest sender starts working in secret on a parallel chain containing an alternate version of his transaction.</p>
+<p>收款人生成了一对新的公私钥，而后在签署之前不久将公钥告知发款人。这样可以防止一种情形：发款人提前通过连续运算去准备一条链上的区块，并且只要有足够的运气就会足够领先，直到那时再执行交易。一旦款项已被发出，那个不诚实的发款人开始秘密地在另一条平行链上开工，试图在其中加入一个反向版本的交易。</p>
+<p>The recipient waits until the transaction has been added to a block and $z$ blocks have been linked after it. He doesn't know the exact amount of progress the attacker has made, but assuming the honest blocks took the average expected time per block, the attacker's potential progress will be a Poisson distribution with expected value:</p>
+<p>收款人等到此笔交易被打包进区块，并已经有 $z$ 个区块随后被加入。他并不知道攻击者的工作进展究竟如何，但是可以假定诚实区块在每个区块生成过程中耗费的平均时间；攻击者的潜在进展符合泊松分布，其期望值为：</p>
+<p>$$
+\large \lambda = z \frac qp
+$$</p>
+<p>To get the probability the attacker could still catch up now, we multiply the Poisson density for each amount of progress he could have made by the probability he could catch up from that point:</p>
+<p>为了算出攻击者依然可以赶上的概率，我们要把每一个攻击者已有的进展的帕松密度乘以他可以从那一点能够追上来的概率：</p>
+<p>$$
+\large \sum_{k=0}^{\infty} \frac{\lambda^k e^{-\lambda}}{k!} \cdot
+\begin{Bmatrix}
+(q/p)^{(z-k)} &amp; \textit{if};k\leq z\
+1 &amp; \textit{if} ; k &gt; z
+\end{Bmatrix}
+$$</p>
+<p>Rearranging to avoid summing the infinite tail of the distribution...</p>
+<p>为了避免对密度分布的无穷级数求和重新整理…</p>
+<p>$$
+\large 1 - \sum_{k=0}^{z} \frac{\lambda^k e^{-\lambda}}{k!}
+\left ( 1-(q/p)^{(z-k)} \right )
+$$</p>
+<p>Converting to C code...</p>
+<p>转换为 C 语言程序……</p>
+<div><pre><code><span><span>#</span><span>include</span> <span>&lt;math.h></span></span>
+<span>double</span> <span>AttackerSuccessProbability</span><span>(</span><span>double</span> q<span>,</span> <span>int</span> z<span>)</span>
+<span>{</span>
+ <span>double</span> p <span>=</span> <span>1.0</span> <span>-</span> q<span>;</span>
+ <span>double</span> lambda <span>=</span> z <span>*</span> <span>(</span>q <span>/</span> p<span>)</span><span>;</span>
+ <span>double</span> sum <span>=</span> <span>1.0</span><span>;</span>
+ <span>int</span> i<span>,</span> k<span>;</span>
+ <span>for</span> <span>(</span>k <span>=</span> <span>0</span><span>;</span> k <span>&lt;=</span> z<span>;</span> k<span>++</span><span>)</span>
+ <span>{</span>
+  <span>double</span> poisson <span>=</span> <span>exp</span><span>(</span><span>-</span>lambda<span>)</span><span>;</span>
+  <span>for</span> <span>(</span>i <span>=</span> <span>1</span><span>;</span> i <span>&lt;=</span> k<span>;</span> i<span>++</span><span>)</span>
+   poisson<span>*=</span>lambda <span>/</span> i<span>;</span>
+  sum <span>-=</span> poisson <span>*</span> <span>(</span><span>1</span> <span>-</span> <span>pow</span><span>(</span>q <span>/</span> p<span>,</span> z <span>-</span> k<span>)</span><span>)</span><span>;</span>
+ <span>}</span>
+ <span>return</span> sum<span>;</span>
 <span>}</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div></div></div></blockquote>
-</li>
-</ol>
-<h3 id="finalizeandassemble" tabindex="-1"> FinalizeAndAssemble</h3>
-<p>运行交易后状态更改，组装成最终的block</p>
-<h3 id="seal" tabindex="-1"> seal</h3>
-<p>生成一个新块放入给定通道</p>
-<ol>
-<li>主块判断是否是validator，子链还必须判断是不是子validator</li>
-<li>更新块（updateBlock），proposer用自己的私钥给块签名生成seal，并写入IstanbulExtra的seal中，包括自己的签名的标记和其他人签名的标记，其实就是返回带签名的块</li>
-<li>把块丢到共识引擎中，通过事件istanbul.RequestEvent传播，从而进入到handleRequest，开启sendPrepeare，result等待的就是sb.commitCh中的数据</li>
-</ol>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>浅谈共识算法|POS算法</title>
-      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/2.POS-2.html</link>
-      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/2.POS-2.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法|POS算法</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
-      <category>区块链</category>
-      <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
-      <content:encoded><![CDATA[<blockquote>
-<p>浅谈共识算法|POS算法</p>
-<p>配合以下代码进行阅读：&lt; /&gt;</p>
-<p>写文不易，给个小关注，有什么问题可以指出，便于大家交流学习。</p>
-</blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn96oqcxsyj30dw08pjs7.jpg" alt="u=2232051863,378698187&amp;fm=26&amp;gp=0"></p>
-<h2 id="为什么会出现pos" tabindex="-1"> 为什么会出现PoS?</h2>
-<p>​    在比特币系统中采用了<code>PoW</code>(工作量证明）算法,<code>PoW</code>其实就是由所有的节点相互竞争，提交一个难于计算但是容易验证的计算结果，任何节点都可以验证这个这个结果的正确性，验证通过即算这个节点完成了大量的计算工作。</p>
-<p>​    然而<code>PoW</code>机制存在明显的弊端。 一是算力不公平，矿场的竞争力比单个节点大，还有就是随着硬件的发展，特别是量子计算机的出现，可能几秒就破解了<code>Hash</code>。 二是<code>PoW</code>算法太浪费了，比特币网络每秒可完成数百万亿次<code>SHA256</code>计算， 但这些计算除了使恶意攻击者不能轻易地伪装成几百万个节点和打垮比特币网络，并没有更多实际或科学价值。</p>
-<p>​    鉴于以上问题，POS<code>股权证明</code>诞生了。</p>
-<h2 id="pos股权证明" tabindex="-1"> PoS股权证明</h2>
-<p>​    权益证明（ Proof of Stake，PoS） ，最早在 2013 年被提出，最早在 <code>Peercoin</code> 系统中被实现，类似现实生活中的股东机制，拥有股份越多的人越容易获取记账权（ 同时越倾向于维护网络的正常工作） 。</p>
-<p>​    典型的过程是通过保证金（ <strong>代币、资产、名声等具备价值属性的物品</strong>） 来对赌一个合法的块成为新的区块，收益为抵押资本的利息和交易服务费。提供证明的保证金（ 例如通过转账货币记录） 越多，则获得记账权的概率就越大。合法记账者可以获得收益。</p>
-<p>​    恶意参与者将存在<strong>保证金</strong>被罚没的风险，即损失经济利益。一般的，对于 PoS 来说，需要掌握超过全网 <strong>1/3</strong> 的资源，才有可能左右最终的结果。这个也很容易理解，三个人投票，前两人分别支持一方，这时候，第三方的投票将决定最终结果。</p>
-<p>​    在股权证明模式下， 有一个名词叫<strong>币龄</strong>， 每个币每天产生1币龄， 例如，你持有 100 个币， 总共持有了 30 天， 那么， 此时你的币龄就为 3000， 这个时候， 如果你发现了一个<code>PoS</code>区块， 你的币龄就会被清空为 0。 你每被清空 365币龄， 你将会从区块中获得0.05个币的利息（ 可以理解为年利率5%） ， 那么在这个案例中， 利息<code>=3000×5%/365=0.41</code>个币。</p>
-<p>​    以现有的比特币运行发展情况来看， 比特币每年的挖矿产量都在不断减半， 我们可以预计， 随着比特币产量的不断降低， 矿工人数也会越来越少， 这样就会<strong>导致整个比特币网络的稳定性出现问题</strong>。 PoS的解决方案是鼓励大家都去打开钱包客户端程序， 因为只有这样才可以发现PoS区块， 才会获得利息， 这也增加了网络的健壮性。还有当矿工数量变少的时候，比特币被51%算力攻击就越容易。</p>
-<h2 id="pos-的优缺点" tabindex="-1"> PoS 的优缺点</h2>
-<h2 id="优点" tabindex="-1"> 优点</h2>
-<ol>
-<li>省资源：不需要挖矿，不需要大量耗费电力和能源。</li>
-<li>更加去中心化：相对于比特币等PoW类型的加密货币，更加去中心化，相比PoW算法的51%算力攻击，PoS需要购买51%的货币，成本更高，没有攻击意义。</li>
-<li>避免通货膨胀：PoS机制的加密货币按一定的年利率新增货币，可以有效避免紧缩出现，保持基本稳定。</li>
-</ol>
-<h2 id="缺点" tabindex="-1"> 缺点</h2>
-<ol>
-<li>POS会面临发币的问题，起初只有创世块上有币，意味着只有这个节点可以挖矿，所以让币分散出去才能让网络壮大，所以早期采取的是POW+POS，即第一阶段POW挖矿，第二阶段POS挖矿，后来ERC20合约代币出现后，可以只存在POS的挖矿形式。</li>
-<li>开发者作恶：纯<code>PoS</code>机制的加密货币，只能通过<code>IPO</code>的方式发行，这就导致“少数人”（通常是开发者）获得大量成本极低的加密货币，很有可能造成大面积的抛售。</li>
-<li>币龄其实就是时间，一旦挖矿者囤积一定的币，很久很久之后发起攻击，这样将很容易拿到记账权。</li>
-<li>矿工可以囤积代币从而导致货币流通困难。</li>
-<li>POS面临的最严重的一个问题就是无成本利益问题，在PoS系统中做任何事几乎没有成本，比如在PoS系统上挖矿几乎没有成本，这也就意味着分叉非常方便。</li>
-</ol>
-<h2 id="参考" tabindex="-1"> 参考</h2>
-<blockquote>
-<p>&lt; &gt;</p>
-<p><a href="https://eth.wiki/en/concepts/casper-proof-of-stake-compendium" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/casper-proof-of-stake-compendium</a></p>
-<p><a href="https://eth.wiki/en/concepts/casper-proof-of-stake-compendium" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/casper-proof-of-stake-compendium</a></p>
-<p><a href="https://eth.wiki/en/concepts/proof-of-stake-faqs" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/proof-of-stake-faqs</a></p>
-<p><a href="https://www.cnblogs.com/sueyyyy/articles/9726812.html" target="_blank" rel="noopener noreferrer">https://www.cnblogs.com/sueyyyy/articles/9726812.html</a></p>
-</blockquote>
-]]></content:encoded>
-      <enclosure url="https://tva1.sinaimg.cn/large/008eGmZEgy1gn96oqcxsyj30dw08pjs7.jpg" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>浅谈共识算法_Casper算法</title>
-      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/3.consensus_algorithm_is_presented.html</link>
-      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/3.consensus_algorithm_is_presented.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法_Casper算法</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
-      <category>区块链</category>
-      <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
-      <content:encoded><![CDATA[<blockquote>
-<p>浅谈共识算法|Casper算法</p>
-</blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn9b4uqwzsj30et08ct8u.jpg" alt="u=2605093610,3912377035&amp;fm=26&amp;gp=0"></p>
-<h2 id="参考" tabindex="-1"> 参考</h2>
-<blockquote>
-<p>&lt; &gt;</p>
-<p><a href="https://eth.wiki/en/concepts/casper-proof-of-stake-compendium" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/casper-proof-of-stake-compendium</a></p>
-<p><a href="https://eth.wiki/en/concepts/casper-proof-of-stake-compendium" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/casper-proof-of-stake-compendium</a></p>
-<p><a href="https://eth.wiki/en/concepts/proof-of-stake-faqs" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/proof-of-stake-faqs</a></p>
-<p><a href="https://blog.csdn.net/yangwei256/article/details/83188458" target="_blank" rel="noopener noreferrer">https://blog.csdn.net/yangwei256/article/details/83188458</a></p>
-<p><a href="https://ethfans.org/posts/ethereum-casper-101" target="_blank" rel="noopener noreferrer">https://ethfans.org/posts/ethereum-casper-101</a></p>
-</blockquote>
-]]></content:encoded>
-      <enclosure url="https://tva1.sinaimg.cn/large/008eGmZEgy1gn9b4uqwzsj30et08ct8u.jpg" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>浅谈共识算法_DPOS(委托股权证明)算法</title>
-      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/4.dpos.html</link>
-      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/4.dpos.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法_DPOS(委托股权证明)算法</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
-      <category>区块链</category>
-      <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
-      <content:encoded><![CDATA[<blockquote>
-<p>浅谈共识算法|DPOS(委托股权证明)算法</p>
-<p>写文不易，给个小关注，有什么问题可以指出，便于大家交流学习。</p>
-</blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gna2p4ti6pj31c00u0ahv.jpg" alt="src=http___img.pconline.com.cn_images_upload_upc_tx_wallpaper_1207_09_c2_12276725_1341818508711.jpg&amp;refer=http___img.pconline.com"></p>
-<h2 id="dpos详解" tabindex="-1"> DPOS详解</h2>
-<p>DPoS共识算法就是将PoS共识算法中的记账者转换为指定节点数组成的小圈子，而不是所有人都可以参与记账，这个圈子可能是21个节点，也有可能是101个节点，只有圈子内的节点才能获得记账权。这将极大地提高系统的吞吐量，因为更少的节点也就意味着网络和节点的可控。</p>
-<p>DPOS的股东选举机制：</p>
-<ul>
-<li>DPoS机制中的股民（节点）根据自己持有的加密货币数量占总量的百分比（占股比例）来投票，不是一人一票；</li>
-<li>选举出的股东代表（可信节点）完全对等，可理解为具有同等算力的101个矿池；</li>
-<li>股东代表一旦无能、不作为、胡作为（提供的算力不稳定，计算机宕机、或者试图利用手中的权力作恶），将立刻被股民踢出整个系统，然后由其他后备代表顶上去；</li>
-<li>决策完公司大事（记完账、出完块）有钱分，根据占股比例。</li>
-</ul>
-<h2 id="dpos算法分析" tabindex="-1"> DPOS算法分析</h2>
-<p>在DPoS共识算法中，区块链的正常运转依赖于见证人(Delegates)，见证人是由全网节点投票产生的，见证人也是记账节点的实际控制人，相当于咱们选课代表，课代表帮我们整理作业</p>
-<p>见证人在完成打包交易的同时可以领取区块奖励和交易的手续费，并且可以执行社区投票的提案，所以DPoS共识算法不仅仅是算法，而是一个包含了协作治理关系的共识机制。</p>
-<p>DPoS为了尽快确定交易顺序，过滤无效交易，所以规定了在正常情况下，所有记账节点轮流每3秒产生一个区块，轮到了某个记账节点出块时，必须在2秒内提交区块，否则就会错块。</p>
-<p>假设一直没有记账节点错过自己顺序，那么他们生产的链条势必是最长的链条，如果记账节点在非指定时间生产区块被认为是无效的，每经过一轮，所有节点轮流出块的顺序就会发生重新洗牌。</p>
-<p>下图就是一个理想的轮流记账状态：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnade58srjj316o05yju3.jpg" alt="image-20210203151915698"></p>
-<p>DPoS算法白皮书还介绍了以下几种不正常的情况：</p>
-<p>①：<strong>少数记账节点发起恶意分叉或者发生故障</strong></p>
-<p>可以允许最多1/3的节点是恶意或故障，从而导致出现分叉。在这种情形下，少数分支将只能在9秒内生产1个块，而大多数分支，由于数量多一倍，将预期能在9秒内生产2个块。再一次，诚实的2/3的大多数可以比小的那一部分创建一个更长的链条。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadefucijj317u076tb7.jpg" alt="image-20210203151934597"></p>
-<p>②：<strong>隔离环境下的重复块生产</strong></p>
-<p>少数群体可能尝试创建一个无限数量的分叉，但所有分支都将比主链短，因为少数群体在链的成长上更慢。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadihh19bj316a096mxr.jpg" alt="image-20210203152323992"></p>
-<p>③：<strong>网络碎片</strong></p>
-<p>网络非常有可能碎片到，没有哪一个链上的区块生产者占到了所有区块生产者中的大多数。在此情景下，最长的那个链将变成最大的一个少数群体。当网络连接恢复正常后，相对较小的那些群体将自然的切换到最长的链，从而将恢复明确的共识。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadj14g6vj31600a0tc7.jpg" alt="image-20210203152359294"></p>
-<p>还有一种非常可能的情况是，三个分支中，最大的两个分支一样大。此时，将由相对更小的第三个分支加入网络时来打破僵局。存在奇数个区块生产者，所以僵局一般不会持续很久。后面我们还将介绍区块生产者的清洗，会将生产者随机生成顺序，以确保即使两个分支具有相同数量的生产者，分支也将以不同的长度爆发增长，导致一个分支最终接管另一个分支。</p>
-<p>④：<strong>少数群体重复生产</strong></p>
-<p>在这种情景下，少数群体B在自己可以生产的时间节点，同时创建两条，或多条的区块链。下一个执行的生产者C，将选择B创建的可选链中的任一条。C选中的这条链将成为最长的链，当这发生是，所以如下图所示的B1链条上的结点都会转过来。所以，无论少数做恶结点制造多少的链，他们在下一轮中，肯定不会是最长的那个链。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadjozhpyj314y07ggo9.jpg" alt="image-20210203152437439"></p>
-<p>⑤：<strong>最后的不可逆区块</strong></p>
-<p>在网络碎片的情况下，多个分叉可能持续较长时间的隔离。长远来看，最长的链将最终受到认可。但观察者需要一种手段来确定某个块是否是在最长链条的一部分（确认共识）。这可以通过2/3 + 1个区块生产者是否对某个块有确认。</p>
-<p>下图中，块B被A、C确认了，这意味着2/3 + 1都已经确认了。由此我们可以为不可能存在更长的链了，因为2/3的区块链是诚实。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadk4gx1dj314y07amyy.jpg" alt="image-20210203152502221"></p>
-<p>需要注意的是这个规则与比特币的6个区块确认类似。一些聪明的人可以设计一系列事件，其中两个节点可能会在不同的最后不可逆块上结束。这种极端情况需要一个攻击者，精确控制通信延迟，并需要在几分钟内实施不止一次，而是二次攻击。如果发生这种情况，那么最长链条这一长期规则仍然适用。 我们估计这种攻击的可能性足够接近0，经济后果也微不足道，不值得担心。</p>
-<p>⑥：<strong>不足法定区块生产者</strong></p>
-<p>在一些不太可能的情况下，生产者没有明确达到法定人数，少数人可能继续生产块。在继续生产的区块中，利益相关者可以包含一些改变投票的交易。这些投票会选举一组新的区块生产者，并将区块生产参与度恢复到100%。一旦发生这种情况，少数人链最终会超过其它低于100%参与链。</p>
-<p>在这个流程发生时，所有的观察者必须要明白整个网络处于不稳定的状态，直到多于67%参与者出现后才会稳定下来。哪些选择在这种情景下发起交易的，与那些在比特币中接受低于6块就确认交易成功那样，冒着类似的风险。他们必须明白，存在某些情况下，共识最终会以另一个链为准。在实践中，这种情形比在比特币中接受少于3个块就确认更加安全。</p>
-<p>⑦：<strong>大多数据区块生产者的腐败</strong></p>
-<p>如果大多数区块生产者合谋变得腐败，他们制造无限数量的分支，每一个分支都有多于2/3的大多数的签名。在这样的场景早，最后不可逆转块算法退化为最长链算法。此时最长的，获得了最大的群体认证的，将由少数的诚实节点的加入来确定。这样的情形不会持续很久，因为利益相关者会最终投票替换掉这些区块生产者。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadl0aqk8j314k08s44j.jpg" alt="image-20210203152553558"></p>
-<h2 id="dpos要解决的问题" tabindex="-1"> DPOS要解决的问题</h2>
-<p>从名称上，我们也可以判断出<code>DPoS</code>与<code>PoS</code>共识是直接关联的。<code>DPoS</code>算法是BM根据当时PoW、PoS的不足而改进的共识算法，它的目的就是为了提高性能，也就是交易确认时间短。</p>
-<p>在<code>PoS</code>共识中，人们使用财产证明来“挖矿”，也就是说，这是任何人都可以参与的，只要你持有币，你就可以参与挖矿。但是<code>PoS</code>并没有解决性能问题，在这里我们直接认为提高性能就是提高<code>TPS</code>，如下：</p>
-<blockquote>
-<p><strong>TPS = transactions / block_time</strong></p>
-</blockquote>
-<p>TPS表示区块链每秒能确认的交易数， <code>transactions</code> 是由区块大小<code>block_size</code>和平均每笔交易大小决定的，而区块大小受全网网络状态<code>network_bandwidth</code> 限制，也是由记账节点之间物理带宽<code>witness_performance</code>决定的。</p>
-<p>记账节点的个数<code>witness_count</code>直接决定了物理带宽的上限，因为记账节点数量越多，则对物理带宽要求越高，对网络的稳定性要求也越高。</p>
-<p>要注意的一点是在<code>DPoS</code>中，记账节点不叫做矿工，而是改称为见证人，<code>Witness</code>。所以这个公式变成了下面的样子：</p>
-<blockquote>
-<p>TPS = (block_size_network_bandwidth witness_performance)/(block_time * witness_count)</p>
-</blockquote>
-<p>我们可以看到，要提高TPS，可以增大区块大小<code>block_size</code>、提升记账节点网络带宽<code>network_bandwidth</code>、提升记账节点处理性能witness_performance，减小区块时间<code>block_time</code>、减小记账节点数量<code>witness_count</code>。</p>
-<p>分子项我们可以看到，它基本受限于物理资源的上限，目前工业水平制造的物理资源的使用上限基本就是整个项的上限了，所以可操作性不大。</p>
-<p>而分母项是由共识算法决定的，所以我们从区块时间，以及记账节点数入手，DPoS算法便正是从这两项着手的。</p>
-<p>首先改动的便是限制记账节点的数量，也就是见证人的数量。</p>
-<p>我们在PoW和PoS中可以看到，成为记账节点是无需门槛的，你可以随时参与挖矿，随时退出。</p>
-<p>那这会带来什么问题呢，首先无法确定记账节点的数量，其次无法确定记账节点之间的网络环境，记账节点数越多网络环境越复杂，这些不确定性会增大网络分区的概率，从而导致区块链分叉。</p>
-<p>如果我们事先规定好记账节点的数量，接着让全网所有节点可以投票决定哪些节点可以成为记账节点，这样就限制并减小了分母项<code>witness_count</code>，这个过程我们也称作投票选举。</p>
-<p>因为记账节点数量不多，那么我们可以在共识算法中可以<strong>规定出块时间</strong>为一个固定值，这个值可以很小，通过轮流出块的方式来进行记账。</p>
-<p>以上思路基本就是DPoS的基本设计思路，BM还为DPoS算法确立两个原则：</p>
-<ul>
-<li>投票选举过程一定要保证最大权益所有者最终能控制全网，因为一旦出了问题，他们的损失最大；</li>
-<li>与PoW、PoS一样，所有节点仅承认“最长”链。</li>
-</ul>
-<p>这两个原则确立了DPoS共识的基本特性，第一条放大了PoS共识使用者就是记账者的优点，第二点则规定了分叉时系统应该表现的行为。</p>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>Running some results, we can see the probability drop off exponentially with $z$.</p>
+<p>获取部分结果，我们可以看到概率随着 $z$ 的增加指数级下降：</p>
+<div><pre><code>   q=0.1
+   z=0    P=1.0000000
+   z=1    P=0.2045873
+   z=2    P=0.0509779
+   z=3    P=0.0131722
+   z=4    P=0.0034552
+   z=5    P=0.0009137
+   z=6    P=0.0002428
+   z=7    P=0.0000647
+   z=8    P=0.0000173
+   z=9    P=0.0000046
+   z=10   P=0.0000012
+
+   q=0.3
+   z=0    P=1.0000000
+   z=5    P=0.1773523
+   z=10   P=0.0416605
+   z=15   P=0.0101008
+   z=20   P=0.0024804
+   z=25   P=0.0006132
+   z=30   P=0.0001522
+   z=35   P=0.0000379
+   z=40   P=0.0000095
+   z=45   P=0.0000024
+   z=50   P=0.0000006
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>Solving for P less than 0.1%...</p>
+<p>若是 P 小于 0.1%……</p>
+<div><pre><code>   P &lt; 0.001
+   q=0.10   z=5
+   q=0.15   z=8
+   q=0.20   z=11
+   q=0.25   z=15
+   q=0.30   z=24
+   q=0.35   z=41
+   q=0.40   z=89
+   q=0.45   z=340
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="_12-conclusion" tabindex="-1"> 12. Conclusion</h2>
+<p>We have proposed a system for electronic transactions without relying on trust. We started with the usual framework of coins made from digital signatures, which provides strong control of ownership, but is incomplete without a way to prevent double-spending. To solve this, we proposed a peer-to-peer network using proof-of-work to record a public history of transactions that quickly becomes computationally impractical for an attacker to change if honest nodes control a majority of CPU power. The network is robust in its unstructured simplicity. Nodes work all at once with little coordination. They do not need to be identified, since messages are not routed to any particular place and only need to be delivered on a best effort basis. Nodes can leave and rejoin the network at will, accepting the proof-of-work chain as proof of what happened while they were gone. They vote with their CPU power, expressing their acceptance of valid blocks by working on extending them and rejecting invalid blocks by refusing to work on them. Any needed rules and incentives can be enforced with this consensus mechanism.</p>
+<h2 id="_12、总结" tabindex="-1"> 12、总结</h2>
+<p>我们已经提出了一种不依赖信任的电子交易系统。我们从通用的数字签名货币体系开 始，这体系提供了强有力的 所有权控制，但由于缺乏防止双重支付的方法而不完  善。为解决这个问题，我们提出一种使用工作量证明来记录公共交易历史的点对点网络，只要诚实节点控制了多数的CPU算力，对于对攻击者，交易历史 将很快变得在  计算上不可更改。网络因其结构简 洁性而健壮。节点只需很少 的协调就能同时工作。它们不需要被认证，因为信息不会被发送到某个特殊 的位置，只需被尽力传播。节点可以随时离开和重新加入网络，只需接受最长的工作量证明链作为它们离开时发生事件的证据。节点使用CPU算力来  投票，通过 致力于 延长有效区块  来表达对其接受，通过拒绝在无效区块上工作来表达对其抵制。任何需要的规则和激励都可通过这个共识机制来加强</p>
 <hr>
-<h2 id="参考" tabindex="-1"> 参考</h2>
-<blockquote>
-<p>&lt; &gt;</p>
-<p><a href="https://eth.wiki/en/concepts/casper-proof-of-stake-compendium" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/casper-proof-of-stake-compendium</a></p>
-<p><a href="https://eth.wiki/en/concepts/casper-proof-of-stake-compendium" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/casper-proof-of-stake-compendium</a></p>
-<p><a href="https://eth.wiki/en/concepts/proof-of-stake-faqs" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/proof-of-stake-faqs</a></p>
-</blockquote>
+<h2 id="参考文献-references" tabindex="-1"> 参考文献 (References)</h2>
+<ol>
+<li><strong>b-money</strong> Dai Wei (1998-11-01) <a href="http://www.weidai.com/bmoney.txt" target="_blank" rel="noopener noreferrer">http://www.weidai.com/bmoney.txt</a></li>
+<li><strong>Design of a secure timestamping service with minimal trust requirements</strong> Henri Massias, Xavier Serret-Avila, Jean-Jacques Quisquater <em>20th Symposium on Information Theory in the Benelux</em> (1999-05) <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.13.6228" target="_blank" rel="noopener noreferrer">http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.13.6228</a></li>
+<li>: <strong>How to time-stamp a digital document</strong> Stuart Haber, W.Scott Stornetta <em>Journal of Cryptology</em> (1991) <a href="https://doi.org/cwwxd4" target="_blank" rel="noopener noreferrer">https://doi.org/cwwxd4</a> DOI: <a href="https://doi.org/10.1007/bf00196791" target="_blank" rel="noopener noreferrer">10.1007/bf00196791</a></li>
+<li>: <strong>Improving the Efficiency and Reliability of Digital Time-Stamping</strong> Dave Bayer, Stuart Haber, W. Scott Stornetta <em>Sequences II</em> (1993) <a href="https://doi.org/bn4rpx" target="_blank" rel="noopener noreferrer">https://doi.org/bn4rpx</a> DOI: <a href="https://doi.org/10.1007/978-1-4613-9323-8_24" target="_blank" rel="noopener noreferrer">10.1007/978-1-4613-9323-8_24</a></li>
+<li>: <strong>Secure names for bit-strings</strong> Stuart Haber, W. Scott Stornetta <em>Proceedings of the 4th ACM conference on Computer and communications security - CCS ’97</em>(1997) <a href="https://doi.org/dtnrf6" target="_blank" rel="noopener noreferrer">https://doi.org/dtnrf6</a> DOI: <a href="https://doi.org/10.1145/266420.266430" target="_blank" rel="noopener noreferrer">10.1145/266420.266430</a></li>
+<li>: <strong>Hashcash - A Denial of Service Counter-Measure</strong> Adam Back (2002-08-01) <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.15.8" target="_blank" rel="noopener noreferrer">http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.15.8</a></li>
+<li>: <strong>Protocols for Public Key Cryptosystems</strong> Ralph C. Merkle <em>1980 IEEE Symposium on Security and Privacy</em> (1980-04) <a href="https://doi.org/bmvbd6" target="_blank" rel="noopener noreferrer">https://doi.org/bmvbd6</a> DOI: <a href="https://doi.org/10.1109/sp.1980.10006" target="_blank" rel="noopener noreferrer">10.1109/sp.1980.10006</a></li>
+<li>: <strong>An Introduction to Probability Theory and its Applications</strong> William Feller <em>John Wiley &amp; Sons</em> (1957) <a href="https://archive.org/details/AnIntroductionToProbabilityTheoryAndItsApplicationsVolume1" target="_blank" rel="noopener noreferrer">https://archive.org/details/AnIntroductionToProbabilityTheoryAndItsApplicationsVolume1</a></li>
+</ol>
+<hr>
 ]]></content:encoded>
-      <enclosure url="https://tva1.sinaimg.cn/large/008eGmZEgy1gna2p4ti6pj31c00u0ahv.jpg" type="image/jpeg"/>
     </item>
     <item>
-      <title>浅谈共识算法_DPOS(委托股权证明)算法</title>
-      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/5.EOS_DPOS_BFT.html</link>
-      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/5.EOS_DPOS_BFT.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法_DPOS(委托股权证明)算法</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
+      <title>以太坊白皮书</title>
+      <link>https://bytecodes.tech/blockchain/Basic_logic/White_paper_the_etheric_lane.html</link>
+      <guid>https://bytecodes.tech/blockchain/Basic_logic/White_paper_the_etheric_lane.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">以太坊白皮书</source>
+      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书</description>
       <category>区块链</category>
-      <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
-      <content:encoded><![CDATA[<blockquote>
-<p>浅谈共识算法|DPOS(委托股权证明)算法</p>
-<p>配合以下代码进行阅读：&lt; /&gt;</p>
-<p>写文不易，给个小关注，有什么问题可以指出，便于大家交流学习。</p>
+      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="以太坊白皮书-eth-white-paper" tabindex="-1"> 以太坊白皮书 ETH White paper</h2>
+<blockquote>
+<p>转自 ethfans <a href="https://ethfans.org/wikis/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%99%BD%E7%9A%AE%E4%B9%A6" target="_blank" rel="noopener noreferrer">https://ethfans.org/wikis/以太坊白皮书</a></p>
 </blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gna2p4ti6pj31c00u0ahv.jpg" alt="src=http___img.pconline.com.cn_images_upload_upc_tx_wallpaper_1207_09_c2_12276725_1341818508711.jpg&amp;refer=http___img.pconline.com"></p>
-<h2 id="dpos详解" tabindex="-1"> DPOS详解</h2>
-<p>DPoS共识算法就是将PoS共识算法中的记账者转换为指定节点数组成的小圈子，而不是所有人都可以参与记账，这个圈子可能是21个节点，也有可能是101个节点，只有圈子内的节点才能获得记账权。这将极大地提高系统的吞吐量，因为更少的节点也就意味着网络和节点的可控。</p>
-<p>DPOS的股东选举机制：</p>
+<h2 id="历史" tabindex="-1"> 历史</h2>
+<p>去中心化的数字货币概念，正如财产登记这样的替代应用一样，早在几十年以前就被提出来了。1980和1990年代的匿名电子现金协议，大部分是以乔姆盲签技术（Chaumian blinding）为基础的。这些电子现金协议提供具有高度隐私性的货币，但是这些协议都没有流行起来，因为它们都依赖于一个中心化的中介机构。1998年，戴伟（Wei Dai）的b-money首次引入了通过解决计算难题和去中心化共识创造货币的思想，但是该建议并未给出如何实现去中心化共识的具体方法。2005年，芬尼（Hal Finney）引入了“可重复使用的工作量证明机制”（reusable proofs of work）概念，它同时使用b-money的思想和Adam Back提出的计算困难的哈希现金（Hashcash）难题来创造密码学货币。但是，这种概念再次迷失于理想化，因为它依赖于可信任的计算作为后端。</p>
+<p>因为货币是一个先申请应用，交易的顺序至关重要，所以去中心化的货币需要找到实现去中心化共识的方法。比特币以前的所有电子货币协议所遇到的主要障碍是，尽管对如何创建安全的拜占庭问题容错（Byzantine-fault-tolerant）多方共识系统的研究已经历时多年，但是上述协议只解决了问题的一半。这些协议假设系统的所有参与者是已知的，并产生如“如果有N方参与到系统中，那么系统可以容忍N/4的恶意参与者”这样形式的安全边界。然而这个假设的问题在于，在匿名的情况下，系统设置的安全边界容易遭受女巫攻击，因为一个攻击者可以在一台服务器或者僵尸网络上创建数以千计的节点，从而单方面确保拥有多数份额。</p>
+<p>中本聪的创新是引入这样一个理念：将一个非常简单的基于节点的去中心化共识协议与工作量证明机制结合在一起。节点通过工作量证明机制获得参与到系统的权利，每十分钟将交易打包到“区块”中，从而创建出不断增长的区块链。拥有大量算力的节点有更大的影响力，但获得比整个网络更多的算力比创建一百万个节点困难得多。尽管比特币区块链模型非常简陋，但是实践证明它已经足够好用了，在未来五年，它将成为全世界两百个以上的货币和协议的基石。</p>
+<h3 id="作为状态转换系统的比特币" tabindex="-1"> 作为状态转换系统的比特币</h3>
+<p><img src="http://upyun-assets.ethfans.org/uploads/photo/image/ed77a88675204904984a696a55e2254e.png" alt="img"></p>
+<p>从技术角度讲，比特币账本可以被认为是一个状态转换系统，该系统包括所有现存的比特币所有权状态和“状态转换函数”。状态转换函数以当前状态和交易为输入，输出新的状态。例如，在标准的银行系统中，状态就是一个资产负债表，一个从A账户向B账户转账X美元的请求是一笔交易，状态转换函数将从A账户中减去X美元，向B账户增加X美元。如果A账户的余额小于X美元，状态转换函数就会返回错误提示。所以我们可以如下定义状态转换函数：</p>
+<div><pre><code>APPLY(S,TX) ­> S' or ERROR
+</code></pre><div aria-hidden="true"><div></div></div></div><p>在上面提到的银行系统中，状态转换函数如下：</p>
+<div><pre><code>APPLY({ Alice: $50, Bob: $50 },"send $20 from Alice to Bob") = { Alice: $30,Bob: $70 }
+</code></pre><div aria-hidden="true"><div></div></div></div><p>但是：</p>
+<div><pre><code>APPLY({ Alice: $50, Bob: $50 },"send $70 from Alice to Bob") = ERROR
+</code></pre><div aria-hidden="true"><div></div></div></div><p>比特币系统的“状态”是所有已经被挖出的、没有花费的比特币（技术上称为“未花费的交易输出，unspent transaction outputs 或UTXO”）的集合。每个UTXO都有一个面值和所有者（由20个字节的本质上是密码学公钥的地址所定义[1]）。一笔交易包括一个或多个输入和一个或多个输出。每个输入包含一个对现有UTXO的引用和由与所有者地址相对应的私钥创建的密码学签名。每个输出包含一个新的加入到状态中的UTXO。</p>
+<p>在比特币系统中，状态转换函数<code>APPLY(S,TX)-&gt;S’</code>大体上可以如下定义：</p>
+<ol>
+<li>交易的每个输入：
 <ul>
-<li>DPoS机制中的股民（节点）根据自己持有的加密货币数量占总量的百分比（占股比例）来投票，不是一人一票；</li>
-<li>选举出的股东代表（可信节点）完全对等，可理解为具有同等算力的101个矿池；</li>
-<li>股东代表一旦无能、不作为、胡作为（提供的算力不稳定，计算机宕机、或者试图利用手中的权力作恶），将立刻被股民踢出整个系统，然后由其他后备代表顶上去；</li>
-<li>决策完公司大事（记完账、出完块）有钱分，根据占股比例。</li>
+<li>如果引用的UTXO不存在于现在的状态中（<code>S</code>），返回错误提示</li>
+<li>如果签名与UTXO所有者的签名不一致，返回错误提示</li>
 </ul>
-<h2 id="dpos算法分析" tabindex="-1"> DPOS算法分析</h2>
-<p>在DPoS共识算法中，区块链的正常运转依赖于见证人(Delegates)，见证人是由全网节点投票产生的，见证人也是记账节点的实际控制人，相当于咱们选课代表，课代表帮我们整理作业</p>
-<p>见证人在完成打包交易的同时可以领取区块奖励和交易的手续费，并且可以执行社区投票的提案，所以DPoS共识算法不仅仅是算法，而是一个包含了协作治理关系的共识机制。</p>
-<p>DPoS为了尽快确定交易顺序，过滤无效交易，所以规定了在正常情况下，所有记账节点轮流每3秒产生一个区块，轮到了某个记账节点出块时，必须在2秒内提交区块，否则就会错块。</p>
-<p>假设一直没有记账节点错过自己顺序，那么他们生产的链条势必是最长的链条，如果记账节点在非指定时间生产区块被认为是无效的，每经过一轮，所有节点轮流出块的顺序就会发生重新洗牌。</p>
-<p>下图就是一个理想的轮流记账状态：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnade58srjj316o05yju3.jpg" alt="image-20210203151915698"></p>
-<p>DPoS算法白皮书还介绍了以下几种不正常的情况：</p>
-<p>①：<strong>少数记账节点发起恶意分叉或者发生故障</strong></p>
-<p>可以允许最多1/3的节点是恶意或故障，从而导致出现分叉。在这种情形下，少数分支将只能在9秒内生产1个块，而大多数分支，由于数量多一倍，将预期能在9秒内生产2个块。再一次，诚实的2/3的大多数可以比小的那一部分创建一个更长的链条。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadefucijj317u076tb7.jpg" alt="image-20210203151934597"></p>
-<p>②：<strong>隔离环境下的重复块生产</strong></p>
-<p>少数群体可能尝试创建一个无限数量的分叉，但所有分支都将比主链短，因为少数群体在链的成长上更慢。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadihh19bj316a096mxr.jpg" alt="image-20210203152323992"></p>
-<p>③：<strong>网络碎片</strong></p>
-<p>网络非常有可能碎片到，没有哪一个链上的区块生产者占到了所有区块生产者中的大多数。在此情景下，最长的那个链将变成最大的一个少数群体。当网络连接恢复正常后，相对较小的那些群体将自然的切换到最长的链，从而将恢复明确的共识。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadj14g6vj31600a0tc7.jpg" alt="image-20210203152359294"></p>
-<p>还有一种非常可能的情况是，三个分支中，最大的两个分支一样大。此时，将由相对更小的第三个分支加入网络时来打破僵局。存在奇数个区块生产者，所以僵局一般不会持续很久。后面我们还将介绍区块生产者的清洗，会将生产者随机生成顺序，以确保即使两个分支具有相同数量的生产者，分支也将以不同的长度爆发增长，导致一个分支最终接管另一个分支。</p>
-<p>④：<strong>少数群体重复生产</strong></p>
-<p>在这种情景下，少数群体B在自己可以生产的时间节点，同时创建两条，或多条的区块链。下一个执行的生产者C，将选择B创建的可选链中的任一条。C选中的这条链将成为最长的链，当这发生是，所以如下图所示的B1链条上的结点都会转过来。所以，无论少数做恶结点制造多少的链，他们在下一轮中，肯定不会是最长的那个链。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadjozhpyj314y07ggo9.jpg" alt="image-20210203152437439"></p>
-<p>⑤：<strong>最后的不可逆区块</strong></p>
-<p>在网络碎片的情况下，多个分叉可能持续较长时间的隔离。长远来看，最长的链将最终受到认可。但观察者需要一种手段来确定某个块是否是在最长链条的一部分（确认共识）。这可以通过2/3 + 1个区块生产者是否对某个块有确认。</p>
-<p>下图中，块B被A、C确认了，这意味着2/3 + 1都已经确认了。由此我们可以为不可能存在更长的链了，因为2/3的区块链是诚实。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadk4gx1dj314y07amyy.jpg" alt="image-20210203152502221"></p>
-<p>需要注意的是这个规则与比特币的6个区块确认类似。一些聪明的人可以设计一系列事件，其中两个节点可能会在不同的最后不可逆块上结束。这种极端情况需要一个攻击者，精确控制通信延迟，并需要在几分钟内实施不止一次，而是二次攻击。如果发生这种情况，那么最长链条这一长期规则仍然适用。 我们估计这种攻击的可能性足够接近0，经济后果也微不足道，不值得担心。</p>
-<p>⑥：<strong>不足法定区块生产者</strong></p>
-<p>在一些不太可能的情况下，生产者没有明确达到法定人数，少数人可能继续生产块。在继续生产的区块中，利益相关者可以包含一些改变投票的交易。这些投票会选举一组新的区块生产者，并将区块生产参与度恢复到100%。一旦发生这种情况，少数人链最终会超过其它低于100%参与链。</p>
-<p>在这个流程发生时，所有的观察者必须要明白整个网络处于不稳定的状态，直到多于67%参与者出现后才会稳定下来。哪些选择在这种情景下发起交易的，与那些在比特币中接受低于6块就确认交易成功那样，冒着类似的风险。他们必须明白，存在某些情况下，共识最终会以另一个链为准。在实践中，这种情形比在比特币中接受少于3个块就确认更加安全。</p>
-<p>⑦：<strong>大多数据区块生产者的腐败</strong></p>
-<p>如果大多数区块生产者合谋变得腐败，他们制造无限数量的分支，每一个分支都有多于2/3的大多数的签名。在这样的场景早，最后不可逆转块算法退化为最长链算法。此时最长的，获得了最大的群体认证的，将由少数的诚实节点的加入来确定。这样的情形不会持续很久，因为利益相关者会最终投票替换掉这些区块生产者。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadl0aqk8j314k08s44j.jpg" alt="image-20210203152553558"></p>
-<h2 id="dpos要解决的问题" tabindex="-1"> DPOS要解决的问题</h2>
-<p>从名称上，我们也可以判断出<code>DPoS</code>与<code>PoS</code>共识是直接关联的。<code>DPoS</code>算法是BM根据当时PoW、PoS的不足而改进的共识算法，它的目的就是为了提高性能，也就是交易确认时间短。</p>
-<p>在<code>PoS</code>共识中，人们使用财产证明来“挖矿”，也就是说，这是任何人都可以参与的，只要你持有币，你就可以参与挖矿。但是<code>PoS</code>并没有解决性能问题，在这里我们直接认为提高性能就是提高<code>TPS</code>，如下：</p>
-<blockquote>
-<p><strong>TPS = transactions / block_time</strong></p>
-</blockquote>
-<p>TPS表示区块链每秒能确认的交易数， <code>transactions</code> 是由区块大小<code>block_size</code>和平均每笔交易大小决定的，而区块大小受全网网络状态<code>network_bandwidth</code> 限制，也是由记账节点之间物理带宽<code>witness_performance</code>决定的。</p>
-<p>记账节点的个数<code>witness_count</code>直接决定了物理带宽的上限，因为记账节点数量越多，则对物理带宽要求越高，对网络的稳定性要求也越高。</p>
-<p>要注意的一点是在<code>DPoS</code>中，记账节点不叫做矿工，而是改称为见证人，<code>Witness</code>。所以这个公式变成了下面的样子：</p>
-<blockquote>
-<p>TPS = (block_size_network_bandwidth witness_performance)/(block_time * witness_count)</p>
-</blockquote>
-<p>我们可以看到，要提高TPS，可以增大区块大小<code>block_size</code>、提升记账节点网络带宽<code>network_bandwidth</code>、提升记账节点处理性能witness_performance，减小区块时间<code>block_time</code>、减小记账节点数量<code>witness_count</code>。</p>
-<p>分子项我们可以看到，它基本受限于物理资源的上限，目前工业水平制造的物理资源的使用上限基本就是整个项的上限了，所以可操作性不大。</p>
-<p>而分母项是由共识算法决定的，所以我们从区块时间，以及记账节点数入手，DPoS算法便正是从这两项着手的。</p>
-<p>首先改动的便是限制记账节点的数量，也就是见证人的数量。</p>
-<p>我们在PoW和PoS中可以看到，成为记账节点是无需门槛的，你可以随时参与挖矿，随时退出。</p>
-<p>那这会带来什么问题呢，首先无法确定记账节点的数量，其次无法确定记账节点之间的网络环境，记账节点数越多网络环境越复杂，这些不确定性会增大网络分区的概率，从而导致区块链分叉。</p>
-<p>如果我们事先规定好记账节点的数量，接着让全网所有节点可以投票决定哪些节点可以成为记账节点，这样就限制并减小了分母项<code>witness_count</code>，这个过程我们也称作投票选举。</p>
-<p>因为记账节点数量不多，那么我们可以在共识算法中可以<strong>规定出块时间</strong>为一个固定值，这个值可以很小，通过轮流出块的方式来进行记账。</p>
-<p>以上思路基本就是DPoS的基本设计思路，BM还为DPoS算法确立两个原则：</p>
+</li>
+<li>如果所有的UTXO输入面值总额小于所有的UTXO输出面值总额，返回错误提示</li>
+<li>返回新状态<code>S’</code>,新状态<code>S</code>中移除了所有的输入UTXO，增加了所有的输出UTXO。</li>
+</ol>
+<p>第一步的第一部分防止交易的发送者花费不存在的比特币，第二部分防止交易的发送者花费其他人的比特币。第二步确保价值守恒。比特币的支付协议如下。假设Alice想给Bob发送11.7BTC。事实上，Alice不可能正好有11.7BTC。假设，她能得到的最小数额比特币的方式是：6+4+2=12。所以，她可以创建一笔有3个输入，2个输出的交易。第一个输出的面值是11.7BTC，所有者是Bob（Bob的比特币地址），第二个输出的面值是0.3BTC，所有者是Alice自己，也就是找零。</p>
+<h3 id="挖矿" tabindex="-1"> 挖矿</h3>
+<p><img src="http://upyun-assets.ethfans.org/uploads/photo/image/81a76dc0e8924cfe81a8f3c8a76e84d4.png" alt="img"></p>
+<p>一个区块，每个区块包含一个时间戳、一个随机数、一个对上一个区块的引用（即哈希）和上一区块生成以来发生的所有交易列表。这样随着时间流逝就创建出了一个持续增长的区块链，它不断地更新，从而能够代表比特币账本的最新状态。</p>
+<p>依照这个范式，检查一个区块是否有效的算法如下：</p>
+<ol>
+<li>检查区块引用的上一个区块是否存在且有效。</li>
+<li>检查区块的时间戳是否晚于以前的区块的时间戳，而且早于未来2小时[2]。</li>
+<li>检查区块的工作量证明是否有效。</li>
+<li>将上一个区块的最终状态赋于<code>S[0]</code>。</li>
+<li>假设TX是区块的交易列表，包含n笔交易。对于属于0……n-1的所有i,进行状态转换<code>S[i+1] = APPLY(S[i],TX[i])</code>。如果任何一笔交易i在状态转换中出错，退出程序，返回错误。</li>
+<li>返回正确，状态<code>S[n]</code>是这一区块的最终状态。</li>
+</ol>
+<p>本质上，区块中的每笔交易必须提供一个正确的状态转换，要注意的是，“状态”并不是编码到区块的。它纯粹只是被校验节点记住的抽象概念，对于任意区块都可以从创世状态开始，按顺序加上每一个区块的每一笔交易，（妥妥地）计算出当前的状态。另外，需要注意矿工将交易收录进区块的顺序。如果一个区块中有A、B两笔交易，B花费的是A创建的UTXO，如果A在B以前，这个区块是有效的，否则，这个区块是无效的。</p>
+<p>区块验证算法的有趣部分是“工作量证明”概念：对每个区块进行SHA256哈希处理，将得到的哈希视为长度为256比特的数值，该数值必须小于不断动态调整的目标数值，本书写作时目标数值大约是2<sup>190。工作量证明的目的是使区块的创建变得困难，从而阻止女巫攻击者恶意重新生成区块链。因为SHA256是完全不可预测的伪随机函数，创建有效区块的唯一方法就是简单地不断试错，不断地增加随机数的数值，查看新的哈希数值是否小于目标数值。如果当前的目标数值是2</sup>192，就意味着平均需要尝试2^64次才能生成有效的区块。一般而言，比特币网络每隔2016个区块重新设定目标数值，保证平均每十分钟生成一个区块。为了对矿工的计算工作进行奖励，每一个成功生成区块的矿工有权在区块中包含一笔凭空发给他们自己25BTC的交易。另外，如果交易的输入大于输出，差额部分就作为“交易费用”付给矿工。顺便提一下，对矿工的奖励是比特币发行的唯一机制，创世状态中并没有比特币。</p>
+<p>为了更好地理解挖矿的目的，让我们分析比特币网络出现恶意攻击者时会发生什么。因为比特币的密码学基础是非常安全的，所以攻击者会选择攻击没有被密码学直接保护的部分：交易顺序。攻击者的策略非常简单：</p>
+<ol>
+<li>向卖家发送100BTC购买商品（尤其是无需邮寄的电子商品）。</li>
+<li>等待直至商品发出。</li>
+<li>创建另一笔交易，将相同的100BTC发送给自己的账户。</li>
+<li>使比特币网络相信发送给自己账户的交易是最先发出的。</li>
+</ol>
+<p>一旦步骤（1）发生，几分钟后矿工将把这笔交易打包到区块，假设是第270000个区块。大约一个小时以后，在此区块后面将会有五个区块，每个区块间接地指向这笔交易，从而确认这笔交易。这时卖家收到货款，并向买家发货。因为我们假设这是数字商品，攻击者可以即时收到货。现在，攻击者创建另一笔交易，将相同的100BTC发送到自己的账户。如果攻击者只是向全网广播这一消息，这一笔交易不会被处理。矿工会运行状态转换函数<code>APPLY(S,TX)</code>，发现这笔交易将花费已经不在状态中的UTXO。所以，攻击者会对区块链进行分叉，将第269999个区块作为父区块重新生成第270000个区块，在此区块中用新的交易取代旧的交易。因为区块数据是不同的，这要求重新进行工作量证明。另外，因为攻击者生成的新的第270000个区块有不同的哈希，所以原来的第270001到第270005的区块不指向它，因此原有的区块链和攻击者的新区块是完全分离的。在发生区块链分叉时，区块链长的分支被认为是诚实的区块链，合法的的矿工将会沿着原有的第270005区块后挖矿，只有攻击者一人在新的第270000区块后挖矿。攻击者为了使得他的区块链最长，他需要拥有比除了他以外的全网更多的算力来追赶（即51%攻击）。</p>
+<h3 id="默克尔树" tabindex="-1"> 默克尔树</h3>
+<p><img src="@source/blockchain/assets/img/merkle_tree_bitcoin.png" alt="img"></p>
+<p>左：仅提供默克尔树（Merkle tree）上的少量节点已经足够给出分支的合法证明。
+右：任何对于默克尔树的任何部分进行改变的尝试都会最终导致链上某处的不一致。</p>
+<p>比特币系统的一个重要的可扩展特性是：它的区块存储在多层次的数据结构中。一个区块的哈希实际上只是区块头的哈希，区块头是包含时间戳、随机数、上个区块哈希和存储了所有的区块交易的默克尔树的根哈希的长度大约为200字节的一段数据。</p>
+<p>默克尔树是一种二叉树，由一组叶节点、一组中间节点和一个根节点构成。最下面的大量的叶节点包含基础数据，每个中间节点是它的两个子节点的哈希，根节点也是由它的两个子节点的哈希，代表了默克尔树的顶部。默克尔树的目的是允许区块的数据可以零散地传送：节点可以从一个源下载区块头，从另外的源下载与其有关的树的其它部分，而依然能够确认所有的数据都是正确的。之所以如此是因为哈希向上的扩散：如果一个恶意用户尝试在树的下部加入一个伪造的交易，所引起的改动将导致树的上层节点的改动，以及更上层节点的改动，最终导致根节点的改动以及区块哈希的改动，这样协议就会将其记录为一个完全不同的区块（几乎可以肯定是带着不正确的工作量证明的）。</p>
+<p>默克尔树协议对比特币的长期持续性可以说是至关重要的。在2014年4月，比特币网络中的一个全节点-存储和处理所有区块的全部数据的节点-需要占用15GB的内存空间，而且还以每个月超过1GB的速度增长。目前，这一存储空间对台式计算机来说尚可接受，但是手机已经负载不了如此巨大的数据了。未来只有商业机构和爱好者才会充当完整节点。简化支付确认（SPV)协议允许另一种节点存在，这样的节点被成为“轻节点”，它下载区块头，使用区块头确认工作量证明，然后只下载与其交易相关的默克尔树“分支”。这使得轻节点只要下载整个区块链的一小部分就可以安全地确定任何一笔比特币交易的状态和账户的当前余额。</p>
+<h3 id="其它的区块链应用" tabindex="-1"> 其它的区块链应用</h3>
+<p>将区块链的思想应用到其它领域的想法早就出现了。在2005年，尼克萨博提出了“用所有权为财产冠名”的概念，文中描述了复制数据库技术的发展如何使基于区块链的系统可以应用于登记土地所有权，创建包括例如房产权、违法侵占和乔治亚州土地税等概念的详细框架。然而，不幸的是在那时还没有实用的复制数据库系统，所以这个协议被没有被付诸实践。不过，自2009年比特币系统的去中心化共识开发成功以来，许多区块链的其它应用开始快速出现。</p>
 <ul>
-<li>投票选举过程一定要保证最大权益所有者最终能控制全网，因为一旦出了问题，他们的损失最大；</li>
-<li>与PoW、PoS一样，所有节点仅承认“最长”链。</li>
+<li><strong>域名币（namecoin）</strong>- 创建于2010年，被称为去中心化的名称注册数据库。像Tor、Bitcoin和BitMessage这样的去中心化协议，需要一些确认账户的方法，这样其他人才能够与用户进行交互。但是，在所有的现存的解决方案中仅有的可用的身份标识是象<code>1LW79wp5ZBqaHW1jL5TciBCrhQYtHagUWy</code>这样的伪随机哈希。理想的情况下，人们希望拥有一个带有象“george”这样的名称的账户。然而，问题是如果有人可以创建“george”账户，那么其他人同样也可以创建“george”账户来假扮。唯一的解决方法是先申请原则（first-to-file），只有第一个注册者可以成功注册，第二个不能再次注册同一个账户。这一问题就可以利用比特币的共识协议。域名币是利用区块链实现名称注册系统的最早的、最成功的系统。</li>
+<li><strong>彩色币（Colored coins）</strong>- 彩色币的目的是为人们在比特币区块链上创建自己的数字货币，或者，在更重要的一般意义上的货币 – 数字令牌提供服务。依照彩色币协议，人们可以通过为某一特别的比特币UTXO指定颜色，发行新的货币。该协议递归地将其它UTXO定义为与交易输入UTXO相同的颜色。这就允许用户保持只包含某一特定颜色的UTXO，发送这些UTXO就像发送普通的比特币一样，通过回溯全部的区块链判断收到的UTXO颜色。</li>
+<li><strong>元币（Metacoins）</strong>- 元币的理念是在比特币区块链上创建新的协议，利用比特币的交易保存元币的交易，但是采用了不同的状态转换函数APPLY’。因为元币协议不能阻止比特币区块链上的无效的元币交易，所以增加一个规则如果APPLY'(S,TX)返回错误，这一协议将默认APPLY'(S,TX) = S。这为创建任意的、先进的不能在比特币系统中实现的密码学货币协议提供了一个简单的解决方法，而且开发成本非常低，因为挖矿和网络的问题已经由比特币协议处理好了。</li>
 </ul>
-<p>这两个原则确立了DPoS共识的基本特性，第一条放大了PoS共识使用者就是记账者的优点，第二点则规定了分叉时系统应该表现的行为。</p>
-<hr>
-<h2 id="参考" tabindex="-1"> 参考</h2>
-<blockquote>
-<p>&lt; &gt;</p>
-<p><a href="https://eth.wiki/en/concepts/casper-proof-of-stake-compendium" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/casper-proof-of-stake-compendium</a></p>
-<p><a href="https://eth.wiki/en/concepts/casper-proof-of-stake-compendium" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/casper-proof-of-stake-compendium</a></p>
-<p><a href="https://eth.wiki/en/concepts/proof-of-stake-faqs" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/proof-of-stake-faqs</a></p>
-</blockquote>
+<p>因此，一般而言，建立共识协议有两种方法：建立一个独立的网络和在比特币网络上建立协议。虽然像域名币这样的应用使用第一种方法已经获得了成功，但是该方法的实施非常困难，因为每一个应用需要创建独立的区块链和建立、测试所有状态转换和网络代码。另外，我们预测去中心化共识技术的应用将会服从幂律分布，大多数的应用太小不足以保证自由区块链的安全，我们还注意到大量的去中心化应用，尤其是去中心化自治组织，需要进行应用之间的交互。</p>
+<p>另一方面，基于比特币的方法存在缺点，它没有继承比特币可以进行简化确认支付（SPV) 的特性。比特币可以实现简化确认支付，因为比特币可以将区块链深度作为有效性确认代理。在某一点上，一旦一笔交易的祖先们距离现在足够远时，就可以认为它们是合法状态的一部分。与之相反，基于比特币区块链的元币协议不能强迫区块链不包括不符合元币协议的交易。因此，安全的元币协议的简化支付确认需要后向扫描所有的区块，直到区块链的初始点，以确认某一交易是否有效。目前，所有基于比特币的元币协议的“轻”实施都依赖可信任的服务器提供数据，这对主要目的之一是消除信任需要的密码学货币而言，只是一个相当次优的结果。</p>
+<h3 id="脚本" tabindex="-1"> 脚本</h3>
+<p>即使不对比特币协议进行扩展，它也能在一定程度上实现”智能合约”。比特币的UTXO可以被不只被一个公钥拥有，也可以被用基于堆栈的编程语言所编写的更加复杂的脚本所拥有。在这一模式下，花费这样的UTXO，必须提供满足脚本的数据。事实上，基本的公钥所有权机制也是通过脚本实现的：脚本将椭圆曲线签名作为输入，验证交易和拥有这一UTXO的地址，如果验证成功，返回1，否则返回0。更加复杂的脚本用于其它不同的应用情况。例如，人们可以创建要求集齐三把私钥中的两把才能进行交易确认的脚本（多重签名），对公司账户、储蓄账户和某些商业代理来说，这种脚本是非常有用的。脚本也能用来对解决计算问题的用户发送奖励。人们甚至可以创建这样的脚本“如果你能够提供你已经发送一定数额的的狗币给我的简化确认支付证明，这一比特币UTXO就是你的了”，本质上，比特币系统允许不同的密码学货币进行去中心化的兑换。</p>
+<p>然而，比特币系统的脚本语言存在一些严重的限制：</p>
+<ul>
+<li><strong>缺少图灵完备性</strong> – 这就是说，尽管比特币脚本语言可以支持多种计算，但是它不能支持所有的计算。最主要的缺失是循环语句。不支持循环语句的目的是避免交易确认时出现无限循环。理论上，对于脚本程序员来说，这是可以克服的障碍，因为任何循环都可以用多次重复if 语句的方式来模拟，但是这样做会导致脚本空间利用上的低效率，例如，实施一个替代的椭圆曲线签名算法可能将需要256次重复的乘法，而每次都需要单独编码。</li>
+<li><strong>价值盲（Value-blindness）</strong>。UTXO脚本不能为账户的取款额度提供精细的的控制。例如，预言机合约（oracle contract）的一个强大应用是对冲合约，A和B各自向对冲合约中发送价值1000美元的比特币，30天以后，脚本向A发送价值1000美元的比特币，向B发送剩余的比特币。虽然实现对冲合约需要一个预言机（oracle）决定一比特币值多少美元，但是与现在完全中心化的解决方案相比，这一机制已经在减少信任和基础设施方面有了巨大的进步。然而，因为UTXO是不可分割的，为实现此合约，唯一的方法是非常低效地采用许多有不同面值的UTXO（例如对应于最大为30的每个k，有一个2^k的UTXO)并使预言机挑出正确的UTXO发送给A和B。</li>
+<li><strong>缺少状态</strong> – UTXO只能是已花费或者未花费状态，这就没有给需要任何其它内部状态的多阶段合约或者脚本留出生存空间。这使得实现多阶段期权合约、去中心化的交换要约或者两阶段加密承诺协议（对确保计算奖励非常必要）非常困难。这也意味着UTXO只能用于建立简单的、一次性的合约，而不是例如去中心化组织这样的有着更加复杂的状态的合约，使得元协议难以实现。二元状态与价值盲结合在一起意味着另一个重要的应用-取款限额-是不可能实现的。</li>
+<li><strong>区块链盲（Blockchain-blindness）</strong>- UTXO看不到区块链的数据，例如随机数和上一个区块的哈希。这一缺陷剥夺了脚本语言所拥有的基于随机性的潜在价值，严重地限制了博彩等其它领域应用。</li>
+</ul>
+<p>我们已经考察了在密码学货币上建立高级应用的三种方法：建立一个新的区块链，在比特币区块链上使用脚本，在比特币区块链上建立元币协议。建立新区块链的方法可以自由地实现任意的特性，成本是开发时间和培育努力。使用脚本的方法非常容易实现和标准化，但是它的能力有限。元币协议尽管非常容易实现，但是存在扩展性差的缺陷。在以太坊系统中，我们的目的是建立一个能够同时具有这三种模式的所有优势的通用框架。</p>
+<h2 id="以太坊" tabindex="-1"> 以太坊</h2>
+<p>以太坊的目的是基于脚本、竞争币和链上元协议（on-chain meta-protocol）概念进行整合和提高，使得开发者能够创建任意的基于共识的、可扩展的、标准化的、特性完备的、易于开发的和协同的应用。以太坊通过建立终极的抽象的基础层-内置有图灵完备编程语言的区块链-使得任何人都能够创建合约和去中心化应用并在其中设立他们自由定义的所有权规则、交易方式和状态转换函数。域名币的主体框架只需要两行代码就可以实现，诸如货币和信誉系统等其它协议只需要不到二十行代码就可以实现。智能合约-包含价值而且只有满足某些条件才能打开的加密箱子-也能在我们的平台上创建，并且因为图灵完备性、价值知晓（value-awareness）、区块链知晓（blockchain-awareness）和多状态所增加的力量而比比特币脚本所能提供的智能合约强大得多。</p>
+<h3 id="以太坊账户" tabindex="-1"> 以太坊账户</h3>
+<p>在以太坊系统中，状态是由被称为“账户”（每个账户由一个20字节的地址）的对象和在两个账户之间转移价值和信息的状态转换构成的。以太坊的账户包含四个部分：</p>
+<ul>
+<li>随机数，用于确定每笔交易只能被处理一次的计数器</li>
+<li>账户目前的以太币余额</li>
+<li>账户的合约代码，如果有的话</li>
+<li>账户的存储（默认为空）</li>
+</ul>
+<p>以太币（Ether）是以太坊内部的主要加密燃料，用于支付交易费用。一般而言，以太坊有两种类型的账户：外部所有的账户（由私钥控制的）和合约账户（由合约代码控制）。外部所有的账户没有代码，人们可以通过创建和签名一笔交易从一个外部账户发送消息。每当合约账户收到一条消息，合约内部的代码就会被激活，允许它对内部存储进行读取和写入，和发送其它消息或者创建合约。</p>
+<h3 id="消息和交易" tabindex="-1"> 消息和交易</h3>
+<p>以太坊的消息在某种程度上类似于比特币的交易，但是两者之间存在三点重要的不同。第一，以太坊的消息可以由外部实体或者合约创建，然而比特币的交易只能从外部创建。第二，以太坊消息可以选择包含数据。第三，如果以太坊消息的接受者是合约账户，可以选择进行回应，这意味着以太坊消息也包含函数概念。</p>
+<p>以太坊中“交易”是指存储从外部账户发出的消息的签名数据包。交易包含消息的接收者、用于确认发送者的签名、以太币账户余额、要发送的数据和两个被称为STARTGAS和GASPRICE的数值。为了防止代码的指数型爆炸和无限循环，每笔交易需要对执行代码所引发的计算步骤-包括初始消息和所有执行中引发的消息-做出限制。STARTGAS就是限制，GASPRICE是每一计算步骤需要支付矿工的费用。如果执行交易的过程中，“用完了瓦斯”，所有的状态改变恢复原状态，但是已经支付的交易费用不可收回了。如果执行交易中止时还剩余瓦斯，那么这些瓦斯将退还给发送者。创建合约有单独的交易类型和相应的消息类型；合约的地址是基于账号随机数和交易数据的哈希计算出来的。</p>
+<p>消息机制的一个重要后果是以太坊的“头等公民”财产-合约与外部账户拥有同样权利，包括发送消息和创建其它合约的权利。这使得合约可以同时充当多个不同的角色，例如，用户可以使去中心化组织（一个合约）的一个成员成为一个中介账户（另一个合约），为一个偏执的使用定制的基于量子证明的兰波特签名（第三个合约）的个人和一个自身使用由五个私钥保证安全的账户（第四个合约）的共同签名实体提供居间服务。以太坊平台的强大之处在于去中心化的组织和代理合约不需要关心合约的每一参与方是什么类型的账户。</p>
+<h3 id="以太坊状态转换函数" tabindex="-1"> 以太坊状态转换函数</h3>
+<p><img src="http://upyun-assets.ethfans.org/uploads/photo/image/a1c08251ec654a8c9392821362a17946.png" alt="img"></p>
+<p>以太坊的状态转换函数：<code>APPLY(S,TX) -&gt; S'</code>，可以定义如下：</p>
+<ol>
+<li>检查交易的格式是否正确（即有正确数值）、签名是否有效和随机数是否与发送者账户的随机数匹配。如否，返回错误。</li>
+<li>计算交易费用:<code>fee=STARTGAS * GASPRICE</code>，并从签名中确定发送者的地址。从发送者的账户中减去交易费用和增加发送者的随机数。如果账户余额不足，返回错误。</li>
+<li>设定初值<code>GAS = STARTGAS</code>，并根据交易中的字节数减去一定量的瓦斯值。</li>
+<li>从发送者的账户转移价值到接收者账户。如果接收账户还不存在，创建此账户。如果接收账户是一个合约，运行合约的代码，直到代码运行结束或者瓦斯用完。</li>
+<li>如果因为发送者账户没有足够的钱或者代码执行耗尽瓦斯导致价值转移失败，恢复原来的状态，但是还需要支付交易费用，交易费用加至矿工账户。</li>
+<li>否则，将所有剩余的瓦斯归还给发送者，消耗掉的瓦斯作为交易费用发送给矿工。 例如，假设合约的代码如下：</li>
+</ol>
+<div><pre><code>if !self.storage[calldataload(0)]:
+    self.storage[calldataload(0)] = calldataload(32)
+</code></pre><div aria-hidden="true"><div></div><div></div></div></div><p>需要注意的是，在现实中合约代码是用底层以太坊虚拟机（EVM）代码写成的。上面的合约是用我们的高级语言Serpent语言写成的，它可以被编译成EVM代码。假设合约存储器开始时是空的，一个值为10以太，瓦斯为2000，瓦斯价格为0.001以太并且64字节数据，第一个三十二字节的快代表号码2和第二个代表词<code>CHARLIE</code>。的交易发送后，状态转换函数的处理过程如下：</p>
+<ol>
+<li>检查交易是否有效、格式是否正确。</li>
+<li>检查交易发送者至少有2000*0.001=2个以太币。如果有，从发送者账户中减去2个以太币。</li>
+<li>初始设定gas=2000,假设交易长为170字节，每字节的费用是5，减去850，所以还剩1150。</li>
+<li>从发送者账户减去10个以太币，为合约账户增加10个以太币。</li>
+<li>运行代码。在这个合约中，运行代码很简单：它检查合约存储器索引为2处是否已使用，注意到它未被使用，然后将其值置为CHARLIE。假设这消耗了187单位的瓦斯，于是剩余的瓦斯为1150 - 187 = 963。 ６. 向发送者的账户增加963*0.001=0.963个以太币，返回最终状态。 如果没有合约接收交易，那么所有的交易费用就等于GASPRICE乘以交易的字节长度，交易的数据就与交易费用无关了。另外，需要注意的是，合约发起的消息可以对它们产生的计算分配瓦斯限额，如果子计算的瓦斯用完了，它只恢复到消息发出时的状态。因此，就像交易一样，合约也可以通过对它产生的子计算设置严格的限制，保护它们的计算资源。</li>
+</ol>
+<h3 id="代码执行" tabindex="-1"> 代码执行</h3>
+<p>以太坊合约的代码使用低级的基于堆栈的字节码的语言写成的，被称为“以太坊虚拟机代码”或者“EVM代码”。代码由一系列字节构成，每一个字节代表一种操作。一般而言，代码执行是无限循环，程序计数器每增加一（初始值为零）就执行一次操作，直到代码执行完毕或者遇到错误，<code>STOP</code>或者<code>RETURN</code>指令。操作可以访问三种存储数据的空间：</p>
+<ul>
+<li><strong>堆栈</strong>，一种后进先出的数据存储，32字节的数值可以入栈，出栈。</li>
+<li><strong>内存</strong>，可无限扩展的字节队列。</li>
+<li><strong>合约的长期存储</strong>，一个秘钥/数值的存储，其中秘钥和数值都是32字节大小，与计算结束即重置的堆栈和内存不同，存储内容将长期保持。</li>
+</ul>
+<p>代码可以象访问区块头数据一样访问数值，发送者和接受到的消息中的数据，代码还可以返回数据的字节队列作为输出。</p>
+<p>EVM代码的正式执行模型令人惊讶地简单。当以太坊虚拟机运行时，它的完整的计算状态可以由元组<code>(block_state, transaction, message, code, memory, stack, pc, gas)</code>来定义，这里<code>block_state</code>是包含所有账户余额和存储的全局状态。每轮执行时，通过调出代码的第<code>pc</code>（程序计数器）个字节，当前指令被找到，每个指令都有定义自己如何影响元组。例如，<code>ADD</code>将两个元素出栈并将它们的和入栈，将<code>gas</code>（瓦斯）减一并将<code>pc</code>加一，<code>SSTORE</code>将顶部的两个元素出栈并将第二个元素插入到由第一个元素定义的合约存储位置，同样减少最多200的gas值并将<code>pc</code>加一，虽然有许多方法通过即时编译去优化以太坊，但以太坊的基础性的实施可以用几百行代码实现。</p>
+<h3 id="区块链和挖矿" tabindex="-1"> 区块链和挖矿</h3>
+<p><img src="http://upyun-assets.ethfans.org/uploads/photo/image/44d88f61183b4dcca4c490969e2eaddd.png" alt="img"></p>
+<p>虽然有一些不同，但以太坊的区块链在很多方面类似于比特币区块链。它们的区块链架构的不同在于，以太坊区块不仅包含交易记录和最近的状态，还包含区块序号和难度值。以太坊中的区块确认算法如下：</p>
+<ol>
+<li>检查区块引用的上一个区块是否存在和有效。</li>
+<li>检查区块的时间戳是否比引用的上一个区块大，而且小于15分钟。</li>
+<li>检查区块序号、难度值、 交易根，叔根和瓦斯限额（许多以太坊特有的底层概念）是否有效。</li>
+<li>检查区块的工作量证明是否有效。</li>
+<li>将<code>S[0]</code>赋值为上一个区块的<code>STATE_ROOT</code>。</li>
+<li>将<code>TX</code>赋值为区块的交易列表，一共有<code>n</code>笔交易。对于属于<code>0……n-1</code>的<code>i</code>，进行状态转换<code>S[i+1] = APPLY(S[i],TX[i])</code>。如果任何一个转换发生错误，或者程序执行到此处所花费的瓦斯（gas）超过了<code>GASLIMIT</code>，返回错误。</li>
+<li>用<code>S[n]</code>给<code>S_FINAL</code>赋值, 向矿工支付区块奖励。 8 检查<code>S-FINAL</code>是否与<code>STATE_ROOT</code>相同。如果相同，区块是有效的。否则，区块是无效的。</li>
+</ol>
+<p>这一确认方法乍看起来似乎效率很低，因为它需要存储每个区块的所有状态，但是事实上以太坊的确认效率可以与比特币相提并论。原因是状态存储在树结构中（tree structure），每增加一个区块只需要改变树结构的一小部分。因此，一般而言，两个相邻的区块的树结构的大部分应该是相同的，因此存储一次数据，可以利用指针（即子树哈希）引用两次。一种被称为“帕特里夏树”（“Patricia Tree”）的树结构可以实现这一点，其中包括了对默克尔树概念的修改，不仅允许改变节点，而且还可以插入和删除节点。另外，因为所有的状态信息是最后一个区块的一部分，所以没有必要存储全部的区块历史-这一方法如果能够可以应用到比特币系统中，经计算可以对存储空间有10-20倍的节省。</p>
+<h2 id="应用" tabindex="-1"> 应用</h2>
+<p>一般来讲，以太坊之上有三种应用。第一类是金融应用，为用户提供更强大的用他们的钱管理和参与合约的方法。包括子货币，金融衍生品，对冲合约，储蓄钱包，遗嘱，甚至一些种类的全面的雇佣合约。第二类是半金融应用，这里有钱的存在但也有很重的非金钱的方面，一个完美的例子是为解决计算问题而设的自我强制悬赏。最后，还有在线投票和去中心化治理这样的完全的非金融应用。</p>
+<h3 id="令牌系统" tabindex="-1"> 令牌系统</h3>
+<p>链上令牌系统有很多应用，从代表如美元或黄金等资产的子货币到公司股票，单独的令牌代表智能资产，安全的不可伪造的优惠券，甚至与传统价值完全没有联系的用来进行积分奖励的令牌系统。在以太坊中实施令牌系统容易得让人吃惊。关键的一点是理解，所有的货币或者令牌系统，从根本上来说是一个带有如下操作的数据库：从A中减去X单位并把X单位加到B上，前提条件是(1)A在交易之前有至少X单位以及(2)交易被A批准。实施一个令牌系统就是把这样一个逻辑实施到一个合约中去。</p>
+<p>用Serpent语言实施一个令牌系统的基本代码如下：</p>
+<div><pre><code>def send(to, value):
+    if self.storage[from] >= value:
+        self.storage[from] = self.storage[from] value
+        self.storage[to] = self.storage[to] + value
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><p>这从本质上来说是本文将要进一步描述的“银行系统”状态转变功能的一个最小化实施。需要增加一些额外的代码以提供在初始和其它一些边缘情况下分发货币的功能，理想情况下会增加一个函数让其它合约来查询一个地址的余额。就足够了。理论上，基于以太坊的充当子货币的令牌系统可能包括一个基于比特币的链上元币所缺乏的重要功能：直接用这种货币支付交易费的能力。实现这种能力的方法是在合约里维护一个以太币账户以用来为发送者支付交易费，通过收集被用来充当交易费用的内部货币并把它们在一个不断运行的拍卖中拍卖掉，合约不断为该以太币账户注资。这样用户需要用以太币“激活”他们的账户，但一旦账户中有以太币它将会被重复使用因为每次合约都会为其充值。</p>
+<h3 id="金融衍生品和价值稳定的货币" tabindex="-1"> 金融衍生品和价值稳定的货币</h3>
+<p>金融衍生品是“智能合约”的最普遍的应用，也是最易于用代码实现的之一。实现金融合约的主要挑战是它们中的大部分需要参照一个外部的价格发布器；例如，一个需求非常大的应用是一个用来对冲以太币（或其它密码学货币）相对美元价格波动的智能合约，但该合约需要知道以太币相对美元的价格。最简单地方法是通过由某特定机构（例如纳斯达克）维护的“数据提供“合约进行，该合约的设计使得该机构能够根据需要更新合约，并提供一个接口使得其它合约能够通过发送一个消息给该合约以获取包含价格信息的回复。</p>
+<p>当这些关键要素都齐备，对冲合约看起来会是下面的样子：</p>
+<ol>
+<li>等待A输入1000以太币。.</li>
+<li>等待B 输入1000以太币。</li>
+<li>通过查询数据提供合约，将1000以太币的美元价值，例如，x美元，记录至存储器。</li>
+<li>30天后，允许A或B“重新激活“合约以发送价值x美元的以太币（重新查询数据提供合约以获取新价格并计算）给A并将剩余的以太币发送给B。 这样的合约在密码学商务中有非同寻常的潜力。密码学货币经常被诟病的一个问题就是其价格的波动性；虽然大量的用户和商家可能需要密码学资产所带来的安全和便利，可他们不太会乐意面对一天中资产跌去23%价值的情形。直到现在，最为常见的推荐方案是发行者背书资产；思想是发行者创建一种子货币，对此种子货币他们有权发行和赎回，给予（线下）提供给他们一个单位特定相关资产（例如黄金，美元）的人一个单位子货币。发行者承诺当任何人送还一个单位密码学资产时。发还一个单位的相关资产。这种机制能够使任何非密码学资产被“升级“为密码学资产，如果发行者值得信任的话。 然而实践中发行者并非总是值得信任的，并且一些情况下银行体系太脆弱，或者不够诚实守信从而使这样的服务无法存在。金融衍生品提供了一种替代方案。这里将不再有提供储备以支撑一种资产的单独的发行者，取而代之的是一个由赌一种密码学资产的价格会上升的投机者构成的去中心化市场。与发行者不同，投机者一方没有讨价还价的权利，因为对冲合约把他们的储备冻结在了契约中。注意这种方法并非是完全去中心化的，因为依然需要一个可信任的提供价格信息的数据源，尽管依然有争议这依然是在降低基础设施需求（与发行者不同，一个价格发布器不需要牌照并且似乎可归为自由言论一类）和降低潜在欺诈风险方面的一个巨大的进步。</li>
+</ol>
+<h3 id="身份和信誉系统" tabindex="-1"> 身份和信誉系统</h3>
+<p>最早的替代币，域名币，尝试使用一个类比特币块链来提供一个名称注册系统，在那里用户可以将他们的名称和其它数据一起在一个公共数据库注册。最常用的应用案例把象“<a href="http://bitcoin.org" target="_blank" rel="noopener noreferrer">bitcoin.org</a>“（或者再域名币中，”bitcoin.bit“）一样的域名与一个IP地址对应的域名系统。其它的应用案例包括电子邮件验证系统和潜在的更先进的信誉系统。这里是以太坊中提供与域名币类似的的名称注册系统的基础合约：</p>
+<div><pre><code>def register(name, value):
+    if !self.storage[name]:
+        self.storage[name] = value
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><p>合约非常简单；就是一个以太坊网络中的可以被添加但不能被修改或移除的数据库。任何人都可以把一个名称注册为一个值并永远不变。一个更复杂的名称注册合约将包含允许其他合约查询的“功能条款“，以及一个让一个名称的”拥有者“（即第一个注册者）修改数据或者转让所有权的机制。甚至可以在其上添加信誉和信任网络功能。</p>
+<h3 id="去中心化存储" tabindex="-1"> 去中心化存储</h3>
+<p>在过去的几年里出现了一些大众化的在线文件存储初创公司，最突出的是Dropbox，它寻求允许用户上传他们的硬盘备份，提供备份存储服务并允许用户访问从而按月向用户收取费用。然而，在这一点上这个文件存储市场有时相对低效；对现存服务的粗略观察表明，特别地在“神秘谷“20-200GB这一既没有免费空间也没有企业级用户折扣的水平上，主流文件存储成本每月的价格意味着支付在一个月里支付整个硬盘的成本。以太坊合约允许去中心化存储生态的开发，这样用户通过将他们自己的硬盘或未用的网络空间租出去以获得少量收益，从而降低了文件存储的成本。</p>
+<p>这样的设施的基础性构件就是我们所谓的“去中心化Dropbox合约“。这个合约工作原理如下。首先，某人将需要上传的数据分成快，对每一块数据加密以保护隐私，并且以此构建一个默克尔树。然后创建一个含以下规则的合约，每N个块，合约将从默克尔树中抽取一个随机索引（使用能够被合约代码访问的上一个块的哈希来提供随机性）， 然后给第一个实体X以太以支撑一个带有类似简化验证支付（SPV）的在树中特定索引处的块的所有权证明。当一个用户想重新下载他的文件，他可以使用微支付通道协议（例如每32k字节支付1萨博）恢复文件；从费用上讲最高效的方法是支付者不到最后不发布交易，而是用一个略微更合算的带有同样随机数的交易在每32k字节之后来代替原交易。</p>
+<p>这个协议的一个重要特征是，虽然看起来象是一个人信任许多不准备丢失文件的随机节点，但是他可以通过秘密分享把文件分成许多小块，然后通过监视合同得知每个小块都还被某个节点的保存着。如果一个合约依然在付款，那么就提供了某个人依然在保存文件的证据。</p>
+<h3 id="去中心化自治组织" tabindex="-1"> 去中心化自治组织</h3>
+<p>通常意义上“去中心化自治组织（DAO, decentralized autonomous organization）”的概念指的是一个拥有一定数量成员或股东的虚拟实体，依靠比如67%多数来决定花钱以及修改代码。成员会集体决定组织如何分配资金。分配资金的方法可能是悬赏，工资或者更有吸引力的机制比如用内部货币奖励工作。这仅仅使用密码学块链技术就从根本上复制了传统公司或者非营利组织的法律意义以实现强制执行。至此许多围绕DAO的讨论都是围绕一个带有接受分红的股东和可交易的股份的“去中心化自治公司（DAC，decentralized autonomous corporation）”的“资本家”模式；作为替代者，一个被描述为“去中心化自治社区（decentralized autonomous community）”的实体将使所有成员都在决策上拥有同等的权利并且在增减成员时要求67%多数同意。每个人都只能拥有一个成员资格这一规则需要被群体强制实施。</p>
+<p>下面是一个如何用代码实现DO的纲要。最简单地设计就是一段如果三分之二成员同意就可以自我修改的代码。虽然理论上代码是不可更改的，然而通过把代码主干放在一个单独的合约内并且把合约调用的地址指向一个可更改的存储依然可以容易地绕开障碍而使代码变得可修改，在一个这样的DAO合约的简单实现中有三种交易类型，由交易提供的数据区分：</p>
+<ul>
+<li><code>[0,i,K,V]</code> 注册索引为i 的对存储地址索引为K 至 v 的内容的更改建议。</li>
+<li><code>[0,i]</code> 注册对建议i 的投票。</li>
+<li><code>[2,i]</code> 如有足够投票则确认建议i。</li>
+</ul>
+<p>然后合约对每一项都有具体的条款。它将维护一个所有开放存储的更改记录以及一个谁投票表决的表。还有一个所有成员的表。当任何存储内容的更改获得了三分之二多数同意，一个最终的交易将执行这项更改。一个更加复杂的框架会增加内置的选举功能以实现如发送交易，增减成员，甚至提供委任制民主一类的投票代表（即任何人都可以委托另外一个人来代表自己投票，而且这种委托关系是可以传递的，所以如果A委托了B然后B委托了C那么C将决定A的投票）。这种设计将使DAO作为一个去中心化社区有机地成长， 使人们最终能够把挑选合适人选的任务交给专家，与当前系统不同，随着社区成员不断改变他们的站队假以时日专家会容易地出现和消失。 一个替代的模式是去中心化公司，那里任何账户可以拥有0到更多的股份，决策需要三分之二多数的股份同意。一个完整的框架将包括资产管理功能-可以提交买卖股份的订单以及接受这种订单的功能（前提是合约里有订单匹配机制）。代表依然以委任制民主的方式存在，产生了“董事会”的概念。</p>
+<p>更先进的组织治理机制可能会在将来实现；现在一个去中心化组织（DO）可以从去中心化自治组织（DAO）开始描述。DO和DAO的区别是模糊的，一个大致的分割线是治理是否可以通过一个类似政治的过程或者一个“自动”过程实现，一个不错的直觉测试是“无通用语言”标准：如果两个成员不说同样的语言组织还能正常运行吗？显然，一个简单的传统的持股式公司会失败，而象比特币协议这样的却很可能成功，罗宾·汉森的“futarchy”，一个通过预测市场实现组织化治理的机制是一个真正的说明“自治”式治理可能是什么样子的好例子。注意一个人无需假设所有DAO比所有DO优越；自治只是一个在一些特定场景下有很大优势的，但在其它地方未必可行的范式，许多半DAO可能存在。</p>
+<h3 id="进一步的应用" tabindex="-1"> 进一步的应用</h3>
+<p>1.<strong>储蓄钱包</strong>。 假设Alice想确保她的资金安全，但她担心丢失或者被黑客盗走私钥。她把以太币放到和Bob签订的一个合约里，如下所示，这合同是一个银行：</p>
+<ul>
+<li>Alice单独每天最多可提取1%的资金。</li>
+<li>Bob单独每天最多可提取1%的资金，但Alice可以用她的私钥创建一个交易取消Bob的提现权限。</li>
+<li>Alice 和 Bob 一起可以任意提取资金。 一般来讲，每天1%对Alice足够了，如果Alice想提现更多她可以联系Bob寻求帮助。如果Alice的私钥被盗，她可以立即找到Bob把她的资金转移到一个新合同里。如果她弄丢了她的私钥，Bob可以慢慢地把钱提出。如果Bob表现出了恶意，她可以关掉他的提现权限。</li>
+</ul>
+<p>2.<strong>作物保险</strong>。一个人可以很容易地以天气情况而不是任何价格指数作为数据输入来创建一个金融衍生品合约。如果一个爱荷华的农民购买了一个基于爱荷华的降雨情况进行反向赔付的金融衍生品，那么如果遇到干旱，该农民将自动地收到赔付资金而如果有足量的降雨他会很开心因为他的作物收成会很好。</p>
+<p>3.<strong>一个去中心化的数据发布器</strong>。 对于基于差异的金融合约，事实上通过过“谢林点”协议将数据发布器去中心化是可能的。谢林点的工作原理如下：N方为某个指定的数据提供输入值到系统（例如ETH/USD价格），所有的值被排序，每个提供25%到75%之间的值的节点都会获得奖励，每个人都有激励去提供他人将提供的答案，大量玩家可以真正同意的答案明显默认就是正确答案，这构造了一个可以在理论上提供很多数值，包括ETH/USD价格，柏林的温度甚至某个特别困难的计算的结果的去中心化协议。</p>
+<p>4.<strong>多重签名智能契约</strong>。比特币允许基于多重签名的交易合约，例如，5把私钥里集齐3把就可以使用资金。以太坊可以做得更细化，例如，5把私钥里集齐4把可以花全部资金，如果只3把则每天最多花10%的资金，只有2把就只能每天花0.5%的资金。另外，以太坊里的多重签名是异步的，意思是说，双方可以在不同时间在区块链上注册签名，最后一个签名到位后就会自动发送交易。</p>
+<p>5.<strong>云计算</strong>。EVM技术还可被用来创建一个可验证的计算环境，允许用户邀请他人进行计算然后选择性地要求提供在一定的随机选择的检查点上计算被正确完成的证据。这使得创建一个任何用户都可以用他们的台式机，笔记本电脑或者专用服务器参与的云计算市场成为可能，现场检查和安全保证金可以被用来确保系统是值得信任的（即没有节点可以因欺骗获利）。虽然这样一个系统可能并不适用所有任务；例如，需要高级进程间通信的任务就不易在一个大的节点云上完成。然而一些其它的任务就很容易实现并行；SETI@home, folding@home和基因算法这样的项目就很容易在这样的平台上进行。</p>
+<p>6.<strong>点对点赌博</strong>。任意数量的点对点赌博协议都可以搬到以太坊的区块链上，例如Frank Stajano和Richard Clayton的Cyberdice。 最简单的赌博协议事实上是这样一个简单的合约，它用来赌下一个区块的哈稀值与猜测值之间的差额, 据此可以创建更复杂的赌博协议，以实现近乎零费用和无欺骗的赌博服务。</p>
+<p>7.<strong>预测市场</strong>。 不管是有神谕还是有谢林币，预测市场都会很容易实现，带有谢林币的预测市场可能会被证明是第一个主流的作为去中心化组织管理协议的“futarchy”应用。</p>
+<p>8.链上去中心化市场，以身份和信誉系统为基础。</p>
+<h2 id="杂项和关注" tabindex="-1"> 杂项和关注</h2>
+<h3 id="改进版幽灵协议的实施" tabindex="-1"> 改进版幽灵协议的实施</h3>
+<p>“幽灵“协议（&quot;Greedy Heaviest Observed Subtree&quot; (GHOST) protocol）是由Yonatan Sompolinsky 和 Aviv Zohar在2013年12月引入的创新。幽灵协议提出的动机是当前快速确认的块链因为区块的高作废率而受到低安全性困扰；因为区块需要花一定时间（设为t）扩散至全网，如果矿工A挖出了一个区块然后矿工B碰巧在A的区块扩散至B之前挖出了另外一个区块，矿工B的区块就会作废并且没有对网络安全作出贡献。此外，这里还有中心化问题：如果A是一个拥有全网30%算力的矿池而B拥有10%的算力，A将面临70%的时间都在产生作废区块的风险而B在90%的时间里都在产生作废区块。因此，如果作废率高，A将简单地因为更高的算力份额而更有效率，综合这两个因素，区块产生速度快的块链很可能导致一个矿池拥有实际上能够控制挖矿过程的算力份额。</p>
+<p>正如Sompolinsky 和 Zohar所描述的，通过在计算哪条链“最长”的时候把废区块也包含进来，幽灵协议解决了降低网络安全性的第一个问题；这就是说，不仅一个区块的父区块和更早的祖先块，祖先块的作废的后代区块（以太坊术语中称之为“叔区块”）也被加进来以计算哪一个区块拥有支持其的最大工作量证明。我们超越了Sompolinsky 和 Zohar所描述的协议以解决第二个问题 – 中心化倾向，以太坊付给以“叔区块”身份为新块确认作出贡献的废区块87.5%的奖励，把它们纳入计算的“侄子区块”将获得奖励的12.5%，不过，交易费用不奖励给叔区块。 以太坊实施了一个只下探到第五层的简化版本的幽灵协议。其特点是，废区块只能以叔区块的身份被其父母的第二代至第五代后辈区块，而不是更远关系的后辈区块（例如父母区块的第六代后辈区块，或祖父区块的第三代后辈区块）纳入计算。这样做有几个原因。首先，无条件的幽灵协议将给计算给定区块的哪一个叔区块合法带来过多的复杂性。其次，带有以太坊所使用的补偿的无条件的幽灵协议剥夺了矿工在主链而不是一个公开攻击者的链上挖矿的激励。最后，计算表明带有激励的五层幽灵协议即使在出块时间为15s的情况下也实现了了95%以上的效率，而拥有25%算力的矿工从中心化得到的益处小于3%。</p>
+<h3 id="费用" tabindex="-1"> 费用</h3>
+<p>因为每个发布的到区块链的交易都占用了下载和验证的成本，需要有一个包括交易费的规范机制来防范滥发交易。比特币使用的默认方法是纯自愿的交易费用，依靠矿工担当守门人并设定动态的最低费用。因为这种方法是“基于市场的”，使得矿工和交易发送者能够按供需来决定价格，所以这种方法在比特币社区被很顺利地接受了。然而，这个逻辑的问题在于，交易处理并非一个市场；虽然根据直觉把交易处理解释成矿工给发送者提供的服务是很有吸引力的，但事实上一个矿工收录的交易是需要网络中每个节点处理的，所以交易处理中最大部分的成本是由第三方而不是决定是否收录交易的矿工承担的。于是，非常有可能发生公地悲剧。</p>
+<p>然而，当给出一个特殊的不够精确的简化假设时，这个基于市场的机制的漏洞很神奇地消除了自己的影响。论证如下。假设：</p>
+<ol>
+<li>一个交易带来 k 步操作, 提供奖励 kR给任何收录该交易的矿工，这里 R 由交易发布者设定， k 和 R 对于矿工都是事先（大致上）可见的。</li>
+<li>每个节点处理每步操作的成本都是 C (即所有节点的效率一致)。</li>
+<li>有 N 个挖矿节点，每个算力一致(即全网算力的1/N)。</li>
+<li>没有不挖矿的全节点。</li>
+</ol>
+<p>当预期奖励大于成本时，矿工愿意挖矿。这样，因为矿工有1/N 的机会处理下一个区块，所以预期的收益是 kR/N , 矿工的处理成本简单为 kC. 这样当 kR/N &gt; kC， 即 R &gt; NC时。矿工愿意收录交易。注意 R 是由交易发送者提供的每步费用，是矿工从处理交易中获益的下限。 NC 是全网处理一个操作的成本。所以，矿工仅有动机去收录那些收益大于成本的交易。 然而，这些假设与实际情况有几点重要的偏离：</p>
+<ol>
+<li>因为额外的验证时间延迟了块的广播因而增加了块成为废块的机会，处理交易的矿工比其它的验证节点付出了更高的成本。</li>
+<li>不挖矿的全节点是存在的。</li>
+<li>实践中算力分布可能最后是极端不平均的。</li>
+<li>以破坏网络为己任的投机者，政敌和疯子确实存在，并且他们能够聪明地设置合同使得他们的成本比其它验证节点低得多。 上面第1点驱使矿工收录更少的交易，第2点增加了 NC; 因此这两点的影响至少部分互相抵消了. 第3点和第4点是主要问题；作为解决方案我们简单地建立了一个浮动的上限：没有区块能够包含比BLK_LIMIT_FACTOR 倍长期指数移动平均值更多的操作数。具体地：</li>
+</ol>
+<div><pre><code>blk.oplimit = floor((blk.parent.oplimit * (EMAFACTOR - 1) + floor(parent.opcount * BLK_LIMIT_FACTOR)) /EMA_FACTOR)
+</code></pre><div aria-hidden="true"><div></div></div></div><p>BLK_LIMIT_FACTOR 和 EMA_FACTOR 是暂且被设为 65536 和 1.5 的常数，但可能会在更深入的分析后调整。 回复</p>
+<h3 id="计算和图灵完备" tabindex="-1"> 计算和图灵完备</h3>
+<p>需要强调的是以太坊虚拟机是图灵完备的； 这意味着EVM代码可以实现任何可以想象的计算，包括无限循环。EVM代码有两种方式实现循环。首先， JUMP 指令可以让程序跳回至代码前面某处，还有允许如 <code>while x &lt; 27: x = x * 2</code> 一样的条件语句的JUMPI 指令实现条件跳转。其次，合约可以调用其它合约，有通过递归实现循环的潜力。这很自然地导致了一个问题：恶意用户能够通过迫使矿工和全节点进入无限循环而不得不关机吗？ 这问题出现是因为计算机科学中一个叫停机问题的问题：一般意义上没有办法知道，一个给定的程序是否能在有限的时间内结束运行。</p>
+<p>正如在状态转换章节所述，我们的方案通过为每一个交易设定运行执行的最大计算步数来解决问题，如果超过则计算被恢复原状但依然要支付费用。消息以同样的方式工作。为显示这一方案背后的动机，请考虑下面的例子：</p>
+<ul>
+<li>一个攻击者创建了一个运行无限循环的合约，然后发送了一个激活循环的交易给矿工，矿工将处理交易，运行无限循环直到瓦斯耗尽。即使瓦斯耗尽交易半途停止，交易依然正确（回到原处）并且矿工依然从攻击者哪里挣到了每一步计算的费用。</li>
+<li>一个攻击者创建一个非常长的无限循环意图迫使矿工长时间内一直计算致使在计算结束前若干区块已经产生于是矿工无法收录交易以赚取费 用。然而，攻击者需要发布一个 STARTGAS 值以限制可执行步数，因而矿工将提前知道计算将耗费过多的步数。</li>
+<li>一个攻击者看到一个包含诸如 send(A,self.storage); self.storage = 0格式的合约然后发送带有只够执行第一步的费用的而不够执行第二步的交易（即提现但不减少账户余额）。合约作者无需担心防卫类似攻击，因为如果执行中途停止则所有变更都被回复。</li>
+<li>一个金融合约靠提取九个专用数据发布器的中值来工作以最小化风险，一个攻击者接管了其中一个数据提供器，然后把这个按DAO章节所述的可变地址调用机制设计成可更改的数据提供器转为运行一个无限循环，以求尝试逼迫任何从此金融合约索要资金的尝试都会因瓦斯耗尽而中止。然而，该金融合约可以在消息里设置瓦斯限制以防范此类问题。 图灵完备的替代是图灵不完备，这里 JUMP 和 JUMPI 指令不存在并且在某个给定时间每个合约只允许有一个拷贝存在于调用堆栈内。在这样的系统里，上述的费用系统和围绕我们的方案的效率的不确定性可能都是不需要的，因为执行一个合约的成本将被它的大小决定。此外，图灵不完备甚至不是一个大的限制，在我们内部设想的所有合约例子中，至今只有一个需要循环，而且即使这循环也可以被26个单行代码段的重复所代替。考虑到图灵完备带来的严重的麻烦和有限的益处，为什么不简单地使用一种图灵不完备语言呢？事实上图灵不完备远非一个简洁的解决方案。为什么？请考虑下面的合约：</li>
+</ul>
+<div><pre><code>C0: call(C1); call(C1);
+C1: call(C2); call(C2);
+C2: call(C3); call(C3);
+...
+C49: call(C50); call(C50);
+C50: (作一个图灵机的步计算和记录结果在合约的长期存储)
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>现在，发送一个这样的交易给A，这样，在51个交易中，我们有了一个需要花费2^50 步计算的合约，矿工可能尝试通过为每一个合约维护一个最高可执行步数并且对于递归调用其它合约的合约计算可能执行步数从而预先检测这样的逻辑炸弹，但是这会使矿工禁止创建其它合约的合约（因为上面26个合约的创建和执行可以很容易地放入一个单独合约内）。另外一个问题点是一个消息的地址字段是一个变量，所以通常来讲可能甚至无法预先知道一个合约将要调用的另外一个合约是哪一个。于是，最终我们有了一个惊人的结论：图灵完备的管理惊人地容易，而在缺乏同样的控制时图灵不完备的管理惊人地困难- 那为什么不让协议图灵完备呢？</p>
+<h3 id="货币和发行" tabindex="-1"> 货币和发行</h3>
+<p>以太坊网络包含自身的内置货币以太币，以太币扮演双重角色，为各种数字资产交易提供主要的流动性，更重要的是提供了了支付交易费用的一种机制。为便利及避免将来的争议期间（参见当前的mBTC/uBTC/聪的争论），不同面值的名称将被提前设置：</p>
+<ul>
+<li>1: 伟</li>
+<li>10^12: 萨博</li>
+<li>10^15: 芬尼</li>
+<li>10^18: 以太</li>
+</ul>
+<p>这应该被当作是“元”和“分”或者“比特币”和“聪”的概念的扩展版，在不远的将来，我们期望“以太”被用作普通交易，“芬尼”用来进行微交易，“萨博”和“伟”用来进行关于费用和协议实施的讨论。</p>
+<p>发行模式如下：</p>
+<ul>
+<li>通过发售活动，以太币将以每BTC 1337-2000以太的价格发售，一个旨在为以太坊组织筹资并且为开发者支付报酬的机制已经在其它一些密码学货币平台上成功使用。早期购买者会享受较大的折扣，发售所得的BTC将完全用来支付开发者和研究者的工资和悬赏，以及投入密码学货币生态系统的项目。</li>
+<li>0.099x （x为发售总量）将被分配给BTC融资或其它的确定性融资成功之前参与开发的早期贡献者，另外一个0.099x将分配给长期研究项目。</li>
+<li>自上线时起每年都将有0.26x（x为发售总量）被矿工挖出。</li>
+</ul>
+<h3 id="发行分解" tabindex="-1"> 发行分解</h3>
+<p>永久线性增长模型降低了在比特币中出现的财富过于集中的风险，并且给予了活在当下和将来的人公平的机会去获取货币，同时保持了对获取和持有以太币的激励，因为长期来看“货币供应增长率”是趋于零的。我们还推断，随着时间流逝总会发生因为粗心和死亡等原因带来的币的遗失，假设币的遗失是每年货币供应量的一个固定比例，则最终总的流通中的货币供应量会稳定在一个等于年货币发行量除以遗失率的值上（例如，当遗失率为1%时，当供应量达到30x时，每年有0.3x被挖出同时有0.3x丢失，达到一个均衡）。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Group</th>
+<th style="text-align:left">At launch</th>
+<th style="text-align:left">After 1 year</th>
+<th style="text-align:left">After 5 years</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Currency units</td>
+<td style="text-align:left">1.198X</td>
+<td style="text-align:left">1.458X</td>
+<td style="text-align:left">2.498X</td>
+</tr>
+<tr>
+<td style="text-align:left">Purchasers</td>
+<td style="text-align:left">83.5%</td>
+<td style="text-align:left">68.6%</td>
+<td style="text-align:left">40.0%</td>
+</tr>
+<tr>
+<td style="text-align:left">Reserve spent pre-sale</td>
+<td style="text-align:left">8.26%</td>
+<td style="text-align:left">6.79%</td>
+<td style="text-align:left">3.96%</td>
+</tr>
+<tr>
+<td style="text-align:left">Reserve used post-sale</td>
+<td style="text-align:left">8.26%</td>
+<td style="text-align:left">6.79%</td>
+<td style="text-align:left">3.96%</td>
+</tr>
+<tr>
+<td style="text-align:left">Miners</td>
+<td style="text-align:left">0%</td>
+<td style="text-align:left">17.8%</td>
+<td style="text-align:left">52.0%</td>
+</tr>
+</tbody>
+</table>
+<p>除了线性的发行方式外，和比特币一样以太币的的供应量增长率长期来看也趋于零。</p>
+<p><img src="http://bitcoin8btc.qiniudn.com/wp-content/uploads/2014/10/supply.png" alt="img"></p>
+<h3 id="挖矿的中心化" tabindex="-1"> 挖矿的中心化</h3>
+<p>比特币挖矿算法基本上是让矿工千万次地轻微改动区块头，直到最终某个节点的改动版本的哈希小于目标值（目前是大约2190）。然而，这种挖矿算法容易被两种形式的中心化攻击。第一种，挖矿生态系统被专门设计的因而在比特币挖矿这一特殊任务上效率提高上千倍的ASICs（专用集成电路）和电脑芯片控制。这意味着比特币挖矿不再是高度去中心化的和追求平等主义的，而是需要巨额资本的有效参与。第二种，大部分比特币矿工事实上不再在本地完成区块验证；而是依赖中心化的矿池提供区块头。这个问题可以说很严重：在本文写作时，最大的两个矿池间接地控制了大约全网50%的算力，虽然当一个矿池或联合体尝试51%攻击时矿工可以转换到其它矿池这一事实减轻了问题的严重性。</p>
+<p>以太坊现在的目的是使用一个基于为每1000个随机数随机产生唯一哈希的函数的挖矿算法，用足够宽的计算域，去除专用硬件的优势。这样的策略当然不会使中心化的收益减少为零，但是也不需要。注意每单个用户使用他们的私人笔记本电脑或台式机就可以几乎免费地完成一定量的挖矿活动，但当到了100%的CPU使用率之后更多地挖矿就会需要他们支付电力和硬件成本。ASIC挖矿公司需要从第一个哈希开始就为电力和硬件支付成本。所以，如果中心化收益能够保持在(E + H) /E 以下，那么即使ASICs被制造出来普通矿工依然有生存空间。另外，我们计划将挖矿算法设计成挖矿需要访问整个区块链，迫使矿工存储完成的区块链或者至少能够验证每笔交易。这去除了对中心化矿池的需要；虽然矿池依然可以扮演平滑收益分配的随机性的角色，但这功能可以被没有中心化控制的P2P矿池完成地同样好。这样即使大部分普通用户依然倾向选择轻客户端，通过增加网络中的全节点数量也有助于抵御中心化。</p>
+<h3 id="扩展性" tabindex="-1"> 扩展性</h3>
+<p>扩展性问题是以太坊常被关注的地方，与比特币一样，以太坊也遭受着每个交易都需要网络中的每个节点处理这一困境的折磨。比特币的当前区块链大小约为20GB，以每小时1MB的速度增长。如果比特币网络处理Visa级的2000tps的交易，它将以每三秒1MB的速度增长（1GB每小时，8TB每年）。以太坊可能也会经历相似的甚至更糟的增长模式，因为在以太坊区块链之上还有很多应用，而不是像比特币只是简单的货币，但以太坊全节点只需存储状态而不是完整的区块链历史这一事实让情况得到了改善。</p>
+<p>大区块链的问题是中心化风险。如果块链大小增加至比如100TB，可能的场景将是只有非常小数目的大商家会运行全节点，而常规用户使用轻的SPV节点。这会增加对全节点合伙欺诈牟利（例如更改区块奖励，给他们自己BTC）的风险的担忧。轻节点将没有办法立刻检测到这种欺诈。当然，至少可能存在一个诚实的全节点，并且几个小时之后有关诈骗的信息会通过Reddit这样的渠道泄露，但这时已经太晚：任凭普通用户做出怎样的努力去废除已经产生的区块，他们都会遇到与发动一次成功的51%攻击同等规模的巨大的不可行的协调问题。在比特币这里，现在这是一个问题，但Peter Todd建议的一个改动可以缓解这个问题。</p>
+<p>近期，以太坊会使用两个附加的策略以应对此问题。首先，因为基于区块链的挖矿算法，至少每个矿工会被迫成为一个全节点，这保证了一定数量的全节点。其次，更重要的是，处理完每笔交易后，我们会把一个中间状态树的根包含进区块链。即使区块验证是中心化的，只要有一个诚实的验证节点存在，中心化的问题就可以通过一个验证协议避免。如果一个矿工发布了一个不正确的区块，这区块要么是格式错，要么状态S[n]是错的。因为S[0]是正确的，必然有第一个错误状态S[i]但S[i-1]是正确的，验证节点将提供索引i，一起提供的还有处理APPLY(S[i-1],TX[i]) -&gt; S[i]所需的帕特里夏树节点的子集。这些节点将受命进行这部分计算，看产生的S[i]与先前提供的值是否一致。</p>
+<p>另外，更复杂的是恶意矿工发布不完整区块进行攻击，造成没有足够的信息去确定区块是否正确。解决方案是质疑-回应协议：验证节点对目标交易索引发起质疑，接受到质疑信息的轻节点会对相应的区块取消信任，直到另外一个矿工或者验证者提供一个帕特里夏节点子集作为正确的证据。</p>
+<h2 id="综述-去中心化应用" tabindex="-1"> 综述：去中心化应用</h2>
+<p>上述合约机制使得任何一个人能够在一个虚拟机上建立通过全网共识来运行命令行应用（从根本上来说是），它能够更改一个全网可访问的状态作为它的“硬盘”。然而，对于多数人来说，用作交易发送机制的命令行接口缺乏足够的用户友好使得去中心化成为有吸引力的替代方案。最后，一个完整的“去中心化应用”应该包括底层的商业逻辑组件【无论是否在以太坊完整实施，使用以太坊和其它系统组合（如一个P2P消息层，其中一个正在计划放入以太坊客户端）或者仅有其它系统的方式】和上层的图形用户接口组件。以太坊客户端被设计成一个网络浏览器，但包括对“eth” Javascript API对象的支持，可被客户端里看到的特定的网页用来与以太坊区块链交互。从“传统”网页的角度看来，这些网页是完全静态的内容，因为区块链和其它去中心化协议将完全代替服务器来处理用户发起的请求。最后，去中心化协议有希望自己利用某种方式使用以太坊来存储网页。</p>
+<h2 id="结论" tabindex="-1"> 结论</h2>
+<p>以太坊协议最初是作为一个通过高度通用的语言提供如链上契约，提现限制和金融合约，赌博市场等高级功能的升级版密码学货币来构思的。以太坊协议将不直接“支持”任何应用，但图灵完备编程语言的存在意味着理论上任意的合约都可以为任何交易类型和应用创建出来。然而关于以太坊更有趣的是，以太坊协议比单纯的货币走得更远，围绕去中心化存储，去中心化计算和去中心化预测市场以及数十个类似概念建立的协议和去中心化应用，有潜力从根本上提升计算行业的效率，并通过首次添加经济层为其它的P2P协议提供有力支撑，最终，同样会有大批与金钱毫无关系的应用出现。</p>
+<p>以太坊协议实现的任意状态转换概念提供了一个具有独特潜力的平台；与封闭式的，为诸如数据存储，赌博或金融等单一目的设计的协议不同，以太坊从设计上是开放式的，并且我们相信它极其适合作为基础层服务于在将来的年份里出现的极其大量的金融和非金融协议。</p>
+<h2 id="注解与进阶阅读" tabindex="-1"> 注解与进阶阅读</h2>
+<h3 id="注解" tabindex="-1"> 注解</h3>
+<p>1.一个有经验的读者会注意到事实上比特币地址是椭圆曲线公钥的哈希，而非公钥本身，然而事实上从密码学术语角度把公钥哈希称为公钥完全合理。这是因为比特币密码学可以被认为是一个定制的数字签名算法，公钥由椭圆曲线公钥的哈希组成，签名由椭圆曲线签名连接的椭圆曲线公钥组成，而验证算法包括用作为公钥提供的椭圆曲线公钥哈希来检查椭圆曲线公钥，以及之后的用椭圆曲线公钥来验证椭圆曲线签名。</p>
+<p>2.技术上来说，前11个区块的中值。</p>
+<p>3.在内部，2和“CHARLIE”都是数字，后一个有巨大的base256编码格式，数字可以从0到2^256-1。</p>
+<h3 id="进阶阅读" tabindex="-1"> 进阶阅读</h3>
+<ol>
+<li>Intrinsic value: <a href="https://tinyurl.com/BitcoinMag-IntrinsicValue" target="_blank" rel="noopener noreferrer">https://tinyurl.com/BitcoinMag-IntrinsicValue</a></li>
+<li>Smart property: <a href="https://en.bitcoin.it/wiki/Smart_Property" target="_blank" rel="noopener noreferrer">https://en.bitcoin.it/wiki/Smart_Property</a></li>
+<li>Smart contracts: <a href="https://en.bitcoin.it/wiki/Contracts" target="_blank" rel="noopener noreferrer">https://en.bitcoin.it/wiki/Contracts</a></li>
+<li>B-money: <a href="http://www.weidai.com/bmoney.txt" target="_blank" rel="noopener noreferrer">http://www.weidai.com/bmoney.txt</a></li>
+<li>Reusable proofs of work: <a href="http://www.finney.org/~hal/rpow/" target="_blank" rel="noopener noreferrer">http://www.finney.org/~hal/rpow/</a></li>
+<li>Secure property titles with owner authority: <a href="http://szabo.best.vwh.net/securetitle.html" target="_blank" rel="noopener noreferrer">http://szabo.best.vwh.net/securetitle.html</a></li>
+<li>Bitcoin whitepaper: <a href="http://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener noreferrer">http://bitcoin.org/bitcoin.pdf</a></li>
+<li>Namecoin: <a href="https://namecoin.org/" target="_blank" rel="noopener noreferrer">https://namecoin.org/</a></li>
+<li>Zooko’s triangle: <a href="http://en.wikipedia.org/wiki/Zooko%E2%80%99s_triangle" target="_blank" rel="noopener noreferrer">http://en.wikipedia.org/wiki/Zooko’s_triangle</a></li>
+<li>Colored coins whitepaper: <a href="https://tinyurl.com/coloredcoin-whitepaper" target="_blank" rel="noopener noreferrer">https://tinyurl.com/coloredcoin-whitepaper</a></li>
+<li>Mastercoin whitepaper: <a href="https://github.com/mastercoin-MSC/spec" target="_blank" rel="noopener noreferrer">https://github.com/mastercoin-MSC/spec</a></li>
+<li>Decentralized autonomous corporations, Bitcoin Magazine: <a href="https://tinyurl.com/Bootstrapping-DACs" target="_blank" rel="noopener noreferrer">https://tinyurl.com/Bootstrapping-DACs</a></li>
+<li>Simplified payment verification:<a href="https://en.bitcoin.it/wiki/Scalability#Simplifiedpaymentverification" target="_blank" rel="noopener noreferrer">https://en.bitcoin.it/wiki/Scalability#Simplifiedpaymentverification</a></li>
+<li>Merkle trees: <a href="http://en.wikipedia.org/wiki/Merkle_tree" target="_blank" rel="noopener noreferrer">http://en.wikipedia.org/wiki/Merkle_tree</a></li>
+<li>Patricia trees: <a href="http://en.wikipedia.org/wiki/Patricia_tree" target="_blank" rel="noopener noreferrer">http://en.wikipedia.org/wiki/Patricia_tree</a></li>
+<li>GHOST: <a href="http://www.cs.huji.ac.il/~avivz/pubs/13/btc_scalability_full.pdf" target="_blank" rel="noopener noreferrer">http://www.cs.huji.ac.il/~avivz/pubs/13/btc_scalability_full.pdf</a></li>
+<li>StorJ and Autonomous Agents, Jeff Garzik: <a href="https://tinyurl.com/storj-agents" target="_blank" rel="noopener noreferrer">https://tinyurl.com/storj-agents</a></li>
+<li>Mike Hearn on Smart Property at Turing Festival: <a href="http://www.youtube.com/watch?v=Pu4PAMFPo5Y" target="_blank" rel="noopener noreferrer">http://www.youtube.com/watch?v=Pu4PAMFPo5Y</a></li>
+<li>Ethereum RLP: <a href="https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-RLP" target="_blank" rel="noopener noreferrer">https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-RLP</a></li>
+<li>Ethereum Merkle Patricia trees: <a href="https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-Patricia-Tree" target="_blank" rel="noopener noreferrer">https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-Patricia-Tree</a></li>
+<li>Peter Todd on Merkle sum trees:<a href="http://sourceforge.net/p/bitcoin/mailman/message/31709140/" target="_blank" rel="noopener noreferrer">http://sourceforge.net/p/bitcoin/mailman/message/31709140/</a></li>
+</ol>
 ]]></content:encoded>
-      <enclosure url="https://tva1.sinaimg.cn/large/008eGmZEgy1gna2p4ti6pj31c00u0ahv.jpg" type="image/jpeg"/>
+      <enclosure url="http://upyun-assets.ethfans.org/uploads/photo/image/ed77a88675204904984a696a55e2254e.png" type="image/png"/>
     </item>
     <item>
-      <title>浅谈共识算法|Paxos算法</title>
-      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/5.Paxos.html</link>
-      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/5.Paxos.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法|Paxos算法</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
-      <category>区块链</category>
-      <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
-      <content:encoded><![CDATA[<blockquote>
-<p>配合以下代码进行阅读：&lt; /&gt;</p>
-<p>写文不易，给个小关注，有什么问题可以指出，便于大家交流学习。</p>
-</blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnuvfqrojoj312w0m8119.jpg" alt="b9a24d7b935c61ba4555b1ddc8159413"></p>
-<h2 id="paxos是什么" tabindex="-1"> Paxos是什么</h2>
-<blockquote>
-<p>Paxos算法是基于<strong>消息传递</strong>且具有<strong>高度容错特性</strong>的<strong>一致性算法</strong>，是目前公认的解决<strong>分布式一致性</strong>问题<strong>最有效</strong>的算法之一。</p>
-</blockquote>
-<p><code>Paxos</code>由<code>Lamport</code>于1998年在《The Part-Time Parliament》论文中首次公开，最初的描述使用希腊的一个小岛<code>Paxos</code>作为比喻，描述了<code>Paxos</code>小岛中通过决议的流程，并以此命名这个算法，但是这个描述理解起来比较有挑战性。后来在2001年，<code>Lamport</code>觉得同行不能理解他的幽默感，于是重新发表了朴实的算法描述版本《Paxos Made Simple》。</p>
-<p>自<code>Paxos</code>问世以来就持续垄断了分布式一致性算法，<code>Paxos</code>这个名词几乎等同于分布式一致性。<code>Google</code>的很多大型分布式系统都采用了<code>Paxos</code>算法来解决分布式一致性问题。</p>
-<h2 id="paxos相关概念" tabindex="-1"> Paxos相关概念</h2>
-<p>Paxos算法运行在允许宕机故障的异步系统中，不要求可靠的消息传递，可容忍消息丢失、延迟、乱序以及重复。它利用大多数 (Majority) 机制保证了2F+1的容错能力，即<strong>2F+1</strong>个节点的系统最多允许<strong>F</strong>个节点同时出现故障。</p>
-<p>一个或多个提议进程 (Proposer) 可以发起提案 (Proposal)，Paxos算法使所有提案中的某一个提案，在所有进程中达成一致。系统中的多数派同时认可该提案，即达成了一致。最多只针对一个确定的提案达成一致。</p>
-<p>Paxos将系统中的角色分为提议者 (Proposer)，决策者 (Acceptor)，和最终决策学习者 (Learner):</p>
-<ul>
-<li><strong>Proposer</strong>: 提出提案 (Proposal)。Proposal信息包括提案编号 (Proposal ID) 和提议的值 (Value)。</li>
-<li><strong>Acceptor</strong>：参与决策，回应Proposers的提案。收到Proposal后可以接受提案，若Proposal获得多数Acceptors的接受，则称该Proposal被批准。</li>
-<li><strong>Learner</strong>：不参与决策，从Proposers/Acceptors学习最新达成一致的提案（Value）。</li>
-</ul>
-<p>在多副本状态机中，每个副本同时具有Proposer、Acceptor、Learner三种角色。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnuydua826j31gg0i6q5j.jpg" alt="image-20210221103652296"></p>
-<h2 id="paxos算法流程" tabindex="-1"> paxos算法流程</h2>
-<p>Paxos算法通过一个决议分为两个阶段（Learn阶段之前决议已经形成）：</p>
-<ol>
-<li>第一阶段：Prepare阶段。Proposer向Acceptors发出Prepare请求，Acceptors针对收到的Prepare请求进行Promise承诺。</li>
-<li>第二阶段：Accept阶段。Proposer收到多数Acceptors承诺的Promise后，向Acceptors发出Propose请求，Acceptors针对收到的Propose请求进行Accept处理。</li>
-<li>第三阶段：Learn阶段。Proposer在收到多数Acceptors的Accept之后，标志着本次Accept成功，决议形成，将形成的决议发送给所有Learners。</li>
-</ol>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnuyoi6keij318e0isady.jpg" alt="image-20210221104706981"></p>
-<p>Paxos算法流程中的每条消息描述如下：</p>
-<ul>
-<li><strong>Prepare</strong>: Proposer生成全局唯一且递增的Proposal ID (可使用时间戳加Server ID)，向所有Acceptors发送Prepare请求，这里无需携带提案内容，只携带Proposal ID即可。</li>
-<li><strong>Promise</strong>: Acceptors收到Prepare请求后，做出“两个承诺，一个应答”。</li>
-</ul>
-<p><strong>两个承诺：</strong></p>
-<ol>
-<li>
-<p>不再接受Proposal ID小于等于（注意：这里是&lt;= ）当前请求的Prepare请求。</p>
-</li>
-<li>
-<p>不再接受Proposal ID小于（注意：这里是&lt; ）当前请求的Propose请求。</p>
-</li>
-</ol>
-<p><strong>一个应答：</strong></p>
-<p>不违背以前作出的承诺下，回复已经Accept过的提案中Proposal ID最大的那个提案的Value和Proposal ID，没有则返回空值。</p>
-<ul>
-<li><strong>Propose</strong>: Proposer 收到多数Acceptors的Promise应答后，从应答中选择Proposal ID最大的提案的Value，作为本次要发起的提案。如果所有应答的提案Value均为空值，则可以自己随意决定提案Value。然后携带当前Proposal ID，向所有Acceptors发送Propose请求。</li>
-<li><strong>Accept</strong>: Acceptor收到Propose请求后，在不违背自己之前作出的承诺下，接受并持久化当前Proposal ID和提案Value。</li>
-<li><strong>Learn</strong>: Proposer收到多数Acceptors的Accept后，决议形成，将形成的决议发送给所有Learners。</li>
-</ul>
-<p>伪代码流程如下：</p>
-<ol>
-<li>获取一个Proposal ID n，为了<strong>保证Proposal ID唯一</strong>，可采用时间戳+Server ID生成；</li>
-<li>Proposer向所有Acceptors广播Prepare(n)请求；</li>
-<li>Acceptor比较n和minProposal，如果n&gt;minProposal，minProposal=n，并且将 acceptedProposal 和 acceptedValue 返回；</li>
-<li>Proposer接收到过半数回复后，如果发现有acceptedValue返回，将所有回复中acceptedProposal最大的acceptedValue作为本次提案的value，否则可以任意决定本次提案的value；</li>
-<li>到这里可以进入第二阶段，广播Accept (n,value) 到所有节点；</li>
-<li>Acceptor比较n和minProposal，如果n&gt;=minProposal，则acceptedProposal=minProposal=n，acceptedValue=value，本地持久化后，返回；否则，返回minProposal。</li>
-<li>提议者接收到过半数请求后，如果发现有返回值result &gt;n，表示有更新的提议，跳转到1；否则value达成一致。</li>
-</ol>
-<h2 id="案例分析" tabindex="-1"> 案例分析</h2>
-<p><strong>案例①：</strong></p>
-<p>图中P代表Prepare阶段，A代表Accept阶段。3.1代表Proposal ID为3.1，其中3为时间戳，1为Server ID。X和Y代表提议Value。</p>
-<p>实例1中P 3.1达成多数派，其Value(X)被Accept，然后P 4.5学习到Value(X)，并Accept。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv264l27aj31ce0l4jy9.jpg" alt="image-20210221124740017"></p>
-<p><strong>案例②：</strong></p>
-<p>实例2中P 3.1没有被多数派Accept（只有S3 Accept），但是被P 4.5学习到，P 4.5将自己的Value由Y替换为X，Accept（X）。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv283ux5xj31bi0gydkn.jpg" alt="image-20210221124945254"></p>
-<p><strong>案例③：</strong></p>
-<p>实例3中P 3.1没有被多数派Accept（只有S1 Accept），同时也没有被P 4.5学习到。由于P 4.5 Propose的所有应答，均未返回Value，则P 4.5可以Accept自己的Value (Y)。后续P 3.1的Accept (X) 会失败，已经Accept的S1，会被覆盖。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv28vsafmj318q0fsjw8.jpg" alt="image-20210221125030450"></p>
-<p>Paxos算法可能形成活锁而永远不会结束，如下图实例所示：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv29ol30oj319y0fyafm.jpg" alt="image-20210221125102677"></p>
-<p>回顾两个承诺之一，Acceptor不再应答Proposal ID小于等于当前请求的Prepare请求。意味着需要应答Proposal ID大于当前请求的Prepare请求。</p>
-<p>两个Proposers交替Prepare成功，而Accept失败，形成活锁（Livelock）。</p>
-<h2 id="multi-paxos算法" tabindex="-1"> Multi-Paxos算法</h2>
-<p>原始的Paxos算法（Basic Paxos）<strong>只能对一个值形成决议</strong>，决议的形成至少需要两次网络来回，在高并发情况下可能需要更多的网络来回，极端情况下甚至可能形成活锁。如果想连续确定多个值，Basic Paxos搞不定了。因此Basic Paxos几乎只是用来做理论研究，并不直接应用在实际工程中。</p>
-<p><strong>实际应用中几乎都需要连续确定多个值，而且希望能有更高的效率。Multi-Paxos正是为解决此问题而提出</strong>。Multi-Paxos基于Basic Paxos做了两点改进：</p>
-<ol>
-<li>针对每一个要确定的值，运行一次Paxos算法实例（Instance），形成决议。每一个Paxos实例使用唯一的Instance ID标识。</li>
-<li>在所有Proposers中选举一个Leader，由Leader唯一地提交Proposal给Acceptors进行表决。这样<strong>没有Proposer竞争</strong>，解决了活锁问题。在系统中仅有一个Leader进行Value提交的情况下，Prepare阶段就可以跳过，从而将两阶段变为一阶段，提高效率。</li>
-</ol>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv2e0hvd4j31bs0i00wn.jpg" alt="image-20210221125526065"></p>
-<p>Multi-Paxos首先需要选举Leader，Leader的确定也是一次决议的形成，所以可执行一次Basic Paxos实例来选举出一个Leader。选出Leader之后只能由Leader提交Proposal，在Leader宕机之后服务临时不可用，需要重新选举Leader继续服务。在系统中仅有一个Leader进行Proposal提交的情况下，Prepare阶段可以跳过。</p>
-<p>Multi-Paxos通过改变Prepare阶段的作用范围至后面Leader提交的所有实例，从而使得Leader的连续提交只需要执行一次Prepare阶段，后续只需要执行Accept阶段，将两阶段变为一阶段，提高了效率。为了区分连续提交的多个实例，每个实例使用一个Instance ID标识，Instance ID由Leader本地递增生成即可。</p>
-<p>Multi-Paxos允许有多个自认为是Leader的节点并发提交Proposal而不影响其安全性，这样的场景即退化为Basic Paxos。</p>
-<h2 id="paxos推导过程" tabindex="-1"> Paxos推导过程</h2>
-<h2 id="只有一个acceptor" tabindex="-1"> 只有一个Acceptor</h2>
-<p>假设只有一个Acceptor（可以有多个Proposer），只要Acceptor接受它收到的第一个提案，则该提案被选定，该提案里的value就是被选定的value。这样就保证只有一个value会被选定。</p>
-<p>但是，如果这个唯一的Acceptor宕机了，那么整个系统就<strong>无法工作</strong>了！</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv2lac3xej313w0gowge.jpg" alt="image-20210221130224968"></p>
-<h2 id="多个acceptor" tabindex="-1"> 多个Acceptor</h2>
-<p>多个<code>Acceptor</code>需要保证在多个<code>Proposer</code>和多个<code>Acceptor</code>的情况下选定一个<code>value</code>。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv2q6ctcqj31b80i8415.jpg" alt="image-20210221130706677"></p>
-<p>如果我们希望即使只有一个Proposer提出了一个value，该value也最终被选定。</p>
-<p>那么，就得到下面的约束：</p>
-<blockquote>
-<p>P1：一个Acceptor必须接受它收到的第一个提案。</p>
-</blockquote>
-<p>但是，这又会引出另一个问题：如果每个Proposer分别提出不同的value，发给不同的Acceptor。根据P1，Acceptor分别接受自己收到的value，就导致不同的value被选定。出现了不一致。如下图：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv30tvh7ij31dy0pcju7.jpg" alt="image-20210221131721430"></p>
-<p>刚刚是因为『一个提案只要被一个Acceptor接受，则该提案的value就被选定了』才导致了出现上面不一致的问题。因此，我们需要加一个规定：</p>
-<blockquote>
-<p>规定：一个提案被选定需要被<strong>半数以上</strong>的Acceptor接受</p>
-</blockquote>
-<p>这个规定又暗示了：『一个Acceptor必须能够接受不止一个提案！』不然可能导致最终没有value被选定。比如上图的情况。v1、v2、v3都没有被选定，因为它们都只被一个Acceptor的接受。</p>
-<p>最开始讲的『<strong>提案=value</strong>』已经不能满足需求了，于是重新设计提案，给每个提案加上一个提案编号，表示提案被提出的顺序。令『<strong>提案=提案编号+value</strong>』。</p>
-<p>虽然允许多个提案被选定，但必须保证所有被选定的提案都具有相同的value值。否则又会出现不一致。</p>
-<p>于是有了下面的约束：</p>
-<blockquote>
-<p>P2：如果某个value为v的提案被选定了，那么每个编号更高的被选定提案的value必须也是v。</p>
-</blockquote>
-<p>一个提案只有被Acceptor接受才可能被选定，因此我们可以把P2约束改写成对Acceptor接受的提案的约束P2a。</p>
-<blockquote>
-<p>P2a：如果某个value为v的提案被选定了，那么每个编号更高的被Acceptor接受的提案的value必须也是v。</p>
-</blockquote>
-<p>只要满足了P2a，就能满足P2。</p>
-<p>但是，考虑如下的情况：假设总的有5个Acceptor。Proposer2提出[M1,V1]的提案，Acceptor25（半数以上）均接受了该提案，于是对于Acceptor25和Proposer2来讲，它们都认为V1被选定。Acceptor1刚刚从宕机状态恢复过来（之前Acceptor1没有收到过任何提案），此时Proposer1向Acceptor1发送了[M2,V2]的提案（V2≠V1且M2&gt;M1），对于Acceptor1来讲，这是它收到的第一个提案。根据P1（一个Acceptor必须接受它收到的第一个提案。）,Acceptor1必须接受该提案！同时Acceptor1认为V2被选定。这就出现了两个问题：</p>
-<ol>
-<li>Acceptor1认为V2被选定，Acceptor2~5和Proposer2认为V1被选定。出现了不一致。</li>
-<li>V1被选定了，但是编号更高的被Acceptor1接受的提案[M2,V2]的value为V2，且V2≠V1。这就跟P2a（如果某个value为v的提案被选定了，那么每个编号更高的被Acceptor接受的提案的value必须也是v）矛盾了。</li>
-</ol>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv3f3co1cj31gs0pk77y.jpg" alt="image-20210221133102803"></p>
-<p>P2a是对Acceptor接受的提案约束，但其实提案是Proposer提出来的，所有我们可以对Proposer提出的提案进行约束。得到P2b：</p>
-<blockquote>
-<p>P2b：如果某个value为v的提案被选定了，那么之后任何Proposer提出的编号更高的提案的value必须也是v。</p>
-</blockquote>
-<p>由P2b可以推出P2a进而推出P2。</p>
-<p>那么，如何确保在某个value为v的提案被选定后，Proposer提出的编号更高的提案的value都是v呢？</p>
-<p>只要满足P2c即可：</p>
-<blockquote>
-<p>P2c：对于任意的N和V，如果提案[N, V]被提出，那么存在一个半数以上的Acceptor组成的集合S，满足以下两个条件中的任意一个：</p>
-</blockquote>
-<ul>
-<li>S中每个Acceptor都没有接受过编号小于N的提案。</li>
-<li>S中Acceptor接受过的最大编号的提案的value为V。</li>
-</ul>
-<h2 id="proposer生成提案" tabindex="-1"> Proposer生成提案</h2>
-<p>为了满足P2b，这里有个比较重要的思想：Proposer生成提案之前，应该先去**『学习』<strong>已经被选定或者可能被选定的value，然后以该value作为自己提出的提案的value。如果没有value被选定，Proposer才可以自己决定value的值。这样才能达成一致。这个学习的阶段是通过一个</strong>『Prepare请求』**实现的。</p>
-<p>于是我们得到了如下的<strong>提案生成算法</strong>：</p>
-<ol>
-<li>
-<p>Proposer选择一个<strong>新的提案编号N</strong>，然后向<strong>某个Acceptor集合</strong>（半数以上）发送请求，要求该集合中的每个Acceptor做出如下响应（response）。
-(a) 向Proposer承诺保证<strong>不再接受</strong>任何编号<strong>小于N的提案</strong>。
-(b) 如果Acceptor已经接受过提案，那么就向Proposer响应<strong>已经接受过</strong>的编号小于N的<strong>最大编号的提案</strong>。</p>
-<p>我们将该请求称为<strong>编号为N</strong>的<strong>Prepare请求</strong>。</p>
-</li>
-<li>
-<p>如果Proposer收到了<strong>半数以上</strong>的Acceptor的<strong>响应</strong>，那么它就可以生成编号为N，Value为V的<strong>提案[N,V]</strong>。这里的V是所有的响应中<strong>编号最大的提案的Value</strong>。如果所有的响应中<strong>都没有提案</strong>，那 么此时V就可以由Proposer<strong>自己选择</strong>。
-生成提案后，Proposer将该<strong>提案</strong>发送给<strong>半数以上</strong>的Acceptor集合，并期望这些Acceptor能接受该提案。我们称该请求为<strong>Accept请求</strong>。（注意：此时接受Accept请求的Acceptor集合<strong>不一定</strong>是之前响应Prepare请求的Acceptor集合）</p>
-</li>
-</ol>
-<h2 id="为什么需要-propose-阶段" tabindex="-1"> 为什么需要 Propose 阶段</h2>
-<p>因为对 paxos 来说，是假定一个集群中会有多个paxos instance（也就是多个提案）同时存在竞争的（并发冲突）。那么 propose 阶段就是选择出需要进行投票的paxos instance。如果能够保证只有一个paxos instance，那么就无需 propose 阶段了，直接进行accept即可。所以对于multi-paxos中，存在一个leader，可以控制每个时刻只有一个paxos instance在集群中，所以不需要propose阶段，只需要执行accept阶段即可。</p>
-<p>这里就相当于一个add 1 的paxos instance，一个 delete key 的paxos instance。只有当整个集群指定的 paxos instance 的顺序是相同的，也就是，也就是每个节点都是先add 1，然后在 delete key，或者先delete key，再add 1，最后的数据才会一致。它本质上解决的就是有多个议案的情况下， 达成一个一致的议案，例如，一群人决定聚餐，有想吃鱼的，想吃火锅的，这样多个决议进行 paxos 提案投票，就会得到一个一致的聚餐结果。如果没有多个决议，只有一个决议，那就不会冲突，直接accept投票即可。</p>
-<h3 id="paxos-propose-的意义" tabindex="-1"> Paxos Propose 的意义</h3>
-<ol>
-<li><strong>Block old proposals</strong></li>
-<li><strong>Find out about (possibly) accepted values</strong></li>
-</ol>
-<h2 id="acceptor接受提案" tabindex="-1"> Acceptor接受提案</h2>
-<p>Acceptor<strong>可以忽略任何请求</strong>（包括Prepare请求和Accept请求）而不用担心破坏算法的<strong>安全性</strong>。因此，我们这里要讨论的是什么时候Acceptor可以响应一个请求。</p>
-<p>我们对Acceptor接受提案给出如下约束：</p>
-<blockquote>
-<p>P1a：一个Acceptor只要尚<strong>未响应过</strong>任何<strong>编号大于N</strong>的<strong>Prepare请求</strong>，那么他就可以<strong>接受</strong>这个<strong>编号为N的提案</strong>。</p>
-</blockquote>
-<p>如果Acceptor收到一个编号为N的Prepare请求，在此之前它已经响应过编号大于N的Prepare请求。根据P1a，该Acceptor不可能接受编号为N的提案。因此，该Acceptor可以忽略编号为N的Prepare请求。当然，也可以回复一个error，让Proposer尽早知道自己的提案不会被接受。</p>
-<p>因此，一个Acceptor<strong>只需记住</strong>：1. 已接受的编号最大的提案 2. 已响应的请求的最大编号。</p>
-<hr>
-<h2 id="参考" tabindex="-1"> 参考</h2>
-<blockquote>
-<p>&lt; &gt;</p>
-<p>公号：Abel sun</p>
-<p><a href="http://zh.wikipedia.org/zh-cn/Paxos%E7%AE%97%E6%B3%95" target="_blank" rel="noopener noreferrer">http://zh.wikipedia.org/zh-cn/Paxos%E7%AE%97%E6%B3%95</a></p>
-<p><a href="https://www.cnblogs.com/linbingdong/p/6253479.html" target="_blank" rel="noopener noreferrer">https://www.cnblogs.com/linbingdong/p/6253479.html</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/31780743" target="_blank" rel="noopener noreferrer">https://zhuanlan.zhihu.com/p/31780743</a></p>
-<p><a href="https://www.jianshu.com/go-wild?ac=2&amp;url=https%3A%2F%2Fblog.csdn.net%2Fsparkliang%2Farticle%2Fdetails%2F5740882" target="_blank" rel="noopener noreferrer">https://www.jianshu.com/go-wild?ac=2&amp;url=https%3A%2F%2Fblog.csdn.net%2Fsparkliang%2Farticle%2Fdetails%2F5740882</a></p>
-<p><a href="https://www.jianshu.com/go-wild?ac=2&amp;url=http%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fum%2Fpeople%2Flamport%2Fpubs%2Fpaxos-simple.pdf" target="_blank" rel="noopener noreferrer">https://www.jianshu.com/go-wild?ac=2&amp;url=http%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fum%2Fpeople%2Flamport%2Fpubs%2Fpaxos-simple.pdf</a></p>
-<p><a href="https://www.jianshu.com/go-wild?ac=2&amp;url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FPaxos_%28computer_science%29" target="_blank" rel="noopener noreferrer">https://www.jianshu.com/go-wild?ac=2&amp;url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FPaxos_(computer_science)</a></p>
-<p><a href="https://www.jianshu.com/p/06a477a576bf" target="_blank" rel="noopener noreferrer">https://www.jianshu.com/p/06a477a576bf</a></p>
-</blockquote>
-]]></content:encoded>
-      <enclosure url="https://tva1.sinaimg.cn/large/008eGmZEgy1gnuvfqrojoj312w0m8119.jpg" type="image/jpeg"/>
+      <title>主流区块链研究</title>
+      <link>https://bytecodes.tech/blockchain/Male_chain_research/</link>
+      <guid>https://bytecodes.tech/blockchain/Male_chain_research/</guid>
+      <source url="https://bytecodes.tech/rss.xml">主流区块链研究</source>
+      <category>区块链学习</category>
+      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
     </item>
     <item>
-      <title>浅谈共识算法|Raft算法</title>
-      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/6.Raft.html</link>
-      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/6.Raft.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法|Raft算法</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
+      <title>浅谈libp2p网络之mdns</title>
+      <link>https://bytecodes.tech/blockchain/component/Introduction_to_libp2p_MDNS_network.html</link>
+      <guid>https://bytecodes.tech/blockchain/component/Introduction_to_libp2p_MDNS_network.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">浅谈libp2p网络之mdns</source>
+      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书</description>
       <category>区块链</category>
-      <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
-      <content:encoded><![CDATA[<blockquote>
-<p>浅谈共识算法|Raft算法</p>
-<p>配合以下代码进行阅读：&lt; /&gt;</p>
-<p>写文不易，给个小关注，有什么问题可以指出，便于大家交流学习。</p>
-</blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv4oqutq9j311x0lcwgh.jpg" alt="a01214b9197eecac0e30d703597788f0"></p>
-<hr>
-<h2 id="raft算法概述" tabindex="-1"> Raft算法概述</h2>
-<p>不同于Paxos算法直接从分布式一致性问题出发推导出来，Raft算法则是从多副本状态机的角度提出，用于管理多副本状态机的日志复制。Raft实现了和Paxos相同的功能，它将一致性分解为多个子问题：Leader选举（Leader election）、日志同步（Log replication）、安全性（Safety）、日志压缩（Log compaction）、成员变更（Membership change）等。同时，Raft算法使用了更强的假设来减少了需要考虑的状态，使之变的易于理解和实现。</p>
-<h2 id="raft算法角色" tabindex="-1"> Raft算法角色</h2>
-<p>Raft将系统中的角色分为领导者（Leader）、跟从者（Follower）和候选人（Candidate）：</p>
-<ul>
-<li><strong>Leader</strong>：接受客户端请求，并向Follower同步请求日志，当日志同步到大多数节点上后告诉Follower提交日志。</li>
-<li><strong>Follower</strong>：接受并持久化Leader同步的日志，在Leader告之日志可以提交之后，提交日志。</li>
-<li><strong>Candidate</strong>：Leader选举过程中的临时角色。</li>
-</ul>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv5fibnnwj31bc0jgq4d.jpg" alt="image-20210221144024734"></p>
-<p>Raft要求系统在任意时刻最多只有一个Leader，正常工作期间只有Leader和Followers。</p>
-<p>Raft算法角色状态转换如下：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv77wcjjrj31fy0i8akh.jpg" alt="image-20210221154232947"></p>
-<p>Follower只响应其他服务器的请求。如果Follower超时没有收到Leader的消息，它会成为一个Candidate并且开始一次Leader选举。收到大多数服务器投票的Candidate会成为新的Leader。Leader在宕机之前会一直保持Leader的状态。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv79etskij31c40f4ad7.jpg" alt="image-20210221154400705"></p>
-<p>Raft算法将时间分为一个个的任期（term），每一个term的开始都是Leader选举。在成功选举Leader之后，Leader会在整个term内管理整个集群。如果Leader选举失败，该term就会因为没有Leader而结束。</p>
-<h2 id="leader选举" tabindex="-1"> Leader选举</h2>
-<p>Raft 使用心跳（heartbeat）触发Leader选举。当服务器启动时，初始化为Follower。Leader向所有Followers周期性发送heartbeat。如果Follower在选举超时时间内没有收到Leader的heartbeat，就会等待一段随机的时间后发起一次Leader选举。</p>
-<p>Follower将其当前term加一然后转换为Candidate。它首先给自己投票并且给集群中的其他服务器发送 RequestVote RPC 。结果有以下三种情况：</p>
-<ul>
-<li>赢得了多数的选票，成功选举为Leader；</li>
-<li>收到了Leader的消息，表示有其它服务器已经抢先当选了Leader；</li>
-<li>没有服务器赢得多数的选票，Leader选举失败，等待选举时间超时后发起下一次选举。</li>
-</ul>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7bruxirj30xi0u0jsy.jpg" alt="v2-0471619d1b78ba6d57326d97825d9495_r"></p>
-<p>选举出<code>Leader</code>后，<code>Leader</code>通过定期向所有<code>Followers</code>发送心跳信息维持其统治。若<code>Follower</code>一段时间未收到Leader的心跳则认为<code>Leader</code>可能已经挂了，再次发起<code>Leader</code>选举过程。</p>
-<p><code>Raft</code>保证选举出的<code>Leader</code>上一定具有最新的已提交的日志。</p>
-<h2 id="日志同步" tabindex="-1"> 日志同步</h2>
-<p>Leader选出后，就开始接收客户端的请求。Leader把请求作为日志条目（Log entries）加入到它的日志中，然后并行的向其他服务器发起 AppendEntries RPC （RPC细节参见八、Raft算法总结）复制日志条目。当这条日志被复制到大多数服务器上，Leader将这条日志应用到它的状态机并向客户端返回执行结果。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7dki1f3j31e60p6tfm.jpg" alt="image-20210221154800173"></p>
-<p>某些Followers可能没有成功的复制日志，Leader会无限的重试 AppendEntries RPC直到所有的Followers最终存储了所有的日志条目。</p>
-<p>日志由有序编号（log index）的日志条目组成。每个日志条目包含它被创建时的任期号（term），和用于状态机执行的命令。如果一个日志条目被复制到大多数服务器上，就被认为可以提交（commit）了。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7e5yoruj31h00skqm1.jpg" alt="image-20210221154824325"></p>
-<p>Raft日志同步保证如下两点：</p>
-<ul>
-<li>如果不同日志中的两个条目有着相同的索引和任期号，则它们所存储的命令是相同的。</li>
-<li>如果不同日志中的两个条目有着相同的索引和任期号，则它们之前的所有条目都是完全一样的。</li>
-</ul>
-<p>第一条特性源于Leader在一个term内在给定的一个log index最多创建一条日志条目，同时该条目在日志中的位置也从来不会改变。</p>
-<p>第二条特性源于 AppendEntries 的一个简单的一致性检查。当发送一个 AppendEntries RPC 时，Leader会把新日志条目紧接着之前的条目的log index和term都包含在里面。如果Follower没有在它的日志中找到log index和term都相同的日志，它就会拒绝新的日志条目。</p>
-<p>一般情况下，Leader和Followers的日志保持一致，因此 AppendEntries 一致性检查通常不会失败。然而，Leader崩溃可能会导致日志不一致：旧的Leader可能没有完全复制完日志中的所有条目。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7ejhdj4j31fu0p64fl.jpg" alt="image-20210221154856229"></p>
-<p>上图阐述了一些Followers可能和新的Leader日志不同的情况。一个Follower可能会丢失掉Leader上的一些条目，也有可能包含一些Leader没有的条目，也有可能两者都会发生。丢失的或者多出来的条目可能会持续多个任期。</p>
-<p>Leader通过强制Followers复制它的日志来处理日志的不一致，Followers上的不一致的日志会被Leader的日志覆盖。</p>
-<p>Leader为了使Followers的日志同自己的一致，Leader需要找到Followers同它的日志一致的地方，然后覆盖Followers在该位置之后的条目。</p>
-<p>Leader会从后往前试，每次AppendEntries失败后尝试前一个日志条目，直到成功找到每个Follower的日志一致位点，然后向后逐条覆盖Followers在该位置之后的条目。</p>
-<h2 id="安全性" tabindex="-1"> 安全性</h2>
-<p>Raft增加了如下两条限制以保证安全性：</p>
-<ul>
-<li>拥有最新的已提交的log entry的Follower才有资格成为Leader。</li>
-</ul>
-<p>这个保证是在RequestVote RPC中做的，Candidate在发送RequestVote RPC时，要带上自己的最后一条日志的term和log index，其他节点收到消息时，如果发现自己的日志比请求中携带的更新，则拒绝投票。日志比较的原则是，如果本地的最后一条log entry的term更大，则term大的更新，如果term一样大，则log index更大的更新。</p>
-<ul>
-<li>Leader只能推进commit index来提交当前term的已经复制到大多数服务器上的日志，旧term日志的提交要等到提交当前term的日志来间接提交（log index 小于 commit index的日志被间接提交）。</li>
-</ul>
-<p>之所以要这样，是因为可能会出现已提交的日志又被覆盖的情况：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7fah4fcj318k0kaar3.jpg" alt="image-20210221154938685"></p>
-<p>在阶段a，term为2，S1是Leader，且S1写入日志（term, index）为(2, 2)，并且日志被同步写入了S2；</p>
-<p>在阶段b，S1离线，触发一次新的选主，此时S5被选为新的Leader，此时系统term为3，且写入了日志（term, index）为（3， 2）;</p>
-<p>S5尚未将日志推送到Followers就离线了，进而触发了一次新的选主，而之前离线的S1经过重新上线后被选中变成Leader，此时系统term为4，此时S1会将自己的日志同步到Followers，按照上图就是将日志（2， 2）同步到了S3，而此时由于该日志已经被同步到了多数节点（S1, S2, S3），因此，此时日志（2，2）可以被提交了。；</p>
-<p>在阶段d，S1又下线了，触发一次选主，而S5有可能被选为新的Leader（这是因为S5可以满足作为主的一切条件：1. term = 5 &gt; 4，2. 最新的日志为（3，2），比大多数节点（如S2/S3/S4的日志都新），然后S5会将自己的日志更新到Followers，于是S2、S3中已经被提交的日志（2，2）被截断了。</p>
-<p>增加上述限制后，即使日志（2，2）已经被大多数节点（S1、S2、S3）确认了，但是它不能被提交，因为它是来自之前term（2）的日志，直到S1在当前term（4）产生的日志（4， 4）被大多数Followers确认，S1方可提交日志（4，4）这条日志，当然，根据Raft定义，（4，4）之前的所有日志也会被提交。此时即使S1再下线，重新选主时S5不可能成为Leader，因为它没有包含大多数节点已经拥有的日志（4，4）。</p>
-<h2 id="日志压缩" tabindex="-1"> 日志压缩</h2>
-<p>在实际的系统中，不能让日志无限增长，否则系统重启时需要花很长的时间进行回放，从而影响可用性。Raft采用对整个系统进行snapshot来解决，snapshot之前的日志都可以丢弃。</p>
-<p>每个副本独立的对自己的系统状态进行snapshot，并且只能对已经提交的日志记录进行snapshot。</p>
-<p>Snapshot中包含以下内容：</p>
-<ul>
-<li>日志元数据。最后一条已提交的 log entry的 log index和term。这两个值在snapshot之后的第一条log entry的AppendEntries RPC的完整性检查的时候会被用上。</li>
-<li>系统当前状态。</li>
-</ul>
-<p>当Leader要发给某个日志落后太多的Follower的log entry被丢弃，Leader会将snapshot发给Follower。或者当新加进一台机器时，也会发送snapshot给它。发送snapshot使用InstalledSnapshot RPC（RPC细节参见八、Raft算法总结）。</p>
-<p>做snapshot既不要做的太频繁，否则消耗磁盘带宽， 也不要做的太不频繁，否则一旦节点重启需要回放大量日志，影响可用性。推荐当日志达到某个固定的大小做一次snapshot。</p>
-<p>做一次snapshot可能耗时过长，会影响正常日志同步。可以通过使用copy-on-write技术避免snapshot过程影响正常日志同步。</p>
-<h2 id="成员变更" tabindex="-1"> 成员变更</h2>
-<p>成员变更是在集群运行过程中副本发生变化，如增加/减少副本数、节点替换等。</p>
-<p>成员变更也是一个分布式一致性问题，既所有服务器对新成员达成一致。但是成员变更又有其特殊性，因为在成员变更的一致性达成的过程中，参与投票的进程会发生变化。</p>
-<p>如果将成员变更当成一般的一致性问题，直接向Leader发送成员变更请求，Leader复制成员变更日志，达成多数派之后提交，各服务器提交成员变更日志后从旧成员配置（Cold）切换到新成员配置（Cnew）。</p>
-<p>因为各个服务器提交成员变更日志的时刻可能不同，造成各个服务器从旧成员配置（Cold）切换到新成员配置（Cnew）的时刻不同。</p>
-<p>成员变更不能影响服务的可用性，但是成员变更过程的某一时刻，可能出现在Cold和Cnew中同时存在两个不相交的多数派，进而可能选出两个Leader，形成不同的决议，破坏安全性。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7gvonaej31dq0teae6.jpg" alt="image-20210221155100462"></p>
-<p>由于成员变更的这一特殊性，成员变更不能当成一般的一致性问题去解决。</p>
-<p>为了解决这一问题，Raft提出了两阶段的成员变更方法。集群先从旧成员配置Cold切换到一个过渡成员配置，称为共同一致（joint consensus），共同一致是旧成员配置Cold和新成员配置Cnew的组合Cold U Cnew，一旦共同一致Cold U Cnew被提交，系统再切换到新成员配置Cnew。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7h61euxj319s0m2n1e.jpg" alt="image-20210221155126751"></p>
-<p>Raft两阶段成员变更过程如下：</p>
-<ol>
-<li>Leader收到成员变更请求从Cold切成Cnew；</li>
-<li>Leader在本地生成一个新的log entry，其内容是Cold∪Cnew，代表当前时刻新旧成员配置共存，写入本地日志，同时将该log entry复制至Cold∪Cnew中的所有副本。在此之后新的日志同步需要保证得到Cold和Cnew两个多数派的确认；</li>
-<li>Follower收到Cold∪Cnew的log entry后更新本地日志，并且此时就以该配置作为自己的成员配置；</li>
-<li>如果Cold和Cnew中的两个多数派确认了Cold U Cnew这条日志，Leader就提交这条log entry；</li>
-<li>接下来Leader生成一条新的log entry，其内容是新成员配置Cnew，同样将该log entry写入本地日志，同时复制到Follower上；</li>
-<li>Follower收到新成员配置Cnew后，将其写入日志，并且从此刻起，就以该配置作为自己的成员配置，并且如果发现自己不在Cnew这个成员配置中会自动退出；</li>
-<li>Leader收到Cnew的多数派确认后，表示成员变更成功，后续的日志只要得到Cnew多数派确认即可。Leader给客户端回复成员变更执行成功。</li>
-</ol>
-<p>异常分析：</p>
-<ul>
-<li>如果Leader的Cold U Cnew尚未推送到Follower，Leader就挂了，此后选出的新Leader并不包含这条日志，此时新Leader依然使用Cold作为自己的成员配置。</li>
-<li>如果Leader的Cold U Cnew推送到大部分的Follower后就挂了，此后选出的新Leader可能是Cold也可能是Cnew中的某个Follower。</li>
-<li>如果Leader在推送Cnew配置的过程中挂了，那么同样，新选出来的Leader可能是Cold也可能是Cnew中的某一个，此后客户端继续执行一次改变配置的命令即可。</li>
-<li>如果大多数的Follower确认了Cnew这个消息后，那么接下来即使Leader挂了，新选出来的Leader肯定位于Cnew中。</li>
-</ul>
-<p>两阶段成员变更比较通用且容易理解，但是实现比较复杂，同时两阶段的变更协议也会在一定程度上影响变更过程中的服务可用性，因此我们期望增强成员变更的限制，以简化操作流程。</p>
-<p>两阶段成员变更，之所以分为两个阶段，是因为对Cold与Cnew的关系没有做任何假设，为了避免Cold和Cnew各自形成不相交的多数派选出两个Leader，才引入了两阶段方案。</p>
-<p>如果增强成员变更的限制，假设Cold与Cnew任意的多数派交集不为空，这两个成员配置就无法各自形成多数派，那么成员变更方案就可能简化为一阶段。</p>
-<p>那么如何限制Cold与Cnew，使之任意的多数派交集不为空呢？方法就是每次成员变更只允许增加或删除一个成员。</p>
-<p>可从数学上严格证明，只要每次只允许增加或删除一个成员，Cold与Cnew不可能形成两个不相交的多数派。</p>
-<p>一阶段成员变更：</p>
-<ul>
-<li>成员变更限制每次只能增加或删除一个成员（如果要变更多个成员，连续变更多次）。</li>
-<li>成员变更由Leader发起，Cnew得到多数派确认后，返回客户端成员变更成功。</li>
-<li>一次成员变更成功前不允许开始下一次成员变更，因此新任Leader在开始提供服务前要将自己本地保存的最新成员配置重新投票形成多数派确认。</li>
-<li>Leader只要开始同步新成员配置，即可开始使用新的成员配置进行日志同步。</li>
-</ul>
-<h2 id="raft与multi-paxos的异同" tabindex="-1"> Raft与Multi-Paxos的异同</h2>
-<p>Raft与Multi-Paxos都是基于领导者的一致性算法，乍一看有很多地方相同，下面总结一下Raft与Multi-Paxos的异同。</p>
-<p>Raft与Multi-Paxos中相似的概念：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7hzg71cj31600iuq60.jpg" alt="image-20210221155202104"></p>
-<p>Raft与Multi-Paxos的不同：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7iacddmj31780e2afb.jpg" alt="image-20210221155231875"></p>
-<h2 id="关于raft的一些面试题" tabindex="-1"> 关于Raft的一些面试题</h2>
-<h2 id="raft分为哪几个部分" tabindex="-1"> Raft分为哪几个部分？</h2>
-<p><strong>主要是分为leader选举、日志复制、日志压缩、成员变更等</strong>。</p>
-<h2 id="raft中任何节点都可以发起选举吗" tabindex="-1"> Raft中任何节点都可以发起选举吗？</h2>
-<p>Raft发起选举的情况有如下几种：</p>
-<ul>
-<li>刚启动时，所有节点都是follower，这个时候发起选举，选出一个leader；</li>
-<li>当leader挂掉后，<strong>时钟最先跑完的follower发起重新选举操作</strong>，选出一个新的leader。</li>
-<li>成员变更的时候会发起选举操作。</li>
-</ul>
-<h2 id="raft中选举中给候选人投票的前提" tabindex="-1"> Raft中选举中给候选人投票的前提？</h2>
-<p><strong>Raft确保新当选的Leader包含所有已提交（集群中大多数成员中已提交）的日志条目</strong>。这个保证是在RequestVoteRPC阶段做的，candidate在发送RequestVoteRPC时，会带上自己的<strong>last log entry的term_id和index</strong>，follower在接收到RequestVoteRPC消息时，<strong>如果发现自己的日志比RPC中的更新，就拒绝投票</strong>。日志比较的原则是，如果本地的最后一条log entry的term id更大，则更新，如果term id一样大，则日志更多的更大(index更大)。</p>
-<h2 id="raft网络分区下的数据一致性怎么解决" tabindex="-1"> Raft网络分区下的数据一致性怎么解决？</h2>
-<p>发生了网络分区或者网络通信故障，<strong>使得Leader不能访问大多数Follwer了，那么Leader只能正常更新它能访问的那些Follower，而大多数的Follower因为没有了Leader，他们重新选出一个Leader</strong>，然后这个 Leader来接受客户端的请求，如果客户端要求其添加新的日志，这个新的Leader会通知大多数Follower。<strong>如果这时网络故障修复 了，那么原先的Leader就变成Follower，在失联阶段这个老Leader的任何更新都不能算commit，都回滚，接受新的Leader的新的更新（递减查询匹配日志）</strong>。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7jwqaoqj31fg0s444e.jpg" alt="image-20210221155356395"></p>
-<h2 id="raft数据一致性如何实现" tabindex="-1"> Raft数据一致性如何实现？</h2>
-<p><strong>主要是通过日志复制实现数据一致性，leader将请求指令作为一条新的日志条目添加到日志中，然后发起RPC 给所有的follower，进行日志复制，进而同步数据</strong>。</p>
-<h2 id="raft的日志有什么特点" tabindex="-1"> Raft的日志有什么特点？</h2>
-<p><strong>日志由有序编号（log index）的日志条目组成，每个日志条目包含它被创建时的任期号（term）和用于状态机执行的命令</strong>。</p>
-<h2 id="raft里面怎么保证数据被commit-leader宕机了会怎样-之前的没提交的数据会怎样" tabindex="-1"> Raft里面怎么保证数据被commit，leader宕机了会怎样，之前的没提交的数据会怎样？</h2>
-<p><strong>leader会通过RPC向follower发出日志复制，等待所有的follower复制完成，这个过程是阻塞的</strong>。</p>
-<p><strong>老的leader里面没提交的数据会回滚，然后同步新leader的数据</strong>。</p>
-<h2 id="raft日志压缩是怎么实现的-增加或删除节点呢" tabindex="-1"> Raft日志压缩是怎么实现的？增加或删除节点呢？？</h2>
-<p>在实际的系统中，<strong>不能让日志无限增长</strong>，否则<strong>系统重启时需要花很长的时间进行回放</strong>，从而影响可用性。<strong>Raft采用对整个系统进行snapshot来解决，snapshot之前的日志都可以丢弃（以前的数据已经落盘了）</strong>。</p>
-<p><strong>snapshot里面主要记录的是日志元数据，即最后一条已提交的 log entry的 log index和term</strong>。</p>
-<h2 id="参考" tabindex="-1"> 参考</h2>
-<blockquote>
-<p>&lt; &gt;</p>
-<p>公号：Abel sun （推荐）</p>
-<p><a href="https://raft.github.io/raft.pdf" target="_blank" rel="noopener noreferrer">https://raft.github.io/raft.pdf</a></p>
-<p><a href="http://thesecretlivesofdata.com/raft/" target="_blank" rel="noopener noreferrer">http://thesecretlivesofdata.com/raft/</a> （动画演示 推荐）</p>
-<p><a href="https://raft.github.io/" target="_blank" rel="noopener noreferrer">https://raft.github.io/</a> （raft资源）</p>
-<p><a href="https://zhuanlan.zhihu.com/p/32052223" target="_blank" rel="noopener noreferrer">https://zhuanlan.zhihu.com/p/32052223</a></p>
-<p><a href="https://github.com/goraft/raft" target="_blank" rel="noopener noreferrer">https://github.com/goraft/raft</a> （go语言实现）</p>
-<p><a href="https://github.com/maemual/raft-zh_cn/blob/master/raft-zh_cn.md" target="_blank" rel="noopener noreferrer">https://github.com/maemual/raft-zh_cn/blob/master/raft-zh_cn.md</a>（中文翻译地址）</p>
-<p><a href="https://github.com/eliben/raft.git" target="_blank" rel="noopener noreferrer">https://github.com/eliben/raft.git</a></p>
-</blockquote>
-]]></content:encoded>
-      <enclosure url="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv4oqutq9j311x0lcwgh.jpg" type="image/jpeg"/>
+      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
     </item>
     <item>
-      <title>浅谈共识算法|实用拜占庭容错算法(PBFT)</title>
-      <link>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/8.PBFT.html</link>
-      <guid>https://bytecodes.tech/blockchain/Technical_discussion/consensus%E2%80%94%E2%80%94algorithm/8.PBFT.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">浅谈共识算法|实用拜占庭容错算法(PBFT)</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
+      <title>浅谈libp2p网络之autoNAT</title>
+      <link>https://bytecodes.tech/blockchain/component/Introduction_to_libp2p_autoNAT_network.html</link>
+      <guid>https://bytecodes.tech/blockchain/component/Introduction_to_libp2p_autoNAT_network.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">浅谈libp2p网络之autoNAT</source>
+      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书</description>
       <category>区块链</category>
-      <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
-      <content:encoded><![CDATA[<blockquote>
-<p>浅谈共识算法|实用拜占庭容错算法(PBFT)</p>
-</blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7uqdgnmj31hc0u0wk5.jpg" alt="816246ba75a183d188bdd3bf9c5eed69"></p>
-<h2 id="拜占庭容错bft" tabindex="-1"> 拜占庭容错BFT</h2>
-<p>拜占庭容错是分布式协议的一种属性，如果这种协议可以解决不可信任环境下的分布式一致性问题，那么它就是拜占庭容错。</p>
-<p>pbft 算法的提出主要是为了解决拜占庭将军问题。网上关于 pbft 的算法介绍基本上是基于 liskov 在 1999 年发表的论文《 Practical Byzantine Fault Tolerance 》来进行解释的。</p>
-<h2 id="raft和pbft的最大容错节点数" tabindex="-1"> raft和pbft的最大容错节点数</h2>
-<p>对于raft算法，raft算法只支持容错故障节点，不支持容错作恶节点。假设集群总节点数为n，故障节点为 f ，集群里正常节点只需要比 f 个节点再多一个节点，即 f+1 个节点，正确节点的数量就会比故障节点数量多，那么集群就能达成共识。因此 raft 算法支持的最大容错节点数量是（n-1）/2。</p>
-<p>对于 pbft 算法，因为 pbft 算法的除了需要支持容错故障节点之外，还需要支持容错作恶节点。假设集群节点数为 N，有问题的节点为 f。有问题的节点中，可以既是故障节点，也可以是作恶节点，或者只是故障节点或者只是作恶节点。那么会产生以下两种极端情况：</p>
-<ol>
-<li>第一种情况，f 个有问题节点既是故障节点，又是作恶节点，那么根据小数服从多数的原则，集群里正常节点只需要比f个节点再多一个节点，即 f+1 个节点，确节点的数量就会比故障节点数量多，那么集群就能达成共识。也就是说这种情况支持的最大容错节点数量是 （n-1）/2。</li>
-<li>第二种情况，故障节点和作恶节点都是不同的节点。那么就会有 f 个问题节点和 f 个故障节点，当发现节点是问题节点后，会被集群排除在外，剩下 f 个故障节点，那么根据小数服从多数的原则，集群里正常节点只需要比f个节点再多一个节点，即 f+1 个节点，确节点的数量就会比故障节点数量多，那么集群就能达成共识。所以，所有类型的节点数量加起来就是 f+1 个正确节点，f个故障节点和f个问题节点，即 3f+1=n。</li>
-</ol>
-<p>结合上述两种情况，因此 pbft 算法支持的最大容错节点数量是（n-1）/3。</p>
-<h2 id="pbft算法流程" tabindex="-1"> PBFT算法流程</h2>
-<p>基本流程如下：</p>
-<ol>
-<li>客户端发送请求给主节点</li>
-<li>主节点广播请求给其它节点，节点执行 pbft 算法的三阶段共识流程。</li>
-<li>节点处理完三阶段流程后，返回消息给客户端。</li>
-<li>客户端收到来自 f+1 个节点的相同消息后，代表共识已经正确完成。</li>
-</ol>
-<p>无论是最好的情况还是最坏的情况，如果客户端收到 f+1 个节点的相同消息，那么就代表有足够多的正确节点已全部达成共识并处理完毕了。</p>
-<p>PBFT 算法中, 存在一个主节点(primary) 和其他的备份节点 (replica), PBFT 共识机制主要包含两部分: 第一部分是分布式共识达成,在主节点正常工作时, PBFT 通过预准备 (pre-prepare)、准备 (prepare) 和承诺 (commit) 三个步骤完成共识; 第二部分是视图转换 (view-change), 当主节点出现问题不能及时处理数据请求时, 其他备份节点发起视图转换, 转换成功后新的主节点开始工作. 主节点以轮转 (round robin) 的方式交替更换.</p>
-<p>PBFT 的分布式共识达成过程如下:</p>
-<ol>
-<li>请求 (propose)：客户端 (client) 上传请求消息 <em>m</em> 至网络中的节点, 包括主节点和其他备份节点。</li>
-<li>预准备 (pre-prepare)：主节点收到客户端上传的请求消息 <em>m</em>, 赋予消息序列号 <em>s</em>, 计算得到预准备消息 (pre-prepare*, H*(<em>m</em>)<em>, s, v</em>)，其中 <em>H</em>(m) 是单向哈希函数, <em>v</em> 代表的是此时的视图 (view),视图一般用于记录主节点的更替, 主节点发生更替时, 视图随之增加 1 。消息发送者节点在发送消息前需利用自身私钥对消息实施数字签名。主节点将预准备消息发送给其他备份节点.</li>
-<li>准备 (prepare)：备份节点收到主节点的预准备消息, 验证 <em>H</em>(<em>m</em>) 的合法性。即对于视图 <em>v</em> 和序列号<em>s</em> 来说, 备份节点先前并未收到其他消息。验证通过后, 备份节点计算准备消息 (prepare*, H*(<em>m</em>)<em>, s, v</em>) 并将其在全网广播. 与此同时, 所有节点收集准备消息,如果收集到的合法准备消息数量大于等于 2<em>f</em> + 1(包含自身准备消息) 个, 则将其组成准备凭证 (prepared certificate)</li>
-<li>承诺 (commit)：如果在准备阶段中, 节点收集到足够的准备消息并生成了准备凭证, 那么节点将计算承诺消息 (commit*, s, v*) 并广播，将消息 <em>m</em> 放入到本地日志中. 与此同时节点收集网络中的承诺消息,如果收集到的合法承诺消息数量大于等于 2<em>f</em> +1(包含自身承诺消息), 那么将其组成承诺凭证 (committedcertificate), 证明消息 <em>m</em> 完成最终承诺。</li>
-<li>答复 (reply)：备份节点和主节点中任意收集到足够承诺消息并组成承诺凭证的节点, 将承诺凭证作为对消息 <em>m</em> 的答复发送给客户端, 客户端确认消息 <em>m</em> 的最终承诺.</li>
-</ol>
-<p>PBFT的共识过程如下：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnxgennnu6j31fu0g6aet.jpg" alt="image-20210223143130925"></p>
-<h2 id="checkpoint机制" tabindex="-1"> checkpoint机制</h2>
-<p>在 PBFT 中, 存在检查点 (checkpoint) 机制, 由于每个消息都被赋予了一定的序列号, 如消息 <em>m</em> 对应的序列号为 118, 当不少于 2<em>f</em> + 1 个节点组成消息 <em>m</em> 的承诺凭证, 完成消息承诺之后, 序列号 118 成为当前的稳定检查点 (stable checkpoint). 检查点机制被用于实现存储删减, 即当历史日志内容过多时, 节点可以选择清除稳定检查点之前的数据, 减少存储成本. 另外稳定检查点在 PBFT 的视图转换中也起到了关键作用.</p>
-<h2 id="viewchange机制" tabindex="-1"> viewChange机制</h2>
-<p>当主节点挂了（超时无响应）或者从节点集体认为主节点是问题节点时，就会触发 ViewChange 事件， ViewChange 完成后，视图编号将会加 1 。下图展示 ViewChange 的三个阶段流程：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnxgw54qrsj31a00dw7be.jpg" alt="image-20210223144812547"></p>
-<p>viewchange 会有三个阶段，分别是 <code>view-change</code> ， <code>view-change-ack</code> 和 <code>new-view</code> 阶段。从节点认为主节点有问题时，会向其它节点发送 view-change 消息，当前存活的节点编号最小的节点将成为新的主节点。当新的主节点收到 2f 个其它节点的 view-change 消息，则证明有足够多人的节点认为主节点有问题，于是就会向其它节点广播 New-view 消息。注意：从节点不会发起 new-view 事件。对于主节点，发送 new-view 消息后会继续执行上个视图未处理完的请求，从 pre-prepare 阶段开始。其它节点验证 new-view 消息通过后，就会处理主节点发来的 pre-prepare 消息，这时执行的过程就是前面描述的 pbft 过程。</p>
-<p>最后一张图来了解一下PBFT算法：</p>
-<hr>
-<h2 id="参考" tabindex="-1"> 参考</h2>
-<blockquote>
-<p>&lt; &gt;</p>
-<p><a href="http://pmg.csail.mit.edu/papers/osdi99.pdf" target="_blank" rel="noopener noreferrer">http://pmg.csail.mit.edu/papers/osdi99.pdf</a></p>
-<p><a href="https://blog.csdn.net/shangsongwww/article/details/88942215" target="_blank" rel="noopener noreferrer">https://blog.csdn.net/shangsongwww/article/details/88942215</a></p>
-<p><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2017/01/thesis-mcastro.pdf" target="_blank" rel="noopener noreferrer">https://www.microsoft.com/en-us/research/wp-content/uploads/2017/01/thesis-mcastro.pdf</a></p>
-<p><a href="https://www.comp.nus.edu.sg/~rahul/allfiles/cs6234-16-pbft.pdf" target="_blank" rel="noopener noreferrer">https://www.comp.nus.edu.sg/~rahul/allfiles/cs6234-16-pbft.pdf</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/35847127" target="_blank" rel="noopener noreferrer">https://zhuanlan.zhihu.com/p/35847127</a></p>
-<p><a href="https://www.jianshu.com/p/0bef4fb1662b" target="_blank" rel="noopener noreferrer">https://www.jianshu.com/p/0bef4fb1662b</a></p>
-<p><a href="https://learnblockchain.cn/article/781" target="_blank" rel="noopener noreferrer">https://learnblockchain.cn/article/781</a>（为什么需要三阶段消息）</p>
-<p><a href="https://lessisbetter.site/2020/03/22/why-pbft-needs-viewchange/%EF%BC%88View" target="_blank" rel="noopener noreferrer">https://lessisbetter.site/2020/03/22/why-pbft-needs-viewchange/（View</a> Change的作用）</p>
-</blockquote>
+      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="概念" tabindex="-1"> 概念</h2>
+<p>首先节点自身不知道自己是否是公开的还是躲在NAT /防火墙后面。NAT背后的节点不需要告诉他的不公开的地址，这样可以防止别人拨号以及恶意攻击。同时它可以通过查找relay server 来和其他节点建立间接连接。</p>
+<p>通过 autoNAT 协议， 可以尝试拨号其他节点的公共地址，如果失败，说明NAT阻止传入连接。</p>
+<h2 id="autonat-协议" tabindex="-1"> AutoNAT 协议</h2>
 ]]></content:encoded>
-      <enclosure url="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7uqdgnmj31hc0u0wk5.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title>浅谈libp2p网络之multiAddress</title>
+      <link>https://bytecodes.tech/blockchain/component/Introduction_to_libp2p_multiAddress_network.html</link>
+      <guid>https://bytecodes.tech/blockchain/component/Introduction_to_libp2p_multiAddress_network.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">浅谈libp2p网络之multiAddress</source>
+      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书</description>
+      <category>区块链</category>
+      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="概念" tabindex="-1"> 概念</h2>
+<p>libp2p区分了peer 的身份和位置。peer 的身份是稳定的、可验证的，并且在对等方的整个生命周期内有效， peer 身份源于对等id规范中描述的公钥。</p>
+<p>在特定的网络上，在特定的时间点，peer可能有一个或多个位置，可以使用地址表示。例如，可以通过TCP端口1234上7.7.7.7的全局IPv4地址访问.</p>
+<p>Libp2p 是不受传输限制的，不单单是只支持tcp/udp的网络。为了实现这个目标，而无需专门评估每个寻址方案，LIBP2P使用MultiaDDR以<strong>自我描述方式</strong>为所有受支持的传输协议编码网络地址。<a href="https://github.com/multiformats/multiaddr" target="_blank" rel="noopener noreferrer">multiaddr格式以及其实现</a>，</p>
+<p>多地址在整个libp2p中用于编码网络地址。当地址需要在进程之间共享或交换时，它们被编码为multiaddr的二进制表示。</p>
+<p>当交换地址时，对等端发送一个包含其网络地址和对等端id的多地址，格式如下：</p>
+<div><pre><code>/ip4/7.7.7.7/tcp/1234/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N
+</code></pre><div aria-hidden="true"><div></div></div></div><p>多地址是可以遍历到某个目标的指令序列。</p>
+<p>例如，/ip4/7.7.7.7/tcp/1234多地址以ip4开头，这是需要地址的最低级别协议。tcp协议运行在ip4之上，所以它是下一个。</p>
+<p>上面的multiaddr由两个组件组成，/ip4/7.7.7.7组件和/tcp/1234组件。不可能再分开一个/仅ip4是无效的多地址，因为ip4协议被定义为需要32位地址。同样，tcp需要16位端口号。</p>
+<p>尽管我们将/ip4/7.7.7.7和/tcp/1234称为较大tcp/IP地址的“组件”，但根据multiaddr规范，它们实际上都是有效的多地址。然而，并非每个语法上有效的多址都是网络中进程的功能描述。正如我们所看到的，即使是一个简单的TCP/IP连接也需要将两个多地址合并为一个。有关如何组合多地址的信息，请参阅“组合多地址”一节，有关描述有效传输地址的组合，请参阅传输多地址一节。</p>
+<p>multiaddr协议表包含所有当前定义的协议及其地址组件的长度。</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>浅谈libp2p网络之NAT传输</title>
+      <link>https://bytecodes.tech/blockchain/component/Introduction_to_p2p_network_transmission_of_NAT.html</link>
+      <guid>https://bytecodes.tech/blockchain/component/Introduction_to_p2p_network_transmission_of_NAT.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">浅谈libp2p网络之NAT传输</source>
+      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书</description>
+      <category>区块链</category>
+      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
+      <content:encoded><![CDATA[<blockquote>
+<p><a href="https://www.jianshu.com/p/f71707892eb2" target="_blank" rel="noopener noreferrer">https://www.jianshu.com/p/f71707892eb2</a></p>
+</blockquote>
+<h2 id="nat简介" tabindex="-1"> NAT简介</h2>
+<p>NAT（Network Address Translation，网络地址转换），也叫做网络掩蔽或者IP掩蔽。NAT是一种网络地址翻译技术，主要是将内部的私有IP地址（private IP）转换成可以在公网使用的公网IP（public IP）</p>
+<h2 id="nat类型" tabindex="-1"> NAT类型</h2>
+<p>在<a href="https://info.support.huawei.com/info-finder/encyclopedia/zh/STUN.html" target="_blank" rel="noopener noreferrer">STUN</a>标准中，根据私网IP地址和端口到NAT出口的公网IP地址和端口的映射方式，把NAT分为如下四种类型，详见下图。</p>
+<p><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h74z5hxjujj311y0q042f.jpg" alt="image-20221014180441215"></p>
+<h3 id="完全锥型nat" tabindex="-1"> 完全锥型NAT</h3>
+<p>所有从同一个私网IP地址和端口（IP1:Port1）发送过来的请求都会被映射成同一个公网IP地址和端口（IP:Port）。并且，任何外部主机通过向映射的公网IP地址和端口发送报文，都可以实现和内部主机进行通信。</p>
+<p>这是一种比较宽松的策略，只要建立了私网IP地址和端口与公网IP地址和端口的映射关系，所有的Internet上的主机都可以访问该NAT之后的主机。</p>
+<h3 id="限制锥型nat" tabindex="-1"> 限制锥型NAT</h3>
+<p>所有从同一个私网IP地址和端口（IP1:Port1）发送过来的请求都会被映射成同一个公网IP和端口号（IP:Port）。与完全锥型NAT不同的是，当且仅当内部主机之前已经向公网主机发送过报文，此时公网主机才能向私网主机发送报文。</p>
+<h3 id="端口限制锥型nat" tabindex="-1"> 端口限制锥型NAT</h3>
+<p>与限制锥型NAT很相似，只不过它包括端口号。也就是说，一台公网主机（IP2:Port2）想给私网主机发送报文，必须是这台私网主机先前已经给这个IP地址和端口发送过报文。</p>
+<h3 id="对称nat" tabindex="-1"> 对称NAT</h3>
+<p>所有从同一个私网IP地址和端口发送到一个特定的目的IP地址和端口的请求，都会被映射到同一个IP地址和端口。如果同一台主机使用相同的源地址和端口号发送报文，但是发往不同的目的地，NAT将会使用不同的映射。此外，只有收到数据的公网主机才可以反过来向私网主机发送报文。</p>
+<p>这和端口限制锥型NAT不同，端口限制锥型NAT是所有请求映射到相同的公网IP地址和端口，而对称NAT是不同的请求有不同的映射。</p>
+<h2 id="nat工作原理" tabindex="-1"> NAT工作原理</h2>
+]]></content:encoded>
+      <enclosure url="https://tva1.sinaimg.cn/large/008vxvgGgy1h74z5hxjujj311y0q042f.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title>浅谈libp2p网络之传输协议</title>
+      <link>https://bytecodes.tech/blockchain/component/Introduction_to_p2p_network_transport_protocol.html</link>
+      <guid>https://bytecodes.tech/blockchain/component/Introduction_to_p2p_network_transport_protocol.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">浅谈libp2p网络之传输协议</source>
+      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书</description>
+      <category>区块链</category>
+      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
+      <content:encoded><![CDATA[<ul>
+<li>简单阐述tcp和udp 传输的区别</li>
+<li>常见的网络传输协议</li>
+<li>监听和拨号</li>
+<li>P2p 节点的地址格式</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>浅谈libp2p网络之relay协议</title>
+      <link>https://bytecodes.tech/blockchain/component/Introduction_to_the_relay_of_p2p_network_protocol.html</link>
+      <guid>https://bytecodes.tech/blockchain/component/Introduction_to_the_relay_of_p2p_network_protocol.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">浅谈libp2p网络之relay协议</source>
+      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书</description>
+      <category>区块链</category>
+      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
+      <content:encoded><![CDATA[<blockquote>
+<p>当一个对等端无法监听公共地址时，它可以拨出到中继对等端，这将保持长期连接打开。其他对等方将能够使用p2p电路地址通过中继对等方拨号，从而将流量转发到其目的地。</p>
+<p>中继连接是端到端加密的，这意味着充当中继的对等方无法读取或篡改流经连接的任何流量</p>
+</blockquote>
+<h2 id="应用场景" tabindex="-1"> 应用场景</h2>
+<p>假设我有一个对等ID为QmAlice的对等。我想把我的地址给我的朋友QmBob，但我有一个NAT，它不允许任何人直接给我打电话。</p>
+<p><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h79f7koq8qj30z90u0mzn.jpg" alt="image-20221018142037486"></p>
+<p>节点A位于NAT和/或防火墙后面，例如通过AutoNAT服务检测到的。</p>
+<p>因此，节点A请求与中继R进行预约，即节点A请求中继R代表其侦听传入连接。</p>
+<p>节点B希望与节点a建立连接。鉴于节点<strong>a不公布任何直接地址</strong>，而只公布中继地址，节点B连接到中继R，要求中继R中继到a的连接。</p>
+<p>中继R将连接请求转发到节点A，并最终中继A和B发送的所有数据。</p>
+<h2 id="参考" tabindex="-1"> 参考</h2>
+<p><a href="https://github.com/libp2p/specs/blob/master/relay/circuit-v2.md" target="_blank" rel="noopener noreferrer">https://github.com/libp2p/specs/blob/master/relay/circuit-v2.md</a></p>
+]]></content:encoded>
+      <enclosure url="https://tva1.sinaimg.cn/large/008vxvgGgy1h79f7koq8qj30z90u0mzn.jpg" type="image/jpeg"/>
     </item>
   </channel>
 </rss>

@@ -6,714 +6,1330 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Mon, 12 Dec 2022 07:14:07 GMT</pubDate>
-    <lastBuildDate>Mon, 12 Dec 2022 07:14:07 GMT</lastBuildDate>
+    <pubDate>Mon, 12 Dec 2022 08:09:26 GMT</pubDate>
+    <lastBuildDate>Mon, 12 Dec 2022 08:09:26 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
-    <category>区块链学习</category>
-    <category>区块链</category>
+    <category>学习建议</category>
+    <category>知乎</category>
     <item>
-      <title>基础知识</title>
-      <link>https://bytecodes.tech/blockchain/Basic_logic/</link>
-      <guid>https://bytecodes.tech/blockchain/Basic_logic/</guid>
-      <source url="https://bytecodes.tech/rss.xml">基础知识</source>
-      <category>区块链学习</category>
-      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
+      <title>不到 20 人的 IT 公司该去吗？</title>
+      <link>https://bytecodes.tech/studysuggest/20ren-it-quma.html</link>
+      <guid>https://bytecodes.tech/studysuggest/20ren-it-quma.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">不到 20 人的 IT 公司该去吗？</source>
+      <category>学习建议</category>
+      <pubDate>Mon, 12 Dec 2022 08:02:21 GMT</pubDate>
+      <content:encoded><![CDATA[<blockquote>
+<p><a href="https://mp.weixin.qq.com/s/e5Q4aJCX9xccTzBBGepx4g" target="_blank" rel="noopener noreferrer">musk的编程星球</a>已经有 <strong>740 多名</strong> 球友加入了，如果你也需要一个良好的学习氛围，<a href="https://mp.weixin.qq.com/s/e5Q4aJCX9xccTzBBGepx4g" target="_blank" rel="noopener noreferrer">戳链接</a>加入我们吧！这是一个Java学习指南+编程实战+LeetCode 刷题的私密圈子，你可以向musk提问、帮你制定学习计划、和球友一起打卡成长，冲冲冲。</p>
+</blockquote>
+<p>周末就不分享技术了。今天早上在知乎看到一个挺有意思的话题：<strong>不到 20 人的 IT 公司该去吗</strong>？</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-budrditgsgqm-092ccdf7-12ac-4ca0-81b0-0d7fc193ffdc.jpg" alt=""></p>
+<p>回答区有一位老哥分享了自己在一个20 来人的小公司的奇葩工作经历，分享一下。</p>
+<blockquote>
+<p>原回答地址：<a href="https://sourl.cn/hy9TD" target="_blank" rel="noopener noreferrer">https://sourl.cn/hy9TD</a></p>
+</blockquote>
+<p>下面是正文。</p>
+<p>刚到西安有幸加入了一个 20 来人的 it 公司。</p>
+<p>本来是不想去那种小公司的，为什么加入呢？<strong>原因大概有二</strong>：</p>
+<ul>
+<li>其一就是该公司号称是某互联网大厂旗下的子公司，公司资源共享。</li>
+<li>其二就是感觉经历了四面感觉心好累，不想再面试，就这个吧。</li>
+</ul>
+<h2 id="第一天" tabindex="-1"> 第一天</h2>
+<p>然鹅，当入职第一天开始我就渐渐发现情形怪异。</p>
+<p>第一天来前台报道，发现前台的人屌屌的，没有正式的着装，染着绿色的头发，嚼着口香糖。我心想，创业公司人性化吧。</p>
+<p>我：“您好，我今天入职。”</p>
+<p>前台：“奥，你叫啥”</p>
+<p>我：“我叫 xxx”</p>
+<p>前台：“奥，那你先填个表，我叫人事”</p>
+<p>坐了 20 分钟，没人理我。</p>
+<p>我：“那个人事怎么还不来”</p>
+<p>前台：“应该路上堵车了，要不你在等会”</p>
+<p>又过了二十分钟</p>
+<p>人事：“你叫 xxx 吧，那个稍等我打印下合同”</p>
+<p>我：“奥”</p>
+<p>人事：“合同需要你第 xx 页签下字，签完以后这两份我们需要邮寄回总部，所以就签完教给我就好了，我就在隔壁办公室”</p>
+<p>我：“好的”</p>
+<p>没有入职介绍，没有合同细节说明，没有入职小礼品，就这样签完合同来到了工位。</p>
+<p>部门人事过来招呼</p>
+<p>部门人事：“你就是 xx 吧，你的工位在那边，我给你开通一下 oa 系统，然后一会和我去领设备，一会我给你拉我们微信群，待会有个欢迎仪式，新人来要在群里发红包，今后靠老员工多多照顾”</p>
+<p>我：“还要发红包?呃”</p>
+<p>所谓的欢迎仪式真的好尴尬，就如同电视剧里演的一样，部门人事哐哐敲了几下桌子，大喊这，</p>
+<p>部门人事：“大家停一下手上的工作，今天我们有新鲜血液流入我们了，我们的团队又壮大了些”</p>
+<p>然后尴尬的一阵介绍，真的好尴尬，感觉大家都像打了鸡血一样的自来熟那么亲热。</p>
+<h2 id="第二天" tabindex="-1"> 第二天</h2>
+<p>第二天就开始了正常的工作，领导给我了一个 git 地址，说是我们的项目代码，给我两天时间熟悉一下，然后做一个 ppt 讲一下自己对这些的理解。</p>
+<p>我：“好的，那个，咱们自己测试服务器地址是啥？”</p>
+<p>领导：“嗯，我们现在还没有测试服务器，你自己本地搭建一个测试服务器吧”</p>
+<p>我：“那能保证我这个和线上环境一样吗？”</p>
+<p>领导：“没关系，我们都是这么弄得”</p>
+<p>我：“额。。。行吧”</p>
+<p><strong>我第一次见到这样的开发架构和流程，预感到后期会有大问题出现。</strong></p>
+<p>演示完项目理解，接了第一个活，我曾经预感到这套工作架构的问题终究出现了。</p>
+<p>一个项目我们四五个人开发，各自的测试环境不一致，测试环境测试成功后，提交代码。</p>
+<p><strong>致命的一点是：</strong></p>
+<p><strong>这样一个团队，竟然没有一个完整的代码上线流程。代码上线完全靠领导一人手动操作。</strong></p>
+<p>所以，终究，<strong>可怕的事情发生了。</strong></p>
+<p>各个开发测试环境无问题，上了线一堆 bug，由于手动上线的原因，经常会漏或者忘记上线。线上出现 bug 又得马上回滚，测试环境又无法查出问题。</p>
+<p>第一次的项目上线整整从下午五点上线到了晚上十点才结束。</p>
+<p><strong>我真的是大开眼界。</strong></p>
+<p>而且由于员工的过分热情奋斗经常，听老员工说公司有个不成文的规定，卡时间节点，定下来今天上线的项目，今天上不了线就不回家。</p>
+<h2 id="第三天" tabindex="-1"> 第三天</h2>
+<p>第三天，我给领导建议：“我建议先搭建好一套上线流程工具，我们再开发，至少我们有个和线上环境一致的测试服务器啊”</p>
+<p>领导：“这个我们一直和总部申请，现在业务也忙，我们自己没时间做这些”</p>
+<p>意思就是不想弄。</p>
+<p>无奈，我也不好再说什么，入职不到一个月，做了第一个项目，我开始有了想离职的念头。</p>
+<p>后续的工作，每天非常繁忙，同时对接三个业务，而且招聘里写的招高级工程师，工作是带领项目组，而发现来了之后大家都是高级工程师，都是硬干业务的。同时，招的是后端开发工程师，前端的活也一并扔给我来干了。</p>
+<h2 id="一个月后" tabindex="-1"> 一个月后</h2>
+<p>来了一个月了，我渐渐了解到我的同事的工作背景，他们有的以前是干过销售，有的是在做过软件外包，有的是当过机构老师。正经的计算机系出来的没几个，大多数是上了个编程培训班就出来找工作，混迹好几个小公司，后来到了这儿。</p>
+<p>产品经理设计了一个项目，写了一堆文字。</p>
+<p>我：“我想问下项目原型图有吗，或者 prd 文档模板”</p>
+<p>产品经理：“我写了个 word，你看看”</p>
+<p>我：“你这写的这我知道几个意思”</p>
+<p>产品经理：“按我写的做就好了”</p>
+<p>我：“额。。。”</p>
+<p><strong>我意识到又一个可怕的事情即将发生了。</strong></p>
+<p>由于产品经理不提供设计原型图 prd，只是单纯的用文字描写产品想法。再加上文字功底又不好。同一段文字不同人读理解的不同的意思。</p>
+<p>一个产品，几个开发做不同的东西，开发完成，产品经理说这都不是他想要的。开发说，按着你的文档做的，哪点对不上？产品经理说，你这理解的不对。</p>
+<p>于是，互撕开始了。</p>
+<p>无奈，最终，为了产品，项目推到重做。工作几天全是无用功。</p>
+<p><strong>压垮骆驼的最后一根稻草</strong></p>
+<p>离职的想法已经在我脑子里酝酿，最后让我下定决心的是一次业务上线。</p>
+<p>上线属于测试负责制。</p>
+<p>测试说这个东西上线有问题，就不允许开发走，哪怕耗在那没事可做。</p>
+<p>最后一次业务上线。</p>
+<p>晚上六点上线。</p>
+<p>我：“我代码提交了，我去吃饭，测好了告诉我”</p>
+<p>测试：“你先别走，万一有 bug 方便改”</p>
+<p>我：“我吃个饭就回来”</p>
+<p>测试：“好，有问题我给你打电话”</p>
+<p>刚到楼下，买了份饭，刚吃了两口，一阵急促电话铃。</p>
+<p>测试：“快上来，代码崩溃了，严重问题”</p>
+<p>我：“我吃完上来”</p>
+<p>测试：“别吃了，领导都看到了”</p>
+<p>无奈，我吃了一口，急匆匆上楼，上去一看，是因为数据类型问题，改了一个变量类型，好了，并不是什么大问题。</p>
+<p>测试：“你坐着别走了，有啥问题我好随时给你说”</p>
+<p>我：“奥”</p>
+<p>一晃时间到了九点，我看了看表，这测了两个多小时了，也没啥问题，上线吧。</p>
+<p>上线了，简单看看没啥问题。</p>
+<p>我：&quot;那我走了&quot;</p>
+<p>回家路上走到一半，有一阵仓促的电话铃声。</p>
+<p>测试：“快回来，线上 bug”</p>
+<p>我：“刚才测了两个多小时你说没问题，你同意上线了。十点多了，不行回滚明天搞吧。”</p>
+<p>测试：“不行，今天得上线，你快回来”</p>
+<p>我: &quot;我刚坐上车，你回滚代码，明天再搞吧&quot;</p>
+<p>测试：“那我给领导反馈”</p>
+<p>真的有点生气了，短短十分钟时间，领导的电话不间断的给我打了三次，我没有接听。</p>
+<p>我让司机掉了个头，回去了，花了三分钟时间，看了下线上 bug 是因为线上脏数据造成，删了几条数据，正常了，此时已经是快凌晨一点了。</p>
+<p>一句话没说，第二天来了，领导质问我怎么不接电话，告诉我说工作要认真，并且又重新派给我一个活，告诉我要认真对待。</p>
+<p><strong>我微微一笑，编辑好的离职邮件，点了发送键。并且请了剩余的年假。</strong></p>
+<h2 id="个人感受" tabindex="-1"> 个人感受</h2>
+<p>个人认为我们找工作的时候尽量应该比较小的公司，尤其是10、20人这种的小公司，遇到坑的概率非常大！并且，大部分这种规模的小公司最后都死掉了。</p>
+<p>不过，还是有少部分不错的小公司的，这个也不能一棒子打死。</p>
+<hr>
+<p>没有什么使我停留——除了目的，纵然岸旁有玫瑰、有绿荫、有宁静的港湾，我是不系之舟。</p>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/E2ko0I0Lts2yoIF-HLBOgw" target="_blank" rel="noopener noreferrer">再见，GitHub trending</a></li>
+<li><a href="https://mp.weixin.qq.com/s/nzR9eKFgEbpPFIkMF40vYw" target="_blank" rel="noopener noreferrer">钱付了订单还是未支付，怎么解决？</a></li>
+<li><a href="https://mp.weixin.qq.com/s/NT4fVbI8hDdN7MQkG2RNdQ" target="_blank" rel="noopener noreferrer">涨薪40%，从国企跳到一家小公司！</a></li>
+<li><a href="https://mp.weixin.qq.com/s/luKyE0O1eGBhUyBuoAONqA" target="_blank" rel="noopener noreferrer">暑假在富士康打工50天，感受如何？</a></li>
+<li><a href="https://mp.weixin.qq.com/s/duEzl6qiM59cHVdFhWB2FA" target="_blank" rel="noopener noreferrer">35 岁危机怎么破？</a></li>
+<li><a href="https://mp.weixin.qq.com/s/R8IonWhFfNk0H1vUgjEadg" target="_blank" rel="noopener noreferrer">面试通过，背调凉了！</a></li>
+<li><a href="https://mp.weixin.qq.com/s/iiGGsfvPzNIcWFdH0LStjw" target="_blank" rel="noopener noreferrer">推荐一些小而美的互联网公司</a></li>
+<li><a href="https://mp.weixin.qq.com/s/WO0MYpWI3m_18Yohe0SzMA" target="_blank" rel="noopener noreferrer">有哪些值得计算机专业加入的国企？</a></li>
+</ul>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-rumrabbitmqzypjdg-53717e59-63c9-44bd-99d3-dd2c26fe68bb.png" alt=""></p>
+<hr>
+]]></content:encoded>
+      <enclosure url="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-budrditgsgqm-092ccdf7-12ac-4ca0-81b0-0d7fc193ffdc.jpg" type="image/jpeg"/>
     </item>
     <item>
-      <title>比特币白皮书</title>
-      <link>https://bytecodes.tech/blockchain/Basic_logic/The_white_paper_the_currency.html</link>
-      <guid>https://bytecodes.tech/blockchain/Basic_logic/The_white_paper_the_currency.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">比特币白皮书</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识 P2P网络 Solidity 比特币</description>
-      <category>区块链</category>
-      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
-      <content:encoded><![CDATA[<blockquote>
-<p>比特币 white paper中英文对照版本，保持英文原版只字不差，排版尽量模拟原版</p>
-</blockquote>
-<p>Satoshi Nakamoto<br>
-<a href="mailto:satoshin@gmx.com">satoshin@gmx.com</a><br>
-<a href="http://www.bitcoin.org" target="_blank" rel="noopener noreferrer">www.bitcoin.org</a></p>
+      <title>程序员 35 岁危机，如何破局 ？</title>
+      <link>https://bytecodes.tech/studysuggest/35-weiji.html</link>
+      <guid>https://bytecodes.tech/studysuggest/35-weiji.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">程序员 35 岁危机，如何破局 ？</source>
+      <description>工作可以是事业、是热爱，也可以只是一份工作，给自己留出转身的空间很有必要！</description>
+      <category>学习建议</category>
+      <pubDate>Mon, 12 Dec 2022 08:02:21 GMT</pubDate>
+      <content:encoded><![CDATA[<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-a1c73ba1-4f12-4bb9-a64b-14bb7cc86ec5.png" alt=""></p>
+<p>作者：musk<br>
+Java 程序员进阶之路：<a href="https://tobebetterjavaer.com" target="_blank" rel="noopener noreferrer">https://tobebetterjavaer.com</a></p>
+<p>大家好，我是musk呀！今天周六，咱精神就不要绷那么紧了，来谈一个超级“轻松”的话题：35 岁中年危机。</p>
+<p>不得不说，任总的把寒气传递给每一个老百姓，杀伤力拉满，不少小伙伴都绷不住了，开始危机重重。<a href="https://mp.weixin.qq.com/s/e5Q4aJCX9xccTzBBGepx4g" target="_blank" rel="noopener noreferrer">musk的编程星球</a> VIP 群里，也有不少小伙伴唉声叹气，感觉情况糟糕至极。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-cc32ca43-8165-413b-9c8a-24cf0ebbe84b.png" alt=""></p>
+<p>就连一个<strong>不满 25 岁的球友，也开始担心起 35 岁程序员中年危机</strong>了，问musk该怎么办？</p>
+<p>说句实在话，环境是没有以前好，但还没有到恐慌的地步啊，再说，25 岁就开始担心中年危机，着实有点早了呀！这期间还有 10 多年的美好岁月呀！</p>
+<p>我们是该未雨绸缪，但不应该杞人忧天啊，这种“<strong>危机病</strong>”必须得治。下面这部分内容是musk的“四贱客”，哦不，“四剑客”团队之一的楼仔写的，可以说是治好“35 岁”危机的良药！理解的非常深刻，道和术全都具备！</p>
+<p>相信很多小伙伴对这个话题感到焦虑，担心自己 35 岁之后会失业，因为前几年我也这样，不过目前要好很多，文末会讲。</p>
+<p>不 BB，上文章目录。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-a5f7d6a6-756e-44d8-95c7-7a5593e56c7f.jpg" alt=""></p>
+<h2 id="_1-为什么会危机" tabindex="-1"> 1. 为什么会危机？</h2>
+<h3 id="_1-1-35-岁年龄特点" tabindex="-1"> 1.1 35 岁年龄特点</h3>
+<p>35 岁并不是真正的 35 岁，它是一个泛指，基本上来说就是 35-40 岁这段时间，<strong>所以后面我说的 “35 岁”，都是泛指 35-40 岁。</strong></p>
+<p>为什么会在这个阶段出现危机呢？</p>
+<ul>
+<li><strong>经济压力</strong>：这个年龄一般都有房贷、车贷、子女教育等，我认识很多同事，光房贷每月基本都要 6K-7K，再算每月的生活支出，很多都会月光；</li>
+<li><strong>家庭原因</strong>：这个年纪的人都已经成家，上有老下有小，需要平衡家庭和工作的关系；</li>
+<li><strong>身体素质</strong>：年龄的增加，身体素质大不如从前，不能熬夜；</li>
+<li><strong>个人学习</strong>：因为生活和家庭，能留给自己学习的时间不多，主动学习的欲望会明显降低。</li>
+</ul>
+<h3 id="_1-2-35-岁危机来源" tabindex="-1"> 1.2 35 岁危机来源</h3>
+<p>如果公司裁员，你是不是被最先裁掉的那一批？如果被裁掉，35 岁再出去求职，其它公司会不会要你？如果新公司给你 Offer，能否能达到你之前的水平，至少能保证你正常的生活开支？</p>
+<p><strong>怕被优化，怕年纪大了找不到工作，怕给你的薪资覆盖不了你现有的生活水平</strong>，这些其实都是我们危机感的来源。</p>
+<p>我们看看用人单位看大龄程序员的视角：</p>
+<ul>
+<li><strong>管理成本高</strong>：领导的那一套画饼方式已经不适用，年轻程序员容易管理；</li>
+<li><strong>经济成本高</strong>：要的工资一般都不低，同样的费用是年轻程序员的 2-4 倍；</li>
+<li><strong>精力跟不上</strong>：如果公司推崇加班文化，大龄程序员的精力确实不太能跟上；</li>
+<li><strong>家庭事情多</strong>：大龄程序员家庭琐事多，不像年轻程序员那么纯粹；</li>
+<li><strong>其它</strong>：学习和进取欲望降低、能力提升变慢、技术栈老旧、可塑性变差等、公司产品不需要过深的技术和业务积累。</li>
+</ul>
+<h3 id="_1-3-大龄程序员是否被排斥" tabindex="-1"> 1.3 大龄程序员是否被排斥</h3>
+<p>年轻程序员在写日常的业务代码，可能和大龄程序员差不多，但是当需要解决公司的技术性难题、或对项目重构时，大龄程序员就会发挥自身的优势：</p>
+<ul>
+<li>某种技术方向上有深厚积累；</li>
+<li>项目经验丰富；</li>
+<li>业务积累深厚；</li>
+<li>解决问题能力强；</li>
+<li>设计、架构、分析、规划等方面能力较强；</li>
+<li>大局观强，有情绪管理能力，稳定耐造。</li>
+</ul>
+<p><strong>所以我们和年轻程序员拼的不是代码能力，而是项目经验、设计能力和知识输出等。</strong></p>
+<p>如果你已经步入大龄行列，比如有 10 年工作经验，但是真实水平不到 5 年，被淘汰的概率会非常大。</p>
+<p>这里可以给出我的结论：</p>
+<ul>
+<li>“35 岁危机”是否存在？这个毋庸置疑，肯定是存在的。</li>
+<li>公司是否排斥大龄程序员呢？在我看来，<strong>公司排斥的不是大龄程序员，而是排斥能力和自己工龄不匹配的大龄程序员。</strong></li>
+</ul>
+<h2 id="_2-如何应对危机" tabindex="-1"> 2. 如何应对危机 ？</h2>
+<h3 id="_2-1-克服焦虑" tabindex="-1"> 2.1 克服焦虑</h3>
+<p>“35 岁危机”一直存在，准确来说大龄危机一直存在。</p>
+<p>拿我个人来说，我认为能做到 40 岁，但很难做到 45 岁，做到 50 岁更遥不可及（大神除外），所以危机无法避免，只能尽量去延长我在这个行业的生命线，并在“退休”前完成一定的财富积累。</p>
+<p>如果能有上面这个觉悟，其实就没有那么焦虑，因为我们最终都会离开这个行业，只是时间早晚的问题。</p>
+<p>所以我的目标就非常清晰：<strong>不是要守住程序员这个行业，而是尽量延长我在这个行业的生命线。</strong></p>
+<p>那如何才能延长职业生命线呢？答案是<strong>持续学习！</strong></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-ff036054-7e53-4a61-bf10-95ac18dbff2f.jpg" alt=""></p>
+<p>IT 行业的技术更新换代非常快，对个人综合能力要求非常高，如果你不持续学习，等到年龄危机到来时还想躺赢，下一批裁员的可能就是你了。</p>
+<p>持续学习是一切的前提，但我们不能盲目去学习，需要提前做好职业规划。</p>
+<h3 id="_2-2-提前做好职业规划" tabindex="-1"> 2.2 提前做好职业规划</h3>
+<p>我们看看程序员常规的晋升和转型路线：</p>
+<ul>
+<li><strong>技术型</strong>：初级工程师-&gt;中级工程师-&gt;高级工程师-&gt;架构师(技术专家)-&gt;技术总监-&gt;CTO；</li>
+<li><strong>管理型</strong>：工程师-&gt;项目组长-&gt;项目经理-&gt;项目总监-&gt;技术总监-&gt;CTO；</li>
+<li><strong>交叉型</strong>：初级工程师-&gt;中级工程师-&gt;项目经理-&gt;技术总监-&gt;CTO(此路线技术和管理交叉进行，每个阶段做的事情不固定)；</li>
+<li><strong>转行型</strong>：初级工程师-&gt;转行产品、设计、销售、运营等。</li>
+</ul>
+<p>下面是更加详细的职业规划，尽量延长自己的生命线，甚至可以摆脱年龄的限制（能摆脱年龄限制，都是大神级别）：</p>
+<ul>
+<li>在某种开发技能上<strong>建立个人品牌</strong>，比如Java、微服务、Hadoop、高并发、C++ 等，而且你的品牌要被业内认可，这样的开发者实际上是以 “技术专家” 的身份存在。</li>
+<li>在组织内<strong>开发技能过硬、精通业务，成为复合型选手，占据难以替代的位置</strong>。这样的开发者，可以称之为高级开发工程师或者资深开发者，这样的角色，在一个合适的平台上可以受到重视，可以跟着平台发展，不用在意年龄。退一步讲，即便所在的平台倒掉了，也会有很多公司愿意要。</li>
+<li>成为<strong>善于架构某类软件服务的架构师</strong>。这是从高级开发工程师演进过来的更高级的角色，当你真正做过一些大型系统的架构工作，会有很多公司需要你，不必担心你的年龄，你工作自由了。</li>
+<li><strong>走向管理岗位，成为职业经理人</strong>。很多公司都有项目经理、技术经理、研发经理等管理角色，你需要能够真正做好管理工作。</li>
+</ul>
+<h2 id="_3-需要具备的核心技能" tabindex="-1"> 3. 需要具备的核心技能</h2>
+<h3 id="_3-1-技术方面" tabindex="-1"> 3.1 技术方面</h3>
+<p><strong>技术才是每一个程序员的安身立命之本</strong>，无论你处于哪个阶段，都不要把技术完全落下，区别只是在各个阶段对技术要求的侧重不同：</p>
+<ul>
+<li>初中高级程序员：一个技术强化的过程；</li>
+<li>专家：选择一个技术方向深耕，成为对应技术领域的专家；</li>
+<li>架构师：更偏向对项目整体架构的设计和把控能力；</li>
+<li>团队负责人到 CTO：管理职能更大于技术职能，更多的是对技术的宏观方向把控。</li>
+</ul>
+<p>技术方面主要有以下几点建议：</p>
+<ul>
+<li><strong>先广后深，打造自己的核心竞争力。</strong> 你可以是微服务领域的专家，也可以是 ES 大佬，或者精通 Flink。</li>
+<li><strong>拒绝啃老本。</strong> 不要在一个公司混了 3 年，出来找工作投简历，发现简历都投不出去，Spring Cloud 都不知道是什么，微服务、分布式完全没接触，还是只会基于 SSH 的 CURD。2/3 线城市还好说，在一线城市工作的，技术迭代更新比较快，一定要跟紧主流技术。</li>
+<li><strong>要形成自己的技术体系。</strong> 什么是技术体系，举个例子，你说自己会 MySQL 数据库，但是除了日常写 SQL 进行 CURD 的业务开发外，你还知道 MySQL 的运行架构，主流存储引擎的区别，主从同步原理、组复制、锁机制、分表分库、事务控制这些吗？围绕着技术名称的中心点，能像蜘蛛网那样扩散出去，形成有条理的网状结构，就形成了自己的技术体系。</li>
+<li><strong>尽可能做多做一些总结输出。</strong> 我目前的做法是将日常的一些学习笔记、人生感悟、bug 解决过程等先简单记录在有道笔记上面，后面再逐渐整理输出，既可以回顾总结反思，也能作为一些博客的内容输出。</li>
+<li><strong>不要浅谈技术</strong>（这点大家勿喷）。作为程序员，需要有一定的技术信仰，但也不能太过迷信技术。在职场中，<strong>你要比别人走的更高更远的话，只会敲代码实现一些业务功能是远远不够的</strong>。其实在很多开发公司，开发人员的地位都比较一般，来去匆匆，始终是底层的搬砖工。所以，不要傻傻地一头扎入了技术的海洋，每个人的精力都是有限的。除了技术实力外，你还需要有意识地培养自己的沟通表达能力、文档输出能力，比如项目说明文档、项目架构图、汇报 PPT、团队管理、项目管理、项目规范、抽象化思维、产品化思维等综合实力。</li>
+</ul>
+<h3 id="_3-2-架构和设计" tabindex="-1"> 3.2 架构和设计</h3>
+<p>架构师是很多开发者的终极技术梦想，能成为架构师的凤毛麟角。</p>
+<p>但是，<strong>每个人都必须要架构和设计软件的能力！</strong></p>
+<p>如果你没有架构、设计的能力，就无法站在更高维度去理解软件开发，就必然被迫奋战在最简单也最容易被替代的体力化的编码工作岗位，而这样的岗位，必然是拒绝大龄程序员的。</p>
+<p>所以，即便你还不是架构师，也不是技术经理，也不是管理人员，也不是需求分析师，你也需要在日常工作中拔高一点，经常性的、刻意地去想一想，系统的模块为什么这么划分，服务间的接口为什么这么设计，这个业务逻辑为什么要这样实现而不是那样实现。</p>
+<p>惟其如此，你才能慢慢理解别人的架构与设计，才能慢慢培养自己的架构与设计能力。</p>
+<h3 id="_3-3-业务能力" tabindex="-1"> 3.3 业务能力</h3>
+<p>所有开发者都要记住一点，开发者具有双重的行业属性：<strong>软件行业属性和软件所要解决的问题所属行业的属性。</strong></p>
+<p>软件所要解决的问题，就是我们通常所说的业务。比如支付宝的业务是支付问题，京东商城的业务是电子商务问题，携程的业务是机票和酒店预订问题。</p>
+<p>精通业务，可以成为开发者的优势，这是开发者在问题域构建起来的优势，即所谓的懂行。</p>
+<p>如果业务积累方面的优势和开发技能方面的优势能叠加起来，那这位开发者，就具有<strong>秒杀 85% 以上开发者的能力</strong>。</p>
+<p>再比如，目前国内技术人员太多，可替代性太强，做 Java 搞业务开发的，无非就是 Spring boot + MyBatis + MySQL，需要上微服务就采用 Spring Cloud 全家桶，通用型太强。</p>
+<p>而如果你既懂技术又熟悉核心业务流程，比如熟悉电商平台、支付系统、风控系统等的核心业务流程，那么你在团队的地位一定稳如泰山。</p>
+<h3 id="_3-4-软技能" tabindex="-1"> 3.4 软技能</h3>
+<p>《软件架构师的 12 项修炼》这本书里给出了软件架构师的金字塔能力模型：</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-c24a3550-d551-4f71-b209-f66d4675afc8.jpg" alt=""></p>
+<p>这个模型，适用于绝大多数软件开发工程师，在这本书里，作者说这么一句话。</p>
+<p><strong>大多数时候所谓的“技术之玻璃天花板”，其实只是缺乏软技能而已</strong>。这些技能可以学到，缺乏的知识可以通过决定改变的努力来弥补。</p>
+<p>我们每位开发者都要牢记这句话，要清醒地意识到：</p>
+<ul>
+<li>不深入钻研，缺乏开发技术等硬技能，你很难在初期的职业生涯（0 ~ 5 年）中做出成绩<strong>占据重要位置</strong>；</li>
+<li>没有沟通、协商、领导力、语境切换、创新、认知等软技能，你很难在职场上<strong>走出高度</strong>。</li>
+</ul>
+<p>所以，在你掌握一定的开发技术可以搞定一些任务后，就要并行地去培养自己的软技能，比如沟通、表达、协商、演讲、辅导、写作、组织、规划、管理、汇报、商务谈判、创新、设计等等。</p>
+<p><strong>只有软技能匹配你的硬技能，你才能更好地发展</strong>，当你软硬结合，综合能力爆棚时，根本不用担心将来怎么找工作的问题，工作机会会跟着你跑，甚至有人会专门为你创造工作机会。</p>
+<h2 id="_4-其它建议" tabindex="-1"> 4. 其它建议</h2>
+<p>除了持续学习、往技术或者管理方向发展以外，我觉得有以下几点也需要重点关注。</p>
+<h3 id="_4-1-锻炼身体" tabindex="-1"> 4.1 锻炼身体</h3>
+<p>之所以写在最前面，因为身体是革命的本钱，有句话非常经典。</p>
+<p><strong>身体是 1，其他都是 0，没有 1，再多的 0 都是空。</strong></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-bc05d1ad-558b-420c-a033-0cf639e66953.jpg" alt=""></p>
+<p>魔都一位技术人员，总以为自己年轻，身体硬扛得住，结果一次晕倒后，医院检查发现自己得了尿毒症，没有好的身体，你挣再多钱都没有意义，一旦你因为身体而离开人间，配偶、孩子、钱都是别人的了。</p>
+<h3 id="_4-2-发展副业" tabindex="-1"> 4.2 发展副业</h3>
+<p><strong>提前布局 PlanB，做好副业。</strong></p>
+<p>做副业的目的，就是增加自己的收入，同时也是倒逼你去学习更多的知识，让你的技术能力提升更快，也为你未来创业做准备，增加你抗风险的能力。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-ccd0adf8-31a0-4931-9cae-d53270fa5890.jpg" alt=""></p>
+<p>除了以上好处，副业也会提升你的个人能力、扩大你的圈子。</p>
+<h3 id="_4-3-拓展圈子" tabindex="-1"> 4.3 拓展圈子</h3>
+<p>越是成功的人，他的圈子就越广，资源也越多，人生的路自然就越走越宽。</p>
+<p>最近一段时间认识musk后，我就发现，生活工作又了新的不一样，我进入了另外一个资源共享的圈子，我们做开源，做的不亦乐乎。</p>
+<p>所以多向上拓展你的圈子，多走近结交那些正能量、有想法、志同道合的人。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-a7825336-07e5-4414-8858-dec7c0a14b5b.jpg" alt=""></p>
+<p>兴许下次换工作，是圈子里的人脉直接内推让你找到一份满意的工作，更有可能，圈子里的几个朋友因为某一个好点子直接走向创业之路。</p>
+<h2 id="_5-写在最后" tabindex="-1"> 5. 写在最后</h2>
+<p>再回到文章开头的问题，其实我 2 年前还很焦虑，但是现在不再焦虑，反倒信心更足了。</p>
+<p>我目前基本都是按照上面的轨迹去走，已经走了 2 年，各方面的软硬技能都已具备，<strong>所以在公司，基本不太担心被裁。</strong></p>
+<p>可能有同学会问，那当你 35 岁以后，万一公司倒闭了呢 ？</p>
+<p>如果自己还不到 40 岁，找一份大厂的工作，应该不难，如果到了 40 岁，我也完成一定的财富积累，<strong>手中有粮，心里不慌。</strong></p>
+<p>为了以后能有退路，我也在布局自己的 Plan B，扩展自己的人脉圈子，比如写公众号、搞创业项目。</p>
+<p><strong>如果副业能做起来，说不定以后就靠这谋生，如果没做起来，我也收获了人脉和经验，为下一次创业蓄力</strong>，何乐而不为呢？</p>
+<p>最后送上大家一句话：工作可以是事业、是热爱，也可以只是一份工作，<strong>给自己留出转身的空间很有必要</strong>，如果把工作看作一份经历和沿途的风景，在乎过程中的经历、感受多过最后的结果，可能会让人生更加充满期待。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-13911d3c-6806-4eab-81dc-319fbc0d2a0d.jpg" alt=""></p>
+<h2 id="ending" tabindex="-1"> ending</h2>
+<p>一个人可以走得很快，但一群人才能走得更远。欢迎加入<a href="https://mp.weixin.qq.com/s/e5Q4aJCX9xccTzBBGepx4g" target="_blank" rel="noopener noreferrer">musk的编程星球</a>，目前已经有 <strong>710 多名</strong> 球友加入了。</p>
+<p>最近一段时间，musk也没闲着，和球友炳源一起，正在紧锣密鼓地更新 Java 版LeetCode 题解，我们并不刻意追求 beat 100%，但效率总是出乎意料的优秀。与此同时，我们也在力求每一个题解都能通俗易懂，深入到底层，给大家举一反三的能力。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-5788d535-ff4a-4af0-8ef5-0c56ffeedf0a.png" alt=""></p>
+<p>就比如说为了讲清楚暴力算法和 KMP 算法的区别，我们可以说是煞费苦心。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-f0984121-b3cb-4476-961c-ae55f0eb7c5b.png" alt=""></p>
+<p>除了星球提供的三份高质量专栏，《Java 面试指南》、《编程喵 🐱（Spring Boot+Vue 前后端分离）实战项目笔记》、《Java 版 LeetCode 刷题笔记》，这里也沉淀了非常多优质的内容，包括球友和musk分享的精华贴，还有musk精心回答过的球友提问。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-589510f2-4281-4ac3-b9ba-787d0d3105d3.png" alt=""></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-826265f7-cead-4325-9d39-ec94951c0823.png" alt=""></p>
+<p>如果你也需要一个良好的学习氛围，<a href="https://mp.weixin.qq.com/s/e5Q4aJCX9xccTzBBGepx4g" target="_blank" rel="noopener noreferrer">戳链接加入我们的大家庭吧</a>！这是一个 Java 学习指南 + 编程实战 + LeetCode 刷题的私密圈子，你可以向musk提问、帮你制定学习计划、跟着musk一起做实战项目，和球友一起打卡学习，自律得飞起！</p>
+<p>欢迎点击左下角<strong>阅读原文</strong>了解musk的编程星球详情，这可能是你学习求职路上最有含金量的一次点击。</p>
+<hr>
+<p>没有什么使我停留——除了目的，纵然岸旁有玫瑰、有绿荫、有宁静的港湾，我是不系之舟。</p>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/R8IonWhFfNk0H1vUgjEadg" target="_blank" rel="noopener noreferrer">面试通过，背调凉了！</a></li>
+<li><a href="https://mp.weixin.qq.com/s/iiGGsfvPzNIcWFdH0LStjw" target="_blank" rel="noopener noreferrer">推荐一些小而美的互联网公司</a></li>
+<li><a href="https://mp.weixin.qq.com/s/WO0MYpWI3m_18Yohe0SzMA" target="_blank" rel="noopener noreferrer">有哪些值得计算机专业加入的国企？</a></li>
+<li><a href="https://mp.weixin.qq.com/s/WjYQR90VHJ7OPDhA-55Iug" target="_blank" rel="noopener noreferrer">三十岁的我，自由了！</a></li>
+<li><a href="https://mp.weixin.qq.com/s/ja_fEGFBBWM3TLhdT0aeMw" target="_blank" rel="noopener noreferrer">今年这情况，真有点想读研了</a></li>
+<li><a href="https://mp.weixin.qq.com/s/lCdFvto1A7X4wHkJk4_iNA" target="_blank" rel="noopener noreferrer">如何防止订单重复支付？</a></li>
+<li><a href="https://mp.weixin.qq.com/s/yH42DxmRBSjrr0SW9N3MFg" target="_blank" rel="noopener noreferrer">专升本上岸的秘诀</a></li>
+<li><a href="https://mp.weixin.qq.com/s/miOagyv4x3HrqVaU38uh4w" target="_blank" rel="noopener noreferrer">愤怒，一个破培训班要价 28 万</a></li>
+</ul>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-rumrabbitmqzypjdg-53717e59-63c9-44bd-99d3-dd2c26fe68bb.png" alt=""></p>
 <blockquote>
-<p><strong>Abstract.</strong>   A  purely   peer-to-peer   version   of   electronic   cash   would   allow   onlinepayments   to   be   sent   directly   from   one   party   to   another   without   going   through   afinancial institution.   Digital signatures provide part of the solution, but the mainbenefits are lost if a trusted third party is still required to prevent double-spending.We propose a solution to the double-spending problem using a peer-to-peer network.The   network   timestamps   transactions   by   hashing   them   into   an   ongoing   chain   ofhash-based proof-of-work, forming a record that cannot be changed without redoingthe proof-of-work.   The longest chain not only serves as proof of the sequence ofevents witnessed, but proof that it came from the largest pool of CPU power.   Aslong as a majority of CPU power is controlled by nodes that are not cooperating toattack the network,  they'll  generate the  longest  chain  and  outpace attackers.   Thenetwork itself requires minimal structure.   Messages are broadcast on a best effortbasis,   and   nodes   can   leave   and   rejoin   the   network   at   will,   accepting   the   longestproof-of-work chain as proof of what happened while they were gone.</p>
+<p>参考链接：<a href="https://mp.weixin.qq.com/s/jtwD0Iodg7-HsHEJh2ubZw" target="_blank" rel="noopener noreferrer">https://mp.weixin.qq.com/s/jtwD0Iodg7-HsHEJh2ubZw</a>，出处：楼仔，整理：musk</p>
 </blockquote>
+<hr>
+]]></content:encoded>
+      <enclosure url="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-chengxyswjrhpj-a1c73ba1-4f12-4bb9-a64b-14bb7cc86ec5.png" type="image/png"/>
+    </item>
+    <item>
+      <title>计算机考研 408 统考该如何准备？</title>
+      <link>https://bytecodes.tech/studysuggest/408.html</link>
+      <guid>https://bytecodes.tech/studysuggest/408.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">计算机考研 408 统考该如何准备？</source>
+      <description>2020年一战上海交通大学计算机系上岸。个人背景是应用数学跨考计算机，本科绩点3.75+，放弃了学校的保研…</description>
+      <category>知乎</category>
+      <pubDate>Mon, 12 Dec 2022 08:02:21 GMT</pubDate>
+      <content:encoded><![CDATA[<p>最近有好几个球友问考研和保研的事情，也有一些球友问了musk到底如何备考 408 的事情，那借这个机会，就分享一篇网友若水如鱼的考研经验贴，供大家借鉴和参考（musk做了部分的删减和优化，并增加了一些其他的内容）。</p>
 <blockquote>
-<p><strong>摘要。</strong> 一种完全的点对点电子现金应当允许在线支付从一方直接发送到另一方而不需要通过一个金融机构。数字签名提供了部分解决方案，但如果仍需一个可信任第三方来防止双重支付，那就失去了电子货币的主要优点。我们提出一种使用点对点网络解决双重支付问题的方案。该网络通过将交易哈希进一条持续增长的基于哈希的工作量证明链来给交易打上时间戳，形成一条除非重做工作量证明否则不能更改的记录。最长的链不仅是被见证事件序列的证据，而且也是它本身是由最大 CPU 算力池产生的证据。只要多数的 CPU 算力被不打算联合攻击网络的节点控制，这些节点就将生成最长的链而超过攻击者。这种网络本身只需极简的架构。信息将被尽力广播，节点可以随时离开和重新加入网络，只需接受最长的工作量证明链作为它们离开时发生事件的证据。</p>
+<p>以下👇🏻是全文。</p>
 </blockquote>
-<h2 id="_1-introduction" tabindex="-1"> 1. Introduction</h2>
-<p>Commerce on the Internet has come to rely almost exclusively on financial institutions serving astrusted third  parties  to process electronic payments.   While the  system works  well enough formost   transactions,   it   still   suffers   from   the   inherent   weaknesses   of   the   trust   based   model.Completely non-reversible transactions are not really possible, since financial institutions cannotavoid   mediating   disputes.     The   cost   of   mediation   increases   transaction   costs,   limiting   theminimum practical transaction size and cutting off the possibility for small casual transactions,and   there   is   a   broader   cost   in   the   loss   of   ability   to   make   non-reversible   payments   for   non-reversible services.  With the possibility of reversal, the need for trust spreads.  Merchants mustbe wary of their customers, hassling them for more information than they would otherwise need.A certain percentage of fraud is accepted as unavoidable.  These costs and payment uncertaintiescan be avoided in person by using physical currency, but no mechanism exists to make paymentsover a communications channel without a trusted party.What is needed is an electronic payment system based on cryptographic proof instead of trust,allowing any two willing parties to transact directly with each other without the need for a trustedthird  party.
-Transactions  that  are  computationally  impractical  to   reverse   would  protect  sellersfrom fraud, and routine escrow mechanisms could easily be implemented to protect buyers.   Inthis paper, we propose a solution to the double-spending problem using a peer-to-peer distributedtimestamp server to generate computational proof of the chronological order of transactions.  Thesystem   is   secure   as   long   as   honest   nodes   collectively   control   more   CPU   power   than   anycooperating group of attacker nodes.</p>
-<h2 id="_1、简介" tabindex="-1"> 1、简介</h2>
-<p>互联网贸易已经变得几乎完全依赖金融机构作为可信任第三方来处理电子支付。尽管对于大部分交易这种系统运行得足够好，但仍需忍受基于信任模型这个固有缺点。由于金融机构不可避免的需要仲裁纠纷，完全的不可撤销交易实际是做不到的。仲裁成本增加了交易成本，限制了最小实际交易额度从而杜绝了日常小额交易的可能性，而且由于不支持不可撤销支付，对不可撤销服务进行支付将需要更大的成本。由于存在交易被撤销的可能性，对于信任的需求将更广泛。商家必须警惕他们的客户，麻烦他们提供更多他本不必要的信息。一定比例的欺诈被认为是不可避免的。虽可通过当面使用实物货币来避免这些成本及支付的不确定性，但不存在不引入一个可信任方而能在通信通道上进行支付的机制。
-我们需要的是一个基于密码学原理而不是信任的电子支付系统，该系统允许任何有交易意愿的双方能直接交易而不需要一个可信任第三方。交易在计算上的不可撤销将保护卖家不被欺诈，用来保护买家的程序化合约机制也应该较容易实现。在这篇论文中，我们提出一种使用点对点分布式时间戳服务器为基于时间的交易序列生成计算上的证据来解决双重支付问题的方案。只要诚实节点集体控制的CPU算力大于每一个合作攻击节点群的CPU算力，这个系统就是安全的。</p>
-<h2 id="_2-transactions" tabindex="-1"> 2. Transactions</h2>
-<p>We define an electronic coin as a chain of digital signatures.  Each owner transfers the coin to thenext by digitally signing a hash of the previous transaction and the public key of the next ownerand adding these to the end of the coin.  A payee can verify the signatures to verify the chain of ownership.</p>
-<h2 id="_2、交易" tabindex="-1"> 2、交易</h2>
-<p>我们定义一枚电子货币就是一条数字签名链。每个拥有者都通过将上一次交易和下一个拥有者的公钥的哈希值的数字签名添加到此货币末尾的方式将这枚货币转移给下一个拥有者。收款人可以通过验证数字签名来证实其为该链的所有者。
-<img src="@source/blockchain/assets/img/bitcoin-1.png" alt="bitcoin">
-The problem of course is the payee can't verify that one of the owners did not double-spendthe coin.  A common solution is to introduce a trusted central authority, or mint, that checks everytransaction for double spending.  After each transaction, the coin must be returned to the mint toissue a new coin, and only coins issued directly from the mint are trusted not to be double-spent.The   problem   with   this   solution   is   that   the   fate   of   the   entire   money   system   depends   on   thecompany running the mint, with every transaction having to go through them, just like a bank.<br>
-We   need   a   way   for   the   payee   to   know   that   the   previous   owners   did   not   sign   any   earliertransactions.   For our purposes, the earliest transaction is the one that counts, so we don't careabout later attempts to double-spend.  The only way to confirm the absence of a transaction is tobe aware of all transactions.  In the mint based model, the mint was aware of all transactions anddecided   which   arrived   first.    To  accomplish   this   without   a   trusted   party,   transactions   must   bepublicly announced [1], and we need a system for participants to agree on a single history of theorder in which they were received.  The payee needs proof that at the time of each transaction, themajority of nodes agreed it was the first received.<br>
-这里的问题是收款人不能证实拥有者之一没有对此货币进行双重支付。通常的做法是引入一个可信任的中央机构或铸币厂来检查每笔交易是否存在双重支付。每笔交易之后，都需要将这枚货币退回铸币厂以换取发行一枚新的货币，只有由铸币厂直接发行的货币才能被确认没有被双重支付。这个方案的问题在于整个货币系统的命运都依赖于运营铸币厂的公司，每笔交易都需要经过它们，就像银行一样。<br>
-我们需要一种能让收款人知道上一个货币拥有者 没有对任何更早的交易签名的方法。对我们来说，最早的那次交易是唯一有效的，所以我们不需要关心本次交易后面的双重支付尝试 。唯一能确保一笔交易不存在的方法是知晓所有之前的交易。在铸币厂模型中，铸币厂知晓所有交易并能确定哪笔交易最先到达。在不引入一个可信任方的前提下要达到这个目的， 所有交易就必须公开发布[1]，而且需要一个能让所有参与者对交易收到顺序的单一历史达成共识的系统。收款人在每笔交易时，都需要多数节点认同此交易是最先收到的证据。</p>
-<h2 id="_3-timestamp-server" tabindex="-1"> 3. Timestamp Server</h2>
-<p>The solution we propose begins with a timestamp server.  A timestamp server works by taking ahash   of   a   block   of   items   to   be   timestamped   and   widely   publishing   the   hash,   such   as   in   anewspaper or Usenet post [2-5].   The timestamp proves that the data must have existed at thetime, obviously, in order to get into the hash.  Each timestamp includes the previous timestamp inits hash, forming a chain, with each additional timestamp reinforcing the ones before it.</p>
-<h2 id="_3、时间戳服务器" tabindex="-1"> 3、时间戳服务器</h2>
-<p>我们提出的方案从时间戳服务器开始。时间戳服务器计算包含 多个需要被打时间戳的数据项的区块 的哈希  值并 广泛 地发布这个哈希值，就 像在报纸或  新闻组帖  子里[2-5]。时间戳能证明要得到这个哈希值，显然这些数据当时一定是存在的。每个时间戳的哈希值都纳 入了上一个时间戳，形成一条链，后面的时间戳进一步增强前一个时间戳。</p>
-<p><img src="@source/blockchain/assets/img/bitcoin-2.png" alt="bitcoin"></p>
-<h2 id="_4-proof-of-work" tabindex="-1"> 4. Proof-of-Work</h2>
-<p>To implement a distributed timestamp server on a peer-to-peer basis, we will need to use a proof-of-work system  similar to Adam  Back's  Hashcash  [6],  rather than  newspaper  or  Usenet  posts.The proof-of-work involves scanning for a value that when hashed, such as with SHA-256, thehash begins with a number of zero bits.  The average work required is exponential in the numberof zero bits required and can be verified by executing a single hash.<br>
-For our timestamp network, we implement the proof-of-work by incrementing a nonce in theblock until a value is found that gives the block's hash the required zero bits.   Once the CPUeffort   has   been   expended   to   make   it   satisfy   the   proof-of-work,   the   block   cannot   be   changedwithout  redoing  the   work.    As   later   blocks   are  chained   after  it,   the  work  to  change  the  blockwould include redoing all the blocks after it.</p>
-<h2 id="_4、工作量证明" tabindex="-1"> 4、工作量证明</h2>
-<p>为了实现一个基于点对点的时间戳服务器，我们需要使用一个类似Adam Back 提出的哈希货币[6] 的工作量证明系统，而不是报纸或新闻组帖子那样。工作量证明采取搜索一个数，使得被哈希时，如使用SHA-256，得到的哈希值以数个0比特开始。平均所需工作量将随所需 0比特呈指数级增长而验证却只需执行一次哈希。<br>
-对于我们的时间戳网络。我们通过在区块中加入一个随机数，直到使得区块的哈希值满足所需0比特的数被找到的方式实现工作量证明。一旦消耗了CPU算力使区块满足了工作量证明，那么除非重做这个工作否则就无法更改 区块 。由于后面的区块是链接在这个区块后面的，改变这个区块将需要重做所有后面的区块。
-<img src="@source/blockchain/assets/img/bitcoin-pow.png" alt="bitcoin">
-The proof-of-work also solves the problem of determining representation in majority decisionmaking.  If the majority were based on one-IP-address-one-vote, it could be subverted by anyoneable   to   allocate   many   IPs.     Proof-of-work   is   essentially   one-CPU-one-vote.     The   majoritydecision is represented by the longest chain, which has the greatest proof-of-work effort investedin it.  If a majority of CPU power is controlled by honest nodes, the honest chain will grow thefastest and outpace any competing chains.   To modify a past block, an attacker would have toredo the proof-of-work of the block and all blocks after it and then catch up with and surpass thework of the honest nodes.  We will show later that the probability of a slower attacker catching updiminishes exponentially as subsequent blocks are added.<br>
-To compensate for increasing hardware speed and varying interest in running nodes over time,the proof-of-work difficulty is determined by a moving average targeting an average number ofblocks per hour.  If they're generated too fast, the difficulty increases.<br>
-工作量证明同时解决了在多数决定中确定投票方式的问题。如果多数是按IP地址投票来决定，那么它将可能被能分配大量IP 地址的人破坏 。工作量证明本质上是 按CPU 投票。最长的链代表了多数决定，因为有最大的计算工作量证明的精力投入到这条链上。如果多数的CPU算力被诚实节点控制，诚实的链就会增长得最快并超过其他的竞争链。要修改过去的某区块，攻击者必须重做这个区块以及其后的所有区块的工作量证明从而赶上并超过诚实节点的工作。我们后面会证明随着后续的区块被添加一个更慢的攻击者赶上诚实节点的概率将呈指数级递减。<br>
-为了抵消硬件运算速度的增加及平衡不同时期运行节点的利益，工作量证明的难度将由移动平均数法来确定每小时生成区块的平均数。如果区块生成得过快，那么生成的难度就会增加。</p>
-<h2 id="_5-network" tabindex="-1"> 5. Network</h2>
-<p>The steps to run the network are as follows:</p>
+<p>简单做以下自我介绍，我是2020年一战<strong>上海交通大学</strong>计算机系上岸的。算是跨考计算机，本科绩点 3.75+，放弃了学校的保研资格。408 的四门专业课中，除了自己额外选修的数据结构外，其余三门专业课完全没有接触过。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-8b592fe3-70ca-4003-88b9-9c124cba6a43.jpg" alt=""></p>
+<p>计算机基础综合408被誉为工科考研最难的专业课。（当然不包括清华的912哈哈哈~）包含4门计算机专业最核心的专业课，且没有官方指定的参考书，可以考察任何与这四门专业课相关的知识点。</p>
+<p>而且几乎每次考试，都会出现一些在常规课本上找不到的知识点。出题老师为了在卷面150分内尽可能的涵盖知识点，往往试卷中的每一道题，都是多知识点交叉，这一特点在大题中体现的尤为突出。408由于是联考，所以每次出题的老师并不固定，往往试卷的风格也相当多变。</p>
+<p>我个人正式的考研准备是从4月份开始，一直持续到12月考研前，总计<strong>二百七十余天</strong>。</p>
+<p>我在考研的初期，大概花了两天到三天的时间，把知乎和王道论坛上所有的408高分贴全部整理了一遍，因为虽然每个人之间个体存在差异，但我<strong>坚信高分的备考经验之间是一定存在共性的</strong>。</p>
+<p>我统计了这些经验贴中出现次数最多的参考书，标注出了每本书的精华部分。然后参照高分学长学姐们的复习规划，和反复被他们提及的复习方式，做了一份很详尽的复习安排。后面的复习过程，就可以用这份计划，确定自身的复习进度，做到心里有数。</p>
+<p><strong>建议大家如果有时间的话，复习安排一定要自己亲自做</strong>（由此可以看出，学习计划真的非常重要，球友们也一定要量身打造属于自己的学习计划）。因为每个人的实际情况不同，计划安排一定要根据自己的情况量身定做的，千万不要盲目照搬别人的计划，非常容易打乱了自己的节奏。</p>
+<h2 id="考研资料" tabindex="-1"> 考研资料</h2>
+<p>下面说一下复习过程中需要用到的资料，首先是<strong>王道</strong>和<strong>天勤</strong>的全套复习全书，对于考408的同学来说这两套书不用多说，果断全部入手。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-603fd711-e756-49fe-a3d1-eda7718e513a.jpg" alt=""></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-690d0f2f-673b-4c3f-9f58-dac69766c8db.jpg" alt=""></p>
+<p>然后必备的还有王道出的<strong>真题解析</strong>，这个也不用多说，重中之重，务必要研究透。最后用来练手的<strong>王道和天勤模拟题</strong>。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-b3cf8043-06be-48e2-b3c8-27c49ad334d4.jpg" alt=""></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-9b7b8f7f-6097-40d3-95b1-9f4ca1292be9.jpg" alt=""></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-2f64d876-04ba-40de-96e5-3b3a28115e1f.jpg" alt=""></p>
+<p>其实我相信很多跨考的同学，在一开始复习408这四门专业课的时候，都是一种很懵的状态。四门专业课太繁杂了，相互交织在一起不知道该从哪里入手，我认为比较合理的顺序是<strong>数据结构</strong>--》<strong>计算机网络</strong>--》<strong>操作系统</strong>--》<strong>计算机组成原理</strong>。</p>
+<p>数据结构是基础中的基础，后面的三门专业课中或多或少都会涉及到数据结构的内容，所以我们把数据结构放在最开始学。然后是计算机网络，因为相对来说计网的知识点是相对孤立的，且以记背为主。需要理解的难点并不多，放在数据结构之后，可以作为一个缓冲，调节一下复习的节奏。然后是操作系统和计组，因为这两门课在一些知识点上是交叉的，有些经验贴可能会建议把两者放在一起复习。对于完全没有基础的跨考的同学，由于对这两门课整体的结构并没有一个宏观上清晰的认识，直接就把两门课结合在一起学，效果并不好。</p>
+<p>我个人的建议是第一遍学的时候，先学操作系统了解软件，再学计组了解底层的硬件，先对总体有一个大概的印象。等到第二轮复习时，再把两门课相关联的知识点，结合在一起学习。两门课相互关联的知识点如存储，O/I等也是考试的重难点，非常容易混淆，需要多次反复理解。我第二遍复习才大体上理解了这些知识点，到第三遍复习才做到了融会贯通。（tips：对于这些知识点，可以考虑自己整理一张表格，对照记忆，对理解知识点很有帮助）</p>
+<h2 id="时间进度" tabindex="-1"> 时间进度</h2>
+<p>我的专业课复习的时间进度具体如下：</p>
+<p>4.1—4.20 结合教材，大话数据结构，天勤数据结构复习全书，复习数据结构。（一天4小时左右）</p>
+<p>4.20—5.05 做完王道计算机网络上<strong>选择题</strong>，大题第一遍做的时候可以不做，复习主要看王道辅导书前面的知识点，有不懂的再参考教材。（有不懂的地方可以看看视频，如果学习能力较强的话，可以直接看书，比看视频节省很多时间）</p>
+<blockquote>
+<p>ps：王道前面整理的知识点真的很好，我一个完全没基础的小白，就靠直接看王道书前面的知识点，基本408入门完全足够了。</p>
+</blockquote>
+<p>5.05—6.05 做完王道操作系统和计算机组成原理的王道复习书，复习过程同计算机网络，只做选择题，大概15天一本（一天4.5小时左右）</p>
+<p>经过<strong>第一轮复习</strong>，对4门专业课的知识点有了一个粗浅的认识，会有很多不理解的知识点，留到第二轮复习再解决。接下来二刷的时候如果还是有很多知识点遗忘，不要紧，这是正常现象。</p>
+<p>6.05—6.20 全面复习数据结构知识点，及第一轮复习遗留下来的难点。写完王道数据结构辅导书，<strong>选择题和大题</strong>。</p>
+<p>6.20—8.25 依照类似的步骤，完成计网，操作系统，计组的王道复习全书的<strong>二刷</strong>。</p>
+<p>8.25—9.25 对照天勤408复习全书整理的知识点和教材，进行对4门课的知识点进行<strong>第三轮复习</strong>，查漏补缺。这里快速的把天勤复习全书上的题刷完。（整理出一份自己的重要知识点汇总，和易混知识点的对比，这一步很重要，是对前三轮复习的升华）</p>
+<p>9.25—10.15 做完408计算机综合11年真题，可以不按照卷子刷，但真题里的每道题每一个知识点都要搞懂，尤其是大题。408的大题比较难，但是有套路，摸清套路以后，就会发现每年的大题是很类似的。（第一次做的时候，找不到套路很正常，后面还会做很多遍真题，慢慢就会有感觉的）</p>
+<p>10.15—11.15 <strong>第四遍</strong>复习专业课，把王道书上的错题重刷，复习巩固知识点。</p>
+<p>11.15—12.20 做王道8套模拟题，和天勤8套模拟题，中间穿插真题的二刷，和专业课<strong>第5轮复习</strong>（其实王道的复习书上就会有真题，408的真题最后来来回回，起码会做到4，5遍）王道和天勤模拟题上的大题质量都一般，主要限时做上面的选择题，大题可以有选择性的做上面质量稍微高一些的题。</p>
+<h2 id="复习要点" tabindex="-1"> 复习要点</h2>
+<p>下面我再对各科的复习要点进行一些补充。</p>
+<h3 id="数据结构" tabindex="-1"> <em><strong>数据结构</strong></em></h3>
+<p>数据结构天勤的复习全书写的比较好，但是题目的数量不如王道多。所以复习的时候可以把天勤的书当教材，王道的书当习题集来用。可以买一本大话数据结构来当作补充的参考书。这本书比较通俗易懂，不推荐 严蔚敏版的数据结构，内容对于艰深了，对初学者十分劝退。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-d1e76126-5fd6-4a84-a6f5-a7f724594edf.jpg" alt=""></p>
+<p>第一遍刷全书的时候像算法题之类的大题可以考虑不写，等二刷的时候再写。算法题可以考虑看晴神写的算法笔记（星球的百度网盘里有），算法的原理讲的很清晰细致，而且书上都是可以直接运行的代码，对于初学者十分友好。</p>
+<p>还有一本实战指南，上面是浙大PAT甲级和乙级题目的题解，其实对于跨考的同学，最好在准备初试的时候就顺便准备一下机试，这样不仅408中的算法题可以手到擒来，复试考机试的时候也更有底一些。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-e3c9b92a-2fc0-4497-850f-2c4d481121d0.jpg" alt=""></p>
+<p>我在考研中间，去考过一次9月份的<strong>PAT甲级</strong>，最后得了80+。虽然分数不算高，但也是对自己努力成果的一种检验。如果考浙大的话，PAT可以作为复试时机试的分数，考其他学校，也可以作为复试时向老师展示自身编程能力的证明。</p>
+<h3 id="计算机网络" tabindex="-1"> <em><strong>计算机网络</strong></em></h3>
+<p>因为我是跨考，对计网完全没接触过，刚开始学的时候其实是挺心慌的。所以开始学的时候是先看视频再做王道上的题，后来发现这样复习效率太低，索性就直接看王道每章之前总结的知识点，然后做题。其实直接看王道书前总结的知识点，对于专业课的第一轮复习来说是完全足够的，有不懂的地方再直接看看教材就行了。就计网的知识点总结来说，天勤相应的更好一些。计网的教材就只需要<strong>谢希仁</strong>的计算机网络一本书就可以了，写的非常详细。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-fcde3b2f-067b-4431-8816-47fed10b9147.jpg" alt=""></p>
+<p>等到第二轮，第三轮复习的时候，再把天勤复习全书和教材上的一些额外的知识点整理到王道的书上，或者单独做一份笔记都是可以的。</p>
+<h3 id="操作系统" tabindex="-1"> <em><strong>操作系统</strong></em></h3>
+<p>操作系统我觉得王道的书编的挺不错的，直接看王道就行。第二章的pv操作，一般出现在408的大题，考察的频率还是挺高的，大概三年两考。但是我觉得王道和天勤上的某些题难度是要比真题大的，所以把王道天勤上的模拟题都能全部搞懂的话，pv操作这道题肯定是没什么问题的。第三章的内存管理和文件管理是重难点，最好多结合几本书来理解，这里推荐<strong>操作系统概念</strong>，是浙大的教材，在操作系统的软件这一块写的相当不错。有条件的同学也可以和同学多讨论讨论或者看看网课，千万不要自己浅谈，真的很浪费时间。（我这块知识点，前前后后，直到第三轮复习才彻底搞懂）。最后的O/I章节可以看看<strong>计算机操作系统</strong>这本书，硬件讲的很不错。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-237c6fef-3d48-4042-9e25-bbfdff18bd43.jpg" alt=""></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-eac450ce-25f3-42c3-992a-eb7667811298.jpg" alt=""></p>
+<h3 id="计算机组成原理" tabindex="-1"> <em><strong>计算机组成原理</strong></em></h3>
+<p>计组算是我复习过程中困难最大的一门课了，其实现在回想起来，408中考察的机组并不难，甚至后期做真题时我最喜欢做的部分就是机组。只是因为我在复习的时候没有经验，在细枝末节上消耗了大量的精力，才在初期产生了计组很困难的错觉。</p>
+<p>第二章的数制与编码可能会让很多跨考的同学很不适应，但其实里面比较难的效验码的内容只需记住就行，不必深究其原理，考试也很少涉及。还有乘法、除法、算数逻辑单元的设计一类的知识点非常复杂，但在考试中几乎不会涉及，能理解当然最好，不能理解的话，千万不要浅谈。后面的部分我觉王道的知识点总结的相当不错，这里再推荐几本教材作为参考书<strong>白中英</strong>的计算机组成原理，这本书也是我的主力教材。<strong>陆遥</strong>的计组，对快表硬件之类讲的很清楚。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-df42dabd-45ac-42a3-814a-116378f5740d.jpg" alt=""></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-f21555d8-149f-4bbb-8657-90b7384e4972.jpg" alt=""></p>
+<p>再一个就是<strong>袁春风</strong>版的计算机组成与系统结构。袁春风据说是以前的<strong>命题人</strong>，计组的真题里有时会出现其他书上没有的知识点，多半可以在袁春风的书上找到。这本书和主要参考了计算机组成与设计 硬件软件接口，也就是所谓的黑书，看了这本的话，黑书就基本可以不用买了。最后总结一下，计组这门课，开始学的时候会感觉很难很复杂，但当你真的学懂了以后，会发现整个脉络是十分清晰的。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-ec6e8002-9358-4025-8e86-136b5bdf9f3c.jpg" alt=""></p>
+<p>就我自己看下来，计组不推荐黑书，这个观点可能在某些同学看来算是政治不正确了。但我觉得考研唯一的目的就是要拿高分，黑书的知识点和考研不是直接相关，用它来复习考试很低效。况且很多国内的教材也很优秀，而且章节编排完全符合考研，把国内教材用好，对付408足够了。</p>
+<h2 id="总结" tabindex="-1"> 总结</h2>
+<p>对整个408的复习做一个总结，因为我是跨考，所以408的复习其实是占据了我考研复习非常多的精力的。前期每天<strong>4个小时</strong>，后期政治压力上来了，也基本保证每天<strong>3小时</strong>。408也是命题非常合理成熟的一门科目，当你水平到了，几乎不会有发挥失常的情况，它一定会给你一个满意的分数的。</p>
+<p>最后强调一个被无数大佬强调过的408复习准则——反复多次。前期可以跳过不太重要的知识点，随着后面一轮一轮的复习，再把这些知识点融入到自己的知识体系中。还有就是真题一定好好研究，命题老师经常喜欢把之前的真题改改，又出成新的题目。</p>
+<blockquote>
+<p>参考链接：<a href="https://www.zhihu.com/question/22823169/answer/1342552127" target="_blank" rel="noopener noreferrer">https://www.zhihu.com/question/22823169/answer/1342552127</a>，整理：musk</p>
+</blockquote>
+<hr>
+]]></content:encoded>
+      <enclosure url="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu-jisjkytkgrhzb-8b592fe3-70ca-4003-88b9-9c124cba6a43.jpg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title>计算机专业该如何自学编程，看哪些书哪些视频哪些教程？</title>
+      <link>https://bytecodes.tech/studysuggest/LearnCS-ByYourself.html</link>
+      <guid>https://bytecodes.tech/studysuggest/LearnCS-ByYourself.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">计算机专业该如何自学编程，看哪些书哪些视频哪些教程？</source>
+      <description>CS 自学指南（Java编程语言、数据库、数据结构与算法、计算机组成原理、操作系统、计算机网络、英语、简历、面试）</description>
+      <category>学习建议</category>
+      <pubDate>Mon, 12 Dec 2022 08:02:21 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="前言" tabindex="-1"> 前言</h2>
+<p>回想起我的大学之路，难免觉得有些遗憾，因为学校的整体教学水平有限，而自己又缺乏主动去学习的意愿，就导致蹉跎了不少光阴。</p>
+<p>幸好，工作中感受到生存的压力后幡然醒悟，因为我有这样一种紧迫感——再不抓紧点时间去学习，可能就像某某某同事一样被公司无情地辞退了。</p>
+<p>于是，我便真正走上了一条自学计算机的“不归路”。说“不归路”的原因在于，计算机科学是一个非常庞大的知识体系，我花了好多年的时间，仍然感觉到这条路上还有很多的未知等待我去探索。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-70e25595-b36b-408c-a8e4-3a67261826da.png" alt=""></p>
+<p>但正因为有太多的未知需要我去探索，所以我每天都能感受到自己在进步，我完全不需要花费数年的光阴去攻读一个学位证书，仅仅依靠我自己，就能获得世界上一流水平的教育。</p>
+<p>互联网上到处都是可以学习的资源，然而精华与糟粕并存。我们需要的，不是“100G”的免费视频教程，或者“500本”的免费电子书，而是：</p>
+<ul>
+<li>我们应当学习哪些科目，为什么？</li>
+<li>对于这些科目，最好的书籍或者视频课程是什么？</li>
+</ul>
+<p>如果你要学习物理，我推荐你顺着物理的发展史学习，先学习牛顿的经典物理，再学习热力学、电磁学，然后学习相对论、量子力学这些彻底推翻经典物理的，最后学习电动力学这种硬核的。</p>
+<p>整个学习过程，是<strong>自底向上</strong>的。但是学计算机，这样行不通。</p>
+<p>先学习电路，然后学习冯诺依曼结构，造一台计算机？接着再学习如何用汇编写个 mini os？接着学习如何写一个简易版的编译器？最后再学习高级编程语言，比如说 Java、Python？</p>
+<p>显然这样是行不通的！计算机的学习最好是<strong>自顶向下</strong>。</p>
+<p>一开始，应该先学一门高级的编程语言，比如说 Java。之后，当你了解到 Java 的性能问题时，你才会发现，啊，原来 Java 是一门解释型的编程语言，而 C 语言是一门编译型的编程语言，所以 Unix/Linux 这种操作系统要用 C 语言来实现，因为要最大限度的利用硬件。</p>
+<p>当你学习到 Java 并发编程中的“原子性”、“同步”、“异步”、“进程”、“内存分配”这些概念的时候，你自然而然会产生很多疑问，然后就会去学习操作系统，学习计算机组成原理，然后你的一系列问题就会逐渐被解决。</p>
+<p>当你发现，用 Java 实现某个业务需求时，人家的算法实现比你快得多，你自然会好奇，为什么会这样？然后你发现人家用的数据结构和你的不同，然后你就会去学习数据结构，接着了解一些高效的算法，比如动态规划等。</p>
+<p><strong>跟着需求去学习，才能真正学好计算机</strong>。没有编程基础就去啃《深入理解计算机系统》这类黑皮书，你很快就会被劝退的。</p>
+<h2 id="编程语言" tabindex="-1"> 编程语言</h2>
+<p>编程语言有很多种，Java、Python、C/C++、Go、JavaScript 等等，新手往往会非常纠结，因为害怕失去，即便是还没有一丁点收获之前。</p>
+<p>选择 Java 吧，常听人说“人生苦短，我用 Python”；选择 Python 吧，常听人说“Go 是 Google 的亲儿子，发展势头正劲”；选择 Go 吧，常听人说“前端（JavaScript 必学）更容易学习一些”；选择 JavaScript 吧，常听人说“C/C++ 具备现代程序设计的基础要求，是很多编程语言的基础。”</p>
+<p>然后就麻了！怎么选呢？</p>
+<p>我是从大一就开始学习的 Java，当时没有选择，因为不知道还有其他编程语言（嘘），学校让学 Java 就学了 Java。只能说非常的幸运，选对了。</p>
+<p>你可以去编程语言排行榜（TIOBE，非常权威）看一下——关于近 10 年编程语言的变化。Java 长期霸占着这份榜单，并且还会持续更久，一门编程语言能有这么顽强的生命力，它一定有别的语言所没有的优点，它与生俱来的竞争力是别的语言无法取代的。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-322598db-68da-4003-ad38-430fed540d77.png" alt=""></p>
+<h3 id="java-基础" tabindex="-1"> Java 基础</h3>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-ad65b6e6-7880-4c6d-9af2-24597046a77d.png" alt=""></p>
+<p>可以直接看musk的 <a href="https://tobebetterjavaer.com/" target="_blank" rel="noopener noreferrer">Java 程序员进阶之路</a>，这是一份通俗易懂、风趣幽默的Java学习指南，内容涵盖Java基础、Java并发编程、Java虚拟机、Java企业级开发、Java面试等核心知识点。学Java，就认准凤凰涅槃进阶之路😄</p>
+<p>有了 Java 程序员进阶之路，你甚至不用去看《Java核心技术卷一》。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-52514452-0643-4c42-8e61-616ff04ed56c.png" alt=""></p>
+<p>尽管《<a href="https://book.douban.com/subject/34898994/" target="_blank" rel="noopener noreferrer">Java核心技术卷一</a>》号称是一本非常适合拿来作为学习 Java 的入门书。</p>
+<ul>
+<li>第三章中的数据类型、变量与常量、运算符、字符串、输入与输出、控制流程、数组；</li>
+<li>第四章中的对象与类、构造方法、final、static、方法参数、方法重载、包、注释；</li>
+<li>第五章的继承、多态、抽象类、方法重写、枚举、反射；</li>
+<li>第六章的接口、Lambda 表达式、内部类、代理；</li>
+<li>第七章的异常、try-with-resource、日志；</li>
+<li>第八章的泛型；</li>
+<li>第九章的集合、链表、队列、Map、栈、算法；</li>
+<li>第十二章的并发编程、线程、同步、synchronized、volatile、原子性、死锁、阻塞队列、CurrentHashMap、CopyOnWriteArrayList、线程池、Callable与Future、fork-join框架、进程；</li>
+</ul>
+<p>因为这本书里囊括的 Java 基础知识，《Java 程序员进阶之路》网站上都囊括了！再推荐两套学习 Java 的视频，戳链接可直达。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-4f7920ff-0dd4-4070-af9d-9f19796efb6c.png" alt=""></p>
+<p><a href="https://www.bilibili.com/video/BV1Rx411876f" target="_blank" rel="noopener noreferrer">一套是动力节点的，B 站上有超过一千万的播放量</a></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-c28c2bc4-7c46-4504-bcf2-da1c8a813153.png" alt=""></p>
+<p><a href="https://www.bilibili.com/video/BV1Kb411W75N" target="_blank" rel="noopener noreferrer">一套是尚硅谷的，宋红康老师讲解的</a></p>
+<h3 id="并发编程" tabindex="-1"> 并发编程</h3>
+<p>并发编程的部分比较难一些，需要花时间和精力更专注地学一下。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-1f0a8b9d-43f4-42c1-9114-12103db32e80.png" alt=""></p>
+<p>可以看一下这份《<a href="https://tobebetterjavaer.com/pdf/java-concurrent.html" target="_blank" rel="noopener noreferrer">深入浅出 Java 多线程</a>》，几位在大厂工作过的技术大佬开源的，为了写好这份小册子，他们阅读了大量的 Java 并发编程方面的书籍和技术博客，加上他们在工作中积累的一线开发经验，汇聚而成。</p>
+<p>我把并发编程中经常被问到的面试题列举一下，你可以拿来自测：</p>
+<ul>
+<li>并行和并发有什么区别?</li>
+<li>线程和进程的区别?</li>
+<li>守护线程是什么?</li>
+<li>创建线程有哪几种方式?</li>
+<li>说一下 runnable 和 callable 有什么区别?</li>
+<li>线程有哪些状态?</li>
+<li>sleep() 和 wait() 有什么区别?</li>
+<li>notify()和 notifyAll()有什么区别?</li>
+<li>线程的 run()和 start()有什么区别?</li>
+<li>创建线程池有哪几种方式?</li>
+<li>线程池都有哪些状态?</li>
+<li>线程池中 submit()和 execute()方法有什么区别?</li>
+<li>在 java 程序中怎么保证多线程的运行安全?</li>
+<li>多线程中 synchronized 锁升级的原理是什么?</li>
+<li>什么是死锁?</li>
+<li>怎么防止死锁?</li>
+<li>ThreadLocal 是什么?有哪些使用场景?</li>
+<li>说一下 synchronized 底层实现原理?</li>
+<li>synchronized 和 volatile 的区别是什么?</li>
+<li>synchronized 和 Lock 有什么区别?</li>
+<li>synchronized 和 ReentrantLock 区别是什么?</li>
+<li>说一下 atomic 的原理?</li>
+<li>Java 内存模型（JMM）、重排序与 happens-before 原则了解吗？</li>
+<li>AQS了解么？原理？AQS 常用组件：Semaphore (信号量)、CountDownLatch （倒计时器） CyclicBarrier(循环栅栏)</li>
+<li>ReentrantLock 、 ReentrantReadWriteLock</li>
+<li>CAS 了解么？原理？</li>
+<li>并发容器：ConcurrentHashMap 、 CopyOnWriteArrayList 、 ConcurrentLinkedQueueBlockingQueue 、ConcurrentSkipListMap</li>
+<li>Future 和 CompletableFuture</li>
+</ul>
+<h3 id="jvm" tabindex="-1"> JVM</h3>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-824cf838-00ac-4ebe-b887-3e1e212e5b54.png" alt=""></p>
+<p>周志明老师的《<a href="https://book.douban.com/subject/34907497/" target="_blank" rel="noopener noreferrer">深入理解 Java 虚拟机</a>》绝对是学习 Java 虚拟机的首选。自 2011 年上市以来，前两版累计销量超过 30 万册，第 3 版在第 2 版的基础上做了重大修订，内容更丰富、实战性更强。</p>
+<ul>
+<li>第二部分（2-5章），主要涉及到内存管理、垃圾收集、性能监控等；</li>
+<li>第三部分（6-9章），主要涉及到类文件结构、类加载机制、字节码执行引擎等；</li>
+</ul>
+<p>第二部分和第三部分是学习的重点。我把 JVM 中经常被问到的面试题列举一下，你可以拿来自测：</p>
+<ul>
+<li>说一下 JVM 的主要组成部分?及其作用?</li>
+<li>说一下 JVM 运行时数据区?</li>
+<li>什么是双亲委派模型?</li>
+<li>说一下类装载的执行过程?</li>
+<li>怎么判断对象是否可以被回收?</li>
+<li>说一下 JVM 有哪些垃圾回收算法?</li>
+<li>说一下 JVM 有哪些垃圾回收器?</li>
+<li>详细介绍一下 CMS 垃圾回收器?</li>
+<li>新生代垃圾回收器和老生代垃圾回收器都有哪些?有什么区别?</li>
+<li>简述分代垃圾回收器是怎么工作的?</li>
+<li>说一下 JVM 调优的工具?</li>
+<li>常用的 JVM 调优的参数都有哪些?</li>
+</ul>
+<p>其实学习 Java 虚拟机不只是为了面试，还能帮我们更深入地理解 Java 这门语言，也能为线上排查问题打下基础。</p>
+<h3 id="spring" tabindex="-1"> Spring</h3>
+<p>网上总一些人，会很偏激，认为学 Spring 全家桶没什么用，他的理由是技术迭代太快，框架迟早是会被淘汰的，等你学会了，没准框架就过时了。还有一些人会杠，怎么 Java 程序员变成了 Spring 程序员呢？</p>
+<p>怎么说呢？对于 Java Web 开发来说，Spring 已经成为和 Java 核心库一样的基础设施，如果你想成为一名合格的 Java 程序员，Spring 是必经之路。</p>
+<p>另外，一个很重要的点，就是，自学的过程中，你是没有时间或者没有能力徒手撸一个像 Spring 这样强大的框架的。有了 Spring，就有 AOP 和 IoC，意味着你可以做一些企业级的开发了。再说，Spring 是建立在 Java 之上的一个框架，核心就是 AOP 和 IoC，如果 Java 基础不牢的话，也学不会 Spring。</p>
+<p>你可以先学习 SSM（Spring+Spring MVC+MyBatis），再学习 Spring Boot。Spring Boot 的出现，并不意味着 Spring 和 SpringMVC 已经过时了，从设计目的上来说，Spring Boot 只是实现了 Spring 的自动装配，降低了项目搭建的难度。</p>
+<p>推荐两个视频：</p>
+<ul>
+<li><a href="https://www.bilibili.com/video/BV1NX4y1G7wx" target="_blank" rel="noopener noreferrer">江南一点雨的 SSM 实战 100 集</a></li>
+<li><a href="https://www.bilibili.com/video/BV1PE411i7CV" target="_blank" rel="noopener noreferrer">狂神说的 SpringBoot 视频课</a></li>
+</ul>
+<h4 id="副本" tabindex="-1"> 副本</h4>
+<p>前面是主线，接下来是副本，有时间有精力就可以刷一波。刷副本的作用就是积累声望和经验，让你变得更强壮，好在下一关有更突出的表现。</p>
+<p>书籍：</p>
+<ul>
+<li>《<a href="https://book.douban.com/subject/2000732/" target="_blank" rel="noopener noreferrer">Head First Java</a>》</li>
+<li>《<a href="https://book.douban.com/subject/2130190/" target="_blank" rel="noopener noreferrer">Java 编程思想</a>》</li>
+<li>《<a href="https://book.douban.com/subject/10484692/" target="_blank" rel="noopener noreferrer">Java 并发编程实战</a>》</li>
+<li>《<a href="https://book.douban.com/subject/30412517/" target="_blank" rel="noopener noreferrer">Effective Java</a>》</li>
+<li>《<a href="https://mp.weixin.qq.com/s/6jDHa8UgN0Ceqn3nyQ7dUQ" target="_blank" rel="noopener noreferrer">阿里巴巴 Java 开发手册</a>》</li>
+<li>《<a href="https://book.douban.com/subject/4199741/" target="_blank" rel="noopener noreferrer">代码整洁之道</a>》</li>
+</ul>
+<p>视频：</p>
+<ul>
+<li><a href="https://www.bilibili.com/video/BV1DJ411B7cG" target="_blank" rel="noopener noreferrer">尚硅谷的 Intellij IDEA 视频课</a></li>
+<li><a href="https://www.bilibili.com/video/BV1TW411g7hP" target="_blank" rel="noopener noreferrer">尚硅谷的 Maven 视频课</a></li>
+<li><a href="https://www.bilibili.com/video/BV1FE411P7B3" target="_blank" rel="noopener noreferrer">狂神说的 Git 视频课</a></li>
+<li><a href="https://www.bilibili.com/video/av83622425" target="_blank" rel="noopener noreferrer">尚硅谷的 JVM 视频课</a></li>
+</ul>
+<p>开源&amp;官方文档：</p>
+<ul>
+<li><a href="https://mybatis.org/mybatis-3/zh/java-api.html" target="_blank" rel="noopener noreferrer">MyBatis 官方文档</a></li>
+<li><a href="https://dancon.gitbooks.io/intellij-idea/content/" target="_blank" rel="noopener noreferrer">Intellij IDEA 中文教程</a></li>
+</ul>
+<p>付费课程：</p>
+<ul>
+<li><a href="http://gk.link/a/10sUq" target="_blank" rel="noopener noreferrer">Java并发编程实战</a></li>
+<li><a href="http://gk.link/a/10sUp" target="_blank" rel="noopener noreferrer">深入拆解Java虚拟机</a></li>
+<li><a href="https://juejin.cn/book/6844733738119593991" target="_blank" rel="noopener noreferrer">Netty 入门与实战：仿写微信 IM 即时通讯系统</a></li>
+</ul>
+<h3 id="one-more-thing" tabindex="-1"> one more thing：</h3>
+<p>关于编程语言这块，我希望你能再学习一门编程语言，也就是 C 语言，不管是放在一开始学，还是放在学习 Java 语言之后再补，都是有必要的。</p>
+<p>因为我们学的是计算机科学（CS），C 语言是一门古老而常青的编程语言，具备现代程序设计的基础要求，它的语法是很多编程语言的基础，比如说 Java。</p>
+<p>给你推荐一门课，浙江大学翁恺教授的《<a href="https://www.icourse163.org/course/ZJU-199001?from=searchPage#/info" target="_blank" rel="noopener noreferrer">程序设计入门——C语言</a>》，国家级精品课，很适合初学者。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-2535b639-2213-4dcf-9d73-42595a5fcbc8.png" alt=""></p>
+<p>翁恺老师在推荐这门课的时候说过，“这门课就是关于计算机的那些程序是如何被写出来的，写出来的这些人就是普通的人，那么我们当然也能学会怎么把程序写出来。学习编程最基础的那些东西，无非就是如何表达数据，如何计算，如何在计算的时候使用判断啊、循环啊这些手段。”</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-7c60d140-e4d5-449d-9026-67867b9fa008.png" alt=""></p>
+<p>再推荐一本书，《<a href="https://book.douban.com/subject/1139336/" target="_blank" rel="noopener noreferrer">C 程序设计语言</a>》，我们熟知的“hello World”入门小程序其实就是由这本书首次引入的。对于学习计算机专业的同学来说，《C 程序设计语言》是一本必读的经典书。</p>
+<h2 id="数据库" tabindex="-1"> 数据库</h2>
+<p>学习一门编程语言，如果不去操作下数据，就感觉这门编程语言空有皮囊却没有灵魂。</p>
+<h3 id="sql" tabindex="-1"> SQL</h3>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-d0f18a18-a76a-413b-91b9-3dd7d99a2c76.png" alt=""></p>
+<p>《<a href="https://book.douban.com/subject/35167240/" target="_blank" rel="noopener noreferrer">SQL 必知必会</a>》是麻省理工学院、伊利诺伊大学等众多大学的参考教材，这本书直接从 SQL 的 SELECT 开始，讲述了实际工作环境中最常用和最必需的 SQL 知识，实用性极强。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-e8761c04-2585-4bbc-b84b-fb5fd5c9ceaf.png" alt=""></p>
+<p>CodeWithMosh 是目前市面上能找到的逻辑最清晰，最简单易懂的 SQL 视频教程。尤其对初学者而言，直接入手这个版本能塑造良好的 SQL 编写思维和逻辑能力。</p>
+<p><a href="https://www.bilibili.com/video/BV1UE41147KC" target="_blank" rel="noopener noreferrer">「中字」SQL进阶教程 | 史上最易懂SQL教程！10小时零基础成长SQL大师！！</a></p>
+<h3 id="mysql" tabindex="-1"> MySQL</h3>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-eb7ddcc0-4592-497a-abe4-356211e53577.png" alt=""></p>
+<p>《<a href="https://book.douban.com/subject/23008813/" target="_blank" rel="noopener noreferrer">高性能 MySQL</a>》，业界公认的一本经典的 MySQL 读物，书中没有各种提升性能的秘籍，而是深入问题的核心，详细的解释了每种提升性能的原理，从而可以使你四两拨千斤。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-235a7d96-699d-4c8c-8f90-114f2aef22fc.png" alt=""></p>
+<p>尚硅谷的这个视频课讲得真的挺不错的，<a href="https://www.bilibili.com/video/BV12b411K7Zu" target="_blank" rel="noopener noreferrer">MySQL_基础+高级篇</a>。</p>
+<h3 id="redis" tabindex="-1"> Redis</h3>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-f7d8b6a5-8764-41a9-8bb5-7a8a8f16a7f8.png" alt=""></p>
+<p>《<a href="https://book.douban.com/subject/30386804/" target="_blank" rel="noopener noreferrer">Redis 深入历险核心原理与应用实战</a>》分为基础和应用篇、原理篇、集群篇、拓展篇、源码篇共 5 大块内容。基础和应用篇讲解对读者来说最有价值的内容，可以直接应用到实际工作中；原理篇、集群篇让开发者透过简单的技术表面看到精致的底层世界；拓展篇帮助读者拓展技术视野和夯实基础，便于进阶学习；源码篇让高阶的读者能够读懂源码，掌握核心技术实力。</p>
+<p>在线网站：</p>
+<ul>
+<li><a href="https://www.mysqltutorial.org/" target="_blank" rel="noopener noreferrer">MySQL Tutorial</a></li>
+</ul>
+<p>其他书籍：</p>
+<ul>
+<li><a href="https://book.douban.com/subject/3354490/" target="_blank" rel="noopener noreferrer">MySQL必知必会</a></li>
+<li><a href="https://book.douban.com/subject/24708143/" target="_blank" rel="noopener noreferrer">MySQL技术内幕-InnoDB存储引擎</a></li>
+</ul>
+<p>极客时间付费课程：</p>
+<ul>
+<li><a href="http://gk.link/a/10sUK" target="_blank" rel="noopener noreferrer">SQL必知必会-从入门到数据实战</a></li>
+<li><a href="http://gk.link/a/10sUL" target="_blank" rel="noopener noreferrer">MySQL必知必会-在真实项目中玩转 MySQL</a></li>
+<li><a href="http://gk.link/a/10sUM" target="_blank" rel="noopener noreferrer">MySQL实战45讲-从原理到实战，丁奇带你搞懂MySQL</a></li>
+<li><a href="http://gk.link/a/10sFU" target="_blank" rel="noopener noreferrer">Redis核心技术与实战-从原理到实战，彻底吃透 Redis</a></li>
+</ul>
+<h2 id="数据结构与算法" tabindex="-1"> 数据结构与算法</h2>
+<p>计算机科学所赋予人们的最大能量在于对常见算法和数据结构的熟悉。此外，这也可以训练一个人对于各种问题的解决能力，有助于其他领域的学习。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-120c9bac-6cfd-4e5d-9a26-124f6af4121e.png" alt=""></p>
+<p>虽然名为《<a href="https://book.douban.com/subject/19952400/" target="_blank" rel="noopener noreferrer">算法</a>》，但算法是基于数据结构的，数组、队列、栈、堆、二叉树、哈希表等等，这些数据结构这本书都讲到了。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-019086f2-aa35-4e88-8fd5-a47b9363a89e.png" alt=""></p>
+<p>如果你更喜欢视频课程，我推荐<a href="https://www.bilibili.com/video/BV1JW411i731" target="_blank" rel="noopener noreferrer">浙江大学的一个的视频课</a>，很系统很经典，适合小白入门。</p>
+<p>至于练习，我推荐你到 LeetCode 上刷题，Leetcode 上的问题往往有趣且带有良好的解法和讨论。此外，在竞争日益激烈的软件行业，这些问题可以帮助你评估自己应对技术面试中常见问题的能力。我建议你至少刷 300 道题，作为学习的一部分。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-bdca293f-0448-46db-b1b9-6e39949b7d8d.png" alt=""></p>
+<p>我整理的这份 <a href="https://tobebetterjavaer.com/pdf/java-leetcode.html" target="_blank" rel="noopener noreferrer">LeetCode 刷题笔记</a>足足 300 道，对算法薄弱和需要提高算法的同学很有帮助。</p>
+<p>我的心得就是简单粗暴：从易到难，一遍一遍地刷，尽量使用自己熟悉的编程语言，比如说 Java 程序员尽量用 Java 来解题，这样刷题的幸福感也会提升很大一截。</p>
+<p>如果不是天赋异禀，不要怕，一开始就是抄题，先把别人的解题思路照着敲出来。刷的题多了，尽量控制一下刷题的时间，掐个点，不能让自己一直想、一直写下去，如果半个小时没有解出来，就果断放弃，去背别人的答案，不要觉得不好意思，等到真的熟了，再去想自己的解题思路。</p>
+<p>可以按照下面这个类型来刷就可以了。</p>
+<p>数组-&gt; 链表-&gt; 哈希表-&gt;字符串-&gt;栈-&gt;队列-&gt;树-&gt;回溯-&gt;贪心-&gt;动态规划-&gt;图</p>
+<p>其他书籍：</p>
+<ul>
+<li><a href="https://book.douban.com/subject/4048566/" target="_blank" rel="noopener noreferrer">算法设计手册</a></li>
+<li><a href="https://book.douban.com/subject/26302533/" target="_blank" rel="noopener noreferrer">编程珠玑</a></li>
+<li><a href="https://book.douban.com/subject/27008702/" target="_blank" rel="noopener noreferrer">剑指Offer：名企面试官精讲典型编程题</a></li>
+</ul>
+<p>极客时间付费课程：</p>
+<ul>
+<li><a href="http://gk.link/a/10sUU" target="_blank" rel="noopener noreferrer">数据结构与算法之美-为工程师量身打造的数据结构与算法私教课</a></li>
+</ul>
+<h2 id="计算机组成原理" tabindex="-1"> 计算机组成原理</h2>
+<p>计算机组成原理，也叫“计算机系统结构”，是了解软件底层的重要视角，但却很容易被忽略。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-05f90cc6-44bd-42eb-9d2c-23e47bb43db3.png" alt=""></p>
+<p>《<a href="https://book.douban.com/subject/5333562/" target="_blank" rel="noopener noreferrer">深入理解计算机系统</a>》这本书站在程序员的视角，非常的使用。虽然计算机的系统结构比这本书涉及到的内容多得多，但却是一个很好的起点。</p>
+<p>其他书籍：</p>
+<ul>
+<li><a href="https://book.douban.com/subject/1998341/" target="_blank" rel="noopener noreferrer">计算机系统要素-从零开始构建现代计算机</a></li>
+<li><a href="https://book.douban.com/subject/26397183/" target="_blank" rel="noopener noreferrer">计算机是怎样跑起来的</a></li>
+<li><a href="https://book.douban.com/subject/27051076/" target="_blank" rel="noopener noreferrer">计算机组成原理</a></li>
+<li><a href="https://book.douban.com/subject/26604008/" target="_blank" rel="noopener noreferrer">计算机组成与设计-硬件/软件接口</a></li>
+<li><a href="https://book.douban.com/subject/4822685/" target="_blank" rel="noopener noreferrer">《编码-印尼在计算机软硬件背后的语言》</a></li>
+</ul>
+<p>视频课程：</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-0472d100-5b28-4ec9-a94c-217ad661a157.png" alt=""></p>
+<p>弄明白了计算机的组成原理，也就对整个软件开发有了一个系统的认知，不论是计算机的硬件原理，还是软件架构，都能很好的驾驭，随之而来的，我们的职业发展机会也就更多了。如果想深入学习计算机组成原理的话，我推荐哈工大的这门视频课，整体评价非常高。</p>
+<p><a href="https://www.bilibili.com/video/BV1WW411Q7PF" target="_blank" rel="noopener noreferrer">哈尔滨工业大学-计算机组成原理（唐朔飞）</a></p>
+<p>付费课程：</p>
+<p>九阳真经是金庸小说《倚天屠龙记》中一本绝顶内功秘笈，程序员的「九阳真经」，我觉得就是计算机组成原理了，因为这里藏着 CPU 运行代码的秘密，藏着虚拟地址转换的秘密，藏着浮点数的秘密……</p>
+<p><a href="http://gk.link/a/10sUT" target="_blank" rel="noopener noreferrer">深入浅出计算机组成原理-带你掌握计算机体系全貌</a></p>
+<h2 id="操作系统" tabindex="-1"> 操作系统</h2>
+<p>为什么要学习操作系统呢？第一，面试要考；第二，无论学习哪门子编程语言，比如说 Java、C/C++，都需要和操作系统打交道，像 Java 中的多线程技术，其实是由操作系统来负责进程和线程管理的；第三，学习操作系统，还能学到内存分配方面的知识。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-e7f73611-9a4b-47a1-8703-73456cce988c.png" alt=""></p>
+<p>《<a href="https://book.douban.com/subject/30297919/" target="_blank" rel="noopener noreferrer">操作系统概念</a>》 （“龙书”）和 《<a href="https://book.douban.com/subject/27096665/" target="_blank" rel="noopener noreferrer">现代操作系统</a>》 是操作系统领域的经典书籍。只不过，这两本书对学生来说，不是特别友好，所以遭到了很多批评。</p>
+<p>操作系统是计算机系统中负责管理各种软硬件资源的核心系统软件，为应用软件运行提供良好的环境。<a href="https://www.xuetangx.com/course/THU08091000267/5883104?channel=learn_title" target="_blank" rel="noopener noreferrer">清华大学操作系统课-学堂在线</a>这门课程以主流操作系统为实例，以教学操作系统 ucore 为实验环境，讲授操作系统的概念、基本原理和实现技术，是一门非常值得推荐的视频课。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-f43b517a-78c9-4064-836a-6eb275712f88.png" alt=""></p>
+<p>副本-<a href="https://www.bilibili.com/video/av21376839" target="_blank" rel="noopener noreferrer">计算机科学速成课</a>：</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-bbcd0afb-a240-4b56-b3ba-ea8923878ddf.png" alt=""></p>
+<p>非常值得每个程序员去刷一刷的，全部都是计算机专业需要掌握的知识点，至少是应该了解的知识点。英文中字版的，观看起来毫无压力。</p>
+<p>极客时间付费课程：</p>
+<ul>
+<li><a href="http://gk.link/a/10sUV" target="_blank" rel="noopener noreferrer">操作系统实战45讲-从0到1，实现自己的操作系统</a></li>
+<li><a href="http://gk.link/a/10sUW" target="_blank" rel="noopener noreferrer">趣谈Linux操作系统-像故事一样的操作系统入门课</a></li>
+</ul>
+<h3 id="计算机网络" tabindex="-1"> 计算机网络</h3>
+<p>鉴于那么多的关于网络服务端和客户端的软件工程，计算机网络是计算机科学中价值最为“立竿见影”的领域之一。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-1a95df68-4aab-4e2a-8f72-e14d629819fe.png" alt=""></p>
+<p><a href="https://book.douban.com/subject/30280001/" target="_blank" rel="noopener noreferrer">计算机网络-自顶向下方法</a>是一本我比较钟爱的书籍，书中的小项目和习题非常值得练习，尤其是 <a href="https://gaia.cs.umass.edu/kurose_ross/wireshark.htm" target="_blank" rel="noopener noreferrer">Wireshark labs</a> 部分。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-dae8a174-e854-487a-badc-bb93ba6f4bbb.png" alt=""></p>
+<p>B 站上的这个<a href="https://www.bilibili.com/video/BV1c4411d7jb" target="_blank" rel="noopener noreferrer">计算机网络微课堂</a>视频课非常不错，强烈推荐。</p>
+<p>其他书籍：</p>
+<ul>
+<li><a href="https://book.douban.com/subject/26941639/" target="_blank" rel="noopener noreferrer">网络是怎样连接的</a></li>
+<li><a href="https://book.douban.com/subject/25863515/" target="_blank" rel="noopener noreferrer">图解 HTTP</a></li>
+<li><a href="https://book.douban.com/subject/24737674/" target="_blank" rel="noopener noreferrer">图解TCP/IP</a></li>
+<li><a href="https://book.douban.com/subject/1088054/" target="_blank" rel="noopener noreferrer">TCP/IP详解 卷1：协议</a></li>
+</ul>
+<h3 id="前端-全栈" tabindex="-1"> 前端&amp;全栈</h3>
+<p>// TODO</p>
+<h3 id="分布式系统" tabindex="-1"> 分布式系统</h3>
+<p>// TODO</p>
+<h3 id="英语能力" tabindex="-1"> 英语能力</h3>
+<p>对于我们程序员来说，英语就好像空气一样重要，一呼一吸之间都离不开她。如果空气质量不那么好的话，你是不是就有点缺氧的感觉，同样的，如果英语功底差点意思的话，编程也会感到很吃力。</p>
+<p>英语用得好，你可以轻松地阅读和查看国外最新的技术文档。</p>
+<p>英语用得好，你可以徜徉在源码的海洋里，肆无忌惮地汲取精华。</p>
+<p>英语用得好，你可以惬意地聆听斯坦福等名校在网上的公开课，跟随真正的大牛，学到最原汁原味的技术。</p>
+<p>英语用得好，退一万步讲，你在敲代码的时候再也不用担心方法、变量和类的命名不够优雅了。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-0eee1a08-7b44-4311-9b00-ef01a0bc0909.png" alt=""></p>
+<p>前新东方英语老师李笑来在 GitHub 上开源的这份英语学习教程还不错，英文名字叫《<a href="https://github.com/xiaolai/everyone-can-use-english" target="_blank" rel="noopener noreferrer">everyone can use english</a>》，中文名译作《<a href="https://mp.weixin.qq.com/s/yjBldT9YShWd6cnDIg6RuQ" target="_blank" rel="noopener noreferrer">人人都能用英语</a>》，已有 5.4k 的 star。</p>
+<h3 id="简历" tabindex="-1"> 简历</h3>
+<p>简历要怎么样写，才能打造一个独一无二的你呢？才能让招聘方知道你做过什么？能做什么呢？我来简单的列举一下。</p>
+<p>1）个人信息</p>
+<ul>
+<li>姓名</li>
+<li>年龄</li>
+<li>手机</li>
+<li>邮箱（推荐使用 Gmail，因为可以无形“高大上”，给招聘方一种专业的 feel）</li>
+</ul>
+<p>2）教育经历</p>
+<p>只写最高学历就行了；博士就写博士，没必要再写什么时候考的研；本科就写本科，没必要再写什么时候专升本。如果学历不好，也不要担心，可以在项目经验中多突出一些。</p>
+<p>3）工作经历</p>
+<p>可以根据招聘方的要求，适当地做一些调整，比如说，应聘的岗位是开发，就没有必要写之前做运维，做测试的工作经历。</p>
+<p>如果工作经验比较丰富的话，尽量按照时间倒序来写，因为越后面的项目，肯定难度更大，技术含量更高，对吧，不要一步一个台阶往下迈。</p>
+<p>懂得适可而止，不要事无巨细，把所有项目的细节都罗列上。只需要交代三个重要的项目就行了。项目的背景是什么，你在其中的职责，项目用到的技术栈（最好是招聘信息上要求的那些），最好突出你做出了哪些特殊的贡献（证明你确实有能力）。</p>
+<p>4）加分项</p>
+<ul>
+<li>有一个访问量很不错的博客。</li>
+<li>有一个星标很高的开源作品。</li>
+<li>出过一些技术图书。</li>
+<li>在行业大会上做过分享。</li>
+<li>参加过一些出名的竞赛，获得过优异的成绩。</li>
+<li>记住一点，简历并不是单纯意义上的自我介绍，比如说我是musk，今年 18 岁，来自洛阳，毕业于某某学校。这样的简历太苍白了。</li>
+</ul>
+<p>简历就好像电梯广告的单页一样，它富有鲜活的生命力，它在呐喊，它不需要过多的润色，只需要铿锵有力、赤裸裸的“炫耀”。</p>
+<p>比如说我是musk， 2019 年参与了 XXX 项目的开发。作为项目团队的核心 开发人员，我不仅能够提前完成自己的开发任务，还设计了一个高效的缓存中间件，大大提高了系统的性能。</p>
+<p>该中间件上线后，Web 前端性能从 10 QPS 提升到 120 QPS，服务器由 10 台缩减为 5 台。</p>
+<p>鉴于之前的良好表现，我在 2020 年升任项目的主要负责人，虽然小组成员只有 15 个，但硬生生地肩负起了每天超过 2000 万的 PV。</p>
+<p>看，这样的简历是不是让人耳目一新，证明自己价值的同时，没有过多的粉饰，让招聘方觉得你很靠谱，迫切地想要把你这个人才“抢”到手，免费被别的公司挖走了。</p>
+<p>简历上的内容不要太多，尽量不要超过一页，因为招聘方没有那么多时间去翻看你的简历。我是挺相信第一印象的，好的简历看一眼就会过目不忘，真的。</p>
+<p><a href="https://tobebetterjavaer.com/pdf/jianli.html" target="_blank" rel="noopener noreferrer">入职阿里后，才知道原来简历这么写</a></p>
+<h2 id="面经-面试题" tabindex="-1"> 面经&amp;面试题</h2>
+<p>你可以把我整理的这份题库过一下，题库分为十九个模块，分别是：Java 基础、容器、多线程、反射、对象拷贝、Java Web 模块、异常、网络、设计模式、Spring/Spring MVC、Spring Boot/Spring Cloud、Hibernate、Mybatis、RabbitMQ、Kafka、Zookeeper、MySql、Redis、JVM，足足 208 道：</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-37cbc58f-2ced-4334-abc5-d74263008d80.png" alt=""></p>
+<p><a href="https://tobebetterjavaer.com/pdf/programmer-111.html" target="_blank" rel="noopener noreferrer">可能是2021年最全最硬核的Java面试 “备战” 资料</a></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-57502a19-c872-4a02-8347-3a4231cffd7e.png" alt=""></p>
+<p><a href="https://mp.weixin.qq.com/s/s0_XzGjHcgk2RwbCRzmgHg" target="_blank" rel="noopener noreferrer">不好意思！GitHub 星标 100k+的这份面试攻略让我膨胀了</a></p>
+<h2 id="全部汇总" tabindex="-1"> 全部汇总</h2>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-8614a576-2644-4f7a-a0b3-b133c6b35f45.png" alt=""></p>
+<p>我把所有的电子书都放在另外一个仓库了：</p>
+<ul>
+<li>GitHub：<a href="https://github.com/itwanger/JavaBooks" target="_blank" rel="noopener noreferrer">https://github.com/itwanger/JavaBooks</a></li>
+<li>码云：<a href="https://gitee.com/itwanger/JavaBooks" target="_blank" rel="noopener noreferrer">https://gitee.com/itwanger/JavaBooks</a></li>
+</ul>
+<h2 id="常见问题解答" tabindex="-1"> 常见问题解答</h2>
+<h3 id="这份自学指南的目标受众是" tabindex="-1"> 这份自学指南的目标受众是？</h3>
+<ul>
+<li>自学软件的工程师</li>
+<li>培训班的学生</li>
+<li>“早熟的”高中生</li>
+<li>想要变得牛逼的大学生</li>
+<li>想要进阶的初级工程师</li>
+</ul>
+<h3 id="一定要严格遵守推荐的学习次序吗" tabindex="-1"> 一定要严格遵守推荐的学习次序吗？</h3>
+<p>我推荐的次序主要是为了帮助你起步，如果你出于某种强烈的意愿而倾向以不同的顺序学习，也没有关系，勇敢开始吧！</p>
+<p>一个重要的“先决条件”是：</p>
+<ul>
+<li>你最好先从一门编程语言开始，然后不断纵向和横向扩展；</li>
+<li>你最好先学计算机组成原理再学操作系统；</li>
+<li>你最好先学计算机网络和操作系统再学分布式系统；</li>
+</ul>
+<h3 id="xx编程语言怎么样" tabindex="-1"> XX编程语言怎么样?</h3>
+<p>学习一门特定的编程语言和学习计算机科学的一个领域完全不在一个维度——相比之下，学习编程语言更容易一些；如果你已经熟悉一门编程语言，比如说 Java 或者 C 语言，再学习另外一门编程语言也会非常轻松。</p>
+<h3 id="xx流行技术怎么样" tabindex="-1"> XX流行技术怎么样?</h3>
+<p>没有任何一种技术的重要程度可以和学习计算机科学的核心部分相媲美，不过，你对学习一门流行的技术充满热情是一件很值得褒奖的事情。</p>
+<h3 id="这份指南是谁写的" tabindex="-1"> 这份指南是谁写的？</h3>
+<p>主笔为<strong>musk</strong>，可以微信搜索“musk”关注我的微信公众号。只要有足够的时间和动力，我非常有信心，你可以自学完以上所有课程。</p>
+<p><strong>所涉及到的电子书，可以通过下面这个仓库下载</strong>：</p>
+<ul>
+<li>GitHub：<a href="https://github.com/itwanger/JavaBooks" target="_blank" rel="noopener noreferrer">https://github.com/itwanger/JavaBooks</a></li>
+<li>码云：<a href="https://gitee.com/itwanger/JavaBooks" target="_blank" rel="noopener noreferrer">https://gitee.com/itwanger/JavaBooks</a></li>
+</ul>
+]]></content:encoded>
+      <enclosure url="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/LearnCS-ByYourself-70e25595-b36b-408c-a8e4-3a67261826da.png" type="image/png"/>
+    </item>
+    <item>
+      <title>7.学习建议</title>
+      <link>https://bytecodes.tech/studysuggest/</link>
+      <guid>https://bytecodes.tech/studysuggest/</guid>
+      <source url="https://bytecodes.tech/rss.xml">7.学习建议</source>
+      <category>学习建议</category>
+      <pubDate>Mon, 12 Dec 2022 08:02:21 GMT</pubDate>
+    </item>
+    <item>
+      <title>本科生如何才能进入腾讯、阿里等一流的互联网公司？</title>
+      <link>https://bytecodes.tech/studysuggest/benkesheng-ali-tengxun.html</link>
+      <guid>https://bytecodes.tech/studysuggest/benkesheng-ali-tengxun.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">本科生如何才能进入腾讯、阿里等一流的互联网公司？</source>
+      <category>学习建议</category>
+      <pubDate>Mon, 12 Dec 2022 08:02:21 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="前言" tabindex="-1"> 前言</h2>
+<p>这么多年来我有一件事情一直在坚持，那就是做笔记和写博客。</p>
+<p>做笔记，就是记录学习中大大小小的事情，可能是面试问题，可能是一周的学习计划，也可能知识一个知识点，总归都是值得记录的东西，对我来说，就是一种积累。而对于博客，我从一开始只用于记录项目，到后来做转载，再到后来写原创，整理系列文章，则更像是一种沉淀。</p>
+<p>但是在春招刚刚结束的这段时间，我发现一个问题，之前学过的东西忘记了很多，特别是那些理解的不够深的知识点，总是特别容易忘记。另外我发现，虽然我在笔记中记录了很多的知识点和面试题，但是往往我只看过一次，不会再去看第二次。</p>
+<p><strong>这也意味着，虽然记录的内容很多，但是真正消化吸收的内容很少，脑子里充斥着总是那些零碎的知识点和面试问题，对于完整的知识体系知之甚少。这些问题在春招期间也不断地暴露出来，让我思考了很久。</strong></p>
+<p>面对如此窘境，我想做出改变，趁着现在时间充裕，我想要为这些内容做一次减法，并且借此机会，推翻自己原有的知识体系，重建新的知识框架。简单说来，就是重新开始学习Java后端，这次我要用一种更高效的方式，避免走之前走的弯路，要用最高效，最合理的方式去复习。由于我之前已经有基础，所以我对完成这一目标有信心，相应地我也为此做出了明确且详细的学习计划。</p>
+<h3 id="具体可靠的学习计划" tabindex="-1"> <strong>“具体可靠的学习计划”</strong></h3>
+<p>在三个月的时间里，我首先按照Java后端路线图安排好复习计划，每个知识点都会对应安排一段时间，比如我可能花一天时间复习“Java反射”，两天时间复习“设计模式”，一周的时间用于复习&quot;JVM虚拟机”。我一般会在月初做好整个月的计划，然后根据进度做一些微调，但是基本上我都可以跟上进度，并且是在复习到位的前提下。</p>
+<p>所以我觉得，对于秋招这一场苦战，指定计划尤为重要，一旦计划定下来，战略目标清晰，对应的战术制定也会变得清晰，执行力也会随之变强。</p>
+<h3 id="写博客整合知识点" tabindex="-1"> <strong>“写博客整合知识点”</strong></h3>
+<p>至于复习方法，我主要通过看高质量博客，并且结合代码实践的方式巩固这部分知识点，比如今天学习“concurrenthashmap”，我会去找两三篇比较好的博客先看看，主要是源码解读方面的，然后我会把它们进行整合，如果有遗漏的知识点我会再进行补充，有时候我还会自己去看看JDK源码，以便更好地理解博客内容，完成知识整合之后，我就会对应地整理出一篇博客出来，发在我的个人博客上。</p>
+<p>除此之外，当我完成了一整个专题的复习之后，我会把这些文章整理成一个专题，比如上面说的“concurrenthashmap”，实际上属于Java并发包，所以我会专门做一个博客专栏，用来完成Java并发系列的文章专题。<strong>对于每一个文章专题，我都会先理清这个专题一共有哪些内容，然后再开始整理。比如对于Java并发包，我会先写Java多线程基础的文章，再写JMM内存模型的文章，接着一步步着手写Java线程池，阻塞队列，工具类，原子类等等。这样一来这部分内容就复习完毕了，写系列文章的好处就在于，我可以从头到尾理清脉络，并且对于每一部分的知识点都做了比较好的总结。</strong></p>
+<p>对于博客的选择，我吸取了之前的教训，宁愿花半小时看一篇高质量文章，也不花10分钟看5篇烂文章。深度阅读的好处，就是可以让这部分内容更好地融入你脑内的知识体系，而不是像其他快餐文章一样转瞬即逝。</p>
+<h3 id="做项目巩固实践能力" tabindex="-1"> <strong>“做项目巩固实践能力”</strong></h3>
+<p>由于之前在实习期间参加的项目都比较大，我接触的模块也比较单一，没有对整体项目有一个很好的把握，所以我决定趁这段时间再巩固一下我的项目实践能力，这里的能力主要是指的是对项目架构的把握能力，以及对业务开发的熟练度，当然也包括对各种常用后端技术的熟悉程度。</p>
+<p><strong>我花了大概一个月的时间完成了两个项目的开发，当然主要也是模仿两个开源项目做了，这两个项目都使用SpringBoot快速开发，并且用到一些常用的后端技术比如redis，云存储，以及一些常见Web框架，除此之外还涉及到了solr，爬虫等技术。虽然项目不算很难，但是我在这段时间里很快地熟悉了完整项目开发的流程，并且每天做迭代，通过Git来跟进版本，每个版本都会写清所做的内容，这也让我对项目的架构非常熟悉。</strong></p>
+<p>在项目之余，我也找一些常用的后端组件来跑一跑demo，以便让我对这些技术有一个直观的了解，比如面试常问的dubbo，zookeeper，消息队列等组件。这些尝试也让我在理解它们的原理时更加得心应手了。</p>
+<h3 id="坚持刷题-注重方法" tabindex="-1"> <strong>“坚持刷题，注重方法”</strong></h3>
+<p><strong>算法题是秋招笔试面试中的重头戏，每个研发同学都免不了经历算法题的摧残，对我这么一个非科班同学来说，更是让人头大。正因为如此，我放弃了刷大量LeetCode题目的方法，选择了更加行之有效的刷题方式。</strong></p>
+<p><strong>首先我重新刷了一遍剑指offer，并且对每道题目进行总结，尽量保证每一道题都可以记在脑子里，众所周知剑指offer中的题是面试时非常喜欢考的，所以先搞定这部分题目是最为关键的。</strong></p>
+<p>搞定剑指offer之后，当然还要刷LeetCode了，LeetCode题目这么多，怎么选择呢，我没有按照tag刷，也没有按照顺序刷，而是参考当时一个大佬的LeetCode刷题指南来进行刷题的，他把每个类型的题目都做了归纳，每部分只放一些比较经典的题目。所以我前后大概刷了100多道LeetCode的题目，并且在第二遍刷题复习的时候，我也对这些题目做了一份总结。</p>
+<p><strong>除了上面两个经典题库，我还着重刷了大厂的历年真题，这部分我主要是通过牛客网的历年真题题库来完成刷题的。说实话，真题是非常重要的，因为公司出的题目不像平时的那些算法题，可能会出得非常奇葩，所以你如果不提前适应的话会比较吃亏。完成这部分题目之后，我对算法题的复习也基本告一段落了。</strong></p>
+<p>当我完成所有内容的复习时，提前批已经开始了。终于要上战场了，因为战前准备比较充分，所以我对秋招还是比较乐观的，但事实上，秋招不仅是攻坚战，而且是持久战，要笑到最后，确实也不是那么容易的事情。</p>
+<h2 id="重建知识体系-对学过的东西做减法" tabindex="-1"> 重建知识体系，对学过的东西做减法</h2>
+<p>前面提到我在秋招前完成了知识体系重建，那在这里我也想跟大家分享一下我当时大致的知识体系构成。就跟我前面说的一样，我选择重新再学一遍Java后端相关的技术内容，因为我知道大致的学习方向，并且有一定的基础，所以看很多文章变得更加得心应手，写文章和做总结也更加有底气了。</p>
+<p>首先在Java基础方面，我写了20多篇原创博客，主要是对Java核心技术的解析，比如“Java反射”，“Java序列化和反序列化”，“Java异常体系”等等。</p>
+<p>在Java集合类方面，我原创了部分文章，另外整合了一些比较好的技术文章，其中最主要的就是关于hashmap的文章，当时我整合的文章几乎没有遗漏任何一个知识点。</p>
+<p><strong>在Java并发编程方面，我主要参考了并发编程网以及一些优质博客的文章，先搞懂了Java并发原理，再一步步学习JUC并发包的组件，其中重点看了chm，并发工具类以及阻塞队列等JDK源码的解析文章，除此之外，我还会在IDE中跑JUC相关的emo，毕竟这方面的内容非常需要实践。</strong></p>
+<p>在Java网络编程方面，我先从最基础的socket入手，再讲到NIO,AIO，并且加入了几篇对Linux IO模型解析的文章，让整个知识体系更加完整（因为NIO是基于Linux Epoll实现的），接着我又加入了对Netty的探讨，以及Tomcat中对NIO的应用，可以说是把Java网络编程一些比较重要的部分都囊括进来了。<strong>为了更好理解这部分内容，我也在网上参考了很多客户端和服务端通信的demo，最后我分别用Socket，NIO,AIO以及Netty把C/S 通信的demo都写了一遍。</strong></p>
+<p>在JVM虚拟机方面，我则按照《深入理解JVM虚拟机》这本书的行文脉络进行文章的整理。<strong>在搞定JVM基本原理以后，我着重了解了JVM调优和实践中常遇到的问题，并且整理了常用的JVM调优工具，场景问题以及调优实践的案例，这也是因为面试中对JVM调优实践越来越重视了。</strong></p>
+<p>在JavaWeb方面，我从Java Web相关技术的发展入手，一步步了解了每种技术存在的意义，比如JSP，Servlet，JDBC，Spring等等，然后对每种技术进行了比较全面的了解，并且着重地看了Spring和SpringMVC的源码分析文章，另外一方面，我花了很多时间去研究Tomcat的工作原理。除此之外，JavaWeb项目中常用的maven，日志组件，甚至是单测试组件，也纳入了我的系列文章里。</p>
+<p><strong>在数据库和缓存方面，我主要学习了MySQL和Redis这两种最常用的数据库。对于Mysql，我从简单的sql开始了解，然后开始了解sql优化，MySQL的存储引擎和索引，事务及锁，还有更复杂的主从复制，分库分表等内容。对于Redis，我也是从简单的api入手，然后去了解每一种数据结构的底层实现原理，接着尝试去学习Redis的持久化方式，以及作为缓存常需要考虑的技术点，当然，也包括Redis的分布式锁实现，以及它的分布式集群方案。</strong></p>
+<p>最后一部分就是分布式相关的理论和技术了，这个也是困扰我很久的一块内容，我主要把这块内容分为两个部分，分别是分布式理论和分布式技术，理论方面，我先了解CAP,BASE等基本知识，然后开始学习一致性协议和算法，接着探讨分布式事务。**对于分布式技术，涉及的东西就更多了，例如分布式session，负载均衡，分布式锁等内容，这些知识点我都会用一到两篇文章去总结，对于分布式缓存，消息队列，以及分布式服务等内容，我会花比较多的时间去全面学习，然后总结出一个系列的文章出来。**当然，对于这些技术的学习主要还是停留在理论方面，在自己的项目中能用到的比较少。</p>
+<p>至此，我的知识体系基本构建完成，这也是我在秋招中能够成功闯过那么多面试的原因。</p>
+<h2 id="秋招之路-砥砺前行" tabindex="-1"> 秋招之路，砥砺前行</h2>
+<p>不管前期做了多少准备，到秋招的时候也不能掉以轻心，从七月底第一次面试到9月基本佛系，中间经历了大大小小的面试。</p>
+<p><strong>在完成知识体系重建以后，我把重点转向了另外几件事，一是完善和熟悉我的简历，以便在面试中能够比较好地发挥，二是持续刷题，保持对算法题和笔试真题的手感和熟练度，三则是看面经查缺补漏，我一直认为看面经是很重要的一项复习内容。</strong></p>
+<p><strong>就这样，我一边继续复习，以便开始了一场接一场的面试接力。</strong></p>
+<p>起初，我面了几家小公司练手，接着阿里的提前批接踵而至，我战战兢兢地参加了阿里中间件部门的面试，面难难度还算适中，一共四轮面试，当时我的表现也还不错，问题基本都答上来了。面完不到一周以后我就收到了通过的消息，当时还有点懵。没想到第一个offer这么快就来了。</p>
+<p>这段时间内，蚂蚁金服的两个部门也给了我面试机会，我都参加了它们的面试，并且顺利地拿到了其中一个部门的offer。由于我对蚂蚁这边的业务比较感兴趣，最终选择了蚂蚁金服的offer。</p>
+<p><strong>阿里提前批的胜利确实是意外之喜，但也大大地鼓舞了我，于是我又参加了百度和腾讯的提前批面试，由于百度的提前批不走流程，一共有四个部门面试了我，每个部门都有2到3轮面试，总计约为12次面试，到后来我已经快晕了，看到百度的电话就害怕，由于面试次数太多，有时候发挥确实也不是很好，我也没有特别在意，只当是在锻炼自己了。</strong></p>
+<p>百度的面试难度每个部门不一样，但是每次面试必写算法题，一写算法题，时间至少就是一个小时以上，每次面试完都有一种身体被掏空的感觉。</p>
+<p>经历了百度面试的摧残以后，我手写算法的速度也变快了，很多坑也被我填上了。接下来面对腾讯的面试，我也是既激动又担心，腾讯的面试难度比较大，对于操作系统和网络的知识喜欢深挖，问的东西也很有深度，面完前三面以后，第四面拖了3周才进行。当时三面面试官对我的评价比较好，也让我信心爆棚了好久。</p>
+<p>在等待腾讯终面的期间，我参加了今日头条的面试，当时有幸拿到了一个白金码，免去笔试，事实证明白金码作用真的很大。头条的面试难度和腾讯差不多，三轮面试，同样需要写各种算法，由于是视频面试，我可以清楚地看到，头条的面试官真的非常高冷啊。面完头条我的第一感觉就是应该挂了吧。没想到最后还是给了offer。</p>
+<p><strong>结束这几家大厂的面试之后，我觉得我的秋招已经接近尾声了，不过由于之前投的比较多，所以我又面了几家大公司，如网易，华为，快手等。到9月上旬的时候，我接连收到了bat和头条，网易的意向书，阿里最早，腾讯最晚，每收到一封意向书我都很开心，没想到最后我真的可以集齐bat等大厂的offer。</strong></p>
+<p>9月以后，除了偶尔和同学做几场大厂的笔试，我基本就佛系了。直到后来一些外企例如亚马逊，大摩开始笔试面试，我才又重新回到了状态。</p>
+<p>截止目前，我基本上把该拒绝的offer都拒绝了，综合各方面因素的考虑，最后应该会签阿里，原因是部门是我自己喜欢的，同时给的评级也比较高。虽然腾讯也给了sp，但是最后还是忍痛割爱啦。至于百度和头条，给的offer并不是很令人满意，所以就没有考虑了。</p>
+<p>至此，我的秋招之旅总算圆满结束。</p>
+<p>希望各位在未来也可以拿到自己理想中的offer！</p>
+<blockquote>
+<p>转载链接：<a href="https://www.zhihu.com/question/26406260/answer/569976835" target="_blank" rel="noopener noreferrer">https://www.zhihu.com/question/26406260/answer/569976835</a></p>
+</blockquote>
+<hr>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>大裁员下，程序员如何做“副业”？</title>
+      <link>https://bytecodes.tech/studysuggest/chengxuyuan-fuye.html</link>
+      <guid>https://bytecodes.tech/studysuggest/chengxuyuan-fuye.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">大裁员下，程序员如何做“副业”？</source>
+      <category>学习建议</category>
+      <pubDate>Mon, 12 Dec 2022 08:02:21 GMT</pubDate>
+      <content:encoded><![CDATA[<p>前几天有幸看了尤雨溪尤大的直播，他们谈到一个话题，是说目前前端人，或者是整个程序员群体如何做副业？近年来互联网行情下降，好多人都在思考要不要搞个副业来抵御风险。</p>
+<p>这不又来事了，这两天又爆了互联网大裁员。继阿里“向社会输送人才”之后，京东又搞了个“毕业礼”，整的小伙伴们人心惶惶。副业的关注度又一波升级。</p>
+<p>那今天我们就来聊聊，程序员做副业这件事。</p>
+<h2 id="为什么程序员都想着做副业" tabindex="-1"> 为什么程序员都想着做副业？</h2>
+<p>我理解今天的程序员为什么都有做副业的想法，原因不外乎两个方面。</p>
+<p>一是互联网的爆发期已过，以前程序员体量小，会点基本技能就可以不愁工作，薪资也非常可观，但现在随着大量人员涌入，各种名校高学历的加入内卷，我们突然发现没什么竞争优势了。</p>
+<p>二是互联网开发圈这种畸形的工作氛围，熬夜加班过于严重，消耗生命力来赶进度。特别是大厂，钱是给的多，但是透支强度懂得都懂，说句不好听的是拿命换钱。</p>
+<p>以前大家听这些可能只是自嘲一下，随着脉脉上不断爆出大厂程序员加班猝死的消息，大家开始慌了，原来比起收入，健康才是我们终身的财富。</p>
+<p>当然还有一个原因，不只是程序员的职业阴霾，但程序员首当其冲，那就是 “35 岁危机”。</p>
+<p>程序员是拼学习能力和创造能力的职业，不进则退的规则远大于其他行业。35 以后，如果你不是真的热爱这个行业，那么你会发现，20 多岁的那种学习钻研的毅力已经没有了。再加上身体状况大不如前，加班扛不动，各方面你怎么和新来的小伙子们拼？</p>
+<p>以上的种种情况，再加上网络上疯狂的制造焦虑，我们自己也突然有了种随时会降薪，随时会被裁，随时要加入内卷，甚至随时会没命的担忧，开始想后路了。不行搞点副业？不行创个业？</p>
+<p>所以如果你今天在技术社区发一篇“程序员如何搞副业”的文章，点击率一定翻倍。根本原因，就是大家对未来的担忧。</p>
+<p>卷不动怎么办？遇到 35 岁危机怎么办？大家都想着规避风险，这才不得不去关注副业。</p>
+<h2 id="怎么看-加班内卷-和-35-岁危机" tabindex="-1"> 怎么看 “加班内卷” 和 “35 岁危机”？</h2>
+<p>这两个现象是程序员焦虑的主要来源，看似避无可避，可有没有想过根本原因是什么？</p>
+<p>我们再往深剖一下这两个问题，其实大家担心的是：“如果这种加班状态持续到 35 岁，我能不能撑得住？到时候竞争力下降，我会不会被新人替代？”</p>
+<p>但是我想说一个误区，就是初中级别的程序员，需要大量的写代码来提升自己的技术能力，不断的投入时间学习，研究，拓宽视野。但是到了高级别的程序员，比如带团队的 leader，架构师，写代码一定是越来越少的。</p>
+<p>对于这些人来说，他们不需要通过加班来发挥价值，他们有自己的核心竞争力和不可替代性，写代码也是写一些核心的关键的代码，更多的时间关注技术选型和解决问题的方案。所以说程序员的职业生涯不会一直伴随着加班，当你拥有核心竞争力，你的工作方式反而会很自由。</p>
+<p>那什么是核心竞争力？我说一句话大家一定会有体会：你的技术 leader，<strong>一个决策可以让团队的开发效率提升 10 倍，也可能让团队的开发效率降低 10 倍</strong>，有可能最后还出不了成果，甚至告诉你这个不行得重来！</p>
+<p>这就是核心竞争力呀！一个程序员对技术选型，解决方案的评估和判断，这才是他的核心竞争力。这种竞争力不是你刷一堆算法，背一堆八股文，学很多面试技巧，他就能有的。这些东西是需要你经过几年大量的 <strong>写代码+学习+尝试+思考</strong> 才能培养出的能力。</p>
+<p>所以说，我们所谓的 “加班内卷” 和 “35 岁危机”，得分两个阶段来看。</p>
+<h3 id="工作五年内" tabindex="-1"> 工作五年内</h3>
+<p>如果你是工作的前五年，这个阶段你精力旺盛，学习能力强劲，那就是要卷的啊。趁着职业上升的黄金时期，花大量的时间和精力做积累，不断做加法，尽力尝试着去拓宽技术视野，让自己成为一个独当一面的人。这样你才能积累到别人无法超越的高度。</p>
+<p>如果这个阶段你躺平了，你想着反正大家都在卷，我不想参与其中，每天上班空闲摸个鱼也挺好的。那这样持续几年，除了业务代码熟练一些，你在技术深度广度上都没多大的长进。当你发现公司的新人越来越厉害，他们带来的技术让你应接不暇的时候，你突然发现卧槽，危机真的来了，这个时候再卷是不是晚了？</p>
+<p>我不是鼓励大家内卷，相反我很反对做那些没什么意义光是自我消耗的事情。但是努力和积累永远不是卷，更不是不想奋斗的借口。如果卷真的避免不了，那一定要“卷的有价值”。</p>
+<p>比起内卷，其实我更鼓励大家“外卷”。外卷到意思就是当你在某个领域积累了一定经验后，要试着跳出当前的圈子，去探索一下外面的世界。</p>
+<p>比如你是一个前端程序员，尽管你的 Title 是“前端”，但你不能一直只在前端的圈子里打转。作为一个程序员，只要涉及到程序开发的，前端后端产品服务器，你都要接触，这样你的视野才会变的更广，看问题的角度更多，随之你的判断能力和才会得到提升。</p>
+<p>大家总觉得，一个前端就该专攻 js，只有准备向全栈发展才会接触后端。其实不是的，接触并不代表一定要做，了解整体可以培养你的全局观。比如你遇到了一个难题，你只会在前端的范畴研究，可能这个问题在后端处理只是一行代码的事情，可你不知道呀，所以会浪费很多时间。</p>
+<h3 id="工作五年后" tabindex="-1"> 工作五年后</h3>
+<p>如果你已经工作五年以上，上面说的你都没做到，眼看着自己快奔三了，还是一线开发，依然没有形成核心竞争力，这个时候 35 岁危机袭面而来。你面对一浪强过一浪的后浪，有心追赶但是明显吃力，这个时候即使老板不会裁你，你心中也会忐忐忑忑，害怕自己某一天突然失业。</p>
+<p>但是如果上面说的你都做到了，工作五年后，你多半会带一个小团队，或者成为架构师。不管有没有进入大厂，你总会在一个地方持续发挥着自己的不可替代性。</p>
+<p>工作的基本任务你会安排给组内小伙伴，架构和难题自己攻克，长期下来，你会越来越值钱，这是再厉害的应届生都做不到的，这个时候你会有 35 岁危机吗？自然不会。</p>
+<p>而且我有一个预感，程序员这个行业一定是越做越自由的。当你能力出众，技术超群，地域已经限制不了你，你可以选择任意地方的工作，并不一定要守在某一家公司，某一个城市。</p>
+<p>或许有一天你可以在三亚海边租个小房子，每天早上起来晒晒太阳，打开电脑，安排好今天的工作，然后看看前沿技术资讯，review 一下同事的代码，花几个小时解决掉剩余的难题，然后眯着眼继续晒太阳。</p>
+<p>聊这些就比较理想了，未来还是要展望的嘛。但是核心思想就是，如果你五年内没有做好积累，形成自己的核心竞争力，那么 35 岁危机也许真的离你不远。反之，则是另外一种状况。</p>
+<h2 id="怎么做副业" tabindex="-1"> 怎么做副业</h2>
+<p>上面说，程序员的 35 岁危机本质是因为没有核心竞争力。再回到做副业这件事，怎么做副业能帮我们抵抗 35 岁危机？</p>
+<p>既然危机来源于核心竞争力，那么副业的目的一定是帮助我们提升核心竞争力。</p>
+<p>这里大家也会有一个误区，认为做副业的目的是为了赚钱，开辟一条新的收入途径。这个也不能算错，但是你想啊，一个年薪百万的程序员需要做副业吗？</p>
+<p>人的精力有限，如果你的副业不是为了帮你巩固主业，而是分走了你投入在主业上的一部分精力，可能你真的赚了笔钱，但长远来看肯定没有你持续提升带来的收入更多。</p>
+<p>核心竞争力除了硬实力，当然也包括这些：</p>
+<ul>
+<li>名气</li>
+<li>口碑</li>
+<li>帮助别人</li>
+<li>分享技术</li>
+<li>分享思想</li>
+</ul>
+<p>名气不用说，在任何圈子积累了名气路就会顺畅许多；口碑呢就是说你这个人的办事能力，靠不靠谱；帮助别人是你有没有带动别人一起成长的能力；分享最关键了，你的任意优势，包括技术和思想，如果你认为是有价值的，那就分享出来啊，这样别人才能在更多方面了解你，这是你简历之外的另一张名片。</p>
+<p>如果你做副业的目标是为了增加上面几个方面的软实力，OK，这就是最棒的。这些方面可能短期看不到回报，光是付出了，但是坚持下去，一定会给你带来意料之外的惊喜。</p>
+<p>具体到做副业的方式有哪些？我认为两个足矣：</p>
+<ul>
+<li><strong>写文章</strong></li>
+<li><strong>录视频</strong></li>
+</ul>
+<p>写文章真的是一个非常非常好的学习总结方式。人的听和看的能力是天生的，但是读和写的能力是需要后天培养的。比如你看一个技术视频，看完貌似学会了。十分钟后让你写一下这个视频的关键信息，你一想，哎刚才是什么来着？好像记不清了。有些东西你以为掌握了，但是让你写的时候，你才发现那也许是错觉。</p>
+<p>写文章会逼着你回忆和思考，没有真正吸收和消化的东西，你是写不出来的。所以坚持写文会提升我们的思考力和总结概括能力。还有你工作中遇到的重要问题和解决方案，如果不记下来，过几个月多半会忘。等到要写简历的时候，突然发现好像没什么可写，这是非常不划算的事情。</p>
+<p>除此之外，你还可以把自己的文章发表到社区，会得到很多读者的反馈，这个会给到你非常正向的鼓励，也有利于查漏补缺，同时也会慢慢积累你的口碑和名气。</p>
+<p>不过开始写文章的时候会比较痛苦，写的不好，还憋不出来。其实我现在也是这个状态，一篇文章得写一周，一句话改来改去总觉得不通顺，总觉得结构设计差点意思。不过只能硬着头皮写，写的多了总会得心应手的。</p>
+<p>至于录视频，我最近才发现这个事的好处，有点后知后觉了哈。</p>
+<p>不得不承认我们程序员大多都宅，不爱说话，表达能力一般般。好多人更愿意写几行代码，也不愿意多说一句话。但是你想啊，如果有一天你的技术非常厉害了，你要把自己的经验分享给别人，如果你不能很精简的表达出关键点并且让别人听得懂的话，这是不是成了你的短板？</p>
+<p>录视频虽然也是总结，思考，但比起写文章，它对表达能力的要求更高。表达能力是你往上走的通用能力，如果你想成为管理层几乎必备。但是呢我们工作和生活环境中表达的机会又很少，如果你可以尝试通过录视频来分享你的技术，一来有的聊，二来练习面对镜头的心态和语言组织，这是非常好的锻炼。</p>
+<p>总之呢，打造核心竞争力，不仅仅是代码，不断突破自己的局限，才是正道。</p>
+<p>本文聊的做副业并没有聊怎么赚钱，而是赚“核心竞争力”，这个东西虽然不能直接带来票子，但又何尝不是你抵御风险的底气呢？</p>
+<p>转载链接：<a href="https://juejin.cn/post/7080694504914681864" target="_blank" rel="noopener noreferrer">https://juejin.cn/post/7080694504914681864</a></p>
+<hr>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>电子信息工程最好的出路的是什么？</title>
+      <link>https://bytecodes.tech/studysuggest/electron-information-engineering.html</link>
+      <guid>https://bytecodes.tech/studysuggest/electron-information-engineering.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">电子信息工程最好的出路的是什么？</source>
+      <category>学习建议</category>
+      <pubDate>Mon, 12 Dec 2022 08:02:21 GMT</pubDate>
+      <content:encoded><![CDATA[<p><strong>最好的出路，在我看来是读研，然后做 IC；如果不想读研，想早点赚钱，建议转计算机专业；如果还想折中，考虑做嵌入式</strong>。</p>
+<p>说下我了解到的。</p>
+<h2 id="一、ic" tabindex="-1"> 一、IC</h2>
+<p>IC 就是半导体元件产品的统称，主要分为数字 IC 和模拟 IC。数字 IC 就是传递、加工、处理数字信号的 IC；模拟 IC 是处理连续性的光、声音、速度、温度等自然模拟信号的 IC。</p>
+<p>数字电路 IC 处理的是数字信号的器件，比如 CPU、逻辑电路等；模拟电路 IC 处理的是提供模拟信号的器件，比如运算放大器、线性稳压器。</p>
+<p>模拟 IC 的厂商国内外知名的不多，比如说国外的德州仪器，国内的艾为电子。</p>
+<p>反观数字 IC，国内外知名公司真不少，比如说 nvdia、AMD、中兴、海思等。</p>
+<p>从入门门槛上来看，模拟比数字的门槛高一些，模拟如果想做的好一点，研究生学历是必须的，读博更好；数字门槛也不能说低，如果足够优秀，本科也是可以顺利就职的，版图岗位的要求更低一些，只有要数电、模电的基础，对大专生也是比较友好的。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-30e29fba-9b5d-40da-bda1-dbd0e81b8247.png" alt=""></p>
+<p>至于薪资的话，如果是名校出身的科班生，50 万的薪资可以说羡煞旁人了。</p>
+<h2 id="二、计算机专业" tabindex="-1"> 二、计算机专业</h2>
+<p>从技术应用的角度来看，在相当长的时间里，社会对计算机从业人员的缺口都非常大。因为，各行各业都需要计算机专业的人员参与进来，进行数字化的改造。<strong>举个例子，我在某 2 线城市的 5 年计划中，看到这样一条：</strong></p>
+<p>未来5年内，借助互联网技术，着重提升群众办事的满意度，从原来“只跑一次”，变成“一次也不用跑”，打造“24小时不打烊”的政府窗口。</p>
+<p><strong>大家想一下，按这个思路，各行各业，全国上下铺开，是多么大的一个工程量，对计算机从业人员的需求量，可想而知。</strong></p>
+<p><strong>另外，像专业领域的软件，完全被国外吊打。</strong></p>
+<ul>
+<li>AutoCAD、solidworks、proe、creo等3维设计软件，实体制造业，包括家电、家居、装修、机械、服装设备、各种设备制造、生产线制造</li>
+<li>Adobe家族，设计、阅读行业，设计行业</li>
+<li>ansys、fluent、MATLAB，结构应力分析、流体分析，所有有中高端实体产业、大型企业、科研所、尖端行业</li>
+<li>CATIA 汽车行业、新能源行业</li>
+<li>protel，电气行业，电路设计等等，涉及所有通电的数码设备，小到耳机，大到手机、笔记本显示器、家电等等</li>
+</ul>
+<p><strong>这些专业领域的软件，就需要更多计算机专业的人员参与进来，并且坚持做 5-10 年才有可能赶得上。</strong></p>
+<p>所以，电子信息工程专业转计算机专业也是一个非常好的选择。</p>
+<p>计算机行业对于普通人来说，仍然是改变命运的绝好机会。相对来说，传统行业更注重资源，背景、人脉尤其重要，普通出身的人想要晋升，难度相当于爬 90 度的梯子。当然了，如果能把传统行业和互联网结合起来，那一定也能创造出巨大的价值。</p>
+<p>古人云：两害相权取其轻。</p>
+<p>往下看，是待遇低微、前途灰暗、血肉磨坊般的传统工科；</p>
+<p>往上看，是门槛高、依赖家庭资源、依赖学校出身的金、法、医；</p>
+<p>中间的计算机，算是这个时代给予贫寒子弟仅有的一点温柔。反正我就是靠着计算机专业完成逆袭的。晒张图，这是我的家乡，虽然树很多、空气也很新鲜，但确实比较穷。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-4e3f8c93-9df5-48dd-9824-79005d5c5518.png" alt=""></p>
+<p>我之所以能够逆袭成功，因素有很多，但我想以下这三点非常重要：</p>
+<ul>
+<li>父母的支持</li>
+<li>自己的努力</li>
+<li><strong>选择了计算机专业</strong></li>
+</ul>
+<p><strong>这里也分享一套非常完整的计算机必读的经典书籍，对计算机专业的同学会有非常大的帮助，这也是我十多年编程生涯里留下的宝藏</strong>：<a href="https://tobebetterjavaer.com/download/java.html" target="_blank" rel="noopener noreferrer">计算机经典书单</a></p>
+<p><strong>里面的书单真的非常 nice，不管是学习编程的新手，还是工作多年的老手，应该都很有帮助</strong>：</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-e40c4215-3078-42b3-8ab6-fe84c34d0a07.jpg" alt=""></p>
+<p>戳：<a href="https://tobebetterjavaer.com/download/java.html" target="_blank" rel="noopener noreferrer">计算机必读经典书单（可 download）！</a></p>
+<p>这里重申一下我学习计算机的理论观点吧，如果要转计算机的话，我想对你快速建立起自己的知识体系很有帮助！</p>
+<p>如果你要学习物理，我推荐你顺着物理的发展史学习，先学习牛顿的经典物理，再学习热力学、电磁学，然后学习相对论、量子力学这些彻底推翻经典物理的，最后学习电动力学这种硬核的。</p>
+<p>整个学习过程，是自底向上的。但是学计算机，这样行不通。</p>
+<p>先学习电路，然后学习冯诺依曼结构，造一台计算机？接着再学习如何用汇编写个 mini os？接着学习如何写一个简易版的编译器？最后再学习高级编程语言，比如说 Java、Python？</p>
+<p>显然这样是行不通的！<strong>计算机的学习最好是自顶向下</strong>。</p>
+<p>什么是顶？我想一门高级的编程语言就是，比如说 Java、C++、Python！</p>
+<p>当你学习到 Java 并发编程中的“原子性”、“同步”、“异步”、“进程”、“内存分配”这些概念的时候，你自然而然会产生很多疑问，然后就会去学习计算机组成原理、操作系统，然后你的一系列问题就会逐渐被解决。</p>
+<p>当你发现，用 Java 实现某个业务需求时，人家的算法实现比你快得多，你自然会好奇，为什么会这样？然后你发现人家用的数据结构和你的不同，然后你就会去学习数据结构，接着了解一些高效的算法，比如动态规划等。</p>
+<p><strong>那么接下来，再来说说计算机专业的学习路线吧，需要的学习路线的同学可以 mark 了！非常硬核，值得收藏和点赞。</strong></p>
+<h3 id="一、java-语言基础" tabindex="-1"> 一、Java 语言基础</h3>
+<p>初学者可以到通过《<a href="https://tobebetterjavaer.com" target="_blank" rel="noopener noreferrer">Java 程序员进阶之路</a>》进行学习，也就是本站，这是一个风趣幽默、通俗易懂的 Java 教程，对 Java 初学者极度友好和舒适，内容包括但不限于 Java 语法、Java 集合框架、Java IO、Java 并发编程、Java 虚拟机等核心知识点。</p>
+<blockquote>
+<p>更详细的学习路线戳：<a href="https://tobebetterjavaer.com/xuexiluxian/java/yitiaolong.html" target="_blank" rel="noopener noreferrer">https://tobebetterjavaer.com/xuexiluxian/java/yitiaolong.html</a></p>
+</blockquote>
+<h3 id="二、开发框架" tabindex="-1"> 二、开发框架</h3>
+<p>可能很多人会对开发框架嗤之以鼻，感觉学这个没多大用处，提升不了你的技术功底。但是呢，如果你想做练手项目，没有开发框架的帮助，很难。</p>
+<p>Java 之所以流行，很重要的一部分原因就是拥有 Spring 系列框架这个大杀器，包括 SSM（Spring+SpringMVC+MyBatis）、Spring Boot、Spring Cloud。</p>
+<p>我们只是不应该停留在只会用的层面上，要懂背后的原理。说一千道一万，Spring 的核心就两个概念：AOP、IoC。</p>
+<p>AOP（Aspect-Oriented Programming），也就是面向切面编程，能够将那些与业务无关，却为业务模块所共同调用的逻辑或责任（例如事务处理、日志管理、权限控制等）封装起来，便于减少系统的重复代码，降低模块间的耦合度，并有利于未来的可拓展性和可维护性。</p>
+<p>IoC（Inverse of Control），也就是控制反转，是一种设计思想，就是将原本在程序中手动创建对象的控制权，交由 Spring 框架来管理。</p>
+<p>先学习 SSM，再学习 Spring Boot。Spring Boot 的出现，并不意味着 Spring 和 SpringMVC 已经过时了，从设计目的上来说，Spring Boot 只是实现了 Spring 的自动装配，降低了项目搭建的难度。</p>
+<p>从技术角度来说，Spring Boot 的底层依然是 Spring 的核心机制，也就是 AOP 和 IoC，Spring Boot 只是一个承载者。在我看来，学习 Spring 的正确路径应该是 Spring -&gt; Servlet -&gt; Spring MVC -&gt; Spring Boot。</p>
+<h3 id="三、数据库" tabindex="-1"> 三、数据库</h3>
+<p>增删改查，增删改查，要想做一名只会 CRUD 的程序员，数据库这块是逃不掉的。不过，这里就不重点说了，推荐一些资源给大家。</p>
+<p>小破站上的三个视频。</p>
+<ul>
+<li>SQL：<a href="https://www.bilibili.com/video/BV1UE41147KC" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV1UE41147KC</a></li>
+<li>MySQL：<a href="https://www.bilibili.com/video/BV12b411K7Zu" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV12b411K7Zu</a></li>
+<li>Redis：<a href="https://www.bilibili.com/video/BV1S54y1R7SB" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV1S54y1R7SB</a></li>
+</ul>
+<p>四本书。</p>
+<ul>
+<li>《SQL 必知必会》</li>
+<li>《高性能 MySQL》</li>
+<li>《MySQL 技术内幕-InnoDB 存储引擎》</li>
+<li>《Redis 深入历险核心原理与应用实战》</li>
+</ul>
+<h3 id="四、计算机组成原理" tabindex="-1"> 四、计算机组成原理</h3>
+<p>计算机是由 CPU、内存、输入输出设备，这些硬件组成的，但我们程序员，往往从事的是软件开发的工作，怎么在硬件和软件之间搭起一座桥梁呢？</p>
+<p>答案就是学习计算机组成原理。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-5270d8c0-5e03-4a06-924c-c9a8d25dd446.jpg" alt=""></p>
+<p>计算机组成原理的知识点可以拆分为四个部分：</p>
+<ul>
+<li>计算机的基本组成硬件</li>
+<li>计算机的指令和计算</li>
+<li>处理器涉及</li>
+<li>存储器和 IO 设备</li>
+</ul>
+<p>按照冯诺依曼的体系结构，计算机分为运算器、控制器、存储器、输入输出设备；我们编写的代码，要想在计算机上运行，就需要通过编译器转成汇编代码，再经过汇编器转成一条条指令，这些指令的执行，是由控制器来完成的。</p>
+<p><strong>计算机组成原理该怎么学呢</strong>？</p>
+<p>如果英语功底非常不错的话，安利一门 Coursera 上的课程，从与非门到俄罗斯方块，简单来说，这门课会教你怎么从与非门开始造一台计算机。</p>
+<blockquote>
+<p>地址：<a href="https://www.coursera.org/learn/build-a-computer%E2%80%8Bwww.coursera.org/learn/build-a-computer" target="_blank" rel="noopener noreferrer">https://www.coursera.org/learn/build-a-computer​www.coursera.org/learn/build-a-computer</a></p>
+</blockquote>
+<p>这门课的视频拍的那叫一个优质，虽然没有中文翻译，但视频下方的字幕会有节奏的移动。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-a5f13f0d-c0e1-486a-933a-7bfa81983a6c.jpg" alt=""></p>
+<p>国内的推荐哈工大的这门视频课，整体评价非常高（建议 1.5 倍速食用），戳：<a href="https://www.bilibili.com/video/BV1WW411Q7PF" target="_blank" rel="noopener noreferrer">计算机组成原理（唐朔飞）哔哩哔哩_bilibili</a></p>
+<h3 id="五、数据结构与算法" tabindex="-1"> 五、数据结构与算法</h3>
+<p>可能有人会觉得：就算不懂数据结构与算法，照样可以把 Java API、开发框架用得飞起？</p>
+<p>但这里我想表达的是：</p>
+<p><strong>1）数据结构与算法是很多大厂筛选人才的要素之一</strong>。</p>
+<p>这是因为校招的时候，参加面试的学生大多数都是没有实际项目经验的，公司只能通过考察这些基础知识来筛选。</p>
+<p>大厂不怕你没有项目经验，而怕你没有长期发展的潜力。所以，很多参加校招的同学，在面试前都会疯狂刷题的，至少会突击个 100 道左右的题目。</p>
+<p><strong>2）实际工作当中肯定是会用到的。</strong></p>
+<p>举个例子，存储某个业务数据时，你打算用 ArrayList 还是 LinkedList，它们底层用的是哪种数据结构，增删改查上有哪些优缺点？</p>
+<p>再比如，Redis 中的有序集合是用什么数据结构实现的？为什么要用跳表二不是二叉树呢？</p>
+<p>不懂数据结构和算法，行得通吗？</p>
+<p><strong>3）掌握了数据结构与算法，对阅读源码会有很大的帮助。</strong></p>
+<p>因为很多时候，源码当中都会考量到不同数据结构之间的优点和缺点。</p>
+<p>你比如说，HashMap 为什么在链表长度大于 8 的时候将其转为红黑树？为什么不能是二叉树？</p>
+<p><strong>那数据结构与算法该怎么学习呢？</strong></p>
+<p>我画了一张图，里面几乎涵盖了所有数据结构与算法书籍中都会讲到的知识点。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-46294124-8e8f-4d2e-ac48-f68a1be9b2ac.jpg" alt=""></p>
+<p>如果英语功底不错的话，推荐国外的 MIT 6.006，是经典的数据结构和算法入门课程，涉及到排序、哈希、图论、动态规划。</p>
+<p><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/" target="_blank" rel="noopener noreferrer">https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/</a></p>
+<p>国内的推荐浙江大学的一个的课程，很系统很经典，适合小白入门。</p>
+<p><a href="https://www.bilibili.com/video/BV1JW411i731" target="_blank" rel="noopener noreferrer">数据结构-浙江大学_哔哩哔哩_bilibili</a></p>
+<p>至于练习，推荐到 LeetCode 或者牛客网上刷题吧，上面的问题往往有趣且带有良好的解法和讨论。此外，在竞争日益激烈的软件行业，这些问题可以帮助你评估自己应对技术面试中常见问题的能力。</p>
+<p>我的心得就是简单粗暴：从易到难，一遍一遍地刷，尽量使用自己熟悉的编程语言，比如说 Java 程序员尽量用 Java 来解题，这样刷题的幸福感也会提升很大一截。</p>
+<p>如果不是天赋异禀，不要怕，一开始就是抄题，先把别人的解题思路照着敲出来。刷的题多了，尽量控制一下刷题的时间，掐个点，不能让自己一直想、一直写下去，如果半个小时没有解出来，就果断放弃，去背别人的答案，不要觉得不好意思，等到真的熟了，再去想自己的解题思路。</p>
+<blockquote>
+<p>更详细的学习路线戳：<a href="https://tobebetterjavaer.com/xuexiluxian/algorithm.html" target="_blank" rel="noopener noreferrer">https://tobebetterjavaer.com/xuexiluxian/algorithm.html</a></p>
+</blockquote>
+<h3 id="六、操作系统" tabindex="-1"> 六、操作系统</h3>
+<p>操作系统是管理计算机硬件和软件资源的程序，是计算机的基石。</p>
+<p>操作系统负责的工作有：管理设备、文件读写、控制进程、管理内存等等，算是所有软件中的老大，掌握着生杀大权。推荐的学习资料有《现代操作系统》、《深入理解计算机系统》这两本书。</p>
+<p>考过研的同学应该知道《深入理解计算机系统》这本书是必读的，我自己最近又买了一本新的，算是我读的第二遍了。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-52358273-5b8b-416a-b466-986b5f3ee96a.jpg" alt=""></p>
+<p>操作系统中的很多思想和经典算法，都可以在日常开发使用的各种工具或者框架中找到影子。</p>
+<p>比如说 Redis 和操作系统的高速缓存就很像，Redis 是用来解决程序处理速度和访问 MySQL 速度不对等的问题，而内存就是用来解决 CPU 处理速度和访问磁盘等外存速度不对等的问题。</p>
+<p>像操作系统，国内通常会考 PPT 上那些需要死记硬背的知识点，而国外往往会要求实现一个简单的操作系统内核。</p>
+<p>如果英语功底非常不错的话，推荐国外的 MIT6.828，是一门公认的硬核课程，是理论与实践相结合的经典。建议有一些 C语言语言的基础后，再来看这门课程，一定会大有所获。只要你跟着项目一步一步走，就能实现一个简单的操作系统内核。</p>
+<p>课程地址：<a href="https://pdos.csail.mit.edu/6.828/2018/schedule.html" target="_blank" rel="noopener noreferrer">6.828 / Fall 2018</a></p>
+<p>操作系统应该提供的功能：</p>
 <ol>
-<li>New transactions are broadcast to all nodes.</li>
-<li>Each node collects new transactions into a block.</li>
-<li>Each node works on finding a difficult proof-of-work for its block.</li>
-<li>When a node finds a proof-of-work, it broadcasts the block to all nodes.</li>
-<li>Nodes accept the block only if all transactions in it are valid and not already spent.</li>
-<li>Nodes express their acceptance of the block by working on creating the next block in thechain, using the hash of the accepted block as the previous hash.</li>
+<li>多进程支持</li>
+<li>进程间隔离</li>
+<li>受控制的进程间通信</li>
 </ol>
-<p>Nodes   always   consider   the   longest   chain   to   be   the   correct   one   and   will   keep   working   onextending it.   If two nodes broadcast different versions of the next block simultaneously, somenodes may receive one or the other first.  In that case, they work on the first one they received,but save the other branch in case it becomes longer.  The tie will be broken when the next proof-of-work   is   found   and   one   branch   becomes   longer;   the   nodes   that   were   working   on   the   otherbranch will then switch to the longer one.<br>
-New transaction broadcasts do not necessarily need to reach all nodes.  As long as they reachmany nodes, they will get into a block before long.  Block broadcasts are also tolerant of droppedmessages.  If a node does not receive a block, it will request it when it receives the next block andrealizes it missed one.</p>
-<h2 id="_5、网络" tabindex="-1"> 5、网络</h2>
-<p>运行网络的步骤如下：</p>
-<ol>
-<li>新交易向所有节点广播。</li>
-<li>每个节点将新交易收集到一个区块。</li>
-<li>每个节点为它的区块寻找工作量证明。</li>
-<li>当一个节点找到了工作量证明，就向所有节点广播这个区块。</li>
-<li>节点只有在区块内所有交易都是有效的且之前没有被支付的情况下接收这个区块。</li>
-<li>节点通过使用这个区块的哈希值作为上一个哈希值在链中创建下一个区块的方式表示对这个区块的接受。</li>
-</ol>
-<p>节点总是认为最长的链为正确的并持续致力于延长它。如果两个节点同时广播了不同的下一个区块，有些节点可能先收到其中一个而其他节点先收到另一个。这种情况，节点基于他们收到的第一个区块工作，但是也保存另一个分支以防它变为更长的链。当下一个工作量证明被找到后，僵局就会被打破从而其中一个分支变得更长；在另一个分支上工作的节点将切换到更长的链上来。新交易的广播不必到达所有的节点。只要到达一些节点，不久就会进入到一个区块 。区块广播也是能容忍消息丢失的。如果一个节点没有收到某个区块 ，它将在收到下一个区块时发现它丢失了一个区块然后去请求这个区块。</p>
-<h2 id="_6-incentive" tabindex="-1"> 6. Incentive</h2>
-<p>By convention, the first transaction in a block is a special transaction that starts a new coin ownedby the creator of the block.  This adds an incentive for nodes to support the network, and providesa way to initially distribute coins into circulation, since there is no central authority to issue them.The steady addition of a constant of amount of new coins is analogous to gold miners expendingresources to add gold to circulation.  In our case, it is CPU time and electricity that is expended.<br>
-The incentive can also be funded with transaction fees.  If the output value of a transaction isless than its input value, the difference is a transaction fee that is added to the incentive value ofthe   block   containing   the   transaction.     Once   a   predetermined   number   of   coins   have   enteredcirculation, the incentive can transition entirely to transaction fees and be completely inflationfree.<br>
-The   incentive   may   help   encourage   nodes   to   stay   honest.     If   a   greedy   attacker   is   able   toassemble more CPU power than all the honest nodes, he would have to choose between using itto defraud people by stealing back his payments, or using it to generate new coins.  He ought tofind it more profitable to play by the rules, such rules that favour him with more new coins thaneveryone else combined, than to undermine the system and the validity of his own wealth.</p>
-<h2 id="_6、激励" tabindex="-1"> 6、激励</h2>
-<p>我们约定，区块中的第一笔交易是区块创建者开启一枚属于他的新货币的特殊的交易。这就增加了对支持网络的节点的激励 ，并提供了一种分发货币到流通领域的方法，因为这里没有中央机构来发行货币。新货币按固定量  稳定地增加就像金矿矿工消耗资源并增加黄金到流通领域一样。对我们而言，消耗的是 CPU 时间和电力。<br>
-激励也可以由交易费充当。如果交易的输出值小于其输入值，差价就作为交易费被加到包含此交易的区块的激励中  。一旦预定量的货币进入了流通领域，激励将变为只含有交易费，这样可以完全避免通货膨胀。<br>
-激励会有助于鼓励节点保持诚实。如果一个贪心的攻击者有能力聚集比所有诚实节点更多的CPU算力，他将面临是以骗回已付款的方式欺诈别人还是使用这些算力生成新货币的抉择。他将发现遵守规则比破坏系统和他自己财产的有效性更有利，因为这些规则准许他获得比所有其他人都多的新货币。</p>
-<h2 id="_7-reclaiming-disk-space" tabindex="-1"> 7. Reclaiming Disk Space</h2>
-<p>Once the latest transaction in a coin is buried under enough blocks, the spent transactions beforeit   can   be   discarded   to   save   disk   space.     To   facilitate   this   without   breaking   the   block's   hash,transactions are hashed in a Merkle Tree [7][2][5], with only the root included in the block's hash.Old blocks can then be compacted by stubbing off branches of the tree.   The interior hashes donot need to be stored.</p>
-<h2 id="_7、回收磁盘空间" tabindex="-1"> 7、回收磁盘空间</h2>
-<p>一旦某个货币的最新交易已经被足够多的区块覆盖，这之前的支付交易就可以被丢弃 以节省磁盘空间。为便于此而又不破坏区块的哈希值，交易将被哈希进默克尔树[7][2][5]，只有根节点被纳入到区块的哈希值。老的区块可通过剪除树枝的方式被压缩。树枝内部的哈希不需要被保存。</p>
-<p><img src="@source/blockchain/assets/img/bitcoin-disk-space.png" alt="bitcoin"></p>
-<p>A  block   header   with   no   transactions   would   be   about   80   bytes.     If   we   suppose   blocks   aregenerated every 10 minutes, 80 bytes <em>6</em> 24 * 365 = 4.2MB per year.  With computer systemstypically selling with 2GB of RAM as of 2008, and Moore's Law predicting current growth of1.2GB   per   year,   storage   should   not   be   a   problem   even   if   the   block   headers   must   be   kept   inmemory.</p>
-<p>每个不包含交易的区块头大约是 80 bytes。如果每10分钟生成一个区块 ，每年生成 80bytes <em>6</em> 24 * 365 = 4.2MB，2008年在售的典型计算机有2GB内存， 并且摩尔定律预测目前每年内存增加 1.2GB，所以就算区块头一定要存在内存里，存储也不是问题。</p>
-<h2 id="_8-simplified-payment-verification" tabindex="-1"> 8. Simplified Payment Verification</h2>
-<p>It is possible to verify payments without running a full network node.  A user only needs to keepa copy of the block headers of the longest proof-of-work chain, which he can get by queryingnetwork   nodes   until   he's   convinced   he   has   the   longest   chain,   and   obtain   the   Merkle   branchlinking   the   transaction   to   the   block   it's   timestamped   in.     He   can't   check   the   transaction   forhimself, but by linking it to a place in the chain, he can see that a network node has accepted it,and blocks added after it further confirm the network has accepted it.</p>
-<h2 id="_8、-简化的支付验证" tabindex="-1"> 8、 简化的支付验证</h2>
-<p>不运行一个完整的网络节点也是可以进行支付验证的。用户只需拥有一个最长工作量证明链的区块头副本，他可以通过向其他网络节点查询以确认他拥有了最长的链，并获取链接交易到给交易打时间戳区块的默克尔分支。虽然他自己不能核实这个交易，但如果交易已经链接到到链中的某个位置，就说明一个网络节点已经接受了此交易，而其后追加的区块进一步确认网络已经接受了它。</p>
-<p><img src="@source/blockchain/assets/img/bitcoin-simplified-payment.png" alt="bitcoin"></p>
-<p>As such, the verification is reliable as long as honest nodes control the network, but is morevulnerable   if   the   network   is   overpowered   by   an   attacker.     While   network   nodes   can   verifytransactions   for   themselves,   the   simplified   method   can   be   fooled   by   an   attacker's   fabricatedtransactions for as long as the attacker can continue to overpower the network.   One strategy toprotect against this would be to accept alerts from network nodes when they detect an invalidblock,   prompting   the   user's   software   to   download   the   full   block   and   alerted   transactions   toconfirm the inconsistency.  Businesses that receive frequent payments will probably still want torun their own nodes for more independent security and quicker verification.<br>
-同样地，只要诚实节点控制着网络这种简化验证就是可靠的，如果网络被攻击者控制简化验证会变得比较脆弱 。虽然网络节点可以验证他们自己的交易，但只要攻击者持续控制网络那么这种简化的方法就可能被攻击者的伪造交易欺骗。一种对策是接受其他网络节点发现一个无效区块时发出的警告，提醒用户软件下载整个区块和被警告的交易来检查一致性。为了更加独立的安全性以及更快的支付确认，收款频繁的公司可能仍需运行他们自己的节点。</p>
-<h2 id="_9-combining-and-splitting-value" tabindex="-1"> 9. Combining and Splitting Value</h2>
-<p>Although   it   would   be   possible   to   handle   coins   individually,   it   would   be   unwieldy   to   make   aseparate   transaction   for   every   cent   in   a   transfer.     To   allow   value   to   be   split   and   combined,transactions  contain  multiple  inputs  and  outputs.    Normally  there will  be either  a  single  inputfrom a larger previous transaction or multiple inputs combining smaller amounts, and at most twooutputs: one for the payment, and one returning the change, if any, back to the sender.</p>
-<h2 id="_9、合并和分割交易额" tabindex="-1"> 9、合并和分割交易额</h2>
-<p>尽管单独处理每个货币是可行的，但将一次转账按每一分拆成多次交易是笨拙的。为允许交易额被分割和合并，交易将包含多个输入值和输出值。通常是一个从之前交易而得的较大输入值或多个较小输入值的组合，以及最多两个输出值：一个作为支付，另一个作为找零，如果有的话，退还给支付发送方。</p>
-<p><img src="@source/blockchain/assets/img/bitcoin-transaction.png" alt="bitcoin"></p>
-<p>It should be noted that fan-out, where a transaction depends on several transactions, and thosetransactions depend on many more, is not a problem here.   There is never the need to extract acomplete standalone copy of a transaction's history.<br>
-注意这里的扇出，即一笔交易依赖数笔交易，这数笔交易又依赖更多的交易，在这里是不存在问题的。永远不会需要获取一笔交易历史的完整独立副本。</p>
-<h2 id="_10-privacy" tabindex="-1"> 10. Privacy</h2>
-<p>The traditional banking model achieves a level of privacy by limiting access to information to theparties involved and the trusted third party.   The necessity to announce all transactions publiclyprecludes this method, but privacy can still be maintained by breaking the flow of information inanother place: by keeping public keys anonymous.   The public can see that someone is sendingan amount to someone else, but without information linking the transaction to anyone.   This issimilar   to   the   level   of   information   released   by   stock   exchanges,   where   the   time   and   size   ofindividual trades, the &quot;tape&quot;, is made public, but without telling who the parties were.</p>
-<h2 id="_10、隐私" tabindex="-1"> 10、隐私</h2>
-<p>传统的银行模型通过限制参与方和可信任第三方对信息的访问来达到一定级别的隐私。交易必须要公开发布就不能使用这个方法，但隐私仍可在其他地方通过阻断信息流的方式来保护：那就是保持公钥匿名。 公众能看到有人正在发送一定量货币给其他人，但是不能将交易关联到某个人。这和证券交易所发布的信息级别类似，每笔交易的时间和交易量，即行情是公开的，但是不会显示交易双方是谁。</p>
-<p><img src="@source/blockchain/assets/img/bitcoin-privacy.png" alt="bitcoin"></p>
-<p>As an additional firewall, a new key pair should be used for each transaction to keep themfrom   being   linked   to   a   common   owner.     Some   linking   is   still   unavoidable   with   multi-inputtransactions, which necessarily reveal that their inputs were owned by the same owner.  The riskis that if the owner of a key is revealed, linking could reveal other transactions that belonged tothe same owner.<br>
-作为额外的防火墙 ，对每笔交易使用新密钥对可以防止他们被关联到一个共同的拥有者。由于多输入值交易存在，有些关联仍不可避免，因为多输入值交易必然暴露其多个输入是属于同一个拥有者的。风险就在于如果一个密钥的拥有者被暴露，关联性将暴露其他属于同一个拥有者的交易。</p>
-<h2 id="_11-calculations" tabindex="-1"> 11. Calculations</h2>
-<p>We consider the scenario of an attacker trying to generate an alternate chain faster than the honest chain. Even if this is accomplished, it does not throw the system open to arbitrary changes, such as creating value out of thin air or taking money that never belonged to the attacker. Nodes are not going to accept an invalid transaction as payment, and honest nodes will never accept a block containing them. An attacker can only try to change one of his own transactions to take back money he recently spent.</p>
-<h2 id="_11、计算" tabindex="-1"> 11、计算</h2>
-<p>假设一个场景，某个攻击者正在试图生成一个比诚实链更快的替代链。就算他成功了，也不能对系统做任意的修改，即，他不可能凭空制造出价值，也无法获取从未属于他的钱。网络节点不会把一笔无效交易当作支付，而诚实节点也永远不会接受一个包含这种支付的区块。攻击者最多只能修改属于他自己的交易，进而试图取回他已经花出去的钱。</p>
-<p>The race between the honest chain and an attacker chain can be characterized as a Binomial Random Walk. The success event is the honest chain being extended by one block, increasing its lead by +1, and the failure event is the attacker's chain being extended by one block, reducing the gap by -1.</p>
-<p>诚实链和攻击者之间的竞争可以用二项式随机漫步来描述。成功事件是诚实链刚刚被添加了一个新的区块，使得它的优势增加了 1；而失败事件是攻击者的链刚刚被增加了一个新的区块，使得诚实链的优势减少了 1。</p>
-<p>The probability of an attacker catching up from a given deficit is analogous to a Gambler's Ruin problem. Suppose a gambler with unlimited credit starts at a deficit and plays potentially an infinite number of trials to try to reach breakeven. We can calculate the probability he ever reaches breakeven, or that an attacker ever catches up with the honest chain, as follows[8]:</p>
-<p>攻击者能够从落后局面追平的概率类似于赌徒破产问题。假设，一个拿着无限筹码的赌徒，从亏空开始，允许他赌无限次，目标是填补上已有的亏空。我们能算出他最终能填补亏空的概率，也就是攻击者能够赶上诚实链的概率[8]，如下：</p>
-<p>$$
-\begin{eqnarray*}
-\large p &amp;=&amp; \text{ 诚实节点找到下一个区块的概率}\
-\large q &amp;=&amp; \text{ 攻击者找到下一个区块的概率}\
-\large q_z &amp;=&amp; \text{ 攻击者落后 $z$ 个区块却依然能够赶上的概率}
-\end{eqnarray*}
-$$</p>
-<p>$$
-\large q_z = \begin{Bmatrix}
-1 &amp; \textit{if}; p \leq q\
-(q/p)^z &amp; \textit{if}; p &gt; q
-\end{Bmatrix}
-$$</p>
-<p>Given our assumption that $p \gt q$, the probability drops exponentially as the number of blocks the attacker has to catch up with increases. With the odds against him, if he doesn't make a lucky lunge forward early on, his chances become vanishingly small as he falls further behind.</p>
-<p>既然我们已经假定 $p &gt; q$, 既然攻击者需要赶超的区块数量越来越多，那么其成功概率就会指数级下降。于赢面不利时，如果攻击者没有在起初就能幸运地做一个前移步刺，那么他的胜率将在他进一步落后的同时消弭殆尽。</p>
-<p>We now consider how long the recipient of a new transaction needs to wait before being sufficiently certain the sender can't change the transaction. We assume the sender is an attacker who wants to make the recipient believe he paid him for a while, then switch it to pay back to himself after some time has passed. The receiver will be alerted when that happens, but the sender hopes it will be too late.</p>
-<p>现在考虑一下一笔新交易的收款人需要等多久才能充分确定发款人不能更改这笔交易。我们假定发款人是个攻击者，妄图让收款人在一段时间里相信他已经支付对付款项，随后将这笔钱再转回给自己。发生这种情况时，收款人当然会收到警告，但发款人希望那时木已成舟。</p>
-<p>The receiver generates a new key pair and gives the public key to the sender shortly before signing. This prevents the sender from preparing a chain of blocks ahead of time by working on it continuously until he is lucky enough to get far enough ahead, then executing the transaction at that moment. Once the transaction is sent, the dishonest sender starts working in secret on a parallel chain containing an alternate version of his transaction.</p>
-<p>收款人生成了一对新的公私钥，而后在签署之前不久将公钥告知发款人。这样可以防止一种情形：发款人提前通过连续运算去准备一条链上的区块，并且只要有足够的运气就会足够领先，直到那时再执行交易。一旦款项已被发出，那个不诚实的发款人开始秘密地在另一条平行链上开工，试图在其中加入一个反向版本的交易。</p>
-<p>The recipient waits until the transaction has been added to a block and $z$ blocks have been linked after it. He doesn't know the exact amount of progress the attacker has made, but assuming the honest blocks took the average expected time per block, the attacker's potential progress will be a Poisson distribution with expected value:</p>
-<p>收款人等到此笔交易被打包进区块，并已经有 $z$ 个区块随后被加入。他并不知道攻击者的工作进展究竟如何，但是可以假定诚实区块在每个区块生成过程中耗费的平均时间；攻击者的潜在进展符合泊松分布，其期望值为：</p>
-<p>$$
-\large \lambda = z \frac qp
-$$</p>
-<p>To get the probability the attacker could still catch up now, we multiply the Poisson density for each amount of progress he could have made by the probability he could catch up from that point:</p>
-<p>为了算出攻击者依然可以赶上的概率，我们要把每一个攻击者已有的进展的帕松密度乘以他可以从那一点能够追上来的概率：</p>
-<p>$$
-\large \sum_{k=0}^{\infty} \frac{\lambda^k e^{-\lambda}}{k!} \cdot
-\begin{Bmatrix}
-(q/p)^{(z-k)} &amp; \textit{if};k\leq z\
-1 &amp; \textit{if} ; k &gt; z
-\end{Bmatrix}
-$$</p>
-<p>Rearranging to avoid summing the infinite tail of the distribution...</p>
-<p>为了避免对密度分布的无穷级数求和重新整理…</p>
-<p>$$
-\large 1 - \sum_{k=0}^{z} \frac{\lambda^k e^{-\lambda}}{k!}
-\left ( 1-(q/p)^{(z-k)} \right )
-$$</p>
-<p>Converting to C code...</p>
-<p>转换为 C 语言程序……</p>
-<div><pre><code><span><span>#</span><span>include</span> <span>&lt;math.h></span></span>
-<span>double</span> <span>AttackerSuccessProbability</span><span>(</span><span>double</span> q<span>,</span> <span>int</span> z<span>)</span>
-<span>{</span>
- <span>double</span> p <span>=</span> <span>1.0</span> <span>-</span> q<span>;</span>
- <span>double</span> lambda <span>=</span> z <span>*</span> <span>(</span>q <span>/</span> p<span>)</span><span>;</span>
- <span>double</span> sum <span>=</span> <span>1.0</span><span>;</span>
- <span>int</span> i<span>,</span> k<span>;</span>
- <span>for</span> <span>(</span>k <span>=</span> <span>0</span><span>;</span> k <span>&lt;=</span> z<span>;</span> k<span>++</span><span>)</span>
- <span>{</span>
-  <span>double</span> poisson <span>=</span> <span>exp</span><span>(</span><span>-</span>lambda<span>)</span><span>;</span>
-  <span>for</span> <span>(</span>i <span>=</span> <span>1</span><span>;</span> i <span>&lt;=</span> k<span>;</span> i<span>++</span><span>)</span>
-   poisson<span>*=</span>lambda <span>/</span> i<span>;</span>
-  sum <span>-=</span> poisson <span>*</span> <span>(</span><span>1</span> <span>-</span> <span>pow</span><span>(</span>q <span>/</span> p<span>,</span> z <span>-</span> k<span>)</span><span>)</span><span>;</span>
- <span>}</span>
- <span>return</span> sum<span>;</span>
-<span>}</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>Running some results, we can see the probability drop off exponentially with $z$.</p>
-<p>获取部分结果，我们可以看到概率随着 $z$ 的增加指数级下降：</p>
-<div><pre><code>   q=0.1
-   z=0    P=1.0000000
-   z=1    P=0.2045873
-   z=2    P=0.0509779
-   z=3    P=0.0131722
-   z=4    P=0.0034552
-   z=5    P=0.0009137
-   z=6    P=0.0002428
-   z=7    P=0.0000647
-   z=8    P=0.0000173
-   z=9    P=0.0000046
-   z=10   P=0.0000012
+<p>内核（<em>kernel</em>）是操作系统的核心，它是一种为运行的程序提供服务的特殊程序。每个运行着的程序叫做进程，每个进程的内存中存储着指令、数据和堆栈。一个计算机可以拥有多个进程，但是只能有一个内核。</p>
+<p>每当进程需要调用内核时，它会触发一个<em>system call</em>（系统调用），system call进入内核执行相应的服务然后返回。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-b7db672b-7a5a-443f-8a4d-5a8e1d65886c.jpg" alt=""></p>
+<p>网友在学习这门课程的时候做的笔记：<a href="https://fanxiao.tech/posts/MIT-6S081-notes/" target="_blank" rel="noopener noreferrer">MIT 6.S081 Lecture Notes</a>，大家可以作为参考。</p>
+<p>国内的「清华大学公开课：操作系统」口碑也相当的不错。</p>
+<p><a href="https://open.163.com/newview/movie/courseintro%3Fnewurl%3DME1NSA351" target="_blank" rel="noopener noreferrer">清华大学公开课：操作系统</a></p>
+<p>还有哈工大的操作系统课：</p>
+<p><a href="https://www.bilibili.com/video/av17036347" target="_blank" rel="noopener noreferrer">操作系统哈尔滨工业大学李治军老师_哔哩哔哩_bilibili</a></p>
+<p>以“如何给一个拥有单核 CPU、内存、磁盘、键盘和显示器的基本计算机配备一个可实际运转的操作系统”这一基本问题作为主线，分为四大块：</p>
+<ul>
+<li>操作系统基础</li>
+<li>进程与线程</li>
+<li>内存管理</li>
+<li>设备驱动与文件系统</li>
+</ul>
+<p>下图是课程的封面，一个简易版的操作系统，和我们当前使用操作系统界面比起来，显然丑露无比，但它能让你体会到快乐——一种真正地学到了本领的快乐。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-cdccae94-aca8-4e88-b241-0b6d95dee5f9.jpg" alt=""></p>
+<blockquote>
+<p>更详细的学习路线戳：<a href="https://tobebetterjavaer.com/xuexiluxian/os.html" target="_blank" rel="noopener noreferrer">https://tobebetterjavaer.com/xuexiluxian/os.html</a></p>
+</blockquote>
+<p>借这个机会，我希望把多年来整理的硬核学习资料分享出来，帮助到更多小伙伴，包括<strong>编程语言的入门教程，操作系统、计算机网络、数据结构与算法这种偏基础的硬核知识，以及能“吊打”面试官的八股文：</strong></p>
 
-   q=0.3
-   z=0    P=1.0000000
-   z=5    P=0.1773523
-   z=10   P=0.0416605
-   z=15   P=0.0101008
-   z=20   P=0.0024804
-   z=25   P=0.0006132
-   z=30   P=0.0001522
-   z=35   P=0.0000379
-   z=40   P=0.0000095
-   z=45   P=0.0000024
-   z=50   P=0.0000006
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>Solving for P less than 0.1%...</p>
-<p>若是 P 小于 0.1%……</p>
-<div><pre><code>   P &lt; 0.001
-   q=0.10   z=5
-   q=0.15   z=8
-   q=0.20   z=11
-   q=0.25   z=15
-   q=0.30   z=24
-   q=0.35   z=41
-   q=0.40   z=89
-   q=0.45   z=340
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="_12-conclusion" tabindex="-1"> 12. Conclusion</h2>
-<p>We have proposed a system for electronic transactions without relying on trust. We started with the usual framework of coins made from digital signatures, which provides strong control of ownership, but is incomplete without a way to prevent double-spending. To solve this, we proposed a peer-to-peer network using proof-of-work to record a public history of transactions that quickly becomes computationally impractical for an attacker to change if honest nodes control a majority of CPU power. The network is robust in its unstructured simplicity. Nodes work all at once with little coordination. They do not need to be identified, since messages are not routed to any particular place and only need to be delivered on a best effort basis. Nodes can leave and rejoin the network at will, accepting the proof-of-work chain as proof of what happened while they were gone. They vote with their CPU power, expressing their acceptance of valid blocks by working on extending them and rejecting invalid blocks by refusing to work on them. Any needed rules and incentives can be enforced with this consensus mechanism.</p>
-<h2 id="_12、总结" tabindex="-1"> 12、总结</h2>
-<p>我们已经提出了一种不依赖信任的电子交易系统。我们从通用的数字签名货币体系开 始，这体系提供了强有力的 所有权控制，但由于缺乏防止双重支付的方法而不完  善。为解决这个问题，我们提出一种使用工作量证明来记录公共交易历史的点对点网络，只要诚实节点控制了多数的CPU算力，对于对攻击者，交易历史 将很快变得在  计算上不可更改。网络因其结构简 洁性而健壮。节点只需很少 的协调就能同时工作。它们不需要被认证，因为信息不会被发送到某个特殊 的位置，只需被尽力传播。节点可以随时离开和重新加入网络，只需接受最长的工作量证明链作为它们离开时发生事件的证据。节点使用CPU算力来  投票，通过 致力于 延长有效区块  来表达对其接受，通过拒绝在无效区块上工作来表达对其抵制。任何需要的规则和激励都可通过这个共识机制来加强</p>
-<hr>
-<h2 id="参考文献-references" tabindex="-1"> 参考文献 (References)</h2>
-<ol>
-<li><strong>b-money</strong> Dai Wei (1998-11-01) <a href="http://www.weidai.com/bmoney.txt" target="_blank" rel="noopener noreferrer">http://www.weidai.com/bmoney.txt</a></li>
-<li><strong>Design of a secure timestamping service with minimal trust requirements</strong> Henri Massias, Xavier Serret-Avila, Jean-Jacques Quisquater <em>20th Symposium on Information Theory in the Benelux</em> (1999-05) <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.13.6228" target="_blank" rel="noopener noreferrer">http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.13.6228</a></li>
-<li>: <strong>How to time-stamp a digital document</strong> Stuart Haber, W.Scott Stornetta <em>Journal of Cryptology</em> (1991) <a href="https://doi.org/cwwxd4" target="_blank" rel="noopener noreferrer">https://doi.org/cwwxd4</a> DOI: <a href="https://doi.org/10.1007/bf00196791" target="_blank" rel="noopener noreferrer">10.1007/bf00196791</a></li>
-<li>: <strong>Improving the Efficiency and Reliability of Digital Time-Stamping</strong> Dave Bayer, Stuart Haber, W. Scott Stornetta <em>Sequences II</em> (1993) <a href="https://doi.org/bn4rpx" target="_blank" rel="noopener noreferrer">https://doi.org/bn4rpx</a> DOI: <a href="https://doi.org/10.1007/978-1-4613-9323-8_24" target="_blank" rel="noopener noreferrer">10.1007/978-1-4613-9323-8_24</a></li>
-<li>: <strong>Secure names for bit-strings</strong> Stuart Haber, W. Scott Stornetta <em>Proceedings of the 4th ACM conference on Computer and communications security - CCS ’97</em>(1997) <a href="https://doi.org/dtnrf6" target="_blank" rel="noopener noreferrer">https://doi.org/dtnrf6</a> DOI: <a href="https://doi.org/10.1145/266420.266430" target="_blank" rel="noopener noreferrer">10.1145/266420.266430</a></li>
-<li>: <strong>Hashcash - A Denial of Service Counter-Measure</strong> Adam Back (2002-08-01) <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.15.8" target="_blank" rel="noopener noreferrer">http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.15.8</a></li>
-<li>: <strong>Protocols for Public Key Cryptosystems</strong> Ralph C. Merkle <em>1980 IEEE Symposium on Security and Privacy</em> (1980-04) <a href="https://doi.org/bmvbd6" target="_blank" rel="noopener noreferrer">https://doi.org/bmvbd6</a> DOI: <a href="https://doi.org/10.1109/sp.1980.10006" target="_blank" rel="noopener noreferrer">10.1109/sp.1980.10006</a></li>
-<li>: <strong>An Introduction to Probability Theory and its Applications</strong> William Feller <em>John Wiley &amp; Sons</em> (1957) <a href="https://archive.org/details/AnIntroductionToProbabilityTheoryAndItsApplicationsVolume1" target="_blank" rel="noopener noreferrer">https://archive.org/details/AnIntroductionToProbabilityTheoryAndItsApplicationsVolume1</a></li>
-</ol>
+<h2 id="三、嵌入式" tabindex="-1"> 三、嵌入式</h2>
+<p>嵌入式可以进一步细分为嵌入式硬件和嵌入式软件。</p>
+<p>嵌入式硬件工程师要求具备硬件工程师的基本技能，还必须完成部分软件工程师的工作，比如说能对底层驱动的嵌入式操作系统进行裁剪、移植。</p>
+<p>嵌入式硬件工程师的主要职责是为产品设计硬件电路原理图、PCB 板（印刷电路板），选择合适的元器件，焊接调试硬件电路板，保证硬件电路板的可靠性、稳定性和抗干扰能力。</p>
+<p>一个资深的嵌入式硬件工程师的年薪在 15-30 万左右。需要有非常扎实的理论知识，以及高频 CPU、多层 PCB 板的设计经验。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-34380fff-fcbd-4d1a-805d-72d38a1d8834.png" alt=""></p>
+<p>嵌入式软件工程师指在 wince、linux 等嵌入式操作系统下进行用户应用软件开发的人员，硬件平台有手机、pad 等；开发工具有 wince 下的 evc，Linux 下的 QT 等。</p>
+<p>嵌入式软件工程师的主要职责是根据产品的功能需求设计出好的软件，让硬件工作起来。一般情况下，软件工程师的需求量更大一些。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-5e3615e1-54c3-41a2-beca-97fcac8bc2cb.png" alt=""></p>
+<p>一个资深的嵌入式软件工程师的年薪也在 15-30 万左右。要熟练掌握 C/C++，熟练使用CortexM4系列单片机、RTOS(FreeRTOS, UcosII，RT-thread)等。</p>
+<p><strong>希望能给大家提供一点点帮助和启发~</strong></p>
 <hr>
 ]]></content:encoded>
+      <enclosure url="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/electron-information-engineering-30e29fba-9b5d-40da-bda1-dbd0e81b8247.png" type="image/png"/>
     </item>
     <item>
-      <title>以太坊白皮书</title>
-      <link>https://bytecodes.tech/blockchain/Basic_logic/White_paper_the_etheric_lane.html</link>
-      <guid>https://bytecodes.tech/blockchain/Basic_logic/White_paper_the_etheric_lane.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">以太坊白皮书</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书</description>
-      <category>区块链</category>
-      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
-      <content:encoded><![CDATA[<h2 id="以太坊白皮书-eth-white-paper" tabindex="-1"> 以太坊白皮书 ETH White paper</h2>
+      <title>如何获得高并发的经验？</title>
+      <link>https://bytecodes.tech/studysuggest/gaobingfa-jingyan-hsmcomputer.html</link>
+      <guid>https://bytecodes.tech/studysuggest/gaobingfa-jingyan-hsmcomputer.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">如何获得高并发的经验？</source>
+      <category>学习建议</category>
+      <pubDate>Mon, 12 Dec 2022 08:02:21 GMT</pubDate>
+      <content:encoded><![CDATA[<p><strong>先说结论。</strong></p>
+<p>1、首先得在自己电脑上鼓捣出 Redis，kafka，dubbo，mycat 等高并发分布式组件的环境，通过这些环境了解分布式组件的基本 api。</p>
+<p>2、为这些分布式组件找个项目场景，证明自己用过，并且解决过实际问题。这里需要指出的是，单纯背高并发的面试题没用。</p>
+<p>3、修改简历，找到高并发面试的机会，然后通过多场面试，不断调整自己讲述高并发项目经验的水平。这时，如果能直接用高并发的说辞进大厂，那是最好的，如果不能，找个过渡性的能提供高并发实践的岗位。</p>
+<p>4 **如果有高并发项目的实践经验，那么后面就不用说了，只要多解决实际问题，高并发技能一定能很快掌握。**这时掌握的高并发技能，就不是单纯的理论说辞和简单的 API 技能了，而是正宗的高并发项目实践技能。</p>
+<p>可以这样说，能否找到高并发项目的实践经验，决定着程序员能否升级到架构师，不过这不容易。下面讲一下我的一个朋友的经历，musk经常和他聊天，互相在知乎上点赞，哈哈哈。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/gaobingfa-jingyan-hsmcomputer-9c0199ae-e4ed-40d3-893a-74a87dcd1759.png" alt=""></p>
+<p>1、17 年年初的时候，朋友在项目组里只用简单的 Spring + JDBC/ORM 做业务，开发是在 windows 上的，接触到的高并发组件，也就是 nginx 和 mysql 集群，加上一些 linux 上部署和调试组件的经验，并没有高并发组件的使用经验。</p>
+<p>相信当下不少球友和我这位朋友一样，只会做 windows 系统上的增删改查，没有任何分布式组件和高并发经验。</p>
+<p>那如果就这样下去，只会基本的增删改查，再干个几年，等年纪上来了，估计连跳槽的机会都没。</p>
+<p>2、后来，这位朋友就去背题，什么 redis 数据结构，dubbo 协议，kafka 流程等等，高并发情况下防幂等，netty 堆外内存的使用要点，jvm 调优等。凡是和高并发有关的，他基本都背了一下。然后就开始修改简历，就写，在 xx 项目里，并发量是每秒 xx，用到了 Redis,kafka, dubbo（省略其它分布式组件）等等，然后投简历。</p>
+<p>3、由于朋友当时的公司不错，所以投出去的简历很快得到回应，也得到了不少大厂的面试机会。刚开始面试时，Java、数据库等方面，朋友都是秒通过。但是如果问到分布式组件，朋友基本就说不上来。</p>
+<p>因为朋友背的都是脱离项目的理论，比如 mysql 集群的搭建方法和 redis 数据结构等，面试官是结合项目问的，比如问，你项目里 Redis 如何确保高可用，用 nginx 部署 spring boot 项目时，配置文件中注意的要点是什么。<strong>由于朋友是单纯背理论，所以就回答不上来。</strong></p>
+<p>4、尝试了几次，朋友意识到单纯背题一定不行，<strong>他就在他的电脑上，搭建了诸多高并发组件的开发环境。虽然组件在项目里都运行在 linux 上，但大多高并发组件都有 windows 版。</strong></p>
+<p>当时朋友搭建了 mysql 主从集群，redis 主从集群，rabbitmq, dubbo+zookeeper，nginx，mycat 等开发环境，了解各组件的基本用法，然后为每个组件找了个项目背景。比如说 redis，朋友就说，我们项目需要缓存员工信息，所以用到了 Redis 里的 xxx API，对应的 Java 代码是什么，类似的，为每个组件都找个了应用背景。</p>
+<p>5、这个时候朋友再去面试，在分布式组件方面，就能和面试官有来有去了，甚至还面试成功了几家小公司。但如果面试官问些实践要点，比如 redis 如何防穿透，redis cluster 的失效转移等，朋友就答不上来。<strong>所以朋友当时给面试官的印象是，有分布式组件的使用经验，也会用分布式组件开发基本的高并发技能，但缺乏系统的用分布式组件实现高并发的能力。</strong></p>
+<p>6、这个时候，朋友就回想起刚开始背题的一些内容，比如 netty 防堆外内存溢出，netty 如何解决半包粘包，redis 如何防穿透，mycat 如何实现读写分离，还有限流和熔断等机制等。<strong>这时朋友才感到，原来这些题目是要等掌握一定高并发说辞后再用，不是一开始就用的。</strong></p>
+<p><strong>明白这些以后就好办多了，这些技能和开发无关，只需要结合项目背景讲下实现要点。</strong></p>
+<p>比如以限流为例，先准备一个限流场景，比如公司查询系统每秒只能放 1000 个请求，然后说下实践要点，无非是 redis+lua，再说下异常情况下怎么处理，无非就超量情况下抛异常。其它熔断防穿透都要点都按这样准备。</p>
+<p>7、请注意，到了这个时间点，朋友的分布式高并发经验，也仅仅是停留在理论层面，但这个时候我去面试，就能通过用法+实践要点的说辞，成功把自己包装成有高并发项目经验的人了，后面的面试成功率就高很多了。</p>
+<p>不过在这个阶段，为了挑战大厂的岗位，<strong>朋友还准备了“项目中解决过的实际问题”。</strong></p>
+<p>套路说辞基本一样，首先遇到什么问题，比如 redis 穿透，或 oom 异常，或 kafka 私信堆积过多，然后说表现，表现无非是系统宕机，卡死，或功能异常，再说如何排查，无非是通过看日志，日志中遇到什么异常，发现什么问题，最后再说怎么解决的。</p>
+<p>网上这种问题一搜一大堆，但网上的说辞大多是纯理论的，**得为这些问题找个项目背景。**比如 xx 支付系统遇到 oom 异常，xx 优惠券分发系统遇到死信过多，xx 支付系统遇到 redis 穿透等等。</p>
+<p>8、也就是说，通过不断面试，朋友整理了高并发方面的<strong>基本用法+实践要点+解决过问题</strong>等说辞。这样虽然还是没高并发项目经验，但已经能确保进大厂了。<strong>事实上朋友就这样进大厂的。</strong></p>
+<p>9、进大厂以后，其实朋友的日子很难过，<strong>一方面项目组通过面试，认定他有高并发项目经验，其实他没有</strong>，但朋友不这样说，他就只能在原来的公司做基本的增删改查。</p>
+<p>这时，朋友除了自己到处查以外，只能一方面厚着脸皮到处问人，另一方面多加班。由于朋友的项目用到高并发，所以日常工作中有大量的开发，部署，调试机会，平时也经常解决高并发的问题。</p>
+<p>所以朋友的苦日子也就过了 3 个月，后面他不仅能解决高并发的问题，还能参加压力测试**，通过压力测试提升高并发的性能，做到这个程度，朋友才算真正获得了高并发的项目经验。**</p>
+<p>10、 <strong>掌握高并发经验的红利是相当大的</strong>。当朋友掌握高并发经验后，后面找工作，基本上大多数的技术面试都能过。</p>
+<p>musk就认识一个大佬，叫李智慧，由于有高并发架构的能力，目前在极客 xx 上出了一门高并发架构课，不知道有球友听说过吗？</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/gaobingfa-jingyan-hsmcomputer-81c5ab21-c5dd-48e8-8af2-b301cf04d9e2.png" alt=""></p>
+<p>如果你也有高并发的经验，也可以进个外企养老，或者是找个小公司做技术总监，不至于在 35 岁被淘汰。</p>
+<p><strong>其实我发现，不少人掌握高并发技能的经历和musk的朋友很相似。</strong></p>
+<p>1、在公司项目没有提供高并发实践机会的前提下，通过背题等，哪怕根据一些所谓的思维导图，把相关全学了一遍。</p>
+<p>2、然后进入到提供高并发实践机会的项目里，得到相关经验。</p>
+<p>3、得到高并发的实践机会，通过项目真正掌握高并发的技能。</p>
+<p>最后做个总结，<strong>高并发能力包括哪些，如何该怎么掌握？这无法通过短短的文章来说明</strong>。</p>
+<p>但是，你就照着我在上文里给出的步骤，先搭建环境，再掌握分布式组件的基本用法，再了解高并发的实践要点和解决问题的说辞，你至少能通过面试得到高并发项目的实践机会。</p>
+<p>掌握高并发经验的难点在于得到实践机会，进了项目组，有了实践机会，高并发技巧就不用我说了，你自己就能知道如何掌握。</p>
+<p><strong>前文已经说了，要得到高并发经验，一般得分两步走，第一通过面试得到实践机会，第二在项目中提升，其实难点在第一点，在零基础前提下，准备高并发方面的面试，确实难。而通过面试找到项目实践机会后，可能会被人鄙视，也会被领导认为很水，但好歹得到了能进一步提升的机会。</strong></p>
+<p>这里特别提一句，大厂技术面试官一般眼睛都很毒，高并发项目经验，或者高并发方面只有理论经验的候选人，通过寥寥几个问题就能问出。这点大家不要有侥幸心理。</p>
+<p><strong>那在零基础前提下，准备高并发方面的面试的难点在哪里呢？</strong></p>
+<p>1、高并发的组件大多是运行在 linux 上，windows 很难搭建环境，没有环境其它就不用说了。</p>
+<p>2、零基础的球友，不知道高并发场景下的分布式组件怎么用，<strong>或者只知道如何用简单的 api</strong>。由于缺乏项目经验，所以也不知道分布式组件在项目里是怎么用的。</p>
+<p>3、在学分布式组件解决高并发问题方面，往往只会孤立地使用某个组件，比如孤立使用 redis 做缓存，孤立使用 rabbitmq 做消息中间件，但现实场景下，往往是综合使用多个分布式组件，协同解决高并发问题。</p>
+<p>4、由于只会理论，没有在项目里接触过高并发开发，<strong>所以普遍缺乏分析排查解决高并发方面问题的经验。</strong></p>
+<p>在高并发场景下，往往会用到集群，熔断，限流等。在使用高并发组件的时候，往往也会踩到不少坑，比如 mycat 方言不对，netty 半包，消息中间件重发等。</p>
+<p>**大厂面试官往往是会通过这些经常遇到的问题，来确认求职者的高并发方面的经验，**而一些没有高并发项目经验的求职者，在这方面往往是不堪一击的。</p>
+<p><strong>下面就以我考核高并发技能的方式，让大家体验一下零项目经验高并发求职者的难度。</strong></p>
+<p>1、不问概念，比如 redis 数据结构，netty 重要组件。因为零项目经验的高并发求职者一定背过。</p>
+<p>2、第一层难度，这块问题不固定，我先问，你项目里用到哪些分布式组件，然后指着用过的分布式组件，问下 Java 环境下的基本 api 和配置。比如用过 Redis 我就问 Jedis 的语法，用过 Netty 就问 java 层面如何做通讯协议，用过 RabbitMQ 就问 Spring Boot 要做哪些配置。</p>
+<p>我就问你用过的组件，java 里是怎么用的。我发现不少只会背理论的求职者，单纯讲组件（比如 Redis 或 netty 等）很熟悉，但不知道怎么和 Java 整合，这就说不过去了。</p>
+<p>3、第二层难度，有些求职者自己搭建过环境，知道分布式组件的 api。对这些求职者，我进一步提问，和我说下你用(Redis，Kafka，Netty，nginx 等的)分布式组件的项目场景，比如你说你用 Redis，你们项目的数据量是多少？你们项目是用单机版 Redis 还是 Redis 集群，如果是单机版 Redis，你们怎么确保高可用？</p>
+<p>这样当我结合项目背景问的时候，会发现不少高并发方面的求职者露馅。用他们的话说，nginx 都是部署在 windows 上的，redis 只用单机版，而且数据量不高。这也能说明不少求职者没有高并发分布式组件的使用经验。</p>
+<p>4、其实如果求职者能结合项目背景说分布式组件的用法，至少能说明有高并发的经验，在一些高并发要求比较低的岗位，这样的表现，至少在分布式组件这块，就可以过关了。但如果要面试资深开发或架构，那么还需要问 第三层难度，**即在高并发分布式组件方面解决过哪些问题？**这样能证明求职者有一定的高并发项目实践经验。</p>
+<p>这方面网上有现成的问题，比如 Dubbo 超时问题，多注册中心问题，Redis 内存溢出问题等。</p>
+<p>不过话说回来，零高并发项目经验的求职者，如果准备方法得当，其实也能通过项目背景和实际解决过的问题，证明自己有高并发项目经验。</p>
+<p><strong>也就是说，哪怕你高并发方面缺乏项目经验，只要好好准备，一样能通过面试得到实践机会，大家应当有信心。</strong></p>
+<p>我在文章里经常用到小二这个角色，那么接下来就以小二为例。</p>
+<p>1、小二具备 Spring Boot+JPA 开发经验，这其实也是高并发经验的基础。</p>
+<p>2、小二掌握了如何在 windows 环境下搭建 Redis,MyCAT,RabbitMQ，nginx，dubbo+zookeeper，MongoDB 等组件运行环境的步骤，请注意是 windows 环境，而不是 linux 环境。虽然生产环境中，这些组件都在 linux 环境下，因为大家平时都用 windows，而且这些组件在 windows 和 linux 环境下的开发差异不大。</p>
+<p>3、小二环境搭建好以后，首先运行一通 spring boot 整合诸多分布式组件的项目，这样他就知道怎么用，而不会仅仅知道怎么说。<strong>然后我就让他为每个组件，找个业务背景。</strong>。</p>
+<p>4、会用+结合业务背景使用高并发分布式组件以后，<strong>我再让小二背些分布式组件方面的常用坑，以及常规的使用经验</strong>，无非是 dubbo 调用超时，redis 超时，redis 内存溢出，dubbo 整合 zookeeper 的要点等。这方面不要太深，不用涉及到算法，也不用涉及到底层技能。而且这方面内容我书里大多也提到。<strong>最后我让小二通过秒杀案例，串起来讲多个分布式组件的使用要点。</strong></p>
+<p>**5、这个是要点，我让小二准备了不少解决高并发问题的说辞。**高并发问题其实也很普遍，无非是 redis 超时，kakfa 由于重发而导致的不幂等，dubbo 注册中西中心失效等。这些方面，我让我小弟准备哪些点呢？问题是如何发现（无非是通过日志告警或系统卡顿发现），如何排查（到 linux 看日志，日志中看到哪些具体的关键字），如何解决（改文件或改配置）</p>
+<p>参考链接：<a href="https://www.zhihu.com/question/40609661/answer/2245612049" target="_blank" rel="noopener noreferrer">https://www.zhihu.com/question/40609661/answer/2245612049</a></p>
+<p>高并发其实没有那么神秘，讲来讲去就是解决“有限资源与无限用户”的矛盾。你会发现目前主流的解决方案来来去去无非那几种，你如果有心，即使没做过，但是私底下练习过了，面试说出来也是可以过的。</p>
+<hr>
+]]></content:encoded>
+      <enclosure url="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/study_suggest/gaobingfa-jingyan-hsmcomputer-9c0199ae-e4ed-40d3-893a-74a87dcd1759.png" type="image/png"/>
+    </item>
+    <item>
+      <title>如何填报计算机大类高考填志愿，计科、人工智能、软工、大数据、物联网、网络工程该怎么选？</title>
+      <link>https://bytecodes.tech/studysuggest/gaokao-zhiyuan-cs.html</link>
+      <guid>https://bytecodes.tech/studysuggest/gaokao-zhiyuan-cs.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">如何填报计算机大类高考填志愿，计科、人工智能、软工、大数据、物联网、网络工程该怎么选？</source>
+      <description>如何填报计算机大类高考填志愿，计科、人工智能、软工、大数据、物联网、网络工程该怎么选？</description>
+      <category>学习建议</category>
+      <pubDate>Mon, 12 Dec 2022 08:02:21 GMT</pubDate>
+      <content:encoded><![CDATA[<p>大家好，我是musk呀！随着高考成绩的出炉，星球的 VIP 群里也是聊的热火朝天，作为过来人，大家都在弟弟妹妹的面前扮演着重要的角色，毕竟学校的选择/专业的选择/会决定你接下来的人生该往哪里走，走成什么样子！</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu/gaoktzyjsjjkrgznrgdsjwlwwlgcgzyx-7ee994ae-343f-4497-ae9a-4c2a501f09d2.png" alt=""></p>
+<p>我当年读大学的时候根本就不知道计算机专业还可以分这么细：计科、人工智能、软工、大数据、物联网、网络工程、前端等等！</p>
+<p>高考完填报志愿的时候，第一志愿填的机械自动化，然而没有录取上，就调剂到了计算机网络专业了，糊里糊涂地就上了！</p>
+<p><strong>谁能想到，计算机专业这么香</strong>！本来是作为学校的垃圾专业，结果完全吊打其他专业。</p>
+<p>别的专业我不太了解，这里就姑且谈一谈计算机专业。首先，不要关什么卷不卷的问题，各行各业随着大学生数量的增加，哪能不卷呢？</p>
+<p><strong>计算机卷，是因为它热门</strong>！为什么热门，是因为它工资高！没别的，大家都是冲着高薪来的，就像我前段时间给大家聊过的一个读者，也是我老乡，字节 SSP，50 万的年包，普通人去任何专业，都很难拿到这个数。</p>
+<p>即便是有些小伙伴因为学历的原因，学习能力的原因，去了外包，也可以把整个家庭支撑起来。</p>
+<p>我这里就不劝大家盲目选择计算机专业了，就只谈谈计算机专业给我带来了什么，我对计算机专业有什么认识，大家作为参考。</p>
+<p>我的读者群体里还有一些家长级别的，也有一些初中生级别的，这篇文章应该能满足各个群体的需求，后续每年我也会在这个基础上进行版本迭代，方便大家参考。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu/gaoktzyjsjjkrgznrgdsjwlwwlgcgzyx-ff1497b7-b25d-4cd9-9c88-a7669ad80957.png" alt=""></p>
+<p>作为一个普普通通的大学生，<strong>我就是靠计算机专业改变的命运</strong>！下面这张图是我老家的样子，老读者应该很有印象，老家不能说是穷乡僻壤，因为天很蓝，空气是真的润肺。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu/gaoktzyjsjjkrgznrgdsjwlwwlgcgzyx-546bf215-cf62-480e-8826-0672d40b90e3.png" alt=""></p>
+<p>接下来我来说说，计科，人工智能，软工，大数据，物联网，网络工程，前端，到底该怎么选？</p>
+<p><strong>1）想考研、考博</strong></p>
+<p><strong>本科建议选计科，研究生以上阶段选人工智能、大数据</strong></p>
+<p><strong>2）大专、本科</strong></p>
+<p><strong>建议选计科、软工；选软工建议毕业后直接参加工作，选计科的话，可以考研，也可以工作，灵活。</strong></p>
+<p><strong>前端</strong>，很多女生或者不想卷的小伙伴觉得前端是个不错的方向，那确实这些年，前端发生了很大的变化，在软件开发中扮演的角色也越来越重要，界面做得不好看，用户基本上都懒得用。</p>
+<p>JSP 的年代，都是Java 后端的小伙伴直接把前端的活也给干了。现在都讲究前后端分离，并且前端也要工程化，所以前端这个岗位也越来越受到重视了。</p>
+<p><strong>网络工程</strong>，听起来还算是蛮高端大气上档次的，大家可以去百度百科或者维基百科看一下这个专业的解释。我的理解是网络工程是将计算机以及其他设备串联完成网络通信，以及智能化监控的学科。主要的分支有：路由交换、网络安全、无线网络等等。</p>
+<p><strong>物联网</strong>，也简称为 IoT，是近些年比较火的一个概念，是指将日常的物理对象连接到互联网的过程——从医疗设备，到可穿戴设备，小到智慧家居，大到智慧城市。相对来说，物联网还有很大的发展空间，比如智慧交通，再比如智慧农业，具体点的例子就是通过湿度传感器来自动触发灌溉等。</p>
+<p><strong>大数据</strong>，也就是 Big Data，我了解到的适用于大数据的技术有：分布式文件系统、分布式数据库、云计算平台、可扩展的存储系统等。奥巴马曾说“大数据”是未来的石油，可见其重要性。大数据专业是典型的交叉学科，不仅涉及到计算机，还会涉及到数学和统计学，不仅对学校的学科实力有要求，对个人的硬性基本功也是有要求的。</p>
+<p><strong>人工智能</strong>，研究使计算机来模拟人的某些思维过程和<strong>智能</strong>行为（如学习、推理、思考、规划等）的学科，研究生以上学历会更有优势。</p>
+<p><strong>软件工程</strong>专业是以计算机科学为基础的，更加强调软件开发的工程性，包括软件需求分析、软件设计、软件测试、软件维护和软件项目管理等。</p>
+<p><strong>计算机科学</strong>，也就是计科（Computer Science，简称 CS），不仅会研究计算机的硬件，也会研究计算机的软件，更具体的主题包括编程语言、程序设计等。</p>
+<p>计算机科学这一学术领域可以分为：<strong>计算机理论、信息和编码理论、算法和数据结构、形式化方法、编程语言等</strong>。</p>
+<p>偏实践的领域：<strong>计算机体系结构（或者叫计算机组成原理）、操作系统、计算机网络、安全性和密码学、人工智能、计算机图形学、人机交互、嵌入式系统和软件工程</strong>。</p>
+<p>也就是说，软工是计科的一个应用方向而已。</p>
+<p>再换句话说，<strong>可以无脑选计科</strong>！<strong>计科学得好，软工、大数据、物联网、网络工程、人工智能都是可以驾驭的</strong>。</p>
+<p>最近选学科这个话题在知乎很火，有很多相关话题了。看这个话题的要么是高考完选专业、选学校，要么是大一面临专业分流。</p>
+<p>讲良心话，不要对大学的教育有太高的期待，除非你上的是超一流的名校，遇到的是超一流的老师，多数时候，学习计算机还是要靠自学。</p>
+<p>我是科班出身，但你要问我大学到底学到了什么，我真有点不好意思，因为我大学学得一塌糊涂。之所以没有被辞退，或者挣到了一些钱，买了房、结了婚、买了车，<strong>靠的都是自学</strong>。</p>
+<p>有一说一，一开始，对于计算机，我也是学不进去，觉得自己就不是学计算机的料，但我始终没有放弃，从来没想着转行。</p>
+<p>学 Java，我一开始也是学的皮毛，也在 Swing 上花费了很多力气，觉得利用 Swing 做个计算器好像挺不错的。但后来我知道，Java 的核心和 Swing 没一丁点关系，重要的是 Java 语法、Java 集合框架、Java 网络编程、Java 并发编程和 Java 虚拟机。</p>
+<p>再比如说，我一开始也没有刷过 LeetCode 的，我那时候参加工作早，不刷 LeetCode 确实是可以找到工作的，但现在不同了。<strong>数据结构与算法是学习编程的基础，所以大家应该看到了，很多人都在刷 LeetCode。</strong></p>
+<p>还有，我看哈佛大学的 CS50，看计算机科学速成课，看清华大学的数据结构视频课，看翁凯教授的 C 语言程序设计，我一直吸收营养，更关键的是，我一直在输出，这让我的营养消化得很良好。</p>
+<p>我虽然没有读过研究生，但仍然有很多研究生的朋友和读者，他们来找我问问题的时候，我也能够从容应对。</p>
+<p>十多年的编程经验，让我对科班学习计算机有了新的认识。</p>
+<p>如果你要学习物理，我推荐你顺着物理的发展史学习，先学习牛顿的经典物理，再学习热力学、电磁学，然后学习相对论、量子力学这些彻底推翻经典物理的，最后学习电动力学这种硬核的。</p>
+<p>整个学习过程，是<strong>自底向上</strong>的。学计科也要这样吗？</p>
+<p>先学习电路，然后学习冯诺依曼结构，造一台计算机？接着再学习如何用汇编写个 mini os？接着学习如何写一个简易版的编译器？最后再学习高级编程语言，比如说 Java、Python、C++？</p>
+<p>显然这样是行不通的！计算机科学的学习最好是<strong>自顶向下</strong>。</p>
+<p>什么是顶？在我看来，就是一门高级的编程语言，比如说 Java、C++ 或者 Python。我个人从事 Java 后端开发的时间比较久，所以还是拿老本行来说。</p>
+<p>当你学习到 Java 并发编程中的“原子性”、“同步”、“异步”、“进程”、“内存分配”这些概念的时候，你自然而然会产生很多疑问，然后就会去学习<strong>操作系统，学习计算机组成原理</strong>，然后你的一系列问题就会逐渐被解决。</p>
+<p>当你在学习 Java 的时候遇到性能问题时，你就会去研究，啊，原来 <strong>Java 是一门解释型的编程语言，而 C 语言是一门编译型的编程语言</strong>，所以 Unix/Linux 这种操作系统要用 C 语言来实现，因为要最大限度的压榨硬件的瓶颈。</p>
+<p>当然了，Java 为了提升自身的性能也是费尽心思，比如说即时编译（JIT，Just-In-Time）通过在运行时将字节码编译为本机机器代码来提高性能；比如说垃圾回收机制的升级，从 GC 到 ZGC，GC 的痛点在于垃圾回收期间，所有的线程都会停止活动，等待 STW（Stop The World）的结束，而 ZGC 在标记、转移和重定位阶段几乎都是并发的，大大缩短了停顿的时间。</p>
+<p>当你用 Java 实现某个业务需求时，发现人家的算法实现比你快得多，你自然会好奇，为什么会这样？然后你发现人家用的数据结构和你的不同，接着你就会去学习数据结构，再了解一些高效的算法，比如动态规划等。</p>
+<p>你看，从学 Java 的语法开始，你一步步学到了操作系统、计算机组成原理、数据结构与算法。</p>
+<p><strong>跟着需求去学习，才能真正学好计算机科学</strong>。</p>
+<p>我也会给你推荐《CSAPP》这本黑皮书，毕竟永远的神，但如果你没有编程基础就去啃，你可能很快就会被劝退的；反而，一开始，你读一读我写的《<a href="https://tobebetterjavaer.com/" target="_blank" rel="noopener noreferrer">Java 程序员进阶之路</a>》，或者去 B 站上看尚硅谷或者动力节点这些培训机构的 Java 视频课，没准你会越学越觉得有信心——这么简单的东西，我这么聪明，还能学不会？你会有这种自信的错觉的！</p>
+<p>反而一开始去啃 CSAPP，你会感觉，老天！我特么是个废材啊，我学的什么鬼玩意，这竟然看不懂，学不会？</p>
+<p><strong>想成为优秀的计算机工程师，从大学开始，需要做哪些准备</strong>？我想这应该是很多小伙伴关心的问题，这里也顺带谈一谈。</p>
+<p>先上总结：</p>
+<ul>
+<li>大一，尽快学完一门编程语言，比如说 C 语言或者 Java 语言，有主动去刷 LeetCode 或者 OJ 的意愿；</li>
+<li>如果有可能，参加一些竞赛，比如说 ACM、蓝桥杯等；</li>
+<li>大学只要不挂科就行了，把重心放在专业知识上。</li>
+<li>注重抽象能力的培养，注重编程思维的提高。</li>
+<li>如果有可能，早点去实习，不要贪恋学校的安逸。</li>
+</ul>
+<p>接下来，我来说说，你最值得去花时间学习一些课程：</p>
+<ul>
+<li><strong>编程语言：C 语言或者 Java 语言</strong></li>
+<li><strong>数据结构与算法</strong></li>
+<li><strong>操作系统</strong></li>
+<li><strong>计算机网络</strong></li>
+<li><strong>计算机组成原理</strong></li>
+<li><strong>英语也不要落下</strong></li>
+</ul>
+<p>害，后悔呀，当年我上大学的时候就没有人给我指点指点，如果当时学了这些，现在估计能飞的更高。</p>
+<h2 id="一、编程语言" tabindex="-1"> 一、编程语言</h2>
+<p>先说 Java 吧。</p>
+<p>可以先看看我的《Java 程序员进阶之路》，里面涵盖了 Java 所有的知识点，包括 Java 语法、Java 集合框架、Java IO、Java 并发编程和 Java 虚拟机、Java 企业级开发所需要的知识，比如说 Git、Spring Boot，以及 MySql、Redis 等等。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu/gaoktzyjsjjkrgznrgdsjwlwwlgcgzyx-21e1cfcd-d772-48cd-b8c2-994c19e13ed6.png" alt=""></p>
+<p>然后到 B 站上看看尚硅谷或者动力节点的视频课。</p>
+<p><a href="https://www.bilibili.com/video/BV1Kb411W75N" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV1Rx411876f</a></p>
+<p>再说说 C 语言吧。</p>
+<p>C 语言是一门古老而常青的编程语言，具备现代程序设计的基础要求，它的语法是很多编程语言的基础，比如说 Java。给你推荐一门课，浙江大学翁恺教授的《<a href="https://www.icourse163.org/course/ZJU-199001%3Ffrom%3DsearchPage%23/info" target="_blank" rel="noopener noreferrer">程序设计入门——C语言</a>》，国家级精品课，很适合初学者。</p>
+<h2 id="二、数据结构与算法" tabindex="-1"> 二、数据结构与算法</h2>
+<p>计算机科学所赋予人们的最大能量在于对常见算法和数据结构的熟悉。此外，这也可以训练一个人对于各种问题的解决能力，有助于其他领域的学习。</p>
+<p>推荐你到 LeetCode 上刷题，Leetcode 上的问题往往有趣且带有良好的解法和讨论。此外，在竞争日益激烈的软件行业，这些问题可以帮助你评估自己应对技术面试中常见问题的能力。我建议你至少刷 100 道题，作为学习的一部分。</p>
+<p>说一下我的刷题心得：从易到难，一遍一遍地刷，尽量使用自己熟悉的编程语言，比如说 Java 程序员尽量用 Java 来解题，这样刷题的幸福感也会提升很大一截。</p>
+<p>如果不是天赋异禀，不要怕，一开始就是抄题，先把别人的解题思路照着敲出来。刷的题多了，尽量控制一下刷题的时间，掐个点，不能让自己一直想、一直写下去，如果半个小时没有解出来，就果断放弃，去背别人的答案，不要觉得不好意思，等到真的熟了，再去想自己的解题思路。</p>
+<p>可以按照下面这个类型来刷就可以了。</p>
 <blockquote>
-<p>转自 ethfans <a href="https://ethfans.org/wikis/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%99%BD%E7%9A%AE%E4%B9%A6" target="_blank" rel="noopener noreferrer">https://ethfans.org/wikis/以太坊白皮书</a></p>
+<p>数组-&gt; 链表-&gt; 哈希表-&gt;字符串-&gt;栈-&gt;队列-&gt;树-&gt;回溯-&gt;贪心-&gt;动态规划-&gt;图</p>
 </blockquote>
-<h2 id="历史" tabindex="-1"> 历史</h2>
-<p>去中心化的数字货币概念，正如财产登记这样的替代应用一样，早在几十年以前就被提出来了。1980和1990年代的匿名电子现金协议，大部分是以乔姆盲签技术（Chaumian blinding）为基础的。这些电子现金协议提供具有高度隐私性的货币，但是这些协议都没有流行起来，因为它们都依赖于一个中心化的中介机构。1998年，戴伟（Wei Dai）的b-money首次引入了通过解决计算难题和去中心化共识创造货币的思想，但是该建议并未给出如何实现去中心化共识的具体方法。2005年，芬尼（Hal Finney）引入了“可重复使用的工作量证明机制”（reusable proofs of work）概念，它同时使用b-money的思想和Adam Back提出的计算困难的哈希现金（Hashcash）难题来创造密码学货币。但是，这种概念再次迷失于理想化，因为它依赖于可信任的计算作为后端。</p>
-<p>因为货币是一个先申请应用，交易的顺序至关重要，所以去中心化的货币需要找到实现去中心化共识的方法。比特币以前的所有电子货币协议所遇到的主要障碍是，尽管对如何创建安全的拜占庭问题容错（Byzantine-fault-tolerant）多方共识系统的研究已经历时多年，但是上述协议只解决了问题的一半。这些协议假设系统的所有参与者是已知的，并产生如“如果有N方参与到系统中，那么系统可以容忍N/4的恶意参与者”这样形式的安全边界。然而这个假设的问题在于，在匿名的情况下，系统设置的安全边界容易遭受女巫攻击，因为一个攻击者可以在一台服务器或者僵尸网络上创建数以千计的节点，从而单方面确保拥有多数份额。</p>
-<p>中本聪的创新是引入这样一个理念：将一个非常简单的基于节点的去中心化共识协议与工作量证明机制结合在一起。节点通过工作量证明机制获得参与到系统的权利，每十分钟将交易打包到“区块”中，从而创建出不断增长的区块链。拥有大量算力的节点有更大的影响力，但获得比整个网络更多的算力比创建一百万个节点困难得多。尽管比特币区块链模型非常简陋，但是实践证明它已经足够好用了，在未来五年，它将成为全世界两百个以上的货币和协议的基石。</p>
-<h3 id="作为状态转换系统的比特币" tabindex="-1"> 作为状态转换系统的比特币</h3>
-<p><img src="http://upyun-assets.ethfans.org/uploads/photo/image/ed77a88675204904984a696a55e2254e.png" alt="img"></p>
-<p>从技术角度讲，比特币账本可以被认为是一个状态转换系统，该系统包括所有现存的比特币所有权状态和“状态转换函数”。状态转换函数以当前状态和交易为输入，输出新的状态。例如，在标准的银行系统中，状态就是一个资产负债表，一个从A账户向B账户转账X美元的请求是一笔交易，状态转换函数将从A账户中减去X美元，向B账户增加X美元。如果A账户的余额小于X美元，状态转换函数就会返回错误提示。所以我们可以如下定义状态转换函数：</p>
-<div><pre><code>APPLY(S,TX) ­> S' or ERROR
-</code></pre><div aria-hidden="true"><div></div></div></div><p>在上面提到的银行系统中，状态转换函数如下：</p>
-<div><pre><code>APPLY({ Alice: $50, Bob: $50 },"send $20 from Alice to Bob") = { Alice: $30,Bob: $70 }
-</code></pre><div aria-hidden="true"><div></div></div></div><p>但是：</p>
-<div><pre><code>APPLY({ Alice: $50, Bob: $50 },"send $70 from Alice to Bob") = ERROR
-</code></pre><div aria-hidden="true"><div></div></div></div><p>比特币系统的“状态”是所有已经被挖出的、没有花费的比特币（技术上称为“未花费的交易输出，unspent transaction outputs 或UTXO”）的集合。每个UTXO都有一个面值和所有者（由20个字节的本质上是密码学公钥的地址所定义[1]）。一笔交易包括一个或多个输入和一个或多个输出。每个输入包含一个对现有UTXO的引用和由与所有者地址相对应的私钥创建的密码学签名。每个输出包含一个新的加入到状态中的UTXO。</p>
-<p>在比特币系统中，状态转换函数<code>APPLY(S,TX)-&gt;S’</code>大体上可以如下定义：</p>
-<ol>
-<li>交易的每个输入：
+<h2 id="三、操作系统" tabindex="-1"> 三、操作系统</h2>
+<p>操作系统是计算机系统中负责管理各种软硬件资源的核心系统软件，为应用软件运行提供良好的环境。<a href="https://www.xuetangx.com/course/THU08091000267/5883104%3Fchannel%3Dlearn_title" target="_blank" rel="noopener noreferrer">清华大学操作系统课-学堂在线</a>这门课程以主流操作系统为实例，以教学操作系统 ucore 为实验环境，讲授操作系统的概念、基本原理和实现技术，是一门非常值得推荐的视频课。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu/gaoktzyjsjjkrgznrgdsjwlwwlgcgzyx-1fae0039-6b10-49c8-94e7-148e3f7f6db0.jpg" alt=""></p>
+<p>书籍的话，推荐《<a href="https://book.douban.com/subject/30297919/" target="_blank" rel="noopener noreferrer">操作系统概念</a>》 （“龙书”）和 《<a href="https://book.douban.com/subject/27096665/" target="_blank" rel="noopener noreferrer">现代操作系统</a>》 ，是操作系统领域的经典书籍。学完操作系统，你要能回答这些问题：</p>
 <ul>
-<li>如果引用的UTXO不存在于现在的状态中（<code>S</code>），返回错误提示</li>
-<li>如果签名与UTXO所有者的签名不一致，返回错误提示</li>
+<li>进程与线程简单介绍，区别，以及进程间通信方式，线程同步方式</li>
+<li>用户态和内核态</li>
+<li>内存管理：分页分段，虚拟内存，空闲地址管理方法</li>
+<li>死锁：死锁的必要条件，死锁的检测与恢复，死锁的预防，死锁的避免</li>
+<li>数据库系统</li>
 </ul>
-</li>
-<li>如果所有的UTXO输入面值总额小于所有的UTXO输出面值总额，返回错误提示</li>
-<li>返回新状态<code>S’</code>,新状态<code>S</code>中移除了所有的输入UTXO，增加了所有的输出UTXO。</li>
-</ol>
-<p>第一步的第一部分防止交易的发送者花费不存在的比特币，第二部分防止交易的发送者花费其他人的比特币。第二步确保价值守恒。比特币的支付协议如下。假设Alice想给Bob发送11.7BTC。事实上，Alice不可能正好有11.7BTC。假设，她能得到的最小数额比特币的方式是：6+4+2=12。所以，她可以创建一笔有3个输入，2个输出的交易。第一个输出的面值是11.7BTC，所有者是Bob（Bob的比特币地址），第二个输出的面值是0.3BTC，所有者是Alice自己，也就是找零。</p>
-<h3 id="挖矿" tabindex="-1"> 挖矿</h3>
-<p><img src="http://upyun-assets.ethfans.org/uploads/photo/image/81a76dc0e8924cfe81a8f3c8a76e84d4.png" alt="img"></p>
-<p>一个区块，每个区块包含一个时间戳、一个随机数、一个对上一个区块的引用（即哈希）和上一区块生成以来发生的所有交易列表。这样随着时间流逝就创建出了一个持续增长的区块链，它不断地更新，从而能够代表比特币账本的最新状态。</p>
-<p>依照这个范式，检查一个区块是否有效的算法如下：</p>
-<ol>
-<li>检查区块引用的上一个区块是否存在且有效。</li>
-<li>检查区块的时间戳是否晚于以前的区块的时间戳，而且早于未来2小时[2]。</li>
-<li>检查区块的工作量证明是否有效。</li>
-<li>将上一个区块的最终状态赋于<code>S[0]</code>。</li>
-<li>假设TX是区块的交易列表，包含n笔交易。对于属于0……n-1的所有i,进行状态转换<code>S[i+1] = APPLY(S[i],TX[i])</code>。如果任何一笔交易i在状态转换中出错，退出程序，返回错误。</li>
-<li>返回正确，状态<code>S[n]</code>是这一区块的最终状态。</li>
-</ol>
-<p>本质上，区块中的每笔交易必须提供一个正确的状态转换，要注意的是，“状态”并不是编码到区块的。它纯粹只是被校验节点记住的抽象概念，对于任意区块都可以从创世状态开始，按顺序加上每一个区块的每一笔交易，（妥妥地）计算出当前的状态。另外，需要注意矿工将交易收录进区块的顺序。如果一个区块中有A、B两笔交易，B花费的是A创建的UTXO，如果A在B以前，这个区块是有效的，否则，这个区块是无效的。</p>
-<p>区块验证算法的有趣部分是“工作量证明”概念：对每个区块进行SHA256哈希处理，将得到的哈希视为长度为256比特的数值，该数值必须小于不断动态调整的目标数值，本书写作时目标数值大约是2<sup>190。工作量证明的目的是使区块的创建变得困难，从而阻止女巫攻击者恶意重新生成区块链。因为SHA256是完全不可预测的伪随机函数，创建有效区块的唯一方法就是简单地不断试错，不断地增加随机数的数值，查看新的哈希数值是否小于目标数值。如果当前的目标数值是2</sup>192，就意味着平均需要尝试2^64次才能生成有效的区块。一般而言，比特币网络每隔2016个区块重新设定目标数值，保证平均每十分钟生成一个区块。为了对矿工的计算工作进行奖励，每一个成功生成区块的矿工有权在区块中包含一笔凭空发给他们自己25BTC的交易。另外，如果交易的输入大于输出，差额部分就作为“交易费用”付给矿工。顺便提一下，对矿工的奖励是比特币发行的唯一机制，创世状态中并没有比特币。</p>
-<p>为了更好地理解挖矿的目的，让我们分析比特币网络出现恶意攻击者时会发生什么。因为比特币的密码学基础是非常安全的，所以攻击者会选择攻击没有被密码学直接保护的部分：交易顺序。攻击者的策略非常简单：</p>
-<ol>
-<li>向卖家发送100BTC购买商品（尤其是无需邮寄的电子商品）。</li>
-<li>等待直至商品发出。</li>
-<li>创建另一笔交易，将相同的100BTC发送给自己的账户。</li>
-<li>使比特币网络相信发送给自己账户的交易是最先发出的。</li>
-</ol>
-<p>一旦步骤（1）发生，几分钟后矿工将把这笔交易打包到区块，假设是第270000个区块。大约一个小时以后，在此区块后面将会有五个区块，每个区块间接地指向这笔交易，从而确认这笔交易。这时卖家收到货款，并向买家发货。因为我们假设这是数字商品，攻击者可以即时收到货。现在，攻击者创建另一笔交易，将相同的100BTC发送到自己的账户。如果攻击者只是向全网广播这一消息，这一笔交易不会被处理。矿工会运行状态转换函数<code>APPLY(S,TX)</code>，发现这笔交易将花费已经不在状态中的UTXO。所以，攻击者会对区块链进行分叉，将第269999个区块作为父区块重新生成第270000个区块，在此区块中用新的交易取代旧的交易。因为区块数据是不同的，这要求重新进行工作量证明。另外，因为攻击者生成的新的第270000个区块有不同的哈希，所以原来的第270001到第270005的区块不指向它，因此原有的区块链和攻击者的新区块是完全分离的。在发生区块链分叉时，区块链长的分支被认为是诚实的区块链，合法的的矿工将会沿着原有的第270005区块后挖矿，只有攻击者一人在新的第270000区块后挖矿。攻击者为了使得他的区块链最长，他需要拥有比除了他以外的全网更多的算力来追赶（即51%攻击）。</p>
-<h3 id="默克尔树" tabindex="-1"> 默克尔树</h3>
-<p><img src="@source/blockchain/assets/img/merkle_tree_bitcoin.png" alt="img"></p>
-<p>左：仅提供默克尔树（Merkle tree）上的少量节点已经足够给出分支的合法证明。
-右：任何对于默克尔树的任何部分进行改变的尝试都会最终导致链上某处的不一致。</p>
-<p>比特币系统的一个重要的可扩展特性是：它的区块存储在多层次的数据结构中。一个区块的哈希实际上只是区块头的哈希，区块头是包含时间戳、随机数、上个区块哈希和存储了所有的区块交易的默克尔树的根哈希的长度大约为200字节的一段数据。</p>
-<p>默克尔树是一种二叉树，由一组叶节点、一组中间节点和一个根节点构成。最下面的大量的叶节点包含基础数据，每个中间节点是它的两个子节点的哈希，根节点也是由它的两个子节点的哈希，代表了默克尔树的顶部。默克尔树的目的是允许区块的数据可以零散地传送：节点可以从一个源下载区块头，从另外的源下载与其有关的树的其它部分，而依然能够确认所有的数据都是正确的。之所以如此是因为哈希向上的扩散：如果一个恶意用户尝试在树的下部加入一个伪造的交易，所引起的改动将导致树的上层节点的改动，以及更上层节点的改动，最终导致根节点的改动以及区块哈希的改动，这样协议就会将其记录为一个完全不同的区块（几乎可以肯定是带着不正确的工作量证明的）。</p>
-<p>默克尔树协议对比特币的长期持续性可以说是至关重要的。在2014年4月，比特币网络中的一个全节点-存储和处理所有区块的全部数据的节点-需要占用15GB的内存空间，而且还以每个月超过1GB的速度增长。目前，这一存储空间对台式计算机来说尚可接受，但是手机已经负载不了如此巨大的数据了。未来只有商业机构和爱好者才会充当完整节点。简化支付确认（SPV)协议允许另一种节点存在，这样的节点被成为“轻节点”，它下载区块头，使用区块头确认工作量证明，然后只下载与其交易相关的默克尔树“分支”。这使得轻节点只要下载整个区块链的一小部分就可以安全地确定任何一笔比特币交易的状态和账户的当前余额。</p>
-<h3 id="其它的区块链应用" tabindex="-1"> 其它的区块链应用</h3>
-<p>将区块链的思想应用到其它领域的想法早就出现了。在2005年，尼克萨博提出了“用所有权为财产冠名”的概念，文中描述了复制数据库技术的发展如何使基于区块链的系统可以应用于登记土地所有权，创建包括例如房产权、违法侵占和乔治亚州土地税等概念的详细框架。然而，不幸的是在那时还没有实用的复制数据库系统，所以这个协议被没有被付诸实践。不过，自2009年比特币系统的去中心化共识开发成功以来，许多区块链的其它应用开始快速出现。</p>
+<h2 id="四、计算机网络" tabindex="-1"> 四、计算机网络</h2>
+<p>B 站上的这个<a href="https://www.bilibili.com/video/BV1c4411d7jb" target="_blank" rel="noopener noreferrer">计算机网络微课堂</a>视频课非常不错，强烈推荐。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu/gaoktzyjsjjkrgznrgdsjwlwwlgcgzyx-9988b7fd-2555-4185-bb21-202dc28098a3.jpg" alt=""></p>
+<p>学完计算机网络，你要能回答以下这些问题：</p>
 <ul>
-<li><strong>域名币（namecoin）</strong>- 创建于2010年，被称为去中心化的名称注册数据库。像Tor、Bitcoin和BitMessage这样的去中心化协议，需要一些确认账户的方法，这样其他人才能够与用户进行交互。但是，在所有的现存的解决方案中仅有的可用的身份标识是象<code>1LW79wp5ZBqaHW1jL5TciBCrhQYtHagUWy</code>这样的伪随机哈希。理想的情况下，人们希望拥有一个带有象“george”这样的名称的账户。然而，问题是如果有人可以创建“george”账户，那么其他人同样也可以创建“george”账户来假扮。唯一的解决方法是先申请原则（first-to-file），只有第一个注册者可以成功注册，第二个不能再次注册同一个账户。这一问题就可以利用比特币的共识协议。域名币是利用区块链实现名称注册系统的最早的、最成功的系统。</li>
-<li><strong>彩色币（Colored coins）</strong>- 彩色币的目的是为人们在比特币区块链上创建自己的数字货币，或者，在更重要的一般意义上的货币 – 数字令牌提供服务。依照彩色币协议，人们可以通过为某一特别的比特币UTXO指定颜色，发行新的货币。该协议递归地将其它UTXO定义为与交易输入UTXO相同的颜色。这就允许用户保持只包含某一特定颜色的UTXO，发送这些UTXO就像发送普通的比特币一样，通过回溯全部的区块链判断收到的UTXO颜色。</li>
-<li><strong>元币（Metacoins）</strong>- 元币的理念是在比特币区块链上创建新的协议，利用比特币的交易保存元币的交易，但是采用了不同的状态转换函数APPLY’。因为元币协议不能阻止比特币区块链上的无效的元币交易，所以增加一个规则如果APPLY'(S,TX)返回错误，这一协议将默认APPLY'(S,TX) = S。这为创建任意的、先进的不能在比特币系统中实现的密码学货币协议提供了一个简单的解决方法，而且开发成本非常低，因为挖矿和网络的问题已经由比特币协议处理好了。</li>
+<li>七层结构，简单介绍一下每一层。</li>
+<li>输入 URL 后，将发生什么？这个问题会涉及到很大一部分的计算机网络基础。</li>
+<li>HTTP 和 HTTPS，DNS 解析</li>
+<li>TCP、UDP、拥塞控制、三次握手、四次挥手、滑动窗口</li>
+<li>IP 和 ARP 协议</li>
 </ul>
-<p>因此，一般而言，建立共识协议有两种方法：建立一个独立的网络和在比特币网络上建立协议。虽然像域名币这样的应用使用第一种方法已经获得了成功，但是该方法的实施非常困难，因为每一个应用需要创建独立的区块链和建立、测试所有状态转换和网络代码。另外，我们预测去中心化共识技术的应用将会服从幂律分布，大多数的应用太小不足以保证自由区块链的安全，我们还注意到大量的去中心化应用，尤其是去中心化自治组织，需要进行应用之间的交互。</p>
-<p>另一方面，基于比特币的方法存在缺点，它没有继承比特币可以进行简化确认支付（SPV) 的特性。比特币可以实现简化确认支付，因为比特币可以将区块链深度作为有效性确认代理。在某一点上，一旦一笔交易的祖先们距离现在足够远时，就可以认为它们是合法状态的一部分。与之相反，基于比特币区块链的元币协议不能强迫区块链不包括不符合元币协议的交易。因此，安全的元币协议的简化支付确认需要后向扫描所有的区块，直到区块链的初始点，以确认某一交易是否有效。目前，所有基于比特币的元币协议的“轻”实施都依赖可信任的服务器提供数据，这对主要目的之一是消除信任需要的密码学货币而言，只是一个相当次优的结果。</p>
-<h3 id="脚本" tabindex="-1"> 脚本</h3>
-<p>即使不对比特币协议进行扩展，它也能在一定程度上实现”智能合约”。比特币的UTXO可以被不只被一个公钥拥有，也可以被用基于堆栈的编程语言所编写的更加复杂的脚本所拥有。在这一模式下，花费这样的UTXO，必须提供满足脚本的数据。事实上，基本的公钥所有权机制也是通过脚本实现的：脚本将椭圆曲线签名作为输入，验证交易和拥有这一UTXO的地址，如果验证成功，返回1，否则返回0。更加复杂的脚本用于其它不同的应用情况。例如，人们可以创建要求集齐三把私钥中的两把才能进行交易确认的脚本（多重签名），对公司账户、储蓄账户和某些商业代理来说，这种脚本是非常有用的。脚本也能用来对解决计算问题的用户发送奖励。人们甚至可以创建这样的脚本“如果你能够提供你已经发送一定数额的的狗币给我的简化确认支付证明，这一比特币UTXO就是你的了”，本质上，比特币系统允许不同的密码学货币进行去中心化的兑换。</p>
-<p>然而，比特币系统的脚本语言存在一些严重的限制：</p>
+<h2 id="五、计算机组成原理" tabindex="-1"> 五、计算机组成原理</h2>
+<p>九阳真经是金庸小说《倚天屠龙记》中一本绝顶内功秘笈，程序员的「九阳真经」，我觉得就是计算机组成原理了，因为这里藏着 CPU 运行代码的秘密，藏着虚拟地址转换的秘密，藏着浮点数的秘密……</p>
+<p>弄明白了计算机的组成原理，也就对整个软件开发有了一个系统的认知，不论是计算机的硬件原理，还是软件架构，都能很好的驾驭，随之而来的，我们的职业发展机会也就更多了。如果想深入学习计算机组成原理的话，我推荐哈工大的这门视频课，整体评价非常高。</p>
+<p><a href="https://www.bilibili.com/video/BV1WW411Q7PF" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV1WW411Q7PF</a></p>
+<p>多说一句，对于我们程序员来说，英语就好像空气一样重要，一呼一吸之间都离不开她。如果空气质量不那么好的话，你是不是就有点缺氧的感觉，同样的，如果英语功底差点意思的话，编程也会感到很吃力。</p>
 <ul>
-<li><strong>缺少图灵完备性</strong> – 这就是说，尽管比特币脚本语言可以支持多种计算，但是它不能支持所有的计算。最主要的缺失是循环语句。不支持循环语句的目的是避免交易确认时出现无限循环。理论上，对于脚本程序员来说，这是可以克服的障碍，因为任何循环都可以用多次重复if 语句的方式来模拟，但是这样做会导致脚本空间利用上的低效率，例如，实施一个替代的椭圆曲线签名算法可能将需要256次重复的乘法，而每次都需要单独编码。</li>
-<li><strong>价值盲（Value-blindness）</strong>。UTXO脚本不能为账户的取款额度提供精细的的控制。例如，预言机合约（oracle contract）的一个强大应用是对冲合约，A和B各自向对冲合约中发送价值1000美元的比特币，30天以后，脚本向A发送价值1000美元的比特币，向B发送剩余的比特币。虽然实现对冲合约需要一个预言机（oracle）决定一比特币值多少美元，但是与现在完全中心化的解决方案相比，这一机制已经在减少信任和基础设施方面有了巨大的进步。然而，因为UTXO是不可分割的，为实现此合约，唯一的方法是非常低效地采用许多有不同面值的UTXO（例如对应于最大为30的每个k，有一个2^k的UTXO)并使预言机挑出正确的UTXO发送给A和B。</li>
-<li><strong>缺少状态</strong> – UTXO只能是已花费或者未花费状态，这就没有给需要任何其它内部状态的多阶段合约或者脚本留出生存空间。这使得实现多阶段期权合约、去中心化的交换要约或者两阶段加密承诺协议（对确保计算奖励非常必要）非常困难。这也意味着UTXO只能用于建立简单的、一次性的合约，而不是例如去中心化组织这样的有着更加复杂的状态的合约，使得元协议难以实现。二元状态与价值盲结合在一起意味着另一个重要的应用-取款限额-是不可能实现的。</li>
-<li><strong>区块链盲（Blockchain-blindness）</strong>- UTXO看不到区块链的数据，例如随机数和上一个区块的哈希。这一缺陷剥夺了脚本语言所拥有的基于随机性的潜在价值，严重地限制了博彩等其它领域应用。</li>
+<li>英语用得好，你可以轻松地阅读和查看国外最新的技术文档。</li>
+<li>英语用得好，你可以徜徉在源码的海洋里，肆无忌惮地汲取精华。</li>
+<li>英语用得好，你可以惬意地聆听斯坦福等名校在网上的公开课，跟随真正的大牛，学到最原汁原味的技术。</li>
+<li>英语用得好，退一万步讲，你在敲代码的时候再也不用担心方法、变量和类的命名不够优雅了。</li>
 </ul>
-<p>我们已经考察了在密码学货币上建立高级应用的三种方法：建立一个新的区块链，在比特币区块链上使用脚本，在比特币区块链上建立元币协议。建立新区块链的方法可以自由地实现任意的特性，成本是开发时间和培育努力。使用脚本的方法非常容易实现和标准化，但是它的能力有限。元币协议尽管非常容易实现，但是存在扩展性差的缺陷。在以太坊系统中，我们的目的是建立一个能够同时具有这三种模式的所有优势的通用框架。</p>
-<h2 id="以太坊" tabindex="-1"> 以太坊</h2>
-<p>以太坊的目的是基于脚本、竞争币和链上元协议（on-chain meta-protocol）概念进行整合和提高，使得开发者能够创建任意的基于共识的、可扩展的、标准化的、特性完备的、易于开发的和协同的应用。以太坊通过建立终极的抽象的基础层-内置有图灵完备编程语言的区块链-使得任何人都能够创建合约和去中心化应用并在其中设立他们自由定义的所有权规则、交易方式和状态转换函数。域名币的主体框架只需要两行代码就可以实现，诸如货币和信誉系统等其它协议只需要不到二十行代码就可以实现。智能合约-包含价值而且只有满足某些条件才能打开的加密箱子-也能在我们的平台上创建，并且因为图灵完备性、价值知晓（value-awareness）、区块链知晓（blockchain-awareness）和多状态所增加的力量而比比特币脚本所能提供的智能合约强大得多。</p>
-<h3 id="以太坊账户" tabindex="-1"> 以太坊账户</h3>
-<p>在以太坊系统中，状态是由被称为“账户”（每个账户由一个20字节的地址）的对象和在两个账户之间转移价值和信息的状态转换构成的。以太坊的账户包含四个部分：</p>
-<ul>
-<li>随机数，用于确定每笔交易只能被处理一次的计数器</li>
-<li>账户目前的以太币余额</li>
-<li>账户的合约代码，如果有的话</li>
-<li>账户的存储（默认为空）</li>
-</ul>
-<p>以太币（Ether）是以太坊内部的主要加密燃料，用于支付交易费用。一般而言，以太坊有两种类型的账户：外部所有的账户（由私钥控制的）和合约账户（由合约代码控制）。外部所有的账户没有代码，人们可以通过创建和签名一笔交易从一个外部账户发送消息。每当合约账户收到一条消息，合约内部的代码就会被激活，允许它对内部存储进行读取和写入，和发送其它消息或者创建合约。</p>
-<h3 id="消息和交易" tabindex="-1"> 消息和交易</h3>
-<p>以太坊的消息在某种程度上类似于比特币的交易，但是两者之间存在三点重要的不同。第一，以太坊的消息可以由外部实体或者合约创建，然而比特币的交易只能从外部创建。第二，以太坊消息可以选择包含数据。第三，如果以太坊消息的接受者是合约账户，可以选择进行回应，这意味着以太坊消息也包含函数概念。</p>
-<p>以太坊中“交易”是指存储从外部账户发出的消息的签名数据包。交易包含消息的接收者、用于确认发送者的签名、以太币账户余额、要发送的数据和两个被称为STARTGAS和GASPRICE的数值。为了防止代码的指数型爆炸和无限循环，每笔交易需要对执行代码所引发的计算步骤-包括初始消息和所有执行中引发的消息-做出限制。STARTGAS就是限制，GASPRICE是每一计算步骤需要支付矿工的费用。如果执行交易的过程中，“用完了瓦斯”，所有的状态改变恢复原状态，但是已经支付的交易费用不可收回了。如果执行交易中止时还剩余瓦斯，那么这些瓦斯将退还给发送者。创建合约有单独的交易类型和相应的消息类型；合约的地址是基于账号随机数和交易数据的哈希计算出来的。</p>
-<p>消息机制的一个重要后果是以太坊的“头等公民”财产-合约与外部账户拥有同样权利，包括发送消息和创建其它合约的权利。这使得合约可以同时充当多个不同的角色，例如，用户可以使去中心化组织（一个合约）的一个成员成为一个中介账户（另一个合约），为一个偏执的使用定制的基于量子证明的兰波特签名（第三个合约）的个人和一个自身使用由五个私钥保证安全的账户（第四个合约）的共同签名实体提供居间服务。以太坊平台的强大之处在于去中心化的组织和代理合约不需要关心合约的每一参与方是什么类型的账户。</p>
-<h3 id="以太坊状态转换函数" tabindex="-1"> 以太坊状态转换函数</h3>
-<p><img src="http://upyun-assets.ethfans.org/uploads/photo/image/a1c08251ec654a8c9392821362a17946.png" alt="img"></p>
-<p>以太坊的状态转换函数：<code>APPLY(S,TX) -&gt; S'</code>，可以定义如下：</p>
-<ol>
-<li>检查交易的格式是否正确（即有正确数值）、签名是否有效和随机数是否与发送者账户的随机数匹配。如否，返回错误。</li>
-<li>计算交易费用:<code>fee=STARTGAS * GASPRICE</code>，并从签名中确定发送者的地址。从发送者的账户中减去交易费用和增加发送者的随机数。如果账户余额不足，返回错误。</li>
-<li>设定初值<code>GAS = STARTGAS</code>，并根据交易中的字节数减去一定量的瓦斯值。</li>
-<li>从发送者的账户转移价值到接收者账户。如果接收账户还不存在，创建此账户。如果接收账户是一个合约，运行合约的代码，直到代码运行结束或者瓦斯用完。</li>
-<li>如果因为发送者账户没有足够的钱或者代码执行耗尽瓦斯导致价值转移失败，恢复原来的状态，但是还需要支付交易费用，交易费用加至矿工账户。</li>
-<li>否则，将所有剩余的瓦斯归还给发送者，消耗掉的瓦斯作为交易费用发送给矿工。 例如，假设合约的代码如下：</li>
-</ol>
-<div><pre><code>if !self.storage[calldataload(0)]:
-    self.storage[calldataload(0)] = calldataload(32)
-</code></pre><div aria-hidden="true"><div></div><div></div></div></div><p>需要注意的是，在现实中合约代码是用底层以太坊虚拟机（EVM）代码写成的。上面的合约是用我们的高级语言Serpent语言写成的，它可以被编译成EVM代码。假设合约存储器开始时是空的，一个值为10以太，瓦斯为2000，瓦斯价格为0.001以太并且64字节数据，第一个三十二字节的快代表号码2和第二个代表词<code>CHARLIE</code>。的交易发送后，状态转换函数的处理过程如下：</p>
-<ol>
-<li>检查交易是否有效、格式是否正确。</li>
-<li>检查交易发送者至少有2000*0.001=2个以太币。如果有，从发送者账户中减去2个以太币。</li>
-<li>初始设定gas=2000,假设交易长为170字节，每字节的费用是5，减去850，所以还剩1150。</li>
-<li>从发送者账户减去10个以太币，为合约账户增加10个以太币。</li>
-<li>运行代码。在这个合约中，运行代码很简单：它检查合约存储器索引为2处是否已使用，注意到它未被使用，然后将其值置为CHARLIE。假设这消耗了187单位的瓦斯，于是剩余的瓦斯为1150 - 187 = 963。 ６. 向发送者的账户增加963*0.001=0.963个以太币，返回最终状态。 如果没有合约接收交易，那么所有的交易费用就等于GASPRICE乘以交易的字节长度，交易的数据就与交易费用无关了。另外，需要注意的是，合约发起的消息可以对它们产生的计算分配瓦斯限额，如果子计算的瓦斯用完了，它只恢复到消息发出时的状态。因此，就像交易一样，合约也可以通过对它产生的子计算设置严格的限制，保护它们的计算资源。</li>
-</ol>
-<h3 id="代码执行" tabindex="-1"> 代码执行</h3>
-<p>以太坊合约的代码使用低级的基于堆栈的字节码的语言写成的，被称为“以太坊虚拟机代码”或者“EVM代码”。代码由一系列字节构成，每一个字节代表一种操作。一般而言，代码执行是无限循环，程序计数器每增加一（初始值为零）就执行一次操作，直到代码执行完毕或者遇到错误，<code>STOP</code>或者<code>RETURN</code>指令。操作可以访问三种存储数据的空间：</p>
-<ul>
-<li><strong>堆栈</strong>，一种后进先出的数据存储，32字节的数值可以入栈，出栈。</li>
-<li><strong>内存</strong>，可无限扩展的字节队列。</li>
-<li><strong>合约的长期存储</strong>，一个秘钥/数值的存储，其中秘钥和数值都是32字节大小，与计算结束即重置的堆栈和内存不同，存储内容将长期保持。</li>
-</ul>
-<p>代码可以象访问区块头数据一样访问数值，发送者和接受到的消息中的数据，代码还可以返回数据的字节队列作为输出。</p>
-<p>EVM代码的正式执行模型令人惊讶地简单。当以太坊虚拟机运行时，它的完整的计算状态可以由元组<code>(block_state, transaction, message, code, memory, stack, pc, gas)</code>来定义，这里<code>block_state</code>是包含所有账户余额和存储的全局状态。每轮执行时，通过调出代码的第<code>pc</code>（程序计数器）个字节，当前指令被找到，每个指令都有定义自己如何影响元组。例如，<code>ADD</code>将两个元素出栈并将它们的和入栈，将<code>gas</code>（瓦斯）减一并将<code>pc</code>加一，<code>SSTORE</code>将顶部的两个元素出栈并将第二个元素插入到由第一个元素定义的合约存储位置，同样减少最多200的gas值并将<code>pc</code>加一，虽然有许多方法通过即时编译去优化以太坊，但以太坊的基础性的实施可以用几百行代码实现。</p>
-<h3 id="区块链和挖矿" tabindex="-1"> 区块链和挖矿</h3>
-<p><img src="http://upyun-assets.ethfans.org/uploads/photo/image/44d88f61183b4dcca4c490969e2eaddd.png" alt="img"></p>
-<p>虽然有一些不同，但以太坊的区块链在很多方面类似于比特币区块链。它们的区块链架构的不同在于，以太坊区块不仅包含交易记录和最近的状态，还包含区块序号和难度值。以太坊中的区块确认算法如下：</p>
-<ol>
-<li>检查区块引用的上一个区块是否存在和有效。</li>
-<li>检查区块的时间戳是否比引用的上一个区块大，而且小于15分钟。</li>
-<li>检查区块序号、难度值、 交易根，叔根和瓦斯限额（许多以太坊特有的底层概念）是否有效。</li>
-<li>检查区块的工作量证明是否有效。</li>
-<li>将<code>S[0]</code>赋值为上一个区块的<code>STATE_ROOT</code>。</li>
-<li>将<code>TX</code>赋值为区块的交易列表，一共有<code>n</code>笔交易。对于属于<code>0……n-1</code>的<code>i</code>，进行状态转换<code>S[i+1] = APPLY(S[i],TX[i])</code>。如果任何一个转换发生错误，或者程序执行到此处所花费的瓦斯（gas）超过了<code>GASLIMIT</code>，返回错误。</li>
-<li>用<code>S[n]</code>给<code>S_FINAL</code>赋值, 向矿工支付区块奖励。 8 检查<code>S-FINAL</code>是否与<code>STATE_ROOT</code>相同。如果相同，区块是有效的。否则，区块是无效的。</li>
-</ol>
-<p>这一确认方法乍看起来似乎效率很低，因为它需要存储每个区块的所有状态，但是事实上以太坊的确认效率可以与比特币相提并论。原因是状态存储在树结构中（tree structure），每增加一个区块只需要改变树结构的一小部分。因此，一般而言，两个相邻的区块的树结构的大部分应该是相同的，因此存储一次数据，可以利用指针（即子树哈希）引用两次。一种被称为“帕特里夏树”（“Patricia Tree”）的树结构可以实现这一点，其中包括了对默克尔树概念的修改，不仅允许改变节点，而且还可以插入和删除节点。另外，因为所有的状态信息是最后一个区块的一部分，所以没有必要存储全部的区块历史-这一方法如果能够可以应用到比特币系统中，经计算可以对存储空间有10-20倍的节省。</p>
-<h2 id="应用" tabindex="-1"> 应用</h2>
-<p>一般来讲，以太坊之上有三种应用。第一类是金融应用，为用户提供更强大的用他们的钱管理和参与合约的方法。包括子货币，金融衍生品，对冲合约，储蓄钱包，遗嘱，甚至一些种类的全面的雇佣合约。第二类是半金融应用，这里有钱的存在但也有很重的非金钱的方面，一个完美的例子是为解决计算问题而设的自我强制悬赏。最后，还有在线投票和去中心化治理这样的完全的非金融应用。</p>
-<h3 id="令牌系统" tabindex="-1"> 令牌系统</h3>
-<p>链上令牌系统有很多应用，从代表如美元或黄金等资产的子货币到公司股票，单独的令牌代表智能资产，安全的不可伪造的优惠券，甚至与传统价值完全没有联系的用来进行积分奖励的令牌系统。在以太坊中实施令牌系统容易得让人吃惊。关键的一点是理解，所有的货币或者令牌系统，从根本上来说是一个带有如下操作的数据库：从A中减去X单位并把X单位加到B上，前提条件是(1)A在交易之前有至少X单位以及(2)交易被A批准。实施一个令牌系统就是把这样一个逻辑实施到一个合约中去。</p>
-<p>用Serpent语言实施一个令牌系统的基本代码如下：</p>
-<div><pre><code>def send(to, value):
-    if self.storage[from] >= value:
-        self.storage[from] = self.storage[from] value
-        self.storage[to] = self.storage[to] + value
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><p>这从本质上来说是本文将要进一步描述的“银行系统”状态转变功能的一个最小化实施。需要增加一些额外的代码以提供在初始和其它一些边缘情况下分发货币的功能，理想情况下会增加一个函数让其它合约来查询一个地址的余额。就足够了。理论上，基于以太坊的充当子货币的令牌系统可能包括一个基于比特币的链上元币所缺乏的重要功能：直接用这种货币支付交易费的能力。实现这种能力的方法是在合约里维护一个以太币账户以用来为发送者支付交易费，通过收集被用来充当交易费用的内部货币并把它们在一个不断运行的拍卖中拍卖掉，合约不断为该以太币账户注资。这样用户需要用以太币“激活”他们的账户，但一旦账户中有以太币它将会被重复使用因为每次合约都会为其充值。</p>
-<h3 id="金融衍生品和价值稳定的货币" tabindex="-1"> 金融衍生品和价值稳定的货币</h3>
-<p>金融衍生品是“智能合约”的最普遍的应用，也是最易于用代码实现的之一。实现金融合约的主要挑战是它们中的大部分需要参照一个外部的价格发布器；例如，一个需求非常大的应用是一个用来对冲以太币（或其它密码学货币）相对美元价格波动的智能合约，但该合约需要知道以太币相对美元的价格。最简单地方法是通过由某特定机构（例如纳斯达克）维护的“数据提供“合约进行，该合约的设计使得该机构能够根据需要更新合约，并提供一个接口使得其它合约能够通过发送一个消息给该合约以获取包含价格信息的回复。</p>
-<p>当这些关键要素都齐备，对冲合约看起来会是下面的样子：</p>
-<ol>
-<li>等待A输入1000以太币。.</li>
-<li>等待B 输入1000以太币。</li>
-<li>通过查询数据提供合约，将1000以太币的美元价值，例如，x美元，记录至存储器。</li>
-<li>30天后，允许A或B“重新激活“合约以发送价值x美元的以太币（重新查询数据提供合约以获取新价格并计算）给A并将剩余的以太币发送给B。 这样的合约在密码学商务中有非同寻常的潜力。密码学货币经常被诟病的一个问题就是其价格的波动性；虽然大量的用户和商家可能需要密码学资产所带来的安全和便利，可他们不太会乐意面对一天中资产跌去23%价值的情形。直到现在，最为常见的推荐方案是发行者背书资产；思想是发行者创建一种子货币，对此种子货币他们有权发行和赎回，给予（线下）提供给他们一个单位特定相关资产（例如黄金，美元）的人一个单位子货币。发行者承诺当任何人送还一个单位密码学资产时。发还一个单位的相关资产。这种机制能够使任何非密码学资产被“升级“为密码学资产，如果发行者值得信任的话。 然而实践中发行者并非总是值得信任的，并且一些情况下银行体系太脆弱，或者不够诚实守信从而使这样的服务无法存在。金融衍生品提供了一种替代方案。这里将不再有提供储备以支撑一种资产的单独的发行者，取而代之的是一个由赌一种密码学资产的价格会上升的投机者构成的去中心化市场。与发行者不同，投机者一方没有讨价还价的权利，因为对冲合约把他们的储备冻结在了契约中。注意这种方法并非是完全去中心化的，因为依然需要一个可信任的提供价格信息的数据源，尽管依然有争议这依然是在降低基础设施需求（与发行者不同，一个价格发布器不需要牌照并且似乎可归为自由言论一类）和降低潜在欺诈风险方面的一个巨大的进步。</li>
-</ol>
-<h3 id="身份和信誉系统" tabindex="-1"> 身份和信誉系统</h3>
-<p>最早的替代币，域名币，尝试使用一个类比特币块链来提供一个名称注册系统，在那里用户可以将他们的名称和其它数据一起在一个公共数据库注册。最常用的应用案例把象“<a href="http://bitcoin.org" target="_blank" rel="noopener noreferrer">bitcoin.org</a>“（或者再域名币中，”bitcoin.bit“）一样的域名与一个IP地址对应的域名系统。其它的应用案例包括电子邮件验证系统和潜在的更先进的信誉系统。这里是以太坊中提供与域名币类似的的名称注册系统的基础合约：</p>
-<div><pre><code>def register(name, value):
-    if !self.storage[name]:
-        self.storage[name] = value
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><p>合约非常简单；就是一个以太坊网络中的可以被添加但不能被修改或移除的数据库。任何人都可以把一个名称注册为一个值并永远不变。一个更复杂的名称注册合约将包含允许其他合约查询的“功能条款“，以及一个让一个名称的”拥有者“（即第一个注册者）修改数据或者转让所有权的机制。甚至可以在其上添加信誉和信任网络功能。</p>
-<h3 id="去中心化存储" tabindex="-1"> 去中心化存储</h3>
-<p>在过去的几年里出现了一些大众化的在线文件存储初创公司，最突出的是Dropbox，它寻求允许用户上传他们的硬盘备份，提供备份存储服务并允许用户访问从而按月向用户收取费用。然而，在这一点上这个文件存储市场有时相对低效；对现存服务的粗略观察表明，特别地在“神秘谷“20-200GB这一既没有免费空间也没有企业级用户折扣的水平上，主流文件存储成本每月的价格意味着支付在一个月里支付整个硬盘的成本。以太坊合约允许去中心化存储生态的开发，这样用户通过将他们自己的硬盘或未用的网络空间租出去以获得少量收益，从而降低了文件存储的成本。</p>
-<p>这样的设施的基础性构件就是我们所谓的“去中心化Dropbox合约“。这个合约工作原理如下。首先，某人将需要上传的数据分成快，对每一块数据加密以保护隐私，并且以此构建一个默克尔树。然后创建一个含以下规则的合约，每N个块，合约将从默克尔树中抽取一个随机索引（使用能够被合约代码访问的上一个块的哈希来提供随机性）， 然后给第一个实体X以太以支撑一个带有类似简化验证支付（SPV）的在树中特定索引处的块的所有权证明。当一个用户想重新下载他的文件，他可以使用微支付通道协议（例如每32k字节支付1萨博）恢复文件；从费用上讲最高效的方法是支付者不到最后不发布交易，而是用一个略微更合算的带有同样随机数的交易在每32k字节之后来代替原交易。</p>
-<p>这个协议的一个重要特征是，虽然看起来象是一个人信任许多不准备丢失文件的随机节点，但是他可以通过秘密分享把文件分成许多小块，然后通过监视合同得知每个小块都还被某个节点的保存着。如果一个合约依然在付款，那么就提供了某个人依然在保存文件的证据。</p>
-<h3 id="去中心化自治组织" tabindex="-1"> 去中心化自治组织</h3>
-<p>通常意义上“去中心化自治组织（DAO, decentralized autonomous organization）”的概念指的是一个拥有一定数量成员或股东的虚拟实体，依靠比如67%多数来决定花钱以及修改代码。成员会集体决定组织如何分配资金。分配资金的方法可能是悬赏，工资或者更有吸引力的机制比如用内部货币奖励工作。这仅仅使用密码学块链技术就从根本上复制了传统公司或者非营利组织的法律意义以实现强制执行。至此许多围绕DAO的讨论都是围绕一个带有接受分红的股东和可交易的股份的“去中心化自治公司（DAC，decentralized autonomous corporation）”的“资本家”模式；作为替代者，一个被描述为“去中心化自治社区（decentralized autonomous community）”的实体将使所有成员都在决策上拥有同等的权利并且在增减成员时要求67%多数同意。每个人都只能拥有一个成员资格这一规则需要被群体强制实施。</p>
-<p>下面是一个如何用代码实现DO的纲要。最简单地设计就是一段如果三分之二成员同意就可以自我修改的代码。虽然理论上代码是不可更改的，然而通过把代码主干放在一个单独的合约内并且把合约调用的地址指向一个可更改的存储依然可以容易地绕开障碍而使代码变得可修改，在一个这样的DAO合约的简单实现中有三种交易类型，由交易提供的数据区分：</p>
-<ul>
-<li><code>[0,i,K,V]</code> 注册索引为i 的对存储地址索引为K 至 v 的内容的更改建议。</li>
-<li><code>[0,i]</code> 注册对建议i 的投票。</li>
-<li><code>[2,i]</code> 如有足够投票则确认建议i。</li>
-</ul>
-<p>然后合约对每一项都有具体的条款。它将维护一个所有开放存储的更改记录以及一个谁投票表决的表。还有一个所有成员的表。当任何存储内容的更改获得了三分之二多数同意，一个最终的交易将执行这项更改。一个更加复杂的框架会增加内置的选举功能以实现如发送交易，增减成员，甚至提供委任制民主一类的投票代表（即任何人都可以委托另外一个人来代表自己投票，而且这种委托关系是可以传递的，所以如果A委托了B然后B委托了C那么C将决定A的投票）。这种设计将使DAO作为一个去中心化社区有机地成长， 使人们最终能够把挑选合适人选的任务交给专家，与当前系统不同，随着社区成员不断改变他们的站队假以时日专家会容易地出现和消失。 一个替代的模式是去中心化公司，那里任何账户可以拥有0到更多的股份，决策需要三分之二多数的股份同意。一个完整的框架将包括资产管理功能-可以提交买卖股份的订单以及接受这种订单的功能（前提是合约里有订单匹配机制）。代表依然以委任制民主的方式存在，产生了“董事会”的概念。</p>
-<p>更先进的组织治理机制可能会在将来实现；现在一个去中心化组织（DO）可以从去中心化自治组织（DAO）开始描述。DO和DAO的区别是模糊的，一个大致的分割线是治理是否可以通过一个类似政治的过程或者一个“自动”过程实现，一个不错的直觉测试是“无通用语言”标准：如果两个成员不说同样的语言组织还能正常运行吗？显然，一个简单的传统的持股式公司会失败，而象比特币协议这样的却很可能成功，罗宾·汉森的“futarchy”，一个通过预测市场实现组织化治理的机制是一个真正的说明“自治”式治理可能是什么样子的好例子。注意一个人无需假设所有DAO比所有DO优越；自治只是一个在一些特定场景下有很大优势的，但在其它地方未必可行的范式，许多半DAO可能存在。</p>
-<h3 id="进一步的应用" tabindex="-1"> 进一步的应用</h3>
-<p>1.<strong>储蓄钱包</strong>。 假设Alice想确保她的资金安全，但她担心丢失或者被黑客盗走私钥。她把以太币放到和Bob签订的一个合约里，如下所示，这合同是一个银行：</p>
-<ul>
-<li>Alice单独每天最多可提取1%的资金。</li>
-<li>Bob单独每天最多可提取1%的资金，但Alice可以用她的私钥创建一个交易取消Bob的提现权限。</li>
-<li>Alice 和 Bob 一起可以任意提取资金。 一般来讲，每天1%对Alice足够了，如果Alice想提现更多她可以联系Bob寻求帮助。如果Alice的私钥被盗，她可以立即找到Bob把她的资金转移到一个新合同里。如果她弄丢了她的私钥，Bob可以慢慢地把钱提出。如果Bob表现出了恶意，她可以关掉他的提现权限。</li>
-</ul>
-<p>2.<strong>作物保险</strong>。一个人可以很容易地以天气情况而不是任何价格指数作为数据输入来创建一个金融衍生品合约。如果一个爱荷华的农民购买了一个基于爱荷华的降雨情况进行反向赔付的金融衍生品，那么如果遇到干旱，该农民将自动地收到赔付资金而如果有足量的降雨他会很开心因为他的作物收成会很好。</p>
-<p>3.<strong>一个去中心化的数据发布器</strong>。 对于基于差异的金融合约，事实上通过过“谢林点”协议将数据发布器去中心化是可能的。谢林点的工作原理如下：N方为某个指定的数据提供输入值到系统（例如ETH/USD价格），所有的值被排序，每个提供25%到75%之间的值的节点都会获得奖励，每个人都有激励去提供他人将提供的答案，大量玩家可以真正同意的答案明显默认就是正确答案，这构造了一个可以在理论上提供很多数值，包括ETH/USD价格，柏林的温度甚至某个特别困难的计算的结果的去中心化协议。</p>
-<p>4.<strong>多重签名智能契约</strong>。比特币允许基于多重签名的交易合约，例如，5把私钥里集齐3把就可以使用资金。以太坊可以做得更细化，例如，5把私钥里集齐4把可以花全部资金，如果只3把则每天最多花10%的资金，只有2把就只能每天花0.5%的资金。另外，以太坊里的多重签名是异步的，意思是说，双方可以在不同时间在区块链上注册签名，最后一个签名到位后就会自动发送交易。</p>
-<p>5.<strong>云计算</strong>。EVM技术还可被用来创建一个可验证的计算环境，允许用户邀请他人进行计算然后选择性地要求提供在一定的随机选择的检查点上计算被正确完成的证据。这使得创建一个任何用户都可以用他们的台式机，笔记本电脑或者专用服务器参与的云计算市场成为可能，现场检查和安全保证金可以被用来确保系统是值得信任的（即没有节点可以因欺骗获利）。虽然这样一个系统可能并不适用所有任务；例如，需要高级进程间通信的任务就不易在一个大的节点云上完成。然而一些其它的任务就很容易实现并行；SETI@home, folding@home和基因算法这样的项目就很容易在这样的平台上进行。</p>
-<p>6.<strong>点对点赌博</strong>。任意数量的点对点赌博协议都可以搬到以太坊的区块链上，例如Frank Stajano和Richard Clayton的Cyberdice。 最简单的赌博协议事实上是这样一个简单的合约，它用来赌下一个区块的哈稀值与猜测值之间的差额, 据此可以创建更复杂的赌博协议，以实现近乎零费用和无欺骗的赌博服务。</p>
-<p>7.<strong>预测市场</strong>。 不管是有神谕还是有谢林币，预测市场都会很容易实现，带有谢林币的预测市场可能会被证明是第一个主流的作为去中心化组织管理协议的“futarchy”应用。</p>
-<p>8.链上去中心化市场，以身份和信誉系统为基础。</p>
-<h2 id="杂项和关注" tabindex="-1"> 杂项和关注</h2>
-<h3 id="改进版幽灵协议的实施" tabindex="-1"> 改进版幽灵协议的实施</h3>
-<p>“幽灵“协议（&quot;Greedy Heaviest Observed Subtree&quot; (GHOST) protocol）是由Yonatan Sompolinsky 和 Aviv Zohar在2013年12月引入的创新。幽灵协议提出的动机是当前快速确认的块链因为区块的高作废率而受到低安全性困扰；因为区块需要花一定时间（设为t）扩散至全网，如果矿工A挖出了一个区块然后矿工B碰巧在A的区块扩散至B之前挖出了另外一个区块，矿工B的区块就会作废并且没有对网络安全作出贡献。此外，这里还有中心化问题：如果A是一个拥有全网30%算力的矿池而B拥有10%的算力，A将面临70%的时间都在产生作废区块的风险而B在90%的时间里都在产生作废区块。因此，如果作废率高，A将简单地因为更高的算力份额而更有效率，综合这两个因素，区块产生速度快的块链很可能导致一个矿池拥有实际上能够控制挖矿过程的算力份额。</p>
-<p>正如Sompolinsky 和 Zohar所描述的，通过在计算哪条链“最长”的时候把废区块也包含进来，幽灵协议解决了降低网络安全性的第一个问题；这就是说，不仅一个区块的父区块和更早的祖先块，祖先块的作废的后代区块（以太坊术语中称之为“叔区块”）也被加进来以计算哪一个区块拥有支持其的最大工作量证明。我们超越了Sompolinsky 和 Zohar所描述的协议以解决第二个问题 – 中心化倾向，以太坊付给以“叔区块”身份为新块确认作出贡献的废区块87.5%的奖励，把它们纳入计算的“侄子区块”将获得奖励的12.5%，不过，交易费用不奖励给叔区块。 以太坊实施了一个只下探到第五层的简化版本的幽灵协议。其特点是，废区块只能以叔区块的身份被其父母的第二代至第五代后辈区块，而不是更远关系的后辈区块（例如父母区块的第六代后辈区块，或祖父区块的第三代后辈区块）纳入计算。这样做有几个原因。首先，无条件的幽灵协议将给计算给定区块的哪一个叔区块合法带来过多的复杂性。其次，带有以太坊所使用的补偿的无条件的幽灵协议剥夺了矿工在主链而不是一个公开攻击者的链上挖矿的激励。最后，计算表明带有激励的五层幽灵协议即使在出块时间为15s的情况下也实现了了95%以上的效率，而拥有25%算力的矿工从中心化得到的益处小于3%。</p>
-<h3 id="费用" tabindex="-1"> 费用</h3>
-<p>因为每个发布的到区块链的交易都占用了下载和验证的成本，需要有一个包括交易费的规范机制来防范滥发交易。比特币使用的默认方法是纯自愿的交易费用，依靠矿工担当守门人并设定动态的最低费用。因为这种方法是“基于市场的”，使得矿工和交易发送者能够按供需来决定价格，所以这种方法在比特币社区被很顺利地接受了。然而，这个逻辑的问题在于，交易处理并非一个市场；虽然根据直觉把交易处理解释成矿工给发送者提供的服务是很有吸引力的，但事实上一个矿工收录的交易是需要网络中每个节点处理的，所以交易处理中最大部分的成本是由第三方而不是决定是否收录交易的矿工承担的。于是，非常有可能发生公地悲剧。</p>
-<p>然而，当给出一个特殊的不够精确的简化假设时，这个基于市场的机制的漏洞很神奇地消除了自己的影响。论证如下。假设：</p>
-<ol>
-<li>一个交易带来 k 步操作, 提供奖励 kR给任何收录该交易的矿工，这里 R 由交易发布者设定， k 和 R 对于矿工都是事先（大致上）可见的。</li>
-<li>每个节点处理每步操作的成本都是 C (即所有节点的效率一致)。</li>
-<li>有 N 个挖矿节点，每个算力一致(即全网算力的1/N)。</li>
-<li>没有不挖矿的全节点。</li>
-</ol>
-<p>当预期奖励大于成本时，矿工愿意挖矿。这样，因为矿工有1/N 的机会处理下一个区块，所以预期的收益是 kR/N , 矿工的处理成本简单为 kC. 这样当 kR/N &gt; kC， 即 R &gt; NC时。矿工愿意收录交易。注意 R 是由交易发送者提供的每步费用，是矿工从处理交易中获益的下限。 NC 是全网处理一个操作的成本。所以，矿工仅有动机去收录那些收益大于成本的交易。 然而，这些假设与实际情况有几点重要的偏离：</p>
-<ol>
-<li>因为额外的验证时间延迟了块的广播因而增加了块成为废块的机会，处理交易的矿工比其它的验证节点付出了更高的成本。</li>
-<li>不挖矿的全节点是存在的。</li>
-<li>实践中算力分布可能最后是极端不平均的。</li>
-<li>以破坏网络为己任的投机者，政敌和疯子确实存在，并且他们能够聪明地设置合同使得他们的成本比其它验证节点低得多。 上面第1点驱使矿工收录更少的交易，第2点增加了 NC; 因此这两点的影响至少部分互相抵消了. 第3点和第4点是主要问题；作为解决方案我们简单地建立了一个浮动的上限：没有区块能够包含比BLK_LIMIT_FACTOR 倍长期指数移动平均值更多的操作数。具体地：</li>
-</ol>
-<div><pre><code>blk.oplimit = floor((blk.parent.oplimit * (EMAFACTOR - 1) + floor(parent.opcount * BLK_LIMIT_FACTOR)) /EMA_FACTOR)
-</code></pre><div aria-hidden="true"><div></div></div></div><p>BLK_LIMIT_FACTOR 和 EMA_FACTOR 是暂且被设为 65536 和 1.5 的常数，但可能会在更深入的分析后调整。 回复</p>
-<h3 id="计算和图灵完备" tabindex="-1"> 计算和图灵完备</h3>
-<p>需要强调的是以太坊虚拟机是图灵完备的； 这意味着EVM代码可以实现任何可以想象的计算，包括无限循环。EVM代码有两种方式实现循环。首先， JUMP 指令可以让程序跳回至代码前面某处，还有允许如 <code>while x &lt; 27: x = x * 2</code> 一样的条件语句的JUMPI 指令实现条件跳转。其次，合约可以调用其它合约，有通过递归实现循环的潜力。这很自然地导致了一个问题：恶意用户能够通过迫使矿工和全节点进入无限循环而不得不关机吗？ 这问题出现是因为计算机科学中一个叫停机问题的问题：一般意义上没有办法知道，一个给定的程序是否能在有限的时间内结束运行。</p>
-<p>正如在状态转换章节所述，我们的方案通过为每一个交易设定运行执行的最大计算步数来解决问题，如果超过则计算被恢复原状但依然要支付费用。消息以同样的方式工作。为显示这一方案背后的动机，请考虑下面的例子：</p>
-<ul>
-<li>一个攻击者创建了一个运行无限循环的合约，然后发送了一个激活循环的交易给矿工，矿工将处理交易，运行无限循环直到瓦斯耗尽。即使瓦斯耗尽交易半途停止，交易依然正确（回到原处）并且矿工依然从攻击者哪里挣到了每一步计算的费用。</li>
-<li>一个攻击者创建一个非常长的无限循环意图迫使矿工长时间内一直计算致使在计算结束前若干区块已经产生于是矿工无法收录交易以赚取费 用。然而，攻击者需要发布一个 STARTGAS 值以限制可执行步数，因而矿工将提前知道计算将耗费过多的步数。</li>
-<li>一个攻击者看到一个包含诸如 send(A,self.storage); self.storage = 0格式的合约然后发送带有只够执行第一步的费用的而不够执行第二步的交易（即提现但不减少账户余额）。合约作者无需担心防卫类似攻击，因为如果执行中途停止则所有变更都被回复。</li>
-<li>一个金融合约靠提取九个专用数据发布器的中值来工作以最小化风险，一个攻击者接管了其中一个数据提供器，然后把这个按DAO章节所述的可变地址调用机制设计成可更改的数据提供器转为运行一个无限循环，以求尝试逼迫任何从此金融合约索要资金的尝试都会因瓦斯耗尽而中止。然而，该金融合约可以在消息里设置瓦斯限制以防范此类问题。 图灵完备的替代是图灵不完备，这里 JUMP 和 JUMPI 指令不存在并且在某个给定时间每个合约只允许有一个拷贝存在于调用堆栈内。在这样的系统里，上述的费用系统和围绕我们的方案的效率的不确定性可能都是不需要的，因为执行一个合约的成本将被它的大小决定。此外，图灵不完备甚至不是一个大的限制，在我们内部设想的所有合约例子中，至今只有一个需要循环，而且即使这循环也可以被26个单行代码段的重复所代替。考虑到图灵完备带来的严重的麻烦和有限的益处，为什么不简单地使用一种图灵不完备语言呢？事实上图灵不完备远非一个简洁的解决方案。为什么？请考虑下面的合约：</li>
-</ul>
-<div><pre><code>C0: call(C1); call(C1);
-C1: call(C2); call(C2);
-C2: call(C3); call(C3);
-...
-C49: call(C50); call(C50);
-C50: (作一个图灵机的步计算和记录结果在合约的长期存储)
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>现在，发送一个这样的交易给A，这样，在51个交易中，我们有了一个需要花费2^50 步计算的合约，矿工可能尝试通过为每一个合约维护一个最高可执行步数并且对于递归调用其它合约的合约计算可能执行步数从而预先检测这样的逻辑炸弹，但是这会使矿工禁止创建其它合约的合约（因为上面26个合约的创建和执行可以很容易地放入一个单独合约内）。另外一个问题点是一个消息的地址字段是一个变量，所以通常来讲可能甚至无法预先知道一个合约将要调用的另外一个合约是哪一个。于是，最终我们有了一个惊人的结论：图灵完备的管理惊人地容易，而在缺乏同样的控制时图灵不完备的管理惊人地困难- 那为什么不让协议图灵完备呢？</p>
-<h3 id="货币和发行" tabindex="-1"> 货币和发行</h3>
-<p>以太坊网络包含自身的内置货币以太币，以太币扮演双重角色，为各种数字资产交易提供主要的流动性，更重要的是提供了了支付交易费用的一种机制。为便利及避免将来的争议期间（参见当前的mBTC/uBTC/聪的争论），不同面值的名称将被提前设置：</p>
-<ul>
-<li>1: 伟</li>
-<li>10^12: 萨博</li>
-<li>10^15: 芬尼</li>
-<li>10^18: 以太</li>
-</ul>
-<p>这应该被当作是“元”和“分”或者“比特币”和“聪”的概念的扩展版，在不远的将来，我们期望“以太”被用作普通交易，“芬尼”用来进行微交易，“萨博”和“伟”用来进行关于费用和协议实施的讨论。</p>
-<p>发行模式如下：</p>
-<ul>
-<li>通过发售活动，以太币将以每BTC 1337-2000以太的价格发售，一个旨在为以太坊组织筹资并且为开发者支付报酬的机制已经在其它一些密码学货币平台上成功使用。早期购买者会享受较大的折扣，发售所得的BTC将完全用来支付开发者和研究者的工资和悬赏，以及投入密码学货币生态系统的项目。</li>
-<li>0.099x （x为发售总量）将被分配给BTC融资或其它的确定性融资成功之前参与开发的早期贡献者，另外一个0.099x将分配给长期研究项目。</li>
-<li>自上线时起每年都将有0.26x（x为发售总量）被矿工挖出。</li>
-</ul>
-<h3 id="发行分解" tabindex="-1"> 发行分解</h3>
-<p>永久线性增长模型降低了在比特币中出现的财富过于集中的风险，并且给予了活在当下和将来的人公平的机会去获取货币，同时保持了对获取和持有以太币的激励，因为长期来看“货币供应增长率”是趋于零的。我们还推断，随着时间流逝总会发生因为粗心和死亡等原因带来的币的遗失，假设币的遗失是每年货币供应量的一个固定比例，则最终总的流通中的货币供应量会稳定在一个等于年货币发行量除以遗失率的值上（例如，当遗失率为1%时，当供应量达到30x时，每年有0.3x被挖出同时有0.3x丢失，达到一个均衡）。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Group</th>
-<th style="text-align:left">At launch</th>
-<th style="text-align:left">After 1 year</th>
-<th style="text-align:left">After 5 years</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Currency units</td>
-<td style="text-align:left">1.198X</td>
-<td style="text-align:left">1.458X</td>
-<td style="text-align:left">2.498X</td>
-</tr>
-<tr>
-<td style="text-align:left">Purchasers</td>
-<td style="text-align:left">83.5%</td>
-<td style="text-align:left">68.6%</td>
-<td style="text-align:left">40.0%</td>
-</tr>
-<tr>
-<td style="text-align:left">Reserve spent pre-sale</td>
-<td style="text-align:left">8.26%</td>
-<td style="text-align:left">6.79%</td>
-<td style="text-align:left">3.96%</td>
-</tr>
-<tr>
-<td style="text-align:left">Reserve used post-sale</td>
-<td style="text-align:left">8.26%</td>
-<td style="text-align:left">6.79%</td>
-<td style="text-align:left">3.96%</td>
-</tr>
-<tr>
-<td style="text-align:left">Miners</td>
-<td style="text-align:left">0%</td>
-<td style="text-align:left">17.8%</td>
-<td style="text-align:left">52.0%</td>
-</tr>
-</tbody>
-</table>
-<p>除了线性的发行方式外，和比特币一样以太币的的供应量增长率长期来看也趋于零。</p>
-<p><img src="http://bitcoin8btc.qiniudn.com/wp-content/uploads/2014/10/supply.png" alt="img"></p>
-<h3 id="挖矿的中心化" tabindex="-1"> 挖矿的中心化</h3>
-<p>比特币挖矿算法基本上是让矿工千万次地轻微改动区块头，直到最终某个节点的改动版本的哈希小于目标值（目前是大约2190）。然而，这种挖矿算法容易被两种形式的中心化攻击。第一种，挖矿生态系统被专门设计的因而在比特币挖矿这一特殊任务上效率提高上千倍的ASICs（专用集成电路）和电脑芯片控制。这意味着比特币挖矿不再是高度去中心化的和追求平等主义的，而是需要巨额资本的有效参与。第二种，大部分比特币矿工事实上不再在本地完成区块验证；而是依赖中心化的矿池提供区块头。这个问题可以说很严重：在本文写作时，最大的两个矿池间接地控制了大约全网50%的算力，虽然当一个矿池或联合体尝试51%攻击时矿工可以转换到其它矿池这一事实减轻了问题的严重性。</p>
-<p>以太坊现在的目的是使用一个基于为每1000个随机数随机产生唯一哈希的函数的挖矿算法，用足够宽的计算域，去除专用硬件的优势。这样的策略当然不会使中心化的收益减少为零，但是也不需要。注意每单个用户使用他们的私人笔记本电脑或台式机就可以几乎免费地完成一定量的挖矿活动，但当到了100%的CPU使用率之后更多地挖矿就会需要他们支付电力和硬件成本。ASIC挖矿公司需要从第一个哈希开始就为电力和硬件支付成本。所以，如果中心化收益能够保持在(E + H) /E 以下，那么即使ASICs被制造出来普通矿工依然有生存空间。另外，我们计划将挖矿算法设计成挖矿需要访问整个区块链，迫使矿工存储完成的区块链或者至少能够验证每笔交易。这去除了对中心化矿池的需要；虽然矿池依然可以扮演平滑收益分配的随机性的角色，但这功能可以被没有中心化控制的P2P矿池完成地同样好。这样即使大部分普通用户依然倾向选择轻客户端，通过增加网络中的全节点数量也有助于抵御中心化。</p>
-<h3 id="扩展性" tabindex="-1"> 扩展性</h3>
-<p>扩展性问题是以太坊常被关注的地方，与比特币一样，以太坊也遭受着每个交易都需要网络中的每个节点处理这一困境的折磨。比特币的当前区块链大小约为20GB，以每小时1MB的速度增长。如果比特币网络处理Visa级的2000tps的交易，它将以每三秒1MB的速度增长（1GB每小时，8TB每年）。以太坊可能也会经历相似的甚至更糟的增长模式，因为在以太坊区块链之上还有很多应用，而不是像比特币只是简单的货币，但以太坊全节点只需存储状态而不是完整的区块链历史这一事实让情况得到了改善。</p>
-<p>大区块链的问题是中心化风险。如果块链大小增加至比如100TB，可能的场景将是只有非常小数目的大商家会运行全节点，而常规用户使用轻的SPV节点。这会增加对全节点合伙欺诈牟利（例如更改区块奖励，给他们自己BTC）的风险的担忧。轻节点将没有办法立刻检测到这种欺诈。当然，至少可能存在一个诚实的全节点，并且几个小时之后有关诈骗的信息会通过Reddit这样的渠道泄露，但这时已经太晚：任凭普通用户做出怎样的努力去废除已经产生的区块，他们都会遇到与发动一次成功的51%攻击同等规模的巨大的不可行的协调问题。在比特币这里，现在这是一个问题，但Peter Todd建议的一个改动可以缓解这个问题。</p>
-<p>近期，以太坊会使用两个附加的策略以应对此问题。首先，因为基于区块链的挖矿算法，至少每个矿工会被迫成为一个全节点，这保证了一定数量的全节点。其次，更重要的是，处理完每笔交易后，我们会把一个中间状态树的根包含进区块链。即使区块验证是中心化的，只要有一个诚实的验证节点存在，中心化的问题就可以通过一个验证协议避免。如果一个矿工发布了一个不正确的区块，这区块要么是格式错，要么状态S[n]是错的。因为S[0]是正确的，必然有第一个错误状态S[i]但S[i-1]是正确的，验证节点将提供索引i，一起提供的还有处理APPLY(S[i-1],TX[i]) -&gt; S[i]所需的帕特里夏树节点的子集。这些节点将受命进行这部分计算，看产生的S[i]与先前提供的值是否一致。</p>
-<p>另外，更复杂的是恶意矿工发布不完整区块进行攻击，造成没有足够的信息去确定区块是否正确。解决方案是质疑-回应协议：验证节点对目标交易索引发起质疑，接受到质疑信息的轻节点会对相应的区块取消信任，直到另外一个矿工或者验证者提供一个帕特里夏节点子集作为正确的证据。</p>
-<h2 id="综述-去中心化应用" tabindex="-1"> 综述：去中心化应用</h2>
-<p>上述合约机制使得任何一个人能够在一个虚拟机上建立通过全网共识来运行命令行应用（从根本上来说是），它能够更改一个全网可访问的状态作为它的“硬盘”。然而，对于多数人来说，用作交易发送机制的命令行接口缺乏足够的用户友好使得去中心化成为有吸引力的替代方案。最后，一个完整的“去中心化应用”应该包括底层的商业逻辑组件【无论是否在以太坊完整实施，使用以太坊和其它系统组合（如一个P2P消息层，其中一个正在计划放入以太坊客户端）或者仅有其它系统的方式】和上层的图形用户接口组件。以太坊客户端被设计成一个网络浏览器，但包括对“eth” Javascript API对象的支持，可被客户端里看到的特定的网页用来与以太坊区块链交互。从“传统”网页的角度看来，这些网页是完全静态的内容，因为区块链和其它去中心化协议将完全代替服务器来处理用户发起的请求。最后，去中心化协议有希望自己利用某种方式使用以太坊来存储网页。</p>
-<h2 id="结论" tabindex="-1"> 结论</h2>
-<p>以太坊协议最初是作为一个通过高度通用的语言提供如链上契约，提现限制和金融合约，赌博市场等高级功能的升级版密码学货币来构思的。以太坊协议将不直接“支持”任何应用，但图灵完备编程语言的存在意味着理论上任意的合约都可以为任何交易类型和应用创建出来。然而关于以太坊更有趣的是，以太坊协议比单纯的货币走得更远，围绕去中心化存储，去中心化计算和去中心化预测市场以及数十个类似概念建立的协议和去中心化应用，有潜力从根本上提升计算行业的效率，并通过首次添加经济层为其它的P2P协议提供有力支撑，最终，同样会有大批与金钱毫无关系的应用出现。</p>
-<p>以太坊协议实现的任意状态转换概念提供了一个具有独特潜力的平台；与封闭式的，为诸如数据存储，赌博或金融等单一目的设计的协议不同，以太坊从设计上是开放式的，并且我们相信它极其适合作为基础层服务于在将来的年份里出现的极其大量的金融和非金融协议。</p>
-<h2 id="注解与进阶阅读" tabindex="-1"> 注解与进阶阅读</h2>
-<h3 id="注解" tabindex="-1"> 注解</h3>
-<p>1.一个有经验的读者会注意到事实上比特币地址是椭圆曲线公钥的哈希，而非公钥本身，然而事实上从密码学术语角度把公钥哈希称为公钥完全合理。这是因为比特币密码学可以被认为是一个定制的数字签名算法，公钥由椭圆曲线公钥的哈希组成，签名由椭圆曲线签名连接的椭圆曲线公钥组成，而验证算法包括用作为公钥提供的椭圆曲线公钥哈希来检查椭圆曲线公钥，以及之后的用椭圆曲线公钥来验证椭圆曲线签名。</p>
-<p>2.技术上来说，前11个区块的中值。</p>
-<p>3.在内部，2和“CHARLIE”都是数字，后一个有巨大的base256编码格式，数字可以从0到2^256-1。</p>
-<h3 id="进阶阅读" tabindex="-1"> 进阶阅读</h3>
-<ol>
-<li>Intrinsic value: <a href="https://tinyurl.com/BitcoinMag-IntrinsicValue" target="_blank" rel="noopener noreferrer">https://tinyurl.com/BitcoinMag-IntrinsicValue</a></li>
-<li>Smart property: <a href="https://en.bitcoin.it/wiki/Smart_Property" target="_blank" rel="noopener noreferrer">https://en.bitcoin.it/wiki/Smart_Property</a></li>
-<li>Smart contracts: <a href="https://en.bitcoin.it/wiki/Contracts" target="_blank" rel="noopener noreferrer">https://en.bitcoin.it/wiki/Contracts</a></li>
-<li>B-money: <a href="http://www.weidai.com/bmoney.txt" target="_blank" rel="noopener noreferrer">http://www.weidai.com/bmoney.txt</a></li>
-<li>Reusable proofs of work: <a href="http://www.finney.org/~hal/rpow/" target="_blank" rel="noopener noreferrer">http://www.finney.org/~hal/rpow/</a></li>
-<li>Secure property titles with owner authority: <a href="http://szabo.best.vwh.net/securetitle.html" target="_blank" rel="noopener noreferrer">http://szabo.best.vwh.net/securetitle.html</a></li>
-<li>Bitcoin whitepaper: <a href="http://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener noreferrer">http://bitcoin.org/bitcoin.pdf</a></li>
-<li>Namecoin: <a href="https://namecoin.org/" target="_blank" rel="noopener noreferrer">https://namecoin.org/</a></li>
-<li>Zooko’s triangle: <a href="http://en.wikipedia.org/wiki/Zooko%E2%80%99s_triangle" target="_blank" rel="noopener noreferrer">http://en.wikipedia.org/wiki/Zooko’s_triangle</a></li>
-<li>Colored coins whitepaper: <a href="https://tinyurl.com/coloredcoin-whitepaper" target="_blank" rel="noopener noreferrer">https://tinyurl.com/coloredcoin-whitepaper</a></li>
-<li>Mastercoin whitepaper: <a href="https://github.com/mastercoin-MSC/spec" target="_blank" rel="noopener noreferrer">https://github.com/mastercoin-MSC/spec</a></li>
-<li>Decentralized autonomous corporations, Bitcoin Magazine: <a href="https://tinyurl.com/Bootstrapping-DACs" target="_blank" rel="noopener noreferrer">https://tinyurl.com/Bootstrapping-DACs</a></li>
-<li>Simplified payment verification:<a href="https://en.bitcoin.it/wiki/Scalability#Simplifiedpaymentverification" target="_blank" rel="noopener noreferrer">https://en.bitcoin.it/wiki/Scalability#Simplifiedpaymentverification</a></li>
-<li>Merkle trees: <a href="http://en.wikipedia.org/wiki/Merkle_tree" target="_blank" rel="noopener noreferrer">http://en.wikipedia.org/wiki/Merkle_tree</a></li>
-<li>Patricia trees: <a href="http://en.wikipedia.org/wiki/Patricia_tree" target="_blank" rel="noopener noreferrer">http://en.wikipedia.org/wiki/Patricia_tree</a></li>
-<li>GHOST: <a href="http://www.cs.huji.ac.il/~avivz/pubs/13/btc_scalability_full.pdf" target="_blank" rel="noopener noreferrer">http://www.cs.huji.ac.il/~avivz/pubs/13/btc_scalability_full.pdf</a></li>
-<li>StorJ and Autonomous Agents, Jeff Garzik: <a href="https://tinyurl.com/storj-agents" target="_blank" rel="noopener noreferrer">https://tinyurl.com/storj-agents</a></li>
-<li>Mike Hearn on Smart Property at Turing Festival: <a href="http://www.youtube.com/watch?v=Pu4PAMFPo5Y" target="_blank" rel="noopener noreferrer">http://www.youtube.com/watch?v=Pu4PAMFPo5Y</a></li>
-<li>Ethereum RLP: <a href="https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-RLP" target="_blank" rel="noopener noreferrer">https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-RLP</a></li>
-<li>Ethereum Merkle Patricia trees: <a href="https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-Patricia-Tree" target="_blank" rel="noopener noreferrer">https://github.com/ethereum/wiki/wiki/%5BEnglish%5D-Patricia-Tree</a></li>
-<li>Peter Todd on Merkle sum trees:<a href="http://sourceforge.net/p/bitcoin/mailman/message/31709140/" target="_blank" rel="noopener noreferrer">http://sourceforge.net/p/bitcoin/mailman/message/31709140/</a></li>
-</ol>
-]]></content:encoded>
-      <enclosure url="http://upyun-assets.ethfans.org/uploads/photo/image/ed77a88675204904984a696a55e2254e.png" type="image/png"/>
-    </item>
-    <item>
-      <title>主流区块链研究</title>
-      <link>https://bytecodes.tech/blockchain/Male_chain_research/</link>
-      <guid>https://bytecodes.tech/blockchain/Male_chain_research/</guid>
-      <source url="https://bytecodes.tech/rss.xml">主流区块链研究</source>
-      <category>区块链学习</category>
-      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>浅谈libp2p网络之mdns</title>
-      <link>https://bytecodes.tech/blockchain/component/Introduction_to_libp2p_MDNS_network.html</link>
-      <guid>https://bytecodes.tech/blockchain/component/Introduction_to_libp2p_MDNS_network.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">浅谈libp2p网络之mdns</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书</description>
-      <category>区块链</category>
-      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>浅谈libp2p网络之autoNAT</title>
-      <link>https://bytecodes.tech/blockchain/component/Introduction_to_libp2p_autoNAT_network.html</link>
-      <guid>https://bytecodes.tech/blockchain/component/Introduction_to_libp2p_autoNAT_network.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">浅谈libp2p网络之autoNAT</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书</description>
-      <category>区块链</category>
-      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
-      <content:encoded><![CDATA[<h2 id="概念" tabindex="-1"> 概念</h2>
-<p>首先节点自身不知道自己是否是公开的还是躲在NAT /防火墙后面。NAT背后的节点不需要告诉他的不公开的地址，这样可以防止别人拨号以及恶意攻击。同时它可以通过查找relay server 来和其他节点建立间接连接。</p>
-<p>通过 autoNAT 协议， 可以尝试拨号其他节点的公共地址，如果失败，说明NAT阻止传入连接。</p>
-<h2 id="autonat-协议" tabindex="-1"> AutoNAT 协议</h2>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>浅谈libp2p网络之multiAddress</title>
-      <link>https://bytecodes.tech/blockchain/component/Introduction_to_libp2p_multiAddress_network.html</link>
-      <guid>https://bytecodes.tech/blockchain/component/Introduction_to_libp2p_multiAddress_network.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">浅谈libp2p网络之multiAddress</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书</description>
-      <category>区块链</category>
-      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
-      <content:encoded><![CDATA[<h2 id="概念" tabindex="-1"> 概念</h2>
-<p>libp2p区分了peer 的身份和位置。peer 的身份是稳定的、可验证的，并且在对等方的整个生命周期内有效， peer 身份源于对等id规范中描述的公钥。</p>
-<p>在特定的网络上，在特定的时间点，peer可能有一个或多个位置，可以使用地址表示。例如，可以通过TCP端口1234上7.7.7.7的全局IPv4地址访问.</p>
-<p>Libp2p 是不受传输限制的，不单单是只支持tcp/udp的网络。为了实现这个目标，而无需专门评估每个寻址方案，LIBP2P使用MultiaDDR以<strong>自我描述方式</strong>为所有受支持的传输协议编码网络地址。<a href="https://github.com/multiformats/multiaddr" target="_blank" rel="noopener noreferrer">multiaddr格式以及其实现</a>，</p>
-<p>多地址在整个libp2p中用于编码网络地址。当地址需要在进程之间共享或交换时，它们被编码为multiaddr的二进制表示。</p>
-<p>当交换地址时，对等端发送一个包含其网络地址和对等端id的多地址，格式如下：</p>
-<div><pre><code>/ip4/7.7.7.7/tcp/1234/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N
-</code></pre><div aria-hidden="true"><div></div></div></div><p>多地址是可以遍历到某个目标的指令序列。</p>
-<p>例如，/ip4/7.7.7.7/tcp/1234多地址以ip4开头，这是需要地址的最低级别协议。tcp协议运行在ip4之上，所以它是下一个。</p>
-<p>上面的multiaddr由两个组件组成，/ip4/7.7.7.7组件和/tcp/1234组件。不可能再分开一个/仅ip4是无效的多地址，因为ip4协议被定义为需要32位地址。同样，tcp需要16位端口号。</p>
-<p>尽管我们将/ip4/7.7.7.7和/tcp/1234称为较大tcp/IP地址的“组件”，但根据multiaddr规范，它们实际上都是有效的多地址。然而，并非每个语法上有效的多址都是网络中进程的功能描述。正如我们所看到的，即使是一个简单的TCP/IP连接也需要将两个多地址合并为一个。有关如何组合多地址的信息，请参阅“组合多地址”一节，有关描述有效传输地址的组合，请参阅传输多地址一节。</p>
-<p>multiaddr协议表包含所有当前定义的协议及其地址组件的长度。</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>浅谈libp2p网络之NAT传输</title>
-      <link>https://bytecodes.tech/blockchain/component/Introduction_to_p2p_network_transmission_of_NAT.html</link>
-      <guid>https://bytecodes.tech/blockchain/component/Introduction_to_p2p_network_transmission_of_NAT.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">浅谈libp2p网络之NAT传输</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书</description>
-      <category>区块链</category>
-      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
-      <content:encoded><![CDATA[<blockquote>
-<p><a href="https://www.jianshu.com/p/f71707892eb2" target="_blank" rel="noopener noreferrer">https://www.jianshu.com/p/f71707892eb2</a></p>
+<p>所以大学阶段，有机会的话，可以尝试多看一下英文的学习网站，一开始可能会很难，但是坚持下来，你就会感觉很值。</p>
+<p>---------手动分割线---------</p>
+<p><strong>说实话，把上面这些课学好了，国内的互联网大厂基本上可以随便挑了。</strong></p>
+<p><strong>不过，话又说回来，即便是你只学到 3-5 成，找一份自己心仪的工作还是不难的！</strong></p>
+<p><strong>另外，针对专业、城市、学校，说一点我的看法：</strong></p>
+<p>首先，<strong>一定要选一个好的专业</strong>。</p>
+<p>什么是好的专业？当前首选计算机专业，yyds！卷是因为热门，如果你不把握住机会非要去挑战冷门专业，我就不提哪些专业了，后果是很惨的。</p>
+<p>其次，<strong>尽量去大城市</strong>。</p>
+<p>什么是大城市，就不用我再赘述了。</p>
+<p>我妹去年高考完，我父母给的建议竟然是要不报考三门峡的一所大学吧，能上的概率会大一些。</p>
+<p>我当即就否决了，这不是害她嘛！</p>
+<p>我妹最终在洛阳上了大学，她的感受就是，哥，我以后再也不想回三门峡了，至少要在洛阳。</p>
+<p>别呀，即便是不去北京上海，去杭州、成都、武汉，哪怕苏州郑州也行啊。</p>
+<p>大城市带来的不只是机会，更多的是格局。这就是为什么，民国时的精英们都要出国留学。</p>
+<p>最后，<strong>选个声望值比较高的学校</strong>。</p>
+<p><strong>推荐你看看这个比赛的高校总榜，选计算机专业的心里就有数了</strong>。</p>
+<blockquote>
+<p><a href="https://gplt.patest.cn/rank/school" target="_blank" rel="noopener noreferrer">https://gplt.patest.cn/rank/school</a></p>
 </blockquote>
-<h2 id="nat简介" tabindex="-1"> NAT简介</h2>
-<p>NAT（Network Address Translation，网络地址转换），也叫做网络掩蔽或者IP掩蔽。NAT是一种网络地址翻译技术，主要是将内部的私有IP地址（private IP）转换成可以在公网使用的公网IP（public IP）</p>
-<h2 id="nat类型" tabindex="-1"> NAT类型</h2>
-<p>在<a href="https://info.support.huawei.com/info-finder/encyclopedia/zh/STUN.html" target="_blank" rel="noopener noreferrer">STUN</a>标准中，根据私网IP地址和端口到NAT出口的公网IP地址和端口的映射方式，把NAT分为如下四种类型，详见下图。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h74z5hxjujj311y0q042f.jpg" alt="image-20221014180441215"></p>
-<h3 id="完全锥型nat" tabindex="-1"> 完全锥型NAT</h3>
-<p>所有从同一个私网IP地址和端口（IP1:Port1）发送过来的请求都会被映射成同一个公网IP地址和端口（IP:Port）。并且，任何外部主机通过向映射的公网IP地址和端口发送报文，都可以实现和内部主机进行通信。</p>
-<p>这是一种比较宽松的策略，只要建立了私网IP地址和端口与公网IP地址和端口的映射关系，所有的Internet上的主机都可以访问该NAT之后的主机。</p>
-<h3 id="限制锥型nat" tabindex="-1"> 限制锥型NAT</h3>
-<p>所有从同一个私网IP地址和端口（IP1:Port1）发送过来的请求都会被映射成同一个公网IP和端口号（IP:Port）。与完全锥型NAT不同的是，当且仅当内部主机之前已经向公网主机发送过报文，此时公网主机才能向私网主机发送报文。</p>
-<h3 id="端口限制锥型nat" tabindex="-1"> 端口限制锥型NAT</h3>
-<p>与限制锥型NAT很相似，只不过它包括端口号。也就是说，一台公网主机（IP2:Port2）想给私网主机发送报文，必须是这台私网主机先前已经给这个IP地址和端口发送过报文。</p>
-<h3 id="对称nat" tabindex="-1"> 对称NAT</h3>
-<p>所有从同一个私网IP地址和端口发送到一个特定的目的IP地址和端口的请求，都会被映射到同一个IP地址和端口。如果同一台主机使用相同的源地址和端口号发送报文，但是发往不同的目的地，NAT将会使用不同的映射。此外，只有收到数据的公网主机才可以反过来向私网主机发送报文。</p>
-<p>这和端口限制锥型NAT不同，端口限制锥型NAT是所有请求映射到相同的公网IP地址和端口，而对称NAT是不同的请求有不同的映射。</p>
-<h2 id="nat工作原理" tabindex="-1"> NAT工作原理</h2>
-]]></content:encoded>
-      <enclosure url="https://tva1.sinaimg.cn/large/008vxvgGgy1h74z5hxjujj311y0q042f.jpg" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>浅谈libp2p网络之传输协议</title>
-      <link>https://bytecodes.tech/blockchain/component/Introduction_to_p2p_network_transport_protocol.html</link>
-      <guid>https://bytecodes.tech/blockchain/component/Introduction_to_p2p_network_transport_protocol.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">浅谈libp2p网络之传输协议</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书</description>
-      <category>区块链</category>
-      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
-      <content:encoded><![CDATA[<ul>
-<li>简单阐述tcp和udp 传输的区别</li>
-<li>常见的网络传输协议</li>
-<li>监听和拨号</li>
-<li>P2p 节点的地址格式</li>
+<p>可能大部分普通人去不了 985、211，我这里仍然有一些建议。</p>
+<p>人生说长不长，说短也不短。</p>
+<p>没必要比一时的高低，在你的大学生活里，在你未来的职场生涯里，你仍然有机会完成超越和逆袭。</p>
+<p>我就不举别的例子了，也不是非要拿我自己来说事，而是我的确是很好的一个参照物，因为我的学历很一般，更没有大厂背景，我之所以还能在如此卷的行业里取得一些成绩，靠的是什么？</p>
+<p>我想，我的经验和心得，我的人生规划，更适合普通人作为参考，因为我都能做到，你凭什么不能！</p>
+<p>首先，<strong>努力</strong>是肯定的。</p>
+<p>任何时候，一个没有背景的人，你想要取得一点成绩，努力是必选项。你不一定非要超过别人，但至少要能保证，不能落后，差距不能被越拉越大。</p>
+<p>其次，你要学会<strong>改变</strong>。</p>
+<p>别人好的地方你要去学习，哪怕是模仿；眼睛里要有光，要能善于发现别人身上的长处和优点。</p>
+<p>隔一段时间，你就要脱一层皮，退掉身上那些落伍的东西。</p>
+<p>最后，你需要<strong>坚持</strong>。</p>
+<p>一件事，你没做，就是 0，做了就是 1；做了又放弃了，从 1 变成 0；坚持做，你才可能从 1 到 2，从 2 到 4，从 4 到 8，从 8 到 16。</p>
+<p>互联网上，到处都是学习资源，然而精华与糟粕并存。你所需要的：</p>
+<ul>
+<li>你应当学习<strong>哪些科目</strong>，为什么？</li>
+<li>对于这些科目，<strong>最好的书籍或者视频课程</strong>是什么？</li>
 </ul>
+<p>我把这两个问题都给解决了！大致按照列出的顺序，借助我所建议的教材或者视频课程（最好二者兼用），可以先花 100到200 个小时学习完其中一个科目，然后记着，你的整个职业生涯里，一定要不时地温习 。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu/gaoktzyjsjjkrgznrgdsjwlwwlgcgzyx-759d8f19-60af-4e07-a085-281a5329c481.jpg" alt=""></p>
+<p>计算机专业可能是一个最不会说谎的专业，你选对了，你付出了，还是能从“卷”中走出来了的。<strong>高考改变命运，但你的人生本不应该只被一次成绩决定</strong>。</p>
+<hr>
 ]]></content:encoded>
-    </item>
-    <item>
-      <title>浅谈libp2p网络之relay协议</title>
-      <link>https://bytecodes.tech/blockchain/component/Introduction_to_the_relay_of_p2p_network_protocol.html</link>
-      <guid>https://bytecodes.tech/blockchain/component/Introduction_to_the_relay_of_p2p_network_protocol.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">浅谈libp2p网络之relay协议</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识 P2P网络 以太坊白皮书</description>
-      <category>区块链</category>
-      <pubDate>Mon, 12 Dec 2022 06:43:36 GMT</pubDate>
-      <content:encoded><![CDATA[<blockquote>
-<p>当一个对等端无法监听公共地址时，它可以拨出到中继对等端，这将保持长期连接打开。其他对等方将能够使用p2p电路地址通过中继对等方拨号，从而将流量转发到其目的地。</p>
-<p>中继连接是端到端加密的，这意味着充当中继的对等方无法读取或篡改流经连接的任何流量</p>
-</blockquote>
-<h2 id="应用场景" tabindex="-1"> 应用场景</h2>
-<p>假设我有一个对等ID为QmAlice的对等。我想把我的地址给我的朋友QmBob，但我有一个NAT，它不允许任何人直接给我打电话。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h79f7koq8qj30z90u0mzn.jpg" alt="image-20221018142037486"></p>
-<p>节点A位于NAT和/或防火墙后面，例如通过AutoNAT服务检测到的。</p>
-<p>因此，节点A请求与中继R进行预约，即节点A请求中继R代表其侦听传入连接。</p>
-<p>节点B希望与节点a建立连接。鉴于节点<strong>a不公布任何直接地址</strong>，而只公布中继地址，节点B连接到中继R，要求中继R中继到a的连接。</p>
-<p>中继R将连接请求转发到节点A，并最终中继A和B发送的所有数据。</p>
-<h2 id="参考" tabindex="-1"> 参考</h2>
-<p><a href="https://github.com/libp2p/specs/blob/master/relay/circuit-v2.md" target="_blank" rel="noopener noreferrer">https://github.com/libp2p/specs/blob/master/relay/circuit-v2.md</a></p>
-]]></content:encoded>
-      <enclosure url="https://tva1.sinaimg.cn/large/008vxvgGgy1h79f7koq8qj30z90u0mzn.jpg" type="image/jpeg"/>
+      <enclosure url="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/zhihu/gaoktzyjsjjkrgznrgdsjwlwwlgcgzyx-7ee994ae-343f-4497-ae9a-4c2a501f09d2.png" type="image/png"/>
     </item>
   </channel>
 </rss>

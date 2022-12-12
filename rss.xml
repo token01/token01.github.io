@@ -6,8 +6,8 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Fri, 09 Dec 2022 07:52:17 GMT</pubDate>
-    <lastBuildDate>Fri, 09 Dec 2022 07:52:17 GMT</lastBuildDate>
+    <pubDate>Mon, 12 Dec 2022 05:39:37 GMT</pubDate>
+    <lastBuildDate>Mon, 12 Dec 2022 05:39:37 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>区块链</category>
@@ -22,7 +22,7 @@
       <content:encoded><![CDATA[<blockquote>
 <p>浅谈共识算法|pow算法</p>
 </blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn80djrtwej30d606tmxc.jpg" alt="f1" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn80djrtwej30d606tmxc.jpg" alt="f1"></p>
 <h2 id="概述" tabindex="-1"> 概述</h2>
 <p>工作量证明(<code>Proof Of Work</code>，简称<code>POW</code>)，简单理解就是一份证明，用来确认你做过一定量的工作。监测工作的整个过程通常是极为低效的，而通过对工作的结果进行认证来证明完成了相应的工作量，则是一种非常高效的方式。比如现实生活中的毕业证、驾驶证等等，也是通过检验结果的方式（通过相关的考试）所取得的证明。</p>
 <p>工作量证明系统（或者说协议、函数），是一种应对拒绝服务攻击和其他服务滥用的经济对策。它要求发起者进行一定量的运算，也就意味着需要消耗计算机一定的时间。这个概念由<strong>Cynthia Dwork</strong> 和<strong>Moni Naor</strong> 1993年在学术论文中首次提出。而工作量证明（<code>POW</code>）这个名词，则是在 1999 年 <strong>Markus Jakobsson</strong> 和<strong>Ari Juels</strong>的文章中才被真正提出。</p>
@@ -30,7 +30,7 @@
 <p>实际不同的<code>POW</code>共识的核心就是<strong>不同的哈希算法</strong>，已经有很多<code>Hash</code>函数被设计出来并广泛应用，不过Hash函数一般安全寿命都不长，被认为安全的算法往往没能使用多久就被成功攻击，新的更安全的算法相继被设计出来，而每一个被公认为安全可靠的算法都有及其严格的审计过程。在币圈中我们经常说某某币发明了某种算法，其实主要都是使用那些被认证过的安全算法，或是单独使用，或是排列组合使用。</p>
 <h2 id="sha256" tabindex="-1"> SHA256</h2>
 <p><code>SHA-2</code>，名称来自于安全散列算法2（英语：<code>Secure Hash Algorithm 2</code>）的缩写，一种密码散列函数算法标准，由美国国家安全局研发，属于<code>SHA</code>算法之一，是<code>SHA-1</code>的后继者。<code>SHA-2</code>下又可再分为六个不同的算法标准。包括了：<code>SHA-224、SHA-256、SHA-384、SHA-512、SHA-512/224、SHA-512/256。</code></p>
-<p>具体的算法解释请查看此文：<a href="https://github.com/blockchainGuide" target="_blank" rel="noopener noreferrer">区块链技术栈全景分析</a></p>
+<p>具体的算法解释请查看此文：<a href="">Abel sun全景分析</a></p>
 <h2 id="scrypt" tabindex="-1"> SCRYPT</h2>
 <p><code>Scrypt</code>是内存依赖型的<code>POW</code>算法，莱特币采用此算法。第一个使用<code>Scrypt</code>算法的数字货币是<code>Tenebrix</code>，而后该算法被<strong>莱特币</strong>使用。莱特币创始人在莱特币创世帖中介绍了莱特币采用的共识机制，挖矿算法，发行总量，挖矿难度等相关重要信息。李启威说明了莱特币所使用的挖矿算法为数字货币<code>Tenebrix</code>所使用的<code>Scrypt</code>算法，是一种符合<code>PoW</code>共识机制的算法。<code>Scrypt</code>算法过程中也需要计算哈希值，但是，<code>Scrypt</code>计算过程中需要使用较多的内存资源。</p>
 <p>其它使用Scrypt算法的数字货币还有数码币（<code>DigitalCoin</code>）、狗狗币（<code>DogeCoin</code>）、幸运币（<code>LuckyCoin</code>）、世界币（<code>WorldCoin</code>）等。</p>
@@ -46,7 +46,7 @@
 <li>以<code>d1</code>为输入，依次进行<code>SHA256</code>、<code>KECCAK512</code>、<code>GROESTL512</code>、<code>BLAKE512</code>运算，分别获得输出<code>d2</code>,<code>d3</code>,<code>d4</code>和<code>d5</code></li>
 <li>分别提取<code>d2-d5</code>前64位，混淆后形成最终的<code>256</code>位Hash结果，作为区块ID。</li>
 </ol>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn950ksww1j31e60fetfh.jpg" alt="image-20210202134353334" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn950ksww1j31e60fetfh.jpg" alt="image-20210202134353334"></p>
 <p>之所以首先进行一轮<code>HEFTY1</code> 哈希，是因为HEFTY1 运算起来极其困难，其抵御矿机性能远超于<code>SCRYPT</code>。但与<code>SCRYPT</code>一样，安全性没有得到某个官方机构论证，于是加入后面的四种安全性已经得到公认的算法增强安全。</p>
 <p>对比串联和并联的方法，<code>Quark、X11，X13</code>等虽使用了多种<code>HASH</code>函数，但这些算法都是简单的将多种<code>HASH</code>函数串联在一起，仔细思考，其实没有提高整体的抗碰撞性，其安全性更是因木桶效应而由其中安全最弱的算法支撑，其中任何一种<code>Hash</code>函数遭遇碰撞性攻击，都会危及货币系统的安全性。</p>
 <p><code>HVC</code>从以上每种算法提取<code>64</code>位，经过融合成为最后的结果，实际上是将四种算法并联在一起，其中一种算法被破解只会危及其中<code>64</code>位，四中算法同时被破解才会危及货币系统的安全性。</p>
@@ -221,7 +221,7 @@
 <li>
 <p>prepareExtra（将快照中的validators添加到extraData的validators中），payload 数据就是编码后的IstanbulExtra，作为extra</p>
 <blockquote>
-<div data-ext="go"><pre><code>types<span>.</span>IstanbulExtra<span>{</span>
+<div><pre><code>types<span>.</span>IstanbulExtra<span>{</span>
    Validators<span>:</span>    vals<span>,</span>
    Seal<span>:</span>          <span>[</span><span>]</span><span>byte</span><span>{</span><span>}</span><span>,</span>
    CommittedSeal<span>:</span> <span>[</span><span>]</span><span>[</span><span>]</span><span>byte</span><span>{</span><span>}</span><span>,</span>
@@ -250,10 +250,10 @@
       <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
       <content:encoded><![CDATA[<blockquote>
 <p>浅谈共识算法|POS算法</p>
-<p>配合以下代码进行阅读：<a href="https://github.com/blockchainGuide/" target="_blank" rel="noopener noreferrer">https://github.com/blockchainGuide/</a></p>
+<p>配合以下代码进行阅读：&lt; /&gt;</p>
 <p>写文不易，给个小关注，有什么问题可以指出，便于大家交流学习。</p>
 </blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn96oqcxsyj30dw08pjs7.jpg" alt="u=2232051863,378698187&amp;fm=26&amp;gp=0" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn96oqcxsyj30dw08pjs7.jpg" alt="u=2232051863,378698187&amp;fm=26&amp;gp=0"></p>
 <h2 id="为什么会出现pos" tabindex="-1"> 为什么会出现PoS?</h2>
 <p>​    在比特币系统中采用了<code>PoW</code>(工作量证明）算法,<code>PoW</code>其实就是由所有的节点相互竞争，提交一个难于计算但是容易验证的计算结果，任何节点都可以验证这个这个结果的正确性，验证通过即算这个节点完成了大量的计算工作。</p>
 <p>​    然而<code>PoW</code>机制存在明显的弊端。 一是算力不公平，矿场的竞争力比单个节点大，还有就是随着硬件的发展，特别是量子计算机的出现，可能几秒就破解了<code>Hash</code>。 二是<code>PoW</code>算法太浪费了，比特币网络每秒可完成数百万亿次<code>SHA256</code>计算， 但这些计算除了使恶意攻击者不能轻易地伪装成几百万个节点和打垮比特币网络，并没有更多实际或科学价值。</p>
@@ -281,7 +281,7 @@
 </ol>
 <h2 id="参考" tabindex="-1"> 参考</h2>
 <blockquote>
-<p><a href="https://github.com/blockchainGuide" target="_blank" rel="noopener noreferrer">https://github.com/blockchainGuide</a></p>
+<p>&lt; &gt;</p>
 <p><a href="https://eth.wiki/en/concepts/casper-proof-of-stake-compendium" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/casper-proof-of-stake-compendium</a></p>
 <p><a href="https://eth.wiki/en/concepts/casper-proof-of-stake-compendium" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/casper-proof-of-stake-compendium</a></p>
 <p><a href="https://eth.wiki/en/concepts/proof-of-stake-faqs" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/proof-of-stake-faqs</a></p>
@@ -301,10 +301,10 @@
       <content:encoded><![CDATA[<blockquote>
 <p>浅谈共识算法|Casper算法</p>
 </blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn9b4uqwzsj30et08ct8u.jpg" alt="u=2605093610,3912377035&amp;fm=26&amp;gp=0" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gn9b4uqwzsj30et08ct8u.jpg" alt="u=2605093610,3912377035&amp;fm=26&amp;gp=0"></p>
 <h2 id="参考" tabindex="-1"> 参考</h2>
 <blockquote>
-<p><a href="https://github.com/blockchainGuide" target="_blank" rel="noopener noreferrer">https://github.com/blockchainGuide</a></p>
+<p>&lt; &gt;</p>
 <p><a href="https://eth.wiki/en/concepts/casper-proof-of-stake-compendium" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/casper-proof-of-stake-compendium</a></p>
 <p><a href="https://eth.wiki/en/concepts/casper-proof-of-stake-compendium" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/casper-proof-of-stake-compendium</a></p>
 <p><a href="https://eth.wiki/en/concepts/proof-of-stake-faqs" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/proof-of-stake-faqs</a></p>
@@ -326,7 +326,7 @@
 <p>浅谈共识算法|DPOS(委托股权证明)算法</p>
 <p>写文不易，给个小关注，有什么问题可以指出，便于大家交流学习。</p>
 </blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gna2p4ti6pj31c00u0ahv.jpg" alt="src=http___img.pconline.com.cn_images_upload_upc_tx_wallpaper_1207_09_c2_12276725_1341818508711.jpg&amp;refer=http___img.pconline.com" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gna2p4ti6pj31c00u0ahv.jpg" alt="src=http___img.pconline.com.cn_images_upload_upc_tx_wallpaper_1207_09_c2_12276725_1341818508711.jpg&amp;refer=http___img.pconline.com"></p>
 <h2 id="dpos详解" tabindex="-1"> DPOS详解</h2>
 <p>DPoS共识算法就是将PoS共识算法中的记账者转换为指定节点数组成的小圈子，而不是所有人都可以参与记账，这个圈子可能是21个节点，也有可能是101个节点，只有圈子内的节点才能获得记账权。这将极大地提高系统的吞吐量，因为更少的节点也就意味着网络和节点的可控。</p>
 <p>DPOS的股东选举机制：</p>
@@ -342,32 +342,32 @@
 <p>DPoS为了尽快确定交易顺序，过滤无效交易，所以规定了在正常情况下，所有记账节点轮流每3秒产生一个区块，轮到了某个记账节点出块时，必须在2秒内提交区块，否则就会错块。</p>
 <p>假设一直没有记账节点错过自己顺序，那么他们生产的链条势必是最长的链条，如果记账节点在非指定时间生产区块被认为是无效的，每经过一轮，所有节点轮流出块的顺序就会发生重新洗牌。</p>
 <p>下图就是一个理想的轮流记账状态：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnade58srjj316o05yju3.jpg" alt="image-20210203151915698" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnade58srjj316o05yju3.jpg" alt="image-20210203151915698"></p>
 <p>DPoS算法白皮书还介绍了以下几种不正常的情况：</p>
 <p>①：<strong>少数记账节点发起恶意分叉或者发生故障</strong></p>
 <p>可以允许最多1/3的节点是恶意或故障，从而导致出现分叉。在这种情形下，少数分支将只能在9秒内生产1个块，而大多数分支，由于数量多一倍，将预期能在9秒内生产2个块。再一次，诚实的2/3的大多数可以比小的那一部分创建一个更长的链条。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadefucijj317u076tb7.jpg" alt="image-20210203151934597" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadefucijj317u076tb7.jpg" alt="image-20210203151934597"></p>
 <p>②：<strong>隔离环境下的重复块生产</strong></p>
 <p>少数群体可能尝试创建一个无限数量的分叉，但所有分支都将比主链短，因为少数群体在链的成长上更慢。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadihh19bj316a096mxr.jpg" alt="image-20210203152323992" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadihh19bj316a096mxr.jpg" alt="image-20210203152323992"></p>
 <p>③：<strong>网络碎片</strong></p>
 <p>网络非常有可能碎片到，没有哪一个链上的区块生产者占到了所有区块生产者中的大多数。在此情景下，最长的那个链将变成最大的一个少数群体。当网络连接恢复正常后，相对较小的那些群体将自然的切换到最长的链，从而将恢复明确的共识。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadj14g6vj31600a0tc7.jpg" alt="image-20210203152359294" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadj14g6vj31600a0tc7.jpg" alt="image-20210203152359294"></p>
 <p>还有一种非常可能的情况是，三个分支中，最大的两个分支一样大。此时，将由相对更小的第三个分支加入网络时来打破僵局。存在奇数个区块生产者，所以僵局一般不会持续很久。后面我们还将介绍区块生产者的清洗，会将生产者随机生成顺序，以确保即使两个分支具有相同数量的生产者，分支也将以不同的长度爆发增长，导致一个分支最终接管另一个分支。</p>
 <p>④：<strong>少数群体重复生产</strong></p>
 <p>在这种情景下，少数群体B在自己可以生产的时间节点，同时创建两条，或多条的区块链。下一个执行的生产者C，将选择B创建的可选链中的任一条。C选中的这条链将成为最长的链，当这发生是，所以如下图所示的B1链条上的结点都会转过来。所以，无论少数做恶结点制造多少的链，他们在下一轮中，肯定不会是最长的那个链。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadjozhpyj314y07ggo9.jpg" alt="image-20210203152437439" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadjozhpyj314y07ggo9.jpg" alt="image-20210203152437439"></p>
 <p>⑤：<strong>最后的不可逆区块</strong></p>
 <p>在网络碎片的情况下，多个分叉可能持续较长时间的隔离。长远来看，最长的链将最终受到认可。但观察者需要一种手段来确定某个块是否是在最长链条的一部分（确认共识）。这可以通过2/3 + 1个区块生产者是否对某个块有确认。</p>
 <p>下图中，块B被A、C确认了，这意味着2/3 + 1都已经确认了。由此我们可以为不可能存在更长的链了，因为2/3的区块链是诚实。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadk4gx1dj314y07amyy.jpg" alt="image-20210203152502221" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadk4gx1dj314y07amyy.jpg" alt="image-20210203152502221"></p>
 <p>需要注意的是这个规则与比特币的6个区块确认类似。一些聪明的人可以设计一系列事件，其中两个节点可能会在不同的最后不可逆块上结束。这种极端情况需要一个攻击者，精确控制通信延迟，并需要在几分钟内实施不止一次，而是二次攻击。如果发生这种情况，那么最长链条这一长期规则仍然适用。 我们估计这种攻击的可能性足够接近0，经济后果也微不足道，不值得担心。</p>
 <p>⑥：<strong>不足法定区块生产者</strong></p>
 <p>在一些不太可能的情况下，生产者没有明确达到法定人数，少数人可能继续生产块。在继续生产的区块中，利益相关者可以包含一些改变投票的交易。这些投票会选举一组新的区块生产者，并将区块生产参与度恢复到100%。一旦发生这种情况，少数人链最终会超过其它低于100%参与链。</p>
 <p>在这个流程发生时，所有的观察者必须要明白整个网络处于不稳定的状态，直到多于67%参与者出现后才会稳定下来。哪些选择在这种情景下发起交易的，与那些在比特币中接受低于6块就确认交易成功那样，冒着类似的风险。他们必须明白，存在某些情况下，共识最终会以另一个链为准。在实践中，这种情形比在比特币中接受少于3个块就确认更加安全。</p>
 <p>⑦：<strong>大多数据区块生产者的腐败</strong></p>
 <p>如果大多数区块生产者合谋变得腐败，他们制造无限数量的分支，每一个分支都有多于2/3的大多数的签名。在这样的场景早，最后不可逆转块算法退化为最长链算法。此时最长的，获得了最大的群体认证的，将由少数的诚实节点的加入来确定。这样的情形不会持续很久，因为利益相关者会最终投票替换掉这些区块生产者。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadl0aqk8j314k08s44j.jpg" alt="image-20210203152553558" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadl0aqk8j314k08s44j.jpg" alt="image-20210203152553558"></p>
 <h2 id="dpos要解决的问题" tabindex="-1"> DPOS要解决的问题</h2>
 <p>从名称上，我们也可以判断出<code>DPoS</code>与<code>PoS</code>共识是直接关联的。<code>DPoS</code>算法是BM根据当时PoW、PoS的不足而改进的共识算法，它的目的就是为了提高性能，也就是交易确认时间短。</p>
 <p>在<code>PoS</code>共识中，人们使用财产证明来“挖矿”，也就是说，这是任何人都可以参与的，只要你持有币，你就可以参与挖矿。但是<code>PoS</code>并没有解决性能问题，在这里我们直接认为提高性能就是提高<code>TPS</code>，如下：</p>
@@ -397,7 +397,7 @@
 <hr>
 <h2 id="参考" tabindex="-1"> 参考</h2>
 <blockquote>
-<p><a href="https://github.com/blockchainGuide" target="_blank" rel="noopener noreferrer">https://github.com/blockchainGuide</a></p>
+<p>&lt; &gt;</p>
 <p><a href="https://eth.wiki/en/concepts/casper-proof-of-stake-compendium" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/casper-proof-of-stake-compendium</a></p>
 <p><a href="https://eth.wiki/en/concepts/casper-proof-of-stake-compendium" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/casper-proof-of-stake-compendium</a></p>
 <p><a href="https://eth.wiki/en/concepts/proof-of-stake-faqs" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/proof-of-stake-faqs</a></p>
@@ -415,10 +415,10 @@
       <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
       <content:encoded><![CDATA[<blockquote>
 <p>浅谈共识算法|DPOS(委托股权证明)算法</p>
-<p>配合以下代码进行阅读：<a href="https://github.com/blockchainGuide/" target="_blank" rel="noopener noreferrer">https://github.com/blockchainGuide/</a></p>
+<p>配合以下代码进行阅读：&lt; /&gt;</p>
 <p>写文不易，给个小关注，有什么问题可以指出，便于大家交流学习。</p>
 </blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gna2p4ti6pj31c00u0ahv.jpg" alt="src=http___img.pconline.com.cn_images_upload_upc_tx_wallpaper_1207_09_c2_12276725_1341818508711.jpg&amp;refer=http___img.pconline.com" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gna2p4ti6pj31c00u0ahv.jpg" alt="src=http___img.pconline.com.cn_images_upload_upc_tx_wallpaper_1207_09_c2_12276725_1341818508711.jpg&amp;refer=http___img.pconline.com"></p>
 <h2 id="dpos详解" tabindex="-1"> DPOS详解</h2>
 <p>DPoS共识算法就是将PoS共识算法中的记账者转换为指定节点数组成的小圈子，而不是所有人都可以参与记账，这个圈子可能是21个节点，也有可能是101个节点，只有圈子内的节点才能获得记账权。这将极大地提高系统的吞吐量，因为更少的节点也就意味着网络和节点的可控。</p>
 <p>DPOS的股东选举机制：</p>
@@ -434,32 +434,32 @@
 <p>DPoS为了尽快确定交易顺序，过滤无效交易，所以规定了在正常情况下，所有记账节点轮流每3秒产生一个区块，轮到了某个记账节点出块时，必须在2秒内提交区块，否则就会错块。</p>
 <p>假设一直没有记账节点错过自己顺序，那么他们生产的链条势必是最长的链条，如果记账节点在非指定时间生产区块被认为是无效的，每经过一轮，所有节点轮流出块的顺序就会发生重新洗牌。</p>
 <p>下图就是一个理想的轮流记账状态：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnade58srjj316o05yju3.jpg" alt="image-20210203151915698" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnade58srjj316o05yju3.jpg" alt="image-20210203151915698"></p>
 <p>DPoS算法白皮书还介绍了以下几种不正常的情况：</p>
 <p>①：<strong>少数记账节点发起恶意分叉或者发生故障</strong></p>
 <p>可以允许最多1/3的节点是恶意或故障，从而导致出现分叉。在这种情形下，少数分支将只能在9秒内生产1个块，而大多数分支，由于数量多一倍，将预期能在9秒内生产2个块。再一次，诚实的2/3的大多数可以比小的那一部分创建一个更长的链条。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadefucijj317u076tb7.jpg" alt="image-20210203151934597" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadefucijj317u076tb7.jpg" alt="image-20210203151934597"></p>
 <p>②：<strong>隔离环境下的重复块生产</strong></p>
 <p>少数群体可能尝试创建一个无限数量的分叉，但所有分支都将比主链短，因为少数群体在链的成长上更慢。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadihh19bj316a096mxr.jpg" alt="image-20210203152323992" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadihh19bj316a096mxr.jpg" alt="image-20210203152323992"></p>
 <p>③：<strong>网络碎片</strong></p>
 <p>网络非常有可能碎片到，没有哪一个链上的区块生产者占到了所有区块生产者中的大多数。在此情景下，最长的那个链将变成最大的一个少数群体。当网络连接恢复正常后，相对较小的那些群体将自然的切换到最长的链，从而将恢复明确的共识。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadj14g6vj31600a0tc7.jpg" alt="image-20210203152359294" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadj14g6vj31600a0tc7.jpg" alt="image-20210203152359294"></p>
 <p>还有一种非常可能的情况是，三个分支中，最大的两个分支一样大。此时，将由相对更小的第三个分支加入网络时来打破僵局。存在奇数个区块生产者，所以僵局一般不会持续很久。后面我们还将介绍区块生产者的清洗，会将生产者随机生成顺序，以确保即使两个分支具有相同数量的生产者，分支也将以不同的长度爆发增长，导致一个分支最终接管另一个分支。</p>
 <p>④：<strong>少数群体重复生产</strong></p>
 <p>在这种情景下，少数群体B在自己可以生产的时间节点，同时创建两条，或多条的区块链。下一个执行的生产者C，将选择B创建的可选链中的任一条。C选中的这条链将成为最长的链，当这发生是，所以如下图所示的B1链条上的结点都会转过来。所以，无论少数做恶结点制造多少的链，他们在下一轮中，肯定不会是最长的那个链。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadjozhpyj314y07ggo9.jpg" alt="image-20210203152437439" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadjozhpyj314y07ggo9.jpg" alt="image-20210203152437439"></p>
 <p>⑤：<strong>最后的不可逆区块</strong></p>
 <p>在网络碎片的情况下，多个分叉可能持续较长时间的隔离。长远来看，最长的链将最终受到认可。但观察者需要一种手段来确定某个块是否是在最长链条的一部分（确认共识）。这可以通过2/3 + 1个区块生产者是否对某个块有确认。</p>
 <p>下图中，块B被A、C确认了，这意味着2/3 + 1都已经确认了。由此我们可以为不可能存在更长的链了，因为2/3的区块链是诚实。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadk4gx1dj314y07amyy.jpg" alt="image-20210203152502221" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadk4gx1dj314y07amyy.jpg" alt="image-20210203152502221"></p>
 <p>需要注意的是这个规则与比特币的6个区块确认类似。一些聪明的人可以设计一系列事件，其中两个节点可能会在不同的最后不可逆块上结束。这种极端情况需要一个攻击者，精确控制通信延迟，并需要在几分钟内实施不止一次，而是二次攻击。如果发生这种情况，那么最长链条这一长期规则仍然适用。 我们估计这种攻击的可能性足够接近0，经济后果也微不足道，不值得担心。</p>
 <p>⑥：<strong>不足法定区块生产者</strong></p>
 <p>在一些不太可能的情况下，生产者没有明确达到法定人数，少数人可能继续生产块。在继续生产的区块中，利益相关者可以包含一些改变投票的交易。这些投票会选举一组新的区块生产者，并将区块生产参与度恢复到100%。一旦发生这种情况，少数人链最终会超过其它低于100%参与链。</p>
 <p>在这个流程发生时，所有的观察者必须要明白整个网络处于不稳定的状态，直到多于67%参与者出现后才会稳定下来。哪些选择在这种情景下发起交易的，与那些在比特币中接受低于6块就确认交易成功那样，冒着类似的风险。他们必须明白，存在某些情况下，共识最终会以另一个链为准。在实践中，这种情形比在比特币中接受少于3个块就确认更加安全。</p>
 <p>⑦：<strong>大多数据区块生产者的腐败</strong></p>
 <p>如果大多数区块生产者合谋变得腐败，他们制造无限数量的分支，每一个分支都有多于2/3的大多数的签名。在这样的场景早，最后不可逆转块算法退化为最长链算法。此时最长的，获得了最大的群体认证的，将由少数的诚实节点的加入来确定。这样的情形不会持续很久，因为利益相关者会最终投票替换掉这些区块生产者。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadl0aqk8j314k08s44j.jpg" alt="image-20210203152553558" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnadl0aqk8j314k08s44j.jpg" alt="image-20210203152553558"></p>
 <h2 id="dpos要解决的问题" tabindex="-1"> DPOS要解决的问题</h2>
 <p>从名称上，我们也可以判断出<code>DPoS</code>与<code>PoS</code>共识是直接关联的。<code>DPoS</code>算法是BM根据当时PoW、PoS的不足而改进的共识算法，它的目的就是为了提高性能，也就是交易确认时间短。</p>
 <p>在<code>PoS</code>共识中，人们使用财产证明来“挖矿”，也就是说，这是任何人都可以参与的，只要你持有币，你就可以参与挖矿。但是<code>PoS</code>并没有解决性能问题，在这里我们直接认为提高性能就是提高<code>TPS</code>，如下：</p>
@@ -489,7 +489,7 @@
 <hr>
 <h2 id="参考" tabindex="-1"> 参考</h2>
 <blockquote>
-<p><a href="https://github.com/blockchainGuide" target="_blank" rel="noopener noreferrer">https://github.com/blockchainGuide</a></p>
+<p>&lt; &gt;</p>
 <p><a href="https://eth.wiki/en/concepts/casper-proof-of-stake-compendium" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/casper-proof-of-stake-compendium</a></p>
 <p><a href="https://eth.wiki/en/concepts/casper-proof-of-stake-compendium" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/casper-proof-of-stake-compendium</a></p>
 <p><a href="https://eth.wiki/en/concepts/proof-of-stake-faqs" target="_blank" rel="noopener noreferrer">https://eth.wiki/en/concepts/proof-of-stake-faqs</a></p>
@@ -506,10 +506,10 @@
       <category>区块链</category>
       <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
       <content:encoded><![CDATA[<blockquote>
-<p>配合以下代码进行阅读：<a href="https://github.com/blockchainGuide/" target="_blank" rel="noopener noreferrer">https://github.com/blockchainGuide/</a></p>
+<p>配合以下代码进行阅读：&lt; /&gt;</p>
 <p>写文不易，给个小关注，有什么问题可以指出，便于大家交流学习。</p>
 </blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnuvfqrojoj312w0m8119.jpg" alt="b9a24d7b935c61ba4555b1ddc8159413" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnuvfqrojoj312w0m8119.jpg" alt="b9a24d7b935c61ba4555b1ddc8159413"></p>
 <h2 id="paxos是什么" tabindex="-1"> Paxos是什么</h2>
 <blockquote>
 <p>Paxos算法是基于<strong>消息传递</strong>且具有<strong>高度容错特性</strong>的<strong>一致性算法</strong>，是目前公认的解决<strong>分布式一致性</strong>问题<strong>最有效</strong>的算法之一。</p>
@@ -526,7 +526,7 @@
 <li><strong>Learner</strong>：不参与决策，从Proposers/Acceptors学习最新达成一致的提案（Value）。</li>
 </ul>
 <p>在多副本状态机中，每个副本同时具有Proposer、Acceptor、Learner三种角色。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnuydua826j31gg0i6q5j.jpg" alt="image-20210221103652296" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnuydua826j31gg0i6q5j.jpg" alt="image-20210221103652296"></p>
 <h2 id="paxos算法流程" tabindex="-1"> paxos算法流程</h2>
 <p>Paxos算法通过一个决议分为两个阶段（Learn阶段之前决议已经形成）：</p>
 <ol>
@@ -534,7 +534,7 @@
 <li>第二阶段：Accept阶段。Proposer收到多数Acceptors承诺的Promise后，向Acceptors发出Propose请求，Acceptors针对收到的Propose请求进行Accept处理。</li>
 <li>第三阶段：Learn阶段。Proposer在收到多数Acceptors的Accept之后，标志着本次Accept成功，决议形成，将形成的决议发送给所有Learners。</li>
 </ol>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnuyoi6keij318e0isady.jpg" alt="image-20210221104706981" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnuyoi6keij318e0isady.jpg" alt="image-20210221104706981"></p>
 <p>Paxos算法流程中的每条消息描述如下：</p>
 <ul>
 <li><strong>Prepare</strong>: Proposer生成全局唯一且递增的Proposal ID (可使用时间戳加Server ID)，向所有Acceptors发送Prepare请求，这里无需携带提案内容，只携带Proposal ID即可。</li>
@@ -570,15 +570,15 @@
 <p><strong>案例①：</strong></p>
 <p>图中P代表Prepare阶段，A代表Accept阶段。3.1代表Proposal ID为3.1，其中3为时间戳，1为Server ID。X和Y代表提议Value。</p>
 <p>实例1中P 3.1达成多数派，其Value(X)被Accept，然后P 4.5学习到Value(X)，并Accept。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv264l27aj31ce0l4jy9.jpg" alt="image-20210221124740017" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv264l27aj31ce0l4jy9.jpg" alt="image-20210221124740017"></p>
 <p><strong>案例②：</strong></p>
 <p>实例2中P 3.1没有被多数派Accept（只有S3 Accept），但是被P 4.5学习到，P 4.5将自己的Value由Y替换为X，Accept（X）。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv283ux5xj31bi0gydkn.jpg" alt="image-20210221124945254" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv283ux5xj31bi0gydkn.jpg" alt="image-20210221124945254"></p>
 <p><strong>案例③：</strong></p>
 <p>实例3中P 3.1没有被多数派Accept（只有S1 Accept），同时也没有被P 4.5学习到。由于P 4.5 Propose的所有应答，均未返回Value，则P 4.5可以Accept自己的Value (Y)。后续P 3.1的Accept (X) 会失败，已经Accept的S1，会被覆盖。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv28vsafmj318q0fsjw8.jpg" alt="image-20210221125030450" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv28vsafmj318q0fsjw8.jpg" alt="image-20210221125030450"></p>
 <p>Paxos算法可能形成活锁而永远不会结束，如下图实例所示：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv29ol30oj319y0fyafm.jpg" alt="image-20210221125102677" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv29ol30oj319y0fyafm.jpg" alt="image-20210221125102677"></p>
 <p>回顾两个承诺之一，Acceptor不再应答Proposal ID小于等于当前请求的Prepare请求。意味着需要应答Proposal ID大于当前请求的Prepare请求。</p>
 <p>两个Proposers交替Prepare成功，而Accept失败，形成活锁（Livelock）。</p>
 <h2 id="multi-paxos算法" tabindex="-1"> Multi-Paxos算法</h2>
@@ -588,7 +588,7 @@
 <li>针对每一个要确定的值，运行一次Paxos算法实例（Instance），形成决议。每一个Paxos实例使用唯一的Instance ID标识。</li>
 <li>在所有Proposers中选举一个Leader，由Leader唯一地提交Proposal给Acceptors进行表决。这样<strong>没有Proposer竞争</strong>，解决了活锁问题。在系统中仅有一个Leader进行Value提交的情况下，Prepare阶段就可以跳过，从而将两阶段变为一阶段，提高效率。</li>
 </ol>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv2e0hvd4j31bs0i00wn.jpg" alt="image-20210221125526065" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv2e0hvd4j31bs0i00wn.jpg" alt="image-20210221125526065"></p>
 <p>Multi-Paxos首先需要选举Leader，Leader的确定也是一次决议的形成，所以可执行一次Basic Paxos实例来选举出一个Leader。选出Leader之后只能由Leader提交Proposal，在Leader宕机之后服务临时不可用，需要重新选举Leader继续服务。在系统中仅有一个Leader进行Proposal提交的情况下，Prepare阶段可以跳过。</p>
 <p>Multi-Paxos通过改变Prepare阶段的作用范围至后面Leader提交的所有实例，从而使得Leader的连续提交只需要执行一次Prepare阶段，后续只需要执行Accept阶段，将两阶段变为一阶段，提高了效率。为了区分连续提交的多个实例，每个实例使用一个Instance ID标识，Instance ID由Leader本地递增生成即可。</p>
 <p>Multi-Paxos允许有多个自认为是Leader的节点并发提交Proposal而不影响其安全性，这样的场景即退化为Basic Paxos。</p>
@@ -596,17 +596,17 @@
 <h2 id="只有一个acceptor" tabindex="-1"> 只有一个Acceptor</h2>
 <p>假设只有一个Acceptor（可以有多个Proposer），只要Acceptor接受它收到的第一个提案，则该提案被选定，该提案里的value就是被选定的value。这样就保证只有一个value会被选定。</p>
 <p>但是，如果这个唯一的Acceptor宕机了，那么整个系统就<strong>无法工作</strong>了！</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv2lac3xej313w0gowge.jpg" alt="image-20210221130224968" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv2lac3xej313w0gowge.jpg" alt="image-20210221130224968"></p>
 <h2 id="多个acceptor" tabindex="-1"> 多个Acceptor</h2>
 <p>多个<code>Acceptor</code>需要保证在多个<code>Proposer</code>和多个<code>Acceptor</code>的情况下选定一个<code>value</code>。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv2q6ctcqj31b80i8415.jpg" alt="image-20210221130706677" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv2q6ctcqj31b80i8415.jpg" alt="image-20210221130706677"></p>
 <p>如果我们希望即使只有一个Proposer提出了一个value，该value也最终被选定。</p>
 <p>那么，就得到下面的约束：</p>
 <blockquote>
 <p>P1：一个Acceptor必须接受它收到的第一个提案。</p>
 </blockquote>
 <p>但是，这又会引出另一个问题：如果每个Proposer分别提出不同的value，发给不同的Acceptor。根据P1，Acceptor分别接受自己收到的value，就导致不同的value被选定。出现了不一致。如下图：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv30tvh7ij31dy0pcju7.jpg" alt="image-20210221131721430" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv30tvh7ij31dy0pcju7.jpg" alt="image-20210221131721430"></p>
 <p>刚刚是因为『一个提案只要被一个Acceptor接受，则该提案的value就被选定了』才导致了出现上面不一致的问题。因此，我们需要加一个规定：</p>
 <blockquote>
 <p>规定：一个提案被选定需要被<strong>半数以上</strong>的Acceptor接受</p>
@@ -628,7 +628,7 @@
 <li>Acceptor1认为V2被选定，Acceptor2~5和Proposer2认为V1被选定。出现了不一致。</li>
 <li>V1被选定了，但是编号更高的被Acceptor1接受的提案[M2,V2]的value为V2，且V2≠V1。这就跟P2a（如果某个value为v的提案被选定了，那么每个编号更高的被Acceptor接受的提案的value必须也是v）矛盾了。</li>
 </ol>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv3f3co1cj31gs0pk77y.jpg" alt="image-20210221133102803" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv3f3co1cj31gs0pk77y.jpg" alt="image-20210221133102803"></p>
 <p>P2a是对Acceptor接受的提案约束，但其实提案是Proposer提出来的，所有我们可以对Proposer提出的提案进行约束。得到P2b：</p>
 <blockquote>
 <p>P2b：如果某个value为v的提案被选定了，那么之后任何Proposer提出的编号更高的提案的value必须也是v。</p>
@@ -677,8 +677,8 @@
 <hr>
 <h2 id="参考" tabindex="-1"> 参考</h2>
 <blockquote>
-<p><a href="https://github.com/blockchainGuide" target="_blank" rel="noopener noreferrer">https://github.com/blockchainGuide</a></p>
-<p>公号：区块链技术栈</p>
+<p>&lt; &gt;</p>
+<p>公号：Abel sun</p>
 <p><a href="http://zh.wikipedia.org/zh-cn/Paxos%E7%AE%97%E6%B3%95" target="_blank" rel="noopener noreferrer">http://zh.wikipedia.org/zh-cn/Paxos%E7%AE%97%E6%B3%95</a></p>
 <p><a href="https://www.cnblogs.com/linbingdong/p/6253479.html" target="_blank" rel="noopener noreferrer">https://www.cnblogs.com/linbingdong/p/6253479.html</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/31780743" target="_blank" rel="noopener noreferrer">https://zhuanlan.zhihu.com/p/31780743</a></p>
@@ -700,10 +700,10 @@
       <pubDate>Wed, 07 Dec 2022 13:53:19 GMT</pubDate>
       <content:encoded><![CDATA[<blockquote>
 <p>浅谈共识算法|Raft算法</p>
-<p>配合以下代码进行阅读：<a href="https://github.com/blockchainGuide/" target="_blank" rel="noopener noreferrer">https://github.com/blockchainGuide/</a></p>
+<p>配合以下代码进行阅读：&lt; /&gt;</p>
 <p>写文不易，给个小关注，有什么问题可以指出，便于大家交流学习。</p>
 </blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv4oqutq9j311x0lcwgh.jpg" alt="a01214b9197eecac0e30d703597788f0" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv4oqutq9j311x0lcwgh.jpg" alt="a01214b9197eecac0e30d703597788f0"></p>
 <hr>
 <h2 id="raft算法概述" tabindex="-1"> Raft算法概述</h2>
 <p>不同于Paxos算法直接从分布式一致性问题出发推导出来，Raft算法则是从多副本状态机的角度提出，用于管理多副本状态机的日志复制。Raft实现了和Paxos相同的功能，它将一致性分解为多个子问题：Leader选举（Leader election）、日志同步（Log replication）、安全性（Safety）、日志压缩（Log compaction）、成员变更（Membership change）等。同时，Raft算法使用了更强的假设来减少了需要考虑的状态，使之变的易于理解和实现。</p>
@@ -714,12 +714,12 @@
 <li><strong>Follower</strong>：接受并持久化Leader同步的日志，在Leader告之日志可以提交之后，提交日志。</li>
 <li><strong>Candidate</strong>：Leader选举过程中的临时角色。</li>
 </ul>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv5fibnnwj31bc0jgq4d.jpg" alt="image-20210221144024734" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv5fibnnwj31bc0jgq4d.jpg" alt="image-20210221144024734"></p>
 <p>Raft要求系统在任意时刻最多只有一个Leader，正常工作期间只有Leader和Followers。</p>
 <p>Raft算法角色状态转换如下：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv77wcjjrj31fy0i8akh.jpg" alt="image-20210221154232947" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv77wcjjrj31fy0i8akh.jpg" alt="image-20210221154232947"></p>
 <p>Follower只响应其他服务器的请求。如果Follower超时没有收到Leader的消息，它会成为一个Candidate并且开始一次Leader选举。收到大多数服务器投票的Candidate会成为新的Leader。Leader在宕机之前会一直保持Leader的状态。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv79etskij31c40f4ad7.jpg" alt="image-20210221154400705" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv79etskij31c40f4ad7.jpg" alt="image-20210221154400705"></p>
 <p>Raft算法将时间分为一个个的任期（term），每一个term的开始都是Leader选举。在成功选举Leader之后，Leader会在整个term内管理整个集群。如果Leader选举失败，该term就会因为没有Leader而结束。</p>
 <h2 id="leader选举" tabindex="-1"> Leader选举</h2>
 <p>Raft 使用心跳（heartbeat）触发Leader选举。当服务器启动时，初始化为Follower。Leader向所有Followers周期性发送heartbeat。如果Follower在选举超时时间内没有收到Leader的heartbeat，就会等待一段随机的时间后发起一次Leader选举。</p>
@@ -729,15 +729,15 @@
 <li>收到了Leader的消息，表示有其它服务器已经抢先当选了Leader；</li>
 <li>没有服务器赢得多数的选票，Leader选举失败，等待选举时间超时后发起下一次选举。</li>
 </ul>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7bruxirj30xi0u0jsy.jpg" alt="v2-0471619d1b78ba6d57326d97825d9495_r" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7bruxirj30xi0u0jsy.jpg" alt="v2-0471619d1b78ba6d57326d97825d9495_r"></p>
 <p>选举出<code>Leader</code>后，<code>Leader</code>通过定期向所有<code>Followers</code>发送心跳信息维持其统治。若<code>Follower</code>一段时间未收到Leader的心跳则认为<code>Leader</code>可能已经挂了，再次发起<code>Leader</code>选举过程。</p>
 <p><code>Raft</code>保证选举出的<code>Leader</code>上一定具有最新的已提交的日志。</p>
 <h2 id="日志同步" tabindex="-1"> 日志同步</h2>
 <p>Leader选出后，就开始接收客户端的请求。Leader把请求作为日志条目（Log entries）加入到它的日志中，然后并行的向其他服务器发起 AppendEntries RPC （RPC细节参见八、Raft算法总结）复制日志条目。当这条日志被复制到大多数服务器上，Leader将这条日志应用到它的状态机并向客户端返回执行结果。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7dki1f3j31e60p6tfm.jpg" alt="image-20210221154800173" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7dki1f3j31e60p6tfm.jpg" alt="image-20210221154800173"></p>
 <p>某些Followers可能没有成功的复制日志，Leader会无限的重试 AppendEntries RPC直到所有的Followers最终存储了所有的日志条目。</p>
 <p>日志由有序编号（log index）的日志条目组成。每个日志条目包含它被创建时的任期号（term），和用于状态机执行的命令。如果一个日志条目被复制到大多数服务器上，就被认为可以提交（commit）了。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7e5yoruj31h00skqm1.jpg" alt="image-20210221154824325" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7e5yoruj31h00skqm1.jpg" alt="image-20210221154824325"></p>
 <p>Raft日志同步保证如下两点：</p>
 <ul>
 <li>如果不同日志中的两个条目有着相同的索引和任期号，则它们所存储的命令是相同的。</li>
@@ -746,7 +746,7 @@
 <p>第一条特性源于Leader在一个term内在给定的一个log index最多创建一条日志条目，同时该条目在日志中的位置也从来不会改变。</p>
 <p>第二条特性源于 AppendEntries 的一个简单的一致性检查。当发送一个 AppendEntries RPC 时，Leader会把新日志条目紧接着之前的条目的log index和term都包含在里面。如果Follower没有在它的日志中找到log index和term都相同的日志，它就会拒绝新的日志条目。</p>
 <p>一般情况下，Leader和Followers的日志保持一致，因此 AppendEntries 一致性检查通常不会失败。然而，Leader崩溃可能会导致日志不一致：旧的Leader可能没有完全复制完日志中的所有条目。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7ejhdj4j31fu0p64fl.jpg" alt="image-20210221154856229" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7ejhdj4j31fu0p64fl.jpg" alt="image-20210221154856229"></p>
 <p>上图阐述了一些Followers可能和新的Leader日志不同的情况。一个Follower可能会丢失掉Leader上的一些条目，也有可能包含一些Leader没有的条目，也有可能两者都会发生。丢失的或者多出来的条目可能会持续多个任期。</p>
 <p>Leader通过强制Followers复制它的日志来处理日志的不一致，Followers上的不一致的日志会被Leader的日志覆盖。</p>
 <p>Leader为了使Followers的日志同自己的一致，Leader需要找到Followers同它的日志一致的地方，然后覆盖Followers在该位置之后的条目。</p>
@@ -761,7 +761,7 @@
 <li>Leader只能推进commit index来提交当前term的已经复制到大多数服务器上的日志，旧term日志的提交要等到提交当前term的日志来间接提交（log index 小于 commit index的日志被间接提交）。</li>
 </ul>
 <p>之所以要这样，是因为可能会出现已提交的日志又被覆盖的情况：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7fah4fcj318k0kaar3.jpg" alt="image-20210221154938685" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7fah4fcj318k0kaar3.jpg" alt="image-20210221154938685"></p>
 <p>在阶段a，term为2，S1是Leader，且S1写入日志（term, index）为(2, 2)，并且日志被同步写入了S2；</p>
 <p>在阶段b，S1离线，触发一次新的选主，此时S5被选为新的Leader，此时系统term为3，且写入了日志（term, index）为（3， 2）;</p>
 <p>S5尚未将日志推送到Followers就离线了，进而触发了一次新的选主，而之前离线的S1经过重新上线后被选中变成Leader，此时系统term为4，此时S1会将自己的日志同步到Followers，按照上图就是将日志（2， 2）同步到了S3，而此时由于该日志已经被同步到了多数节点（S1, S2, S3），因此，此时日志（2，2）可以被提交了。；</p>
@@ -784,10 +784,10 @@
 <p>如果将成员变更当成一般的一致性问题，直接向Leader发送成员变更请求，Leader复制成员变更日志，达成多数派之后提交，各服务器提交成员变更日志后从旧成员配置（Cold）切换到新成员配置（Cnew）。</p>
 <p>因为各个服务器提交成员变更日志的时刻可能不同，造成各个服务器从旧成员配置（Cold）切换到新成员配置（Cnew）的时刻不同。</p>
 <p>成员变更不能影响服务的可用性，但是成员变更过程的某一时刻，可能出现在Cold和Cnew中同时存在两个不相交的多数派，进而可能选出两个Leader，形成不同的决议，破坏安全性。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7gvonaej31dq0teae6.jpg" alt="image-20210221155100462" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7gvonaej31dq0teae6.jpg" alt="image-20210221155100462"></p>
 <p>由于成员变更的这一特殊性，成员变更不能当成一般的一致性问题去解决。</p>
 <p>为了解决这一问题，Raft提出了两阶段的成员变更方法。集群先从旧成员配置Cold切换到一个过渡成员配置，称为共同一致（joint consensus），共同一致是旧成员配置Cold和新成员配置Cnew的组合Cold U Cnew，一旦共同一致Cold U Cnew被提交，系统再切换到新成员配置Cnew。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7h61euxj319s0m2n1e.jpg" alt="image-20210221155126751" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7h61euxj319s0m2n1e.jpg" alt="image-20210221155126751"></p>
 <p>Raft两阶段成员变更过程如下：</p>
 <ol>
 <li>Leader收到成员变更请求从Cold切成Cnew；</li>
@@ -820,9 +820,9 @@
 <h2 id="raft与multi-paxos的异同" tabindex="-1"> Raft与Multi-Paxos的异同</h2>
 <p>Raft与Multi-Paxos都是基于领导者的一致性算法，乍一看有很多地方相同，下面总结一下Raft与Multi-Paxos的异同。</p>
 <p>Raft与Multi-Paxos中相似的概念：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7hzg71cj31600iuq60.jpg" alt="image-20210221155202104" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7hzg71cj31600iuq60.jpg" alt="image-20210221155202104"></p>
 <p>Raft与Multi-Paxos的不同：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7iacddmj31780e2afb.jpg" alt="image-20210221155231875" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7iacddmj31780e2afb.jpg" alt="image-20210221155231875"></p>
 <h2 id="关于raft的一些面试题" tabindex="-1"> 关于Raft的一些面试题</h2>
 <h2 id="raft分为哪几个部分" tabindex="-1"> Raft分为哪几个部分？</h2>
 <p><strong>主要是分为leader选举、日志复制、日志压缩、成员变更等</strong>。</p>
@@ -837,7 +837,7 @@
 <p><strong>Raft确保新当选的Leader包含所有已提交（集群中大多数成员中已提交）的日志条目</strong>。这个保证是在RequestVoteRPC阶段做的，candidate在发送RequestVoteRPC时，会带上自己的<strong>last log entry的term_id和index</strong>，follower在接收到RequestVoteRPC消息时，<strong>如果发现自己的日志比RPC中的更新，就拒绝投票</strong>。日志比较的原则是，如果本地的最后一条log entry的term id更大，则更新，如果term id一样大，则日志更多的更大(index更大)。</p>
 <h2 id="raft网络分区下的数据一致性怎么解决" tabindex="-1"> Raft网络分区下的数据一致性怎么解决？</h2>
 <p>发生了网络分区或者网络通信故障，<strong>使得Leader不能访问大多数Follwer了，那么Leader只能正常更新它能访问的那些Follower，而大多数的Follower因为没有了Leader，他们重新选出一个Leader</strong>，然后这个 Leader来接受客户端的请求，如果客户端要求其添加新的日志，这个新的Leader会通知大多数Follower。<strong>如果这时网络故障修复 了，那么原先的Leader就变成Follower，在失联阶段这个老Leader的任何更新都不能算commit，都回滚，接受新的Leader的新的更新（递减查询匹配日志）</strong>。</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7jwqaoqj31fg0s444e.jpg" alt="image-20210221155356395" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7jwqaoqj31fg0s444e.jpg" alt="image-20210221155356395"></p>
 <h2 id="raft数据一致性如何实现" tabindex="-1"> Raft数据一致性如何实现？</h2>
 <p><strong>主要是通过日志复制实现数据一致性，leader将请求指令作为一条新的日志条目添加到日志中，然后发起RPC 给所有的follower，进行日志复制，进而同步数据</strong>。</p>
 <h2 id="raft的日志有什么特点" tabindex="-1"> Raft的日志有什么特点？</h2>
@@ -850,8 +850,8 @@
 <p><strong>snapshot里面主要记录的是日志元数据，即最后一条已提交的 log entry的 log index和term</strong>。</p>
 <h2 id="参考" tabindex="-1"> 参考</h2>
 <blockquote>
-<p><a href="https://github.com/blockchainGuide" target="_blank" rel="noopener noreferrer">https://github.com/blockchainGuide</a></p>
-<p>公号：区块链技术栈 （推荐）</p>
+<p>&lt; &gt;</p>
+<p>公号：Abel sun （推荐）</p>
 <p><a href="https://raft.github.io/raft.pdf" target="_blank" rel="noopener noreferrer">https://raft.github.io/raft.pdf</a></p>
 <p><a href="http://thesecretlivesofdata.com/raft/" target="_blank" rel="noopener noreferrer">http://thesecretlivesofdata.com/raft/</a> （动画演示 推荐）</p>
 <p><a href="https://raft.github.io/" target="_blank" rel="noopener noreferrer">https://raft.github.io/</a> （raft资源）</p>
@@ -874,7 +874,7 @@
       <content:encoded><![CDATA[<blockquote>
 <p>浅谈共识算法|实用拜占庭容错算法(PBFT)</p>
 </blockquote>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7uqdgnmj31hc0u0wk5.jpg" alt="816246ba75a183d188bdd3bf9c5eed69" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnv7uqdgnmj31hc0u0wk5.jpg" alt="816246ba75a183d188bdd3bf9c5eed69"></p>
 <h2 id="拜占庭容错bft" tabindex="-1"> 拜占庭容错BFT</h2>
 <p>拜占庭容错是分布式协议的一种属性，如果这种协议可以解决不可信任环境下的分布式一致性问题，那么它就是拜占庭容错。</p>
 <p>pbft 算法的提出主要是为了解决拜占庭将军问题。网上关于 pbft 的算法介绍基本上是基于 liskov 在 1999 年发表的论文《 Practical Byzantine Fault Tolerance 》来进行解释的。</p>
@@ -905,18 +905,18 @@
 <li>答复 (reply)：备份节点和主节点中任意收集到足够承诺消息并组成承诺凭证的节点, 将承诺凭证作为对消息 <em>m</em> 的答复发送给客户端, 客户端确认消息 <em>m</em> 的最终承诺.</li>
 </ol>
 <p>PBFT的共识过程如下：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnxgennnu6j31fu0g6aet.jpg" alt="image-20210223143130925" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnxgennnu6j31fu0g6aet.jpg" alt="image-20210223143130925"></p>
 <h2 id="checkpoint机制" tabindex="-1"> checkpoint机制</h2>
 <p>在 PBFT 中, 存在检查点 (checkpoint) 机制, 由于每个消息都被赋予了一定的序列号, 如消息 <em>m</em> 对应的序列号为 118, 当不少于 2<em>f</em> + 1 个节点组成消息 <em>m</em> 的承诺凭证, 完成消息承诺之后, 序列号 118 成为当前的稳定检查点 (stable checkpoint). 检查点机制被用于实现存储删减, 即当历史日志内容过多时, 节点可以选择清除稳定检查点之前的数据, 减少存储成本. 另外稳定检查点在 PBFT 的视图转换中也起到了关键作用.</p>
 <h2 id="viewchange机制" tabindex="-1"> viewChange机制</h2>
 <p>当主节点挂了（超时无响应）或者从节点集体认为主节点是问题节点时，就会触发 ViewChange 事件， ViewChange 完成后，视图编号将会加 1 。下图展示 ViewChange 的三个阶段流程：</p>
-<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnxgw54qrsj31a00dw7be.jpg" alt="image-20210223144812547" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gnxgw54qrsj31a00dw7be.jpg" alt="image-20210223144812547"></p>
 <p>viewchange 会有三个阶段，分别是 <code>view-change</code> ， <code>view-change-ack</code> 和 <code>new-view</code> 阶段。从节点认为主节点有问题时，会向其它节点发送 view-change 消息，当前存活的节点编号最小的节点将成为新的主节点。当新的主节点收到 2f 个其它节点的 view-change 消息，则证明有足够多人的节点认为主节点有问题，于是就会向其它节点广播 New-view 消息。注意：从节点不会发起 new-view 事件。对于主节点，发送 new-view 消息后会继续执行上个视图未处理完的请求，从 pre-prepare 阶段开始。其它节点验证 new-view 消息通过后，就会处理主节点发来的 pre-prepare 消息，这时执行的过程就是前面描述的 pbft 过程。</p>
 <p>最后一张图来了解一下PBFT算法：</p>
 <hr>
 <h2 id="参考" tabindex="-1"> 参考</h2>
 <blockquote>
-<p><a href="https://github.com/blockchainGuide" target="_blank" rel="noopener noreferrer">https://github.com/blockchainGuide</a></p>
+<p>&lt; &gt;</p>
 <p><a href="http://pmg.csail.mit.edu/papers/osdi99.pdf" target="_blank" rel="noopener noreferrer">http://pmg.csail.mit.edu/papers/osdi99.pdf</a></p>
 <p><a href="https://blog.csdn.net/shangsongwww/article/details/88942215" target="_blank" rel="noopener noreferrer">https://blog.csdn.net/shangsongwww/article/details/88942215</a></p>
 <p><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2017/01/thesis-mcastro.pdf" target="_blank" rel="noopener noreferrer">https://www.microsoft.com/en-us/research/wp-content/uploads/2017/01/thesis-mcastro.pdf</a></p>

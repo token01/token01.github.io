@@ -21,6 +21,14 @@ export default sidebar({
   "/blockchain/Male_chain_research/": "structure",
   "/blockchain/Male_chain_research/cosmos": "structure",
   "/blockchain/Male_chain_research/ethereum": "structure",
+  "/blockchain/Male_chain_research/FileCoin": "structure",
+  "/blockchain/Male_chain_research/IPFS": "structure",
+  "/blockchain/Male_chain_research/hyperleger_fabric": "structure",
+  "/blockchain/Male_chain_research/tendermint": "structure",
+  "/blockchain/Smart_contract/": "structure",
+  
+  
+  
   
   
   "/sidebar/": "structure",

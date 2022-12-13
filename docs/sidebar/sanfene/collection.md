@@ -92,7 +92,7 @@ ArrayList通过两个方法**readObject、writeObject**自定义序列化和反�
 **快速失败（fail—fast）**：快速失败是Java集合的一种错误检测机制
 
 - 在用迭代器遍历一个集合对象时，如果线程A遍历过程中，线程B对集合对象的内容进行了修改（增加、删除、修改），则会抛出Concurrent Modification Exception。
-- 原理：迭代器在遍历时直接访问集合中的内容，并且在遍历过程中使用一个 ` modCount`  变量。集合在被遍历期间如果内容发生变化，就会改变`modCount`的值。每当迭代器使用hashNext()/next()遍历下一个元素之前，都会检测modCount变量是否为expectedmodCount值，是的话就返回遍历；否则抛出异常，终止遍历。
+- 原理：迭代器在遍历时直接访问集合中的内容，并且在遍历过程中使用一个 `modCount`  变量。集合在被遍历期间如果内容发生变化，就会改变`modCount`的值。每当迭代器使用hashNext()/next()遍历下一个元素之前，都会检测modCount变量是否为expectedmodCount值，是的话就返回遍历；否则抛出异常，终止遍历。
 - 注意：这里异常的抛出条件是检测到 modCount！=expectedmodCount  这个条件。如果集合发生变化时修改modCount值刚好又设置为了expectedmodCount值，则异常不会抛出。因此，不能依赖于这个异常是否抛出而进行并发操作的编程，这个异常只建议用于检测并发修改的bug。
 - 场景：java.util包下的集合类都是快速失败的，不能在多线程下发生并发修改（迭代过程中被修改），比如ArrayList 类。
 
@@ -120,14 +120,7 @@ CopyOnWriteArrayList就是线程安全版本的ArrayList。
 
 CopyOnWriteArrayList采用了一种读写分离的并发策略。CopyOnWriteArrayList容器允许并发读，读操作是无锁的，性能较高。至于写操作，比如向容器中添加一个元素，则首先将当前容器复制一份，然后在新副本上执行写操作，结束之后再将原容器的引用指向新容器。
 
-
 ![CopyOnWriteArrayList原理](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/sidebar/sanfene/collection-7.png)
-
-  
-
- 
-
-  
 
 ## Map
 
@@ -209,14 +202,11 @@ JDK1.8的数据结构是`数组`+`链表`+`红黑树`。
 
 6. 最后所有元素处理完成后，判断是否超过阈值；`threshold`，超过则扩容。
 
-
 ### 12.HashMap怎么查找元素的呢？
 
 先看流程图：
 
 ![HashMap查找流程图](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/sidebar/sanfene/collection-14.png)
-
-
 
 HashMap的查找就简单很多：
 
@@ -258,7 +248,7 @@ static int indexFor(int h, int length) {
 }
 ```
 
-顺便说一下，这也正好解释了为什么 HashMap 的数组长度要取 2 的整数幂。因为这样（数组长度 - 1）正好相当于一个 “低位掩码”。`与` 操作的结果就是散列值的高位全部归零，只保留低位值，用来做数组下标访问。以初始长度 16 为例，16-1=15。2 进制表示是` 0000 0000 0000 0000 0000 0000 0000 1111`。和某个散列值做 `与` 操作如下，结果就是截取了最低的四位值。
+顺便说一下，这也正好解释了为什么 HashMap 的数组长度要取 2 的整数幂。因为这样（数组长度 - 1）正好相当于一个 “低位掩码”。`与` 操作的结果就是散列值的高位全部归零，只保留低位值，用来做数组下标访问。以初始长度 16 为例，16-1=15。2 进制表示是`0000 0000 0000 0000 0000 0000 0000 1111`。和某个散列值做 `与` 操作如下，结果就是截取了最低的四位值。
 
 ![哈希&运算](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/sidebar/sanfene/collection-15.png)
 
@@ -298,7 +288,7 @@ public HashMap(int initialCapacity, float loadFactor) {
 }
 ```
 
-- 阀值 threshold ，通过⽅法` tableSizeFor` 进⾏计算，是根据初始化传的参数来计算的。
+- 阀值 threshold ，通过⽅法`tableSizeFor` 进⾏计算，是根据初始化传的参数来计算的。
 - 同时，这个⽅法也要要寻找⽐初始值⼤的，最⼩的那个2进制数值。⽐如传了17，我应该找到的是32。
 
 ```java
@@ -474,15 +464,15 @@ jdk1.8 的HashMap主要有五点优化：
 
 ![完整代码](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/sidebar/sanfene/collection-30.png)
 
-###  24.HashMap 是线程安全的吗？多线程下会有什么问题？
+### 24.HashMap 是线程安全的吗？多线程下会有什么问题？
 
 HashMap不是线程安全的，可能会发生这些问题：
 
-*   多线程下扩容死循环。JDK1.7 中的 HashMap 使用头插法插入元素，在多线程的环境下，扩容的时候有可能导致环形链表的出现，形成死循环。因此，JDK1.8 使用尾插法插入元素，在扩容时会保持链表元素原本的顺序，不会出现环形链表的问题。
+- 多线程下扩容死循环。JDK1.7 中的 HashMap 使用头插法插入元素，在多线程的环境下，扩容的时候有可能导致环形链表的出现，形成死循环。因此，JDK1.8 使用尾插法插入元素，在扩容时会保持链表元素原本的顺序，不会出现环形链表的问题。
 
-*   多线程的 put 可能导致元素的丢失。多线程同时执行 put 操作，如果计算出来的索引位置是相同的，那会造成前一个 key 被后一个 key 覆盖，从而导致元素的丢失。此问题在 JDK 1.7 和 JDK 1.8 中都存在。
+- 多线程的 put 可能导致元素的丢失。多线程同时执行 put 操作，如果计算出来的索引位置是相同的，那会造成前一个 key 被后一个 key 覆盖，从而导致元素的丢失。此问题在 JDK 1.7 和 JDK 1.8 中都存在。
 
-*   put 和 get 并发时，可能导致 get 为 null。线程 1 执行 put 时，因为元素个数超出 threshold 而导致 rehash，线程 2 此时执行 get，有可能导致这个问题。这个问题在 JDK 1.7 和 JDK 1.8 中都存在。
+- put 和 get 并发时，可能导致 get 为 null。线程 1 执行 put 时，因为元素个数超出 threshold 而导致 rehash，线程 2 此时执行 get，有可能导致这个问题。这个问题在 JDK 1.7 和 JDK 1.8 中都存在。
 
 ### 25.有什么办法能解决HashMap线程不安全的问题呢？
 
@@ -558,6 +548,7 @@ private final Node<K,V>[] initTable() {
     return tab;
 }
 ````
+
 2.如果当前数组位置是空则直接通过CAS自旋写入数据
 
 ````java
@@ -566,8 +557,6 @@ static final <K,V> boolean casTabAt(Node<K,V>[] tab, int i,
     return U.compareAndSwapObject(tab, ((long)i << ASHIFT) + ABASE, c, v);
 }
 ````
-
-
 
 3. 如果hash==MOVED，说明需要扩容，执行扩容
 
@@ -598,8 +587,6 @@ final Node<K,V>[] helpTransfer(Node<K,V>[] tab, Node<K,V> f) {
 }
 ````
 
-
-
 4. 如果都不满足，就使用synchronized写入数据，写入数据同样判断链表、红黑树，链表写入和HashMap的方式一样，key hash一样就覆盖，反之就尾插法，链表长度超过8就转换成红黑树
 
 ````java
@@ -607,8 +594,6 @@ final Node<K,V>[] helpTransfer(Node<K,V>[] tab, Node<K,V> f) {
      ……
  }
 ````
-
-
 
 ![ConcurrentHashmap jdk1.8put流程](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/sidebar/sanfene/collection-32.jpg)
 
@@ -629,8 +614,6 @@ HashMap是无序的，根据 hash 值随机插入。如果想使用有序的Map�
 可以实现按插入的顺序或访问顺序排序。
 
 ![LinkedHashMap实现原理](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/sidebar/sanfene/collection-34.png)
-
-
 
 ### 29.讲讲 TreeMap 怎么实现有序的？
 
@@ -672,7 +655,6 @@ if (e != null) { // existing mapping for key
 
 *没有什么使我停留——除了目的，纵然岸旁有玫瑰、有绿荫、有宁静的港湾，我是不系之舟*。
 
-
 **系列内容**：
 
 - [面试逆袭 Java SE 篇👍](https://tobebetterjavaer.com/sidebar/sanfene/javase.html)
@@ -690,9 +672,3 @@ if (e != null) { // existing mapping for key
 ----
 
 > 图文详解 30 道Java集合框架面试高频题，这次吊打面试官，我觉得稳了（手动 dog）。整理：musk，戳[转载链接](https://mp.weixin.qq.com/s/ptbM0EqlnCWeWm9VdSCDLg)，作者：三分恶，戳[原文链接](https://mp.weixin.qq.com/s/SHkQ7LEOT0itt4bXMoDBPw)。
-
-  
-
- 
-
-  

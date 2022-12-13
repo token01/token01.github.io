@@ -1,4 +1,18 @@
-![image-20221028102022991](https://tva1.sinaimg.cn/large/008vxvgGgy1h7kse3u0fkj31g80t012r.jpg)
+---
+title: 智能合约x可升级合约
+shortTitle: 智能合约x可升级合约
+category:
+  - 区块链
+tag:
+  - 智能合约x可升级合约
+description: 凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识  
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
+![image-20221028102022991](https://tva1.sinaimg.cn/large/
+008vxvgGgy1h7kse3u0fkj31g80t012r.jpg)
 
 
 

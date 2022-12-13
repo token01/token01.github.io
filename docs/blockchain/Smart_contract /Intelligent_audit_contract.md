@@ -1,4 +1,18 @@
-# 智能合约审计
+---
+title: 智能合约审计
+shortTitle: 智能合约审计
+category:
+  - 区块链
+tag:
+  - 智能合约审计
+description: 凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识  
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
+
+## 智能合约审计
 
 ## 常见漏洞
 

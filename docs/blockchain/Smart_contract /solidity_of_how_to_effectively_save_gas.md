@@ -1,3 +1,16 @@
+---
+title: 智能合约xgas重要性
+shortTitle: 智能合约xgas重要性
+category:
+  - 区块链
+tag:
+  - 智能合约xgas重要性
+description: 凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识  
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
 ![image-20221028092606674](https://tva1.sinaimg.cn/large/008vxvgGgy1h7kqts12j2j31210u0k44.jpg)
 
 ## 为什么要强调优化gas的重要性

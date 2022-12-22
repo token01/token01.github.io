@@ -1,3 +1,16 @@
+---
+title: 浅谈零知证明
+shortTitle: 浅谈零知证明
+category:
+  - 区块链
+tag:
+  - 浅谈零知证明
+description: 凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识  
+head:
+- - meta
+  - name: keywords
+    content: web3.0 区块链 基础知识 P2P网络 
+---
 > 浅谈零知证明：资料收集（补充）
 >
 > 配合以下代码进行阅读： /

@@ -6,8 +6,8 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Tue, 13 Dec 2022 16:05:56 GMT</pubDate>
-    <lastBuildDate>Tue, 13 Dec 2022 16:05:56 GMT</lastBuildDate>
+    <pubDate>Thu, 22 Dec 2022 08:55:52 GMT</pubDate>
+    <lastBuildDate>Thu, 22 Dec 2022 08:55:52 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>区块链</category>
@@ -55,6 +55,20 @@
 ]]></content:encoded>
     </item>
     <item>
+      <title>浅谈以太坊ERC1167详解</title>
+      <link>https://bytecodes.tech/blockchain/Smart_contract%20/ERC1167.html</link>
+      <guid>https://bytecodes.tech/blockchain/Smart_contract%20/ERC1167.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">浅谈以太坊ERC1167详解</source>
+      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
+      <category>区块链</category>
+      <pubDate>Tue, 13 Dec 2022 15:55:56 GMT</pubDate>
+      <content:encoded><![CDATA[<p><a href="https://mirror.xyz/xyyme.eth/mmUAYWFLfcHGCEFg8903SweY3Sl-xIACZNDXOJ3twz8" target="_blank" rel="noopener noreferrer">https://mirror.xyz/xyyme.eth/mmUAYWFLfcHGCEFg8903SweY3Sl-xIACZNDXOJ3twz8</a></p>
+<p><a href="https://www.jianshu.com/p/6d727c6d3e1d" target="_blank" rel="noopener noreferrer">https://www.jianshu.com/p/6d727c6d3e1d</a></p>
+<p><a href="https://eips.ethereum.org/EIPS/eip-2535" target="_blank" rel="noopener noreferrer">https://eips.ethereum.org/EIPS/eip-2535</a></p>
+<p><a href="https://eips.ethereum.org/EIPS/eip-1967" target="_blank" rel="noopener noreferrer">https://eips.ethereum.org/EIPS/eip-1967</a></p>
+]]></content:encoded>
+    </item>
+    <item>
       <title>智能合约</title>
       <link>https://bytecodes.tech/blockchain/Smart_contract%20/</link>
       <guid>https://bytecodes.tech/blockchain/Smart_contract%20/</guid>
@@ -73,6 +87,24 @@
       <content:encoded><![CDATA[<p><a href="https://consensys.github.io/smart-contract-best-practices/development-recommendations/precautions/rate-limiting/" target="_blank" rel="noopener noreferrer">https://consensys.github.io/smart-contract-best-practices/development-recommendations/precautions/rate-limiting/</a></p>
 <p><a href="https://github.com/maxwoe/solidity_patterns.git" target="_blank" rel="noopener noreferrer">https://github.com/maxwoe/solidity_patterns.git</a></p>
 <p><a href="https://github.com/NoharaHiroshi/upgradability-solidity-demo.git" target="_blank" rel="noopener noreferrer">https://github.com/NoharaHiroshi/upgradability-solidity-demo.git</a></p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>浅谈以太坊智能合约安全转换</title>
+      <link>https://bytecodes.tech/blockchain/Smart_contract%20/Security_transfer.html</link>
+      <guid>https://bytecodes.tech/blockchain/Smart_contract%20/Security_transfer.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">浅谈以太坊智能合约安全转换</source>
+      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
+      <category>区块链</category>
+      <pubDate>Tue, 13 Dec 2022 15:55:56 GMT</pubDate>
+      <content:encoded><![CDATA[<p><a href="https://codeantenna.com/a/CFr6RnHdQr" target="_blank" rel="noopener noreferrer">https://codeantenna.com/a/CFr6RnHdQr</a></p>
+<p><a href="https://dreamerjonson.com/2018/11/20/solidity-25-thansfer2/index.html" target="_blank" rel="noopener noreferrer">https://dreamerjonson.com/2018/11/20/solidity-25-thansfer2/index.html</a></p>
+<p><a href="https://learnblockchain.cn/article/2191" target="_blank" rel="noopener noreferrer">https://learnblockchain.cn/article/2191</a></p>
+<p><a href="https://blog.csdn.net/m0_37714470/article/details/119113895" target="_blank" rel="noopener noreferrer">https://blog.csdn.net/m0_37714470/article/details/119113895</a></p>
+<p><a href="https://robinchen95.com/documents/Refer/36-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E7%BB%BC%E8%BF%B0.pdf" target="_blank" rel="noopener noreferrer">https://robinchen95.com/documents/Refer/36-智能合约安全综述.pdf</a></p>
+<p><a href="https://github.com/maxwoe/solidity_patterns.git" target="_blank" rel="noopener noreferrer">https://github.com/maxwoe/solidity_patterns.git</a></p>
+<p><a href="https://github.com/NoharaHiroshi/upgradability-solidity-demo.git" target="_blank" rel="noopener noreferrer">https://github.com/NoharaHiroshi/upgradability-solidity-demo.git</a></p>
+<p><a href="https://github.com/33357/smartcontract-apps.git" target="_blank" rel="noopener noreferrer">https://github.com/33357/smartcontract-apps.git</a></p>
 ]]></content:encoded>
     </item>
   </channel>

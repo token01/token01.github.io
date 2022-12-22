@@ -6,12 +6,1024 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Thu, 22 Dec 2022 08:55:52 GMT</pubDate>
-    <lastBuildDate>Thu, 22 Dec 2022 08:55:52 GMT</lastBuildDate>
+    <pubDate>Thu, 22 Dec 2022 09:01:17 GMT</pubDate>
+    <lastBuildDate>Thu, 22 Dec 2022 09:01:17 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+    <category>浅谈营销中台抽奖系统设计"</category>
     <category>区块链</category>
     <category>区块链学习</category>
+    <item>
+      <title></title>
+      <link>https://bytecodes.tech/architecture/lottery.html</link>
+      <guid>https://bytecodes.tech/architecture/lottery.html</guid>
+      <source url="https://bytecodes.tech/rss.xml"></source>
+      <description>凤凰涅槃进阶之路，小白的零基础Java教程，从入门到进阶，Java数组</description>
+      <category>浅谈营销中台抽奖系统设计"</category>
+      <pubDate>Thu, 22 Dec 2022 08:52:54 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="抽奖模型" tabindex="-1"> 抽奖模型</h2>
+<ol>
+<li>根据配置的<code>参与抽奖策略</code>判定用户是否有参与抽奖的权限</li>
+<li>预处理抽奖，即提供快速返回抽奖结果的<code>后门</code></li>
+<li>根据奖品配置的<code>奖品筛选策略</code>，筛选奖品，返回可能中的<code>奖项</code></li>
+<li>根据配置的<code>开奖策略</code>, 对该奖项进行逻辑判定，判定是否中奖</li>
+<li>如果未中奖，则判定是否存在<code>默认奖项</code>, 存在则判定中<code>默认奖项</code></li>
+</ol>
+<div><pre><code><span>LotteryResult</span> <span>lottery</span><span>(</span><span>Subject</span> subject<span>)</span> <span>{</span>
+    <span>LotteryResult</span> result <span>=</span> <span>LotteryResult</span><span>.</span><span>NO_AUTHORITY</span><span>;</span>
+    <span>if</span> <span>(</span><span>this</span><span>.</span><span>permit</span><span>(</span>subject<span>)</span><span>)</span> <span>{</span>             <span>// 判定是否允许参与抽奖</span>
+        result <span>=</span> <span>preLottery</span><span>(</span>subject<span>)</span><span>;</span>       <span>// 预处理抽奖</span>
+        <span>if</span> <span>(</span>result <span>==</span> <span>null</span><span>)</span> <span>{</span>               
+            result <span>=</span> <span>LotteryResult</span><span>.</span><span>FAILED</span><span>;</span>
+            <span>// 奖品筛选</span>
+            <span>LotteryPrize</span> prize <span>=</span> <span>this</span><span>.</span><span>selectPrize</span><span>(</span>subject<span>)</span><span>;</span>
+            <span>if</span> <span>(</span>prize <span>!=</span> <span>null</span><span>)</span> <span>{</span>
+                <span>// 奖项判定</span>
+                result <span>=</span> prize<span>.</span><span>prefer</span><span>(</span>subject<span>)</span><span>;</span>
+            <span>}</span>
+            <span>// 默认奖逻辑</span>
+            <span>if</span> <span>(</span><span>!</span>result<span>.</span><span>isSuccess</span><span>(</span><span>)</span> <span>&amp;&amp;</span> <span>this</span><span>.</span><span>defaultPrize</span><span>(</span><span>)</span> <span>!=</span> <span>null</span><span>)</span> <span>{</span>
+                result <span>=</span> <span>this</span><span>.</span><span>defaultPrize</span><span>(</span><span>)</span><span>.</span><span>prefer</span><span>(</span>subject<span>)</span><span>;</span>
+            <span>}</span>
+        <span>}</span>
+    <span>}</span>
+    <span>return</span> result<span>;</span>
+<span>}</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p><img src="https://cdn.nlark.com/yuque/0/2020/png/338441/1597633436656-6b675e61-068c-40e4-aa8b-1a1f707be542.png" alt="抽奖流程"></p>
+<h2 id="逻辑链" tabindex="-1"> 逻辑链</h2>
+<p>上文提及的各种策略，以及预处理抽奖，都是以内置一个逻辑链实现的。它是一个典型的责任链模式. 它将逻辑控制赋予每一个逻辑节点本身.</p>
+<h4 id="参与抽奖策略示例" tabindex="-1"> <code>参与抽奖策略</code>示例</h4>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/338441/1597633446327-704e83c4-d9e0-466c-954e-df586519675c.png" alt="逻辑链"></p>
+<h4 id="标签设计" tabindex="-1"> 标签设计</h4>
+<div><pre><code>动态标签原理：
+    定位人群 -> 目标是否有标签, 即是否属于对应人群
+    
+人群元数据：
+    用户数据源
+    取值逻辑
+    匹配逻辑
+    目标值
+    
+举例：
+    用户档案表  -> 数据源
+    用户age字段 -> 取值逻辑
+    大于50岁    -> 匹配逻辑 + 目标值
+    
+标签复用：
+    
+    
+标签扩展：
+    缩小范围：
+        年龄 >或&lt; xxx
+        年龄>  xxx
+    sn存在 = sn exists
+    指定SN = sn exists + sn==xxx
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>以<strong>会员积分</strong>标签为例</p>
+<ul>
+<li>
+<p>先在<strong>UserGroupType</strong>类中定义个枚举</p>
+<div><pre><code><span>public</span> <span>enum</span> <span>UserGroupType</span> <span>{</span>
+      <span>userIntegral</span><span>(</span><span>2</span><span>)</span><span>,</span> <span>//会员积分</span>
+      <span>private</span> <span>Integer</span> val<span>;</span>
+
+    <span>public</span> <span>static</span> <span>UserGroupType</span> <span>getByValue</span><span>(</span><span>Integer</span> type<span>)</span> <span>{</span>
+        <span>for</span> <span>(</span><span>UserGroupType</span> groupType <span>:</span> <span>values</span><span>(</span><span>)</span><span>)</span> <span>{</span>
+            <span>if</span> <span>(</span>groupType<span>.</span>val<span>.</span><span>equals</span><span>(</span>type<span>)</span><span>)</span> <span>{</span>
+                <span>return</span> groupType<span>;</span>
+            <span>}</span>
+        <span>}</span>
+        <span>return</span> <span>null</span><span>;</span>
+    <span>}</span>
+
+    <span>public</span> <span>Integer</span> <span>getVal</span><span>(</span><span>)</span> <span>{</span>
+        <span>return</span> <span>this</span><span>.</span>val<span>;</span>
+    <span>}</span>
+
+    <span>public</span> <span>boolean</span> <span>match</span><span>(</span><span>Integer</span> val<span>)</span> <span>{</span>
+        <span>return</span> <span>this</span><span>.</span>val<span>.</span><span>equals</span><span>(</span>val<span>)</span><span>;</span>
+    <span>}</span>
+<span>}</span>  
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></li>
+<li>
+<p>然后在<strong>group</strong>目录下增加个对应的Group文件(<strong>UserIntegralUserGroup</strong>)</p>
+<div><pre><code><span>@Service</span><span>(</span><span>"userIntegralUserGroup-v1"</span><span>)</span>
+<span>@Scope</span><span>(</span><span>"prototype"</span><span>)</span>
+<span>public</span> <span>class</span> <span>UserIntegralUserGroup</span> <span>extends</span> <span>AbstractUserGroupFilter</span> <span>{</span>
+
+    <span>@Autowired</span>
+    <span>private</span> <span>IBenefitEventClient</span> iBenefitEventClient<span>;</span>
+
+    <span>@Override</span>
+    <span>public</span> <span>boolean</span> <span>match</span><span>(</span><span>UserGroupType</span> type<span>)</span> <span>{</span>
+        <span>return</span> type <span>==</span> <span>UserGroupType</span><span>.</span>userIntegral<span>;</span>
+    <span>}</span>
+
+    <span>/**
+     *  第一个参数： 逻辑判断，必填，格式： 数值， 范围：0,1,2,3,4分别代表>,≥,=,&lt;,≤
+     *  第二个参数： 用户积分数，必填，格式： 数值
+     */</span>
+    <span>@Override</span>
+    <span>public</span> <span>boolean</span> <span>filter</span><span>(</span><span>Subject</span> subject<span>,</span> <span>LotteryContext</span> ctx<span>)</span> <span>{</span>
+        <span>Principal</span> principal <span>=</span> subject<span>.</span><span>getPrincipal</span><span>(</span><span>)</span><span>;</span>
+        <span>if</span> <span>(</span>principal <span>==</span> <span>null</span><span>)</span> <span>{</span>
+            ctx<span>.</span><span>message</span><span>(</span><span>"用户未登录"</span><span>)</span><span>;</span>
+            <span>return</span> <span>false</span><span>;</span>
+        <span>}</span>
+        <span>Integer</span> type <span>=</span> <span>getParam</span><span>(</span><span>0</span><span>,</span> <span>Integer</span><span>.</span><span>class</span><span>)</span><span>;</span>
+        <span>Integer</span> requireIntegral <span>=</span> <span>getParam</span><span>(</span><span>1</span><span>,</span> <span>Integer</span><span>.</span><span>class</span><span>)</span><span>;</span>
+
+        <span>/**
+         * 当只存在一个参数时，参数设定为积分，判断逻辑设定为等于
+         */</span>
+        <span>if</span> <span>(</span>requireIntegral <span>==</span> <span>null</span><span>)</span> <span>{</span>
+            requireIntegral <span>=</span> type<span>;</span>
+            type <span>=</span> <span>2</span><span>;</span>
+        <span>}</span>
+
+        <span>boolean</span> pass  <span>=</span> <span>false</span><span>;</span>
+        <span>R</span><span><span>&lt;</span><span>Integer</span><span>></span></span> r <span>=</span> iBenefitEventClient<span>.</span><span>getIntegralNum</span><span>(</span>subject<span>.</span><span>getUserId</span><span>(</span><span>)</span><span>)</span><span>;</span>
+        <span>if</span> <span>(</span>r<span>.</span><span>isSuccess</span><span>(</span><span>)</span><span>)</span> <span>{</span>
+            <span>Integer</span> currentIntegral <span>=</span> r<span>.</span><span>getData</span><span>(</span><span>)</span><span>;</span>
+            <span>switch</span> <span>(</span>type<span>)</span> <span>{</span>
+                <span>// >；≥；=；&lt;；≤</span>
+                <span>case</span> <span>0</span><span>:</span>
+                    pass <span>=</span> currentIntegral <span>></span> requireIntegral<span>;</span>
+                    <span>break</span><span>;</span>
+                <span>case</span> <span>1</span><span>:</span>
+                    pass <span>=</span> currentIntegral <span>>=</span> requireIntegral<span>;</span>
+                    <span>break</span><span>;</span>
+                <span>case</span> <span>2</span><span>:</span>
+                    pass <span>=</span> currentIntegral<span>.</span><span>equals</span><span>(</span>requireIntegral<span>)</span><span>;</span>
+                    <span>break</span><span>;</span>
+                <span>case</span> <span>3</span><span>:</span>
+                    pass <span>=</span> currentIntegral <span>&lt;</span> requireIntegral<span>;</span>
+                    <span>break</span><span>;</span>
+                <span>case</span> <span>4</span><span>:</span>
+                    pass <span>=</span> currentIntegral <span>&lt;=</span> requireIntegral<span>;</span>
+                    <span>break</span><span>;</span>
+            <span>}</span>
+            <span>if</span> <span>(</span><span>!</span>pass<span>)</span> <span>{</span>
+                ctx<span>.</span><span>message</span><span>(</span><span>"活动参与积分不足"</span><span>)</span><span>;</span>
+            <span>}</span>
+        <span>}</span>
+
+        <span>// 纪录需要的积分数</span>
+        ctx<span>.</span><span>attach</span><span>(</span><span>LotteryAttachKey</span><span>.</span><span>LOTTERY_INTEGRAL_REQUIRED</span><span>,</span> requireIntegral<span>)</span><span>;</span>
+        <span>return</span> pass<span>;</span>
+    <span>}</span>
+
+    <span>@Override</span>
+    <span>public</span> <span>String</span> <span>getName</span><span>(</span><span>)</span> <span>{</span>
+        <span>return</span> <span>"会员积分限制"</span><span>;</span>
+    <span>}</span>
+<span>}</span>
+
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></li>
+<li>
+<p>最后在相关的实现类中调用</p>
+<ul>
+<li>
+<p>ActivityBuilder</p>
+<div><pre><code><span>private</span> <span>UserGroupSystem</span> <span>from</span><span>(</span><span>ActivityJoinStrategy</span> activityJoinStrategy<span>,</span> <span>Activity</span> activity<span>)</span> <span>{</span>
+    <span>UserGroupSystem</span> joinStrategy <span>=</span> <span>new</span> <span>UserGroupSystem</span><span>(</span><span>"参与策略-"</span> <span>+</span> activityJoinStrategy<span>.</span><span>getId</span><span>(</span><span>)</span><span>)</span><span>;</span>
+     <span>.</span><span>.</span><span>.</span>
+        <span>// 积分要求</span>
+        <span>if</span> <span>(</span>activityJoinStrategy<span>.</span><span>getRequireIntegral</span><span>(</span><span>)</span> <span>!=</span> <span>null</span><span>)</span> <span>{</span>
+            <span>UserGroup</span> group <span>=</span> factory<span>.</span><span>create</span><span>(</span><span>UserGroupType</span><span>.</span>userIntegral<span>,</span> activityJoinStrategy<span>.</span><span>getRequireIntegral</span><span>(</span><span>)</span><span>)</span><span>;</span>
+            joinStrategy<span>.</span><span>add</span><span>(</span>group<span>)</span><span>;</span>
+        <span>}</span>
+     <span>.</span><span>.</span><span>.</span>
+<span>}</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></li>
+<li>
+<p>添加活动（<strong>UserGroupSystem</strong>）</p>
+<div><pre><code>    <span>public</span> <span>R</span> <span>addActivityLottery</span><span>(</span><span>ActivityContentParam</span> param<span>)</span> <span>{</span>
+      <span>.</span><span>.</span><span>.</span>
+            <span>/**
+             * 处理常用UserGroup
+             */</span>
+            <span>List</span><span><span>&lt;</span><span>ActivityContentParam<span>.</span>UserGroupStrategyItem</span><span>></span></span> otherStrategyItem <span>=</span> <span>new</span> <span>ArrayList</span><span><span>&lt;</span><span>></span></span><span>(</span><span>)</span><span>;</span>
+            <span>for</span> <span>(</span><span>ActivityContentParam<span>.</span>UserGroupStrategyItem</span> item <span>:</span> joinStrategy<span>.</span><span>getStrategyItems</span><span>(</span><span>)</span><span>)</span> <span>{</span>
+                <span>UserGroupType</span> userGroupType <span>=</span> <span>UserGroupType</span><span>.</span><span>getByValue</span><span>(</span>item<span>.</span><span>getType</span><span>(</span><span>)</span><span>)</span><span>;</span>
+                <span>switch</span> <span>(</span>userGroupType<span>)</span> <span>{</span>
+                    <span>case</span> all<span>:</span>
+                        <span>break</span><span>;</span>
+                    <span>case</span> userIntegral<span>:</span>
+                        <span>if</span> <span>(</span>item<span>.</span><span>getParams</span><span>(</span><span>)</span><span>.</span><span>size</span><span>(</span><span>)</span> <span>==</span> <span>1</span><span>)</span> <span>{</span>
+                            <span>Integer</span> requireIntegral <span>=</span> <span>Integer</span><span>.</span><span>parseInt</span><span>(</span>item<span>.</span><span>getParams</span><span>(</span><span>)</span><span>.</span><span>get</span><span>(</span><span>0</span><span>)</span><span>)</span><span>;</span>
+                            activityJoinStrategy<span>.</span><span>setRequireIntegral</span><span>(</span>requireIntegral<span>)</span><span>;</span>
+                        <span>}</span>
+                        <span>break</span><span>;</span>
+                    <span>default</span><span>:</span>
+                        otherStrategyItem<span>.</span><span>add</span><span>(</span>item<span>)</span><span>;</span>
+                        <span>break</span><span>;</span>
+                <span>}</span>
+            <span>}</span>
+      <span>.</span><span>.</span><span>.</span>
+    <span>}</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></li>
+<li>
+<p>获取活动信息（<strong>getActivityInfoForUpdate</strong>）</p>
+<div><pre><code>    <span>public</span> <span>R</span><span><span>&lt;</span><span>ActivityContentResult</span><span>></span></span> <span>getActivityInfoForUpdate</span><span>(</span><span>String</span> activityId<span>)</span> <span>{</span>
+      <span>.</span><span>.</span><span>.</span>
+        <span>/**
+         * joinStrategy
+         */</span>
+        <span>List</span><span><span>&lt;</span><span>ActivityContentParam<span>.</span>UserGroupStrategy</span><span>></span></span> joinUserGroupStrategyList <span>=</span> <span>new</span> <span>ArrayList</span><span><span>&lt;</span><span>></span></span><span>(</span><span>)</span><span>;</span>
+        <span>List</span><span><span>&lt;</span><span>ActivityJoinStrategy</span><span>></span></span> joinStrategyList <span>=</span> joinStrategyService<span>.</span><span>getActivityJoinStrategy</span><span>(</span>activityId<span>)</span><span>;</span>
+        <span>for</span> <span>(</span><span>ActivityJoinStrategy</span> joinStrategy <span>:</span> joinStrategyList<span>)</span> <span>{</span>
+            <span>ActivityContentParam<span>.</span>UserGroupStrategy</span> userGroupStrategy <span>=</span> <span>new</span> <span>ActivityContentParam<span>.</span>UserGroupStrategy</span><span>(</span><span>)</span><span>;</span>
+            userGroupStrategy<span>.</span><span>setId</span><span>(</span>joinStrategy<span>.</span><span>getId</span><span>(</span><span>)</span><span>)</span><span>;</span>
+            <span>List</span><span><span>&lt;</span><span>ActivityContentParam<span>.</span>UserGroupStrategyItem</span><span>></span></span> strategyItems <span>=</span> <span>new</span> <span>ArrayList</span><span><span>&lt;</span><span>></span></span><span>(</span><span>)</span><span>;</span>
+            <span>// 积分</span>
+            <span>if</span> <span>(</span><span>Func</span><span>.</span><span>isNotEmpty</span><span>(</span>joinStrategy<span>.</span><span>getRequireIntegral</span><span>(</span><span>)</span><span>)</span><span>)</span> <span>{</span>
+                <span>ActivityContentParam<span>.</span>UserGroupStrategyItem</span> item <span>=</span> <span>new</span> <span>ActivityContentParam<span>.</span>UserGroupStrategyItem</span><span>(</span><span>)</span><span>;</span>
+                item<span>.</span><span>setType</span><span>(</span><span>UserGroupType</span><span>.</span>userIntegral<span>.</span><span>getVal</span><span>(</span><span>)</span><span>)</span><span>;</span>
+                item<span>.</span><span>setParams</span><span>(</span><span>Arrays</span><span>.</span><span>asList</span><span>(</span>joinStrategy<span>.</span><span>getRequireIntegral</span><span>(</span><span>)</span><span>.</span><span>toString</span><span>(</span><span>)</span><span>)</span><span>)</span><span>;</span>
+                strategyItems<span>.</span><span>add</span><span>(</span>item<span>)</span><span>;</span>
+            <span>}</span>
+        <span>}</span>
+        result<span>.</span><span>setJoinStrategy</span><span>(</span>joinUserGroupStrategyList<span>)</span><span>;</span>
+      <span>.</span><span>.</span><span>.</span>
+<span>}</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></li>
+</ul>
+</li>
+</ul>
+<h2 id="平台抽奖流程设计" tabindex="-1"> 平台抽奖流程设计</h2>
+<div><pre><code>1. 取用户池总数(有标签的情况取当前标签用户池总数)，用来制作随机数。假如：10000。
+
+2. 开始抽奖
+    1. 随机数取序号, 987
+    2. 根据该序号取数据库实体，并排除已中奖人
+        # 去获取序号大于等于987且满足条件的第一个用户
+        SELECT *
+        FROM
+        	t_lottery_activity_user_pool
+        WHERE order_num >= #{order_num}
+        and activity_id = #{activity_id}
+        and attr_1 = #{attr_1}
+        and user_id not in #{user_id_list}
+        and user_token not in #{user_token_list} 
+        order by order_num desc
+        limit 1;
+        
+        # 当获取用户失败时，即序号正好是最大值，且该序号已中奖
+        # 去获取序号小于等于987且满足条件的第一个用户
+        SELECT *
+        FROM
+        	t_lottery_activity_user_pool
+        WHERE order_num &lt;= #{order_num}
+        and activity_id = #{activity_id}
+        and attr_1 = #{attr_1}
+        and user_id not in #{user_id_list}
+        and user_token not in #{user_token_list} 
+        order by order_num asc
+        limit 1;
+    3. 将取到的用户缓存下来，用于规避重复中奖。
+
+3. 抽多个人就重复二步骤   
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="平台抽奖流程实现" tabindex="-1"> 平台抽奖流程实现</h2>
+<div><pre><code># 开始抽奖某个奖
+<span>int</span> maxAwardNum                         # 当次活动每人最大中奖次数
+<span>int</span> repeatAward                         # 同奖品是否能重复中奖 <span>-</span> 基于userId判定人是否重复
+
+cacheUserCountMap <span>=</span> <span>null</span><span>;</span>
+<span>if</span> <span>(</span>maxAwardNum <span>></span> <span>0</span><span>)</span><span>:</span>
+    getPointNumMap <span>=</span> <span>getAwardUser</span><span>(</span><span>)</span><span>;</span>
+<span>if</span> <span>(</span>repeatAward <span>==</span> <span>0</span><span>)</span><span>:</span>
+    getPrizePointList <span>=</span> <span>getPrizePointUser</span><span>(</span><span>)</span><span>;</span>    # userId
+    
+<span>for</span> item in batch<span>:</span>                       # 多批次抽奖
+    <span>if</span> maxAwardNum <span>==</span> <span>0</span> <span>&amp;&amp;</span> repeatAward <span>==</span> <span>1</span><span>:</span>
+        # 随机去获取基于批次的用户，并设定为中奖用户
+        <span>getPointUser</span><span>(</span>item<span>,</span> item<span>.</span>count<span>)</span>
+    <span>else</span><span>:</span>
+        <span>for</span> i in <span>range</span><span>(</span>item<span>.</span>count<span>)</span><span>:</span>    # 单批次抽多次
+            disableUser <span>=</span> <span>getDisableUser</span><span>(</span>cacheUserCountMap<span>,</span> maxAwardNum<span>)</span>
+            user <span>=</span> <span>getPointUserOne</span><span>(</span>disableUser<span>,</span> getPointArray<span>)</span>
+            <span>if</span> repeatAward <span>==</span> <span>0</span><span>:</span>
+                getPrizePointList<span>.</span><span>put</span><span>(</span>user<span>.</span>id<span>)</span>
+            <span>if</span> <span>(</span>maxAwardNum <span>></span> <span>0</span><span>)</span> <span>{</span>
+                <span>if</span> <span>(</span>getPointNumMap<span>.</span><span>containsKey</span><span>(</span>user<span>.</span><span>getUserId</span><span>(</span><span>)</span><span>)</span><span>)</span> <span>{</span>
+                    getPointNumMap<span>.</span><span>put</span><span>(</span>user<span>.</span><span>getUserId</span><span>(</span><span>)</span><span>,</span> getPointNumMap<span>.</span><span>get</span><span>(</span>user<span>.</span><span>getUserId</span><span>(</span><span>)</span><span>)</span> <span>+</span> <span>1</span><span>)</span><span>;</span>
+                <span>}</span> <span>else</span> <span>{</span>
+                    getPointNumMap<span>.</span><span>put</span><span>(</span>user<span>.</span><span>getUserId</span><span>(</span><span>)</span><span>,</span> <span>1</span><span>)</span><span>;</span>
+                <span>}</span>
+            <span>}</span>            
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="数据库设计" tabindex="-1"> 数据库设计</h2>
+<h3 id="主流程业务表结构" tabindex="-1"> 主流程业务表结构</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/338441/1597627377781-a4f238fb-b10d-42d8-8bac-d775f0e7f905.png" alt="主流程业务表"></p>
+<div><pre><code># 黑名单
+CREATE TABLE `t_lottery_activity_blacklist` (
+  `id` varchar(64) NOT NULL,
+  `phone` varchar(255) DEFAULT NULL COMMENT '用户手机号码',
+  `cause` varchar(255) DEFAULT NULL COMMENT '原因',
+  `create_account` varchar(64) DEFAULT NULL COMMENT '添加人',
+  `create_org` varchar(64) DEFAULT NULL,
+  `update_account` varchar(64) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `is_deleted` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='抽奖活动黑名单表';
+
+# 白名单
+CREATE TABLE `t_lottery_activity_whitelist` (
+  `id` varchar(64) NOT NULL COMMENT '主键',
+  `phone` varchar(255) DEFAULT NULL COMMENT '用户手机号码',
+  `account_id` varchar(255) DEFAULT NULL COMMENT '用户ID',
+  `activity_id` varchar(255) DEFAULT NULL COMMENT '抽奖活动ID',
+  `specified_prize_id` varchar(255) DEFAULT NULL COMMENT '指定奖品ID',
+  `lottery_status` int(11) DEFAULT '0' COMMENT '中奖状态（0是未抽奖，1是未中奖，2是已中奖）',
+  `lottery_time` datetime DEFAULT NULL COMMENT '抽奖时间',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `create_account` varchar(64) DEFAULT NULL COMMENT '添加人',
+  `create_org` varchar(64) DEFAULT NULL,
+  `update_account` varchar(64) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `is_deleted` int(11) DEFAULT NULL,
+  `add_time` datetime DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='抽奖活动白名单表';
+
+# 抽奖活动
+CREATE TABLE `t_lottery_activity` (
+  `id` varchar(64) NOT NULL COMMENT '主键',
+  `title` varchar(255) DEFAULT NULL COMMENT '抽奖页标题',
+  `name` varchar(255) DEFAULT NULL COMMENT '抽奖活动名称',
+  `type` int(11) DEFAULT NULL COMMENT '奖励类型：0-&gt;普通；1-&gt;活动关联',
+  `form` int(11) DEFAULT NULL COMMENT '抽奖形式：0-&gt;摇一摇；1-&gt;九宫格',
+  `genre` int(11) DEFAULT NULL COMMENT '抽奖类型：0-&gt;自主抽奖  1-&gt;平台抽奖',
+  `description` varchar(255) DEFAULT NULL COMMENT '奖励说明',
+  `start_date` datetime DEFAULT NULL COMMENT '开始时间',
+  `end_date` datetime DEFAULT NULL COMMENT '结束时间',
+  `perfect_activity` int(11) DEFAULT NULL COMMENT '是否是100%中奖：0-&gt;不是；1-&gt;是',
+  `join_num` int(11) DEFAULT NULL COMMENT '活动已参数次数',
+  `join_people_num` int(11) DEFAULT NULL COMMENT '活动已参数人数',
+  `virtual_join_people_num` int(11) DEFAULT NULL COMMENT '活动虚拟参与人数',
+  `show_join_people_num` int(11) DEFAULT NULL COMMENT '是否展示参与人数 ：0-&gt;隐藏；1-&gt;展示',
+  `award_num` int(11) DEFAULT NULL COMMENT '中奖次数',
+  `award_people_num` int(11) DEFAULT NULL COMMENT '中奖人数',
+  `award_num_limit` int(11) DEFAULT NULL COMMENT '中奖人数限制',
+  `join_people_total_limit` int(11) DEFAULT NULL COMMENT '总参与人数限制标志：0不限制，1限制，2奖品抽完即结束',
+  `join_people_total_limit_num` int(11) DEFAULT NULL COMMENT '总参与限制人数',
+  `status` int(11) DEFAULT NULL COMMENT '抽奖状态：0-&gt;未上线；1-&gt;已上线；2-&gt;已下线；3-&gt;手动结束',
+  `backdrop` varchar(255) DEFAULT NULL COMMENT '活动主题背景图',
+  `back_color` varchar(255) DEFAULT NULL COMMENT '背景色值',
+  `pic_prize` varchar(255) DEFAULT NULL COMMENT '我的奖品图',
+  `begin_draw` varchar(255) DEFAULT NULL COMMENT '开始抽奖图',
+  `show_winning_list` int(11) DEFAULT NULL COMMENT '0不展示，1单条展示，2平铺展示',
+  `permit_share` int(11) DEFAULT NULL COMMENT '允许分享 0不允许，1允许',
+  `pic_rule` varchar(255) DEFAULT NULL COMMENT '抽奖规则图',
+  `miss_point_pic` varchar(255) DEFAULT NULL COMMENT '未中奖图片',
+  `miss_point_tips` varchar(255) DEFAULT NULL COMMENT '未中奖提示',
+  `one_person_is_repeat` int(11) DEFAULT NULL COMMENT '同奖品下是否能重复，0可以重复，1不能重复',
+  `one_person_lottery_number` int(11) DEFAULT NULL COMMENT '平台抽奖每人中奖次数',
+  `show_lottery_number` int(11) DEFAULT NULL COMMENT '可抽次数得显示隐藏',
+  `show_label` varchar(255) DEFAULT NULL COMMENT '展示字段（拼接）',
+  `show_lottery_person` int(11) DEFAULT NULL COMMENT '可抽人数显示隐藏',
+  `data_sources` varchar(64) DEFAULT NULL COMMENT '数据来源：1-&gt;SN号 2-&gt;手机号 3-&gt;手机号及验证码',
+  `all_label` varchar(255) DEFAULT NULL COMMENT '全部标签字段',
+  `auto_lottery_number` int(11) DEFAULT NULL COMMENT '自主抽奖每人中奖次数 0-&gt;不限；1-&gt;限制每人',
+  `lottery_user_type` varchar(64) DEFAULT NULL COMMENT '平台抽奖用户类型',
+  `store_channel` int(11) DEFAULT NULL COMMENT '店铺渠道：0-&gt;无渠道；1-&gt; 用户平台；2-&gt;零售销售',
+  `share_image` varchar(255) DEFAULT NULL COMMENT '分享图片',
+  `share_tips` varchar(255) DEFAULT NULL COMMENT '分享提示',
+  `share_people_num` int(11) DEFAULT '0' COMMENT '分享人数',
+  `visit_people_num` int(11) DEFAULT NULL COMMENT '访问人数',
+  `red_pack_num` decimal(10,2) DEFAULT NULL COMMENT '红包发放金额',
+  `create_account` varchar(64) DEFAULT NULL,
+  `create_org` varchar(64) DEFAULT NULL,
+  `update_account` varchar(64) DEFAULT NULL,
+  `is_deleted` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='抽奖活动表';
+
+# 抽奖活动参与码表
+CREATE TABLE `t_lottery_activity_join_code` (
+  `id` varchar(64) NOT NULL COMMENT '主键',
+  `join_code` varchar(255) DEFAULT NULL COMMENT '抽奖码',
+  `user_id` varchar(64) DEFAULT NULL COMMENT '用户ID',
+  `user_token` varchar(255) DEFAULT NULL COMMENT '用户登录凭证',
+  `user_source` varchar(255) DEFAULT NULL COMMENT '用户来源',
+  `user_remark` varchar(255) DEFAULT NULL COMMENT '用户备注',
+  `activity_id` varchar(64) DEFAULT NULL COMMENT '抽奖ID',
+  `source` varchar(255) DEFAULT NULL COMMENT '抽奖码来源',
+  `source_id` varchar(255) DEFAULT NULL COMMENT '来源ID',
+  `status` int(11) DEFAULT NULL COMMENT '抽奖状态：0-&gt;未使用；1-&gt;已使用',
+  `create_account` varchar(64) DEFAULT NULL,
+  `create_org` varchar(64) DEFAULT NULL,
+  `update_account` varchar(64) DEFAULT NULL,
+  `is_deleted` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='抽奖活动参与码表';
+
+# 活动参与策略 (一个活动可能有多个活动参与策略，能满足一个就能参加)
+CREATE TABLE `t_lottery_activity_join_strategy` (
+  `id` varchar(64) NOT NULL COMMENT '主键',
+  `activity_id` varchar(64) NOT NULL COMMENT '活动ID',
+  `user_group_type` int(11) DEFAULT '0' COMMENT '目标用户 0所有 1动态配置',
+  `user_group_value` varchar(1000) DEFAULT NULL COMMENT '用户分组ID',
+  `require_level` varchar(64) DEFAULT NULL COMMENT '需要等级, 逗号分隔，只要满足其中一个等级',
+  `require_integral` int(11) DEFAULT NULL COMMENT '需要积分（消耗积分）',
+  `join_number` int(11) DEFAULT NULL COMMENT '允许参数次数',
+  `join_period` int(11) DEFAULT NULL COMMENT '参与周期 0：永久 1：日 2：周 3：月 4：年，配合join_number设置限制活动参与次数',
+  `award_number` int(11) DEFAULT NULL COMMENT '中奖次数限制',
+  `award_period` int(11) DEFAULT NULL COMMENT '中奖次数限制周期，同join_period',
+  `priority` int(11) DEFAULT NULL COMMENT '策略优先级, 越小优先级越高',
+  `update_account` varchar(64) DEFAULT NULL,
+  `create_org` varchar(64) DEFAULT NULL,
+  `create_account` varchar(64) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `is_deleted` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_activity` (`activity_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='抽奖活动参与策略表';
+
+# 活动链接表 
+CREATE TABLE `t_lottery_activity_link` (
+  `id` varchar(64) NOT NULL COMMENT '主键',
+  `activity_id` varchar(64) NOT NULL COMMENT '活动ID',
+  `url` varchar(255) DEFAULT NULL COMMENT '地址',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `type` int(11) DEFAULT NULL COMMENT '活动类型 0链接 1二维码',
+  `create_account` varchar(64) DEFAULT NULL,
+  `create_org` varchar(64) DEFAULT NULL,
+  `update_account` varchar(64) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `is_deleted` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='活动链接表';
+
+# 平台抽奖批次表
+CREATE TABLE `t_lottery_activity_platform_batch` (
+  `id` varchar(64) NOT NULL COMMENT '主键',
+  `activity_id` varchar(64) DEFAULT NULL COMMENT '活动ID',
+  `prize_id` varchar(64) DEFAULT NULL COMMENT '奖品ID',
+  `batch_code` varchar(255) DEFAULT NULL COMMENT '批次号',
+  `award_total` int(11) DEFAULT NULL COMMENT '抽奖人数',
+  `priority` int(11) DEFAULT NULL COMMENT '优先级',
+  `attr1` varchar(255) DEFAULT NULL COMMENT '属性1',
+  `attr2` varchar(255) DEFAULT NULL COMMENT '属性2',
+  `attr3` varchar(255) DEFAULT NULL COMMENT '属性3',
+  `attr4` varchar(255) DEFAULT NULL COMMENT '属性4',
+  `attr5` varchar(255) DEFAULT NULL COMMENT '属性5',
+  `attr6` varchar(255) DEFAULT NULL COMMENT '属性6',
+  `attr7` varchar(255) DEFAULT NULL COMMENT '属性7',
+  `attr8` varchar(255) DEFAULT NULL COMMENT '属性8',
+  `attr9` varchar(255) DEFAULT NULL COMMENT '属性8',
+  `attr10` varchar(255) DEFAULT NULL COMMENT '属性10',
+  `create_account` varchar(64) DEFAULT NULL,
+  `create_org` varchar(64) DEFAULT NULL,
+  `update_account` varchar(64) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `is_deleted` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `is_lottery` int(11) DEFAULT '0' COMMENT '是否抽完',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='平台抽奖批次表';
+
+# 平台抽奖用户池表
+CREATE TABLE `t_lottery_activity_platform_user_pool` (
+  `id` varchar(64) NOT NULL COMMENT '主键',
+  `activity_id` varchar(64) DEFAULT NULL COMMENT '活动ID',
+  `user_id` varchar(64) NOT NULL COMMENT '用户ID',
+  `user_token` varchar(255) NOT NULL COMMENT '用户凭证',
+  `user_source` varchar(255) NOT NULL COMMENT '用户来源',
+  `attr1` varchar(255) DEFAULT NULL COMMENT '属性1',
+  `attr2` varchar(255) DEFAULT NULL COMMENT '属性2',
+  `attr3` varchar(255) DEFAULT NULL COMMENT '属性3',
+  `attr4` varchar(255) DEFAULT NULL COMMENT '属性4',
+  `attr5` varchar(255) DEFAULT NULL COMMENT '属性5',
+  `attr6` varchar(255) DEFAULT NULL COMMENT '属性6',
+  `attr7` varchar(255) DEFAULT NULL COMMENT '属性7',
+  `attr8` varchar(255) DEFAULT NULL COMMENT '属性8',
+  `attr9` varchar(255) DEFAULT NULL COMMENT '属性8',
+  `attr10` varchar(255) DEFAULT NULL COMMENT '属性10',
+  `order_num` int(11) DEFAULT NULL COMMENT '序号',
+  `create_account` varchar(64) DEFAULT NULL,
+  `create_org` varchar(64) DEFAULT NULL,
+  `update_account` varchar(64) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `is_deleted` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_activity_attr1` (`activity_id`,`attr1`(191)) USING BTREE,
+  KEY `idx_activity_attr2` (`activity_id`,`attr2`(191)) USING BTREE,
+  KEY `idx_activity_attr3` (`activity_id`,`attr3`(191)) USING BTREE,
+  KEY `idx_activity_attr4` (`activity_id`,`attr4`(191)) USING BTREE,
+  KEY `idx_activity_attr5` (`activity_id`,`attr5`(191)) USING BTREE,
+  KEY `idx_activity_attr6` (`activity_id`,`attr6`(191)) USING BTREE,
+  KEY `idx_activity_attr7` (`activity_id`,`attr7`(191)) USING BTREE,
+  KEY `idx_activity_attr8` (`activity_id`,`attr8`(191)) USING BTREE,
+  KEY `idx_activity_attr9` (`activity_id`,`attr9`(191)) USING BTREE,
+  KEY `idx_activity_attr10` (`activity_id`,`attr10`(191)) USING BTREE,
+  KEY `idx_activity_order_num` (`activity_id`,`order_num`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='平台抽奖用户池表';
+
+# 活动奖品池
+CREATE TABLE `t_lottery_activity_prize` (
+  `id` varchar(64) NOT NULL COMMENT '主键',
+  `activity_id` varchar(64) DEFAULT NULL COMMENT '活动ID',
+  `type` int(11) DEFAULT NULL COMMENT '奖品类别：0-&gt;实物；1-&gt;积分；2-&gt;虚拟商品；3-&gt;红包；4-&gt;无中奖',
+  `name` varchar(255) DEFAULT NULL COMMENT '奖品名称',
+  `level` varchar(255) DEFAULT NULL COMMENT '奖品等级',
+  `image` varchar(255) DEFAULT NULL COMMENT '奖品图片',
+  `description` varchar(255) DEFAULT NULL COMMENT '奖品描述',
+  `award_total` bigint(20) DEFAULT NULL COMMENT '奖品总数',
+  `award_distribute` bigint(20) DEFAULT NULL COMMENT '奖品已发放数量',
+  `award_lock_total` int(11) DEFAULT NULL COMMENT '奖品锁定数量',
+  `is_default` int(11) DEFAULT NULL COMMENT '是否是默认奖品',
+  `distribute_type` int(11) DEFAULT NULL COMMENT '兑奖方式：1-&gt;自营发放；2-&gt;第三方平台',
+  `redirect_url` varchar(255) DEFAULT NULL COMMENT '跳转路径',
+  `redirect_url_image` varchar(255) DEFAULT NULL COMMENT '跳转路径图片',
+  `sku_code` varchar(255) DEFAULT NULL COMMENT '商品编码',
+  `integral` int(11) DEFAULT NULL COMMENT '奖励积分值',
+  `money` decimal(10,2) DEFAULT NULL COMMENT '价值，单位分',
+  `warning_surplus` int(11) DEFAULT NULL COMMENT '预警库存',
+  `warning_phone` varchar(255) DEFAULT NULL COMMENT '预警手机号',
+  `priority` int(11) DEFAULT NULL COMMENT '优先级，值越低优先级越高',
+  `create_account` varchar(64) DEFAULT NULL COMMENT '创建人',
+  `create_org` varchar(64) DEFAULT NULL COMMENT '创建部门',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_account` varchar(64) DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `status` int(11) DEFAULT NULL COMMENT '奖品状态：0-&gt;禁用；1-&gt;启用',
+  `is_deleted` int(11) DEFAULT NULL COMMENT '删除状态',
+  `tenant_id` varchar(12) DEFAULT NULL COMMENT '租户号',
+  `position` varchar(64) DEFAULT NULL COMMENT '位置, 用于九宫格配置',
+  `virtual_type` int(11) DEFAULT NULL COMMENT '虚拟类型：1-&gt;电商优惠券；2-&gt;优惠码；3-&gt;虚拟金',
+  `promotion_code` varchar(255) DEFAULT NULL COMMENT '优惠码',
+  `distribute_channel` int(11) DEFAULT NULL COMMENT '放渠道：1-&gt;公众号\n     * 发放渠道：1-&gt;公众号',
+  `award_tips` varchar(255) DEFAULT NULL COMMENT '中奖提示',
+  `main_function_menu` varchar(255) DEFAULT NULL COMMENT '主功能按钮',
+  `main_function_menu_url` varchar(255) DEFAULT NULL COMMENT '主功能按钮跳转地址',
+  `assist_function_menu` int(11) DEFAULT NULL COMMENT '辅功能按钮：1-&gt;页面跳转；2-&gt;一键关注',
+  `assist_function_menu_name` varchar(64) DEFAULT NULL COMMENT '辅功能按钮名称',
+  `assist_function_menu_url` varchar(255) DEFAULT NULL COMMENT '辅功能按钮跳转地址',
+  `assist_function_menu_qrcode` varchar(255) DEFAULT NULL COMMENT '辅功能按钮二维码',
+  `deadline` int(11) DEFAULT NULL COMMENT '兑奖期限：1-&gt;随活动期限；2-&gt;固定期限；3-&gt;固定时长',
+  `fixed_term_start_time` datetime DEFAULT NULL COMMENT '固定期限开始日期',
+  `fixed_term_end_time` datetime DEFAULT NULL COMMENT '固定期限结束日期',
+  `fixed_term_later_date` int(11) DEFAULT NULL COMMENT '固定时长领取后几天生效',
+  `fixed_term_date` int(11) DEFAULT NULL COMMENT '固定时长有效天数',
+  `draw_condition` varchar(64) DEFAULT NULL COMMENT '领取条件：1-&gt;身份实名认证；2-&gt;注册会员',
+  `app_id` varchar(64) DEFAULT NULL COMMENT 'appId',
+  `redirect_type` int(11) DEFAULT NULL COMMENT '跳转类型：0-&gt;跳转路径，1-&gt;跳转路径图片',
+  PRIMARY KEY (`id`),
+  KEY `idx_activity` (`activity_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='活动奖品池';
+
+# 奖品筛选策略, 筛选出用户可能中奖的奖品
+CREATE TABLE `t_lottery_activity_prize_match_strategy` (
+  `id` varchar(64) NOT NULL COMMENT 'ID',
+  `activity_id` varchar(64) DEFAULT NULL COMMENT '活动ID',
+  `prize_id` varchar(64) DEFAULT NULL COMMENT '奖品ID',
+  `match_rate` varchar(255) DEFAULT NULL COMMENT '奖品权重',
+  `user_group_type` int(11) DEFAULT '0' COMMENT '目标用户 0 所有 1动态配置',
+  `user_group_value` varchar(1000) DEFAULT NULL COMMENT '用户分组ID',
+  `priority` int(11) DEFAULT NULL COMMENT '优先级 越小优先级越高',
+  `create_account` varchar(64) DEFAULT NULL COMMENT '创建人',
+  `create_org` varchar(64) DEFAULT NULL COMMENT '创建部门',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_account` varchar(64) DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `status` int(11) DEFAULT NULL COMMENT '业务状态',
+  `is_deleted` int(11) DEFAULT NULL COMMENT '删除状态',
+  `tenant_id` varchar(12) DEFAULT NULL COMMENT '租户号',
+  PRIMARY KEY (`id`),
+  KEY `idx_activity_prize_id` (`activity_id`,`prize_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='奖品命中策略';
+
+# 奖品开奖策略
+CREATE TABLE `t_lottery_activity_prize_strategy` (
+  `id` varchar(64) NOT NULL COMMENT 'ID',
+  `activity_id` varchar(64) DEFAULT NULL COMMENT '活动ID',
+  `prize_id` varchar(64) DEFAULT NULL COMMENT '奖品ID',
+  `prize_rate` varchar(255) DEFAULT NULL COMMENT '奖品概率',
+  `prize_num` bigint(20) DEFAULT NULL COMMENT '奖品投放数量',
+  `prize_distribute_num` bigint(20) DEFAULT NULL COMMENT '已分发奖品数量',
+  `start_date` datetime DEFAULT NULL COMMENT '开始时间',
+  `end_date` datetime DEFAULT NULL COMMENT '结束时间',
+  `user_group_type` int(11) DEFAULT '0' COMMENT '目标用户 0 所有 1动态配置',
+  `user_group_value` varchar(1000) DEFAULT NULL COMMENT '用户分组ID',
+  `priority` int(11) DEFAULT NULL COMMENT '优先级 越小优先级越高',
+  `create_account` varchar(64) DEFAULT NULL COMMENT '创建人',
+  `create_org` varchar(64) DEFAULT NULL COMMENT '创建部门',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_account` varchar(64) DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `status` int(11) DEFAULT NULL COMMENT '业务状态',
+  `is_deleted` int(11) DEFAULT NULL COMMENT '删除状态',
+  `tenant_id` varchar(12) DEFAULT NULL COMMENT '租户号',
+  PRIMARY KEY (`id`),
+  KEY `idx_activity_prize` (`activity_id`,`prize_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='开奖策略';
+
+# 中奖纪录
+CREATE TABLE `t_lottery_activity_record` (
+  `id` varchar(64) NOT NULL COMMENT '主键',
+  `user_id` varchar(64) DEFAULT NULL COMMENT '用户ID',
+  `motion_record_id` varchar(64) DEFAULT NULL COMMENT '活动记录ID',
+  `user_phone` varchar(255) DEFAULT NULL COMMENT '抽奖手机号',
+  `wx_open_id` varchar(128) DEFAULT NULL COMMENT '微信OPENID',
+  `user_token` varchar(255) DEFAULT NULL COMMENT '用户参与凭证',
+  `user_source` varchar(255) DEFAULT NULL COMMENT '用户来源  1-&gt;SN号 2-&gt;手机号 3-&gt;订单号 4-&gt;抽奖券码 ',
+  `user_channel` int(11) DEFAULT NULL COMMENT '用户渠道，用于单活动多渠道抽奖的情况，配合t_lottery_activity_link',
+  `user_remark` varchar(255) DEFAULT NULL COMMENT '用户备注',
+  `activity_id` varchar(64) DEFAULT NULL COMMENT '活动ID',
+  `prize_id` varchar(64) DEFAULT NULL COMMENT '奖品ID',
+  `prize_strategy_id` varchar(255) DEFAULT NULL COMMENT '奖品策略ID',
+  `award_time` datetime DEFAULT NULL COMMENT '开奖日期',
+  `cash_time` datetime DEFAULT NULL COMMENT '兑奖日期',
+  `cash_status` int(11) DEFAULT NULL COMMENT '兑奖状态 0未兑奖 1已兑奖 2已发货 3已完成 4待审核 5失败',
+  `send_time` datetime DEFAULT NULL COMMENT '发奖日期',
+  `receive_name` varchar(255) DEFAULT NULL COMMENT '收货人姓名',
+  `receive_phone` varchar(255) DEFAULT NULL COMMENT '收货人手机',
+  `receive_province` varchar(255) DEFAULT NULL COMMENT '收货人省份',
+  `receive_city` varchar(255) DEFAULT NULL COMMENT '收货人城市',
+  `receive_region` varchar(255) DEFAULT NULL COMMENT '收货人地区',
+  `receive_detail_address` varchar(255) DEFAULT NULL COMMENT '收货人详细地址',
+  `deliver_type` varchar(255) DEFAULT NULL COMMENT '物流类型',
+  `deliver_company` varchar(255) DEFAULT NULL COMMENT '物流公司',
+  `deliver_number` varchar(255) DEFAULT NULL COMMENT '物流单号',
+  `address_id` varchar(64) DEFAULT NULL COMMENT '地址ID',
+  `white_token` varchar(64) DEFAULT NULL COMMENT '通过白名单中奖使用的token',
+  `create_account` varchar(64) DEFAULT NULL COMMENT '创建人',
+  `create_org` varchar(64) DEFAULT NULL COMMENT '创建部门',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_account` varchar(64) DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `status` int(11) DEFAULT NULL COMMENT '是否中奖：0-&gt;否 1-&gt;是',
+  `is_deleted` int(11) DEFAULT NULL COMMENT '删除状态',
+  `tenant_id` varchar(12) DEFAULT NULL COMMENT '租户号',
+  `verify_status` int(11) DEFAULT '0' COMMENT '审核状态：0-&gt;未审核；1-&gt;已审核；2-&gt;已拒绝',
+  `approve_status` int(11) DEFAULT '0' COMMENT '实名认证状态：0-&gt;未认证；1-&gt;已认证',
+  `approve_name` varchar(255) DEFAULT NULL COMMENT '实名姓名',
+  `approve_phone` varchar(255) DEFAULT NULL COMMENT '实名电话',
+  `approve_id_card` varchar(255) DEFAULT NULL COMMENT '实名身份证号',
+  `detail` varchar(255) DEFAULT NULL COMMENT '反馈详情',
+  `flow_type` int(11) DEFAULT NULL COMMENT '流向类型：0-&gt;线上，1-&gt;线下',
+  `offline_flow` varchar(255) DEFAULT NULL COMMENT '具体流向，customer_code',
+  PRIMARY KEY (`id`),
+  KEY `idx_activity_user` (`activity_id`,`user_id`) USING BTREE,
+  KEY `idx_user` (`user_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='活动参与记录';
+
+# 抽奖活动trace表
+CREATE TABLE `t_lottery_activity_record_trace` (
+  `id` varchar(64) NOT NULL COMMENT '主键',
+  `user_id` varchar(64) DEFAULT NULL COMMENT '账号Id',
+  `user_token` varchar(255) DEFAULT NULL COMMENT '用户参与凭证',
+  `user_source` varchar(255) DEFAULT NULL COMMENT '用户来源  1-&gt;SN号 2-&gt;手机号 3-&gt;订单号 4-&gt;抽奖券码 ',
+  `activity_id` varchar(64) DEFAULT NULL COMMENT '活动Id',
+  `activity_record_id` varchar(64) DEFAULT NULL COMMENT '活动记录Id',
+  `trace_content` text COMMENT '跟踪内容',
+  `create_account` varchar(64) DEFAULT NULL,
+  `create_org` varchar(64) DEFAULT NULL,
+  `update_account` varchar(64) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL COMMENT '抽奖状态：0-&gt;未使用；1-&gt;已使用',
+  `is_deleted` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='抽奖活动trace表';
+
+# 抽奖活动trace明细表
+CREATE TABLE `t_lottery_activity_record_trace_detail` (
+  `id` varchar(64) NOT NULL,
+  `record_id` varchar(64) DEFAULT NULL,
+  `user_id` varchar(64) DEFAULT NULL,
+  `user_token` varchar(255) DEFAULT NULL,
+  `user_source` varchar(255) DEFAULT NULL,
+  `type` int(11) DEFAULT NULL COMMENT '类型：参与策略，预处理策略，中奖策略，开奖策略',
+  `code` varchar(11) DEFAULT NULL COMMENT 'UserGroupType的code值',
+  `params` varchar(255) DEFAULT NULL COMMENT '参数值',
+  `award` int(11) DEFAULT NULL COMMENT '是否中奖，0未中奖，1中奖',
+  `status` varchar(255) DEFAULT NULL COMMENT '状态，0失败，1成功',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+# 公众号红包记录
+CREATE TABLE `t_lottery_wx_redpack_record` (
+  `id` varchar(64) NOT NULL COMMENT 'ID',
+  `re_openid` varchar(32) DEFAULT NULL,
+  `mch_id` varchar(64) DEFAULT NULL COMMENT '商户id',
+  `detail_id` varchar(255) DEFAULT NULL COMMENT '红包单号',
+  `status` varchar(16) DEFAULT NULL COMMENT '红包状态 红包状态 SENDING:发放中  SENT:已发放待领取  FAILED：发放失败  RECEIVED:已领取  RFUND_ING:退款中  REFUND:已退款',
+  `send_type` varchar(32) DEFAULT NULL COMMENT '发放类型',
+  `hb_type` varchar(32) DEFAULT NULL COMMENT '红包类型',
+  `total_num` int(11) DEFAULT NULL COMMENT '红包个数',
+  `total_amount` int(11) DEFAULT NULL COMMENT '红包金额',
+  `reason` varchar(32) DEFAULT NULL COMMENT '失败原因',
+  `send_time` datetime DEFAULT NULL COMMENT '红包发送时间',
+  `refund_time` datetime DEFAULT NULL COMMENT '红包退款时间',
+  `refund_amount` int(11) DEFAULT NULL COMMENT '红包退款金额',
+  `wishing` varchar(128) DEFAULT NULL COMMENT '祝福语',
+  `remark` varchar(255) DEFAULT NULL COMMENT '活动描述',
+  `act_name` varchar(32) DEFAULT NULL COMMENT '活动名称',
+  `hblist` varchar(128) DEFAULT NULL COMMENT '领取列表',
+  `return_msg` varchar(128) DEFAULT NULL COMMENT '返回结果',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='公众号红包记录';
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="新老用户活动表-可迁移到商城模块" tabindex="-1"> 新老用户活动表（可迁移到商城模块）</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/338441/1597627845765-5677fbe0-323e-4e08-bae9-0183d3343042.png" alt="新老用户活动"></p>
+<div><pre><code># 活动广告表 （正式环境都没用到）
+CREATE TABLE `t_lottery_motion_advertise` (
+  `id` varchar(64) NOT NULL,
+  `name` varchar(100) DEFAULT NULL COMMENT '广告名称',
+  `motion_id` varchar(64) DEFAULT NULL COMMENT '活动ID',
+  `pic` varchar(500) DEFAULT NULL COMMENT '广告图片',
+  `url` varchar(500) DEFAULT NULL COMMENT '链接地址',
+  `remark` varchar(500) DEFAULT NULL COMMENT '备注',
+  `sort` int(11) DEFAULT '0' COMMENT '排序',
+  `app_id` varchar(64) DEFAULT NULL COMMENT 'appId',
+  `create_account` varchar(64) DEFAULT NULL COMMENT '创建人',
+  `create_org` varchar(64) DEFAULT NULL COMMENT '创建部门',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `tenant_id` varchar(12) DEFAULT NULL COMMENT '租户号',
+  `update_account` varchar(64) DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `is_deleted` int(1) DEFAULT NULL COMMENT '是否删除',
+  `status` int(1) DEFAULT NULL COMMENT '上下线状态：0-&gt;下线；1-&gt;上线',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='活动广告表';
+
+# 试条领取记录表
+CREATE TABLE `t_lottery_strip` (
+  `id` varchar(64) NOT NULL COMMENT '主键',
+  `bottle_id` varchar(64) DEFAULT NULL COMMENT '试条瓶id',
+  `account_id` varchar(64) DEFAULT NULL COMMENT '账户ID',
+  `quantity` int(11) DEFAULT NULL COMMENT '数量',
+  `remark` varchar(64) DEFAULT NULL COMMENT '备注',
+  `create_account` varchar(64) DEFAULT NULL COMMENT '创建人',
+  `create_org` varchar(64) DEFAULT NULL COMMENT '创建部门',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_account` varchar(64) DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `status` int(11) DEFAULT NULL COMMENT '业务状态',
+  `is_deleted` int(11) DEFAULT '0' COMMENT '是否已删除',
+  `task_code` varchar(64) DEFAULT NULL COMMENT '活动任务编码',
+  PRIMARY KEY (`id`),
+  KEY `account_bottle_index` (`account_id`,`bottle_id`) USING BTREE,
+  KEY `create_time_index` (`create_time`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='试条领取记录表';
+
+# 试条瓶领取记录表
+CREATE TABLE `t_lottery_strip_bottle` (
+  `id` varchar(64) NOT NULL COMMENT '主键',
+  `account_id` varchar(64) DEFAULT NULL COMMENT '账户ID',
+  `ac_code` varchar(255) DEFAULT NULL COMMENT '试条码',
+  `order_sn` varchar(255) DEFAULT NULL COMMENT '订单号',
+  `model_id` varchar(64) DEFAULT NULL COMMENT '试条瓶型号ID',
+  `model_name` varchar(64) DEFAULT NULL COMMENT '试条瓶型号',
+  `model_image` varchar(255) DEFAULT NULL COMMENT '试条瓶图片',
+  `specs` int(11) DEFAULT NULL COMMENT '规格',
+  `expire_date` date DEFAULT NULL COMMENT '数量',
+  `goods_type` int(11) DEFAULT '1' COMMENT '商品类型 1：随单发货 2：自付运费',
+  `user_type` int(11) DEFAULT NULL COMMENT '1:新用户  2：老用户',
+  `sku_code` varchar(64) DEFAULT NULL COMMENT '试条瓶sku',
+  `dynamic_one_picture` varchar(255) DEFAULT NULL COMMENT '瓶子完成任务动效图1',
+  `dynamic_two_picture` varchar(255) DEFAULT NULL COMMENT '瓶子完成任务动效图2',
+  `dynamic_full_picture` varchar(255) DEFAULT NULL COMMENT '试条瓶集满动效图',
+  `create_account` varchar(64) DEFAULT NULL COMMENT '创建人',
+  `create_org` varchar(64) DEFAULT NULL COMMENT '创建部门',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_account` varchar(64) DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `status` int(11) DEFAULT NULL COMMENT '业务状态 1:已参与 2：可兑换  3：已完成',
+  `is_deleted` int(11) DEFAULT '0' COMMENT '是否已删除',
+  PRIMARY KEY (`id`),
+  KEY `account_id_index` (`account_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='试条瓶领取记录表';
+
+#  新用户参与活动情况表
+CREATE TABLE `t_lottery_activity_state` (
+  `id` varchar(64) NOT NULL COMMENT '主键',
+  `account_id` varchar(64) DEFAULT NULL COMMENT '账户ID',
+  `bottle_quantity` int(11) DEFAULT NULL COMMENT '试条瓶总数量',
+  `bottle_spec_quantity` int(11) DEFAULT NULL COMMENT '试条瓶规格数量',
+  `strip_quantity` int(11) DEFAULT NULL COMMENT '试条数量',
+  `create_account` varchar(64) DEFAULT NULL COMMENT '创建人',
+  `create_org` varchar(64) DEFAULT NULL COMMENT '创建部门',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_account` varchar(64) DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `status` int(11) DEFAULT NULL COMMENT '用户参与活动状态 1 已参与 2 可兑换  3 已完成',
+  `is_deleted` int(11) DEFAULT '0' COMMENT '是否已删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='用户参与活动情况表';
+
+#  老用户活动参与型号
+CREATE TABLE `t_lottery_strip_bottle_model` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `code` varchar(50) DEFAULT NULL COMMENT '编码',
+  `model` varchar(50) DEFAULT NULL COMMENT '型号',
+  `name` varchar(50) DEFAULT NULL COMMENT '名称',
+  `img1` varchar(255) DEFAULT NULL,
+  `img2` varchar(255) DEFAULT NULL,
+  `img3` varchar(255) DEFAULT NULL,
+  `img4` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COMMENT='老用户活动参与型号';
+
+# 新用户活动参与型号
+CREATE TABLE `t_lottery_strip_bottle_model_new` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `code` varchar(50) DEFAULT NULL COMMENT '编码',
+  `model` varchar(50) DEFAULT NULL COMMENT '型号',
+  `name` varchar(50) DEFAULT NULL COMMENT '名称',
+  `img0` varchar(255) DEFAULT NULL,
+  `img1` varchar(255) DEFAULT NULL,
+  `img2` varchar(255) DEFAULT NULL,
+  `img3` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COMMENT='新用户活动参与型号';
+
+# 老用户活动中奖率
+CREATE TABLE `t_lottery_strip_rate` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `min_count` int(11) DEFAULT NULL COMMENT '最小次数',
+  `max_count` int(11) DEFAULT NULL COMMENT '最大次数',
+  `rate_value` int(11) DEFAULT NULL COMMENT '中奖率(分子)',
+  `type` int(11) DEFAULT NULL COMMENT '类型:1.试条,2.试条瓶',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='老用户活动中奖率';
+
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="唯一码-试条码-表" tabindex="-1"> 唯一码（试条码）表</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/338441/1597628559521-bef1bc51-a870-4c92-b3f6-e2d9c6af9073.png" alt="唯一码相关表"></p>
+<div><pre><code># 试条码配置表
+CREATE TABLE `t_lottery_supplier_config` (
+  `id` varchar(64) NOT NULL COMMENT '主键',
+  `material_name` varchar(255) DEFAULT NULL COMMENT '物料信息',
+  `bar_code` varchar(255) DEFAULT NULL COMMENT '69码',
+  `first_url` varchar(255) DEFAULT NULL COMMENT '首次应用链接',
+  `create_account` varchar(64) DEFAULT NULL COMMENT '创建人',
+  `create_org` varchar(64) DEFAULT NULL COMMENT '创建部门',
+  `update_account` varchar(64) DEFAULT NULL COMMENT '修改人',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `tenant_id` varchar(12) DEFAULT NULL COMMENT '租户号',
+  `status` int(11) DEFAULT NULL COMMENT '业务状态',
+  `is_deleted` int(11) DEFAULT NULL COMMENT '删除状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='试条码配置表';
+
+# 试条码扫码信息配置表
+CREATE TABLE `t_lottery_supplier_configuration` (
+  `id` varchar(64) NOT NULL COMMENT '主键',
+  `account_id` varchar(64) DEFAULT NULL COMMENT '账号ID',
+  `limits` int(11) DEFAULT NULL COMMENT '每人每月扫码限制次数',
+  `tips` varchar(255) DEFAULT NULL COMMENT '超出扫码次数提示',
+  `name` varchar(255) DEFAULT NULL COMMENT '运营人员姓名',
+  `phone` varchar(255) DEFAULT NULL COMMENT '运营人员电话',
+  `create_account` varchar(64) DEFAULT NULL COMMENT '创建人',
+  `create_org` varchar(64) DEFAULT NULL COMMENT '创建部门',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_account` varchar(64) DEFAULT NULL COMMENT '修改人',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `tenant_id` int(12) DEFAULT NULL COMMENT '租户号',
+  `status` int(11) DEFAULT NULL COMMENT '业务状态',
+  `is_deleted` int(2) DEFAULT NULL COMMENT '删除状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='试条码扫码信息配置表';
+
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="可兼容的表" tabindex="-1"> 可兼容的表</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/338441/1597627834599-19731b11-b499-4400-9130-428de94e0f8e.png" alt="可兼容表"></p>
+<div><pre><code># 原活动表
+CREATE TABLE `t_lottery_motion` (
+  `id` varchar(64) NOT NULL,
+  `title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `name` varchar(255) DEFAULT NULL COMMENT '名称',
+  `type` int(11) DEFAULT NULL COMMENT '活动类型 0无门槛活动 1积分活动 2任务活动 3唯一码活动',
+  `description` varchar(255) DEFAULT NULL COMMENT '活动描述',
+  `start_date` datetime DEFAULT NULL COMMENT '开始时间',
+  `end_date` datetime DEFAULT NULL COMMENT '结束时间',
+  `join_num` int(11) DEFAULT NULL COMMENT '活动已参数次数',
+  `join_people_num` int(11) DEFAULT NULL COMMENT '活动已参数人数',
+  `join_people_total_limit` int(11) DEFAULT NULL COMMENT '总人数参与限制：0不限 1限制',
+  `join_people_total_limit_num` int(11) DEFAULT NULL COMMENT '总人数参与限制数量',
+  `virtual_join_people_num` int(11) DEFAULT NULL COMMENT '活动虚拟参与人数',
+  `show_join_people_num` int(11) DEFAULT NULL COMMENT '是否展示参与人数 0隐藏1展示',
+  `award_num` int(11) DEFAULT NULL COMMENT '中奖次数',
+  `award_people_num` int(11) DEFAULT NULL COMMENT '中奖人数',
+  `activity_id` varchar(64) DEFAULT NULL COMMENT '关联抽奖活动',
+  `require_integral` int(11) DEFAULT NULL COMMENT '需要消费的积分数，只有在type为1的时候生效',
+  `lack_integral_tip` varchar(255) DEFAULT NULL COMMENT '积分不足提示',
+  `join_people_full_tip` varchar(255) DEFAULT NULL COMMENT '活动人数超上限提示',
+  `share_image` varchar(255) DEFAULT NULL COMMENT '分享图片',
+  `share_tips_completed` varchar(255) DEFAULT NULL COMMENT '已完成活动用户分享',
+  `share_tips_not_completed` varchar(255) DEFAULT NULL COMMENT '未完成活动用户分享',
+  `qrcode_num` int(11) DEFAULT NULL COMMENT '生成二维码个数，不少于1',
+  `link_num` int(11) DEFAULT NULL COMMENT '生成链接数量，不少于1',
+  `backdrop` varchar(255) DEFAULT NULL COMMENT '活动背景图',
+  `button_backdrop` varchar(255) DEFAULT NULL COMMENT '按钮背景图',
+  `create_account` varchar(64) DEFAULT NULL,
+  `create_org` varchar(64) DEFAULT NULL,
+  `update_account` varchar(64) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL COMMENT '0 待发布，1已上线，2已下线，3已结束',
+  `is_deleted` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `code_type` int(11) DEFAULT NULL COMMENT '唯一码类型 1:试条码 2:墨菲码',
+  `validate_type` int(11) DEFAULT NULL COMMENT '验证条件类型  1：会员标签',
+  `tag_type` varchar(20) DEFAULT NULL COMMENT '标签类型 1：新用户 2：老用户',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='活动表';
+
+# 原活动参与策略表
+CREATE TABLE `t_lottery_motion_join_strategy` (
+  `id` varchar(64) NOT NULL COMMENT '主键',
+  `motion_id` varchar(255) NOT NULL COMMENT '活动ID',
+  `user_group_type` int(11) DEFAULT '0' COMMENT '目标用户 0所有 1动态配置',
+  `user_group_value` varchar(64) DEFAULT NULL COMMENT '用户分组ID',
+  `require_level` varchar(64) DEFAULT NULL COMMENT '需要等级, 逗号分隔，只要满足其中一个等级',
+  `require_integral` int(11) DEFAULT NULL COMMENT '需要积分（消耗积分）',
+  `require_accode` int(11) DEFAULT NULL COMMENT '需要试调码 0:不需求 1:需要',
+  `join_people_total` int(11) DEFAULT NULL COMMENT '活动参与人数上限',
+  `join_number` int(11) DEFAULT NULL COMMENT '允许参加次数',
+  `join_period` int(11) DEFAULT NULL COMMENT '参与周期 0：永久 1：日 2：周 3：月 4：年，配合join_number设置限制活动参与次数',
+  `award_number` int(11) DEFAULT NULL COMMENT '中奖次数限制',
+  `award_period` int(11) DEFAULT NULL COMMENT '中奖次数限制周期，同join_period',
+  `priority` int(11) DEFAULT NULL COMMENT '策略优先级, 越小优先级越高',
+  `update_account` varchar(64) DEFAULT NULL,
+  `create_org` varchar(64) DEFAULT NULL,
+  `create_account` varchar(64) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `is_deleted` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `require_mfcode` int(11) DEFAULT NULL COMMENT '需要墨菲码 0:不需求 1:需要',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='活动参与策略表';
+
+# 原活动策略表
+CREATE TABLE `t_lottery_motion_link` (
+  `id` varchar(64) NOT NULL,
+  `motion_id` varchar(255) NOT NULL COMMENT '活动ID',
+  `url` varchar(255) DEFAULT NULL COMMENT '地址',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `type` int(11) DEFAULT NULL COMMENT '活动类型 0链接 1二维码',
+  `create_account` varchar(64) DEFAULT NULL,
+  `create_org` varchar(64) DEFAULT NULL,
+  `update_account` varchar(64) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `is_deleted` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='活动链接表';
+
+# 原活动纪录表（同时也是临时抽奖令牌表）
+CREATE TABLE `t_lottery_motion_record` (
+  `id` varchar(64) NOT NULL,
+  `motion_id` varchar(64) NOT NULL,
+  `user_id` varchar(64) NOT NULL,
+  `activity_id` varchar(64) NOT NULL,
+  `type` int(11) DEFAULT NULL COMMENT '类型',
+  `require_integral` int(11) DEFAULT NULL COMMENT '需要积分数',
+  `chance` int(11) DEFAULT NULL COMMENT '抽奖机会次数',
+  `chance_surplus` int(11) DEFAULT NULL COMMENT '抽奖剩余次数',
+  `expire_time` datetime DEFAULT NULL COMMENT '令牌超时日期',
+  `consume_time` datetime DEFAULT NULL COMMENT '消费时间',
+  `lottery_record_id` varchar(64) DEFAULT NULL COMMENT '中奖纪录ID',
+  `lottery_status` int(11) DEFAULT NULL COMMENT '中奖状态：0 未中奖 1已中奖',
+  `create_account` varchar(64) DEFAULT NULL,
+  `create_org` varchar(64) DEFAULT NULL,
+  `update_account` varchar(64) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL COMMENT '0无效 1有效 2已抽奖',
+  `is_deleted` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `ac_code` varchar(255) DEFAULT NULL COMMENT '试条码token',
+  `mf_code` varchar(255) DEFAULT NULL COMMENT '墨菲码token',
+  PRIMARY KEY (`id`),
+  KEY `idx_motion_user` (`motion_id`,`user_id`) USING BTREE,
+  KEY `idx_activity_user` (`activity_id`,`user_id`) USING BTREE,
+  KEY `idx_user` (`user_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='活动纪录表（同时也是临时抽奖令牌表）';
+
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="切换方案" tabindex="-1"> 切换方案</h2>
+]]></content:encoded>
+      <enclosure url="https://cdn.nlark.com/yuque/0/2020/png/338441/1597633436656-6b675e61-068c-40e4-aa8b-1a1f707be542.png" type="image/png"/>
+    </item>
     <item>
       <title>浅谈以太坊智能合约事件过滤器</title>
       <link>https://bytecodes.tech/blockchain/Smart_contract%20/Advanced_usage_events.html</link>
@@ -87,24 +1099,6 @@
       <content:encoded><![CDATA[<p><a href="https://consensys.github.io/smart-contract-best-practices/development-recommendations/precautions/rate-limiting/" target="_blank" rel="noopener noreferrer">https://consensys.github.io/smart-contract-best-practices/development-recommendations/precautions/rate-limiting/</a></p>
 <p><a href="https://github.com/maxwoe/solidity_patterns.git" target="_blank" rel="noopener noreferrer">https://github.com/maxwoe/solidity_patterns.git</a></p>
 <p><a href="https://github.com/NoharaHiroshi/upgradability-solidity-demo.git" target="_blank" rel="noopener noreferrer">https://github.com/NoharaHiroshi/upgradability-solidity-demo.git</a></p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>浅谈以太坊智能合约安全转换</title>
-      <link>https://bytecodes.tech/blockchain/Smart_contract%20/Security_transfer.html</link>
-      <guid>https://bytecodes.tech/blockchain/Smart_contract%20/Security_transfer.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">浅谈以太坊智能合约安全转换</source>
-      <description>凤凰涅槃进阶之路 web3.0 区块链 区块链基础知识</description>
-      <category>区块链</category>
-      <pubDate>Tue, 13 Dec 2022 15:55:56 GMT</pubDate>
-      <content:encoded><![CDATA[<p><a href="https://codeantenna.com/a/CFr6RnHdQr" target="_blank" rel="noopener noreferrer">https://codeantenna.com/a/CFr6RnHdQr</a></p>
-<p><a href="https://dreamerjonson.com/2018/11/20/solidity-25-thansfer2/index.html" target="_blank" rel="noopener noreferrer">https://dreamerjonson.com/2018/11/20/solidity-25-thansfer2/index.html</a></p>
-<p><a href="https://learnblockchain.cn/article/2191" target="_blank" rel="noopener noreferrer">https://learnblockchain.cn/article/2191</a></p>
-<p><a href="https://blog.csdn.net/m0_37714470/article/details/119113895" target="_blank" rel="noopener noreferrer">https://blog.csdn.net/m0_37714470/article/details/119113895</a></p>
-<p><a href="https://robinchen95.com/documents/Refer/36-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8%E7%BB%BC%E8%BF%B0.pdf" target="_blank" rel="noopener noreferrer">https://robinchen95.com/documents/Refer/36-智能合约安全综述.pdf</a></p>
-<p><a href="https://github.com/maxwoe/solidity_patterns.git" target="_blank" rel="noopener noreferrer">https://github.com/maxwoe/solidity_patterns.git</a></p>
-<p><a href="https://github.com/NoharaHiroshi/upgradability-solidity-demo.git" target="_blank" rel="noopener noreferrer">https://github.com/NoharaHiroshi/upgradability-solidity-demo.git</a></p>
-<p><a href="https://github.com/33357/smartcontract-apps.git" target="_blank" rel="noopener noreferrer">https://github.com/33357/smartcontract-apps.git</a></p>
 ]]></content:encoded>
     </item>
   </channel>

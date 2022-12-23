@@ -6,19 +6,19 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Thu, 22 Dec 2022 09:01:17 GMT</pubDate>
-    <lastBuildDate>Thu, 22 Dec 2022 09:01:17 GMT</lastBuildDate>
+    <pubDate>Fri, 23 Dec 2022 03:48:14 GMT</pubDate>
+    <lastBuildDate>Fri, 23 Dec 2022 03:48:14 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>浅谈营销中台抽奖系统设计"</category>
     <category>区块链</category>
     <category>区块链学习</category>
     <item>
-      <title></title>
+      <title>浅谈营销中台抽奖系统设计</title>
       <link>https://bytecodes.tech/architecture/lottery.html</link>
       <guid>https://bytecodes.tech/architecture/lottery.html</guid>
-      <source url="https://bytecodes.tech/rss.xml"></source>
-      <description>凤凰涅槃进阶之路，小白的零基础Java教程，从入门到进阶，Java数组</description>
+      <source url="https://bytecodes.tech/rss.xml">浅谈营销中台抽奖系统设计</source>
+      <description>浅谈营销中台抽奖系统设计</description>
       <category>浅谈营销中台抽奖系统设计"</category>
       <pubDate>Thu, 22 Dec 2022 08:52:54 GMT</pubDate>
       <content:encoded><![CDATA[<h2 id="抽奖模型" tabindex="-1"> 抽奖模型</h2>

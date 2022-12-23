@@ -1,11 +1,11 @@
 ---
-title: 
+title: 浅谈营销中台抽奖系统设计
 shortTitle: 浅谈营销中台抽奖系统设计
 category:
   - 浅谈营销中台抽奖系统设计"
 tag:
   - 架构设计
-description: 凤凰涅槃进阶之路，小白的零基础Java教程，从入门到进阶，Java数组
+description: 浅谈营销中台抽奖系统设计
 head:
   - - meta
     - name: keywords

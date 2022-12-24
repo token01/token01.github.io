@@ -24,7 +24,7 @@
 
 如下所示：
 
-![image-20220628211038045](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628211038045.png)
+![image-20220628211038045](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628211038045.png)
 
 ### 2.1 添加数据
 
@@ -34,7 +34,7 @@
 
 　　比如，下图hash1(key)=1，那么在第2个格子将0变为1（数组是从0开始计数的），hash2(key)=7，那么将第8个格子置位1，依次类推。
 
-![image-20220628211153829](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628211153829.png)
+![image-20220628211153829](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628211153829.png)
 
 ### **2.2 判断数据是否存在？**
 
@@ -70,7 +70,7 @@
 
 　　比如“big”字符串是由三个字符组成的，这三个字符对应的ASCII码分为是98、105、103，对应的二进制存储如下：
 
-![image-20220628211504219](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628211504219.png)
+![image-20220628211504219](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628211504219.png)
 
 在Redis中，Bitmaps 提供了一套命令用来操作类似上面字符串中的每一个位。
 
@@ -80,7 +80,7 @@
 setbit key offset value
 ```
 
-![image-20220628211525940](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628211525940.png)
+![image-20220628211525940](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628211525940.png)
 
  　我们知道"b"的二进制表示为0110 0010，我们将第7位（从0开始）设置为1，那0110 0011 表示的就是字符“c”，所以最后的字符 “big”变成了“cig”。
 
@@ -90,7 +90,7 @@ setbit key offset value
 gitbit key offset
 ```
 
-![image-20220628211547391](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628211547391.png)
+![image-20220628211547391](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628211547391.png)
 
 　**三、获取位图指定范围值为1的个数**
 
@@ -102,7 +102,7 @@ bitcount key [start end]
 
 　　注意：start和end指定的是**字节的个数**，而不是位数组下标。
 
-![image-20220628211604556](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628211604556.png)
+![image-20220628211604556](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628211604556.png)
 
 ### 3.2 Redisson
 

@@ -282,7 +282,7 @@ contract CommitReveal {
 
 * Oracle - 读取链外数据
   获取外部数据会通过名为Oracle的链外数据层来执行。当业务方的合约尝试获取外部数据时，会先将查询请求存入到某个Oracle专用合约内；Oracle会监听该合约，读取到这个查询请求后，执行查询，并调用业务合约响应接口使合约获取结果。
-![oracle](../assets/img/contract-oracle.png)
+![oracle](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/contract-oracle.png)
 
 ```javascript
 contract Oracle {

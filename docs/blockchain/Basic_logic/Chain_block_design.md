@@ -127,11 +127,11 @@ PBFT共识算法中，共识节点轮流出块，每一轮共识仅有一个lead
 
 > 在比特币的白皮书中提到了轻节点也就是简易支付验证(Simplified Payment Verification,SPV)，它正是基于默克尔可信树利用区块中的所有交易 hash 生成的一个默克尔根节点，保存至区块头，可用于验证交易是否打包到某区块中。
 
-![image](../assets/img/bc-merkle-tree.png)
+![image](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/bc-merkle-tree.png)
 
 每个块都会有一个Merkle树,它从叶子节点(树的底部)开始,一个叶子节点就是一个交易哈希,叶子节点的数量必须是双数(如果区块里交易数是单数，就复制最后一份凑成双数)。从下往上,两两成对,连接两个节点哈希,将组合哈希作为新的哈希。新的哈希就成为新的树节点。重复该过程,直到仅有一个节点,也就是树根。根哈希然后就会当做是整个块交易的唯一标示,将它保存到区块头,然后用于工作量证明。
 
-![img](../assets/img/merkle_tree_bitcoin.png)
+![img](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/merkle_tree_bitcoin.png)
 左：仅提供默克尔树（Merkle tree）上的少量节点已经足够给出分支的合法证明。  
 右：任何对于默克尔树的任何部分进行改变的尝试都会最终导致链上某处的不一致。  
 
@@ -140,7 +140,7 @@ Merkle树的好处就是一个节点可以在不下载整个块的情况下,验�
 ### MPT(Merkle Patricia Tree)
 
 梅克尔帕特里夏树 = 默克尔树 + 压缩前缀树（Patricia trie）
-![img](../assets/img/MPT.png)
+![img](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/MPT.png)
 
 我们将如下数据插入MPT中
 

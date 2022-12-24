@@ -55,7 +55,7 @@ Consumer读消息也是从Leader读取，只有被commit过的消息才会暴露
 
 Kafka Replication的数据流如下图所示：
 
-![image-20220921211446700](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921211446700.png)
+![image-20220921211446700](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921211446700.png)
 
 #### 2.2.2 ACK前需要保证有多少个备份
 
@@ -109,7 +109,7 @@ Kafka 0.8.*的Leader Election方案解决了上述问题，它在所有broker中
 
 ## 3. HA相关ZooKeeper结构
 
-![image-20220921213028381](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921213028381.png)
+![image-20220921213028381](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921213028381.png)
 
 ### 3.1 admin
 
@@ -149,7 +149,7 @@ producer 发送消息到 broker 时，会根据分区算法选择将其存储到
 
 producer 写入消息序列图如下所示：
 
-![image-20220921213507928](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921213507928.png)
+![image-20220921213507928](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921213507928.png)
 
 流程说明：
 
@@ -165,7 +165,7 @@ producer 写入消息序列图如下所示：
 
 物理上把 topic 分成一个或多个 patition（对应 server.properties 中的 num.partitions=3 配置），每个 patition 物理上对应一个文件夹（该文件夹存储该 patition 的所有消息和索引文件），如下：
 
-![image-20220921213843987](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921213843987.png)
+![image-20220921213843987](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921213843987.png)
 
 ### 5.2 存储策略
 
@@ -182,7 +182,7 @@ producer 写入消息序列图如下所示：
 
 创建 topic 的序列图如下所示：
 
-![image-20220921213937603](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921213937603.png)
+![image-20220921213937603](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921213937603.png)
 
 流程说明：
 
@@ -196,7 +196,7 @@ producer 写入消息序列图如下所示：
 
 删除 topic 的序列图如下所示：
 
-![image-20220921214124368](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921214124368.png)
+![image-20220921214124368](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921214124368.png)
 
 流程说明：
 
@@ -207,7 +207,7 @@ producer 写入消息序列图如下所示：
 
 kafka broker failover 序列图如下所示：
 
-![image-20220921214230563](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921214230563.png)
+![image-20220921214230563](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921214230563.png)
 
 流程说明：
 

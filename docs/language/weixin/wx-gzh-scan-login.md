@@ -1,358 +1,155 @@
-# 微信公众号-网页授权-微信扫码登录实现
+# Tomcat优化一：优化自身的配置
 
->文章基于上一篇配置，请先集成配置
+## 1. 简介
 
-## 1.简介
+Tomcat服务器在JavaEE项目中使用率非常高，所以在生产环境对Tomcat的优化也变得非常重要了。
 
-为了满足用户渠道推广分析和用户帐号绑定等场景的需要，公众平台提供了生成带参数二维码的接口。使用该接口可以获得多个带不同场景值的二维码，用户扫描后，公众号可以接收到事件推送。
+对于Tomcat的优化，主要是从2个方面入手，一是**Tomcat自身的配置**，另一个是**Tomcat所运行的jvm虚拟机的调优**。
 
-### 1.1 两种二维码类型
+## 2. 前置配置：登录系统，配置tomcat用户
 
-1. 临时二维码，是有过期时间的，最长可以设置为在二维码生成后的30天（即2592000秒）后过期，但能够生成较多数量。临时二维码主要用于帐号绑定等不要求二维码永久保存的业务场景
-2. 永久二维码，是无过期时间的，但数量较少（目前为最多10万个）。永久二维码主要用于适用于帐号绑定、用户来源统计等场景。
+如果不配置tomcat用户，那么查看tomcat状态时，将会出现403错误
 
-### 1.2 扫码推送的两种事件
+![image-20210728220240999](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210728220240999.png)
 
-用户扫描带场景值二维码时，可能推送以下两种事件：
+![image-20210728220259132](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210728220259132.png)
 
-- 如果用户还未关注公众号，则用户可以关注公众号，关注后微信会将带场景值关注事件推送给开发者。
+如果需要登录系统，必须配置tomcat用户，在安装完Tomcat后，进行如下操作
 
-- 如果用户已经关注公众号，在用户扫描后会自动进入会话，微信也会将带场景值扫描事件推送给开发者。
+在`/conf/tomcat-users.xml`文件中的`<tomcat-users>`标签里面添加如下内容
 
-### 1.3 集成思路
-
-获取带参数的二维码的过程包括两步，
-
-1. 首先创建二维码ticke
-2. 然后凭借ticket到指定URL换取二维码。
-
-#### 1.3.1 **创建二维码ticket**
-
-每次创建二维码ticket需要提供一个开发者自行设定的参数（scene_id），分别介绍临时二维码和永久二维码的创建二维码ticket过程。
-
-1. 临时二维码
-
-```java
- // 临时ticket
-        WxMpQrCodeTicket ticket = wxMpService.getQrcodeService().qrCodeCreateTmpTicket(SCENE_SCAN_LOGIN, null);
+```sh
+<!-- 修改配置文件，配置tomcat的管理用户 -->
+<role rolename="manager"/>
+<role rolename="manager-gui"/>
+<role rolename="admin"/>
+<role rolename="admin-gui"/>
+<user username="tomcat" password="tomcat" roles="admin-gui,admin,manager-gui,manager"/>
 ```
 
-2. 永久二维码
+如果是tomcat7，配置了tomcat用户就可以登录系统了，但是tomcat8中不行，还需要修改另一个配置文件，否则访问不了，提示403，打开`webapps/manager/META-INF/context.xml`文件
 
-```java
-// 永久二维码
-        WxMpQrCodeTicket ticket = wxMpService.getQrcodeService().qrCodeCreateLastTicket(SCENE_SCAN_LOGIN);
-       
+```sh
+<!-- 将Valve标签的内容注释掉，保存退出即可 -->
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context antiResourceLocking="false" privileged="true" >
+  <!--<Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />-->
+  <Manager sessionAttributeValueClassNameFilter="java\.lang\.(?:Boolean|Integer|Long|Number|String)|org\.apache\.catalina\.filters\.CsrfPreventionFilter\$LruCache(?:\$1)?|java\.util\.(?:Linked)?HashMap"/>
+</Context>
 ```
 
-#### 1.3.2**通过ticket换取二维码**
+再次点击的时候，就需要输入账户密码了：tomcat/tomcat
 
-获取二维码ticket后，开发者可用ticket换取二维码图片。请注意，本接口无须登录态即可调用。
+![image-20210728220849612](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210728220849612.png)
 
-```java
- String qrCodeUrl = wxMpService.getQrcodeService().qrCodePictureUrl(ticket.getTicket());
+登录之后可以看到服务器状态等信息，主要包括服务器信息，JVM，ajp和http信息
+
+![image-20210728220924142](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210728220924142.png)
+
+## 3. 优化1：AJP连接
+
+> 新版tomcat8，已自动禁止
+
+在服务状态页面中可以看到，默认状态下会启用AJP服务，并且占用8009端口。
+
+![image-20210728221223607](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210728221223607.png)
+
+### 3.1 什么是AJP
+
+AJP（Apache JServer Protocol）
+AJPv13协议是面向包的。WEB服务器和Servlet容器通过TCP连接来交互；为了节省SOCKET创建的昂贵代价，WEB服务器会尝试维护一个永久TCP连接到servlet容器，并且在多个请求和响应周期过程会重用连接。
+![image-20210728221317207](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210728221317207.png)
+
+我们一般是使用Nginx+Tomcat的架构，所以用不着AJP协议，把AJP连接器禁用。
+
+修改conf下的server.xml文件，将AJP服务禁用掉即可。
+
+```sh
+<!-- 禁用AJP连接 -->
+<!-- <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" /> -->
 ```
 
+重启tomcat，查看效果。可以看到AJP服务已经不存在了。
 
+![image-20210728221415136](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210728221415136.png)
 
-## 2. 代码实现
+## 4. 优化2：执行器（线程池）
 
-### 2.1 WxAuthController 获取微信授权认证二维码
+在tomcat中每一个用户请求都是一个线程，所以可以使用线程池提高性能。
 
-```java
-@Slf4j
-@RestController
-@RequestMapping("/wx/auth")
-public class WxAuthController extends BaseController
-{
+修改server.xml文件：
 
-    @Resource
-    private WxAuthService wxAuthService;
+```sh
+<!--将注释打开-->
+<Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
+        maxThreads="500" minSpareThreads="50" prestartminSpareThreads="true" maxQueueSize="100"/>
 
+<!--
+参数说明：
+maxThreads：最大并发数，默认设置 200，一般建议在 500 ~ 1000，根据硬件设施和业务来判断
+minSpareThreads：Tomcat 初始化时创建的线程数，默认设置 25
+prestartminSpareThreads： 在 Tomcat 初始化的时候就初始化 minSpareThreads 的参数值，如果不等于 true，minSpareThreads 的值就没啥效果了
+maxQueueSize，最大的等待队列数，超过则拒绝请求
+-->
 
-    @GetMapping("/getQRCode")
-    public AjaxResult getQRCode() {
-        QRCodeResponse qrCode = wxAuthService.getQRCode();
-        return AjaxResult.success(qrCode);
-    }
-
-    @GetMapping("/getAuthInfo")
-    public AjaxResult getAuthInfo( String uuid) {
-        WxAuthResponse wxAuthResponse =   wxAuthService.getAuthInfo(uuid);
-        return AjaxResult.success(wxAuthResponse);
-    }
-}
-
-
+<!--在Connector中设置executor属性指向上面的执行器-->
+<Connector executor="tomcatThreadPool" port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" />
 ```
 
-### 2.2 WxAuthServiceImpl
+保存退出，重启tomcat，查看效果。
 
-```java
+![image-20210728222804439](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210728222804439.png)
 
-@Slf4j
-@Service
-public class WxAuthServiceImpl implements WxAuthService {
-    @Resource
-    WxMpService wxMpService;
-    @Resource
-    WxUserService wxUserService;
-    @Resource
-    RedisCache redisCache;
+在页面中显示最大线程数为-1，这个是正常的，仅仅是显示的问题，实际使用的是指定的值。如果配置了一个Executor，则该属性的任何值将被正确记录，但是它将被显示为-1
 
-    @Override
-    public QRCodeResponse getQRCode() {
-        try {
-            // 临时ticket
-            WxMpQrCodeTicket qrTicket = wxMpService.getQrcodeService().qrCodeCreateTmpTicket(BusinessConstant.SCENE_SCAN_LOGIN, null);
-            String ticket = qrTicket.getTicket();
-            String qrUrl = wxMpService.getQrcodeService().qrCodePictureUrl(ticket);
-            log.error("二维码url：" + qrUrl);
+## 5. 优化3：3种运行模式
 
-            String uuid = IdUtils.fastSimpleUUID();
-            String cacheKey = Constants.WX_SCAN_LOGIN_TOKEN_KEY + uuid;
-            redisCache.setCacheObject(cacheKey, ticket, Constants.CAPTCHA_EXPIRATION, TimeUnit.MINUTES);
+tomcat的运行模式有3种：
 
-            QRCodeResponse response = new QRCodeResponse();
-            response.setQrUrl(qrUrl);
-            response.setUuid(uuid);
-            return response;
+- bio
+  性能非常低下，没有经过任何优化处理和支持
 
-        } catch (Exception e) {
-            log.error("生成扫码登录图片异常:"+e.getMessage());
-            throw new CustomException("生成扫码登录图片异常:");
-        }
+- nio
+  nio(new I/O)，是Java SE 1.4及后续版本提供的一种新的I/O操作方式(即java.nio包及其子包)。Java nio是一个基于缓冲区、并能提供非阻塞I/O操作的Java API，因此nio也被看成是non-blocking I/O的缩写。它拥有比传统I/O操作(bio)更好的并发运行性能。Tomcat8默认使用nio运行模式。
 
-    }
+- apr
+  安装起来最困难，但是从操作系统级别来解决异步的IO问题，大幅度的提高性能
 
-    @Override
-    public WxAuthResponse getAuthInfo(String uuid) {
-        String cacheKey = Constants.WX_SCAN_LOGIN_TOKEN_KEY + uuid;
-        String ticket = redisCache.getCacheObject(cacheKey);
-        if (StringUtils.isEmpty(ticket)){
-            throw new CustomException("您还未登录，请先扫码登录",NO_LOGIN);
-        }
+对于每种协议，Tomcat都提供了对应的I/O方式的实现，而且Tomcat官方还提供了在每种协议下每种I/O实现方案的差异， HTTP协议下的处理方式如下表，详情可查看Tomcat官网说明
 
-        WxUser queryWxUser = new WxUser();
-        queryWxUser.setTicket(ticket);
-        List<WxUser> wxUsers = wxUserService.selectWxUserList(queryWxUser);
-        if (wxUsers.isEmpty()) {
-            throw new CustomException("您还未登录，请先扫码登录",NO_LOGIN);
-        }
-        if (wxUsers.size() > 1) {
-            throw new CustomException("重复登录",NO_LOGIN);
-        }
-        WxUser wxUser = wxUsers.get(0);
-        WxAuthResponse wxAuthResponse = new WxAuthResponse();
-        BeanUtils.copyProperties(wxUser, wxAuthResponse);
+|              | BIO              | NIO                 | NIO2                 | APR                 |
+| ------------ | ---------------- | ------------------- | -------------------- | ------------------- |
+| 类名         | `Http11Protocol` | `Http11NioProtocol` | `Http11Nio2Protocol` | `Http11AprProtocol` |
+| 引用版本     | ≥3.0             | ≥6.0                | ≥8.0                 | ≥5.5                |
+| 轮询支持     | 否               | 是                  | 是                   | 是                  |
+| 轮询队列大小 | N/A              | `maxConnections`    | `maxConnections`     | `maxConnections`    |
+| 读请求头     | 阻塞             | 非阻塞              | 非阻塞               | 阻塞                |
+| 读请求体     | 阻塞             | 阻塞                | 阻塞                 | 阻塞                |
+| 写响应       | 阻塞             | 阻塞                | 阻塞                 |                     |
+| 等待新请求   | 阻塞             | 非阻塞              | 非阻塞               | 非阻塞              |
+| SSL支持      | Java SSL         | Java SSL            | Java SSL             | Open SSL            |
+| SSL握手      | 阻塞             | 非阻塞              | 非阻塞               | 阻塞                |
+| 最大链接数   | `maxConnections` | `maxConnections`    | `maxConnections`     | `maxConnections`    |
 
-        return wxAuthResponse;
-    }
+推荐使用nio，在tomcat8中有最新的nio2，速度更快，建议使用nio2
 
+设置nio2：
 
-}
-
+```sh
+<Connector executor="tomcatThreadPool"  port="8080" protocol="org.apache.coyote.http11.Http11Nio2Protocol"
+               connectionTimeout="20000"
+               redirectPort="8443" />
 ```
 
-### 2.3 WxController
+![image-20210728223416722](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210728223416722.png)
 
-```java
-
-@Slf4j
-@RestController
-@RequestMapping("/wx")
-public class WxController {
-
-    //
-    @Resource
-    private WxMpService wxMpService;
-    @Resource
-    private WxMpMessageRouter wxMpMessageRouter;
-    @Resource
-    private WxMpConfigStorage wxMpConfigStorage;
-    @Resource
-    private TemplateMsgService templateMsgService;
-    @Resource
-    WxUserService wxUserService;
-    @Resource
-    WxAuthService wxAuthService;
-
-
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @RequestMapping
-    public void authGet(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        response.setContentType("text/html;charset=utf-8");
-        response.setStatus(HttpServletResponse.SC_OK);
-
-        String signature = request.getParameter("signature");
-        String nonce = request.getParameter("nonce");
-        String timestamp = request.getParameter("timestamp");
-
-        Enumeration<String> parameterNames = request.getParameterNames();
-        while (parameterNames.hasMoreElements()) {
-            String key = parameterNames.nextElement();
-            log.error("微信发来的参数：" + key + ">>>>>" + request.getParameter(key));
-        }
-
-
-        if (!this.wxMpService.checkSignature(timestamp, nonce, signature)) {
-            // 消息签名不正确，说明不是公众平台发过来的消息
-            response.getWriter().println("非法请求");
-            return;
-        }
-
-        String echostr = request.getParameter("echostr");
-        if (StringUtils.isNotBlank(echostr)) {
-            // 说明是一个仅仅用来验证的请求，回显echostr
-            response.getWriter().println(echostr);
-            return;
-        }
-
-        String encryptType = StringUtils.isBlank(request.getParameter("encrypt_type")) ?
-                "raw" :
-                request.getParameter("encrypt_type");
-
-        if ("raw".equals(encryptType)) {
-            rawMessage(request, response);
-            return;
-        }
-
-        if ("aes".equals(encryptType)) {
-            // 是aes加密的消息
-            String msgSignature = request.getParameter("msg_signature");
-            WxMpXmlMessage inMessage = WxMpXmlMessage.fromEncryptedXml(request.getInputStream(), this.wxMpConfigStorage, timestamp, nonce, msgSignature);
-            WxMpXmlOutMessage outMessage = this.wxMpMessageRouter.route(inMessage);
-            response.getWriter().write(outMessage.toEncryptedXml(this.wxMpConfigStorage));
-            return;
-        }
-
-        response.getWriter().println("不可识别的加密类型");
-        return;
-    }
-
-    /**
-     * 明文数据解析
-     */
-    private void rawMessage(HttpServletRequest request, HttpServletResponse response) throws IOException, WxErrorException {
-        // 明文传输的消息
-        WxMpXmlMessage inMessage = WxMpXmlMessage.fromXml(request.getInputStream());
-        WxMpXmlOutMessage outMessage = this.wxMpMessageRouter.route(inMessage);
-        if (outMessage != null) {
-            response.getWriter().write(outMessage.toXml());
-        }
-
-        String toUser = inMessage.getToUser();
-        //fromUserName 就是openId
-        String fromUserOpenId = inMessage.getFromUser();
-        String ticket = inMessage.getTicket();
-        String event = inMessage.getEvent();
-        String eventKey = inMessage.getEventKey();
-
-        log.error("微信事件："+ event);
-        log.error("微信ticket："+ ticket);
-
-        // 扫码事件
-        if ("SCAN".equals(event)) {
-            if (eventKey.equals(BusinessConstant.SCENE_SCAN_LOGIN)) {
-                saveWxUser(fromUserOpenId,ticket);
-            }
-        }else if ("subscribe".equals(event)) {
-            saveWxUser(fromUserOpenId,ticket);
-        }
-    }
-
-    private void saveWxUser(String fromUserOpenId,String ticket) throws WxErrorException {
-        WxMpUser user = this.wxMpService.getUserService()
-                .userInfo(fromUserOpenId, null);
-        WxUser wxUser = new WxUser();
-        BeanUtils.copyProperties(user,wxUser);
-        wxUser.setCreateTime(new Date());
-        wxUser.setTicket(ticket);
-        wxUserService.saveOrUpdateWxUser(wxUser);
-    }
-
-
-}
-
-```
-
-
-
-### 2.4 WxMpVerifyController(正式环境校验)
-
-```java
-@Slf4j
-@RestController
-@RequestMapping("/")
-public class WxMpVerifyController {
-
-    @GetMapping("/MP_verify_05QSs7uxcaoJNAJB.txt")
-    public String mpVerify() {
-        return "05QSs7uxcaoJNAJB";
-    }
-}
-
-```
-
-
-
-## 3. 测试
-
-1. 访问：http://localhost:8089/wx/auth/getQrCode
-
-![image-20210714224939357](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210714224939357.png)
-
-2. 点开qrCodeUrl 就可以看到二维码图片了
-
-![image-20210714225121110](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210714225121110.png)
-
-3. 用微信扫码就可以进到公众号了
-
-
-4. 收到扫码后的事件
-
-   此时后台就会收到微信扫码事件
-
-   >没有收到事件，可能需要发布到正式环境或者用测试号开发
-
-   ![image-20210715224436158](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210715224436158.png)
-
-
-
-
-## 4. 遇到问题
-
-### 4.1 扫码成功后无法收到微信信息
-
-原因：我们需要设置网页授权域名
-
-![image-20210718221532119](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210718221532119.png)
-
-#### 4.1.1解决：将文件放在服务器下
-
-![image-20210718214350057](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210718214350057.png)
-
-如果是springboot项目，直接放在代码里也能实现
-
-```java
-@GetMapping("/MP_verify_05QSs7uxc.txt")
-    public String mpVerify() {
-        return "05QSs7uxc";
-    }
-```
-
-#### 4.1.2 服务器配置未启用
-
-![image-20210718222933550](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210718222933550.png)
-
-#### 4.1.2 临时解决：用测试号开发
-
-[微信测试号地址](https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&t=sandbox/index)
+可以看到已经设置为nio2了。
 
 ## 参考文章
 
-[微信授权认证demo](https://github.com/Wechat-Group/WxJava/blob/develop/weixin-java-mp/src/test/java/me/chanjar/weixin/mp/api/impl/WxMpQrcodeServiceImplTest.java)
+[史上最强Tomcat8性能优化](https://blog.csdn.net/ThinkWon/article/details/102744033)
 
-[微信生成带参数二维码以及获取此二维码参数](https://blog.csdn.net/weixin_38361347/article/details/84963257)

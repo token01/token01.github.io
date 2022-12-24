@@ -1,131 +1,299 @@
 ---
-order: 320
+order: 410
 category:
-  - 数据库
-  - Mysql
-
+  - Spring
+  - SpringBoot
 ---
+# SpringBoot监控 - 集成acturator监控工具
 
-# MySQL - 三大日志(Redo Log、Undo Log、Bin Log)
+>当SpringBoot的应用部署到生产环境中后，如何监控和管理呢？比如审计日志，监控状态，指标收集等。为了解决这个问题，SpringBoot提供了Actuator。本文主要介绍Spring Boot Actuator及实现案例。
 
-![image-20221014223434777](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221014223434777.png)
+## 1. 知识准备
 
-## **1. 背景**
+> 需要了解什么是Spring Boot Actuator， 以及其提供的功能(Endpoints)。
 
-MySQL实现事务、崩溃恢复、集群的主从复制，底层都离不开日志，所以日志是MySQL的精华所在。只有了解MySQL日志，才算是彻底搞懂MySQL。
+### 1.1 什么是Actuator?
 
-MySQL的三大日志系统，**Redo Log（重做日志）**、**Undo Log（恢复日志）**、**Bin Log（备份日志）**。
+> 致动器（actuator）是2018年公布的计算机科学技术名词。
 
-## **2. Redo Log（重做日志）**
+[百度百科 ](https://baike.baidu.com/item/致动器/56538368?fr=aladdin)的解释如下： 致动器能将某种形式的能量转换为机械能的驱动装置。如热致动器、磁致动器等，在磁盘中是指将电能转换为机械能并带动磁头运动的装置。
 
-### **2.1 Redo Log的内容与作用**
+官网给的解释是：An actuator is a manufacturing term that refers to a mechanical device for moving or controlling something. Actuators can generate a large amount of motion from a small change.
 
-Redo Log 记录的是物理日志，也就是磁盘数据页的修改。
+从上述的解释不难知道Spring 命名这个组件为Actuator，就是为了提供监测程序的能力。
 
-**作用：** 用来保证服务崩溃后，仍能把事务中变更的数据持久化到磁盘上。
+### 1.2 什么是Spring Boot Actuator？
 
-MySQL事务中持久性就是使用**Redo Log**实现的。
+> 什么是Spring Boot Actuator? 用在什么样的场景呢？
 
-### **2.2 什么时候写入Redo Log？**
+Spring Boot Actuator提供了对SpringBoot应用程序（可以是生产环境）监视和管理的能力， 可以选择通过使用**HTTP Endpoint**或使用**JMX**来管理和监控SpringBoot应用程序。
 
-<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221014221816524.png" alt="image-20221014221816524" style="zoom:50%;" />
+### 1.3 什么是Actuator Endpoints？
 
-1. 从磁盘加载数据到内存
-2. 在内存中修改数据
-3. 把新数据写到**Redo Log Buffer**中
-4. 把**Redo Log Buffer**中数据持久化到**Redo Log**文件中
-5. 把**Redo Log**文件中数据持久化到数据库磁盘中
+Spring Boot Actuator 允许你通过Endpoints对Spring Boot进行监控和交互。
 
-你可能会问，为什么需要写**Redo Log Buffer**和**Redo Log FIle**？直接持久化到磁盘不好吗？
+Spring Boot 内置的Endpoint包括（两种Endpoint： WEB和JMX， web方式考虑到安全性默认只开启了/health）：
 
-直接写磁盘会有产生严重的性能问题：
+| ID               | JMX  | Web     | Endpoint功能描述                                             |
+| ---------------- | ---- | ------- | ------------------------------------------------------------ |
+| auditevents      | Yes  | No      | 暴露当前应用的audit events （依赖AuditEventRepository）      |
+| beans            | Yes  | No      | Spring中所有Beans                                            |
+| caches           | Yes  | No      | 暴露可用的缓存                                               |
+| conditions       | Yes  | No      | 展示configuration 和auto-configuration类中解析的condition，并展示是否匹配的信息. |
+| configprops      | Yes  | No      | 展示所有的@ConfigurationProperties                           |
+| env              | Yes  | No      | 展示环境变量，来源于ConfigurableEnvironment                  |
+| flyway           | Yes  | No      | flyway数据迁移信息（依赖Flyway）                             |
+| health           | Yes  | **Yes** | 展示应用的健康信息                                           |
+| heapdump         | N/A  | No      | （**web应用时**）hprof 堆的dump文件（依赖HotSpot JVM）       |
+| httptrace        | Yes  | No      | 展示HTTP trace信息, 默认展示前100个（依赖HttpTraceRepository） |
+| info             | Yes  | No      | 应用信息                                                     |
+| integrationgraph | Yes  | No      | 展示spring集成信息（依赖spring-integration-core）            |
+| jolokia          | N/A  | No      | （**web应用时**）通过HTTP暴露JMX beans（依赖jolokia-core）   |
+| logfile          | N/A  | No      | （**web应用时**）如果配置了logging.file.name 或者 logging.file.path，展示logfile内容 |
+| loggers          | Yes  | No      | 展示或者配置loggers，比如修改日志的等级                      |
+| liquibase        | Yes  | No      | Liquibase 数据迁移信息（依赖Liquibase）                      |
+| metrics          | Yes  | No      | 指标信息                                                     |
+| mappings         | Yes  | No      | @RequestMapping映射路径                                      |
+| prometheus       | N/A  | No      | （**web应用时**）向prometheus暴露监控信息（依赖micrometer-registry-prometheus） |
+| quartz           | Yes  | No      | 展示 quartz任务信息                                          |
+| scheduledtasks   | Yes  | No      | 展示Spring Scheduled 任务信息                                |
+| sessions         | Yes  | No      | session信息                                                  |
+| shutdown         | Yes  | No      | 关闭应用                                                     |
+| startup          | Yes  | No      | 展示ApplicationStartup的startup步骤的数据（依赖通在SpringApplication配置BufferingApplicationStartup） |
+| threaddump       | Yes  | No      | 线程dump                                                     |
 
-1. InnoDB在磁盘中存储的基本单元是页，可能本次修改只变更一页中几个字节，但是需要刷新整页的数据，就很浪费资源。
-2. 一个事务可能修改了多页中的数据，页之间又是不连续的，就会产生随机IO，性能更差。
+当然你也可以自己定义暴露哪些endpoint,
 
-这种方案叫做WAL（Write-Ahead Logging），预写日志，就是先写日志，再写磁盘。
+JMX时：
 
-### **2.3 Redo Log刷盘规则**
+```yml
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: "health,info"
+```
 
-写入**Redo Log Buffer**之后，并不会立即持久化到**Redo Log FIle**，需要等待操作系统调用fsync()操作，才会刷到磁盘上。
+web时(*代表所有）：
 
-<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221014222303772.png" alt="image-20221014222303772" style="zoom:50%;" />
+```yml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
+```
 
-具体什么时候可以把**Redo Log Buffer**刷到**Redo Log FIle**中，可以通过**innodb_flush_log_at_trx_commit**参数配置决定。
+## 2. 简单示例
 
-| 参数值        | 含义                                                         |
-| ------------- | ------------------------------------------------------------ |
-| 0（延迟写）   | 提交事务后，不会立即刷到OS Buffer中，而是等一秒后刷新到OS Buffer并调用fsync()写入Redo Log FIle，可能会丢失一秒钟的数据。 |
-| 1（实时写     | 每次提交事务，都会刷新到OS Buffer并调用fsync()写到Redo Log FIle，性能较差 |
-| 2（延迟刷新） | 每次提交事务只刷新到OS Buffer，一秒后再调用fsync()写入Redo Log FIle。 |
+> 我们通过一个简单的例子，来展示自定义配置指定的endpoint，然后围绕这个简单的例子，谈谈后续拓展。
 
-InnoDB 的**Redo Log File**是固定大小的。可以配置为每组4个文件，每个文件的大小是 1GB，那么**Redo Log File**可以记录4GB的操作。
+### 2.1 POM引入actuator包
 
-采用循环写入覆盖的方式，write pos记录开始写的位置，向后移动。checkpoint记录将要擦除的位置，也是向后移动。write pos到checkpoint之间的位置，是可写区域，checkpoint到write pos之间的位置是已写区域。
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+```
 
-<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221014222542586.png" alt="image-20221014222542586" style="zoom:50%;" />
+### 2.2 yml配置
 
-## **3. Undo Log（回滚日志）**
+自定义暴露哪些endpoint, 比如如下yml配置
 
-### **3.1 Undo Log的内容与作用**
+```java
+server:
+  port: 8080
 
-Undo Log记录的是逻辑日志，也就是SQL语句。
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: /manage
+      exposure:
+        include: 'info,health,env,beans'
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+    env:
+      enabled: true
+    beans:
+      enabled: true
+```
 
-比如：当我们执行一条insert语句时，Undo Log就记录一条相反的delete语句。
+上述配置只暴露info,health,env,beans四个endpoints, web通过可以`/manage`访问，
 
-**作用：**
+![image-20220720202034772](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220720202034772.png)
 
-1. 回滚事务时，恢复到修改前的数据。
-2. 实现 **MVCC（多版本并发控制，Multi-Version Concurrency Control）** 。
+## 3. endpoints的进一步拓展配置
 
-MySQL事务中原子性就是使用**Undo Log**实现的。
+### 3.1 与SpringSecurity集成保障安全
 
-### **3.2 Undo Log如何回滚到上一个版本**
+正是由于endpoint可能潜在暴露应用的安全性，web方式的endpoint才在默认情况下只暴露了一个/health。
 
-实现方式通过两个隐藏列trx_id（最近一次提交事务的ID）和roll_pointer（上个版本的地址），建立一个版本链。并在事务中读取的时候生成一个ReadView（读视图），在Read Committed隔离级别下，每次读取都会生成一个读视图，而在Repeatable Read隔离级别下，只会在第一次读取时生成一个读视图。
+如果你需要暴露更多，并保证endpoint接口安全，可以与Spring Security集成，比如
 
-![image-20221014222859478](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221014222859478.png)
+```java
+@Configuration(proxyBeanMethods = false)
+public class MySecurityConfiguration {
 
-## **4. Bin Log（备份日志）**
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.requestMatcher(EndpointRequest.toAnyEndpoint())
+                .authorizeRequests((requests) -> requests.anyRequest().hasRole("ENDPOINT_ADMIN"));
+        http.httpBasic();
+        return http.build();
+    }
 
-### **4.1 Bin Log的内容与作用**
+}
+```
 
-**Bin Log**记录的是逻辑日志，即原始的SQL语句，是MySQL自带的。
+### 3.2 Endpoint跨域访问
 
-**作用：** 数据备份和主从同步。
+跨域访问，可以通过如下配置：
 
-**Bin Log**共有三种日志格式，可以**binlog_format**配置参数指定。
+```yml
+management:
+  endpoints:
+    web:
+      cors:
+        allowed-origins: "https://example.com"
+        allowed-methods: "GET,POST"
+```
 
-| 参数值    | 含义                                                         |
-| --------- | ------------------------------------------------------------ |
-| Statement | 记录原始SQL语句，会导致更新时间与原库不一致。 比如 update_time=now() |
-| Row       | 记录每行数据的变化，保证了数据与原库一致，缺点是数据量较大。 |
-| Mixed     | Statement和Row的混合模式，默认采用Statement模式，涉及日期、函数相关的时候采用Row模式，既减少了数据量，又保证了数据一致性。 |
+### 3.3 实现自己的Endpoint
 
-### **4.2 什么时候写入Bin Log？**
+我们可以通过@JmxEndpoint or @WebEndpoint注解来定义自己的endpoint, 然后通过@ReadOperation, @WriteOperation或者@DeleteOperation来暴露操作，
 
-**Bin Log**采用追加写入的模式，并不会覆盖原有日志，所以可以用来恢复到之前某个时刻的数据。
+比如添加系统时间date的endpoint
 
-**Bin Log**也是采用WAL模式，先写日志，再写磁盘。
+```java
+package tech.pdai.springboot.actuator;
 
-至于什么时候刷新到磁盘，可以**sync_binlog**配置参数指定。
+import java.time.LocalDateTime;
 
-| 参数值      | 含义                                                         |
-| ----------- | ------------------------------------------------------------ |
-| 0（延迟写） | 每次提交事务都不会刷盘，由系统自己决定什么时候刷盘，可能会丢失数据。 |
-| 1（实时写） | 每次提交事务，都会刷盘，性能较差。                           |
-| N（延迟写） | 提交N个事务后，才会刷盘。                                    |
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
-加入写**Bin Log**之后的事务流程：
+/**
+ * @author pdai
+ */
+@RestController("custom")
+@WebEndpoint(id = "date")
+public class CustomEndpointController {
 
-<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221014223217737.png" alt="image-20221014223217737" style="zoom:50%;" />
+    @ReadOperation
+    public ResponseEntity<String> currentDate() {
+        return ResponseEntity.ok(LocalDateTime.now().toString());
+    }
+}
 
-这就是二阶段提交的概念，先写处于prepare状态的Redo Log，事务提交后，再写处于commit状态的Redo Log。
+    
+```
 
-## 5. 知识点总结
+enable 自定义的date
 
-![image-20221014223434777](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221014223434777.png)
+```yml
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: /manage
+      exposure:
+        include: 'info,health,env,beans,date'
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+    env:
+      enabled: true
+    beans:
+      enabled: true
+    date:
+      enabled: true
+
+```
+
+你可以看到所有开放的接口中增加了date
+
+![image-20220720203321468](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220720203321468.png)
+
+访问效果
+
+![image-20220720203342038](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220720203342038.png)
+
+### 3.4 组件的health状况
+
+SpringBoot默认集成了如下常见中间件的health监控
+
+![image-20220720203409194](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220720203409194.png)
+
+当然你也可以自定义HealthIndicator
+
+```java
+package tech.pdai.springboot.actuator;
+
+import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.stereotype.Component;
+
+/**
+ * @author pdai
+ */
+@Component
+public class CustomHealthIndicator implements HealthIndicator {
+
+    @Override
+    public Health health() {
+        int errorCode = check();
+        if (errorCode!=0) {
+            return Health.down().withDetail("Error Code", errorCode).build();
+        }
+        return Health.up().build();
+    }
+
+    private int check() {
+        // perform some specific health check
+        return 0;
+    }
+
+}
+```
+
+更详细的信息可以参考
+
+### 3.5 Metrics接入监控系统
+
+这个也是比较常用的，具体参考
+
+![image-20220720203536413](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220720203536413.png)
+
+### 3.6 Info信息如何获取
+
+有细心的小伙伴会发现/info是空的，最简单的配置方式是在spring-boot-maven-plugin中加入build-info， 编译成jar后运行，即可获取info：
+
+```xml
+<plugins>
+    <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>build-info</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>
+</plugins>
+```
 
 ## 参考文章
 
-[彻底搞懂三大MySQL日志，Redo Log、Undo Log、Bin Log](https://zhuanlan.zhihu.com/p/528575954)
+[**SpringBoot监控 - 集成acturator监控工具**](https://pdai.tech/md/spring/springboot/springboot-x-monitor-actuartor.html)

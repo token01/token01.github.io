@@ -44,7 +44,7 @@ T = teras
 
 **`-s`: <间隔秒数> 持续观察内存使用状况。** 
 
-![image-20220401101834998](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220401101834998.png)
+![image-20220401101834998](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220401101834998.png)
 
 #### 2.1.2 字段说明：
 
@@ -65,11 +65,11 @@ T = teras
 free
 ```
 
-![image-20220401141256030](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220401141256030.png)
+![image-20220401141256030](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220401141256030.png)
 
 ##### 2.1.3.2 以合适的单位显示内存使用情况
 
-![image-20220401141510962](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220401141510962.png)
+![image-20220401141510962](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220401141510962.png)
 
 ##### 2.1.3.3 以总和的形式显示内存的使用信息
 
@@ -79,7 +79,7 @@ free -t
 
 
 
-![image-20220401141403556](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220401141403556.png)
+![image-20220401141403556](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220401141403556.png)
 
 ##### 2.1.3.4 周期性的查询内存使用信息
 
@@ -87,7 +87,7 @@ free -t
 free -s 10 //每10s 执行一次命令
 ```
 
-![image-20220401141645744](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220401141645744.png)
+![image-20220401141645744](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220401141645744.png)
 
 #### 2.1.4 tldr 中的介绍
 
@@ -145,7 +145,7 @@ vmstat (选项) (参数)
 - 事件间隔：状态信息刷新的时间间隔；
 - 次数：显示报告的次数
 
-![image-20220401141913473](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220401141913473.png)
+![image-20220401141913473](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220401141913473.png)
 
 #### 2.2.3 字段说明
 
@@ -201,5 +201,5 @@ wa的值高时，说明IO等待比较严重，这可能由于磁盘大量作随�
 
 每2s显示一次
 
-![image-20220401141913473](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220401141913473.png)
+![image-20220401141913473](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220401141913473.png)
 

@@ -1,882 +1,330 @@
 ---
-order: 100
-category:
-  - Java
+order: 30
+---
+
+# Java 基础 - 图谱 & Q/A
+
+## 1. 知识体系
+
+![java_basic](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/java_basic.png)
+
+## 2. Q&A
+
+### 2.1 Java 中应该使用什么数据类型来代表价格?
+
+如果不是特别关心内存和性能的话，使用BigDecimal，否则使用预定义精度的 double 类型。
+
+### 2.2 怎么将 byte 转换为 String?
+
+可以使用 String 接收 byte[] 参数的构造器来进行转换，需要注意的点是要使用的正确的编码，否则会使用平台默认编码，这个编码可能跟原来的编码相同，也可能不同。
+
+### 2.3 Java 中怎样将 bytes 转换为 long 类型?
+
+String接收bytes的构造器转成String，再Long.parseLong
+
+### 2.4 我们能将 int 强制转换为 byte 类型的变量吗? 如果该值大于 byte 类型的范围，将会出现什么现象?
+
+是的，我们可以做强制转换，但是 Java 中 int 是 32 位的，而 byte 是 8 位的，所以，如果强制转化是，int 类型的高 24 位将会被丢弃，byte 类型的范围是从 -128 到 127。
+
+### 2.5 存在两个类，B 继承 A，C 继承 B，我们能将 B 转换为 C 么? 如 C = (C) B；
+
+可以，向下转型。但是不建议使用，容易出现类型转型异常.
+
+### 2.6 哪个类包含 clone 方法? 是 Cloneable 还是 Object?
+
+java.lang.Cloneable 是一个标示性接口，不包含任何方法，clone 方法在 object 类中定义。并且需要知道 clone() 方法是一个本地方法，这意味着它是由 c 或 c++ 或 其他本地语言实现的。
+
+### 2.7  Java 中 ++ 操作符是线程安全的吗?
+
+不是线程安全的操作。它涉及到多个指令，如读取变量值，增加，然后存储回内存，这个过程可能会出现多个线程交差。还会存在竞态条件(读取-修改-写入)。
+
+### 2.8 a = a + b 与 a += b 的区别
+
++= 隐式的将加操作的结果类型强制转换为持有结果的类型。如果两个整型相加，如 byte、short 或者 int，首先会将它们提升到 int 类型，然后在执行加法操作。
+
+```java
+byte a = 127;
+byte b = 127;
+b = a + b; // error : cannot convert from int to byte
+b += a; // ok
+```
+
+(因为 a+b 操作会将 a、b 提升为 int 类型，所以将 int 类型赋值给 byte 就会编译出错)
+
+### 2.9 我能在不进行强制转换的情况下将一个 double 值赋值给 long 类型的变量吗?
+
+不行，你不能在没有强制类型转换的前提下将一个 double 值赋值给 long 类型的变量，因为 double 类型的范围比 long 类型更广，所以必须要进行强制转换。
+
+### 2.10 3*0.1 == 0.3 将会返回什么? true 还是 false?
+
+false，因为有些浮点数不能完全精确的表示出来。
+
+### 2.11 int 和 Integer 哪个会占用更多的内存?
+
+Integer 对象会占用更多的内存。Integer 是一个对象，需要存储对象的元数据。但是 int 是一个原始类型的数据，所以占用的空间更少。
+
+### 2.12 为什么 Java 中的 String 是不可变的(Immutable)?
+
+Java 中的 String 不可变是因为 Java 的设计者认为字符串使用非常频繁，将字符串设置为不可变可以允许多个客户端之间共享相同的字符串。更详细的内容参见答案。
+
+### 2.13 我们能在 Switch 中使用 String 吗?
+
+从 Java 7 开始，我们可以在 switch case 中使用字符串，但这仅仅是一个语法糖。内部实现在 switch 中使用字符串的 hash code。
+
+### 2.14 Java 中的构造器链是什么?
+
+当你从一个构造器中调用另一个构造器，就是Java 中的构造器链。这种情况只在重载了类的构造器的时候才会出现。
+
+### 2.15 枚举类
+
+JDK1.5出现 每个枚举值都需要调用一次构造函数
+
+### 2.16 什么是不可变对象(immutable object)? Java 中怎么创建一个不可变对象?
+
+不可变对象指对象一旦被创建，状态就不能再改变。任何修改都会创建一个新的对象，如 String、Integer及其它包装类。
+
+如何在Java中写出Immutable的类?
+
+要写出这样的类，需要遵循以下几个原则:
+
+1)immutable对象的状态在创建之后就不能发生改变，任何对它的改变都应该产生一个新的对象。
+
+2)Immutable类的所有的属性都应该是final的。
+
+3)对象必须被正确的创建，比如: 对象引用在对象创建过程中不能泄露(leak)。
+
+4)对象应该是final的，以此来限制子类继承父类，以避免子类改变了父类的immutable特性。
+
+5)如果类中包含mutable类对象，那么返回给客户端的时候，返回该对象的一个拷贝，而不是该对象本身(该条可以归为第一条中的一个特例)
+
+### 2.17 我们能创建一个包含可变对象的不可变对象吗?
+
+是的，我们是可以创建一个包含可变对象的不可变对象的，你只需要谨慎一点，不要共享可变对象的引用就可以了，如果需要变化时，就返回原对象的一个拷贝。最常见的例子就是对象中包含一个日期对象的引用。
+
+### 2.18 有没有可能两个不相等的对象有相同的 hashcode?
+
+有可能，两个不相等的对象可能会有相同的 hashcode 值，这就是为什么在 hashmap 中会有冲突。相等 hashcode 值的规定只是说如果两个对象相等，必须有相同的hashcode 值，但是没有关于不相等对象的任何规定。
+
+### 2.19 两个相同的对象会有不同的 hash code 吗?
+
+不能，根据 hash code 的规定，这是不可能的。
+
+### 2.20 我们可以在 hashcode() 中使用随机数字吗?
+
+不行，因为对象的 hashcode 值必须是相同的。
+
+### 2.21 Java 中，Comparator 与 Comparable 有什么不同?
+
+Comparable 接口用于定义对象的自然顺序，而 comparator 通常用于定义用户定制的顺序。Comparable 总是只有一个，但是可以有多个 comparator 来定义对象的顺序。
+
+### 2.22 为什么在重写 equals 方法的时候需要重写 hashCode 方法?
+
+因为有强制的规范指定需要同时重写 hashcode 与 equals 是方法，许多容器类，如 HashMap、HashSet 都依赖于 hashcode 与 equals 的规定。
+
+### 2.23 “a==b”和”a.equals(b)”有什么区别?
+
+如果 a 和 b 都是对象，则 a==b 是比较两个对象的引用，只有当 a 和 b 指向的是堆中的同一个对象才会返回 true，而 a.equals(b) 是进行逻辑比较，所以通常需要重写该方法来提供逻辑一致性的比较。例如，String 类重写 equals() 方法，所以可以用于两个不同对象，但是包含的字母相同的比较。
+
+### 2.24 a.hashCode() 有什么用? 与 a.equals(b) 有什么关系?
+
+简介: hashCode() 方法是相应对象整型的 hash 值。它常用于基于 hash 的集合类，如 Hashtable、HashMap、LinkedHashMap等等。它与 equals() 方法关系特别紧密。根据 Java 规范，两个使用 equals() 方法来判断相等的对象，必须具有相同的 hash code。
+
+1、hashcode的作用
+
+List和Set，如何保证Set不重复呢? 通过迭代使用equals方法来判断，数据量小还可以接受，数据量大怎么解决? 引入hashcode，实际上hashcode扮演的角色就是寻址，大大减少查询匹配次数。
+
+2、hashcode重要吗
+
+对于数组、List集合就是一个累赘。而对于hashmap, hashset, hashtable就异常重要了。
+
+3、equals方法遵循的原则
+
+- 对称性 若x.equals(y)true，则y.equals(x)true
+- 自反性 x.equals(x)必须true
+- 传递性 若x.equals(y)true,y.equals(z)true,则x.equals(z)必为true
+- 一致性 只要x,y内容不变，无论调用多少次结果不变
+- 其他 x.equals(null) 永远false，x.equals(和x数据类型不同)始终false
+
+### 2.25 final、finalize 和 finally 的不同之处?
+
+- final 是一个修饰符，可以修饰变量、方法和类。如果 final 修饰变量，意味着该变量的值在初始化后不能被改变。
+- Java 技术允许使用 finalize() 方法在垃圾收集器将对象从内存中清除出去之前做必要的清理工作。这个方法是由垃圾收集器在确定这个对象没有被引用时对这个对象调用的，但是什么时候调用 finalize 没有保证。
+- finally 是一个关键字，与 try 和 catch 一起用于异常的处理。finally 块一定会被执行，无论在 try 块中是否有发生异常。
+
+### 2.26 Java 中的编译期常量是什么? 使用它又什么风险?
+
+变量也就是我们所说的编译期常量，这里的 public 可选的。实际上这些变量在编译时会被替换掉，因为编译器知道这些变量的值，并且知道这些变量在运行时不能改变。这种方式存在的一个问题是你使用了一个内部的或第三方库中的公有编译时常量，但是这个值后面被其他人改变了，但是你的客户端仍然在使用老的值，甚至你已经部署了一个新的jar。为了避免这种情况，当你在更新依赖 JAR 文件时，确保重新编译你的程序。
+
+### 2.27 静态内部类与顶级类有什么区别?
+
+一个公共的顶级类的源文件名称与类名相同，而嵌套静态类没有这个要求。一个嵌套类位于顶级类内部，需要使用顶级类的名称来引用嵌套静态类，如 HashMap.Entry 是一个嵌套静态类，HashMap 是一个顶级类，Entry是一个嵌套静态类。
+
+### 2.28 Java 中，Serializable 与 Externalizable 的区别?
+
+Serializable 接口是一个序列化 Java 类的接口，以便于它们可以在网络上传输或者可以将它们的状态保存在磁盘上，是 JVM 内嵌的默认序列化方式，成本高、脆弱而且不安全。Externalizable 允许你控制整个序列化过程，指定特定的二进制格式，增加安全机制。
+
+### 2.29 说出 JDK 1.7 中的三个新特性?
+
+虽然 JDK 1.7 不像 JDK 5 和 8 一样的大版本，但是，还是有很多新的特性，如 try-with-resource 语句，这样你在使用流或者资源的时候，就不需要手动关闭，Java 会自动关闭。Fork-Join 池某种程度上实现 Java 版的 Map-reduce。允许 Switch 中有 String 变量和文本。菱形操作符(<>)用于泛型推断，不再需要在变量声明的右边申明泛型，因此可以写出可读写更强、更简洁的代码。另一个值得一提的特性是改善异常处理，如允许在同一个 catch 块中捕获多个异常。
+
+### 2.30 说出 5 个 JDK 1.8 引入的新特性?
+
+Java 8 在 Java 历史上是一个开创新的版本，下面 JDK 8 中 5 个主要的特性: 
+
+-  Lambda 表达式，允许像对象一样传递匿名函数 Stream API，充分利用现代多核 CPU
+- 可以写出很简洁的代码 Date 与 Time API，最终，有一个稳定、简单的日期和时间库可供你使用 
+- 扩展方法，现在，接口中可以有静态、默认方法。
+-  重复注解，现在你可以将相同的注解在同一类型上使用多次。
+
+
 
 ---
 
-# Java常用机制 - SPI机制详解
 
-> SPI（Service Provider Interface），是JDK内置的一种 服务提供发现机制，可以用来启用框架扩展和替换组件，主要是被框架的开发人员使用。
 
-## 1. 什么是SPI机制
+下述包含 Java 面试过程中关于 SOLID 的设计原则，OOP 基础，如类，对象，接口，继承，多态，封装，抽象以及更高级的一些概念，如组合、聚合及关联。也包含了 GOF 设计模式的问题。
 
-SPI（Service Provider Interface），是JDK内置的一种 服务提供发现机制，可以用来启用框架扩展和替换组件，主要是被框架的开发人员使用，比如java.sql.Driver接口，其他不同厂商可以针对同一接口做出不同的实现，MySQL和PostgreSQL都有不同的实现提供给用户，而Java的SPI机制可以为某个接口寻找服务实现。Java中SPI机制主要思想是将装配的控制权移到程序之外，在模块化设计中这个机制尤其重要，其核心思想就是 **解耦**。
+### 2.31 接口是什么? 为什么要使用接口而不是直接使用具体类?
 
-SPI整体机制图如下：
+接口用于定义 API。它定义了类必须得遵循的规则。同时，它提供了一种抽象，因为客户端只使用接口，这样可以有多重实现，如 List 接口，你可以使用可随机访问的 ArrayList，也可以使用方便插入和删除的 LinkedList。接口中不允许普通方法，以此来保证抽象，但是 Java 8 中你可以在接口声明静态方法和默认普通方法。
 
-![image-20221024194443834](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221024194443834.png)
+### 2.32 Java 中，抽象类与接口之间有什么不同?
 
-当服务的提供者提供了一种接口的实现之后，需要在classpath下的`META-INF/services/`目录里创建一个以服务接口命名的文件，这个文件里的内容就是这个接口的具体的实现类。当其他的程序需要这个服务的时候，就可以通过查找这个jar包（一般都是以jar包做依赖）的`META-INF/services/`中的配置文件，配置文件中有接口的具体实现类名，可以根据这个类名进行加载实例化，就可以使用该服务了。JDK中查找服务的实现的工具类是：`java.util.ServiceLoader`。
+Java 中，抽象类和接口有很多不同之处，但是最重要的一个是 Java 中限制一个类只能继承一个类，但是可以实现多个接口。抽象类可以很好的定义一个家族类的默认行为，而接口能更好的定义类型，有助于后面实现多态机制 参见第六条。
 
-## 2. SPI机制的简单示例
+### 2.33 Object有哪些公用方法?
 
-> 网上找了个例子：[这里](https://zhuanlan.zhihu.com/p/28909673)
+clone equals hashcode wait notify notifyall finalize toString getClass 除了clone和finalize其他均为公共方法。
 
-我们现在需要使用一个内容搜索接口，搜索的实现可能是基于文件系统的搜索，也可能是基于数据库的搜索。
+11个方法，wait被重载了两次
 
-- 先定义好接口
+### 2.34 equals与==的区别
+
+区别1. ==是一个运算符 equals是Object类的方法
+
+区别2. 比较时的区别
+
+- 用于基本类型的变量比较时: ==用于比较值是否相等，equals不能直接用于基本数据类型的比较，需要转换为其对应的包装类型。
+- 用于引用类型的比较时。==和equals都是比较栈内存中的地址是否相等 。相等为true 否则为false。但是通常会重写equals方法去实现对象内容的比较。
+
+### 2.35 String、StringBuffer与StringBuilder的区别
+
+第一点: 可变和适用范围。String对象是不可变的，而StringBuffer和StringBuilder是可变字符序列。每次对String的操作相当于生成一个新的String对象，而对StringBuffer和StringBuilder的操作是对对象本身的操作，而不会生成新的对象，所以对于频繁改变内容的字符串避免使用String，因为频繁的生成对象将会对系统性能产生影响。
+
+第二点: 线程安全。String由于有final修饰，是immutable的，安全性是简单而纯粹的。StringBuilder和StringBuffer的区别在于StringBuilder不保证同步，也就是说如果需要线程安全需要使用StringBuffer，不需要同步的StringBuilder效率更高。
+
+### 2.36 switch能否用String做参数
+
+Java1.7开始支持，但实际这是一颗Java语法糖。除此之外，byte，short，int，枚举均可用于switch，而boolean和浮点型不可以。
+
+### 2.37 接口与抽象类
+
+- 一个子类只能继承一个抽象类, 但能实现多个接口
+- 抽象类可以有构造方法, 接口没有构造方法
+- 抽象类可以有普通成员变量, 接口没有普通成员变量
+- 抽象类和接口都可有静态成员变量, 抽象类中静态成员变量访问类型任意，接口只能public static final(默认)
+- 抽象类可以没有抽象方法, 抽象类可以有普通方法；接口在JDK8之前都是抽象方法，在JDK8可以有default方法，在JDK9中允许有私有普通方法
+- 抽象类可以有静态方法；接口在JDK8之前不能有静态方法，在JDK8中可以有静态方法，且只能被接口类直接调用（不能被实现类的对象调用）
+- 抽象类中的方法可以是public、protected; 接口方法在JDK8之前只有public abstract，在JDK8可以有default方法，在JDK9中允许有private方法
+
+### 2.38 抽象类和最终类
+
+抽象类可以没有抽象方法, 最终类可以没有最终方法
+
+最终类不能被继承, 最终方法不能被重写(可以重载)
+
+### 2.39 异常
+
+相关的关键字 throw、throws、try...catch、finally
+
+- throws 用在方法签名上, 以便抛出的异常可以被调用者处理
+- throw 方法内部通过throw抛出异常
+- try 用于检测包住的语句块, 若有异常, catch子句捕获并执行catch块
+
+### 2.40 关于finally
+
+- finally不管有没有异常都要处理
+- 当try和catch中有return时，finally仍然会执行，finally比return先执行
+- 不管有没有异常抛出, finally在return返回前执行
+- finally是在return后面的表达式运算后执行的(此时并没有返回运算后的值，而是先把要返回的值保存起来，管finally中的代码怎么样，返回的值都不会改变，仍然是之前保存的值)，所以函数返回值是在finally执行前确定的
+
+注意: finally中最好不要包含return，否则程序会提前退出，返回值不是try或catch中保存的返回值
+
+finally不执行的几种情况: 程序提前终止如调用了System.exit, 病毒，断电
+
+### 2.41 受检查异常和运行时异常
+
+- 受检查的异常(checked exceptions),其必须被try...catch语句块所捕获, 或者在方法签名里通过throws子句声明。受检查的异常必须在编译时被捕捉处理,命名为Checked Exception是因为Java编译器要进行检查, Java虚拟机也要进行检查, 以确保这个规则得到遵守。
+
+常见的checked exception: ClassNotFoundException IOException FileNotFoundException EOFException
+
+- 运行时异常(runtime exceptions), 需要程序员自己分析代码决定是否捕获和处理,比如空指针,被0除...
+
+常见的runtime exception: NullPointerException ArithmeticException ClassCastException IllegalArgumentException IllegalStateException IndexOutOfBoundsException NoSuchElementException
+
+- Error的，则属于严重错误，如系统崩溃、虚拟机错误、动态链接失败等，这些错误无法恢复或者不可能捕捉，将导致应用程序中断，Error不需要捕获。
+
+### 2.42 super出现在父类的子类中。有三种存在方式
+
+- super.xxx(xxx为变量名或对象名)意思是获取父类中xxx的变量或引用
+- super.xxx(); (xxx为方法名)意思是直接访问并调用父类中的方法
+- super() 调用父类构造
+
+注: super只能指代其直接父类
+
+### 2.43 this() & super()在构造方法中的区别
+
+- 调用super()必须写在子类构造方法的第一行, 否则编译不通过
+- super从子类调用父类构造, this在同一类中调用其他构造均需要放在第一行
+- 尽管可以用this调用一个构造器, 却不能调用2个
+- this和super不能出现在同一个构造器中, 否则编译不通过
+- this()、super()都指的对象,不可以在static环境中使用
+- 本质this指向本对象的指针。super是一个关键字
+
+### 2.44 构造内部类和静态内部类对象
 
 ```java
-public interface Search {
-    public List<String> searchDoc(String keyword);   
+public class Enclosingone {
+	public class Insideone {}
+	public static class Insideone{}
+}
+
+public class Test {
+	public static void main(String[] args) {
+	// 构造内部类对象需要外部类的引用
+	Enclosingone.Insideone obj1 = new Enclosingone().new Insideone();
+	// 构造静态内部类的对象
+	Enclosingone.Insideone obj2 = new Enclosingone.Insideone();
+	}
 }
 ```
 
-- 文件搜索实现
+静态内部类不需要有指向外部类的引用。但非静态内部类需要持有对外部类的引用。非静态内部类能够访问外部类的静态和非静态成员。静态内部类不能访问外部类的非静态成员，只能访问外部类的静态成员。
 
-```java
-public class FileSearch implements Search{
-    @Override
-    public List<String> searchDoc(String keyword) {
-        System.out.println("文件搜索 "+keyword);
-        return null;
-    }
-}
-```
+### 2.45 序列化
 
-- 数据库搜索实现
+声明为static和transient类型的数据不能被序列化， 反序列化需要一个无参构造函数
 
-```java
-public class DatabaseSearch implements Search{
-    @Override
-    public List<String> searchDoc(String keyword) {
-        System.out.println("数据搜索 "+keyword);
-        return null;
-    }
-}
-```
+### 2.46 Java移位运算符
 
-- resources 接下来可以在resources下新建META-INF/services/目录，然后新建接口全限定名的文件：`com.cainiao.ys.spi.learn.Search`，里面加上我们需要用到的实现类
+java中有三种移位运算符
 
-```xml
-com.cainiao.ys.spi.learn.FileSearch
-```
+- `<<` :左移运算符,`x << 1`,相当于x乘以2(不溢出的情况下),低位补0
+- `>>` :带符号右移,`x >> 1`,相当于x除以2,正数高位补0,负数高位补1
+- `>>>` :无符号右移,忽略符号位,空位都以0补齐
 
-- 测试方法
+### 2.47 形参&实参
 
-```java
-public class TestCase {
-    public static void main(String[] args) {
-        ServiceLoader<Search> s = ServiceLoader.load(Search.class);
-        Iterator<Search> iterator = s.iterator();
-        while (iterator.hasNext()) {
-           Search search =  iterator.next();
-           search.searchDoc("hello world");
-        }
-    }
-}
-```
+形式参数可被视为local variable.形参和局部变量一样都不能离开方法。只有在方法中使用，不会在方法外可见。 形式参数只能用final修饰符，其它任何修饰符都会引起编译器错误。但是用这个修饰符也有一定的限制，就是在方法中不能对参数做任何修改。不过一般情况下，一个方法的形参不用final修饰。只有在特殊情况下，那就是: 方法内部类。一个方法内的内部类如果使用了这个方法的参数或者局部变量的话，这个参数或局部变量应该是final。 形参的值在调用时根据调用者更改，实参则用自身的值更改形参的值(指针、引用皆在此列)，也就是说真正被传递的是实参。
 
-可以看到输出结果：文件搜索 hello world
+### 2.48 局部变量为什么要初始化
 
-如果在`com.cainiao.ys.spi.learn.Search`文件里写上两个实现类，那最后的输出结果就是两行了。
+局部变量是指类方法中的变量，必须初始化。局部变量运行时被分配在栈中，量大，生命周期短，如果虚拟机给每个局部变量都初始化一下，是一笔很大的开销，但变量不初始化为默认值就使用是不安全的。出于速度和安全性两个方面的综合考虑，解决方案就是虚拟机不初始化，但要求编写者一定要在使用前给变量赋值。
 
-这就是因为`ServiceLoader.load(Search.class)`在加载某接口时，会去`META-INF/services`下找接口的全限定名文件，再根据里面的内容加载相应的实现类。
+### 2.49 Java语言的鲁棒性
 
-这就是spi的思想，接口的实现由provider实现，provider只用在提交的jar包里的`META-INF/services`下根据平台定义的接口新建文件，并添加进相应的实现类内容就好。
-
-## 3. SPI机制的广泛应用
-
-### 3.1 SPI机制 - JDBC DriverManager
-
-> 在JDBC4.0之前，我们开发有连接数据库的时候，通常会用Class.forName("com.mysql.jdbc.Driver")这句先加载数据库相关的驱动，然后再进行获取连接等的操作。**而JDBC4.0之后不需要用Class.forName("com.mysql.jdbc.Driver")来加载驱动，直接获取连接就可以了，现在这种方式就是使用了Java的SPI扩展机制来实现**。
-
-#### 3.1.1 JDBC接口定义
-
-首先在java中定义了接口`java.sql.Driver`，并没有具体的实现，具体的实现都是由不同厂商来提供的。
-
-#### 3.1.2 mysql实现
-
-在mysql的jar包`mysql-connector-java-6.0.6.jar`中，可以找到`META-INF/services`目录，该目录下会有一个名字为`java.sql.Driver`的文件，文件内容是`com.mysql.cj.jdbc.Driver`，这里面的内容就是针对Java中定义的接口的实现。
-
-#### 3.1.3 postgresql实现
-
-同样在postgresql的jar包`postgresql-42.0.0.jar`中，也可以找到同样的配置文件，文件内容是`org.postgresql.Driver`，这是postgresql对Java的`java.sql.Driver`的实现。
-
-#### 3.1.4 使用方法
-
-上面说了，现在使用SPI扩展来加载具体的驱动，我们在Java中写连接数据库的代码的时候，不需要再使用`Class.forName("com.mysql.jdbc.Driver")`来加载驱动了，而是直接使用如下代码：
-
-```java
-String url = "jdbc:xxxx://xxxx:xxxx/xxxx";
-Connection conn = DriverManager.getConnection(url,username,password);
-.....
-```
-
-这里并没有涉及到spi的使用，接着看下面的解析。
-
-#### 3.1.5 源码实现
-
-上面的使用方法，就是我们普通的连接数据库的代码，并没有涉及到SPI的东西，但是有一点我们可以确定的是，我们没有写有关具体驱动的硬编码`Class.forName("com.mysql.jdbc.Driver")`！
-
-上面的代码可以直接获取数据库连接进行操作，但是跟SPI有啥关系呢？上面代码没有了加载驱动的代码，我们怎么去确定使用哪个数据库连接的驱动呢？这里就涉及到使用Java的SPI扩展机制来查找相关驱动的东西了，关于驱动的查找其实都在`DriverManager`中，`DriverManager`是Java中的实现，用来获取数据库连接，在`DriverManager`中有一个静态代码块如下：
-
-```java
-static {
-    loadInitialDrivers();
-    println("JDBC DriverManager initialized");
-}
-```
-
-可以看到是加载实例化驱动的，接着看loadInitialDrivers方法：
-
-```java
-private static void loadInitialDrivers() {
-    String drivers;
-    try {
-        drivers = AccessController.doPrivileged(new PrivilegedAction<String>() {
-            public String run() {
-                return System.getProperty("jdbc.drivers");
-            }
-        });
-    } catch (Exception ex) {
-        drivers = null;
-    }
-
-    AccessController.doPrivileged(new PrivilegedAction<Void>() {
-        public Void run() {
-			//使用SPI的ServiceLoader来加载接口的实现
-            ServiceLoader<Driver> loadedDrivers = ServiceLoader.load(Driver.class);
-            Iterator<Driver> driversIterator = loadedDrivers.iterator();
-            try{
-                while(driversIterator.hasNext()) {
-                    driversIterator.next();
-                }
-            } catch(Throwable t) {
-            // Do nothing
-            }
-            return null;
-        }
-    });
-
-    println("DriverManager.initialize: jdbc.drivers = " + drivers);
-
-    if (drivers == null || drivers.equals("")) {
-        return;
-    }
-    String[] driversList = drivers.split(":");
-    println("number of Drivers:" + driversList.length);
-    for (String aDriver : driversList) {
-        try {
-            println("DriverManager.Initialize: loading " + aDriver);
-            Class.forName(aDriver, true,
-                    ClassLoader.getSystemClassLoader());
-        } catch (Exception ex) {
-            println("DriverManager.Initialize: load failed: " + ex);
-        }
-    }
-}
-```
-
-上面的代码主要步骤是：
-
-- 从系统变量中获取有关驱动的定义。
-- 使用SPI来获取驱动的实现。
-- 遍历使用SPI获取到的具体实现，实例化各个实现类。
-- 根据第一步获取到的驱动列表来实例化具体实现类。
-
-我们主要关注2,3步，这两步是SPI的用法，首先看第二步，使用SPI来获取驱动的实现，对应的代码是：
-
-```java
-ServiceLoader<Driver> loadedDrivers = ServiceLoader.load(Driver.class);
-```
-
-这里没有去`META-INF/services`目录下查找配置文件，也没有加载具体实现类，做的事情就是封装了我们的接口类型和类加载器，并初始化了一个迭代器。
-
-接着看第三步，遍历使用SPI获取到的具体实现，实例化各个实现类，对应的代码如下：
-
-```java
-//获取迭代器
-Iterator<Driver> driversIterator = loadedDrivers.iterator();
-//遍历所有的驱动实现
-while(driversIterator.hasNext()) {
-    driversIterator.next();
-}
-```
-
-在遍历的时候，首先调用`driversIterator.hasNext()`方法，这里会搜索classpath下以及jar包中所有的`META-INF/services`目录下的`java.sql.Driver`文件，并找到文件中的实现类的名字，此时并没有实例化具体的实现类（ServiceLoader具体的源码实现在下面）。
-
-然后是调用`driversIterator.next();`方法，此时就会根据驱动名字具体实例化各个实现类了。现在驱动就被找到并实例化了。
-
-可以看下截图，我在测试项目中添加了两个jar包，`mysql-connector-java-6.0.6.jar`和`postgresql-42.0.0.0.jar`，跟踪到DriverManager中之后：
-
-![image-20221024195818259](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221024195818259.png)
-
-可以看到此时迭代器中有两个驱动，mysql和postgresql的都被加载了。
-
-### 3.2 SPI机制 - Common-Logging
-
-> common-logging（也称Jakarta Commons Logging，缩写 JCL）是常用的日志库门面，具体[日志库相关可以看这篇]()。我们看下它是怎么解耦的。
-
-首先，日志实例是通过LogFactory的getLog(String)方法创建的：
-
-```java
-public static getLog(Class clazz) throws LogConfigurationException {
-    return getFactory().getInstance(clazz);
-}
-```
-
-LogFatory是一个抽象类，它负责加载具体的日志实现，分析其Factory getFactory()方法：
-
-```java
-public static org.apache.commons.logging.LogFactory getFactory() throws LogConfigurationException {
-    // Identify the class loader we will be using
-    ClassLoader contextClassLoader = getContextClassLoaderInternal();
-
-    if (contextClassLoader == null) {
-        // This is an odd enough situation to report about. This
-        // output will be a nuisance on JDK1.1, as the system
-        // classloader is null in that environment.
-        if (isDiagnosticsEnabled()) {
-            logDiagnostic("Context classloader is null.");
-        }
-    }
-
-    // Return any previously registered factory for this class loader
-    org.apache.commons.logging.LogFactory factory = getCachedFactory(contextClassLoader);
-    if (factory != null) {
-        return factory;
-    }
-
-    if (isDiagnosticsEnabled()) {
-        logDiagnostic(
-                "[LOOKUP] LogFactory implementation requested for the first time for context classloader " +
-                        objectId(contextClassLoader));
-        logHierarchy("[LOOKUP] ", contextClassLoader);
-    }
-
-    // Load properties file.
-    //
-    // If the properties file exists, then its contents are used as
-    // "attributes" on the LogFactory implementation class. One particular
-    // property may also control which LogFactory concrete subclass is
-    // used, but only if other discovery mechanisms fail..
-    //
-    // As the properties file (if it exists) will be used one way or
-    // another in the end we may as well look for it first.
-    // classpath根目录下寻找commons-logging.properties
-    Properties props = getConfigurationFile(contextClassLoader, FACTORY_PROPERTIES);
-
-    // Determine whether we will be using the thread context class loader to
-    // load logging classes or not by checking the loaded properties file (if any).
-    // classpath根目录下commons-logging.properties是否配置use_tccl
-    ClassLoader baseClassLoader = contextClassLoader;
-    if (props != null) {
-        String useTCCLStr = props.getProperty(TCCL_KEY);
-        if (useTCCLStr != null) {
-            // The Boolean.valueOf(useTCCLStr).booleanValue() formulation
-            // is required for Java 1.2 compatibility.
-            if (Boolean.valueOf(useTCCLStr).booleanValue() == false) {
-                // Don't use current context classloader when locating any
-                // LogFactory or Log classes, just use the class that loaded
-                // this abstract class. When this class is deployed in a shared
-                // classpath of a container, it means webapps cannot deploy their
-                // own logging implementations. It also means that it is up to the
-                // implementation whether to load library-specific config files
-                // from the TCCL or not.
-                baseClassLoader = thisClassLoader;
-            }
-        }
-    }
-
-    // 这里真正开始决定使用哪个factory
-    // 首先，尝试查找vm系统属性org.apache.commons.logging.LogFactory，其是否指定factory
-    // Determine which concrete LogFactory subclass to use.
-    // First, try a global system property
-    if (isDiagnosticsEnabled()) {
-        logDiagnostic("[LOOKUP] Looking for system property [" + FACTORY_PROPERTY +
-                "] to define the LogFactory subclass to use...");
-    }
-
-    try {
-        String factoryClass = getSystemProperty(FACTORY_PROPERTY, null);
-        if (factoryClass != null) {
-            if (isDiagnosticsEnabled()) {
-                logDiagnostic("[LOOKUP] Creating an instance of LogFactory class '" + factoryClass +
-                        "' as specified by system property " + FACTORY_PROPERTY);
-            }
-            factory = newFactory(factoryClass, baseClassLoader, contextClassLoader);
-        } else {
-            if (isDiagnosticsEnabled()) {
-                logDiagnostic("[LOOKUP] No system property [" + FACTORY_PROPERTY + "] defined.");
-            }
-        }
-    } catch (SecurityException e) {
-        if (isDiagnosticsEnabled()) {
-            logDiagnostic("[LOOKUP] A security exception occurred while trying to create an" +
-                    " instance of the custom factory class" + ": [" + trim(e.getMessage()) +
-                    "]. Trying alternative implementations...");
-        }
-        // ignore
-    } catch (RuntimeException e) {
-        // This is not consistent with the behaviour when a bad LogFactory class is
-        // specified in a services file.
-        //
-        // One possible exception that can occur here is a ClassCastException when
-        // the specified class wasn't castable to this LogFactory type.
-        if (isDiagnosticsEnabled()) {
-            logDiagnostic("[LOOKUP] An exception occurred while trying to create an" +
-                    " instance of the custom factory class" + ": [" +
-                    trim(e.getMessage()) +
-                    "] as specified by a system property.");
-        }
-        throw e;
-    }
-
-    // 第二，尝试使用java spi服务发现机制，载META-INF/services下寻找org.apache.commons.logging.LogFactory实现
-    // Second, try to find a service by using the JDK1.3 class
-    // discovery mechanism, which involves putting a file with the name
-    // of an interface class in the META-INF/services directory, where the
-    // contents of the file is a single line specifying a concrete class
-    // that implements the desired interface.
-
-    if (factory == null) {
-        if (isDiagnosticsEnabled()) {
-            logDiagnostic("[LOOKUP] Looking for a resource file of name [" + SERVICE_ID +
-                    "] to define the LogFactory subclass to use...");
-        }
-        try {
-            // META-INF/services/org.apache.commons.logging.LogFactory, SERVICE_ID
-            final InputStream is = getResourceAsStream(contextClassLoader, SERVICE_ID);
-
-            if (is != null) {
-                // This code is needed by EBCDIC and other strange systems.
-                // It's a fix for bugs reported in xerces
-                BufferedReader rd;
-                try {
-                    rd = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-                } catch (java.io.UnsupportedEncodingException e) {
-                    rd = new BufferedReader(new InputStreamReader(is));
-                }
-
-                String factoryClassName = rd.readLine();
-                rd.close();
-
-                if (factoryClassName != null && !"".equals(factoryClassName)) {
-                    if (isDiagnosticsEnabled()) {
-                        logDiagnostic("[LOOKUP]  Creating an instance of LogFactory class " +
-                                factoryClassName +
-                                " as specified by file '" + SERVICE_ID +
-                                "' which was present in the path of the context classloader.");
-                    }
-                    factory = newFactory(factoryClassName, baseClassLoader, contextClassLoader);
-                }
-            } else {
-                // is == null
-                if (isDiagnosticsEnabled()) {
-                    logDiagnostic("[LOOKUP] No resource file with name '" + SERVICE_ID + "' found.");
-                }
-            }
-        } catch (Exception ex) {
-            // note: if the specified LogFactory class wasn't compatible with LogFactory
-            // for some reason, a ClassCastException will be caught here, and attempts will
-            // continue to find a compatible class.
-            if (isDiagnosticsEnabled()) {
-                logDiagnostic(
-                        "[LOOKUP] A security exception occurred while trying to create an" +
-                                " instance of the custom factory class" +
-                                ": [" + trim(ex.getMessage()) +
-                                "]. Trying alternative implementations...");
-            }
-            // ignore
-        }
-    }
-
-    // 第三，尝试从classpath根目录下的commons-logging.properties中查找org.apache.commons.logging.LogFactory属性指定的factory
-    // Third try looking into the properties file read earlier (if found)
-
-    if (factory == null) {
-        if (props != null) {
-            if (isDiagnosticsEnabled()) {
-                logDiagnostic(
-                        "[LOOKUP] Looking in properties file for entry with key '" + FACTORY_PROPERTY +
-                                "' to define the LogFactory subclass to use...");
-            }
-            String factoryClass = props.getProperty(FACTORY_PROPERTY);
-            if (factoryClass != null) {
-                if (isDiagnosticsEnabled()) {
-                    logDiagnostic(
-                            "[LOOKUP] Properties file specifies LogFactory subclass '" + factoryClass + "'");
-                }
-                factory = newFactory(factoryClass, baseClassLoader, contextClassLoader);
-
-                // TODO: think about whether we need to handle exceptions from newFactory
-            } else {
-                if (isDiagnosticsEnabled()) {
-                    logDiagnostic("[LOOKUP] Properties file has no entry specifying LogFactory subclass.");
-                }
-            }
-        } else {
-            if (isDiagnosticsEnabled()) {
-                logDiagnostic("[LOOKUP] No properties file available to determine" + " LogFactory subclass from..");
-            }
-        }
-    }
-
-    // 最后，使用后备factory实现，org.apache.commons.logging.impl.LogFactoryImpl
-    // Fourth, try the fallback implementation class
-
-    if (factory == null) {
-        if (isDiagnosticsEnabled()) {
-            logDiagnostic(
-                    "[LOOKUP] Loading the default LogFactory implementation '" + FACTORY_DEFAULT +
-                            "' via the same classloader that loaded this LogFactory" +
-                            " class (ie not looking in the context classloader).");
-        }
-
-        // Note: unlike the above code which can try to load custom LogFactory
-        // implementations via the TCCL, we don't try to load the default LogFactory
-        // implementation via the context classloader because:
-        // * that can cause problems (see comments in newFactory method)
-        // * no-one should be customising the code of the default class
-        // Yes, we do give up the ability for the child to ship a newer
-        // version of the LogFactoryImpl class and have it used dynamically
-        // by an old LogFactory class in the parent, but that isn't
-        // necessarily a good idea anyway.
-        factory = newFactory(FACTORY_DEFAULT, thisClassLoader, contextClassLoader);
-    }
-
-    if (factory != null) {
-        /**
-            * Always cache using context class loader.
-            */
-        cacheFactory(contextClassLoader, factory);
-
-        if (props != null) {
-            Enumeration names = props.propertyNames();
-            while (names.hasMoreElements()) {
-                String name = (String) names.nextElement();
-                String value = props.getProperty(name);
-                factory.setAttribute(name, value);
-            }
-        }
-    }
-
-    return factory;
-}
-```
-
-可以看出，抽象类LogFactory加载具体实现的步骤如下：
-
-- 从vm系统属性org.apache.commons.logging.LogFactory
-- 使用SPI服务发现机制，发现org.apache.commons.logging.LogFactory的实现
-- 查找classpath根目录commons-logging.properties的org.apache.commons.logging.LogFactory属性是否指定factory实现
-- 使用默认factory实现，org.apache.commons.logging.impl.LogFactoryImpl
-
-> LogFactory的getLog()方法返回类型是org.apache.commons.logging.Log接口，提供了从trace到fatal方法。可以确定，如果日志实现提供者只要实现该接口，并且使用继承自org.apache.commons.logging.LogFactory的子类创建Log，必然可以构建一个松耦合的日志系统。
-
-### 3.3 SPI机制 - 插件体系
-
-> 其实最具spi思想的应该属于插件开发，我们项目中也用到的这种思想，后面再说，这里具体说一下eclipse的插件思想。
-
-Eclipse使用OSGi作为插件系统的基础，动态添加新插件和停止现有插件，以动态的方式管理组件生命周期。
-
-一般来说，插件的文件结构必须在指定目录下包含以下三个文件：
-
-- `META-INF/MANIFEST.MF`: 项目基本配置信息，版本、名称、启动器等
-- `build.properties`: 项目的编译配置信息，包括，源代码路径、输出路径
-- `plugin.xml`：插件的操作配置信息，包含弹出菜单及点击菜单后对应的操作执行类等
-
-当eclipse启动时，会遍历plugins文件夹中的目录，扫描每个插件的清单文件`MANIFEST.MF`，并建立一个内部模型来记录它所找到的每个插件的信息，就实现了动态添加新的插件。
-
-这也意味着是eclipse制定了一系列的规则，像是文件结构、类型、参数等。插件开发者遵循这些规则去开发自己的插件，eclipse并不需要知道插件具体是怎样开发的，只需要在启动的时候根据配置文件解析、加载到系统里就好了，是spi思想的一种体现。
-
-### 3.4 SPI机制 - Spring中SPI机制
-
-在springboot的自动装配过程中，最终会加载`META-INF/spring.factories`文件，而加载的过程是由`SpringFactoriesLoader`加载的。从CLASSPATH下的每个Jar包中搜寻所有`META-INF/spring.factories`配置文件，然后将解析properties文件，找到指定名称的配置后返回。需要注意的是，其实这里不仅仅是会去ClassPath路径下查找，会扫描所有路径下的Jar包，只不过这个文件只会在Classpath下的jar包中。
-
-```java
-public static final String FACTORIES_RESOURCE_LOCATION = "META-INF/spring.factories";
-// spring.factories文件的格式为：key=value1,value2,value3
-// 从所有的jar包中找到META-INF/spring.factories文件
-// 然后从文件中解析出key=factoryClass类名称的所有value值
-public static List<String> loadFactoryNames(Class<?> factoryClass, ClassLoader classLoader) {
-    String factoryClassName = factoryClass.getName();
-    // 取得资源文件的URL
-    Enumeration<URL> urls = (classLoader != null ? classLoader.getResources(FACTORIES_RESOURCE_LOCATION) : ClassLoader.getSystemResources(FACTORIES_RESOURCE_LOCATION));
-    List<String> result = new ArrayList<String>();
-    // 遍历所有的URL
-    while (urls.hasMoreElements()) {
-        URL url = urls.nextElement();
-        // 根据资源文件URL解析properties文件，得到对应的一组@Configuration类
-        Properties properties = PropertiesLoaderUtils.loadProperties(new UrlResource(url));
-        String factoryClassNames = properties.getProperty(factoryClassName);
-        // 组装数据，并返回
-        result.addAll(Arrays.asList(StringUtils.commaDelimitedListToStringArray(factoryClassNames)));
-    }
-    return result;
-}
-```
-
-## 4. SPI机制深入理解
-
-> TIP
->
-> 接下来，我们深入理解下SPI相关内容
-
-### 4.1 SPI机制通常怎么使用
-
-看完上面的几个例子解析，应该都能知道大概的流程了：
-
-- 有关组织或者公司定义标准。
-- 具体厂商或者框架开发者实现。
-- 程序猿使用。
-
-#### 4.1.1 定义标准
-
-定义标准，就是定义接口。比如接口`java.sql.Driver`
-
-#### 4.1.2 具体厂商或者框架开发者实现
-
-厂商或者框架开发者开发具体的实现：
-
-在`META-INF/services`目录下定义一个名字为接口全限定名的文件，比如`java.sql.Driver`文件，文件内容是具体的实现名字，比如`me.cxis.sql.MyDriver`。
-
-写具体的实现`me.cxis.sql.MyDriver`，都是对接口Driver的实现。
-
-#### 4.1.3 程序猿使用
-
-我们会引用具体厂商的jar包来实现我们的功能：
-
-```java
-ServiceLoader<Driver> loadedDrivers = ServiceLoader.load(Driver.class);
-//获取迭代器
-Iterator<Driver> driversIterator = loadedDrivers.iterator();
-//遍历
-while(driversIterator.hasNext()) {
-    driversIterator.next();
-    //可以做具体的业务逻辑
-}
-```
-
-#### 4.1.4 使用规范
-
-最后总结一下jdk spi需要遵循的规范
-
-![image-20221024201020273](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221024201020273.png)
-
-### 4.2 SPI和API的区别是什么
-
-> 这里实际包含两个问题，第一个SPI和API的区别？第二个什么时候用API，什么时候用SPI？
-
-> SPI - “接口”位于“调用方”所在的“包”中
-
-- 概念上更依赖调用方。
-- 组织上位于调用方所在的包中。
-- 实现位于独立的包中。
-- 常见的例子是：插件模式的插件。
-
-> API - “接口”位于“实现方”所在的“包”中
-
-- 概念上更接近实现方。
-- 组织上位于实现方所在的包中。
-- 实现和接口在一个包中。
-
-参考：
-
-- [difference-between-spi-and-api  (opens new window)](https://stackoverflow.com/questions/2954372/difference-between-spi-and-api?answertab=votes#tab-top)
-- [设计原则：小议 SPI 和 API](https://www.cnblogs.com/happyframework/archive/2013/09/17/3325560.html)
-
-![image-20221024201315431](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221024201315431.png)
-
-![image-20221024201327221](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221024201327221.png)
-
-### 4.3 SPI机制实现原理
-
-不妨看下JDK中`ServiceLoader<S>`方法的具体实现：
-
-```java
-//ServiceLoader实现了Iterable接口，可以遍历所有的服务实现者
-public final class ServiceLoader<S>
-    implements Iterable<S>
-{
-
-    //查找配置文件的目录
-    private static final String PREFIX = "META-INF/services/";
-
-    //表示要被加载的服务的类或接口
-    private final Class<S> service;
-
-    //这个ClassLoader用来定位，加载，实例化服务提供者
-    private final ClassLoader loader;
-
-    // 访问控制上下文
-    private final AccessControlContext acc;
-
-    // 缓存已经被实例化的服务提供者，按照实例化的顺序存储
-    private LinkedHashMap<String,S> providers = new LinkedHashMap<>();
-
-    // 迭代器
-    private LazyIterator lookupIterator;
-
-
-    //重新加载，就相当于重新创建ServiceLoader了，用于新的服务提供者安装到正在运行的Java虚拟机中的情况。
-    public void reload() {
-        //清空缓存中所有已实例化的服务提供者
-        providers.clear();
-        //新建一个迭代器，该迭代器会从头查找和实例化服务提供者
-        lookupIterator = new LazyIterator(service, loader);
-    }
-
-    //私有构造器
-    //使用指定的类加载器和服务创建服务加载器
-    //如果没有指定类加载器，使用系统类加载器，就是应用类加载器。
-    private ServiceLoader(Class<S> svc, ClassLoader cl) {
-        service = Objects.requireNonNull(svc, "Service interface cannot be null");
-        loader = (cl == null) ? ClassLoader.getSystemClassLoader() : cl;
-        acc = (System.getSecurityManager() != null) ? AccessController.getContext() : null;
-        reload();
-    }
-
-    //解析失败处理的方法
-    private static void fail(Class<?> service, String msg, Throwable cause)
-        throws ServiceConfigurationError
-    {
-        throw new ServiceConfigurationError(service.getName() + ": " + msg,
-                                            cause);
-    }
-
-    private static void fail(Class<?> service, String msg)
-        throws ServiceConfigurationError
-    {
-        throw new ServiceConfigurationError(service.getName() + ": " + msg);
-    }
-
-    private static void fail(Class<?> service, URL u, int line, String msg)
-        throws ServiceConfigurationError
-    {
-        fail(service, u + ":" + line + ": " + msg);
-    }
-
-    //解析服务提供者配置文件中的一行
-    //首先去掉注释校验，然后保存
-    //返回下一行行号
-    //重复的配置项和已经被实例化的配置项不会被保存
-    private int parseLine(Class<?> service, URL u, BufferedReader r, int lc,
-                          List<String> names)
-        throws IOException, ServiceConfigurationError
-    {
-        //读取一行
-        String ln = r.readLine();
-        if (ln == null) {
-            return -1;
-        }
-        //#号代表注释行
-        int ci = ln.indexOf('#');
-        if (ci >= 0) ln = ln.substring(0, ci);
-        ln = ln.trim();
-        int n = ln.length();
-        if (n != 0) {
-            if ((ln.indexOf(' ') >= 0) || (ln.indexOf('\t') >= 0))
-                fail(service, u, lc, "Illegal configuration-file syntax");
-            int cp = ln.codePointAt(0);
-            if (!Character.isJavaIdentifierStart(cp))
-                fail(service, u, lc, "Illegal provider-class name: " + ln);
-            for (int i = Character.charCount(cp); i < n; i += Character.charCount(cp)) {
-                cp = ln.codePointAt(i);
-                if (!Character.isJavaIdentifierPart(cp) && (cp != '.'))
-                    fail(service, u, lc, "Illegal provider-class name: " + ln);
-            }
-            if (!providers.containsKey(ln) && !names.contains(ln))
-                names.add(ln);
-        }
-        return lc + 1;
-    }
-
-    //解析配置文件，解析指定的url配置文件
-    //使用parseLine方法进行解析，未被实例化的服务提供者会被保存到缓存中去
-    private Iterator<String> parse(Class<?> service, URL u)
-        throws ServiceConfigurationError
-    {
-        InputStream in = null;
-        BufferedReader r = null;
-        ArrayList<String> names = new ArrayList<>();
-        try {
-            in = u.openStream();
-            r = new BufferedReader(new InputStreamReader(in, "utf-8"));
-            int lc = 1;
-            while ((lc = parseLine(service, u, r, lc, names)) >= 0);
-        }
-        return names.iterator();
-    }
-
-    //服务提供者查找的迭代器
-    private class LazyIterator
-        implements Iterator<S>
-    {
-
-        Class<S> service;//服务提供者接口
-        ClassLoader loader;//类加载器
-        Enumeration<URL> configs = null;//保存实现类的url
-        Iterator<String> pending = null;//保存实现类的全名
-        String nextName = null;//迭代器中下一个实现类的全名
-
-        private LazyIterator(Class<S> service, ClassLoader loader) {
-            this.service = service;
-            this.loader = loader;
-        }
-
-        private boolean hasNextService() {
-            if (nextName != null) {
-                return true;
-            }
-            if (configs == null) {
-                try {
-                    String fullName = PREFIX + service.getName();
-                    if (loader == null)
-                        configs = ClassLoader.getSystemResources(fullName);
-                    else
-                        configs = loader.getResources(fullName);
-                }
-            }
-            while ((pending == null) || !pending.hasNext()) {
-                if (!configs.hasMoreElements()) {
-                    return false;
-                }
-                pending = parse(service, configs.nextElement());
-            }
-            nextName = pending.next();
-            return true;
-        }
-
-        private S nextService() {
-            if (!hasNextService())
-                throw new NoSuchElementException();
-            String cn = nextName;
-            nextName = null;
-            Class<?> c = null;
-            try {
-                c = Class.forName(cn, false, loader);
-            }
-            if (!service.isAssignableFrom(c)) {
-                fail(service, "Provider " + cn  + " not a subtype");
-            }
-            try {
-                S p = service.cast(c.newInstance());
-                providers.put(cn, p);
-                return p;
-            }
-        }
-
-        public boolean hasNext() {
-            if (acc == null) {
-                return hasNextService();
-            } else {
-                PrivilegedAction<Boolean> action = new PrivilegedAction<Boolean>() {
-                    public Boolean run() { return hasNextService(); }
-                };
-                return AccessController.doPrivileged(action, acc);
-            }
-        }
-
-        public S next() {
-            if (acc == null) {
-                return nextService();
-            } else {
-                PrivilegedAction<S> action = new PrivilegedAction<S>() {
-                    public S run() { return nextService(); }
-                };
-                return AccessController.doPrivileged(action, acc);
-            }
-        }
-
-        public void remove() {
-            throw new UnsupportedOperationException();
-        }
-
-    }
-
-    //获取迭代器
-    //返回遍历服务提供者的迭代器
-    //以懒加载的方式加载可用的服务提供者
-    //懒加载的实现是：解析配置文件和实例化服务提供者的工作由迭代器本身完成
-    public Iterator<S> iterator() {
-        return new Iterator<S>() {
-            //按照实例化顺序返回已经缓存的服务提供者实例
-            Iterator<Map.Entry<String,S>> knownProviders
-                = providers.entrySet().iterator();
-
-            public boolean hasNext() {
-                if (knownProviders.hasNext())
-                    return true;
-                return lookupIterator.hasNext();
-            }
-
-            public S next() {
-                if (knownProviders.hasNext())
-                    return knownProviders.next().getValue();
-                return lookupIterator.next();
-            }
-
-            public void remove() {
-                throw new UnsupportedOperationException();
-            }
-
-        };
-    }
-
-    //为指定的服务使用指定的类加载器来创建一个ServiceLoader
-    public static <S> ServiceLoader<S> load(Class<S> service,
-                                            ClassLoader loader)
-    {
-        return new ServiceLoader<>(service, loader);
-    }
-
-    //使用线程上下文的类加载器来创建ServiceLoader
-    public static <S> ServiceLoader<S> load(Class<S> service) {
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        return ServiceLoader.load(service, cl);
-    }
-
-    //使用扩展类加载器为指定的服务创建ServiceLoader
-    //只能找到并加载已经安装到当前Java虚拟机中的服务提供者，应用程序类路径中的服务提供者将被忽略
-    public static <S> ServiceLoader<S> loadInstalled(Class<S> service) {
-        ClassLoader cl = ClassLoader.getSystemClassLoader();
-        ClassLoader prev = null;
-        while (cl != null) {
-            prev = cl;
-            cl = cl.getParent();
-        }
-        return ServiceLoader.load(service, prev);
-    }
-
-    public String toString() {
-        return "java.util.ServiceLoader[" + service.getName() + "]";
-    }
-
-}
-```
-
-**首先**，ServiceLoader实现了`Iterable`接口，所以它有迭代器的属性，这里主要都是实现了迭代器的`hasNext`和`next`方法。这里主要都是调用的`lookupIterator`的相应`hasNext`和`next`方法，`lookupIterator`是懒加载迭代器。
-
-**其次**，`LazyIterator`中的`hasNext`方法，静态变量PREFIX就是`”META-INF/services/”`目录，这也就是为什么需要在`classpath`下的`META-INF/services/`目录里创建一个以服务接口命名的文件。
-
-**最后**，通过反射方法`Class.forName()`加载类对象，并用`newInstance`方法将类实例化，并把实例化后的类缓存到`providers`对象中，(`LinkedHashMap<String,S>`类型）然后返回实例对象。
-
-所以我们可以看到`ServiceLoader`不是实例化以后，就去读取配置文件中的具体实现，并进行实例化。而是等到使用迭代器去遍历的时候，才会加载对应的配置文件去解析，调用`hasNext`方法的时候会去加载配置文件进行解析，调用`next`方法的时候进行实例化并缓存。
-
-所有的配置文件只会加载一次，服务提供者也只会被实例化一次，重新加载配置文件可使用`reload`方法。
-
-
-### 4.4 SPI机制的缺陷
-
-通过上面的解析，可以发现，我们使用SPI机制的缺陷：
-
-- 不能按需加载，需要遍历所有的实现，并实例化，然后在循环中才能找到我们需要的实现。如果不想用某些实现类，或者某些类实例化很耗时，它也被载入并实例化了，这就造成了浪费。
-- 获取某个实现类的方式不够灵活，只能通过 Iterator 形式获取，不能根据某个参数来获取对应的实现类。
-- 多个并发多线程使用 ServiceLoader 类的实例是不安全的。
+Java在编译和运行程序时，都要对可能出现的问题进行检查，以消除错误的产生。它提供自动垃圾收集来进行内存管理，防止程序员在管理内存时容易产生的错误。通过集成的面向对象的例外处理机制，在编译时，Java揭示出可能出现但未被处理的异常，帮助程序员正确地进行选择以防止系统的崩溃。另外，Java在编译时还可捕获类型声明中的许多常见错误，防止动态运行时不匹配问题的出现。
 
 ## 参考文章
 
-[Java常用机制 - SPI机制详解](https://pdai.tech/md/java/advanced/java-advanced-spi.html)
+[**Java 基础 - 图谱 & Q/A**](https://pdai.tech/md/java/basic/java-basic-lan-sum.html)

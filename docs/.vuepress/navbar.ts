@@ -220,9 +220,9 @@ export default navbar([
     prefix: "/language/",
     children:[
       {
-        text: "前端",
+        text: "Android",
         icon: "creative",
-        link: "frontend-layout/flex-layout-overview"
+        link: "android/android-call-js"
       },
       {
         text: "python",

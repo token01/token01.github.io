@@ -8,7 +8,9 @@ export default sidebar({
   "/arch/": "structure",
   "/deploy/": "structure",
   "/language/": "structure",
-  "/think/": "structure"
+  "/think/": "structure",
+  "/blockchain/": "structure"
+
 }
 );
 

@@ -12,11 +12,11 @@
 
 应定义如下几个名字为title、content以及text的域。
 
-![image-20220417211216815](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220417211216815.png)
+![image-20220417211216815](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220417211216815.png)
 
 然后，将title域和content域中的内容复制到text域中，如下图所示。
 
-![image-20220417211240887](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220417211240887.png)
+![image-20220417211240887](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220417211240887.png)
 
 这样就定义好了一个复制字段。现在根据关键字只搜索text域中的内容就相当于搜索title域和content域了。
 

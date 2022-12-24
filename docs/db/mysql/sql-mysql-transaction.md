@@ -23,7 +23,7 @@ category:
 
 ## 2. 事务的四大特性（ACID）
 
-![image-20190911000830006](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20190911000830006.png)
+![image-20190911000830006](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190911000830006.png)
 
 1. **原子性（Atomicity）**:
 
@@ -133,7 +133,7 @@ SQL 标准定义了四个隔离级别
 
 ## 5. 隔离级别案例
 
-![image-20221017203116041](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221017203116041.png)
+![image-20221017203116041](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221017203116041.png)
 
 我们来看看在不同的隔离级别下，事务 A 会有哪些不同的返回结果，也就是图里面 V1、V2、V3 的返回值分别是什么。
 

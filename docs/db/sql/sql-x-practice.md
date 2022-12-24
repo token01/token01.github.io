@@ -9,7 +9,7 @@ category:
 
 ## 1. 表结构
 
-![image-20220602221019474](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220602221019474.png)
+![image-20220602221019474](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220602221019474.png)
 
 ## 2. 插入数据
 

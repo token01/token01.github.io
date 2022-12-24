@@ -54,7 +54,7 @@ MHA（Master High Availability）目前在MySQL高可用方面是一个相对成
 
 ### 2.1.MHA工作原理
 
-![image-20221120232307218](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221120232307218.png)
+![image-20221120232307218](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221120232307218.png)
 
 当master出现故障时，通过对比slave之间I/O线程读取masterbinlog的位置，选取最接近的slave做为latestslave。 其它slave通过与latest slave对比生成差异中继日志。在latest slave上应用从master保存的binlog，同时将latest slave提升为master。最后在其它slave上应用相应的差异中继日志并开始从新的master开始复制。
 
@@ -121,7 +121,7 @@ MHA（Master High Availability）目前在MySQL高可用方面是一个相对成
 
 [具体操作步骤](https://www.jianshu.com/p/6173dae5ed7a)
 
-![image-20221120232743414](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221120232743414.png)
+![image-20221120232743414](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221120232743414.png)
 
 ## 参考文章
 

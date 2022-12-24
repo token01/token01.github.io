@@ -8,7 +8,7 @@ category:
 
 # MySQL - 事务（面试场景切入）
 
-![image-20221015100314961](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221015100314961.png)
+![image-20221015100314961](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221015100314961.png)
 
 ## 1. 事务的特性
 
@@ -45,7 +45,7 @@ Redo Log记录的是物理日志，也就是磁盘数据的修改。 用来保�
 2. 在内存中修改数据
 3. 把新数据持久化到磁盘
 
-![image-20221015094002165](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221015094002165.png)
+![image-20221015094002165](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221015094002165.png)
 
 这样做，会有严重的性能问题。
 
@@ -62,7 +62,7 @@ Redo Log记录的是物理日志，也就是磁盘数据的修改。 用来保�
 4. 把**Redo Log Buffer**中数据持久化到**Redo Log**文件中
 5. 把**Redo Log**文件中数据持久化到数据库磁盘中
 
-![image-20221015094221790](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221015094221790.png)
+![image-20221015094221790](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221015094221790.png)
 
 ### 2.2 **Undo Log（回滚日志）：**
 
@@ -72,7 +72,7 @@ Undo Log记录的是逻辑日志，用来回滚事务时，恢复到修改前的
 
 加入Undo Log之后的修改流程就是这样的：
 
-![image-20221015094600542](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221015094600542.png)
+![image-20221015094600542](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221015094600542.png)
 
 ### 2.3 **MVCC（多版本并发控制，Multi-Version Concurrency Control）：**
 
@@ -102,7 +102,7 @@ MVCC解决了读写冲突，实现了读写并行，提升了事务的性能。
 
 MVCC的实现方式通过两个隐藏列trx_id（最近一次提交事务的ID）和roll_pointer（上个版本的地址），建立一个版本链。并在事务中读取的时候生成一个ReadView（读视图），在Read Committed隔离级别下，每次读取都会生成一个读视图，而在Repeatable Read隔离级别下，只会在第一次读取时生成一个读视图。
 
-![image-20221015100152621](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221015100152621.png)
+![image-20221015100152621](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221015100152621.png)
 
 **InnoDB如何解决幻读的？**
 
@@ -119,7 +119,7 @@ MVCC的实现方式通过两个隐藏列trx_id（最近一次提交事务的ID�
 
 ## 3. 总结
 
-![image-20221015100314961](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221015100314961.png)
+![image-20221015100314961](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221015100314961.png)
 
 ## 参考文章
 

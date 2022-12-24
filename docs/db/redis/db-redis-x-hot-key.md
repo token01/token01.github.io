@@ -35,7 +35,7 @@ category:
 - *方法三:在Proxy层做收集*
   有些集群架构是下面这样的，Proxy可以是Twemproxy，是统一的入口。可以在Proxy层做收集上报，但是缺点很明显，并非所有的redis集群架构都有proxy。
 
-![image-20221128232245563](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221128232245563.png)
+![image-20221128232245563](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221128232245563.png)
 
 - *方法四:用redis自带命令*
   (1)monitor命令，该命令可以实时抓取出redis服务器接收到的命令，然后写代码统计出热key是啥。当然，也有现成的分析工具可以给你使用，比如`redis-faina`。但是该命令在高并发的条件下，有内存增暴增的隐患，还会降低redis的性能。
@@ -61,7 +61,7 @@ category:
 这个方案也很简单。不要让key走到同一台redis上不就行了。我们把这个key，在多个redis上都存一份不就好了。接下来，有热key请求进来的时候，我们就在有备份的redis上随机选取一台，进行访问取值，返回数据。
 假设redis的集群数量为N，步骤如下图所示
 
-![image-20221128232534600](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221128232534600.png)
+![image-20221128232534600](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221128232534600.png)
 
 注:不一定是2N，你想取3N，4N都可以，看要求。
 伪代码如下

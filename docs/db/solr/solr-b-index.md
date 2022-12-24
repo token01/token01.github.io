@@ -16,7 +16,7 @@ where name like '%张三%'
 
 **正排索引从文档编号找词：**
 
-![image-20220417133453806](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220417133453806.png)
+![image-20220417133453806](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220417133453806.png)
 
 ### 1.2 倒排索引
 
@@ -24,7 +24,7 @@ where name like '%张三%'
 
 **倒排索引是从词找文档编号：**
 
-![image-20220417133516596](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220417133516596.png)
+![image-20220417133516596](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220417133516596.png)
 
 ## 2. 索引的创建过程
 
@@ -143,7 +143,7 @@ them 2
 
 - Frequency：词频，表示某个文档中该词(Term)出现过几次
 
-![image-20220417131709282](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220417131709282.png)
+![image-20220417131709282](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220417131709282.png)
 
 
 

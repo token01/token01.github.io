@@ -38,7 +38,7 @@ which 可执行文件名称
 which -a java
 ```
 
-![image-20220418174207332](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220418174207332.png)
+![image-20220418174207332](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220418174207332.png)
 
 ### **4.2 找出 cd 这个命令**
 
@@ -46,7 +46,7 @@ which -a java
 which cd
 ```
 
-![image-20220418174012154](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220418174012154.png)
+![image-20220418174012154](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220418174012154.png)
 
 ### 4.3 找出 xx这个命令
 
@@ -54,7 +54,7 @@ which cd
 which xxx
 ```
 
-![image-20220418174248167](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220418174248167.png)
+![image-20220418174248167](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220418174248167.png)
 
 ### 4.4 找出 redis 这个命令
 
@@ -64,6 +64,6 @@ redis 只是软件，并不是命令
  which redis
 ```
 
-![image-20220419105639815](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220419105639815.png)
+![image-20220419105639815](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220419105639815.png)
 
 ### 

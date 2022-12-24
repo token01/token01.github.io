@@ -23,7 +23,7 @@ tldr ssh // 查询ssh命令
 
 ### 2.1 tldr 运行报错
 
-![image-20210402112659028](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20210402112659028.png)
+![image-20210402112659028](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210402112659028.png)
 
 如果你第一次安装node 版本可能只有6.* ，则执行时会报错，可以参考升级[在centos7安装nodejs并升级nodejs到最新版本](https://segmentfault.com/a/1190000015302680)
 
@@ -35,7 +35,7 @@ tldr ssh // 查询ssh命令
 tldr tar
 ```
 
-![image-20210402113016559](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20210402113016559.png)
+![image-20210402113016559](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210402113016559.png)
 
 使用man查看tar命令(又臭又长)
 
@@ -45,7 +45,7 @@ man tar
 
 
 
-![image-20210402113051584](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20210402113051584.png)
+![image-20210402113051584](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210402113051584.png)
 
 ## 参考文章
 

@@ -4,7 +4,7 @@
 
 nginx 访问静态资源文件提示
 
-![image-20190908163131411](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20190908163131411.png)
+![image-20190908163131411](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190908163131411.png)
 
 
 

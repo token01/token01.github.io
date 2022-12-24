@@ -11,7 +11,7 @@ category:
 
 - **5种基础数据类型**，分别是：String、List、Set、Zset、Hash。
 
-![image-20220628220310533](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628220310533.png)
+![image-20220628220310533](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628220310533.png)
 
 | 结构类型         | 结构存储的值                               | 结构的读写能力                                               |
 | ---------------- | ------------------------------------------ | ------------------------------------------------------------ |
@@ -62,11 +62,11 @@ typedef struct redisObject {
 
 下图对应上面的结构
 
-![image-20220628220842046](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628220842046.png)
+![image-20220628220842046](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628220842046.png)
 
 ## 3 Redis 数据类型有哪些底层数据结构？
 
-![image-20220628220915518](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628220915518.png)
+![image-20220628220915518](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628220915518.png)
 
 - 简单动态字符串 - sds
 - 压缩列表 - ZipList
@@ -117,17 +117,17 @@ C语言由于不记录字符串的长度，所以如果要修改字符串，必�
 
 **消费组消费图**
 
-![image-20220628221135429](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628221135429.png)
+![image-20220628221135429](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628221135429.png)
 
 ## 7 Redis Stream用在什么样场景？
 
 可用作时通信等，大数据分析，异地数据备份等
 
-![image-20220628221236545](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628221236545.png)
+![image-20220628221236545](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628221236545.png)
 
 客户端可以平滑扩展，提高处理能力
 
-![image-20220628221321712](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628221321712.png)
+![image-20220628221321712](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628221321712.png)
 
 ## 8 Redis Stream消息ID的设计是否考虑了时间回拨的问题？
 

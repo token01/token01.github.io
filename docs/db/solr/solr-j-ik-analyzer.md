@@ -51,7 +51,7 @@
 
    选择core-> Analysis  -> 选择分词器 text_ik 输入 "黑夜给了我黑色的眼睛"->点击"Analyse Values"按钮
 
-   ![image-20210304172543651](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20210304172543651.png)
+   ![image-20210304172543651](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210304172543651.png)
 
 ## 3. ik分词器配置
 
@@ -79,11 +79,11 @@
 
 查询“下跌”，找到一片文档
 
-![image-20220408163051893](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220408163051893.png)
+![image-20220408163051893](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220408163051893.png)
 
 查询“下降”是没有结果的：
 
-![image-20220408163108228](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220408163108228.png)
+![image-20220408163108228](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220408163108228.png)
 
 #### 4.1.2 同义词配置
 
@@ -122,7 +122,7 @@ Television, Televisions, TV, TVs
 
 重启solr之后再查询“下降”：
 
-![image-20220408163420536](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220408163420536.png)
+![image-20220408163420536](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220408163420536.png)
 
 配置同义词转换后，查询“下降”则会返回跟“下跌”一样的结果
 
@@ -136,4 +136,4 @@ Television, Televisions, TV, TVs
 
 ik 分词，对于既有文字又有数字的搜索。他的拆词是不合适的
 
-![image-20220408205357892](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220408205357892.png)
+![image-20220408205357892](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220408205357892.png)

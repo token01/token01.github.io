@@ -60,7 +60,7 @@ MySQL主从同步是基于Bin Log实现的，而Bin Log记录的是原始SQL语�
 
 主从同步最常遇到的问题就是主从同步延迟，可以通过在从库上执行**show slave status**命令查看延迟时间，**Seconds_Behind_Master**表示延迟的秒数。
 
-![image-20221014225151555](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221014225151555.png)
+![image-20221014225151555](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221014225151555.png)
 
 ### **4.1 主从同步延迟的原因有哪些？**
 
@@ -128,7 +128,7 @@ MySQL主从同步是基于Bin Log实现的，而Bin Log记录的是原始SQL语�
 
 ## 6. **知识点总结：**
 
-![image-20221014225826741](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221014225826741.png)
+![image-20221014225826741](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221014225826741.png)
 
 
 

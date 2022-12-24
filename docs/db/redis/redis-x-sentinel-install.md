@@ -23,7 +23,7 @@
 | 192.168.231.131 | 6381   | 从机（slave）  |
 
 现在进入 etc 文件夹，使用vi redis.conf命令打开编辑 redis.conf 配置文件，如下
-![image-20220621211702548](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621211702548.png)
+![image-20220621211702548](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621211702548.png)
 
 首先看一下redis.conf 配置文件中的各个参数，详解如下
 
@@ -126,7 +126,7 @@ replicaof 192.168.231.130 6379
 
 上面我们主从节点的配置文件配置好后，重启 redis 服务，进入 bin 目录即可查看配置文件中指定的`redis.log`日志文件。
 
-![image-20220621212350463](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621212350463.png)
+![image-20220621212350463](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621212350463.png)
 
 下面我们需要设置一下防火墙，否则主从机之间无法同步数据，命令如下，这里根据自己设置的端口进行更改。
 
@@ -138,19 +138,19 @@ firewall-cmd --reload
 ```
 
 - 192.168.231.130 6379（主）
-  ![image-20220621212439547](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621212439547.png)
+  ![image-20220621212439547](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621212439547.png)
 
 ​		可以看到当前角色为主机（master），并且连接了另外两台从机（slave）。
 
 - 192.168.231.132 6380（从）
 
-  ![image-20220621212513465](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621212513465.png)
+  ![image-20220621212513465](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621212513465.png)
 
 ​		可以看到当前角色为从机（slave），并指明了主机地址`192.168.231.130`和端口`6379`。
 
 - 192.168.231.131 6381（从）
 
-  ![image-20220621212537735](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621212537735.png)
+  ![image-20220621212537735](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621212537735.png)
 
 ​		可以看到当前角色为从机（slave），并指明了主机地址`192.168.231.130`和端口`6379`。
 
@@ -158,13 +158,13 @@ firewall-cmd --reload
 
 接下来我们在主机（master）添加几条数据，看从机（slave）是否可以获取到，如果能获取，说明数据已经同步到了从机，主机添加数据，如下：
 
-![image-20220621212612978](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621212612978.png)
+![image-20220621212612978](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621212612978.png)
 
 两台从机已经获取到数据，证明主从搭建成功并可同步数据，如下所示：
 
-![image-20220621212632984](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621212632984.png)
+![image-20220621212632984](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621212632984.png)
 
-![image-20220621212641681](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621212641681.png)
+![image-20220621212641681](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621212641681.png)
 
 ## 3. Redis 哨兵模式搭建
 
@@ -194,7 +194,7 @@ Sentinel 使用的算法核心是 Raft 算法，主要用途就是用于分布�
 - 当没有足够数量的Sentinel同意主服务器已经下线， 主服务器的客观下线状态就会被移除。 当主服务器重新向Sentinel的 PING 命令返回有效回复时， 主服务器的主管下线状态就会被移除。
   
 
-![image-20220621213351481](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621213351481.png)
+![image-20220621213351481](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621213351481.png)
 
 #### 3.1.2 配置文件详解
 
@@ -321,7 +321,7 @@ redis-cli -p 26379
 info sentinel
 ```
 
-![image-20220621213740346](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621213740346.png)
+![image-20220621213740346](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621213740346.png)
 
 可以看到，哨兵已经监听到当前的主机IP端口和运行状态，并且有2台从机，3个哨兵。
 
@@ -329,19 +329,19 @@ info sentinel
 
 现在我们模拟主机宕机，将主机 redis 服务关闭，如下
 
-![image-20220621213821563](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621213821563.png)
+![image-20220621213821563](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621213821563.png)
 
 现在我们去看三台服务器的情况，发现刚才的主机（192.168.231.130 *6379*）已经变成了从机，并且哨兵（Sentinel）通过选举机制选举了从机（192.168.231.131 *6381*）作为了新的主机，如下
 
-![image-20220621213845259](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621213845259.png)
+![image-20220621213845259](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621213845259.png)
 
 进入192.168.231.131 *6381* 可以看到它已经由从机（slave）变为了主机（master），并且成功连接从机
 
-![image-20220621213903638](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621213903638.png)
+![image-20220621213903638](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621213903638.png)
 
 需要注意的是，主从切换后配置文件已经被自动进行了更改，我们现在看一下新上位的主机 redis 日志，如下
 
-![image-20220621213928169](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621213928169.png)
+![image-20220621213928169](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621213928169.png)
 
 可以看到，当主机挂了的时候，一直连接主机被拒绝，当哨兵选举它为主机后，它成功执行重写的配置文件，并且连接了其他从机。
 

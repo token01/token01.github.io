@@ -76,7 +76,7 @@ Set /Drive 这两个概念是 MINIO 里面最重要的两个概念，一个对�
 
 Set 是另外一个概念，Set 是一组 Drive 的集合，图中，所有蓝色、橙色背景的Drive（硬盘）的就组成了一个 Set.
 
-![image-20220721211109769](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220721211109769.png)
+![image-20220721211109769](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220721211109769.png)
 
 ### 2.2 MIINO如何写入对象？
 
@@ -86,7 +86,7 @@ MINIO 是通过数据编码，将原来的数据编码成 N 份，N 就是一个
 
 对象被编码成N份之后，把每一份，写到对应的 Drive 上面，这就是把一个对象存储在整个 Set 上。
 
-![image-20220721211712213](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220721211712213.png)
+![image-20220721211712213](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220721211712213.png)
 
 一个集群包含多个 Set，每个对象最终存储在哪个 Set 上是根据对象的名称进行哈希，然后影射到唯一的 Set 上面，这个方式从理论上保证数据可以均匀的分布到所有的 Set 上。
 
@@ -100,7 +100,7 @@ Minio针对不同应用场景也设置了对应的存储架构：
 
 ### 3.1 单主机，单硬盘模式
 
-![image-20220721212134078](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220721212134078.png)
+![image-20220721212134078](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220721212134078.png)
 
 该模式下，Minio只在一台服务器上搭建服务，且数据都存在单块磁盘上，该模式存在单点风险，主要用作开发、测试等使用
 
@@ -112,7 +112,7 @@ minio --config-dir ~/tenant1 server --address :9001 /disk1/data/tenant1
 
 ### 3.2 单主机，多硬盘模式
 
-![image-20220721212316800](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220721212316800.png)
+![image-20220721212316800](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220721212316800.png)
 
 该模式下，Minio在一台服务器上搭建服务，但数据分散在多块（大于4块）磁盘上，提供了数据上的安全保障
 
@@ -122,7 +122,7 @@ minio --config-dir ~/tenant1 server --address :9001 /disk1/data/tenant1 /disk2/d
 
 ### 3.3 多主机、多硬盘模式（分布式）
 
-![image-20220721212406208](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220721212406208.png)
+![image-20220721212406208](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220721212406208.png)
 
 
 
@@ -196,7 +196,7 @@ Reed-Solomon 是纠删码的实现算法的一种，当然，也是一种恢复�
 
 这就意味着如果是16块盘，一个对象会被分成8个数据块、8个奇偶校验块，你可以丢失任意8块盘（不管其是存放的数据块还是校验块），你仍可以从剩下的盘中的数据进行恢复。
 
-![image-20220721213946979](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220721213946979.png)
+![image-20220721213946979](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220721213946979.png)
 
 如上图，如我们所知，一个对象存储在一个Set上面，这个Set包含16个Drive，其中灰色的一半是数据块，橙色的一半是校验块，这种方式最多能忍受一半的编码丢失或损坏。
 
@@ -218,7 +218,7 @@ Reed-Solomon 是纠删码的实现算法的一种，当然，也是一种恢复�
 >
 >最多一半的校验码，用2倍存储
 
-![image-20220721214657092](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220721214657092.png)
+![image-20220721214657092](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220721214657092.png)
 
 比如在将比例调整为14:2后，存储100M的数据占用的空间仅为114M。
 
@@ -268,11 +268,11 @@ $ mc admin heal -r myminio/dev
 
 下面是几个例子：
 
-![image-20220721215704818](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220721215704818.png)
+![image-20220721215704818](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220721215704818.png)
 
-![image-20220721215724700](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220721215724700.png)
+![image-20220721215724700](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220721215724700.png)
 
-![image-20220721215753800](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220721215753800.png)
+![image-20220721215753800](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220721215753800.png)
 
 相比一般的RAID方式，Minio可以在非常小的粒度下对文件进行修复操作，灵活性有了很大提高。
 

@@ -33,7 +33,7 @@ category:
  whereis  java
 ```
 
-![image-20220419105359735](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220419105359735.png)
+![image-20220419105359735](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220419105359735.png)
 
 返回的结果就比which 多了很多
 
@@ -43,6 +43,6 @@ category:
 whereis redis
 ```
 
-![image-20220419105732272](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220419105732272.png)
+![image-20220419105732272](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220419105732272.png)
 
 ### 

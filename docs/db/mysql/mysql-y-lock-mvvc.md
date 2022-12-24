@@ -79,7 +79,7 @@ MVCC 的目的就是多版本并发控制，在数据库中的实现，就是为
   6 byte，**隐含的自增 ID（隐藏主键）**，如果数据表没有主键，InnoDB 会自动以DB_ROW_ID产生一个聚簇索引
 - 实际还有一个删除 flag 隐藏字段, 既记录被更新或删除并不代表真的删除，而是删除 flag 变了
 
-![image-20220609230228840](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220609230228840.png)
+![image-20220609230228840](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220609230228840.png)
 
 如上图，`DB_ROW_ID` 是数据库默认为该行记录生成的唯一隐式主键，`DB_TRX_ID` 是当前操作该记录的事务 ID ,而 `DB_ROLL_PTR` 是一个回滚指针，用于配合 undo日志，指向上一个旧版本
 
@@ -104,7 +104,7 @@ undo log 主要分为两种：
 
 1. 比如一个有个事务插入 persion 表插入了一条新记录，记录如下，name 为 Jerry , age 为 24 岁，**隐式主键是 1，事务 ID和回滚指针**，我们假设为 NULL
 
-​	![image-20220609230825307](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220609230825307.png)
+​	![image-20220609230825307](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220609230825307.png)
 
 2.  **现在来了一个`事务 1`对该记录的 `name` 做出了修改，改为 Tom**
 
@@ -113,7 +113,7 @@ undo log 主要分为两种：
    - 拷贝完毕后，修改该行name为Tom，并且修改隐藏字段的事务 ID 为当前事务 1的 ID, 我们默认从 1 开始，之后递增，回滚指针指向拷贝到 undo log 的副本记录，既表示我的上一个版本就是它
    - 事务提交后，释放锁
 
-   ![image-20220609231103326](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220609231103326.png)
+   ![image-20220609231103326](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220609231103326.png)
 
 3. 又来了个事务 2修改person 表的同一个记录，将age修改为 30 岁
 
@@ -122,7 +122,7 @@ undo log 主要分为两种：
    - 修改该行 age 为 30 岁，并且修改隐藏字段的事务 ID 为当前事务 2的 ID, 那就是 2 ，回滚指针指向刚刚拷贝到 undo log 的副本记录
    - 事务提交，释放锁
 
-   ![image-20220609231216790](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220609231216790.png)
+   ![image-20220609231216790](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220609231216790.png)
 
 从上面，我们就可以看出，不同事务或者相同事务的对同一记录的修改，会导致该记录的undo log成为一条记录版本线性表，既**链表**，**undo log 的链首就是最新的旧记录，链尾就是最早的旧记录**（当然就像之前说的该 undo log 的节点可能是会 purge 线程清除掉，向图中的第一条 insert undo log，其实在事务提交之后可能就被删除丢失了，不过这里为了演示，所以还放在这里）
 
@@ -140,7 +140,7 @@ Read View遵循一个可见性算法，主要是将**要被修改的数据**的�
 
 那么这个判断条件是什么呢？
 
-![image-20220609232020276](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220609232020276.png)
+![image-20220609232020276](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220609232020276.png)
 
 如上，它是一段 MySQL 判断可见性的一段源码，即 changes_visible 方法（不完全哈，但能看出大致逻辑），该方法展示了我们拿 DB_TRX_ID 去跟 Read View 某些属性进行怎么样的比较
 
@@ -169,21 +169,21 @@ Read View遵循一个可见性算法，主要是将**要被修改的数据**的�
 
 - 当事务 2对某行数据执行了快照读，数据库为该行数据生成一个Read View读视图，假设当前事务 ID 为 2，此时还有事务1和事务3在活跃中，事务 4在事务 2快照读前一刻提交更新了，所以 Read View 记录了系统当前活跃事务 1，3 的 ID，维护在一个列表上，假设我们称为trx_list
 
-  ![image-20220609232400027](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220609232400027.png)
+  ![image-20220609232400027](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220609232400027.png)
 
 - Read View 不仅仅会通过一个列表 trx_list 来维护事务 2执行快照读那刻系统正活跃的事务 ID 列表，还会有两个属性 up_limit_id（ trx_list 列表中事务 ID 最小的 ID ），low_limit_id ( 快照读时刻系统尚未分配的下一个事务 ID ，也就是目前已出现过的事务ID的最大值 + 1。所以在这里例子中 up_limit_id 就是1，low_limit_id 就是 4 + 1 = 5，trx_list 集合的值是 1, 3，Read View 如下图
 
-  ![image-20220609232430132](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220609232430132.png)
+  ![image-20220609232430132](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220609232430132.png)
 
 - 我们的例子中，只有事务 4 修改过该行记录，并在事务 2 执行快照读前，就提交了事务，所以当前该行当前数据的 undo log 如下图所示；我们的事务 2 在快照读该行记录的时候，就会拿该行记录的 DB_TRX_ID 去跟 up_limit_id , low_limit_id 和活跃事务 ID 列表( trx_list )进行比较，判断当前事务 2能看到该记录的版本是哪个。
 
-  ![image-20220609232509367](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220609232509367.png)
+  ![image-20220609232509367](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220609232509367.png)
 
 - 所以先拿该记录 DB_TRX_ID 字段记录的事务 ID 4 去跟 Read View 的 up_limit_id 比较，看 4 是否小于 up_limit_id( 1 )，所以不符合条件，继续判断 4 是否大于等于 low_limit_id( 5 )，也不符合条件，最后判断 4 是否处于 trx_list 中的活跃事务, 最后发现事务 ID 为 4 的事务不在当前活跃事务列表中, 符合可见性条件，所以事务 4修改后提交的最新结果对事务 2 快照读时是可见的，所以事务 2 能读到的最新数据记录是事务4所提交的版本，而事务4提交的版本也是全局角度上最新的版本
 
   
 
-![image-20220609232531276](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220609232531276.png)
+![image-20220609232531276](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220609232531276.png)
 
 - 也正是 Read View 生成时机的不同，从而造成 RC , RR 级别下快照读的结果的不同
 
@@ -194,12 +194,12 @@ Read View遵循一个可见性算法，主要是将**要被修改的数据**的�
 当前读和快照读在 RR 级别下的区别：
 表1:
 
-![image-20220609232704533](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220609232704533.png)
+![image-20220609232704533](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220609232704533.png)
 在上表的顺序下，事务 B 的在事务 A 提交修改后的快照读是旧版本数据，而当前读是实时新数据 400
 
 表2:
 
-![image-20220609232910320](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220609232910320.png)
+![image-20220609232910320](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220609232910320.png)
 而在表 2这里的顺序中，事务 B 在事务 A 提交后的快照读和当前读都是实时的新数据 400，这是为什么呢？
 
 - 这里与上表的唯一区别仅仅是`表 1`的**事务 B 在事务 A 修改金额前`快照读`过一次金额数据**，而`表 2`的事务B在事务A修改金额前没有进行过快照读。

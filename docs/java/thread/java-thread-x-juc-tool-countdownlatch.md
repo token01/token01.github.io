@@ -261,7 +261,7 @@ private void doReleaseShared() {
 
 CountDownLatch的await调用大致会有如下的调用链。
 
-![image-20220526112019144](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220526112019144.png)
+![image-20220526112019144](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220526112019144.png)
 
 ### 2.6 核心函数 - countDown函数
 
@@ -357,7 +357,7 @@ private void doReleaseShared() {
 
 #### 2.6.2 调用链
 
-![image-20220526112413543](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220526112413543.png)
+![image-20220526112413543](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220526112413543.png)
 
 说明: 上图给出了可能会调用到的主要方法，并非一定会调用到，之后，会通过一个示例给出详细的分析。
 
@@ -422,7 +422,7 @@ main continue
 
 说明: 本程序首先计数器初始化为2。根据结果，可能会存在如下的一种时序图。
 
-![image-20220526113040262](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220526113040262.png)
+![image-20220526113040262](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220526113040262.png)
 
 说明: 首先main线程会调用await操作，此时main线程会被阻塞，等待被唤醒，之后t1线程执行了countDown操作，最后，t2线程执行了countDown操作，此时main线程就被唤醒了，可以继续运行。下面，进行详细分析。
 
@@ -430,7 +430,7 @@ main continue
 
 - main线程执行countDownLatch.await操作，主要调用的函数如下。
 
-![image-20220526113319572](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220526113319572.png)
+![image-20220526113319572](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220526113319572.png)
 
 
 
@@ -438,13 +438,13 @@ main continue
 
 - t1线程执行countDownLatch.countDown操作，主要调用的函数如下。
 
-![image-20220526113426323](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220526113426323.png)
+![image-20220526113426323](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220526113426323.png)
 
 说明: 此时，Sync queue队列里的结点个数未发生变化，但是此时，AQS的state已经变为1了。
 
 - t2线程执行countDownLatch.countDown操作，主要调用的函数如下。
 
-![image-20220526113518722](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220526113518722.png)
+![image-20220526113518722](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220526113518722.png)
 
 
 

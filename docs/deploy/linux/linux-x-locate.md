@@ -48,7 +48,7 @@ locate [OPTION]… [PATTERN]…
 locate redis
 ```
 
-![image-20220419113313972](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220419113313972.png)
+![image-20220419113313972](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220419113313972.png)
 
 ### 4.2 按文件名查找文件（不包含填充字符的模式被解释为 *关键字*）:
 
@@ -61,7 +61,7 @@ locate */文件名
 
 这样过滤出的结果更加符合我们想要的
 
-![image-20220419134741153](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220419134741153.png)
+![image-20220419134741153](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220419134741153.png)
 
 ### 4.3 重新建立文件数据索引数据库。
 
@@ -79,7 +79,7 @@ locate /bin/sh
 
 
 
-![image-20220419113440829](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220419113440829.png)
+![image-20220419113440829](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220419113440829.png)
 
 ### 4.5 指定显示数量
 
@@ -89,13 +89,13 @@ locate /bin/sh
 locate -n 3 redis
 ```
 
-![image-20220419113647925](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220419113647925.png)
+![image-20220419113647925](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220419113647925.png)
 
 ## 5 locate 命令安装
 
 如果locate 搜索时提示命令不存在
 
-![image-20220419112033248](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220419112033248.png)
+![image-20220419112033248](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220419112033248.png)
 
 则需要先安装一下
 

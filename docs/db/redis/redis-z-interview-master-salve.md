@@ -24,7 +24,7 @@ category:
 - 读操作：主库、从库都可以接收；
 - 写操作：首先到主库执行，然后，主库将写操作同步给从库。
 
-![image-20220628224139614](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628224139614.png)
+![image-20220628224139614](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628224139614.png)
 
 注意：在2.8版本之前只有全量复制，而2.8版本后有全量和增量复制：
 
@@ -33,7 +33,7 @@ category:
 
 ## 2 Redis 全量复制的三个阶段？
 
-![image-20220628224222691](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628224222691.png)
+![image-20220628224222691](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628224222691.png)
 
 **第一阶段是主从库间建立连接、协商同步的过程**，主要是为全量复制做准备。在这一步，从库和主库建立起连接，并告诉主库即将进行同步，主库确认回复后，主从库间就可以开始同步了。
 
@@ -51,7 +51,7 @@ category:
 
 ## 4 Redis 增量复制的流程？
 
-![image-20220628225658343](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628225658343.png)
+![image-20220628225658343](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628225658343.png)
 
 先看两个概念： `replication buffer` 和 `repl_backlog_buffer`
 
@@ -109,6 +109,6 @@ replicaof 所选从库的IP 6379
 
 这样一来，这些从库就会知道，在进行同步时，不用再和主库进行交互了，只要和级联的从库进行写操作同步就行了，这就可以减轻主库上的压力，如下图所示：
 
-![image-20220628225901289](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628225901289.png)
+![image-20220628225901289](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628225901289.png)
 
 级联的“主-从-从”模式好了，到这里，我们了解了主从库间通过全量复制实现数据同步的过程，以及通过“主 - 从 - 从”模式分担主库压力的方式。那么，一旦主从库完成了全量复制，它们之间就会一直维护一个网络连接，主库会通过这个连接将后续陆续收到的命令操作再同步给从库，这个过程也称为基于长连接的命令传播，可以避免频繁建立连接的开销。

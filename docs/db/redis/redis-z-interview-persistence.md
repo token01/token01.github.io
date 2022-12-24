@@ -18,7 +18,7 @@ category:
 
 如下图所示，T1 和 T2 时刻的修改，用 AOF 日志记录，等到第二次做全量快照时，就可以清空 AOF 日志，因为此时的修改都已经记录到快照中了，恢复时就不再用日志了。
 
-![image-20220628222023267](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628222023267.png)
+![image-20220628222023267](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628222023267.png)
 
 这个方法既能享受到 RDB 文件快速恢复的好处，又能享受到 AOF 只记录操作命令的简单优势, 实际环境中用的很多。
 
@@ -48,7 +48,7 @@ RDB中的核心思路是Copy-on-Write，来保证在进行快照操作的这段�
 
 举个例子：如果主线程对这些数据也都是读操作（例如图中的键值对 A），那么，主线程和 bgsave 子进程相互不影响。但是，如果主线程要修改一块数据（例如图中的键值对 C），那么，这块数据就会被复制一份，生成该数据的副本。然后，bgsave 子进程会把这个副本数据写入 RDB 文件，而在这个过程中，主线程仍然可以直接修改原来的数据。
 
-![image-20220628222325269](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628222325269.png)
+![image-20220628222325269](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628222325269.png)
 
 ## 4 在进行RDB快照操作的这段时间，如果发生服务崩溃怎么办？
 
@@ -60,7 +60,7 @@ RDB中的核心思路是Copy-on-Write，来保证在进行快照操作的这段�
 
 如下图所示，我们先在 T0 时刻做了一次快照，然后又在 T0+t 时刻做了一次快照，在这期间，数据块 5 和 9 被修改了。如果在 t 这段时间内，机器宕机了，那么，只能按照 T0 时刻的快照进行恢复。此时，数据块 5 和 9 的修改值因为没有快照记录，就无法恢复了。 　
 
-![image-20220628222410531](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628222410531.png)
+![image-20220628222410531](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628222410531.png)
 
 所以，要想尽可能恢复数据，t 值就要尽可能小，t 越小，就越像“连拍”。那么，t 值可以小到什么程度呢，比如说是不是可以每秒做一次快照？毕竟，每次快照都是由 bgsave 子进程在后台执行，也不会阻塞主线程。
 
@@ -77,7 +77,7 @@ RDB中的核心思路是Copy-on-Write，来保证在进行快照操作的这段�
 
 AOF日志采用写后日志，即**先写内存，后写日志**。
 
-![image-20220628222701583](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628222701583.png)
+![image-20220628222701583](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628222701583.png)
 
 **为什么采用写后日志**？
 
@@ -98,7 +98,7 @@ AOF日志记录Redis的每个写命令，步骤分为：命令追加（append）
 - **命令追加** 当AOF持久化功能打开了，服务器在执行完一个写命令之后，会以协议格式将被执行的写命令追加到服务器的 aof_buf 缓冲区。
 - **文件写入和同步** 关于何时将 aof_buf 缓冲区的内容写入AOF文件中，Redis提供了三种写回策略：
 
-![image-20220628222755767](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628222755767.png)
+![image-20220628222755767](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628222755767.png)
 
 `Always`，同步写回：每个写命令执行完，立马同步地将日志写回磁盘；
 
@@ -123,7 +123,7 @@ AOF日志记录Redis的每个写命令，步骤分为：命令追加（append）
 
 Redis通过创建一个新的AOF文件来替换现有的AOF，新旧两个AOF文件保存的数据相同，但新AOF文件没有了冗余命令。
 
-![image-20220628222858541](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628222858541.png)
+![image-20220628222858541](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628222858541.png)
 
 ## 10 AOF重写会阻塞吗？
 
@@ -155,7 +155,7 @@ fork采用操作系统提供的写时复制（copy on write）机制，就是为
 
 但主进程是可以有数据写入的，这时候就会拷贝物理内存中的数据。如下图（进程1看做是主进程，进程2看做是子进程）：
 
-![image-20220628223022048](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628223022048.png)
+![image-20220628223022048](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628223022048.png)
 
 在主进程有数据写入时，而这个数据刚好在页c中，操作系统会创建这个页面的副本（页c的副本），即拷贝当前页的物理数据，将其映射到主进程中，而子进程还是使用原来的的页c。
 

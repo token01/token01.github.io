@@ -26,7 +26,7 @@
 
 将ext.dic 与 IKAnalyzer.cfg.xml 和 stopword.dic 复制到 webapps\solr\WEB-INF\classes 文件夹下
 
-![image-20220412154252936](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220412154252936.png)
+![image-20220412154252936](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220412154252936.png)
 
 ### 2.2 IKAnalyzer.cfg.xml 配置
 
@@ -46,11 +46,11 @@
 
 ### 2.3 配置扩展词
 
-![image-20220412154445335](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220412154445335.png)
+![image-20220412154445335](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220412154445335.png)
 
 ### 2.4 配置停用词
 
-![image-20220412154516180](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220412154516180.png)
+![image-20220412154516180](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220412154516180.png)
 
 ## 3. 扩展词验证
 
@@ -58,7 +58,7 @@
 
 未配置前网红分词，分为网和红。但是我们也希望他们是一体的
 
-![image-20220412155122059](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220412155122059.png)
+![image-20220412155122059](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220412155122059.png)
 
 #### 3.2 配置后的效果
 

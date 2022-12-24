@@ -14,7 +14,7 @@ category:
 
 下图是一个典型的哨兵集群监控的逻辑图：
 
-![image-20220628230005184](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628230005184.png)
+![image-20220628230005184](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628230005184.png)
 
 哨兵实现了什么功能呢？下面是Redis官方文档的描述：
 
@@ -31,7 +31,7 @@ category:
 
 在主从集群中，主库上有一个名为`__sentinel__:hello`的频道，不同哨兵就是通过它来相互发现，实现互相通信的。在下图中，哨兵 1 把自己的 IP（172.16.19.3）和端口（26579）发布到`__sentinel__:hello`频道上，哨兵 2 和 3 订阅了该频道。那么此时，哨兵 2 和 3 就可以从这个频道直接获取哨兵 1 的 IP 地址和端口号。然后，哨兵 2、3 可以和哨兵 1 建立网络连接。
 
-![image-20220628230047534](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628230047534.png)
+![image-20220628230047534](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628230047534.png)
 
 通过这个方式，哨兵 2 和 3 也可以建立网络连接，这样一来，哨兵集群就形成了。它们相互间可以通过网络连接进行通信，比如说对主库有没有下线这件事儿进行判断和协商。
 
@@ -39,7 +39,7 @@ category:
 
 这是由哨兵向主库发送 INFO 命令来完成的。就像下图所示，哨兵 2 给主库发送 INFO 命令，主库接受到这个命令后，就会把从库列表返回给哨兵。接着，哨兵就可以根据从库列表中的连接信息，和每个从库建立连接，并在这个连接上持续地对从库进行监控。哨兵 1 和 3 可以通过相同的方法和从库建立连接。
 
-![image-20220628230125379](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628230125379.png)
+![image-20220628230125379](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628230125379.png)
 
 ## 4 Redis 哨兵如何判断主库已经下线了呢？
 
@@ -50,7 +50,7 @@ category:
 
 当某个哨兵（如下图中的哨兵2）判断主库“主观下线”后，就会给其他哨兵发送 `is-master-down-by-addr` 命令。接着，其他哨兵会根据自己和主库的连接情况，做出 Y 或 N 的响应，Y 相当于赞成票，N 相当于反对票。
 
-![image-20220628230146608](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628230146608.png)
+![image-20220628230146608](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628230146608.png)
 
 如果赞成票数（这里是2）是大于等于哨兵配置文件中的 `quorum` 配置项（比如这里如果是quorum=2）, 则可以判定**主库客观下线**了。
 
@@ -86,17 +86,17 @@ Raft算法你可以参看这篇文章[分布式算法 - Raft算法]()
 - 选择`salve-priority`从节点优先级最高（redis.conf）的
 - 选择复制偏移量最大，只复制最完整的从节点
 
-![image-20220628230308886](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628230308886.png)
+![image-20220628230308886](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628230308886.png)
 
 ## 7 新的主库选择出来后，如何进行故障的转移？
 
 假设根据我们一开始的图：（我们假设：判断主库客观下线了，同时选出`sentinel 3`是哨兵leader）
 
-![image-20220628230332745](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628230332745.png)
+![image-20220628230332745](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628230332745.png)
 
 **故障转移流程如下**：
 
-![image-20220628230347436](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628230347436.png)
+![image-20220628230347436](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628230347436.png)
 
 - 将slave-1脱离原从节点（PS: 5.0 中应该是`replicaof no one`)，升级主节点，
 - 将从节点slave-2指向新的主节点
@@ -105,4 +105,4 @@ Raft算法你可以参看这篇文章[分布式算法 - Raft算法]()
 
 **转移之后**
 
-![image-20220628230408904](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628230408904.png)
+![image-20220628230408904](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628230408904.png)

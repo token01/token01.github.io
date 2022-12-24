@@ -3,6 +3,11 @@ import { navbar } from "vuepress-theme-hope";
 export default navbar([
   // "/",
   // "/home",
+  { 
+         text: "博客",
+         icon: "gaishu",
+         link: "/blog.md" 
+     },
   {
     text: "Java",
     icon: "creative",

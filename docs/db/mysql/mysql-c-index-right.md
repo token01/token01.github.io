@@ -30,21 +30,21 @@ category:
 
 1. 包含联合索引的表信息
 
-   ![image-20210405235609971](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210405235609971.png)
+   ![image-20210405235609971](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210405235609971.png)
 
 2. 走联合索引情况
 
    查询
 
-   ![image-20210405235710376](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210405235710376.png)
+   ![image-20210405235710376](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210405235710376.png)
 
    使用explain 查询
 
-   ![image-20210405235731210](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210405235731210.png)
+   ![image-20210405235731210](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210405235731210.png)
 
 3. 我们删了area，不走索引
 
-   ![image-20210406000020398](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210406000020398.png)
+   ![image-20210406000020398](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210406000020398.png)
 
    此时的type：ALL
 

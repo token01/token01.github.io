@@ -46,7 +46,7 @@ features:
   - title: 语言|平台
     icon: language
     details: android、python、微信
-    link: /language/python/python-12306-coty-code
+    link: /language/python/
 
 
   - title: 杂项|思考

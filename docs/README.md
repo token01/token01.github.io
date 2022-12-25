@@ -7,7 +7,7 @@ heroText: 凤凰涅槃进阶之路
 tagline: 😏汇聚知识 🤖 开源工具 ,😂效率方法、探索认知的自我提升笔记😄
 actions:
   - text: 立马上路→
-    link: /home.md
+    link: /java/base/java-command-javac
     type: primary
   - text: 博客入口
     link: /blog.md
@@ -92,8 +92,6 @@ copyright: false
 - [张开涛博客](<https://www.iteye.com/blog/user/jinnianshilongnian>)
 - [纯洁的微笑](http://www.ityouknow.com/)
 - 等等优秀的博客会在具体文章后列出
-
-
 
 <!-- ## 公众号
 ## star趋势图

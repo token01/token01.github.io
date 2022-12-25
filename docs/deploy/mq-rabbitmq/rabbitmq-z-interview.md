@@ -22,9 +22,9 @@ category:
 
 - 如何保证消息队列的高可用？
 
-  	- RabbitMQ 的高可用性 
-	
-  	- Kafka 的高可用性
+   - RabbitMQ 的高可用性
+ 
+   - Kafka 的高可用性
 
 - 如何避免消息重复投递或重复消费？
 
@@ -50,8 +50,6 @@ category:
 
 ## 1. 为什么使用消息队列？
 
-
-
 >面试官心理分析
 >
 >其实面试官主要是想看看：
@@ -67,8 +65,6 @@ category:
 >你别傻乎乎的自己拍脑袋看个人喜好就瞎用了一个 MQ，比如 Kafka，甚至都从没调研过业界流行的 MQ 到底有哪几种。每一个 MQ 的优点和缺点是什么。每一个 MQ 没有绝对的好坏，但是就是看用在哪个场景可以扬长避短，利用其优势，规避其劣势。
 >如果是一个不考虑技术选型的候选人招进了团队，leader 交给他一个任务，去设计个什么系统，他在里面用一些技术，可能都没考虑过选型，最后选的技术可能并不一定合适，一样是留坑。
 
-
-
 >面试题剖析
 >
 >其实就是问问你消息队列都有哪些使用场景，然后你项目里具体是什么场景，说说你在这个场景里用消息队列是什么？
@@ -76,8 +72,6 @@ category:
 >面试官问你这个问题，期望的一个回答是说，你们公司有个什么业务场景，这个业务场景有个什么技术挑战，如果不用 MQ 可能会很麻烦，但是你现在用了 MQ 之后带给了你很多的好处。
 >
 >先说一下消息队列常见的使用场景吧，其实场景有很多，但是比较核心的有 3 个：解耦、异步、削峰。
-
-
 
 为了：解耦、异步、削峰
 
@@ -97,11 +91,11 @@ category:
 
 ![image-20220925204827353](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220925204827353.png)
 
-#### 1.1.3 总结：
+#### 1.1.3 总结
 
 通过一个 MQ，Pub/Sub 发布订阅消息这么一个模型，A 系统就跟其它系统彻底解耦了。
 
-#### 1.1.4 面试技巧：
+#### 1.1.4 面试技巧
 
 你需要去考虑一下你负责的系统中是否有类似的场景，就是一个系统或者一个模块，调用了多个系统或者模块，互相之间的调用很复杂，维护起来很麻烦。但是其实这个调用是不需要直接同步调用接口的，如果用 MQ 给它异步化解耦，也是可以的，你就需要去考虑在你的项目里，是不是可以运用这个 MQ 去进行系统的解耦。在简历中体现出来这块东西，用 MQ 作解耦。
 
@@ -140,6 +134,7 @@ category:
 ![image-20220925205656228](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220925205656228.png)
 
 这个短暂的高峰期积压是 ok 的，因为高峰期过了之后，每秒钟就 50 个请求进 MQ，但是 A 系统依然会按照每秒 2k 个请求的速度在处理。所以说，只要高峰期一过，A 系统就会快速将积压的消息给解决掉。
+![FjURh50aAAAwd56](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/FjURh50aAAAwd56.jpeg)
 
 ## 2. 消息队列有什么优缺点
 
@@ -262,6 +257,7 @@ RabbitMQ 如果丢失了数据，主要是因为你消费的时候，刚消费�
 生产环境碰到的一个问题，就是说我们的 Kafka 消费者消费到了数据之后是写到一个内存的 queue 里先缓冲一下，结果有的时候，你刚把消息写入内存 queue，然后消费者会自动提交 offset。然后此时我们重启了系统，就会导致内存 queue 里还没来得及处理的数据就丢失了。
 
 #### 4.2.2 Kafka 弄丢了数据
+
 这块比较常见的一个场景，就是 Kafka 某个 broker 宕机，然后重新选举 partition 的 leader。大家想想，要是此时其他的 follower 刚好还有些数据没有同步，结果此时 leader 挂了，然后选举某个 follower 成 leader 之后，不就少了一些数据？这就丢了一些数据啊。
 
 生产环境也遇到过，我们也是，之前 Kafka 的 leader 机器宕机了，将 follower 切换为 leader 之后，就会发现说这个数据就丢了。
@@ -385,7 +381,7 @@ topic：可以使来自不同源头的消息能够到达同一个队列。使用
 
 ```java
 //当消费者有x条消息没有响应ACK时，不再给这个消费者发送消息
-	channel.basicQos(int x)
+ channel.basicQos(int x)
 ```
 
 ## 11. 无法被路由的消息去了哪里
@@ -398,7 +394,7 @@ topic：可以使来自不同源头的消息能够到达同一个队列。使用
 
 ```java
 Maparguments = new HashMap();
-	arguments.put("alternate-exchange","备份交换机名");
+ arguments.put("alternate-exchange","备份交换机名");
 ```
 
 ## 12. 消息在什么时候会变成死信
@@ -429,7 +425,7 @@ Maparguments = new HashMap();
 
 ```java
  AMQP.BasicProperties properties = new AMQP.BasicProperties.Builder()
-	porperties.messageId(String.valueOF(UUID.randomUUID()))
+ porperties.messageId(String.valueOF(UUID.randomUUID()))
 ```
 
 2.消费者方面

@@ -22,9 +22,9 @@ category:
 
 - 如何保证消息队列的高可用？
 
-   - RabbitMQ 的高可用性
- 
-   - Kafka 的高可用性
+  - RabbitMQ 的高可用性
+
+  - Kafka 的高可用性
 
 - 如何避免消息重复投递或重复消费？
 

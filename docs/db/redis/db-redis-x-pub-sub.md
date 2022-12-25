@@ -74,10 +74,9 @@ Reading messages... (press Ctrl-C to quit)
 如果有某个/某些模式和这个频道匹配的话，那么所有订阅这个/这些频道的客户端也同样会收到信息。
 
 - **用图例解释什么是基于模式的发布订阅**
-
+![image-20220624195827766](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624195827766.png)
 下图展示了一个带有频道和模式的例子， 其中 tweet.shop.* 模式匹配了 tweet.shop.kindle 频道和 tweet.shop.ipad 频道， 并且有不同的客户端分别订阅它们三个：
 
-<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624195827766.png" alt="image-20220624195827766"  />
 
 当有信息发送到 tweet.shop.kindle 频道时， 信息除了发送给 clientX 和 clientY 之外， 还会发送给订阅 tweet.shop.* 模式的 client123 和 client256 ：
 

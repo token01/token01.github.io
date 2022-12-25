@@ -87,9 +87,7 @@ copyright: false
 - [Java学习+面试指南](<https://github.com/Snailclimb/JavaGuide>)
 - [阮一峰的网络日志](http://www.ruanyifeng.com/blog/)
 - [mrbird博客与开源项目](https://github.com/wuyouzhuguli)
-- [安琪拉的博客](https://blog.csdn.net/zhengwangzw?type=blog)
 - [芋道源码](http://www.iocoder.cn/?qun)
-- [张开涛博客](<https://www.iteye.com/blog/user/jinnianshilongnian>)
 - [纯洁的微笑](http://www.ityouknow.com/)
 - 等等优秀的博客会在具体文章后列出
 

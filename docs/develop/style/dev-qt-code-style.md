@@ -22,7 +22,7 @@ category:
 
 - **安装Eclipse Code Formatter插件**：
 
-![image-20220901220301868](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901220301868.png)
+![image-20220901220301868](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901220301868.png)
 
 (安装完之后需要重启idea)
 
@@ -30,7 +30,7 @@ category:
 
 File->Settings->Other Tools->Eclipse Code Formatter->Use the Eclipse Code Formatter
 
-![image-20220901220351945](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901220351945.png)
+![image-20220901220351945](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901220351945.png)
 
 相关的formtter.xml配置文件可以到网上下载下或者用eclipse导出下）
 
@@ -40,19 +40,19 @@ File->Settings->Other Tools->Eclipse Code Formatter->Use the Eclipse Code Format
 
 - **配置自动导入包**
 
-![image-20220901220417771](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901220417771.png)
+![image-20220901220417771](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901220417771.png)
 
 - **配置code style**
 
 通常而言，注意下这里几步（当然你可以设置更多，特意截图这几步，主要考虑checkstyle的要求及imports化在不同IDE下的差异），然后保存我一个scheme放到项目根目录下，供所有队员统一使用
 
-![image-20220901220558975](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901220558975.png)
+![image-20220901220558975](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901220558975.png)
 
 ### 1.3 统一的注释
 
 - **类文件头的注释**
 
-![image-20220901221115201](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901221115201.png)
+![image-20220901221115201](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901221115201.png)
 
 测试下, 创建一个类TestClass，将自动生成文件头注释
 
@@ -69,15 +69,15 @@ public class TestClass {
 
 当然，如果你发现对已经存在的类进行类注释'/**'时无法自动加入上述注释时，还可以使用Live Template
 
-![image-20220901221800374](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901221800374.png)
+![image-20220901221800374](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901221800374.png)
 
 配置好以后，方法头 输入`A`，然后按TAB键
 
-![image-20220901221821850](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901221821850.png)
+![image-20220901221821850](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901221821850.png)
 
 再按Enter
 
-![image-20220901221836953](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901221836953.png)
+![image-20220901221836953](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901221836953.png)
 
 - **方法的注释**
 

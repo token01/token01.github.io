@@ -60,25 +60,25 @@ public class Calculator {
 
 第一个插件，首推的是JunitGeneratorV2.0
 
-![image-20220901210441494](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901210441494.png)
+![image-20220901210441494](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901210441494.png)
 
 设置默认采用Junit4
 
-![image-20220901210524521](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901210524521.png)
+![image-20220901210524521](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901210524521.png)
 
 如有必要可以设置生成的模板
 
-![image-20220901210553705](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901210553705.png)
+![image-20220901210553705](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901210553705.png)
 
 测试下
 
-![image-20220901210619275](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901210619275.png)
+![image-20220901210619275](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901210619275.png)
 
-![image-20220901210637466](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901210637466.png)
+![image-20220901210637466](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901210637466.png)
 
 生成单元测试
 
-![image-20220901210703509](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901210703509.png)
+![image-20220901210703509](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901210703509.png)
 
 补充完整代码
 
@@ -139,29 +139,29 @@ public class CalculatorTest {
 
 执行结果
 
-![image-20220901210749209](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901210749209.png)
+![image-20220901210749209](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901210749209.png)
 
 ### 2.2 并行测试
 
 在大量的单元测试时，如何提升测试的效率呢？肯定是并行，所以你可以用如下的插件
 
-![image-20220901210830070](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901210830070.png)
+![image-20220901210830070](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901210830070.png)
 
 看下相关测试触发按钮和输出：
 
-![image-20220901210853830](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901210853830.png)
+![image-20220901210853830](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901210853830.png)
 
 ### 2.3 代码覆盖率
 
 如何快速看本地代码测试覆盖率呢？
 
-![image-20220901210915853](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901210915853.png)
+![image-20220901210915853](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901210915853.png)
 
 代码覆盖率
 
-![image-20220901210940253](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901210940253.png)
+![image-20220901210940253](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901210940253.png)
 
-![image-20220901210954286](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901210954286.png)
+![image-20220901210954286](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901210954286.png)
 
 ### 2.4 Profile
 
@@ -169,19 +169,19 @@ public class CalculatorTest {
 
 Flame Graph
 
-![image-20220901211027435](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901211027435.png)
+![image-20220901211027435](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901211027435.png)
 
 Call Tree
 
-![image-20220901211044053](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901211044053.png)
+![image-20220901211044053](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901211044053.png)
 
 Method List
 
-![image-20220901211101288](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901211101288.png)
+![image-20220901211101288](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901211101288.png)
 
 - **Allocation Profile**
 
-![image-20220901211126260](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901211126260.png)
+![image-20220901211126260](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901211126260.png)
 
 ## 参考文章
 

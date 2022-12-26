@@ -8,7 +8,7 @@ JMeter配置元件可以用来初始化默认值和变量，读取文件数据�
 
 首先我们来看一下JMeter的配置元件，路径：添加-配置元件；我们可以清楚地看到JMeter5中共有19个配置元件，如下图所示：
 
-![image-20220623154721019](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623154721019.png)
+![image-20220623154721019](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220623154721019.png)
 
 ## 2.常用配置元件详解
 
@@ -18,7 +18,7 @@ JMeter配置元件可以用来初始化默认值和变量，读取文件数据�
 
 #### 2.1.1 初识
 
-![image-20220623154830681](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623154830681.png)
+![image-20220623154830681](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220623154830681.png)
 
 #### 2.1.2 参数详解及说明，
 
@@ -66,7 +66,7 @@ JMeter配置元件可以用来初始化默认值和变量，读取文件数据�
 
 #### 2.2.1 初识
 
-![image-20220623155758985](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623155758985.png)
+![image-20220623155758985](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220623155758985.png)
 
 #### 2.2.2 参数详解及说明
 
@@ -81,7 +81,7 @@ JMeter配置元件可以用来初始化默认值和变量，读取文件数据�
 
 这些一般可以抓包和在浏览器中查到，如下表所示：
 
-![image-20220623155859879](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623155859879.png)
+![image-20220623155859879](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220623155859879.png)
 
 ### 2.3 HTTP Cookie Manager
 
@@ -95,7 +95,7 @@ JMeter配置元件可以用来初始化默认值和变量，读取文件数据�
 
 #### 2.3.1 初识
 
-![image-20220623160045957](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623160045957.png)
+![image-20220623160045957](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220623160045957.png)
 
 #### 2.3.2 参数详细说明
 
@@ -115,7 +115,7 @@ JMeter配置元件可以用来初始化默认值和变量，读取文件数据�
 
 #### 2.4.1 初识
 
-![image-20220623160216803](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623160216803.png)
+![image-20220623160216803](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220623160216803.png)
 
 #### 2.4.2 参数详细说明
 
@@ -137,7 +137,7 @@ JMeter配置元件可以用来初始化默认值和变量，读取文件数据�
 
 #### 2.5.1 初识
 
-![image-20220623160414799](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623160414799.png)
+![image-20220623160414799](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220623160414799.png)
 
 #### 2.5.2 参数详细说明
 
@@ -159,7 +159,7 @@ JMeter配置元件可以用来初始化默认值和变量，读取文件数据�
 
 #### 2.6.1 初识
 
-![image-20220623160550620](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623160550620.png)
+![image-20220623160550620](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220623160550620.png)
 
 #### 2.6.2 参数详细说明
 
@@ -179,7 +179,7 @@ JMeter配置元件可以用来初始化默认值和变量，读取文件数据�
 
 ### 2.7.1 初识
 
-![image-20220623160659187](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623160659187.png)
+![image-20220623160659187](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220623160659187.png)
 
 #### 2.7.2 参数详细说明
 
@@ -197,7 +197,7 @@ JMeter配置元件可以用来初始化默认值和变量，读取文件数据�
 
 #### 2.8.1 初识
 
-![image-20220623160810169](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623160810169.png)
+![image-20220623160810169](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220623160810169.png)
 
 ### 2.9 HTTP Authorization Manager
 
@@ -205,19 +205,19 @@ HTTP认证是一种安全机制，在客户端、浏览器或者程序向服务�
 
 #### 2.9.1 初识
 
-![image-20220623160901657](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623160901657.png)
+![image-20220623160901657](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220623160901657.png)
 
 ### 2.10 JDBC Connection Configuration
 
 #### 2.10.1 初识
 
-![image-20220623160939734](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623160939734.png)
+![image-20220623160939734](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220623160939734.png)
 
 ### 2.11 Random Variable
 
 #### 2.11.1 初始
 
-![image-20220623161104053](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623161104053.png)
+![image-20220623161104053](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220623161104053.png)
 
 #### 2.11.2 参数详细说明
 
@@ -240,7 +240,7 @@ HTTP认证是一种安全机制，在客户端、浏览器或者程序向服务�
 
 #### 2.12.1 初识
 
-![image-20220623161309686](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623161309686.png)
+![image-20220623161309686](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220623161309686.png)
 
 #### 2.12.2 参数详细说明
 

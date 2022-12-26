@@ -40,7 +40,7 @@ https://github.com/junit-team
 
 架构图如下:
 
-![image-20220831221957679](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831221957679.png)
+![image-20220831221957679](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831221957679.png)
 
 ## 3. JUnit Jupiter API 的使用
 
@@ -154,7 +154,7 @@ public class HelloWorldTest {
 
 执行结果
 
-![image-20220831222625032](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831222625032.png)
+![image-20220831222625032](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831222625032.png)
 
 @Test注解在方法上标记方法为测试方法，以便构建工具和 IDE 能够识别并执行它们。JUnit 5不再需要手动将测试类与测试方法为public，包可见的访问级别就足够了。
 
@@ -243,7 +243,7 @@ public class StandardTest {
 
 执行结果
 
-![image-20220831223001414](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831223001414.png)
+![image-20220831223001414](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831223001414.png)
 
 观察正确和错误的结果:
 
@@ -480,7 +480,7 @@ public class AssertionsTest {
 
 执行结果:
 
-![image-20220831223351165](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831223351165.png)
+![image-20220831223351165](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831223351165.png)
 
 观察错误的结果:
 
@@ -550,7 +550,7 @@ public class ExceptionTest {
 
 执行结果:
 
-![image-20220831223526545](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831223526545.png)
+![image-20220831223526545](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831223526545.png)
 
 观察错误的结果:
 
@@ -666,7 +666,7 @@ public class NestedTest {
 
 执行结果:
 
-![image-20220831223642847](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831223642847.png)
+![image-20220831223642847](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831223642847.png)
 
 ### 5.8 测试:重复测试
 
@@ -741,7 +741,7 @@ public class RepeatTest {
 
 执行结果:
 
-![image-20220831223753727](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831223753727.png)
+![image-20220831223753727](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831223753727.png)
 
 ### 5.9 测试:参数化测试
 
@@ -907,7 +907,7 @@ static class MyArgumentsProvider implements ArgumentsProvider {
 
 执行结果:
 
-![image-20220831224036160](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831224036160.png)
+![image-20220831224036160](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831224036160.png)
 
 ### 5.10 测试:动态测试
 
@@ -1030,7 +1030,7 @@ public class DynamicsTest {
 
 执行结果:
 
-![image-20220831224139153](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831224139153.png)
+![image-20220831224139153](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831224139153.png)
 
 ## 参考文章
 

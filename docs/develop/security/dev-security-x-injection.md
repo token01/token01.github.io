@@ -69,13 +69,13 @@ sqlStatement.setString(1, password); // 加密
 
 实在不喜欢网上乱七八糟的，其实一张图就可以解释：
 
-![image-20220705220710709](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220705220710709.png)
+![image-20220705220710709](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220705220710709.png)
 
 ### 2.2 如何攻击的?
 
 如果用户传入类似 ’ or 1=1 or ”=’ 的值，那么该查询语句也会得到 true 返回值，将返回所有用户的列表。
 
-![image-20220705221024658](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220705221024658.png)
+![image-20220705221024658](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220705221024658.png)
 
 ### 2.3 如何防御?
 
@@ -155,7 +155,7 @@ LDAP以目录信息树形式存储信息，包含入口、对象、属性，关�
 
 入口点和属性之间的关系为：
 
-![image-20220705221548155](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220705221548155.png)
+![image-20220705221548155](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220705221548155.png)
 
 
 

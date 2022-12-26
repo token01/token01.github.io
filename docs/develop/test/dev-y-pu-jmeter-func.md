@@ -65,7 +65,7 @@ JMeter支持BeanShell脚本语言，JMeter函数助手中提供BeanShell函数�
 
 我们先来看看这个**__BeanShell** 长得是啥样子，路径：函数助手 > 选择**__BeanShell** ，如下图所示：
 
-![image-20220630142504839](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220630142504839.png)
+![image-20220630142504839](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220630142504839.png)
 
 #### 3.1.2 关键参数说明：
 
@@ -75,17 +75,17 @@ JMeter支持BeanShell脚本语言，JMeter函数助手中提供BeanShell函数�
 
 1. ${__BeanShell(123456*789)}：返回97406784，如下图所示：
 
-   ![image-20220630142814343](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220630142814343.png)
+   ![image-20220630142814343](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220630142814343.png)
 
 2. ${__BeanShell(source("function.bsh"))}：会执行外部脚本function.bsh，并返回结果，如下图所示：
 
 ​	**文件里代码：System.out.print("bjhg");**
 
-![image-20220630142914650](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220630142914650.png)
+![image-20220630142914650](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220630142914650.png)
 
 返回结果：
 
-![image-20220630142933025](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220630142933025.png)
+![image-20220630142933025](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220630142933025.png)
 
 #### 3.1.4 与beanshell元件比较：
 
@@ -105,7 +105,7 @@ JMeter支持BeanShell脚本语言，JMeter函数助手中提供BeanShell函数�
 
 我们先来看看这个**`__javaScript`**长得是啥样子，路径：函数助手 > 选择**`__javaScript`**，如下图所示：
 
-![image-20220630143544586](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220630143544586.png)
+![image-20220630143544586](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220630143544586.png)
 
 #### 3.2.2 关键参数说明：
 
@@ -123,7 +123,7 @@ JMeter支持BeanShell脚本语言，JMeter函数助手中提供BeanShell函数�
 
 #### 3.2.3 实例
 
-![image-20220630143729036](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220630143729036.png)
+![image-20220630143729036](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220630143729036.png)
 
 ## 4. 字符串操作函数
 
@@ -147,7 +147,7 @@ JMeter支持BeanShell脚本语言，JMeter函数助手中提供BeanShell函数�
 
 路径：函数助手 > 选择**`__split`**，如下图所示：
 
-![image-20220630143917339](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220630143917339.png)
+![image-20220630143917339](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220630143917339.png)
 
 #### 4.1.2 关键参数说明：
 
@@ -173,9 +173,9 @@ VAR_4=?
 VAR_5=null
 ```
 
-![image-20220630144052623](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220630144052623.png)
+![image-20220630144052623](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220630144052623.png)
 
-![image-20220630144123299](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220630144123299.png)
+![image-20220630144123299](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220630144123299.png)
 
 ## 参考文章
 

@@ -39,7 +39,7 @@ category:
 
 RPO针对的是数据丢失，而RTO针对的是服务丢失，二者没有必然的关联性。RTO和RPO的确定必须在进行风险分析和业务影响分析后根据不同的业务需求确定。对于不同企业的同一种业务，RTO和RPO的需求也会有所不同。
 
-![image-20220702220035271](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220702220035271.png)
+![image-20220702220035271](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220702220035271.png)
 
 ### 1.3 容灾和容错的区别
 
@@ -49,13 +49,13 @@ RPO针对的是数据丢失，而RTO针对的是服务丢失，二者没有必�
 
   举例：飞机上有两个发动机，一个是主发动机，另外一个是备用发动机，主发动机坏了以后，立马切换到备用的发动机。
 
-  ![image-20220702220141592](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220702220141592.png)
+  ![image-20220702220141592](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220702220141592.png)
 
 - **容错（fault tolerance）**: 发生故障时，系统还能继续运行。容错的目的是，发生故障时，系统的运行水平可能有所下降，但是依然可用，不会完全失败。
 
   举例：飞机有四个引擎，如果一个引擎坏了，剩下三个引擎，还能继续飞，这就是"容错"。同样的，汽车的一个轮子扎破了，剩下三个轮子，也还是勉强能行驶。
 
-  ![image-20220702220248718](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220702220248718.png)
+  ![image-20220702220248718](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220702220248718.png)
 
 
 ### 1.4 容灾备份的等级
@@ -142,7 +142,7 @@ ECS可以从架构上实现容灾场景下的应用。例如，在应用前端�
 
 **两地三中心容灾**架构，是指在同城双中心的基础上，在异地的城市建立一个备份的灾备中心，用于双中心的数据备份，当双中心出现自然灾害等原因而发生故障时，异地灾备中心可以用备份数据进行业务的恢复。
 
-![image-20220702221230747](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220702221230747.png)
+![image-20220702221230747](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220702221230747.png)
 
 ## 3. 故障转移和恢复
 

@@ -88,15 +88,15 @@ Log4j2 也做了 Facade/Implementation 分离的设计，分成了 log4j-api 和
 
 同步写文件日志的benchmark：
 
-![image-20220829220257796](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220829220257796.png)
+![image-20220829220257796](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220829220257796.png)
 
 异步写日志的benchmark：
 
-![image-20220829220353199](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220829220353199.png)
+![image-20220829220353199](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220829220353199.png)
 
 当然，这些benchmark都是在日志Pattern中不包含Location信息（如日志代码行号 ，调用者信息，Class名/源码文件名等）时测定的，如果输出Location信息的话，性能谁也拯救不了：
 
-![image-20220829220432056](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220829220432056.png)
+![image-20220829220432056](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220829220432056.png)
 
 ## 3. 日志库之日志门面
 
@@ -118,7 +118,7 @@ common-logging 的功能是提供日志功能的 API 接口，本身并不提供
 
 官网地址: [http://www.slf4j.org/  (opens new window)](http://www.slf4j.org/)
 
-![image-20220829220646182](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220829220646182.png)
+![image-20220829220646182](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220829220646182.png)
 
 ### 3.3 common-logging vs slf4j
 
@@ -206,7 +206,7 @@ slf4j-jdk14-1.7.21.jar 会自动将 slf4j-api-1.7.21.jar 也添加到你的项�
 
 假如你正在开发应用程序所调用的组件当中已经使用了 common-logging，这时你需要 jcl-over-slf4j.jar 把日志信息输出重定向到 slf4j-api，slf4j-api 再去调用 slf4j 实际依赖的日志组件。这个过程称为桥接。下图是官方的 slf4j 桥接策略图：
 
-![image-20220829221132739](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220829221132739.png)
+![image-20220829221132739](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220829221132739.png)
 
 从图中应该可以看出，无论你的老项目中使用的是 common-logging 或是直接使用 log4j、java.util.logging，都可以使用对应的桥接 jar 包来解决兼容问题。
 
@@ -777,7 +777,7 @@ logger.debug("========================start process request=============");
 
 如果现有系统使用JCL作为日志门面，又确实面临着JCL的ClassLoader机制带来的问题，完全可以引入slf4j并通过桥接库将JCL api输出的日志桥接至slf4j，再通过适配库适配至现有的日志输出服务（如log4j），如下图：
 
-![image-20220829223131879](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220829223131879.png)
+![image-20220829223131879](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220829223131879.png)
 
 这样做不需要任何代码级的改造，就可以解决JCL的ClassLoader带来的问题，但没有办法享受日志模板等slf4j的api带来的优点。不过之后在现系统上开发的新功能就可以使用slf4j的api了，老代码也可以分批进行改造。
 

@@ -8,7 +8,7 @@
 
 首先我们来看一下JMeter的监听器，路径：线程组（用户）->添加->监听器；我们可以清楚地看到JMeter5中共有16个监听器（不包括jp@gc开头的监听器，这个是安装的插件），如下图所示：
 
-![image-20220624144312399](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624144312399.png)
+![image-20220624144312399](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624144312399.png)
 
 ## 3.常用监听器详解
 
@@ -26,7 +26,7 @@
 
 #### 3.1.1 初识
 
-![image-20220627134225505](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220627134225505.png)
+![image-20220627134225505](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220627134225505.png)
 
 #### 3.1.2 关键参数说明如下：
 
@@ -82,7 +82,7 @@
 
 路径：**线程组 > 添加 > 监听器 > 汇总报告**，如下图所示： 
 
-![image-20220627135254375](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220627135254375.png)
+![image-20220627135254375](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220627135254375.png)
 
 #### 3.2.2 关键参数说明如下：
 
@@ -124,7 +124,7 @@
 
 路径：**线程组 > 添加 > 监听器 > 聚合报告**，如下图所示： 
 
-![image-20220627135805197](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220627135805197.png)
+![image-20220627135805197](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220627135805197.png)
 
 #### 3.3.2 关键参数说明如下：
 
@@ -160,7 +160,7 @@
 
 我们先来看看这个 **后端监听器** 长得是啥样子，路径：**线程组 > 添加 > 监听器 > 后端监听器**，如下图所示：
 
-![image-20220627140124266](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220627140124266.png)
+![image-20220627140124266](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220627140124266.png)
 
 #### 3.4.2 关键参数说明如下：
 
@@ -184,7 +184,7 @@
 
 路径：**线程组 > 添加 > 监听器 > 汇总图**，如下图所示： 
 
-![image-20220627140314269](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220627140314269.png)
+![image-20220627140314269](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220627140314269.png)
 
 #### 3.5.2 关键参数说明如下：
 
@@ -198,7 +198,7 @@
 
   - Rectangles color      单击右侧颜色矩形打开弹出对话框，选择自定义颜色。
 
-    就是点击![img](https://ask.qcloudimg.com/http-save/yehe-5695339/tyvshlpsy6.png?imageView2/2/w/1620))
+    就是点击![img](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/tyvshlpsy6.png))
 
   - Foreground color     允许更改值文本颜色
 
@@ -242,7 +242,7 @@
 
 路径：**线程组 > 添加 > 监听器 > 断言结果**，如下图所示： 
 
-![image-20220627143235052](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220627143235052.png)
+![image-20220627143235052](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220627143235052.png)
 
 #### 3.6.2 关键参数说明如下：
 
@@ -258,7 +258,7 @@
 
 路径：**线程组 > 添加 > 监听器 > 比较断言可视化器**，如下图所示：
 
-![image-20220627143409980](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220627143409980.png) 
+![image-20220627143409980](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220627143409980.png) 
 
 #### 3.7.2 关键参数说明如下：
 
@@ -274,7 +274,7 @@
 
 路径：**线程组 > 添加 > 监听器 > 生成概要结果**，如下图所示： 
 
-![image-20220627143515680](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220627143515680.png)
+![image-20220627143515680](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220627143515680.png)
 
 #### 3.8.2 关键参数说明如下：
 
@@ -290,7 +290,7 @@
 
 路径：**线程组 > 添加 > 监听器 > 图形结果**，如下图所示： 
 
-![image-20220627144201869](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220627144201869.png)
+![image-20220627144201869](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220627144201869.png)
 
 #### 3.9.2 关键参数说明如下：
 
@@ -322,7 +322,7 @@
 
 路径：**线程组 > 添加 > 监听器 > 响应时间图**，如下图所示： 
 
-![image-20220627144418037](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220627144418037.png)
+![image-20220627144418037](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220627144418037.png)
 
 #### 3.10.2 关键参数说明如下：
 

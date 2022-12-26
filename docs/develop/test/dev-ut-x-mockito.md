@@ -16,13 +16,13 @@ Mock 测试就是在测试过程中，对于某些不容易构造（如 HttpServ
 
 先来看看下面这个示例：
 
-![image-20220901202108892](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901202108892.png)
+![image-20220901202108892](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901202108892.png)
 
 从上图可以看出如果我们要对A进行测试，那么就要先把整个依赖树构建出来，也就是BCDE的实例。
 
 一种替代方案就是使用mocks
 
-![image-20220901202216817](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901202216817.png)
+![image-20220901202216817](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901202216817.png)
 
 从图中可以清晰的看出, mock对象就是在调试期间用来作为真实对象的替代品。
 
@@ -168,7 +168,7 @@ public class HelloWorldTest {
 
 执行结果
 
-![image-20220901204730424](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901204730424.png)
+![image-20220901204730424](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901204730424.png)
 
 ### 3.4 测试:使用mock方法
 
@@ -230,7 +230,7 @@ public class MockClassTest {
 
 执行结果
 
-![image-20220901205111308](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901205111308.png)
+![image-20220901205111308](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901205111308.png)
 
 ### 3.5 测试:适用@Mock注解
 
@@ -412,7 +412,7 @@ public class ThrowTest {
 
 执行结果
 
-![image-20220901205609282](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901205609282.png)
+![image-20220901205609282](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901205609282.png)
 
 > 对应返回类型是 void 的函数，thenThrow 是无效的，要使用 doThrow。
 

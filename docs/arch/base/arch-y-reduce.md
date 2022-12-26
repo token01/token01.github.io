@@ -38,7 +38,7 @@ category:
 - 隔离：把每个依赖或调用的服务都隔离开来，防止级联失败引起整体服务不可用
 - 降级：服务失败或异常后，返回指定的默认信息
 
-![image-20220701223819962](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220701223819962.png)
+![image-20220701223819962](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220701223819962.png)
 
 ## 3. 服务降级
 
@@ -198,7 +198,7 @@ Spring Cloud Netflix Hystrix就是隔离措施的一种实现,可以设置在某
 
 Hystrix流程图如下：
 
-![image-20220701230318380](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220701230318380.png)
+![image-20220701230318380](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220701230318380.png)
 
 
 Hystrix流程说明:
@@ -227,7 +227,7 @@ Hystrix流程说明:
 
 ### 5.4 Hystrix测试说明
 
-![image-20220701230352419](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220701230352419.png)
+![image-20220701230352419](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220701230352419.png)
 
 ## 6. 方案：Sentinel简介
 
@@ -244,11 +244,11 @@ Hystrix流程说明:
 
 Sentinel 的主要特性：
 
-![image-20220701230453174](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220701230453174.png)
+![image-20220701230453174](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220701230453174.png)
 
 Sentinel 的开源生态：
 
-![image-20220701230507704](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220701230507704.png)
+![image-20220701230507704](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220701230507704.png)
 
 Sentinel 分为两个部分:
 

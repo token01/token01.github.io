@@ -154,7 +154,7 @@ public class HelloWorldTest {
 
 执行结果
 
-![image-20220831214552642](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831214552642.png)
+![image-20220831214552642](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831214552642.png)
 
 @Test注解在方法上标记方法为测试方法，以便构建工具和 IDE 能够识别并执行它们。JUnit 4 需要测试方法为public，这和Junit 5 有差别。
 
@@ -211,7 +211,7 @@ public class StandardTest {
 
 执行结果
 
-![image-20220831215023723](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831215023723.png)
+![image-20220831215023723](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831215023723.png)
 
 ### 5.4 测试:禁用测试
 
@@ -241,7 +241,7 @@ public class IgnoreTest {
 
 执行结果
 
-![image-20220831215116619](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831215116619.png)
+![image-20220831215116619](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831215116619.png)
 
 ### 5.5 测试:断言测试
 
@@ -401,7 +401,7 @@ public class Assertion2Test {
 
 执行结果
 
-![image-20220831215444837](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831215444837.png)
+![image-20220831215444837](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831215444837.png)
 
 ### 5.6 测试:异常测试
 
@@ -435,7 +435,7 @@ public class ExceptionTest {
 
 执行结果
 
-![image-20220831215613241](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831215613241.png)
+![image-20220831215613241](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831215613241.png)
 
 观察错误的信息：
 
@@ -502,7 +502,7 @@ public class TimeoutTest {
 
 执行结果
 
-![image-20220831215749198](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831215749198.png)
+![image-20220831215749198](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831215749198.png)
 
 观察错误的信息：
 
@@ -569,7 +569,7 @@ public class HasGlobalTimeoutTest {
 
 执行结果
 
-![image-20220831220027821](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831220027821.png)
+![image-20220831220027821](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831220027821.png)
 
 ### 5.8 测试:参数化测试
 
@@ -697,7 +697,7 @@ public class PrimeNumberCheckerTest {
 
 执行结果
 
-![image-20220831220632173](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831220632173.png)
+![image-20220831220632173](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831220632173.png)
 
 ### 5.9 测试:套件测试
 
@@ -761,7 +761,7 @@ public class JunitSuiteTest {
 
 执行结果
 
-![image-20220831220802814](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831220802814.png)
+![image-20220831220802814](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831220802814.png)
 
 ### 5.10 测试:测试顺序
 
@@ -799,7 +799,7 @@ public class TestMethodOrder {
 
 执行结果
 
-![image-20220831220905525](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831220905525.png)
+![image-20220831220905525](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831220905525.png)
 
 ## 参考文章
 

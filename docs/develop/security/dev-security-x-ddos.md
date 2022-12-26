@@ -33,7 +33,7 @@ DDoS攻击模型的四种角色：
 
 DDoS攻击有两个步骤：构造攻击网络和发起攻击。事实上，构造网络需要几个月的时间，而发起攻击后很短时间内就需要瓦解网络。
 
-![image-20220706231622474](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706231622474.png)
+![image-20220706231622474](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706231622474.png)
 
 
 ## 2. 攻击原理
@@ -65,7 +65,7 @@ DDoS攻击有两个步骤：构造攻击网络和发起攻击。事实上，构�
 
 #### 3.1.1 直接攻击
 
-![image-20220706232157335](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706232157335.png)
+![image-20220706232157335](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706232157335.png)
 
 ##### 3.1.1.1 ICMP/IGMP Flood
 
@@ -99,13 +99,13 @@ UDP洪水攻击也是很早就出现的一种拒绝服务攻击方式，这种�
 
 在反射器所提供的网络服务协议中，需要存在请求和响应数据量不对称的情况，响应数据量需要大于请求数据量，响应数据量与请求数据量的比值越大，放大器的放大倍数也就越大，进行放大攻击所产生的消耗宽带资源的效果也就越明显。
 
-![image-20220706232351570](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706232351570.png)
+![image-20220706232351570](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706232351570.png)
 
 ##### 3.1.2.1 ACK Flood
 
 在传输控制协议建立连接时，首先会进行TCP三次握手，在这个过程中，当服务器端接收到客户端发来的SYN连接请求时，会对该请求进行ACK应答，利用TCP握手的ACK应答，即可进行ACK反射攻击。 如果攻击者将SYN的源IP地址伪造成被攻击目标的IP地址，服务器的应答也就会直接发送给被攻击目标，由于使用TCP协议的服务在互联网上广泛存在，攻击者可以通过受控主机向大量不同的服务器发送伪造源IP地址的SYN请求，从而使服务器响应的大量ACK应答数据涌向被攻击目标，占用目标的网络宽带资源并拒绝服务。
 
-![image-20220706232643073](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706232643073.png)
+![image-20220706232643073](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706232643073.png)
 
 ##### 3.1.2.3 DNS Flood
 
@@ -113,7 +113,7 @@ UDP洪水攻击也是很早就出现的一种拒绝服务攻击方式，这种�
 
 在EDNS0中，扩展了DNS数据包的结果，增加了OPT RR字段，在OPT RR字段中，包含了客户端能够处理的最大UDP报文大小的信息，服务器在响应DNS请求时，解析并记录下客户端能够处理的最大UDP报文的大小，并根据该大小生成响应的报文。 攻击者能够利用dig和EDNS0进行高效的DNS放大攻击，攻击者向广泛存在的开放DNS解析器发送dig查询命令，将OPT RR字段中UDP报文大小设置为很大的值，并将请求的源IP地址伪造成被攻击目标的IP地址。DNS解析器收到查询请求后，会将解析的结果发送给被攻击目标，当大量的解析结果涌向目标时，就会导致目标网络拥堵和缓慢，造成拒绝服务攻击。攻击者发送的DNS查询请求数据包大小一般为60字节左右，而查询返回结果的数据包大小通常为300字节以上，因此，使用该方式进行放大攻击能够达到50倍以上的放大效果。
 
-![image-20220706232711020](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706232711020.png)
+![image-20220706232711020](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706232711020.png)
 
 ##### 3.1.2.4 NTP Flood
 
@@ -123,7 +123,7 @@ UDP洪水攻击也是很早就出现的一种拒绝服务攻击方式，这种�
 
 实际上，monlist请求返回的数据量与一段时间内和NTP服务器交互的客户端数据量有关，由于NTP服务使用的是UDP单包通信，因此攻击者可以将伪造源IP地址的UDP请求包发送给NTP放大器，伪造客户端与NTP服务器的交互，增加“和NTP服务器交互的客户端的数量”，以此来增加monlist请求的响应数据量并增大NTP放大器的放大倍数，只要向NTP放大器发送600个不超过64字节的请求包（约40KB数据），就能够快速的将NTP放大器的放大倍数提高到700倍以上，并在该服务器的NTP服务关闭或重新启动之前一直保持这么大的放大倍数。攻击者发送的monlist请求数据包大小不超过64字节，而请求返回的结果会包含100个482字节的UDP响应数据，因此使用该方式进行放大攻击能够达到700倍以上的放大效果。
 
-![image-20220706232739302](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706232739302.png)
+![image-20220706232739302](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706232739302.png)
 
 ##### 3.1.2.5 SNMP Flood
 
@@ -135,7 +135,7 @@ UDP洪水攻击也是很早就出现的一种拒绝服务攻击方式，这种�
 
 攻击者向广泛存在并开启了SNMP服务的网络设备发送Getbulk请求，使用默认通信字符串作为认证凭据，并将源IP地址伪造成攻击目标的IP地址，设备收到Getbulk请求后，会将响应结果发送给攻击目标，当大量的响应结果涌向攻击目标时，就会导致攻击目标网络拥堵和缓慢，造成拒绝服务攻击。 攻击者发送的Getbulk请求数据包约为60字节，而请求的响应数据能够达到1500字节以上，因此，使用该方式进行放大攻击能够达到25倍以上的放大效果，这也是一种放大效应明显且有效的放大攻击方式
 
-![image-20220706232807120](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706232807120.png)
+![image-20220706232807120](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706232807120.png)
 
 ##### 3.1.2.6 Chargen Flood
 
@@ -159,7 +159,7 @@ Coremelt是安全研究人员在2009年提出的一种针对链路的分布式�
 
 从骨干网上来看，这些僵尸主机之间相互收发的数据包确实是真是存在的通信数据，没有办法将这些通信数据与真正的合法通信数据进行有效的区分，因此这种攻击方式更加难以防护和缓解。
 
-![image-20220706232917467](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706232917467.png)
+![image-20220706232917467](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706232917467.png)
 
 ### 3.2 攻击系统资源
 
@@ -175,7 +175,7 @@ TCP连接洪水攻击是在连接创建阶段对TCP资源进行攻击的。
 
 在三次握手进行的过程中，服务器会创建并保存TCP连接的信息，这个信息通常被保存在连接表结构中，但是，连接表的大小是有限的，一旦服务器接收到的连接数量超过了连接表能存储的数量，服务器就无法创建新的TCP连接了。攻击者可以利用大量受控主机，通过快速建立大量恶意的TCP连接占满被攻击目标的连接表，使目标无法接受新的TCP连接请求，从而达到拒绝服务攻击的目的。
 
-![image-20220706233013847](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706233013847.png)
+![image-20220706233013847](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706233013847.png)
 
 ##### 3.2.1.2 SYN Flood
 
@@ -185,7 +185,7 @@ TCP连接洪水攻击是在连接创建阶段对TCP资源进行攻击的。
 
 攻击者在发送TCP SYN报文时，可以在收到服务器返回的SYN+ACK报文后，跳过最后的ACK报文发送，使连接处于半开状态，但是这样会很明显的暴露出进行SYN洪水攻击的IP地址，同时相应报文会作为反射流量占用攻击者的宽带资源，所以更好的方式是攻击者将SYN报文的源IP地址随机伪造其他主机的IP地址或者不存在的IP地址，这样攻击目标将会应答发送给被伪造的IP地址，从而占用连接资源并隐藏攻击来源。
 
-![image-20220706233041371](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706233041371.png)
+![image-20220706233041371](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706233041371.png)
 
 ##### 3.2.1.3 PSH+ACK Flood
 
@@ -193,7 +193,7 @@ TCP连接洪水攻击是在连接创建阶段对TCP资源进行攻击的。
 
 在正常的TCP传输过程当中，如果待发送的数据会清空发送缓冲区，那么操作系统的TCP/IP协议栈就会自动为该数据包设置PSH标志，同样，当服务端接收到一个设置了PSH+ACK标志的报文时，意味着当前数据传输已经结束，因此需要立即将这些数据投递交给服务进程并清空接收缓冲区，而无须等待判断是否还会有额外的数据到达。
 
-![image-20220706233107771](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706233107771.png)
+![image-20220706233107771](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706233107771.png)
 
 ##### 3.2.1.4 RST Flood
 
@@ -205,7 +205,7 @@ TCP连接洪水攻击是在连接创建阶段对TCP资源进行攻击的。
 
 很多情况下，攻击者不会与被攻击客户端或服务器处于同一内网，导致发动TCP RST攻击时难以获取端口和序列号，在这种情况下，攻击者可以利用大量的受控主机猜测端口和序列号，进行盲打，发送RST洪水攻击，只要在数量巨大的RST报文中有一条与攻击目标的端口号相同，并且序列号落在目标的接收窗口之中，就能够终端连接。
 
-![image-20220706233137611](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706233137611.png)
+![image-20220706233137611](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706233137611.png)
 
 ##### 3.2.1.5 Sockstress攻击
 
@@ -215,7 +215,7 @@ TCP连接洪水攻击是在连接创建阶段对TCP资源进行攻击的。
 
 Sockstress攻击首先会完成TCP三次握手以建立TCP连接，但是在三次握手的最后一次ACK应答中，攻击者将其TCP窗口大小设置为0，随后进行一次数据请求，攻击目标在传输数据时，发现接收端的TCP窗口大小为0，就会停止传输数据，并发出TCP窗口探测包，询问攻击者其TCP窗口是否有更新，由于攻击者没有更改TCP窗口的大小，被攻击目标就会一直维持TCP连接等待数据发送，并不断进行窗口更新的探测，如果攻击者利用大量的受控主机进行Sockstress攻击，被攻击目标会一直维持大量的TCP连接并进行大量窗口更新探测，其TCP连接表会逐渐耗尽，无法连接新的连接而导致拒绝服务。
 
-![image-20220706233204665](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706233204665.png)
+![image-20220706233204665](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706233204665.png)
 
 #### 3.2.2 攻击SSL连接
 
@@ -229,7 +229,7 @@ Sockstress攻击首先会完成TCP三次握手以建立TCP连接，但是在三�
 
 THC SSL DOS攻击是安全研究人员在2011年提出的一种针对SSL的拒绝服务攻击方法，这种方法就是利用Renegotiation选项，造成被攻击目标资源耗尽，在进行SSL连接并握手之后，攻击者反复不断的进行秘钥重新协商过程，而秘钥重新协商过程需要服务器投入比客户端多15倍的CPU计算资源，攻击者只需要一台普通的台式机就能拖慢一台高性能服务器，而如果有大量主机同时进行攻击，则会使服务器忙于协商秘钥而完全停止响应。
 
-![image-20220706233240100](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706233240100.png)
+![image-20220706233240100](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706233240100.png)
 
 ##### 3.2.2.2 SSL Flood
 
@@ -237,7 +237,7 @@ THC SSL DOS攻击是安全研究人员在2011年提出的一种针对SSL的拒�
 
 在进行洪水攻击时，一个要点是需要攻击者能够在客户端大量的发出攻击请求，这就需要客户端所进行的计算尽可能的少，对于SSL洪水攻击，比较好的方式是在数据传输之前，进行SSL握手的过程中发动攻击，攻击者并不需要完成SSL握手和秘钥交换，而只需要在这个过程中让服务器去解密和验证，就能够大量的消耗服务器的计算资源，因此，攻击者可以非常容易的构造秘钥交换过程中的请求数据，达到减少客户端计算量的目的。
 
-![image-20220706233306162](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706233306162.png)
+![image-20220706233306162](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706233306162.png)
 
 ### 3.3 攻击应用资源
 
@@ -251,7 +251,7 @@ Domain Name System （域名系统）服务是互联网的一项核心服务，�
 
 在DNS解析的过程中，客户端发起一次查询请求，DNS服务器可能需要进行额外的多次查询才能完成解析的过程并给出应答，在这个过程中会消耗一定的计算和网络资源，如果攻击者利用大量受控主机不断发送不同域名的解析请求，那么DNS服务器的缓存会被不断刷新，而大量解析请求不能命中缓存又导致DNS服务器必须消耗额外的资源进行迭代查询，这会极大的增加DNS服务器的资源消耗，导致DNS响应缓慢甚至完全拒绝服务。
 
-![image-20220706233410208](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706233410208.png)
+![image-20220706233410208](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706233410208.png)
 
 ##### 3.3.1.2 DNS NXDOMAIN Flood
 
@@ -259,7 +259,7 @@ Domain Name System （域名系统）服务是互联网的一项核心服务，�
 
 在进行DNS NXDOMAIN洪水攻击时，DNS服务器会进行多次域名查询，同时，其缓存会被大量NXDOMAIN记录所填满，导致响应正常用户的DNS解析请求的速度变慢，这与DNS QUERY洪水攻击所达到的效果类似，除此之外，一部分DNS服务器在获取不到域名的解析结果时，还会再次进行递归查询，向其上一级的DNS服务器发送解析请求并等待应答，这进一步增加了DNS服务器的资源消耗，因此，DNS NXDOMAIN洪水攻击通常比DNS QUERY洪水攻击的效果更好。
 
-![image-20220706233436768](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706233436768.png)
+![image-20220706233436768](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706233436768.png)
 
 #### 3.3.2 攻击Web服务
 
@@ -275,7 +275,7 @@ Domain Name System （域名系统）服务是互联网的一项核心服务，�
 
 由于HTTP协议是基于TCP协议的，需要完成三次握手建立TCP连接才能开始HTTP通信，因此进行HTTP洪水攻击时无法使用伪造源IP地址的方式发动攻击，这时，攻击者通常会使用HTTP代理服务器，HTTP代理服务器在互联网上广泛存在，通过使用HTTP代理服务器，不仅可以隐藏来源以避免被追查，还能够提高攻击的效率——攻击者连接代理服务器并发送完成请求后，可以直接切断与该代理服务器的连接并开始连接下一个代理服务器，这时代理服务器与目标Web服务器的HTTP连接依然保持，Web服务器需要继续接收数据并处理HTTP请求。
 
-![image-20220706233513440](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706233513440.png)
+![image-20220706233513440](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706233513440.png)
 
 与DNS服务类似，Web服务也存在缓存机制，如果攻击者的大量请求都命中了服务器缓存，那么这种攻击的主要作用仅体现再消耗网络宽带资源上，对于计算和I/O资源的消耗是非常有限的，因此，高效的HTTP洪水攻击应不断发出针对不同资源和页面的HTTP请求，并尽可能请求无法被缓存的资源，从而加重服务器的负担，增强攻击效果。
 
@@ -291,7 +291,7 @@ HTTP洪水攻击是目标对Web服务威胁最大的攻击之一，有大量的�
 
 攻击者在发送HTTP GET请求时，缓慢的发送无用的header字段，并且一直不发送“rnrn”结束标志，这样就能够长时间占用与Web服务器的连接并保证该连接不被超时中断，然而，Web服务器能够处理的并发连接数是有限的，如果攻击者利用大量的受控主机发送这种不完整的HTTP GET请求并持续占用这些连接，就会耗尽Web服务器的连接资源，导致其他用户的HTTP请求无法被处理，造成拒绝服务。
 
-![image-20220706233551729](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706233551729.png)
+![image-20220706233551729](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706233551729.png)
 
 ##### 3.3.2.3 慢速POST请求攻击
 
@@ -301,7 +301,7 @@ HTTP洪水攻击是目标对Web服务威胁最大的攻击之一，有大量的�
 
 攻击者在发送HTTP POST请求时，在请求头部中将Content-Length设置为一个很大的值，并将HTTP BODY以非常缓慢的速度一个字节一个字节的向Web服务器发送，这样，Web服务器就需要一直维持与客户端的连接并等待数据传输结束，由于Content-Length被设置成了很大的值，而HTTP BODY的传输速度又非常缓慢，攻击者就可以长时间占用这个连接，通过间断性的发送单字节的HTTP BODY内容，攻击者就能够确保连接不因超时而导致中断，如果攻击者利用大量的受控主机发送这种缓慢的HTTP POST请求并持续占用这些连接，就会耗尽Web服务器的连接资源，导致其他用户的HTTP请求无法被处理，造成拒绝服务。
 
-![image-20220706233631123](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706233631123.png)
+![image-20220706233631123](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706233631123.png)
 
 ##### 3.3.2.4 数据处理过程攻击
 
@@ -313,11 +313,11 @@ HTTP洪水攻击是目标对Web服务威胁最大的攻击之一，有大量的�
 
 哈希冲突拒绝服务攻击是安全研究人员在2011年提出的一种拒绝服务攻击方法，web应用在处理请求中的POST数据时，通常使用键-值对的方式来进行存储，在PHP、Python、Java等语言中，键-值对的实质是一个哈希表，web应用程序通过计算“键”的哈希来获取其所对应的的“值”。正常情况下，这个哈希表的哈希冲突较少，因此进行查找和插入的速度很快，正常状态下的哈希表如图所示。
 
-![image-20220706233656443](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706233656443.png)
+![image-20220706233656443](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706233656443.png)
 
 如果攻击者构造一组恶意的POST数据，使得请求中的“键”的哈希值全部相同，那么保存POST数据的哈希表就会因此退化成为链表 ，对哈希表的查找和插入等操作规则变成了对链表的遍历操作，造成大量的计算资源被占用，导致拒绝服务攻击。如图所示为大量冲突状态下的哈希表。
 
-![image-20220706233712959](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706233712959.png)
+![image-20220706233712959](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706233712959.png)
 
 ## 4. 攻击防御
 

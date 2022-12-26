@@ -23,7 +23,7 @@ category:
 
 Redis是一种支持key-value等多种数据结构的存储系统。可用于缓存，事件发布或订阅，高速队列等场景。支持网络，提供字符串，哈希，列表，队列，集合结构直接存取，基于内存，可持久化。同时性能强劲，具有复制特性以及解决问题而生的独一无二的数据模型。它可以存储键值对与5种不同类型的值之间的映射，可以将存储在内存的键值对数据持久化到硬盘，可以使用复制特性来扩展读性能，还可以使用客户端分片来扩展写性能。
 
-![image-20220621192129955](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621192129955.png)
+![image-20220621192129955](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621192129955.png)
 
 Redis内部使用一个redisObject对象来标识所有的key和value数据，redisObject最主要的信息如图所示：type代表一个value对象具体是何种数据类型，encoding是不同数据类型在Redis内部的存储方式，比如——type=string代表value存储的是一个普通字符串，那么对应的encoding可以是raw或是int，如果是int则代表世界Redis内部是按数值类型存储和表示这个字符串。
 
@@ -100,11 +100,11 @@ Redis Cluster是一个实现了分布式且允许单点故障的Redis高级版�
 
 memcached是应用较广的开源分布式缓存产品之一，它本身其实不提供分布式解决方案。在服务端，memcached集群环境实际就是一个个memcached服务器的堆积，环境搭建较为简单；cache的分布式主要是在客户端实现，通过客户端的路由处理来达到分布式解决方案的目的。客户端做路由的原理非常简单，应用服务器在每次存取某key的value时，通过某种算法把key映射到某台memcached服务器nodeA上，因此这个key所有操作都在nodeA上，结构图如图6、图7所示。
 
-![image-20220621202928495](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621202928495.png)
+![image-20220621202928495](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621202928495.png)
 
 图6 memcached客户端路由图
 
-![image-20220621202947235](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621202947235.png)
+![image-20220621202947235](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621202947235.png)
 
 图7 memcached一致性hash示例图
 
@@ -112,7 +112,7 @@ memcached客户端采用一致性hash算法作为路由策略，如图7，相对
 
 memcached是一个高效的分布式内存cache，了解memcached的内存管理机制，才能更好的掌握memcached，让我们可以针对我们数据特点进行调优，让其更好的为我所用。我们知道memcached仅支持基础的key-value键值对类型数据存储。在memcached内存结构中有两个非常重要的概念：slab和chunk。如图8所示。
 
-![image-20220621203132597](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621203132597.png)
+![image-20220621203132597](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621203132597.png)
 
 图8 memcached内存结构图
 

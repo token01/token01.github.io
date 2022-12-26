@@ -154,7 +154,7 @@ JSON Web Token，一般用它来替换掉Session实现数据共享。
 - 5、客户端发起请求，需要携带该Token；
 - 6、服务端收到请求后，首先验证Token，之后返回数据
 
-![image-20220623230215140](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623230215140.png)
+![image-20220623230215140](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220623230215140.png)
 
 **优点**：
 

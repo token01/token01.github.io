@@ -132,7 +132,7 @@ public static void schedule() {
 
 时间轮(Timing Wheel)是一种环形的数据结构，就像一个时钟可以分成很多格子（Tick)，每个格子代表时间的间隔，它指向存储的具体任务（timerTask）的一个链表。
 
-![image-20220622220737670](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622220737670.png)
+![image-20220622220737670](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622220737670.png)
 
 以上述在论文中的图片例子，这里一个轮子包含8个格子（Tick), 每个tick是一秒钟；
 
@@ -222,7 +222,7 @@ Quartz是OpenSymphony开源组织在Job scheduling领域又一个开源项目，
 
 #### 1.6.1 **Quartz的体系结构**
 
-![image-20220622222458113](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622222458113.png)
+![image-20220622222458113](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622222458113.png)
 
 - **Job** 表示一个工作，要执行的具体内容。
 
@@ -333,7 +333,7 @@ Quartz提供两种基本作业存储类型:
 
 ##### 2.2.1.3 架构图
 
-![image-20220622224456185](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622224456185.png)
+![image-20220622224456185](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622224456185.png)
 
 ### 2.3 Elastic-Job
 
@@ -343,11 +343,11 @@ Quartz提供两种基本作业存储类型:
 
 **ElasticJob-Lite**: 定位为轻量级无中心化解决方案，使用 jar 的形式提供分布式任务的协调服务。
 
-![image-20220622224644115](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622224644115.png)
+![image-20220622224644115](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622224644115.png)
 
 **ElasticJob-Cloud**： 采用自研 Mesos Framework 的解决方案，额外提供资源治理、应用分发以及进程隔离等功能。
 
-![image-20220622224701923](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622224701923.png)
+![image-20220622224701923](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622224701923.png)
 
 **ElasticJob-Lite和ElasticJob-Cloud的区别**
 

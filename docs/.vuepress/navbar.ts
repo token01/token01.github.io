@@ -238,6 +238,29 @@ export default navbar([
   },
   
   {
+    text: "区块链",
+    icon: "creative",
+    prefix: "/blockchain/",
+    children:[
+      {
+        text: "区块链白皮书",
+        icon: "creative",
+        link: "basic-logic/The_white_paper_the_currency"
+      },
+      {
+        text: "区块链组件",
+        icon: "creative",
+        link: "component/Introduction_to_libp2p_autoNAT_network"
+      },
+      {
+        text: "主流区块链研究",
+        icon: "creative",
+        link: "male-chain-research/0.Rounding"
+      },
+      
+    ]
+  },
+  {
     text: "杂项|思考",
     icon: "creative",
     prefix: "/think/",

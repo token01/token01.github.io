@@ -14,17 +14,17 @@ category:
 
 如下是我从官方博客中找到图，这张图展示了ELK生态以及基于ELK的场景（最上方）
 
-![image-20220802220951170](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802220951170.png)
+![image-20220802220951170](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220802220951170.png)
 
 由于Elastic X-Pack是面向收费的，所以我们不妨也把X-Pack放进去，看看哪些是由X-Pack带来的，在阅读官网文档时将方便你甄别重点：
 
-![image-20220802221330037](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802221330037.png)
+![image-20220802221330037](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220802221330037.png)
 
 ### 1.1 Beats
 
 Beats是一个面向**轻量型采集器**的平台，这些采集器可以从边缘机器向Logstash、ElasticSearch发送数据，它是由Go语言进行开发的，运行效率方面比较快。从下图中可以看出，不同Beats的套件是针对不同的数据源。
 
-![image-20220802221745257](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802221745257.png)
+![image-20220802221745257](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220802221745257.png)
 
 ### 1.2 Logstash
 
@@ -82,11 +82,11 @@ Kibana最早的时候是基于Logstash创建的工具，后被Elastic公司在20
 
 Beats采集数据后，存储在ES中，有Kibana可视化的展示。
 
-![image-20220802225759473](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802225759473.png)
+![image-20220802225759473](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220802225759473.png)
 
 ### 2.2 beats+logstath+elasticsearch+kibana
 
-![image-20220802225849444](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802225849444.png)
+![image-20220802225849444](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220802225849444.png)
 
 该框架是在上面的框架的基础上引入了logstash，引入logstash带来的好处如下：
 
@@ -108,11 +108,11 @@ Beats采集数据后，存储在ES中，有Kibana可视化的展示。
 
 **增加更多的数据源** 比如：TCP，UDP和HTTP协议是将数据输入Logstash的常用方法
 
-![image-20220802230523930](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802230523930.png)
+![image-20220802230523930](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220802230523930.png)
 
 ### 2.3 beats+MQ+logstash+elasticsearch+kibana
 
-![image-20220802230554852](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802230554852.png)
+![image-20220802230554852](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220802230554852.png)
 
 在如上的基础上我们可以在beats和logstash中间添加一些组件redis、kafka、RabbitMQ等，添加中间件将会有如下好处：
 
@@ -132,29 +132,29 @@ Beats采集数据后，存储在ES中，有Kibana可视化的展示。
 
 基本的日志系统
 
-![image-20220802230911770](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802230911770.png)
+![image-20220802230911770](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220802230911770.png)
 
 增加数据源，和使用MQ
 
-![image-20220802231002429](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802231002429.png)
+![image-20220802231002429](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220802231002429.png)
 
 ### 3.2 Metric收集和APM性能监控
 
-![image-20220802231030438](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802231030438.png)
+![image-20220802231030438](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220802231030438.png)
 
 ### 3.3 多数据中心方案
 
 通过冗余实现数据高可用
 
-![image-20220802231118627](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802231118627.png)
+![image-20220802231118627](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220802231118627.png)
 
 两个数据采集中心（比如采集两个工厂的数据），采集数据后的汇聚
 
-![image-20220802231140850](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802231140850.png)
+![image-20220802231140850](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220802231140850.png)
 
 数据分散，跨集群的搜索
 
-![image-20220802231212499](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802231212499.png)
+![image-20220802231212499](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220802231212499.png)
 
 ## 参考文章
 

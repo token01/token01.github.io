@@ -14,7 +14,7 @@ category:
 
 新建单个文档所需要的步骤顺序：
 
-![image-20220808204133507](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220808204133507.png)
+![image-20220808204133507](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220808204133507.png)
 
 1. 客户端向 Node 1 发送新建、索引或者删除请求。
 2. 节点使用文档的 _id 确定文档属于分片 0 。请求会被转发到 Node 3，因为分片 0 的主分片目前被分配在 Node 3 上。
@@ -24,7 +24,7 @@ category:
 
 使用 bulk 修改多个文档步骤顺序：
 
-![image-20220808204354009](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220808204354009.png)
+![image-20220808204354009](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220808204354009.png)
 
 1. 客户端向 Node 1 发送 bulk 请求。
 2. Node 1 为每个节点创建一个批量请求，并将这些请求并行转发到每个包含主分片的节点主机。
@@ -36,7 +36,7 @@ category:
 
 > 先看下整体的索引流程
 
-![image-20220808204724386](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220808204724386.png)
+![image-20220808204724386](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220808204724386.png)
 
 - 协调节点默认使用文档ID参与计算（也支持通过routing），以便为路由提供合适的分片。
 
@@ -54,7 +54,7 @@ shard = hash(document_id) % (num_of_primary_shards)
 
 - **write 过程**
 
-![image-20220808205032418](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220808205032418.png)
+![image-20220808205032418](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220808205032418.png)
 
 一个新文档过来，会存储在 in-memory buffer 内存缓存区中，顺便会记录 Translog（Elasticsearch 增加了一个 translog ，或者叫事务日志，在每一次对 Elasticsearch 进行操作时均进行了日志记录）。
 
@@ -62,7 +62,7 @@ shard = hash(document_id) % (num_of_primary_shards)
 
 - **refresh 过程**
 
-![image-20220808205234959](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220808205234959.png)
+![image-20220808205234959](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220808205234959.png)
 
 refresh 默认 1 秒钟，执行一次上图流程。ES 是支持修改这个值的，通过 index.refresh_interval 设置 refresh （冲刷）间隔时间。refresh 流程大致如下：
 
@@ -74,7 +74,7 @@ refresh 默认 1 秒钟，执行一次上图流程。ES 是支持修改这个值
 
 每隔一段时间—例如 translog 变得越来越大—索引被刷新（flush）；一个新的 translog 被创建，并且一个全量提交被执行
 
-![image-20220808210450155](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220808210450155.png)
+![image-20220808210450155](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220808210450155.png)
 
 上个过程中 segment 在文件系统缓存中，会有意外故障文档丢失。那么，为了保证文档不会丢失，需要将文档写入磁盘。那么文档从文件缓存写入磁盘的过程就是 flush。写入磁盘后，清空 translog。具体过程如下：
 
@@ -92,7 +92,7 @@ Elasticsearch通过在后台进行Merge Segment来解决这个问题。小的段
 
 当索引的时候，刷新（refresh）操作会创建新的段并将段打开以供搜索使用。合并进程选择一小部分大小相似的段，并且在后台将它们合并到更大的段中。这并不会中断索引和搜索。
 
-![image-20220808210739428](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220808210739428.png)
+![image-20220808210739428](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220808210739428.png)
 
 一旦合并结束，老的段被删除：
 
@@ -100,7 +100,7 @@ Elasticsearch通过在后台进行Merge Segment来解决这个问题。小的段
 2. 新的段被打开用来搜索。
 3. 老的段被删除。
 
-![image-20220808210835319](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220808210835319.png)
+![image-20220808210835319](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220808210835319.png)
 
 合并大的段需要消耗大量的I/O和CPU资源，如果任其发展会影响搜索性能。Elasticsearch在默认情况下会对合并流程进行资源限制，所以搜索仍然 有足够的资源很好地执行。
 
@@ -152,7 +152,7 @@ Elasticsearch采用多Shard方式，通过配置routing规则将数据分成多�
 
 此外，Elasticsearch整体架构上采用了一主多副的方式：
 
-![image-20220808212806171](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220808212806171.png)
+![image-20220808212806171](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220808212806171.png)
 
 每个Index由多个Shard组成，每个Shard有一个主节点和多个副本节点，副本个数可配。但每次写入的时候，写入请求会先根据_routing规则选择发给哪个Shard，Index Request中可以设置使用哪个Filed的值作为路由参数，如果没有设置，则使用Mapping中的配置，如果mapping中也没有配置，则使用_id作为路由参数，然后通过_routing的Hash值选择出Shard（在OperationRouting类中），最后从集群的Meta中找出出该Shard的Primary节点。
 
@@ -164,7 +164,7 @@ Elasticsearch采用多Shard方式，通过配置routing规则将数据分成多�
 
 对于这种问题，Elasticsearch学习了数据库中的处理方式：增加CommitLog模块，Elasticsearch中叫TransLog。
 
-![image-20220808214612694](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220808214612694.png)
+![image-20220808214612694](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220808214612694.png)
 
 在每一个Shard中，写入流程分为两部分，先写入Lucene，再写入TransLog。
 
@@ -176,7 +176,7 @@ Elasticsearch采用多Shard方式，通过配置routing规则将数据分成多�
 
 上面介绍了Elasticsearch在写入时的两个关键模块，Replica和TransLog，接下来，我们看一下Update流程：
 
-![image-20220808215142634](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220808215142634.png)
+![image-20220808215142634](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220808215142634.png)
 
 Lucene中不支持部分字段的Update，所以需要在Elasticsearch中实现该功能，具体流程如下：
 
@@ -197,7 +197,7 @@ Lucene中不支持部分字段的Update，所以需要在Elasticsearch中实现�
 
 下面，我们就以Bulk请求为例来介绍写入流程。
 
-![image-20220808215459764](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220808215459764.png)
+![image-20220808215459764](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220808215459764.png)
 
 - 红色：Client Node。
 - 绿色：Primary Node。

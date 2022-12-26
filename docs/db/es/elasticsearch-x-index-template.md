@@ -77,7 +77,7 @@ PUT _component_template/runtime_component_template
 
 执行结果如下
 
-![image-20220804225958359](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804225958359.png)
+![image-20220804225958359](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804225958359.png)
 
 - **创建使用组件模板的索引模板**
 
@@ -118,7 +118,7 @@ PUT _index_template/template_1
 
 执行结果如下
 
-![image-20220804230128229](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804230128229.png)
+![image-20220804230128229](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804230128229.png)
 
 - 创建一个匹配`bar*`的索引`bar-test`
 
@@ -134,7 +134,7 @@ GET /bar-test/_mapping
 
 执行结果如下
 
-![image-20220804230207857](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804230207857.png)
+![image-20220804230207857](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804230207857.png)
 
 ## 2. 模拟多组件模板
 
@@ -150,7 +150,7 @@ POST /_index_template/_simulate_index/bar-pdai-test
 
 执行结果如下
 
-![image-20220804230349682](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804230349682.png)
+![image-20220804230349682](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804230349682.png)
 
 ### 2.2 模拟组件模板结果
 
@@ -274,7 +274,7 @@ POST /_index_template/_simulate
   
 ```
 
-![image-20220804230703815](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804230703815.png)
+![image-20220804230703815](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804230703815.png)
 
 ## 参考文章
 

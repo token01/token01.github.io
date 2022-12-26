@@ -110,7 +110,7 @@ PUT /test-index-users
 
 执行结果
 
-![image-20220804220348876](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804220348876.png)
+![image-20220804220348876](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804220348876.png)
 
 - **插入测试数据**
 
@@ -124,7 +124,7 @@ post /test-index-users/_doc
 }
 ```
 
-![image-20220804220620567](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804220620567.png)
+![image-20220804220620567](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804220620567.png)
 
 - 查看数据
 
@@ -135,7 +135,7 @@ GET /test-index-users/_search
 }
 ```
 
-![image-20220804220806547](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804220806547.png)
+![image-20220804220806547](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804220806547.png)
 
 - 我们再**测试下不匹配的数据类型**(age)：
 
@@ -150,7 +150,7 @@ POST /test-index-users/_doc
 
 你可以看到无法类型不匹配的错误：
 
-![image-20220804220942671](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804220942671.png)
+![image-20220804220942671](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804220942671.png)
 
 ### 3.2 修改索引
 
@@ -174,7 +174,7 @@ PUT /test-index-users/_settings
 }
 ```
 
-![image-20220804221203156](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804221203156.png)
+![image-20220804221203156](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804221203156.png)
 
 再次查看状态：
 
@@ -193,19 +193,19 @@ green open test-index-users                          LSaIB57XSC6uVtGQHoPYxQ 1 1 
 
 一旦索引被关闭，那么这个索引只能显示元数据信息，**不能够进行读写操作**。
 
-![image-20220804221359572](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804221359572.png)
+![image-20220804221359572](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804221359572.png)
 
 当关闭以后，再插入数据时：
 
-![image-20220804221616801](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804221616801.png)
+![image-20220804221616801](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804221616801.png)
 
 - **打开索引**
 
-![image-20220804221707621](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804221707621.png)
+![image-20220804221707621](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804221707621.png)
 
 打开后又可以重新写数据了
 
-![image-20220804221723173](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804221723173.png)
+![image-20220804221723173](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804221723173.png)
 
 ### 3.4 删除索引
 
@@ -223,7 +223,7 @@ DELETE /test-index-users
 DELETE /test-index-users
 ```
 
-![image-20220804221813596](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804221813596.png)
+![image-20220804221813596](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804221813596.png)
 
 ### 3.6 查看索引
 
@@ -235,7 +235,7 @@ DELETE /test-index-users
 GET /bank/_mapping
 ```
 
-![image-20220804222117904](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804222117904.png)
+![image-20220804222117904](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804222117904.png)
 
 - **settings**
 
@@ -243,13 +243,13 @@ GET /bank/_mapping
 GET /bank/_settings
 ```
 
-![image-20220804222140597](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804222140597.png)
+![image-20220804222140597](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804222140597.png)
 
 ## 4. Kibana管理索引
 
 在Kibana如下路径，我们可以查看和管理索引
 
-![image-20220804222249667](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804222249667.png)
+![image-20220804222249667](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804222249667.png)
 
 ## 参考文章
 

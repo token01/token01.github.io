@@ -10,7 +10,7 @@
 
 首先我们来看一下JMeter的后置处理器，路径：线程组（用户）->添加->后置处理器（）；我们可以清楚地看到JMeter5中共有11个后置处理器（不包括jp@gc开头的后置处理器，这个是安装的插件），如下图所示：
 
-![image-20220624133657239](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624133657239.png)
+![image-20220624133657239](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624133657239.png)
 
 ## 3. 常用后置处理器详解
 
@@ -22,7 +22,7 @@ CSS/JQuery提取器，是通过css选择器定位页面元素并读取数据 。
 
 我们先来看看这个 **CSS/JQuery提取器** 长得是啥样子，路径：**线程组 > 添加 > 后置处理器 > CSS/JQuery提取器**，如下图所示： 
 
-![image-20220624133817595](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624133817595.png)
+![image-20220624133817595](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624133817595.png)
 
 #### 3.1.2 关键参数说明如下：
 
@@ -76,23 +76,23 @@ CSS选择器或JQuery选择器是Jmeter支持的两种语法，下面对其两�
 
 1、新建测试计划，线程组下添加访问 博客园主页的取样器，如下图所示：
 
-![image-20220624134058234](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624134058234.png)
+![image-20220624134058234](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624134058234.png)
 
 2、然后再添加CSS/JQuery提取器，如下图所示：
 
-![image-20220624134117503](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624134117503.png)
+![image-20220624134117503](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624134117503.png)
 
 其中CSS选择器表达式就按如下图的方法获取，如下图所示：
 
-![image-20220624134138658](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624134138658.png)
+![image-20220624134138658](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624134138658.png)
 
 3、接着再添加一个取样器 用来确认是否提取到我们要提取的东西，提取出来的值用来传参，如下图所示：
 
-![image-20220624134201747](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624134201747.png)
+![image-20220624134201747](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624134201747.png)
 
 4、配置好以后，点击“保存”，运行JMeter，查看表格结果（可以看到提取的路径就是我们要提取博客园的新闻路径），如下图所示：
 
-![image-20220624134305002](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624134305002.png)
+![image-20220624134305002](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624134305002.png)
 
 #### 3.1.5实例2（随机提取链接）
 
@@ -100,27 +100,27 @@ CSS选择器或JQuery选择器是Jmeter支持的两种语法，下面对其两�
 
 **线程组**
 
-![image-20220624134340837](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624134340837.png)
+![image-20220624134340837](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624134340837.png)
 
 **随机变量**
 
-![image-20220624134358713](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624134358713.png)
+![image-20220624134358713](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624134358713.png)
 
 **取样器**
 
-![image-20220624134415901](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624134415901.png)
+![image-20220624134415901](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624134415901.png)
 
 2、然后再添加CSS/JQuery提取器，如下图所示：
 
-![image-20220624134431832](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624134431832.png)
+![image-20220624134431832](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624134431832.png)
 
 3、接着再添加一个取样器 用来确认是否提取到我们要提取的东西，提取出来的值用来传参，如下图所示：
 
-![image-20220624134451012](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624134451012.png)
+![image-20220624134451012](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624134451012.png)
 
 4、配置好以后，点击“保存”，运行JMeter，查看表格结果（可以看到提取的路径就是我们要提取博客园的新闻路径），如下图所示：
 
-![image-20220624134515503](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624134515503.png)
+![image-20220624134515503](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624134515503.png)
 
 ### 3.2 JSON提取器
 
@@ -132,7 +132,7 @@ JSON 提取器可以使用JSON-PATH语法从JSON格式的响应中提取数据�
 
 我们先来看看这个**JSON提取器**长得是啥样子，路径：**线程组 > 添加 > 后置处理器 > JSON提取器**，如下图所示：  
 
-![image-20220624134713242](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624134713242.png)
+![image-20220624134713242](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624134713242.png)
 
 #### 3.2.2 关键参数说明如下：
 
@@ -179,25 +179,25 @@ JSON 提取器可以使用JSON-PATH语法从JSON格式的响应中提取数据�
 
 1、新建测试计划，线程组下添加天气预报接口取样器，如下图所示：
 
-![image-20220624134918231](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624134918231.png)
+![image-20220624134918231](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624134918231.png)
 
 2、然后再在取样器下添加JSON提取器，如下图所示：
 
-![image-20220624134947490](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624134947490.png)
+![image-20220624134947490](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624134947490.png)
 
 3、紧接着再添加一个取样器 度娘，用来获取提取的status，提取出来的值用来传参，如下图所示
 
-![image-20220624135006116](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624135006116.png)
+![image-20220624135006116](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624135006116.png)
 
 4、配置好以后，点击“保存”，运行JMeter，查看表格结果，如下图所示：
 
 **天气预报接口请求结果：**
 
-![image-20220624135022606](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624135022606.png)
+![image-20220624135022606](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624135022606.png)
 
 **度娘请求结果：** 
 
-![image-20220624135039141](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624135039141.png)
+![image-20220624135039141](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624135039141.png)
 
 ### 3.3 边界提取器
 
@@ -207,7 +207,7 @@ JSON 提取器可以使用JSON-PATH语法从JSON格式的响应中提取数据�
 
 我们先来看看这个**边界提取器**长得是啥样子，路径：**线程组 > 添加 > 后置处理器 > 边界提取器**，如下图所示： 
 
-![image-20220624135215636](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624135215636.png)
+![image-20220624135215636](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624135215636.png)
 
 #### 3.3.2 关键参数说明如下：
 
@@ -239,7 +239,7 @@ JSON 提取器可以使用JSON-PATH语法从JSON格式的响应中提取数据�
 
 1、新建测试计划，线程组下添加度娘取样器，如下图所示：
 
-![image-20220624135755207](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624135755207.png)
+![image-20220624135755207](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624135755207.png)
 
 2、使用边界提取器提取度娘取样器响应中（百度一下，你就知道），如下图所示：
 
@@ -302,7 +302,7 @@ JSON 提取器可以使用JSON-PATH语法从JSON格式的响应中提取数据�
 
 3、然后再在取样器下添加边界提取器，如下图所示：
 
-![image-20220624135841205](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624135841205.png)
+![image-20220624135841205](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624135841205.png)
 
 说明：
 
@@ -322,17 +322,17 @@ JSON 提取器可以使用JSON-PATH语法从JSON格式的响应中提取数据�
 
 3、紧接着再添加一个取样器 提取出来的值用来传参，用来获取提取的param，提取出来的值用来传参，如下图所示：
 
-![image-20220624135930795](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624135930795.png)
+![image-20220624135930795](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624135930795.png)
 
 4、配置好以后，点击“保存”，运行JMeter，查看表格结果，如下图所示：
 
 **度娘请求结果：**
 
-![image-20220624135949511](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624135949511.png)
+![image-20220624135949511](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624135949511.png)
 
 **提取出来的值用来传参请求结果：** 
 
-![image-20220624140005238](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624140005238.png)
+![image-20220624140005238](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624140005238.png)
 
 ### 3.4 正则表达式提取器
 
@@ -342,7 +342,7 @@ JSON 提取器可以使用JSON-PATH语法从JSON格式的响应中提取数据�
 
 我们先来看看这个**正则表达式提取器**长得是啥样子，路径：**线程组 > 添加 > 后置处理器 > 正则表达式提取器**，如下图所示： 
 
-![image-20220624140145400](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624140145400.png)
+![image-20220624140145400](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624140145400.png)
 
 #### 3.4.2 关键参数说明如下：
 
@@ -366,7 +366,7 @@ JSON 提取器可以使用JSON-PATH语法从JSON格式的响应中提取数据�
 
 1、新建测试计划，线程组下添加度娘取样器，如下图所示：
 
-![image-20220624140429869](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624140429869.png)
+![image-20220624140429869](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624140429869.png)
 
 2、使用正则表达式提取器提取度娘取样器响应中（**百度一下，你就知道**），如下图所示：
 
@@ -429,7 +429,7 @@ JSON 提取器可以使用JSON-PATH语法从JSON格式的响应中提取数据�
 
 3、然后再在取样器下添加正则表达式提取器，如下图所示：
 
-![image-20220624141602550](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624141602550.png)
+![image-20220624141602550](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624141602550.png)
 
 说明：
 
@@ -453,27 +453,27 @@ JSON 提取器可以使用JSON-PATH语法从JSON格式的响应中提取数据�
 
 4、紧接着再添加一个取样器 提取出来的值用来传参，用来获取提取的param，提取出来的值用来传参，如下图所示：
 
-![image-20220624141637181](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624141637181.png)
+![image-20220624141637181](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624141637181.png)
 
 5、配置好以后，点击“保存”，运行JMeter，查看表格结果，如下图所示：
 
 **度娘请求结果：**
 
-![image-20220624141653974](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624141653974.png)
+![image-20220624141653974](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624141653974.png)
 
 **提取出来的值用来传参请求结果：**
 
-![image-20220624141706991](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624141706991.png)
+![image-20220624141706991](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624141706991.png)
 
 #### 3.4.4 实例2 登录获取token
 
 对登录请求后置处理
 
-![image-20220624142005359](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624142005359.png)
+![image-20220624142005359](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624142005359.png)
 
 取到登录后的token 设置
 
-![image-20220624142106868](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624142106868.png)
+![image-20220624142106868](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624142106868.png)
 
 ### 3.6 BeanShell 后置处理程序
 
@@ -483,7 +483,7 @@ JSON 提取器可以使用JSON-PATH语法从JSON格式的响应中提取数据�
 
 我们先来看看这个  **BeanShell 后置处理程序**长得是啥样子，路径：**线程组 > 添加 > 后置处理器 > BeanShell 后置处理程序**，如下图所示： 
 
-![image-20220624142401298](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624142401298.png)
+![image-20220624142401298](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624142401298.png)
 
 #### 3.6.2 关键参数说明如下：
 
@@ -505,7 +505,7 @@ JSON 提取器可以使用JSON-PATH语法从JSON格式的响应中提取数据�
 
 1、新建测试计划，线程组下添加1个取样器 访问度娘，如下图所示：
 
-![image-20220624142524798](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624142524798.png)
+![image-20220624142524798](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624142524798.png)
 
 2、然后再添加BeanShell 后置处理程序，设置脚本：**prev.setDataEncoding("UTF-8");** ，如下图所示：
 
@@ -515,17 +515,17 @@ prev.setDataEncoding("utf-8");
 
 
 
-![image-20220624142811533](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624142811533.png)
+![image-20220624142811533](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624142811533.png)
 
 3、配置好以后，点击“保存”，运行JMeter，禁用BeanShell 后置处理程序，查看表格结果（中文乱码），如下图所示：
 
 **（1）禁用BeanShell 后置处理程序，查看表格结果（有中文乱码）**
 
-![image-20220624142739656](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624142739656.png)
+![image-20220624142739656](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624142739656.png)
 
 **（2）启用BeanShell 后置处理程序，查看表格结果（无中文乱码）**
 
-![image-20220624142730328](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220624142730328.png)
+![image-20220624142730328](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220624142730328.png)
 
 ## 参考文章
 

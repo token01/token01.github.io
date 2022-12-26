@@ -29,11 +29,11 @@ category:
 -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -Xloggc:./gc.log 
 ```
 
-![image-20220429154545836](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220429154545836.png)
+![image-20220429154545836](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220429154545836.png)
 
 找到gc.log文件，注意，刚开始如果一次GC都没发生日志是空的，可以等到发生GC之后再打开：
 
-![image-20220429154804961](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220429154804961.png)
+![image-20220429154804961](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220429154804961.png)
 
 从日志上可以看出来，jdk1.8中默认使用的是Parallel Scavenge+Parallel Old收集器，当然我们也可以通过参数：
 
@@ -43,7 +43,7 @@ category:
 
 进行打印：
 
-![image-20220429154946996](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220429154946996.png)
+![image-20220429154946996](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220429154946996.png)
 
 ```
 -XX:-BytecodeVerificationLocal -XX:-BytecodeVerificationRemote -XX:InitialHeapSize=268435456 -XX:+ManagementServer -XX:MaxHeapSize=4294967296 -XX:+PrintCommandLineFlags -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:TieredStopAtLevel=1 -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseParallelGC 
@@ -51,7 +51,7 @@ category:
 
 ## 3. gc日志分析
 
-![image-20220429160003832](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220429160003832.png)
+![image-20220429160003832](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220429160003832.png)
 
 ### 3.1 环境信息
 
@@ -137,7 +137,7 @@ CommandLine flags: -XX:-BytecodeVerificationLocal -XX:-BytecodeVerificationRemot
 
 >**注意：Minor GC堆内存总容量 = 9/10年轻代 + 老年代。原因是Survivor区只计算from部分，而JVM默认年轻代中Eden区和Survivor区的比例关系，Eden:S0:S1=8:1:1。**
 
-![image-20220505155043126](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220505155043126.png)
+![image-20220505155043126](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220505155043126.png)
 
 ## 4. 墙钟时间和cpu时间
 
@@ -154,7 +154,7 @@ CommandLine flags: -XX:-BytecodeVerificationLocal -XX:-BytecodeVerificationRemot
 注意，CMS也是一款老年代收集器，使用这个参数后新生代默认会使用ParNew收集器
 然后重启服务，等候垃圾回收之后，打开gc.log文件。
 
-![image-20220429161025196](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220429161025196.png)
+![image-20220429161025196](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220429161025196.png)
 
 前面两行和上面一样，我们把第6行复制出来看看垃圾收集器是否切换成功：
 
@@ -215,7 +215,7 @@ CommandLine flags: -XX:-BytecodeVerificationLocal -XX:-BytecodeVerificationRemot
 
 然后重启服务，等待发生垃圾回收之后打开gc.log文件：
 
-![image-20220429161709649](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220429161709649.png)
+![image-20220429161709649](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220429161709649.png)
 
 可以看到，这个文件相比较于其他垃圾收集器要复杂的多。我们还是先看下第6行，确认是否使用了G1收集器：
 
@@ -263,7 +263,7 @@ CommandLine flags: -XX:-BytecodeVerificationLocal -XX:-BytecodeVerificationRemot
 
 [详细日志介绍](https://dzone.com/articles/understanding-g1-gc-log-format)
 
-![image-20220429170801285](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220429170801285.png)
+![image-20220429170801285](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220429170801285.png)
 
 ## 7. 利用工具分析GC日志
 
@@ -281,11 +281,11 @@ CommandLine flags: -XX:-BytecodeVerificationLocal -XX:-BytecodeVerificationRemot
 - 1、打开官网地址：https://gceasy.io/
 - 2、上传gc日志
 
-![image-20220429162028875](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220429162028875.png)
+![image-20220429162028875](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220429162028875.png)
 
 然后可以进入主页面：
 
-![image-20220429162344093](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220429162344093.png)
+![image-20220429162344093](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220429162344093.png)
 
 这里已经帮我们把吞吐量和GC暂停时间统计出来了，当然还有其他指标也有统计，有了工具我们就可以对比指标来确认哪种收集器适合自己的系统了。
 
@@ -294,20 +294,20 @@ CommandLine flags: -XX:-BytecodeVerificationLocal -XX:-BytecodeVerificationRemot
 - 1、下载gcviewer的jar包
 - 2、执行命令java -jar gcviewer-1.36-SNAPSHOT.jar
 
-![image-20220429162437651](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220429162437651.png)
+![image-20220429162437651](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220429162437651.png)
 
 打开主界面：
 
-![image-20220429162453125](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220429162453125.png)
+![image-20220429162453125](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220429162453125.png)
 
 点击File–>Open File
 
-![image-20220429162516855](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220429162516855.png)
+![image-20220429162516855](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220429162516855.png)
 
 在右边的第一个Summary概要里面可以看到吞吐量的统计。
 切换到第三个标签Pause：
 
-![image-20220429162529885](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220429162529885.png)
+![image-20220429162529885](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220429162529885.png)
 
 可以查看到各种停顿时间的统计。
 
@@ -325,15 +325,15 @@ CommandLine flags: -XX:-BytecodeVerificationLocal -XX:-BytecodeVerificationRemot
 
 ### 8.1 新生代Parallel Scavenge+老年代Parallel Old
 
-![image-20220429163708425](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220429163708425.png)
+![image-20220429163708425](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220429163708425.png)
 
 ### 8.2 新生代ParNew 老年代 CMS
 
-![image-20220429164043614](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220429164043614.png)
+![image-20220429164043614](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220429164043614.png)
 
 ### 8.3 G1收集器（独立完成）
 
-![image-20220429164317116](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220429164317116.png)
+![image-20220429164317116](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220429164317116.png)
 
 ## 9. GC原因
 

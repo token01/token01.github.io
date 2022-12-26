@@ -21,7 +21,7 @@ G1垃圾回收器是在Java7 update 4之后引入的一个新的垃圾回收器�
 
 G1分区示意图
 
-![image-20220823204433162](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220823204433162.png)
+![image-20220823204433162](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220823204433162.png)
 
 #### 2.1.1 分区Region
 
@@ -37,7 +37,7 @@ G1同样可以通过-Xms/-Xmx来指定堆空间大小。当发生年轻代收集
 
 ### 2.2 分代模型
 
-![image-20220823205453245](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220823205453245.png)
+![image-20220823205453245](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220823205453245.png)
 
 #### 2.2.1 分代垃圾收集
 
@@ -53,7 +53,7 @@ G1同样可以通过-Xms/-Xmx来指定堆空间大小。当发生年轻代收集
 
 ### 2.3 分区模型
 
-![image-20220823210244539](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220823210244539.png)
+![image-20220823210244539](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220823210244539.png)
 
 G1对内存的使用以分区(Region)为单位，而对对象的分配则以卡片(Card)为单位。
 
@@ -83,7 +83,7 @@ RSet在内部使用Per Region Table(PRT)记录分区的引用情况。由于RSet
 
 CSet收集示意图
 
-![image-20220823211503784](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220823211503784.png)
+![image-20220823211503784](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220823211503784.png)
 
 收集集合(CSet)代表每次GC暂停时回收的一系列目标分区。在任意一次收集暂停中，CSet所有分区都会被释放，内部存活的对象都会被转移到分配的空闲分区中。因此无论是年轻代收集，还是混合收集，工作的机制都是一致的。年轻代收集CSet只容纳年轻代分区，而混合收集会通过启发式算法，在老年代候选回收分区中，筛选出回收收益最高的分区添加到CSet中。
 
@@ -107,15 +107,15 @@ CSet收集示意图
 
 CMS和G1在并发标记时使用的是同一个算法：三色标记法，使用白灰黑三种颜色标记对象。白色是未标记；灰色自身被标记，引用的对象未标记；黑色自身与引用对象都已标记。
 
-![image-20220823212433809](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220823212433809.png)
+![image-20220823212433809](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220823212433809.png)
 
-GC 开始前所有对象都是白色，GC 一开始所有根能够直达的对象被压到栈中，待搜索，此时颜色是灰色。然后灰色对象依次从栈中取出搜索子对象，子对象也会被涂为灰色，入栈。当其所有的子对象都涂为灰色之后该对象被涂为黑色。当 GC 结束之后灰色对象将全部没了，剩下黑色的为存活对象，白色的为垃圾。![java-jvm-gc-g1-5-1](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/java-jvm-gc-g1-5-1.gif)
+GC 开始前所有对象都是白色，GC 一开始所有根能够直达的对象被压到栈中，待搜索，此时颜色是灰色。然后灰色对象依次从栈中取出搜索子对象，子对象也会被涂为灰色，入栈。当其所有的子对象都涂为灰色之后该对象被涂为黑色。当 GC 结束之后灰色对象将全部没了，剩下黑色的为存活对象，白色的为垃圾。![java-jvm-gc-g1-5-1](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/java-jvm-gc-g1-5-1.gif)
 
 #### 2.4.4 漏标问题
 
 在remark过程中，黑色指向了白色，如果不对黑色重新扫描，则会漏标。会把白色D对象当作没有新引用指向从而回收掉。
 
-![image-20220823213142683](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220823213142683.png)
+![image-20220823213142683](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220823213142683.png)
 
 并发标记过程中，Mutator删除了所有从灰色到白色的引用，会产生漏标。此时白色对象应该被回收
 
@@ -141,7 +141,7 @@ GC 开始前所有对象都是白色，GC 一开始所有根能够直达的对�
 
 G1垃圾收集活动周期图
 
-![image-20220823213416933](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220823213416933.png)
+![image-20220823213416933](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220823213416933.png)
 
 ### 3.2 RSet的维护
 
@@ -151,7 +151,7 @@ G1垃圾收集活动周期图
 
 栅栏代码示意
 
-![image-20220823213535491](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220823213535491.png)
+![image-20220823213535491](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220823213535491.png)
 
 我们首先介绍一下栅栏(Barrier)的概念。栅栏是指在原生代码片段中，当某些语句被执行时，栅栏代码也会被执行。而G1主要在赋值语句中，使用写前栅栏(Pre-Write Barrrier)和写后栅栏(Post-Write Barrrier)。事实上，写栅栏的指令序列开销非常昂贵，应用吞吐量也会根据栅栏复杂度而降低。
 
@@ -187,7 +187,7 @@ G1中使用基于Urs Hölzle的快速写栅栏，将栅栏开销缩减到2个额
 
 并发标记位图过程
 
-![image-20220823214154560](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220823214154560.png)
+![image-20220823214154560](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220823214154560.png)
 
 要标记存活的对象，每个分区都需要创建位图(Bitmap)信息来存储标记数据，来确定标记周期内被分配的对象。G1采用了两个位图Previous Bitmap、Next Bitmap，来存储标记数据，Previous位图存储上次的标记数据，Next位图在标记周期内不断变化更新，同时Previous位图的标记数据也越来越过时，当标记周期结束后Next位图便替换Previous位图，成为上次标记的位图。同时，每个分区通过顶部开始标记(TAMS)，来记录已标记过的内存范围。同样的，G1使用了两个顶部开始标记Previous TAMS(PTAMS)、Next TAMS(NTAMS)，记录已标记的范围。
 

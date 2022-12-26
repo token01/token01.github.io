@@ -10,11 +10,11 @@ Test Plan就是你的测试计划，可以理解为根目录，然后在里面�
 
 在 Test Plan 上點右鍵， Add → Threads (Users) → Thread Group
 
-![image-20220621143515425](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621143515425.png)
+![image-20220621143515425](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621143515425.png)
 
 设定有100个使用者来测试我们的服务
 
-![image-20220621144638422](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621144638422.png)
+![image-20220621144638422](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621144638422.png)
 
 - 线程数：虚拟用户数。
 
@@ -38,9 +38,9 @@ Test Plan就是你的测试计划，可以理解为根目录，然后在里面�
 
 创建完线程组后，再添加http请求，表示要对哪个接口进行测试
 
-![image-20220621144714690](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621144714690.png)
+![image-20220621144714690](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621144714690.png)
 
-![image-20220621145436107](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621145436107.png)
+![image-20220621145436107](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621145436107.png)
 
 #### 1.2.1 添加请求头信息
 
@@ -48,21 +48,21 @@ Test Plan就是你的测试计划，可以理解为根目录，然后在里面�
 
 如：用户信息的token，一般我们放在请求头
 
-![image-20220621150443152](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621150443152.png)
+![image-20220621150443152](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621150443152.png)
 
-![image-20220621150620862](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621150620862.png)
+![image-20220621150620862](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621150620862.png)
 
 ### 1.3 添加监听器
 
 为需要压测的http请求添加监听器，用户生成测试结果
 
-![image-20220621145545694](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621145545694.png)
+![image-20220621145545694](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621145545694.png)
 
-![image-20220621145723861](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621145723861.png)
+![image-20220621145723861](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621145723861.png)
 
 ### 1.4 自动压测
 
-![image-20220621150711906](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621150711906.png)
+![image-20220621150711906](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621150711906.png)
 
 ### 1.5 查看结果
 
@@ -72,19 +72,19 @@ Test Plan就是你的测试计划，可以理解为根目录，然后在里面�
 
 记录每个请求接口详情
 
-![image-20220621150815332](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621150815332.png)
+![image-20220621150815332](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621150815332.png)
 
 #### 1.5.2 汇总报告
 
-![image-20220621150928889](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621150928889.png)
+![image-20220621150928889](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621150928889.png)
 
 #### 1.5.3 聚合报告
 
-![image-20220621150939140](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621150939140.png)
+![image-20220621150939140](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621150939140.png)
 
 #### 1.5.4 汇总图
 
-![image-20220621150952833](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621150952833.png)
+![image-20220621150952833](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621150952833.png)
 
 ## 2. jmeter 参数化
 
@@ -98,15 +98,15 @@ Test Plan就是你的测试计划，可以理解为根目录，然后在里面�
 
  需要添加配置元件 - 用户定义的变量。
 
-![image-20220621153104573](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621153104573.png)
+![image-20220621153104573](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621153104573.png)
 
 定义ip
 
-![image-20220621153231624](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621153231624.png)
+![image-20220621153231624](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621153231624.png)
 
 使用的时候
 
-![image-20220621153326131](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621153326131.png)
+![image-20220621153326131](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621153326131.png)
 
 ### 2.2 函数生成器 
 
@@ -130,18 +130,18 @@ Test Plan就是你的测试计划，可以理解为根目录，然后在里面�
 
 创建方式：Tools–>函数助手对话框–>选择一个功能–>_Random：
 
-![image-20220621155023710](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621155023710.png)
+![image-20220621155023710](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621155023710.png)
 
 ### 2.3 从文件读取
 
 需要在线程组里面添加配置元件 - CSV Data Set Config
 其中 Recycle on EOF: 设置 True 后，允许循环取值
 
-![image-20220621155455357](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621155455357.png)
+![image-20220621155455357](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621155455357.png)
 
 配置
 
-![image-20220621155819206](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621155819206.png)
+![image-20220621155819206](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621155819206.png)
 
 csv 文件
 
@@ -154,11 +154,11 @@ user_id,user_name
 
 我们压测登录接口
 
-![image-20220621160200409](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621160200409.png)
+![image-20220621160200409](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621160200409.png)
 
 测试结果
 
-![image-20220621160223118](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621160223118.png)
+![image-20220621160223118](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621160223118.png)
 
 ## 参考文章
 

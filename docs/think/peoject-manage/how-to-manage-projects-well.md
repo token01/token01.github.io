@@ -10,7 +10,7 @@ category:
 
 我把项目管理分为4个阶段，分别为需求阶段、研发阶段、测试阶段和上线阶段。
 
-![image-20220908225635605](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220908225635605.png)
+![image-20220908225635605](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220908225635605.png)
 
 项目管理过程中，需要借助项目管理工具，我们以TB（Teambition）为例。
 
@@ -23,7 +23,7 @@ category:
 下面是产品规划要求：
 
 
-![image-20220908225741223](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220908225741223.png)
+![image-20220908225741223](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220908225741223.png)
 
 ### 1.2 需求评审
 
@@ -33,7 +33,7 @@ category:
 
 下面是需求评审要求：
 
-![image-20220908225858507](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220908225858507.png)
+![image-20220908225858507](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220908225858507.png)
 
 为了提高需求评审的效率，我们在需求评审前，需要做很多准备工作，比如需求前期沟通、研发初步评估，**前期工作准备到位后，需求评审期间就可以主要讨论问题，避免一个需求反复沟通的情况。**
 
@@ -56,7 +56,7 @@ category:
 下面是项目排期要求：
 
 
-![image-20220908230217459](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220908230217459.png)
+![image-20220908230217459](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220908230217459.png)
 
 下面是研发阶段流程（有些环节可以删掉，仅供参考）：
 
@@ -84,7 +84,7 @@ category:
 
 下面是需求变更要求：
 
-![image-20220908230523576](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220908230523576.png)
+![image-20220908230523576](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220908230523576.png)
 
 **总结一下：需求变更越早越好，变更需求，需要调整排期，临近上线，原则上不再允许需求变更，否则需要领导审批。**
 

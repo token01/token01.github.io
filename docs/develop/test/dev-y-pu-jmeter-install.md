@@ -27,7 +27,7 @@ brew install jmeter
 
 直接在终端（任意目录）输入`jmeter`，即可启动JMeter。
 
-![image-20200102181112165](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20200102181112165.png)
+![image-20200102181112165](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20200102181112165.png)
 
 ### 3.2安装路径启动
 
@@ -39,11 +39,11 @@ brew install jmeter
 
 点击bin下的
 
-![image-20200102104226244](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20200102104226244.png)
+![image-20200102104226244](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20200102104226244.png)
 
 可以看到启动后的页面为：
 
-![image-20200102104300100](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20200102104300100.png)
+![image-20200102104300100](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20200102104300100.png)
 
 ## 4. 设置中文
 
@@ -51,7 +51,7 @@ brew install jmeter
 
 Options-Choose Language-Chinese(S)
 
-![image-20220621140727177](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621140727177.png)
+![image-20220621140727177](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220621140727177.png)
 
 ### 4.2 永久设置中文
 

@@ -172,7 +172,7 @@ CPU 指标主要指的 CPU 利用率，包括用户态 (user)、系统态 (sys)�
 
 常用的中间件例如 Tomcat、Weblogic 等指标主要包括 JVM, ThreadPool, JDBC,具体如下：
 
-![image-20220703213503244](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220703213503244.png)
+![image-20220703213503244](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220703213503244.png)
 
 **行业参考标准**：
 
@@ -184,7 +184,7 @@ CPU 指标主要指的 CPU 利用率，包括用户态 (user)、系统态 (sys)�
 
 常用的数据库例如ＭySQL 指标主要包括 SQL、吞吐量、缓存命中率、连接数等，具体如下：
 
-![image-20220703213707066](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220703213707066.png)
+![image-20220703213707066](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220703213707066.png)
 
 #### 5.1 **行业参考标准**：
 
@@ -261,7 +261,7 @@ CPU 指标主要指的 CPU 利用率，包括用户态 (user)、系统态 (sys)�
 
 ## 10. 压测结果范例
 
-![image-20220704093608768](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704093608768.png)
+![image-20220704093608768](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704093608768.png)
 
 ## 参考文章
 

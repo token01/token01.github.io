@@ -431,7 +431,7 @@ void os::signal_init() {
 
 JVM创建了一个新的进程来实现信号处理，这个线程叫“Signal Dispatcher”，一个线程创建之后需要有一个入口，“Signal Dispatcher”的入口是signal_thread_entry：
 
-![image-20220827213507409](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220827213507409.png)
+![image-20220827213507409](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220827213507409.png)
 
 这段代码截取自signal_thread_entry函数，截取中的内容是和Attach机制信号处理相关的代码。这段代码的意思是，当接收到“SIGBREAK”信号，就执行接下来的代码，这个信号是需要Attach到JVM上的信号发出来，这个后面会再分析。我们先来看一句关键的代码：AttachListener::is_init_trigger()：
 
@@ -614,7 +614,7 @@ JNIEXPORT void JNICALL Java_sun_instrument_InstrumentationImpl_redefineClasses0
 
 redefineClasses这个函数的实现比较复杂，代码很长。下面是一段关键的代码片段：
 
-![image-20220827214120788](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220827214120788.png)
+![image-20220827214120788](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220827214120788.png)
 
 重定义类的请求会被JVM包装成一个VM_RedefineClasses类型的VM_Operation，VM_Operation是JVM内部的一些操作的基类，包括GC操作等。VM_Operation由VMThread来执行，新的VM_Operation操作会被添加到VMThread的运行队列中去，VMThread会不断从队列里面拉取VM_Operation并调用其doit等函数执行具体的操作。VM_RedefineClasses函数的流程较为复杂，下面是VM_RedefineClasses的大致流程：
 
@@ -662,7 +662,7 @@ Java-debug-tool是一个使用Java Instrument API来实现的动态调试工具�
 
 Java-debug-tool包括一个Java Agent和一个用于处理调试命令的核心API，核心API通过一个自定义的类加载器加载进来，以保证目标JVM的类不会被污染。整体上Java-debug-tool的设计是一个Client-Server的架构，命令客户端需要完整的完成一个命令之后才能继续执行下一个调试命令。Java-debug-tool支持多人同时进行调试，下面是整体架构图：
 
-![image-20220827215704590](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220827215704590.png)
+![image-20220827215704590](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220827215704590.png)
 
 下面对每一层做简单介绍：
 
@@ -691,7 +691,7 @@ Java-debug-tool在实现上使用了ASM工具来进行字节码增强，并且�
 
 
 
-![image-20220827214841150](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220827214841150.png)
+![image-20220827214841150](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220827214841150.png)
 
 
 
@@ -707,7 +707,7 @@ Advice是调试数据收集器，不同的调试策略会对应不同的Advice�
 
 关于Advice，需要说明的另外一点就是线程安全，因为它加载之后会运行在目标JVM的线程中，目标JVM的方法极有可能是多线程访问的，这也就是说，Advice需要有能力处理多个线程同时访问方法的能力，如果Advice处理不当，则可能会收集到杂乱无章的调试数据。下面的图片展示了Advice和Java-debug-tool调试分析模块、目标方法执行以及调试客户端等模块的关系。
 
-![image-20220827215219210](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220827215219210.png)
+![image-20220827215219210](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220827215219210.png)
 
 Advice的首次挂载由Java-debug-tool的命令处理器完成，当一次调试数据收集完成之后，调试数据处理模块会自动卸载Advice，然后进行判断，如果调试数据符合Advice的策略，则直接将数据交由数据处理模块进行处理，否则会清空调试数据，并再次将Advice挂载到目标方法上去，等待下一次调试数据。非首次挂载由调试数据处理模块进行，它借助Advice按需取数据，如果不符合需求，则继续挂载Advice来获取数据，否则对调试数据进行处理并返回给客户端。
 
@@ -717,7 +717,7 @@ Advice的首次挂载由Java-debug-tool的命令处理器完成，当一次调�
 
 上文已经完整的描述了Java-debug-tool的设计以及核心技术方案，本小节将详细介绍Java-debug-tool的命令设计与实现。首先需要将一个调试命令的执行流程描述清楚，下面是一张用来表示命令请求处理流程的图片：
 
-![image-20220827215332611](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220827215332611.png)
+![image-20220827215332611](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220827215332611.png)
 
 上图简单的描述了Java-debug-tool的命令处理方式，客户端连接到服务端之后，会进行一些协议解析、协议认证、协议填充等工作，之后将进行命令分发。服务端如果发现客户端的命令不合法，则会立即返回错误信息，否则再进行命令处理。命令处理属于典型的三段式处理，前置命令处理、命令处理以及后置命令处理，同时会对命令处理过程中的异常信息进行捕获处理，三段式处理的好处是命令处理被拆成了多个阶段，多个阶段负责不同的职责。前置命令处理用来做一些命令权限控制的工作，并填充一些类似命令处理开始时间戳等信息，命令处理就是通过字节码增强，挂载Advice进行数据收集，再经过数据处理来产生命令结果的过程，后置处理则用来处理一些连接关闭、字节码解锁等事项。
 
@@ -740,13 +740,13 @@ Java-debug-tool通过下面的信息来向调试者呈现出一次方法执行�
 
 下图展示了Java-debug-tool获取到正在运行的方法的执行视图的信息
 
-![image-20220827215451243](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220827215451243.png)
+![image-20220827215451243](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220827215451243.png)
 
 ### 7.4 Java-debug-tool与同类产品对比分析
 
 Java-debug-tool的同类产品主要是greys，其他类似的工具大部分都是基于greys进行的二次开发，所以直接选择greys来和Java-debug-tool进行对比。
 
-![image-20220827215923102](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220827215923102.png)
+![image-20220827215923102](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220827215923102.png)
 
 本文详细剖析了Java动态调试关键技术的实现细节，并介绍了我们基于Java动态调试技术结合实际故障排查场景进行的一点探索实践；动态调试技术为研发人员进行线上问题排查提供了一种新的思路，我们基于动态调试技术解决了传统断点调试存在的问题，使得可以将断点调试这种技术应用在线上，以线下调试的思维来进行线上调试，提高问题排查效率。
 

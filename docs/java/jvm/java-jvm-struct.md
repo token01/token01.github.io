@@ -9,7 +9,7 @@ category:
 
 >本文主要对JVM 内存结构进行讲解，注意不要和Java内存模型混淆了。
 
-![image-20220820213459433](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220820213459433.png)
+![image-20220820213459433](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220820213459433.png)
 
 ## 0. 运行时数据区
 
@@ -17,7 +17,7 @@ category:
 
 下图是 JVM 整体架构，中间部分就是 Java 虚拟机定义的各种运行时数据区域。
 
-![image-20220820213758660](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220820213758660.png)
+![image-20220820213758660](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220820213758660.png)
 
 Java 虚拟机定义了若干种程序运行期间会使用到的运行时数据区，其中有一些会随着虚拟机启动而创建，随着虚拟机退出而销毁。另外一些则是与线程一一对应的，这些与线程一一对应的数据区域会随着线程开始和结束而创建和销毁。
 
@@ -38,7 +38,7 @@ Java 虚拟机定义了若干种程序运行期间会使用到的运行时数据
 
 PC 寄存器用来存储指向下一条指令的地址，即将要执行的指令代码。由执行引擎读取下一条指令。
 
-![image-20220820214723695](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220820214723695.png)
+![image-20220820214723695](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220820214723695.png)
 
 （分析：进入class文件所在目录，执行 `javap -v xx.class` 反解析（或者通过 IDEA 插件 `Jclasslib` 直接查看，上图），可以看到当前类对应的Code区（汇编指令）、本地变量表、异常表和代码行偏移量映射表、常量池等信息。）
 
@@ -111,7 +111,7 @@ Java 虚拟机规范允许 **Java虚拟机栈的大小是动态的或者是固�
 
 IDEA 在 debug 时候，可以在 debug 窗口看到 Frames 中各种方法的压栈和出栈情况
 
-![image-20220820220155625](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220820220155625.png)
+![image-20220820220155625](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220820220155625.png)
 
 ### 2.4 栈帧的内部结构
 
@@ -123,7 +123,7 @@ IDEA 在 debug 时候，可以在 debug 窗口看到 Frames 中各种方法的�
 - 方法返回地址（Return Address）：方法正常退出或异常退出的地址
 - 一些附加信息
 
-![image-20220820220304478](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220820220304478.png)
+![image-20220820220304478](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220820220304478.png)
 
 继续深抛栈帧中的五部分~~
 
@@ -149,7 +149,7 @@ IDEA 在 debug 时候，可以在 debug 窗口看到 Frames 中各种方法的�
 - 如果当前帧是由构造方法或实例方法创建的，那么该对象引用 this 将会存放在 index 为 0 的 Slot 处，其余的参数按照参数表顺序继续排列（这里就引出一个问题：静态方法中为什么不可以引用 this，就是因为this 变量不存在于当前方法的局部变量表中）
 - **栈帧中的局部变量表中的槽位是可以重用的**，如果一个局部变量过了其作用域，那么在其作用域之后申明的新的局部变量就很有可能会复用过期局部变量的槽位，从而**达到节省资源的目的**。（下图中，this、a、b、c 理论上应该有 4 个变量，c 复用了 b 的槽）
 
-![image-20220820220351757](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220820220351757.png)
+![image-20220820220351757](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220820220351757.png)
 
 
 - 在栈帧中，与性能调优关系最为密切的就是局部变量表。在方法执行时，虚拟机使用局部变量表完成方法的传递
@@ -185,7 +185,7 @@ HotSpot 的执行引擎采用的并非是基于寄存器的架构，但这并不
 - **每一个栈帧内部都包含一个指向运行时常量池中该栈帧所属方法的引用**。包含这个引用的目的就是为了支持当前方法的代码能够实现动态链接(Dynamic Linking)。
 - 在 Java 源文件被编译到字节码文件中时，所有的变量和方法引用都作为**符号引用**（Symbolic Reference）保存在 Class 文件的常量池中。比如：描述一个方法调用了另外的其他方法时，就是通过常量池中指向方法的符号引用来表示的，那么**动态链接的作用就是为了将这些符号引用转换为调用方法的直接引用**
 
-![image-20220820222433741](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220820222433741.png)
+![image-20220820222433741](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220820222433741.png)
 
 ##### 2.4.3.1 JVM 是如何执行方法调用的
 
@@ -292,7 +292,7 @@ Java 使用起来非常方便，然而有些层次的任务用 Java 实现起来
 - 老年代（养老区）：被长时间使用的对象，老年代的内存空间应该要比年轻代更大
 - 元空间（JDK1.8 之前叫永久代）：像一些方法中的操作临时对象等，JDK1.8 之前是占用 JVM 内存，JDK1.8 之后直接使用物理内存
 
-![image-20220820224711555](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220820224711555.png)
+![image-20220820224711555](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220820224711555.png)
 
 Java 虚拟机规范规定，Java 堆可以是处于物理上不连续的内存空间中，只要逻辑上是连续的即可，像磁盘空间一样。实现时，既可以是固定大小，也可以是可扩展的，主流虚拟机都是可扩展的（通过 `-Xmx` 和 `-Xms` 控制），如果堆中没有完成实例分配，并且堆无法再扩展时，就会抛出 `OutOfMemoryError` 异常。
 
@@ -311,7 +311,7 @@ Java 虚拟机规范规定，Java 堆可以是处于物理上不连续的内存�
 
 大对象直接进入老年代（大对象是指需要大量连续内存空间的对象）。这样做的目的是避免在 Eden 区和两个Survivor 区之间发生大量的内存拷贝
 
-![image-20220820224936999](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220820224936999.png)
+![image-20220820224936999](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220820224936999.png)
 
 #### 4.1.3 元空间
 
@@ -663,7 +663,7 @@ JVM 必须保存所有方法的
 
 如下，我们通过 jclasslib 查看一个只有 Main 方法的简单类，字节码中的 #2 指向的就是 Constant Pool
 
-![image-20220820232434106](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220820232434106.png)
+![image-20220820232434106](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220820232434106.png)
 
 常量池可以看作是一张表，虚拟机指令根据这张常量表找到要执行的类名、方法名、参数类型、字面量等类型。
 
@@ -689,7 +689,7 @@ JVM 必须保存所有方法的
 
 http://openjdk.java.net/jeps/122
 
-![image-20220820232807873](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220820232807873.png)
+![image-20220820232807873](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220820232807873.png)
 
 - 因为永久代设置空间大小是很难确定的。
 

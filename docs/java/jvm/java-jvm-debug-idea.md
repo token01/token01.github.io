@@ -24,19 +24,19 @@ category:
 - ⑦ Variables：在变量区可以查看当前断点之前的当前方法内的变量。
 - ⑧ Watches：查看变量，可以将Variables区中的变量拖到Watches中查看
 
-![image-20220828203806237](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828203806237.png)
+![image-20220828203806237](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828203806237.png)
 
 在设置里勾选Show debug window on breakpoint，则请求进入到断点后自动激活Debug窗口
 
-![image-20220828204116868](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828204116868.png)
+![image-20220828204116868](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828204116868.png)
 
 如果你的IDEA底部没有显示工具栏或状态栏，可以在View里打开，显示出工具栏会方便我们使用。可以自己去尝试下这四个选项。
 
-![image-20220828204149935](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828204149935.png)
+![image-20220828204149935](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828204149935.png)
 
 在菜单栏Run里有调试对应的功能，同时可以查看对应的快捷键。
 
-![image-20220828204224378](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828204224378.png)
+![image-20220828204224378](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828204224378.png)
 
 ## 2. 基本用法&快捷键
 
@@ -44,7 +44,7 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 - **首先说第一组按钮，共8个按钮**，从左到右依次如下：
 
-![image-20220828204244968](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828204244968.png)
+![image-20220828204244968](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828204244968.png)
 
 - `Show Execution Point` (Alt + F10)：如果你的光标在其它行或其它页面，点击这个按钮可跳转到当前代码执行的行。
 - `Step Over` (F8)：步过，一行一行地往下走，如果这一行上有方法不会进入方法。
@@ -57,7 +57,7 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 - **第二组按钮，共7个按钮**，从上到下依次如下：
 
-![image-20220828205303504](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828205303504.png)
+![image-20220828205303504](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828205303504.png)
 
 - `Rerun 'xxxx'`：重新运行程序，会关闭服务后重新启动程序。
 
@@ -76,9 +76,9 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 下面的`On frame deactivation`，在IDEA窗口失去焦点时触发，即一般你从idea切换到浏览器的时候，idea会自动帮你做的事情，一般可以设置Do nothing，频繁切换会比较消耗资源的。
 
-![image-20220828205544563](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828205544563.png)
+![image-20220828205544563](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828205544563.png)
 
-![image-20220828205639068](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828205639068.png)
+![image-20220828205639068](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828205639068.png)
 
 ## 3. 变量查看
 
@@ -86,43 +86,43 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 - 如下，在IDEA中，参数所在行后面会显示当前变量的值。
 
-![image-20220828205755453](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828205755453.png)
+![image-20220828205755453](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828205755453.png)
 
 - 光标悬停到参数上，显示当前变量信息。点击打开详情如下图。我一般会使用这种方式，快捷方便。
 
-![image-20220828205819195](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828205819195.png)
+![image-20220828205819195](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828205819195.png)
 
-![image-20220828205827074](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828205827074.png)
+![image-20220828205827074](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828205827074.png)
 
 - 在Variables里查看，这里显示当前方法里的所有变量。
 
-![image-20220828205850946](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828205850946.png)
+![image-20220828205850946](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828205850946.png)
 
 - 在Watches里，点击New Watch，输入需要查看的变量。或者可以从Variables里拖到Watche里查看。
 
-![image-20220828205933048](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828205933048.png)
+![image-20220828205933048](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828205933048.png)
 
 如果你发现你没有Watches，可能在下图所在的地方。
 
-![image-20220828205958294](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828205958294.png)
+![image-20220828205958294](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828205958294.png)
 
-![image-20220828210007986](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828210007986.png)
+![image-20220828210007986](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828210007986.png)
 
 ## 4. 计算表达式
 
 > 在前面提到的计算表达式如下图的按钮，Evaluate Expression (Alt + F8) 。可以使用这个操作在调试过程中计算某个表达式的值，而不用再去打印信息。
 
-![image-20220828210534232](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828210534232.png)
+![image-20220828210534232](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828210534232.png)
 
 - 按Alt + F8或按钮，或者，你可以选中某个表达式再Alt + F8，弹出计算表达式的窗口，如下，回车或点击Evaluate计算表达式的值。
 
 这个表达式不仅可以是一般变量或参数，也可以是方法，当你的一行代码中调用了几个方法时，就可以通过这种方式查看查看某个方法的返回值。
 
-![image-20220828210608852](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828210608852.png)
+![image-20220828210608852](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828210608852.png)
 
 设置变量，在计算表达式的框里，可以改变变量的值，这样有时候就能很方便我们去调试各种值的情况了不是
 
-![image-20220828210634451](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828210634451.png)
+![image-20220828210634451](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828210634451.png)
 
 ## 5. 智能步入
 
@@ -130,13 +130,13 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 那么智能步入就很方便了，智能步入，这个功能在Run里可以看到，Smart Step Into (Shift + F7)，如下图
 
-![image-20220828210743318](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828210743318.png)
+![image-20220828210743318](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828210743318.png)
 
 按Shift + F7，会自动定位到当前断点行，并列出需要进入的方法，如图5.2，点击方法进入方法内部。
 
 如果只有一个方法，则直接进入，类似Force Step Into。
 
-![image-20220828210801987](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828210801987.png)
+![image-20220828210801987](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828210801987.png)
 
 ## 6. 断点条件设置
 
@@ -146,39 +146,39 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 - 在断点上右键直接**设置当前断点的条件**，如下图设置exist为true时断点才生效。
 
-![image-20220828210844344](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828210844344.png)
+![image-20220828210844344](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828210844344.png)
 
 - 点击View Breakpoints (Ctrl + Shift + F8)，查看所有断点
   - Java Line Breakpoints 显示了所有的断点，在右边勾选Condition，设置断点的条件。
   - 勾选Log message to console，则会将当前断点行输出到控制台，如图6.3
   - 勾选Evaluate and log，可以在执行这行代码是计算表达式的值，并将结果输出到控制台。
 
-![image-20220828210919557](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828210919557.png)
+![image-20220828210919557](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828210919557.png)
 
-![image-20220828210927575](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828210927575.png)
+![image-20220828210927575](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828210927575.png)
 
 - 再说说右边的Filters过滤，这些一般情况下不常用，简单说下意思。
   - Instance filters：实例过滤，输入实例ID(如下图中的实例ID)，但是我这里没有成功，不知道什么原因，知道的朋友留个言。
   - Class filters：类过滤，根据类名过滤，同样没有成功....
   - Pass count：用于循环中，如果断点在循环中，可以设置该值，循环多少次后停在断点处，之后的循环都会停在断点处。
 
-![image-20220828211000796](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828211000796.png)
+![image-20220828211000796](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828211000796.png)
 
-![image-20220828211011616](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828211011616.png)
+![image-20220828211011616](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828211011616.png)
 
 - **异常断点，通过设置异常断点，在程序中出现需要拦截的异常时，会自动定位到异常行**。
 
 如下图，点击+号添加Java Exception Breakpoints，添加异常断点。然后输入需要断点的异常类
 
-![image-20220828211034808](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828211034808.png)
+![image-20220828211034808](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828211034808.png)
 
 之后可以在Java Exception Breakpoints里看到添加的异常断点。
 
-![image-20220828211056741](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828211056741.png)
+![image-20220828211056741](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828211056741.png)
 
 这里添加了一个NullPointerException异常断点，出现空指针异常后，自动定位在空指针异常行。
 
-![image-20220828211110725](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828211110725.png)
+![image-20220828211110725](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828211110725.png)
 
 ## 7. 多线程调试
 
@@ -186,11 +186,11 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 那是因为IDEA在Debug时默认阻塞级别是ALL，会阻塞其它线程，只有在当前调试线程走完时才会走其它线程。可以在View Breakpoints里选择Thread，如图7.1，然后点击Make Default设置为默认选项。
 
-![image-20220828211435272](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828211435272.png)
+![image-20220828211435272](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828211435272.png)
 
 切换线程，在下图中Frames的下拉列表里，可以切换当前的线程，如下我这里有两个Debug的线程，切换另外一个则进入另一个Debug的线程。
 
-![image-20220828211511341](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828211511341.png)
+![image-20220828211511341](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828211511341.png)
 
 ## 8. 回退断点
 
@@ -198,7 +198,7 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 - 首先认识下这个**方法调用栈**，如图首先请求进入DemoController的insertDemo方法，然后调用insert方法，其它的invoke我们且先不管，最上面的方法是当前断点所在的方法。
 
-![image-20220828211758926](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828211758926.png)
+![image-20220828211758926](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828211758926.png)
 
 - **断点回退**
 
@@ -206,15 +206,15 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 回退的方式有两种，一种是Drop Frame按钮，按调用的方法逐步回退，包括三方类库的其它方法
 
-![image-20220828211842780](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828211842780.png)
+![image-20220828211842780](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828211842780.png)
 
 取消Show All Frames按钮会显示三方类库的方法
 
-![image-20220828211856257](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828211856257.png)
+![image-20220828211856257](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828211856257.png)
 
 第二种方式，在调用栈方法上选择要回退的方法，右键选择Drop Frame，回退到该方法的上一个方法调用处，此时再按F9(Resume Program)，可以看到程序进入到该方法的断点处了。
 
-![image-20220828211921770](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828211921770.png)
+![image-20220828211921770](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828211921770.png)
 
 但有一点需要注意，断点回退只能重新走一下流程，之前的某些参数/数据的状态已经改变了的是无法回退到之前的状态的，如对象、集合、更新了数据库数据等等。
 
@@ -226,11 +226,11 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 确切的说，我也没发现可以直接中断请求的方式(除了关闭服务)，但可以通过Force Return，即强制返回来避免后续的流程，如图
 
-![image-20220828212058768](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828212058768.png)
+![image-20220828212058768](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828212058768.png)
 
 点击Force Return，弹出Return Value的窗口，我这个方法的返回类型为Map，所以，我这里直接返回 results，来强制返回，从而不再进行后续的流程。或者你可以`new HashMap<>()`。
 
-![image-20220828212126359](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828212126359.png)
+![image-20220828212126359](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828212126359.png)
 
 ## 10. 远程调试(Remote Debug)
 
@@ -260,7 +260,7 @@ Debug调试的功能主要对应着图一中4和5两组按钮：
 
 打开Intellij IDEA，在顶部靠右的地方选择”Edit Configurations…”，进去之后点击+号，选择”Remote”，按照下图的只是填写红框内的内容，其中Name填写名称，这里为remote webserver，host为远程代码运行的机器的ip/hostname，port为上一步指定的debug_port，本例是5555。然后点击Apply，最后点击OK即可
 
-![image-20220828212428418](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828212428418.png)
+![image-20220828212428418](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828212428418.png)
 
 现在在上一步选择”Edit Configurations…”的下拉框的位置选择上一步创建的remote webserver，然后点击右边的debug按钮(长的像臭虫那个)，看控制台日志，如果出现类似“Connected to the target VM, address: ‘xx.xx.xx.xx:5555’, transport: ‘socket’”的字样，就表示连接成功过了。我这里实际显示的内容如下：
 
@@ -272,13 +272,13 @@ Connected to the target VM, address: '10.185.0.192:15555', transport: 'socket'
 
 远程debug模式已经开启，现在可以在需要调试的代码中打断点了，比如：
 
-![image-20220828212524876](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828212524876.png)
+![image-20220828212524876](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828212524876.png)
 
 如图中所示，如果断点内有√，则表示选取的断点正确。
 
 现在在本地发送一个到远程服务器的请求，看本地控制台的bug界面，划到debugger这个标签，可以看到当前远程服务的内部状态（各种变量）已经全部显示出来了，并且在刚才设置了断点的地方，也显示了该行的变量值。
 
-![image-20220828212547345](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220828212547345.png)
+![image-20220828212547345](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220828212547345.png)
 
 > 备注：需要注意的是，用于远程debug的代码必须与远程部署的代码完全一致，不能发生任何的修改，否则打上的断点将无法命中，切记切记。
 

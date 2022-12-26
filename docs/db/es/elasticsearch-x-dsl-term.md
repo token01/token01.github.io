@@ -12,11 +12,11 @@ category:
 
 如前文所述，查询分基于文本查询和基于词项的查询:
 
-![image-20220805222938003](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805222938003.png)
+![image-20220805222938003](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805222938003.png)
 
 本文主要讲基于词项的查询。
 
-![image-20220805223752733](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805223752733.png)
+![image-20220805223752733](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805223752733.png)
 
 ## 2. Term查询
 
@@ -64,7 +64,7 @@ POST /test-dsl-term-level/_bulk
 
 所以exist表示查找是否存在字段。
 
-![image-20220805224415435](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805224415435.png)
+![image-20220805224415435](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805224415435.png)
 
 ### 2.2 id查询:ids
 
@@ -81,7 +81,7 @@ GET /test-dsl-term-level/_search
 }
 ```
 
-![image-20220805224652643](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805224652643.png)
+![image-20220805224652643](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805224652643.png)
 
 ### 2.3 前缀:prefix
 
@@ -100,7 +100,7 @@ GET /test-dsl-term-level/_search
 }
 ```
 
-![image-20220805224755113](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805224755113.png)
+![image-20220805224755113](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805224755113.png)
 
 ### 2.4 分词匹配:term
 
@@ -118,7 +118,7 @@ GET /test-dsl-term-level/_search
 
 ```
 
-![image-20220805224847374](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805224847374.png)
+![image-20220805224847374](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805224847374.png)
 
 ### 2.5 多个分词匹配:terms
 
@@ -135,7 +135,7 @@ GET /test-dsl-term-level/_search
 }
 ```
 
-![image-20220805224923467](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805224923467.png)
+![image-20220805224923467](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805224923467.png)
 
 ### 2.6 按某个数字字段分词匹配:term set
 
@@ -155,7 +155,7 @@ GET /test-dsl-term-level/_search
 }
 ```
 
-![image-20220805225032650](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805225032650.png)
+![image-20220805225032650](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805225032650.png)
 
 ### 2.7 通配符:wildcard
 
@@ -176,7 +176,7 @@ GET /test-dsl-term-level/_search
 }
 ```
 
-![image-20220805225153592](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805225153592.png)
+![image-20220805225153592](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805225153592.png)
 
 ### 2.8 范围:range
 
@@ -196,7 +196,7 @@ GET /test-dsl-term-level/_search
 }
 ```
 
-![image-20220805225640451](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805225640451.png)
+![image-20220805225640451](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805225640451.png)
 
 ### 2.9 正则:regexp
 
@@ -220,7 +220,7 @@ GET /test-dsl-term-level/_search
   
 ```
 
-![image-20220805225727650](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805225727650.png)
+![image-20220805225727650](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805225727650.png)
 
 ### 2.10 模糊匹配:fuzzy
 
@@ -245,7 +245,7 @@ GET /test-dsl-term-level/_search
 
 ```
 
-![image-20220805225807567](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805225807567.png)
+![image-20220805225807567](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805225807567.png)
 
 ## 参考文章
 

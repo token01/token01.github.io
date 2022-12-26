@@ -8,7 +8,7 @@ category:
 
 # 商城设计 - 秒杀系统设计？
 
-![image-20221012225218315](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012225218315.png)
+![image-20221012225218315](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012225218315.png)
 
 ## 0. 前言
 
@@ -18,7 +18,7 @@ category:
 
 虽说秒杀只是一个促销活动，但对技术要求不低。下面给大家总结一下设计秒杀系统需要注意的9个细节。
 
-![image-20221012225356461](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012225356461.png)
+![image-20221012225356461](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012225356461.png)
 
 ## 1. 瞬时高并发
 
@@ -28,7 +28,7 @@ category:
 
 正常情况下，大部分用户会收到商品已经抢完的提醒，收到该提醒后，他们大概率不会在那个活动页面停留了，如此一来，用户并发量又会急剧下降。所以这个峰值持续的时间其实是非常短的，这样就会出现瞬时高并发的情况，下面用一张图直观的感受一下流量的变化：
 
-![image-20221012225506588](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012225506588.png)
+![image-20221012225506588](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012225506588.png)
 
 像这种瞬时高并发的场景，传统的系统很难应对，我们需要设计一套全新的系统。可以从以下几个方面入手：
 
@@ -45,11 +45,11 @@ category:
 
 如果这些流量都能直接访问服务端，恐怕服务端会因为承受不住这么大的压力，而直接挂掉。
 
-![image-20221012225625240](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012225625240.png)
+![image-20221012225625240](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012225625240.png)
 
 活动页面绝大多数内容是固定的，比如：商品名称、商品描述、图片等。为了减少不必要的服务端请求，通常情况下，会对活动页面做`静态化`处理。用户浏览商品等常规操作，并不会请求到服务端。只有到了秒杀时间点，并且用户主动点了秒杀按钮才允许访问服务端。
 
-![image-20221012225738044](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012225738044.png)
+![image-20221012225738044](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012225738044.png)
 
 这样能过滤大部分无效请求。
 
@@ -59,7 +59,7 @@ category:
 
 这就需要使用CDN，它的全称是Content Delivery Network，即内容分发网络。
 
-![image-20221012225814094](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012225814094.png)
+![image-20221012225814094](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012225814094.png)
 
 使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。
 
@@ -79,11 +79,11 @@ category:
 
 秒杀开始之前，js标志为false，还有另外一个随机参数。
 
-![image-20221012230038760](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012230038760.png)
+![image-20221012230038760](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012230038760.png)
 
 当秒杀开始的时候系统会生成一个新的js文件，此时标志为true，并且随机参数生成一个新值，然后同步给CDN。由于有了这个随机参数，CDN不会缓存数据，每次都能从CDN中获取最新的js代码。
 
-![image-20221012230143372](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012230143372.png)
+![image-20221012230143372](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012230143372.png)
 
 此外，前端还可以加一个定时器，控制比如：10秒之内，只允许发起一次请求。如果用户点击了一次秒杀按钮，则在10秒之内置灰，不允许再次点击，等到过了时间限制，又允许重新点击该按钮。
 
@@ -95,7 +95,7 @@ category:
 
 这是非常典型的：`读多写少` 的场景。
 
-![image-20221012230258718](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012230258718.png)
+![image-20221012230258718](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012230258718.png)
 
 如果有数十万的请求过来，同时通过数据库查缓存是否足够，此时数据库可能会挂掉。因为数据库的连接资源非常有限，比如：mysql，无法同时支持这么多的连接。
 
@@ -111,7 +111,7 @@ category:
 
 大致流程如下图所示：
 
-![image-20221012230423178](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012230423178.png)
+![image-20221012230423178](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012230423178.png)
 
 根据商品id，先从缓存中查询商品，如果商品存在，则参与秒杀。如果不存在，则需要从数据库中查询商品，如果存在，则将商品信息放入缓存，然后参与秒杀。如果商品不存在，则直接提示失败。
 
@@ -127,7 +127,7 @@ category:
 
 这就需要加锁，最好使用分布式锁。
 
-![image-20221012230520478](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012230520478.png)
+![image-20221012230520478](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012230520478.png)
 
 当然，针对这种情况，最好在项目启动之前，先把缓存进行`预热`。即事先把所有的商品，同步到缓存中，这样商品基本都能直接从缓存中获取到，就不会出现缓存击穿的问题了。
 
@@ -147,7 +147,7 @@ category:
 
 这时可以想到`布隆过滤器`。
 
-![image-20221012231033089](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012231033089.png)
+![image-20221012231033089](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012231033089.png)
 
 先从布隆过滤器中查询该id是否存在，如果存在则允许从缓存中查询数据，如果不存在，则直接返回失败。
 
@@ -163,7 +163,7 @@ category:
 
 这时，就需要把不存在的商品id也缓存起来。
 
-![image-20221012231121809](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012231121809.png)
+![image-20221012231121809](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012231121809.png)
 
 id的请求过来，则也能从缓存中查到数据，只不过该数据比较特殊，表示商品不存在。需要特别注意的是，这种特殊缓存设置的超时时间应该尽量短一点。
 
@@ -175,7 +175,7 @@ id的请求过来，则也能从缓存中查到数据，只不过该数据比较
 
 所以，在这里引出了一个`预扣库存`的概念，预扣库存的主要流程如下：
 
-![image-20221012231220053](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012231220053.png)
+![image-20221012231220053](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012231220053.png)
 
 扣减库存中除了上面说到的`预扣库存`和`回退库存`之外，还需要特别注意的是库存不足和库存超卖问题。
 
@@ -464,13 +464,13 @@ return false;
 
 我们都知道在真实的秒杀场景中，有三个核心流程：
 
-![image-20221012232118189](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012232118189.png)
+![image-20221012232118189](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012232118189.png)
 
 而这三个核心流程中，真正并发量大的是秒杀功能，下单和支付功能实际并发量很小。所以，我们在设计秒杀系统时，有必要把下单和支付功能从秒杀的主流程中拆分出来，特别是下单功能要做成mq异步处理的。而支付功能，比如支付宝支付，是业务场景本身保证的异步。
 
 于是，秒杀后下单的流程变成如下：
 
-![image-20221012232217797](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012232217797.png)
+![image-20221012232217797](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012232217797.png)
 
 如果使用mq，需要关注以下几个问题：
 
@@ -482,7 +482,7 @@ return false;
 
 答：加一张消息发送表。
 
-![image-20221012232255237](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012232255237.png)
+![image-20221012232255237](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012232255237.png)
 
 在生产者发送mq消息之前，先把该条消息写入消息发送表，初始状态是待处理，然后再发送mq消息。消费者消费消息时，处理完业务逻辑之后，再回调生产者的一个接口，修改消息状态为已处理。
 
@@ -492,7 +492,7 @@ return false;
 
 答：使用job，增加重试机制。
 
-![image-20221012232409013](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012232409013.png)
+![image-20221012232409013](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012232409013.png)
 
 用job每隔一段时间去查询消息发送表中状态为待处理的数据，然后重新发送mq消息。
 
@@ -504,7 +504,7 @@ return false;
 
 答：加一张消息处理表。
 
-![image-20221012232510895](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012232510895.png)
+![image-20221012232510895](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012232510895.png)
 
 消费者读到消息之后，先判断一下消息处理表，是否存在该消息，如果存在，表示是重复消费，则直接返回。如果不存在，则进行下单操作，接着将该消息写入消息处理表中，再返回。
 
@@ -516,7 +516,7 @@ return false;
 
 那么，如何解决这个问题呢？
 
-![image-20221012232629156](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012232629156.png)
+![image-20221012232629156](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012232629156.png)
 
 每次在job重试时，需要先判断一下消息发送表中该消息的发送次数是否达到最大限制，如果达到了，则直接返回。如果没有达到，则将次数加1，然后发送消息。
 
@@ -538,13 +538,13 @@ return false;
 
 我们都知道rocketmq，自带了延迟队列的功能。
 
-![image-20221012232742299](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012232742299.png)
+![image-20221012232742299](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012232742299.png)
 
 下单时消息生产者会先生成订单，此时状态为待支付，然后会向延迟队列中发一条消息。达到了延迟时间，消息消费者读取消息之后，会查询该订单的状态是否为待支付。如果是待支付状态，则会更新订单状态为取消状态。如果不是待支付状态，说明该订单已经支付过了，则直接返回。
 
 还有个关键点，用户完成支付之后，会修改订单状态为已支付。
 
-![image-20221012232811544](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012232811544.png)
+![image-20221012232811544](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012232811544.png)
 
 ## 9. 如何限流？
 
@@ -554,11 +554,11 @@ return false;
 
 如果是我们手动操作，一般情况下，一秒钟只能点击一次秒杀按钮。
 
-![image-20221012232857313](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012232857313.png)
+![image-20221012232857313](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012232857313.png)
 
 但是如果是服务器，一秒钟可以请求成上千接口。
 
-![image-20221012232913511](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012232913511.png)
+![image-20221012232913511](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012232913511.png)
 
 这种差距实在太明显了，如果不做任何限制，绝大部分商品可能是被机器抢到，而非正常的用户，有点不太公平。
 
@@ -573,7 +573,7 @@ return false;
 
 为了防止某个用户，请求接口次数过于频繁，可以只针对该用户做限制。
 
-![image-20221012232952088](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012232952088.png)
+![image-20221012232952088](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012232952088.png)
 
 个用户id，比如每分钟只能请求5次接口。
 
@@ -583,7 +583,7 @@ return false;
 
 这时需要加同一ip限流功能。
 
-![image-20221012233034189](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012233034189.png)
+![image-20221012233034189](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012233034189.png)
 
 ip，比如每分钟只能请求5次接口。
 
@@ -595,7 +595,7 @@ ip，比如每分钟只能请求5次接口。
 
 这时可以限制请求的接口总次数。
 
-![image-20221012233124788](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012233124788.png)
+![image-20221012233124788](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012233124788.png)
 
 在高并发场景下，这种限制对于系统的稳定性是非常有必要的。但可能由于有些非法请求次数太多，达到了该接口的请求上限，而影响其他的正常用户访问该接口。看起来有点得不偿失。
 
@@ -603,7 +603,7 @@ ip，比如每分钟只能请求5次接口。
 
 相对于上面三种方式，加验证码的方式可能更精准一些，同样能限制用户的访问频次，但好处是不会存在误杀的情况。
 
-![image-20221012233211809](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012233211809.png)
+![image-20221012233211809](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012233211809.png)
 
 通常情况下，用户在请求之前，需要先输入验证码。用户发起请求之后，服务端会去校验该验证码是否正确。只有正确才允许进行下一步操作，否则直接返回，并且提示验证码错误。
 

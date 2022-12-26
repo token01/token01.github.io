@@ -199,7 +199,7 @@ GET /test-dsl-boosting/_search
 
 执行结果如下
 
-![image-20220805032904414](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805032904414.png)
+![image-20220805032904414](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805032904414.png)
 
 ## 4. constant_score（固定分数查询）
 
@@ -235,7 +235,7 @@ GET /test-dsl-constant/_search
 
 执行结果如下
 
-![image-20220805033131958](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805033131958.png)
+![image-20220805033131958](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805033131958.png)
 
 ## 5. dis_max(最佳匹配查询）
 
@@ -271,7 +271,7 @@ GET /test-dsl-dis-max/_search
 }
 ```
 
-![image-20220805033531766](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805033531766.png)
+![image-20220805033531766](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805033531766.png)
 
 为了理解导致这样的原因，需要看下如何计算评分的
 
@@ -299,13 +299,13 @@ GET /test-dsl-dis-max/_search
 
 doc 1 分数 = 0.6931471
 
-![image-20220805033748897](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805033748897.png)
+![image-20220805033748897](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805033748897.png)
 
 2. title中没有fox，所以第一个match 中 `brown fox 的分数 = brown分数 + 0 = 0.6931471`
 
 doc 1 分数 = 0.6931471 + 0 = 0.6931471
 
-![image-20220805033933397](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805033933397.png)
+![image-20220805033933397](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805033933397.png)
 
 3. 第二个 match 中 `brown分数`
 
@@ -313,7 +313,7 @@ doc 1 分数 = 0.21110919
 
 doc 2 分数 = 0.160443
 
-![image-20220805034020096](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805034020096.png)
+![image-20220805034020096](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805034020096.png)
 
 4. 第二个 match 中 `fox分数`
 
@@ -321,7 +321,7 @@ doc 1 分数 = 0
 
 doc 2 分数 = 0.60996956
 
-![image-20220805034053756](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805034053756.png)
+![image-20220805034053756](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805034053756.png)
 
 5. 所以第二个 match 中 `brown fox分数 = brown分数 + fox分数`
 
@@ -329,7 +329,7 @@ doc 1 分数 = 0.21110919 + 0 = 0.21110919
 
 doc 2 分数 = 0.160443 + 0.60996956 = 0.77041256
 
-![image-20220805034224993](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805034224993.png)
+![image-20220805034224993](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805034224993.png)
 
 6. 所以整个语句分数， `should分数 = 第一个match + 第二个match分数`
 
@@ -337,7 +337,7 @@ doc 1 分数 = 0.6931471 + 0.21110919 = 0.90425634
 
 doc 2 分数 = 0 + 0.77041256 = 0.77041256
 
-![image-20220805034325939](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805034325939.png)
+![image-20220805034325939](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805034325939.png)
 
 - **引入了dis_max**
 
@@ -360,7 +360,7 @@ GET /test-dsl-dis-max/_search
   
 ```
 
-![image-20220805034447664](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805034447664.png)
+![image-20220805034447664](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805034447664.png)
 
 0.77041256怎么来的呢？ 下文给你解释它如何计算出来的。
 
@@ -387,7 +387,7 @@ doc 1 分数 = 0.6931471 + 0.21110919 * 0  = 0.6931471
 
 doc 2 分数 = 0.77041256 = 0.77041256
 
-![image-20220805034624954](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805034624954.png)
+![image-20220805034624954](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805034624954.png)
 
 这样你就能理解通过dis_max将doc 2 置前了， 当然这里如果缺省`tie_breaker`字段的话默认就是0，你还可以设置它的比例（在0到1之间）来控制排名。（显然值为1时和should查询是一致的）
 

@@ -43,11 +43,11 @@ G1从长期计划来看是以取代CMS为目标。与CMS相比有几个不同点
 
 在传统的GC收集器(serial,parallel,CMS)无一不例外都把heap分成固定大小连续的三个空间：young generation, old generation, and permanent generation
 
-![image-20221209111945943](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221209111945943.png)
+![image-20221209111945943](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221209111945943.png)
 
 但G1却独辟蹊径，采用了一种全新的内存布局
 
-![image-20221209112005861](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221209112005861.png)
+![image-20221209112005861](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221209112005861.png)
 
 在G1中堆被分成一块块大小相等的heap region，一般有2000多块，这些region在逻辑上是连续的。每块region都会被打唯一的分代标志(eden,survivor,old)。在逻辑上，eden regions构成Eden空间，survivor regions构成Survivor空间，old regions构成了old 空间。
 
@@ -134,11 +134,11 @@ G1控制YGC开销的手段是动态改变young region的个数，YGC的过程中
 
 ### 5.1 YGC开始
 
-![image-20221209113334611](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221209113334611.png)
+![image-20221209113334611](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221209113334611.png)
 
 ### 5.2 YGC结束
 
-![image-20221209113401283](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221209113401283.png)
+![image-20221209113401283](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221209113401283.png)
 
 我们从图中看到Eden区中存活对象被复制到新的Survior区。
 
@@ -146,7 +146,7 @@ G1控制YGC开销的手段是动态改变young region的个数，YGC的过程中
 
 我们知道判断对象是否存活需要从GC ROOTS结点出发，从GC ROOTS结点可达的对象就是存活的。在YGC时，老年代中的对象是不回收的，也就意味着GC ROOTS里面应包含了老年代中的对象。**但扫描整个老年代会很耗费时间，势必影响整个GC的性能！**。所以在CMS中使用了Card Table的结构，里面记录了老年代对象到新生代引用。**Card Table的结构是一个连续的byte[]数组，扫描Card Table的时间比扫描整个老年代的代价要小很多！G1也参照了这个思路，不过采用了一种新的数据结构 Remembered Set 简称Rset。**RSet记录了其他Region中的对象引用本Region中对象的关系，属于points-into结构（谁引用了我的对象）。而Card Table则是一种points-out（我引用了谁的对象）的结构，每个Card 覆盖一定范围的Heap（一般为512Bytes）。G1的RSet是在Card Table的基础上实现的：每个Region会记录下别的Region有指向自己的指针，并标记这些指针分别在哪些Card的范围内。 这个RSet其实是一个Hash Table，Key是别的Region的起始地址，Value是一个集合，里面的元素是Card Table的Index。**每个Region都有一个对应的Rset**。
 
-![image-20221209140929589](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221209140929589.png)
+![image-20221209140929589](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221209140929589.png)
 
 RSet究竟是怎么辅助GC的呢？在做YGC的时候，只需要选定young generation region的RSet作为根集，这些RSet记录了`old->young`的跨代引用，避免了扫描整个old generation。 而mixed gc的时候，old generation中记录了`old->old`的RSet，`young->old`的引用由扫描全部young generation region得到，这样也不用扫描全部old generation region。所以RSet的引入大大减少了GC的工作量。
 

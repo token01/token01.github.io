@@ -54,7 +54,7 @@ category:
 
 对于传统IO模型，其主要是一个Server对接N个客户端，在客户端连接之后，为每个客户端都分配一个执行线程。如下图是该模型的一个演示
 
-![image-20220830223458891](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220830223458891.png)
+![image-20220830223458891](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830223458891.png)
 
 从图中可以看出，传统IO的特点在于：
 
@@ -71,7 +71,7 @@ category:
 
 在传统IO模型中，由于线程在等待连接以及进行IO操作时都会阻塞当前线程，这部分损耗是非常大的。因而jdk 1.4中就提供了一套非阻塞IO的API。该API本质上是以事件驱动来处理网络事件的，而Reactor是基于该API提出的一套IO模型。如下是Reactor事件驱动模型的示意图：
 
-![image-20220830223850055](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220830223850055.png)
+![image-20220830223850055](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830223850055.png)
 
 从图中可以看出，在Reactor模型中，主要有四个角色：客户端连接，Reactor，Acceptor和Handler。这里Acceptor会不断地接收客户端的连接，然后将接收到的连接交由Reactor进行分发，最后有具体的Handler进行处理。改进后的Reactor模型相对于传统的IO模型主要有如下优点：
 
@@ -87,7 +87,7 @@ category:
 
 基于上述两个问题，这里在单线程Reactor模型的基础上提出了使用线程池的方式处理业务操作的模型。如下是该模型的示意图：
 
-![image-20220830224235492](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220830224235492.png)
+![image-20220830224235492](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830224235492.png)
 
 从图中可以看出，在多线程进行业务操作的模型下，该模式主要具有如下特点：
 
@@ -102,7 +102,7 @@ category:
 
 对于使用线程池处理业务操作的模型，由于网络读写在高并发情况下会成为系统的一个瓶颈，因而针对该模型这里提出了一种改进后的模型，即使用线程池进行网络读写，而仅仅只使用一个线程专门接收客户端连接。如下是该模型的示意图：
 
-![image-20220830224423484](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220830224423484.png)
+![image-20220830224423484](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830224423484.png)
 
 可以看到，改进后的Reactor模型将Reactor拆分为了mainReactor和subReactor。这里mainReactor主要进行客户端连接的处理，处理完成之后将该连接交由subReactor以处理客户端的网络读写。这里的subReactor则是使用一个线程池来支撑的，其读写能力将会随着线程数的增多而大大增加。对于业务操作，这里也是使用一个线程池，而每个业务请求都只需要进行编解码和业务计算。通过这种方式，服务器的性能将会大大提升，在可见情况下，其基本上可以支持百万连接。
 
@@ -276,7 +276,7 @@ public class Handler implements Runnable {
 
 ## 4. JAVA对多路复用IO的支持
 
-![image-20220830224906432](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220830224906432.png)
+![image-20220830224906432](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830224906432.png)
 
 ### 4.1 重要概念: Channel
 
@@ -290,7 +290,7 @@ JDK API中的Channel的描述是:
 
 JAVA NIO 框架中，自有的Channel通道包括:
 
-![image-20220830225015401](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220830225015401.png)
+![image-20220830225015401](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830225015401.png)
 
 所有被Selector(选择器)注册的通道，只能是继承了SelectableChannel类的子类。如上图所示
 
@@ -308,9 +308,9 @@ Buffer有两种工作模式: 写模式和读模式。在读模式下，应用程
 
 如下图:
 
-![image-20220830225129841](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220830225129841.png)
+![image-20220830225129841](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830225129841.png)
 
-![image-20220830225138855](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220830225138855.png)
+![image-20220830225138855](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830225138855.png)
 
 - position: 缓存区目前这在操作的数据块位置
 - limit: 缓存区最大可以进行操作的位置。缓存区的读写状态正式由这个属性控制的。
@@ -347,7 +347,7 @@ private SelectionKeyImpl[] channelArray = new SelectionKeyImpl[INIT_CAP];
 
 之前已经提到过，多路复用IO技术 是需要操作系统进行支持的，其特点就是操作系统可以同时扫描同一个端口上不同网络连接的事件。所以作为上层的JVM，必须要为 不同操作系统的多路复用IO实现 编写不同的代码。同样我使用的测试环境是Windows，它对应的实现类是sun.nio.ch.WindowsSelectorImpl:
 
-![image-20220830225314909](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220830225314909.png)
+![image-20220830225314909](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830225314909.png)
 
 ### 4.4 JAVA NIO 框架简要设计分析
 
@@ -360,7 +360,7 @@ private SelectionKeyImpl[] channelArray = new SelectionKeyImpl[INIT_CAP];
 
 由于JAVA NIO框架的整个设计是很大的，所以我们只能还原一部分我们关心的问题。这里我们以JAVA NIO框架中对于不同多路复用IO技术的选择器 进行实例化创建的方式作为例子，以点窥豹观全局:
 
-![image-20220830225453089](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220830225453089.png)
+![image-20220830225453089](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830225453089.png)
 
 很明显，不同的SelectorProvider实现对应了不同的 选择器。由具体的SelectorProvider实现进行创建。另外说明一下，实际上netty底层也是通过这个设计获得具体使用的NIO模型，我们后文讲解Netty时，会讲到这个问题。以下代码是Netty 4.0中NioServerSocketChannel进行实例化时的核心代码片段:
 
@@ -563,7 +563,7 @@ public class SocketServer1 {
 
 - serverChannel.register(Selector sel, int ops, Object att): 实际上register(Selector sel, int ops, Object att)方法是ServerSocketChannel类的父类AbstractSelectableChannel提供的一个方法，表示只要继承了AbstractSelectableChannel类的子类都可以注册到选择器中。通过观察整个AbstractSelectableChannel继承关系，下图中的这些类可以被注册到选择器中:
 
-![image-20220830225803874](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220830225803874.png)
+![image-20220830225803874](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830225803874.png)
 
 - SelectionKey.OP_ACCEPT: 不同的Channel对象可以注册的“我关心的事件”是不一样的。例如ServerSocketChannel除了能够被允许关注OP_ACCEPT事件外，不允许再关心其他事件了(否则运行时会抛出异常)。以下梳理了常使用的AbstractSelectableChannel子类可以注册的事件列表:
 

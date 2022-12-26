@@ -13,13 +13,13 @@ category:
 
 在上文中，着重介绍了字节码的结构，这为我们了解字节码增强技术的实现打下了基础。字节码增强技术就是一类对现有字节码进行修改或者动态生成全新字节码文件的技术。接下来，我们将从最直接操纵字节码的实现方式开始深入进行剖析
 
-![image-20220819224238892](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819224238892.png)
+![image-20220819224238892](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220819224238892.png)
 
 ### 1.1 ASM
 
 对于需要手动操纵字节码的需求，可以使用ASM，它可以直接生产 .class字节码文件，也可以在类被加载入JVM之前动态修改类行为（如下图所示）。ASM的应用场景有AOP（Cglib就是基于ASM）、热部署、修改其他jar包中的类等。当然，涉及到如此底层的步骤，实现起来也比较麻烦。接下来，本文将介绍ASM的两种API，并用ASM来实现一个比较粗糙的AOP。但在此之前，为了让大家更快地理解ASM的处理流程，强烈建议读者先对访问者模式进行了解。简单来说，访问者模式主要用于修改或操作一些数据结构比较稳定的数据，而通过第一章，我们知道字节码文件的结构是由JVM固定的，所以很适合利用访问者模式对字节码文件进行修改。
 
-![image-20220819224504859](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819224504859.png)
+![image-20220819224504859](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220819224504859.png)
 
 #### 1.1.1 ASM API
 
@@ -132,7 +132,7 @@ public class MyClassVisitor extends ClassVisitor implements Opcodes {
 - 接下来，进入内部类MyMethodVisitor中的visitCode方法，它会在ASM开始访问某一个方法的Code区时被调用，重写visitCode方法，将AOP中的前置逻辑就放在这里。 MyMethodVisitor继续读取字节码指令，每当ASM访问到无参数指令时，都会调用MyMethodVisitor中的visitInsn方法。我们判断了当前指令是否为无参数的“return”指令，如果是就在它的前面添加一些指令，也就是将AOP的后置逻辑放在该方法中。
 - 综上，重写MyMethodVisitor中的两个方法，就可以实现AOP了，而重写方法时就需要用ASM的写法，手动写入或者修改字节码。通过调用methodVisitor的visitXXXXInsn()方法就可以实现字节码的插入，XXXX对应相应的操作码助记符类型，比如mv.visitLdcInsn(“end”)对应的操作码就是ldc “end”，即将字符串“end”压入栈。 完成这两个visitor类后，运行Generator中的main方法完成对Base类的字节码增强，增强后的结果可以在编译后的target文件夹中找到Base.class文件进行查看，可以看到反编译后的代码已经改变了。然后写一个测试类MyTest，在其中new Base()，并调用base.process()方法，可以看到下图右侧所示的AOP实现效果：
 
-![image-20220819225057879](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819225057879.png)
+![image-20220819225057879](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220819225057879.png)
 
 #### 1.1.3 ASM工具
 
@@ -140,7 +140,7 @@ public class MyClassVisitor extends ClassVisitor implements Opcodes {
 
 安装后，右键选择“Show Bytecode Outline”，在新标签页中选择“ASMified”这个tab，如下图所示，就可以看到这个类中的代码对应的ASM写法了。图中上下两个红框分别对应AOP中的前置逻辑于后置逻辑，将这两块直接复制到visitor中的visitMethod()以及visitInsn()方法中，就可以了。
 
-![image-20220819225228005](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819225228005.png)
+![image-20220819225228005](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220819225228005.png)
 
 ### 1.2 Javassist
 
@@ -182,7 +182,7 @@ public class JavassistTest {
 
 如果我们在一个JVM中，先加载了一个类，然后又对其进行字节码增强并重新加载会发生什么呢？模拟这种情况，只需要我们在上文中Javassist的Demo中main()方法的第一行添加Base b=new Base()，即在增强前就先让JVM加载Base类，然后在执行到c.toClass()方法时会抛出错误，如下图20所示。跟进c.toClass()方法中，我们会发现它是在最后调用了ClassLoader的native方法defineClass()时报错。也就是说，JVM是不允许在运行时动态重载一个类的。
 
-![image-20220819225744118](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819225744118.png)
+![image-20220819225744118](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220819225744118.png)
 
 显然，如果只能在类加载前对类进行强化，那字节码增强技术的使用场景就变得很窄了。我们期望的效果是：在一个持续运行并已经加载了所有类的JVM中，还能利用字节码增强技术对其中的类行为做替换并重新加载。为了模拟这种情况，我们将Base类做改写，在其中编写main方法，每五秒调用一次process()方法，在process()方法中输出一行“process”。
 
@@ -267,7 +267,7 @@ public class TestAgent {
 
 JPDA定义了一整套完整的体系，它将调试体系分为三部分，并规定了三者之间的通信接口。三部分由低到高分别是Java 虚拟机工具接口（JVMTI），Java 调试协议（JDWP）以及 Java 调试接口（JDI），三者之间的关系如下图所示：
 
-![image-20220819230223688](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819230223688.png)
+![image-20220819230223688](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220819230223688.png)
 
 现在回到正题，我们可以借助JVMTI的一部分能力，帮助动态重载类信息。JVM TI（JVM TOOL INTERFACE，JVM工具接口）是JVM提供的一套对JVM进行操作的工具接口。通过JVMTI，可以实现对JVM的多种操作，它通过接口注册各种事件勾子，在JVM事件触发时，同时触发预定义的勾子，以实现对各个JVM事件的响应，事件包括类文件加载、异常产生与捕获、线程启动和结束、进入和退出临界区、成员变量修改、GC开始和结束、方法调用进入和退出、临界区竞争与等待、VM启动与退出等等。
 
@@ -278,7 +278,7 @@ Attach API 的作用是提供JVM进程间通信的能力，比如说我们为了
 - 定义Agent，并在其中实现AgentMain方法，如上一小节中定义的代码块7中的TestAgent类；
 - 然后将TestAgent类打成一个包含MANIFEST.MF的jar包，其中MANIFEST.MF文件中将Agent-Class属性指定为TestAgent的全限定名，如下图所示；
 
-![image-20220819230410722](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819230410722.png)
+![image-20220819230410722](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220819230410722.png)
 
 - 最后利用Attach API，将我们打包好的jar包Attach到指定的JVM pid上，代码如下：
 
@@ -298,7 +298,7 @@ public class Attacher {
 
 以下为运行时重新载入类的效果：先运行Base中的main()方法，启动一个JVM，可以在控制台看到每隔五秒输出一次”process”。接着执行Attacher中的main()方法，并将上一个JVM的pid传入。此时回到上一个main()方法的控制台，可以看到现在每隔五秒输出”process”前后会分别输出”start”和”end”，也就是说完成了运行时的字节码增强，并重新载入了这个类。
 
-![image-20220819230447802](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819230447802.png)
+![image-20220819230447802](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220819230447802.png)
 
 ### 2.4 使用场景
 

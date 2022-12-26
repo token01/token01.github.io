@@ -26,7 +26,7 @@ JMeter中的Logic Controller分为两类：
 
 首先我们来看一下JMeter的逻辑控制器，路径：线程组（用户）->添加->逻辑控制器（Logic Controller）；我们可以清楚地看到JMeter5中共有17个逻辑控制器，如下图所示：
 
-![image-20220622134741975](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622134741975.png)
+![image-20220622134741975](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622134741975.png)
 
 ## 4.常用逻辑控制器详解
 
@@ -36,7 +36,7 @@ JMeter中的Logic Controller分为两类：
 
 1. 我们先来看看这个if Controller长得是啥样子，路径：**线程组 > 添加 > 逻辑控制器 > 如果 (if) 控制器**，如下图所示：
 
-   ![image-20220622134857392](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622134857392.png)
+   ![image-20220622134857392](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622134857392.png)
 
 2. 关键参数说明如下：
 
@@ -64,23 +64,23 @@ JMeter中的Logic Controller分为两类：
 
    
 
-   ![image-20220622140146988](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622140146988.png)
+   ![image-20220622140146988](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622140146988.png)
 
 2. 如果不知道表达式如何使用，可使用Jmeter 的函数助手，**函数助手图标 > 选择_jexl3 > 在值的输入框输入'zsz'=='zsz'  > 点击‘生成’ > 全选Ctrl+C复制 > Ctrl+V粘贴到表达式处** 如下图所示：
 
-   ![image-20220622135619920](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622135619920.png)
+   ![image-20220622135619920](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622135619920.png)
 
-3. 配置好以后，运行JMeter，选择HTML，然后查看结果树，如下图所示：		![image-20220622140254353](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622140254353.png)
+3. 配置好以后，运行JMeter，选择HTML，然后查看结果树，如下图所示：		![image-20220622140254353](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622140254353.png)
 
 #### 4.1.2直接输入条件
 
 1. 直接输入只需要去掉 “**Interpret Condition as Variable Expression?**” 前面复选框，直接输入条件： **'zsz'=='zsz'** 。访问百度的首页的取样器将被执行。如下图所示：
 
-   ![image-20220622140433258](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622140433258.png)
+   ![image-20220622140433258](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622140433258.png)
 
 2. 配置好以后，运行JMeter，选择HTML，然后查看结果树，如下图所示：
 
-   ![image-20220622140522289](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622140522289.png)
+   ![image-20220622140522289](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622140522289.png)
 
 #### 4.1.3 条件中使用变量
 
@@ -90,7 +90,7 @@ JMeter中的Logic Controller分为两类：
 
    用户变量及配置，如下图所示：
 
-   ![image-20220622140730134](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622140730134.png)
+   ![image-20220622140730134](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622140730134.png)
 
 2. IF Controller及配置，可以用表达式：
 
@@ -100,13 +100,13 @@ JMeter中的Logic Controller分为两类：
 
    如下图所示：
 
-   ![image-20220622141150602](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622141150602.png)
+   ![image-20220622141150602](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622141150602.png)
 
 #### 4.1.4 Evaluate for all children? 的用法
 
 1. 在上面的小节中讲解和分享了在条件中如何使用变量，我们假设一种测试场景：如果 if 控制器下的取样器执行后，改变了该变量的值，if 控制器下 其后的取样器还会被继续执行吗？一起来看看下面的列子：
 
-   ![image-20220622141407756](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622141407756.png)
+   ![image-20220622141407756](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622141407756.png)
 
 2. 改变“zszkey”变量的值为“zsz01”，如下图所示：
 
@@ -114,7 +114,7 @@ JMeter中的Logic Controller分为两类：
    vars.put('zszkey','zsz01')
    ```
 
-   ![image-20220622141849119](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622141849119.png)
+   ![image-20220622141849119](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622141849119.png)
 
 3. JMeter执行过程的逻辑分析：
 
@@ -126,13 +126,13 @@ JMeter中的Logic Controller分为两类：
 
 4. 所以 **访问知乎** 这个取样器不会被执行。
 
-   ![image-20220622142143256](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622142143256.png)
+   ![image-20220622142143256](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622142143256.png)
 
 5. 如果这个时候，去掉  Evaluate for all children? 的勾选，会发生什么呢，大家可以自己动手试试。修改后记得点击“保存”。下边是的执行结果，如下下图所示：
 
    之前条件不通过后面的豆瓣就没有执行了。现在豆瓣继续执行
 
-   ![image-20220622142615051](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622142615051.png)
+   ![image-20220622142615051](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622142615051.png)
 
 另外，如果时字符串必须要用引号，变量都认为是字符串的形式
 
@@ -148,7 +148,7 @@ JMeter中的Logic Controller分为两类：
 
 1. 我们先来看看这个Transaction Controller长得是啥样子，路径：**线程组 > 添加 > 逻辑控制器 > 事务控制器**，如下图所示：
 
-   ![image-20220622143034887](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622143034887.png)
+   ![image-20220622143034887](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622143034887.png)
 
 2. 关键参数说明如下：
 
@@ -168,11 +168,11 @@ JMeter中的Logic Controller分为两类：
 
 1. 单个请求，那么不勾选generate parent sample，如下图所示：
 
-   ![image-20220622143556321](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622143556321.png)
+   ![image-20220622143556321](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622143556321.png)
 
 2. 运行JMeter，查看聚合报告的单个请求的响应时间，如下图所示：
 
-   ![image-20220622143707200](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622143707200.png)
+   ![image-20220622143707200](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622143707200.png)
 
 ##### 4.2.1.2 实例一：聚合统计
 
@@ -180,11 +180,11 @@ JMeter中的Logic Controller分为两类：
 
 1. 一组请求，那么勾选generate parent sample，如下图所示：
 
-   ![image-20220622143825684](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622143825684.png)
+   ![image-20220622143825684](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622143825684.png)
 
 2. 运行JMeter，查看聚合报告的一组请求的响应时间，如下图所示：
 
-   ![image-20220622143858396](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622143858396.png)
+   ![image-20220622143858396](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622143858396.png)
 
 ### 4.3 Loop Controller
 
@@ -192,7 +192,7 @@ JMeter中的Logic Controller分为两类：
 
 1. 我们先来看看这个Loop Controller长得是啥样子，默认循环一次。路径：**线程组 > 添加 > 逻辑控制器 > 循环控制器**，如下图所示：
 
-   ![image-20220622144029235](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622144029235.png)
+   ![image-20220622144029235](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622144029235.png)
 
 2. 关键参数说明如下：
 
@@ -212,15 +212,15 @@ JMeter中的Logic Controller分为两类：
 
 1. 线程组，如下图所示：
 
-   ![image-20220622144251550](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622144251550.png)
+   ![image-20220622144251550](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622144251550.png)
 
 2. 循环控制器，如下图所示：
 
-   ![image-20220622144550864](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622144550864.png)
+   ![image-20220622144550864](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622144550864.png)
 
 3. 运行JMeter，查看结果树，为了清楚地看出结果，将第一个请求故意配置成失败的；如下图所示：
 
-   ![image-20220622144613462](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622144613462.png)
+   ![image-20220622144613462](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622144613462.png)
 
 从上边的结果可以看出：
 
@@ -234,7 +234,7 @@ While条件控制器，其节点下的元件将一直运行直到While 条件为
 
 1. 我们先来看看这个While Controller长得是啥样子，默认循环一次。路径：**线程组 > 添加 > 逻辑控制器 > While控制器**，如下图所示：
 
-   ![image-20220622144731040](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622144731040.png)
+   ![image-20220622144731040](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622144731040.png)
 
 2. 关键参数说明如下：
 
@@ -256,11 +256,11 @@ While条件控制器，其节点下的元件将一直运行直到While 条件为
 
 1. 不填（空）：当 While 控制器下**最后一个**样例执行失败后 跳出循环，如下图所示：
 
-   ![image-20220622144931238](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622144931238.png)
+   ![image-20220622144931238](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622144931238.png)
 
 2. 运行JMeter，查看结果树，（你可以通过鼠标拖动最后失败的取样器，移动到第一个或者第二个位置的时候，运行JMeter后，会发现在一直运行）；如下图所示：(没理解)
 
-   ![image-20220622145252566](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622145252566.png)
+   ![image-20220622145252566](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622145252566.png)
 
 ##### 4.4.2 LAST
 
@@ -268,21 +268,21 @@ LAST ：当 While 控制器下**最后一个**样例执行失败后 跳出循环
 
 1. 取样器树还是上边的位置和顺序。这次我们在While控制器表达式处填写：LAST，如下图所示：
 
-   ![image-20220622145355098](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622145355098.png)
+   ![image-20220622145355098](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622145355098.png)
 
 2. 运行JMeter，查看结果树，（你可以通过鼠标拖动最后失败的取样器，移动到第一个或者第二个位置的时候，运行JMeter后，会发现在一直运行）；细心的你**可以发现循环只跑一遍**
 
-   ![image-20220622145424566](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622145424566.png)
+   ![image-20220622145424566](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622145424566.png)
 
 3. 但是输入LAST的时候，还会出现一个结果，那就是：如果While 控制器 的前一个样例执行失败，则不会进入While 控制器
 
    在While 控制器 前面 添加两个取样器：取样器1 **访问百度**，取样器2 **访问北京宏哥** 使取样器2 **访问北京宏哥** 执行失败。取样器2必须在While控制器前边且执行失败。如下图所示：
 
-   ![image-20220622145551396](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622145551396.png)
+   ![image-20220622145551396](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622145551396.png)
 
 4. 运行JMeter，查看结果树，执行结果发现，取样器1、取样器2 执行了，但没有进入While 控制器，如下图所示：
 
-   ![image-20220622145612368](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622145612368.png)
+   ![image-20220622145612368](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622145612368.png)
 
 ##### 4.4.3 Otherwise
 
@@ -290,11 +290,11 @@ LAST ：当 While 控制器下**最后一个**样例执行失败后 跳出循环
 
 1. 用户自定义变量，变量名：北京宏哥，变量值：true，如下图所示：
 
-   ![image-20220622145637666](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622145637666.png)
+   ![image-20220622145637666](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622145637666.png)
 
 2. While控制器配置，取到变量的值：${北京宏哥}，填写到表达式的地方，如下图所示： 
 
-   ![image-20220622145653128](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622145653128.png)
+   ![image-20220622145653128](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622145653128.png)
 
 3. JMeter执行过程的逻辑分析：
 
@@ -304,7 +304,7 @@ LAST ：当 While 控制器下**最后一个**样例执行失败后 跳出循环
 
 4. 运行JMeter，查看结果树，（运行JMeter后，会发现在一直运行），对比一下，与宏哥的分析是不是高度一致哈；如下图所示：
 
-![image-20220622145712398](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622145712398.png)
+![image-20220622145712398](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622145712398.png)
 
 ### 4.5 Once Only Controller
 
@@ -316,7 +316,7 @@ LAST ：当 While 控制器下**最后一个**样例执行失败后 跳出循环
 
 1. 我们先来看看这个Once Only Controller长得是啥样子，路径：**线程组 > 添加 > 逻辑控制器 > 仅一次控制器**，如下图所示：
 
-   ![image-20220622150049842](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622150049842.png)
+   ![image-20220622150049842](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622150049842.png)
 
 2. 关键参数说明如下：
 
@@ -330,11 +330,11 @@ LAST ：当 While 控制器下**最后一个**样例执行失败后 跳出循环
 
 1. 按照上边的测试场景，添加测试脚本，如下图所示：
 
-![image-20220622150418979](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622150418979.png)
+![image-20220622150418979](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622150418979.png)
 
 2. 配置好以后，点击“保存”，运行JMeter，然后查看结果树（ 从结果可以看出，一次登录然后多次查询列表；而不是查询一次就需要登录一次），如下图所示：
 
-![image-20220622150716268](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622150716268.png)
+![image-20220622150716268](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622150716268.png)
 
 ## 参考文章
 

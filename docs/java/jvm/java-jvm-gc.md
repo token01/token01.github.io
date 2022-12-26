@@ -37,7 +37,7 @@ public class ReferenceCountingGC {
 
 通过 GC Roots 作为起始点进行搜索，能够到达到的对象都是存活的，不可达的对象可被回收。
 
-![image-20220822201955643](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220822201955643.png)
+![image-20220822201955643](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220822201955643.png)
 
 Java 虚拟机使用该算法来判断对象是否可被回收，在 Java 中 GC Roots 一般包含以下内容:
 
@@ -126,7 +126,7 @@ obj = null;
 
 ### 3.1 标记 - 清除
 
-![image-20220822203143899](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220822203143899.png)
+![image-20220822203143899](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220822203143899.png)
 
 将存活的对象进行标记，然后清理掉未被标记的对象。
 
@@ -137,13 +137,13 @@ obj = null;
 
 ### 3.2 标记 - 整理
 
-![image-20220822203237510](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220822203237510.png)
+![image-20220822203237510](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220822203237510.png)
 
 让所有存活的对象都向一端移动，然后直接清理掉端边界以外的内存。
 
 ### 3.3 复制
 
-![image-20220822203308650](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220822203308650.png)
+![image-20220822203308650](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220822203308650.png)
 
 将内存划分为大小相等的两块，每次只使用其中一块，当这一块内存用完了就将还存活的对象复制到另一块上面，然后再把使用过的内存空间进行一次清理。
 
@@ -164,7 +164,7 @@ HotSpot 虚拟机的 Eden 和 Survivor 的大小比例默认为 8:1，保证了�
 
 ## 4. 垃圾收集器
 
-![image-20220822203627290](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220822203627290.png)
+![image-20220822203627290](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220822203627290.png)
 
 以上是 HotSpot 虚拟机中的 7 个垃圾收集器，连线表示垃圾收集器可以配合使用。
 
@@ -173,7 +173,7 @@ HotSpot 虚拟机的 Eden 和 Survivor 的大小比例默认为 8:1，保证了�
 
 ### 4.1 Serial 收集器
 
-![image-20220822203840445](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220822203840445.png)
+![image-20220822203840445](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220822203840445.png)
 
 Serial 翻译为串行，也就是说它以串行的方式执行。
 
@@ -185,7 +185,7 @@ Serial 翻译为串行，也就是说它以串行的方式执行。
 
 ### 4.2 ParNew 收集器
 
-![image-20220822204210688](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220822204210688.png)
+![image-20220822204210688](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220822204210688.png)
 
 它是 Serial 收集器的多线程版本。
 
@@ -207,7 +207,7 @@ Serial 翻译为串行，也就是说它以串行的方式执行。
 
 ### 4.4. Serial Old 收集器
 
-![image-20220822204557247](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220822204557247.png)
+![image-20220822204557247](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220822204557247.png)
 
 是 Serial 收集器的老年代版本，也是给 Client 模式下的虚拟机使用。如果用在 Server 模式下，它有两大用途:
 
@@ -216,7 +216,7 @@ Serial 翻译为串行，也就是说它以串行的方式执行。
 
 ### 4.5 Parallel Old 收集器
 
-![image-20220822204651394](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220822204651394.png)
+![image-20220822204651394](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220822204651394.png)
 
 是 Parallel Scavenge 收集器的老年代版本。
 
@@ -224,7 +224,7 @@ Serial 翻译为串行，也就是说它以串行的方式执行。
 
 ### 4.6. CMS 收集器
 
-![image-20220822204742797](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220822204742797.png)
+![image-20220822204742797](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220822204742797.png)
 
 CMS(Concurrent Mark Sweep)，Mark Sweep 指的是标记 - 清除算法。
 
@@ -249,17 +249,17 @@ G1(Garbage-First)，它是一款面向服务端应用的垃圾收集器，在多
 
 堆被分为新生代和老年代，其它收集器进行收集的范围都是整个新生代或者老年代，而 G1 可以直接对新生代和老年代一起回收。
 
-![image-20220822205120935](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220822205120935.png)
+![image-20220822205120935](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220822205120935.png)
 
 G1 把堆划分成多个大小相等的独立区域(Region)，新生代和老年代不再物理隔离。
 
-![image-20220822205156094](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220822205156094.png)
+![image-20220822205156094](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220822205156094.png)
 
 通过引入 Region 的概念，从而将原来的一整块内存空间划分成多个的小空间，使得每个小空间可以单独进行垃圾回收。这种划分方法带来了很大的灵活性，使得可预测的停顿时间模型成为可能。通过记录每个 Region 垃圾回收时间以及回收所获得的空间(这两个值是通过过去回收的经验获得)，并维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的 Region。
 
 每个 Region 都有一个 Remembered Set，用来记录该 Region 对象的引用对象所在的 Region。通过使用 Remembered Set，在做可达性分析的时候就可以避免全堆扫描。
 
-![image-20220822205320949](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220822205320949.png)
+![image-20220822205320949](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220822205320949.png)
 
 如果不计算维护 Remembered Set 的操作，G1 收集器的运作大致可划分为以下几个步骤:
 

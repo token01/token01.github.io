@@ -288,7 +288,7 @@ docker0         8000.0242703f9d02       no              vethd93e2ad
 
 当有多个容器创建后，容器网络拓扑结构如下：
 
-![image-20220703225858216](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220703225858216.png)
+![image-20220703225858216](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220703225858216.png)
 
 
 
@@ -375,7 +375,7 @@ Host模式如下图所示：
 
 Container模式示意图：
 
-![image-20220703222856547](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220703222856547.png)
+![image-20220703222856547](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220703222856547.png)
 
 ### 2.3 none模式
 
@@ -391,7 +391,7 @@ Container模式示意图：
 
 None模式示意图:
 
-![image-20220703223001804](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220703223001804.png)
+![image-20220703223001804](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220703223001804.png)
 
 ### 2.4 bridge模式
 
@@ -405,7 +405,7 @@ bridge模式是docker的默认网络模式，不写--net参数，就是bridge模
 
 bridge模式如下图所示：
 
-![image-20220703223130496](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220703223130496.png)
+![image-20220703223130496](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220703223130496.png)
 
 ## 参考文章
 

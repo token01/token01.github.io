@@ -161,11 +161,11 @@ public class GenericsDemo24{
 
 - 定义泛型方法语法格式
 
-![image-20220813173150842](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220813173150842.png)
+![image-20220813173150842](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220813173150842.png)
 
 - 调用泛型方法语法格式
 
-![image-20220813173752432](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220813173752432.png)
+![image-20220813173752432](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220813173752432.png)
 
 说明一下，定义泛型方法时，必须在返回值前边加一个`<T>`，来声明这是一个泛型方法，持有一个泛型`T`，然后才可以用泛型T作为方法的返回值。
 
@@ -406,7 +406,7 @@ public ArrayWithTypeToken(Class<T> type, int size) {
 
 当类定义中的类型参数没有任何限制时，在类型擦除中直接被替换为Object，即形如`<T>`和`<?>`的类型参数都被替换为Object。
 
-![image-20220813191141893](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220813191141893.png)
+![image-20220813191141893](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220813191141893.png)
 
 
 
@@ -414,13 +414,13 @@ public ArrayWithTypeToken(Class<T> type, int size) {
 
 当类定义中的类型参数存在限制（上下界）时，在类型擦除中替换为类型参数的上界或者下界，比如形如`<T extends Number>`和`<? extends Number>`的类型参数被替换为`Number`，`<? super Number>`被替换为Object。
 
-![image-20220813191245583](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220813191245583.png)
+![image-20220813191245583](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220813191245583.png)
 
 - 擦除方法定义中的类型参数
 
 擦除方法定义中的类型参数原则和擦除类定义中的类型参数是一样的，这里仅以擦除方法定义中的有限制类型参数为例。
 
-![image-20220813191445499](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220813191445499.png)
+![image-20220813191445499](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220813191445499.png)
 
 ### 3.2 如何证明类型的擦除呢？
 

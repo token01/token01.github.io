@@ -40,23 +40,23 @@ javap		jimage		jrunscript	rmic
 
 概述
 
-![image-20220826211138575](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826211138575.png)
+![image-20220826211138575](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826211138575.png)
 
 内存
 
-![image-20220826211158645](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826211158645.png)
+![image-20220826211158645](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826211158645.png)
 
 线程
 
-![image-20220826211221102](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826211221102.png)
+![image-20220826211221102](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826211221102.png)
 
 类
 
-![image-20220826211238946](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826211238946.png)
+![image-20220826211238946](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826211238946.png)
 
 VM概要
 
-![image-20220826211302951](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826211302951.png)
+![image-20220826211302951](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826211302951.png)
 
 ## 2. Visual VM
 
@@ -64,19 +64,19 @@ VM概要
 
 Overview
 
-![image-20220826211421295](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826211421295.png)
+![image-20220826211421295](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826211421295.png)
 
 Monitor
 
-![image-20220826211450960](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826211450960.png)
+![image-20220826211450960](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826211450960.png)
 
 线程
 
-![image-20220826211511264](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826211511264.png)
+![image-20220826211511264](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826211511264.png)
 
 Sampler
 
-![image-20220826211556683](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826211556683.png)
+![image-20220826211556683](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826211556683.png)
 
 ## 3. Visual GC
 
@@ -84,7 +84,7 @@ Sampler
 
 比如我在IDEA中使用visual GC 插件来看GC状况。
 
-![image-20220826211647985](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826211647985.png)
+![image-20220826211647985](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826211647985.png)
 
 ## 4. JProfiler
 
@@ -96,7 +96,7 @@ JProfiler 是一个全功能的Java剖析工具（profiler），专用于分析J
 
 JProfiler 包含用于采集目标 JVM 分析数据的 JProfiler agent、用于可视化分析数据的 JProfiler UI、提供各种功能的命令行工具，它们之间的关系如下图所示。
 
-![image-20220826212237379](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826212237379.png)
+![image-20220826212237379](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826212237379.png)
 
 - **JProfiler agent**
 
@@ -121,11 +121,11 @@ JProfiler 提供了一系列命令行工具以实现不同的功能。
 
 **我们运行一个SpringBoot测试工程，选择attach到JVM**
 
-![image-20220826212442277](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826212442277.png)
+![image-20220826212442277](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826212442277.png)
 
 选择指定的进程
 
-![image-20220826212509327](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826212509327.png)
+![image-20220826212509327](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826212509327.png)
 
 **设置数据采集模式**
 
@@ -136,51 +136,51 @@ JProfier 提供两种数据采集模式 Sampling 和 Instrumentation。
 
 由于我们需要获取方法级别的统计信息，这里选择了 Instrumentation 模式。
 
-![image-20220826212729645](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826212729645.png)
+![image-20220826212729645](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826212729645.png)
 
 概览
 
-![image-20220826212745879](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826212745879.png)
+![image-20220826212745879](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826212745879.png)
 
 内存
 
-![image-20220826212806029](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826212806029.png)
+![image-20220826212806029](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826212806029.png)
 
 实时内存分布（类对象）
 
-![image-20220826212834350](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826212834350.png)
+![image-20220826212834350](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826212834350.png)
 
 dump 堆内存
 
-![image-20220826212851940](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826212851940.png)
+![image-20220826212851940](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826212851940.png)
 
 dump完会直接打开显示
 
-![image-20220826212912268](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826212912268.png)
+![image-20220826212912268](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826212912268.png)
 
 线程存储
 
-![image-20220826212929892](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826212929892.png)
+![image-20220826212929892](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826212929892.png)
 
 导出HTML报告
 
-![image-20220826212945966](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826212945966.png)
+![image-20220826212945966](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826212945966.png)
 
 CPU 调用树
 
-![image-20220826213003289](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826213003289.png)
+![image-20220826213003289](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826213003289.png)
 
 线程历史
 
-![image-20220826213020235](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826213020235.png)
+![image-20220826213020235](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826213020235.png)
 
 JEE & 探针
 
-![image-20220826213038472](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826213038472.png)
+![image-20220826213038472](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826213038472.png)
 
 MBeans
 
-![image-20220826213101053](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826213101053.png)
+![image-20220826213101053](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826213101053.png)
 
 ## 5. Eclipse Memory Analyzer (MAT)
 
@@ -192,13 +192,13 @@ MBeans
 
 包含内存分布，以及潜在的问题推测
 
-![image-20220826213253381](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826213253381.png)
+![image-20220826213253381](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826213253381.png)
 
 - **Histogram**
 
 可以列出内存中的对象，对象的个数以及大小。
 
-![image-20220826213315424](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826213315424.png)
+![image-20220826213315424](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826213315424.png)
 
 具体需要重点理解如下两个概念，可参考[官网文档 ](http://help.eclipse.org/latest/index.jsp?topic=/org.eclipse.mat.ui.help/welcome.html)的解释
 
@@ -209,19 +209,19 @@ MBeans
 
 可以列出那个线程，以及线程下面的那些对象占用的空间。
 
-![image-20220826213354422](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826213354422.png)
+![image-20220826213354422](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826213354422.png)
 
 - **Top consumers**
 
 通过图形列出最大的object。
 
-![image-20220826213415340](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826213415340.png)
+![image-20220826213415340](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826213415340.png)
 
 - **Leak Suspects**
 
 自动分析潜在可能的泄漏。
 
-![image-20220826213433274](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220826213433274.png)
+![image-20220826213433274](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220826213433274.png)
 
 ## 参考文章
 

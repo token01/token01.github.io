@@ -20,17 +20,17 @@ category:
 
 如下图，可以很方便的帮助你构筑这种体系
 
-![image-20220805205758872](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805205758872.png)
+![image-20220805205758872](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805205758872.png)
 
 - 第二点： **分类别**，从上层理解，而不是本身
 
 比如Full text Query中，我们只需要把如下的那么多点分为3大类，你的体系能力会大大提升
 
-![image-20220805205926651](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805205926651.png)
+![image-20220805205926651](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805205926651.png)
 
 - 第三点： **知识点还是API**？ API类型的是可以查询的，只需要知道大致有哪些功能就可以了。
 
-![image-20220805210053312](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805210053312.png)
+![image-20220805210053312](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805210053312.png)
 
 ## 1. Match类型
 
@@ -93,7 +93,7 @@ Elasticsearch 执行上面这个 match 查询的步骤是：
 
 - **验证结果**
 
-![image-20220805212030883](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805212030883.png)
+![image-20220805212030883](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805212030883.png)
 
 ### 1.2 match多个词深入
 
@@ -114,7 +114,7 @@ GET /test-dsl-match/_search
 }
 ```
 
-![image-20220805212307163](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805212307163.png)
+![image-20220805212307163](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805212307163.png)
 
 因为 match 查询必须查找两个词（ ["brown","dog"] ），它在内部实际上先执行两次 term 查询，然后将两次查询的结果合并作为最终结果输出。为了做到这点，它将两个 term 查询包入一个 bool 查询中，
 
@@ -142,7 +142,7 @@ GET /test-dsl-match/_search
 }
 ```
 
-![image-20220805212509990](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805212509990.png)
+![image-20220805212509990](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805212509990.png)
 
 - **match多个词的逻辑**
 
@@ -205,7 +205,7 @@ GET /test-dsl-match/_search
 }
 ```
 
-![image-20220805215139691](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805215139691.png)
+![image-20220805215139691](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805215139691.png)
 
 ### 1.3 控制match的匹配精度
 
@@ -230,7 +230,7 @@ GET /test-dsl-match/_search
 
 当给定百分比的时候， minimum_should_match 会做合适的事情：在之前三词项的示例中， 75% 会自动被截断成 66.6% ，即三个里面两个词。无论这个值设置成什么，至少包含一个词项的文档才会被认为是匹配的。
 
-![image-20220805215456812](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805215456812.png)
+![image-20220805215456812](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805215456812.png)
 
 当然也等同于
 
@@ -250,7 +250,7 @@ GET /test-dsl-match/_search
 }
 ```
 
-![image-20220805220030629](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805220030629.png)
+![image-20220805220030629](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805220030629.png)
 
 ### 1.4 其它match类型
 
@@ -271,7 +271,7 @@ GET /test-dsl-match/_search
 }
 ```
 
-![image-20220805220220108](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805220220108.png)
+![image-20220805220220108](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805220220108.png)
 
 很多人对它仍然有误解的，比如如下例子：
 
@@ -290,7 +290,7 @@ GET /test-dsl-match/_search
 
 这样的查询是查不出任何数据的，因为前文中我们知道了match本质上是对term组合，match_phrase本质是连续的term的查询，所以f并不是一个分词，不满足term查询，所以最终查不出任何内容了。
 
-![image-20220805220407000](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805220407000.png)
+![image-20220805220407000](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805220407000.png)
 
 - **match_pharse_prefix**
 
@@ -309,7 +309,7 @@ GET /test-dsl-match/_search
 }
 ```
 
-![image-20220805220518740](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805220518740.png)
+![image-20220805220518740](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805220518740.png)
 
 (ps: prefix的意思不是整个text的开始匹配，而是最后一个词项满足term的prefix查询而已)
 
@@ -330,7 +330,7 @@ GET /test-dsl-match/_search
 }
 ```
 
-![image-20220805220608159](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805220608159.png)
+![image-20220805220608159](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805220608159.png)
 
 它们两种方式有啥区别呢？match_bool_prefix本质上可以转换为：
 
@@ -394,7 +394,7 @@ GET /test-dsl-match/_search
 
 这里查询结果，你需要理解本质上查询这四个分词（term）or的结果而已，所以doc 3和4也在其中
 
-![image-20220805221341140](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805221341140.png)
+![image-20220805221341140](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805221341140.png)
 
 对构筑知识体系已经够了，但是它其实还有很多参数和用法，更多请参考[官网](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html)
 
@@ -419,7 +419,7 @@ GET /test-dsl-match/_search
 }
 ```
 
-![image-20220805221504432](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805221504432.png)
+![image-20220805221504432](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805221504432.png)
 
 更多请参考[官网](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-simple-query-string-query.html)
 
@@ -463,7 +463,7 @@ GET /test-dsl-match/_search
 }
 ```
 
-![image-20220805221621590](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805221621590.png)
+![image-20220805221621590](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805221621590.png)
 
 因为interval之间是可以组合的，所以它可以表现的很复杂。更多请参考[官网](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-intervals-query.html)
 

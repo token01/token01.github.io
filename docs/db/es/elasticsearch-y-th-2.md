@@ -12,7 +12,7 @@ category:
 
 > 通过上文，在通过图解了解了ES整体的原理后，我们梳理下ES的整体结构
 
-![image-20220807223012609](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220807223012609.png)
+![image-20220807223012609](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220807223012609.png)
 
 - 一个 ES Index 在集群模式下，有多个 Node （节点）组成。每个节点就是 ES 的Instance (实例)。
 
@@ -30,21 +30,21 @@ category:
 
 > 上图中Lucene的索引结构中有哪些文件呢？
 
-![image-20220807223432842](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220807223432842.png)
+![image-20220807223432842](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220807223432842.png)
 
 （更多文件类型可参考[这里 (opens new window)](http://lucene.apache.org/core/7_2_1/core/org/apache/lucene/codecs/lucene70/package-summary.html#package.description)）
 
-![image-20220807223542331](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220807223542331.png)
+![image-20220807223542331](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220807223542331.png)
 
 文件的关系如下：
 
-![image-20220807223558097](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220807223558097.png)
+![image-20220807223558097](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220807223558097.png)
 
 ## 3. 补充:Lucene处理流程
 
 > 上文图解过程，还需要理解Lucene处理流程, 这将帮助你更好的索引文档和搜索文档。
 
-![image-20220807223722391](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220807223722391.png)
+![image-20220807223722391](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220807223722391.png)
 
 创建索引的过程：
 

@@ -12,7 +12,7 @@ Java提供了种类丰富的锁，每种锁因其特性的不同，在适当的�
 
 Java中往往是按照是否含有某一特性来定义锁，我们通过特性将锁进行分组归类，再使用对比的方式进行介绍，帮助大家更快捷的理解相关知识。下面给出本文内容的总体分类目录：
 
-![image-20220525212721156](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525212721156.png)
+![image-20220525212721156](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220525212721156.png)
 
 ## 1. 乐观锁 VS 悲观锁
 
@@ -24,7 +24,7 @@ Java中往往是按照是否含有某一特性来定义锁，我们通过特性�
 
 乐观锁在Java中是通过使用无锁编程来实现，最常采用的是CAS算法，Java原子类中的递增操作就通过CAS自旋实现的。
 
-![image-20220525212947017](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525212947017.png)
+![image-20220525212947017](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220525212947017.png)
 
 根据从上面的概念描述我们可以发现：
 
@@ -65,7 +65,7 @@ atomicInteger.incrementAndGet(); //执行自增1
 
 而为了让当前线程“稍等一下”，我们需让当前线程进行自旋，如果在自旋完成后前面锁定同步资源的线程已经释放了锁，那么当前线程就可以不必阻塞而是直接获取同步资源，从而避免切换线程的开销。这就是自旋锁。
 
-![image-20220525213859276](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525213859276.png)
+![image-20220525213859276](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220525213859276.png)
 
 自旋锁本身是有缺点的，它不能代替阻塞。自旋等待虽然避免了线程切换的开销，但它要占用处理器时间。如果锁被占用的时间很短，自旋等待的效果就会非常好。反之，如果锁被占用的时间很长，那么自旋的线程只会白浪费处理器资源。所以，自旋等待的时间必须要有一定的限度，如果自旋超过了限定次数（默认是10次，可以使用-XX:PreBlockSpin来更改）没有成功获得锁，就应当挂起线程。
 
@@ -77,7 +77,7 @@ atomicInteger.incrementAndGet(); //执行自增1
 
 总结而言： 偏向锁通过对比Mark Word解决加锁问题，避免执行CAS操作。而轻量级锁是通过用CAS操作和自旋来解决加锁问题，避免线程阻塞和唤醒而影响性能。重量级锁是将除了拥有锁的线程以外的线程都阻塞。
 
-![image-20220525214145459](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525214145459.png)
+![image-20220525214145459](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220525214145459.png)
 
 ## 4. 公平锁 VS 非公平锁
 
@@ -87,13 +87,13 @@ atomicInteger.incrementAndGet(); //执行自增1
 
 直接用语言描述可能有点抽象，这里作者用从别处看到的一个例子来讲述一下公平锁和非公平锁。
 
-![image-20220525214407781](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525214407781.png)
+![image-20220525214407781](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220525214407781.png)
 
 如上图所示，假设有一口水井，有管理员看守，管理员有一把锁，只有拿到锁的人才能够打水，打完水要把锁还给管理员。每个过来打水的人都要管理员的允许并拿到锁之后才能去打水，如果前面有人正在打水，那么这个想要打水的人就必须排队。管理员会查看下一个要去打水的人是不是队伍里排最前面的人，如果是的话，才会给你锁让你去打水；如果你不是排第一的人，就必须去队尾排队，这就是公平锁。
 
 但是对于非公平锁，管理员对打水的人没有要求。即使等待队伍里有排队等待的人，但如果在上一个人刚打完水把锁还给管理员而且管理员还没有允许等待队伍里下一个人去打水时，刚好来了一个插队的人，这个插队的人是可以直接从管理员那里拿到锁去打水，不需要排队，原本排队等待的人只能继续等待。如下图所示：
 
-![image-20220525214702064](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525214702064.png)
+![image-20220525214702064](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220525214702064.png)
 
 
 
@@ -123,13 +123,13 @@ public class Widget {
 
 还是打水的例子，有多个人在排队打水，此时管理员允许锁和同一个人的多个水桶绑定。这个人用多个水桶打水时，第一个水桶和锁绑定并打完水之后，第二个水桶也可以直接和锁绑定并开始打水，所有的水桶都打完水之后打水人才会将锁还给管理员。这个人的所有打水流程都能够成功执行，后续等待的人也能够打到水。这就是可重入锁。
 
-![image-20220525214920016](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525214920016.png)
+![image-20220525214920016](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220525214920016.png)
 
 
 
 但如果是非可重入锁的话，此时管理员只允许锁和同一个人的一个水桶绑定。第一个水桶和锁绑定打完水之后并不会释放锁，导致第二个水桶不能和锁绑定也无法打水。当前线程出现死锁，整个等待队列中的所有线程都无法被唤醒。
 
-![image-20220525215010238](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525215010238.png)
+![image-20220525215010238](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220525215010238.png)
 
 
 
@@ -143,7 +143,7 @@ public class Widget {
 
 释放锁时，可重入锁同样先获取当前status的值，在当前线程是持有锁的线程的前提下。如果status-1 == 0，则表示当前线程所有重复获取锁的操作都已经执行完毕，然后该线程才会真正释放锁。而非可重入锁则是在确定当前线程是持有锁的线程之后，直接将status置为0，将锁释放。
 
-![image-20220525215154882](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525215154882.png)
+![image-20220525215154882](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220525215154882.png)
 
 ## 6. 独享锁(排他锁) VS 共享锁
 
@@ -157,7 +157,7 @@ public class Widget {
 
 下图为ReentrantReadWriteLock的部分源码：
 
-![image-20220525215327629](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525215327629.png)
+![image-20220525215327629](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220525215327629.png)
 
 我们看到ReentrantReadWriteLock有两把锁：ReadLock和WriteLock，由词知意，一个读锁一个写锁，合称“读写锁”。再进一步观察可以发现ReadLock和WriteLock是靠内部类Sync实现的锁。Sync是AQS的一个子类，这种结构在CountDownLatch、ReentrantLock、Semaphore里面也都存在。
 

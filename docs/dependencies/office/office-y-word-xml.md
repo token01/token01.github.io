@@ -12,9 +12,9 @@ Office2003以上，Word可以以 XML 文本格式存储，这样就可以使用�
 
 ### 2.1 方式一：word导出xml格式
 
-![image-20220428103850569](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220428103850569.png)
+![image-20220428103850569](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220428103850569.png)
 
-![image-20220428104427628](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220428104427628.png)
+![image-20220428104427628](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220428104427628.png)
 
 我们可以看到一个最简单的word导出xml格式的时候，也是包含了200多行的代码，其中包含了各种字体样式等标识。如果不熟悉word xml 其实很难去解析内容，要实现负责点的动态渲染是很困难的。
 
@@ -35,7 +35,7 @@ Office2003以上，Word可以以 XML 文本格式存储，这样就可以使用�
 < /w:wordDocument>
 ```
 
-![image-20220428105113178](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220428105113178.png)
+![image-20220428105113178](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220428105113178.png)
 
 两种方案都能正常显示测试两个字。
 

@@ -13,11 +13,11 @@
 
 ### 2.1 查询全流程中的高亮
 
-![image-20220418164457501](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220418164457501.png)
+![image-20220418164457501](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220418164457501.png)
 
 ### 2.2 高亮组件的内部流程
 
-![image-20220418164555628](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220418164555628.png)
+![image-20220418164555628](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220418164555628.png)
 
 ## 3. 四种高亮实现
 

@@ -62,7 +62,7 @@ public ResponseResult<String> upload(@RequestParam(value = "file", required = tr
 
 通过postman，模拟上传的请求
 
-![image-20220719221741423](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220719221741423.png)
+![image-20220719221741423](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220719221741423.png)
 
 ### 2.3 文件下载
 
@@ -100,7 +100,7 @@ public void download(HttpServletResponse response) {
 
 如果使用postman下载文件，默认的response大小是50MB，下载大于50MB的文件需要在这里自行设置。
 
-![image-20220719221858304](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220719221858304.png)
+![image-20220719221858304](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220719221858304.png)
 
 ## 3. 进一步理解
 

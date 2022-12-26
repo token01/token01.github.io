@@ -145,7 +145,7 @@ public class HelloworldApplication {
 
 访问 http://localhost:8080/，打印以下结果：
 
-![image-20200321000541904](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20200321000541904.png)
+![image-20200321000541904](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20200321000541904.png)
 
 ## 面试真题
 

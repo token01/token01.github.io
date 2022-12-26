@@ -13,7 +13,7 @@ category:
 
 通过下图可以得知，`Docker`在运行时分为`Docker引擎（服务端守护进程）`和`客户端工具`，我们日常使用各种`docker命令`，其实就是在使用`客户端工具`与`Docker`引擎进行交互。
 
-![image-20220613201437616](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220613201437616.png)
+![image-20220613201437616](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220613201437616.png)
 
 ## 2. Docker 镜像
 
@@ -50,7 +50,7 @@ mongo             latest         0bcbeb494bed   9 months ago   684MB
 
 - 方式一：**通过Docker Hub 进行查找**, 比如[https://hub.docker.com/search?q=mysql&type=image  (opens new window)](https://hub.docker.com/search?q=mysql&type=image)
 
-![image-20220613202907992](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220613202907992.png)
+![image-20220613202907992](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220613202907992.png)
 
 - 方式二：**使用 docker search 命令来搜索镜像**
 

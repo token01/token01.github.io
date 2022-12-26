@@ -20,7 +20,7 @@ Sharding-JDBC是ShardingSphere的第一个产品，也是ShardingSphere的前身
 - 基于任何第三方的数据库连接池，如：DBCP, C3P0, BoneCP, Druid, HikariCP等。
 - 支持任意实现JDBC规范的数据库。目前支持MySQL，Oracle，SQLServer和PostgreSQL。
 
-![image-20220717200857244](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717200857244.png)
+![image-20220717200857244](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717200857244.png)
 
 ### 1.3 和ShardingSphere是什么关系？
 
@@ -30,11 +30,11 @@ ShardingSphere是一套开源的分布式数据库中间件解决方案组成的
 
 ShardingSphere定位为关系型数据库中间件，旨在充分合理地在分布式的场景下利用关系型数据库的计算和存储能力，而并非实现一个全新的关系型数据库。 它与NoSQL和NewSQL是并存而非互斥的关系。NoSQL和NewSQL作为新技术探索的前沿，放眼未来，拥抱变化，是非常值得推荐的。反之，也可以用另一种思路看待问题，放眼未来，关注不变的东西，进而抓住事物本质。 关系型数据库当今依然占有巨大市场，是各个公司核心业务的基石，未来也难于撼动，我们目前阶段更加关注在原有基础上的增量，而非颠覆。
 
-![image-20220717201030865](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717201030865.png)
+![image-20220717201030865](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717201030865.png)
 
 对应的版本功能
 
-![image-20220717201046865](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717201046865.png)
+![image-20220717201046865](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717201046865.png)
 
 ## 2. 简单示例
 
@@ -433,7 +433,7 @@ http://localhost:8080/doc.html
 
 插入数据
 
-![image-20220717201509884](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717201509884.png)
+![image-20220717201509884](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717201509884.png)
 
 ## 3. 进一步理解
 

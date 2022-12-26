@@ -95,7 +95,7 @@ class SpringbootQuickStartApplicationTests {
 
 Spring Boot 2.4.2 + H2 + Lombok + Spring Boot Test (默认包含了 Junit5 + Mockito)。
 
-![image-20220901212659855](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901212659855.png)
+![image-20220901212659855](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901212659855.png)
 
 ### 3.1 Demo程序准备
 
@@ -538,7 +538,7 @@ class UserServiceImplTest {
 
 - 测试结果
 
-![image-20220901214710173](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220901214710173.png)
+![image-20220901214710173](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901214710173.png)
 
 ### 3.3 Util测试
 

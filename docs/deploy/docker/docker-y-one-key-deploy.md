@@ -48,7 +48,7 @@ chmod +x /usr/local/bin/docker-compose
 - 数据库脚本头部需要添加`SET NAMES 'utf8';`（防止乱码）
 - redis地址也需要修改
 
-![image-20220616205125631](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220616205125631.png)
+![image-20220616205125631](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220616205125631.png)
 
 ## 4. 启动docker
 

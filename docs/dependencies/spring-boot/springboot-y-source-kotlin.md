@@ -8,7 +8,7 @@ Springboot源码编译时报错
 Kotlin: Language version 1.1 is no longer supported； please, use version 1.2
 ```
 
-![image-20220511195643200](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220511195643200.png)
+![image-20220511195643200](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220511195643200.png)
 
 报错原因：就是kotlin版本太低，但是百度的答案问题，都不能解决这个报错
 
@@ -21,11 +21,11 @@ Kotlin: Language version 1.1 is no longer supported； please, use version 1.2
 2.设置 language version、API version 为1.2，点击确定即可
 ```
 
-![image-20220511200249271](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220511200249271.png)
+![image-20220511200249271](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220511200249271.png)
 
 ### 2.2 更新渠道
 
-![image-20220511200347450](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220511200347450.png)
+![image-20220511200347450](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220511200347450.png)
 
 ## 3. 最终解决
 
@@ -37,4 +37,4 @@ Project Structure -》modules
 
 **改成具体的版本或使用项目的配置**
 
-![image-20220511200623611](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220511200623611.png)
+![image-20220511200623611](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220511200623611.png)

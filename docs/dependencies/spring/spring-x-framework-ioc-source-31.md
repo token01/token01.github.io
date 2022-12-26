@@ -12,7 +12,7 @@ category:
 
 我之前在准备面试时，去网上搜过答案，大多以下图给出的流程作为答案。
 
-![image-20220927222208029](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220927222208029.png)
+![image-20220927222208029](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220927222208029.png)
 
 但是当我第一次看到该图时，就产生了很多困扰，“Aware，BeanPostProcessor......这些都是什么啊？而且这么多步骤，太多了，该怎么记啊？”。
 
@@ -30,7 +30,7 @@ Bean 的生命周期概括起来就是 **4 个阶段**：
 3. 初始化（Initialization）
 4. 销毁（Destruction）
 
-![image-20220927222345111](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220927222345111.png)
+![image-20220927222345111](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220927222345111.png)
 
 1. 实例化：第 1 步，实例化一个 bean 对象；
 2. 属性赋值：第 2 步，为 bean 设置相关属性和依赖；

@@ -14,7 +14,7 @@ Remote Procedure Call 简称 RPC，即远程调用。这个请自行百度。
 
 这里 RPC 实现和传统的 RPC 还不太一样。
 
-![image-20220923204259807](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220923204259807.png)
+![image-20220923204259807](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220923204259807.png)
 
 1. 客户端发送一个请求，并设置了一个回复的队列
 2. 服务端，消费发送来的请求，并像这个回复的队列，响应了一个消息

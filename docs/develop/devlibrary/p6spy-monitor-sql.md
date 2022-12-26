@@ -233,7 +233,7 @@ exclude=QRTZ_*
 excludecategories=info,debug,result,commit,resultset
 ```
 
-![image-20220622092110715](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220622092110715.png)
+![image-20220622092110715](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220622092110715.png)
 
 ## 参考文章
 

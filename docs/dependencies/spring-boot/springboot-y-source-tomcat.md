@@ -208,7 +208,7 @@ EmbeddedTomcat 中的 @ConditionalOnClass 表示，如果项目中存在tomcat �
 
 而starter-web中默认配置的容器就是tomcat。如果需要使用其他容器，则移除该引用，改成其他引用即可
 
-![image-20220515215757923](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220515215757923.png)
+![image-20220515215757923](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220515215757923.png)
 
 ### 1.3 注入了两个类
 
@@ -437,7 +437,7 @@ private void initialize() throws WebServerException {
 	}
 ```
 
-![image-20220515221342273](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220515221342273.png)
+![image-20220515221342273](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220515221342273.png)
 
 ## 3. 总结
 

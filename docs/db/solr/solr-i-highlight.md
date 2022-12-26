@@ -22,7 +22,7 @@ solr 默认情况，我们虽然搜索的是不同字段，但**高亮**时他�
 
 - **hl.requireFieldMatch， 必须字段匹配**
 
-![image-20220418155546278](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220418155546278.png)
+![image-20220418155546278](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220418155546278.png)
 
 ## 3. 代码设置
 

@@ -18,11 +18,11 @@
 
 1. 执行 Keygen.exe
 
-   ![image-20210412161219116](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20210412161219116.png)
+   ![image-20210412161219116](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210412161219116.png)
 
 2. 随便输入Licensee,点击Generate
 
-   ![image-20210412161322811](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20210412161322811.png)
+   ![image-20210412161322811](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210412161322811.png)
 
 ## 参考文章
 

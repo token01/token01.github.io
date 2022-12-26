@@ -101,7 +101,8 @@ CodeGlance是一款代码编辑区缩略图插件，可以快速定位代码，�
 
 我们点击Mapper接口方法左侧的图标可以直接跳转到xml中对应的SQL实现，在xml点击左侧图标也可以直接跳转到Mapper接口中对应的方法。
 
-![640 (2)](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/640%20(2).gif)
+
+![640 (2)](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/640%20(2).gif)%%%%
 
 当我们创建符合JPA规范的方法时，能直接生成SQL实现无需手写，MyBatisX的功能很强大，详细使用可以参考[MybatisX插件的使用](https://mp.weixin.qq.com/s?__biz=MzU1Nzg4NjgyMw==&mid=2247502551&idx=1&sn=5017e6bf5b9aaabebcad8fb9f3fc7d89&scene=21#wechat_redirect) 。
 

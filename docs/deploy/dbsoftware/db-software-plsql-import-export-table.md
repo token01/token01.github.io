@@ -8,7 +8,7 @@ Tools(工具)-->Export User Objects（导出用户对象）-->选择要导出的
 
 Tools(工具)-->Export Tables(导出表)-->选择表,选择SQL Inserts(SQL 插入)-->.sql文件
 
-![image-20201111111105145](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20201111111105145.png)
+![image-20201111111105145](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20201111111105145.png)
 
 ## 3. 导入步骤
 

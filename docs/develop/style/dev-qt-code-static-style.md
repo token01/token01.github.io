@@ -15,13 +15,13 @@ category:
 
 - **下载插件**
 
-![image-20220902214146448](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220902214146448.png)
+![image-20220902214146448](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220902214146448.png)
 
 - **配置生效**
 
 配置生效及告警设置
 
-![image-20220902214211530](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220902214211530.png)
+![image-20220902214211530](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220902214211530.png)
 
 - **配置checkstyle.xml**
 
@@ -586,11 +586,11 @@ category:
 
 首先在本地新建一个XML文件，将上面的代码保存到XML文件中，打开Settings->Tools->CheckStyle
 
-![image-20220902214528111](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220902214528111.png)
+![image-20220902214528111](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220902214528111.png)
 
 - **测试配置的CheckStyle**
 
-![image-20220902214552964](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220902214552964.png)
+![image-20220902214552964](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220902214552964.png)
 
 
 

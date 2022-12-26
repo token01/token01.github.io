@@ -4,7 +4,7 @@
 
 正常情况下我们main方法执行结束后，该进程就结束了。那为什么springboot main函数执行完不会退出呢？
 
-![image-20220515222654390](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220515222654390.png)
+![image-20220515222654390](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220515222654390.png)
 
 针对这个问题我们可以转化一下思路：一个JVM进程，在什么情况下会正常退出？
 

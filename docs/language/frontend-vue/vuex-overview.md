@@ -49,7 +49,7 @@ new Vue({
 
 ## 4. 核心概念
 
-![image-20210525190735823](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210525190735823.png)
+![image-20210525190735823](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210525190735823.png)
 
 ### 4.1 State
 

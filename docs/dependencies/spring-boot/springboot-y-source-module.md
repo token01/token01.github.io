@@ -10,7 +10,7 @@
 
 我们先来对SpringBoot的源码模块来一个大致的了解，如下图：
 
-![image-20220331162621887](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220331162621887.png)
+![image-20220331162621887](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220331162621887.png)
 
 从上图可以看到，主要有以下四个模块：
 
@@ -25,7 +25,7 @@
 
 先来看下spring-boot-project整体模块结构，如下图，然后我们再逐个来介绍：
 
-![image-20220331162733623](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220331162733623.png)
+![image-20220331162733623](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220331162733623.png)
 
 #### **3.1 spring-boot-parent**
 
@@ -102,7 +102,7 @@ Spring Boot CLI是一个[命令行工具](https://cloud.tencent.com/product/cli?
 
 **用一个思维导图来总结下SpringBoot源码项目的脉络**
 
-![image-20220331163705752](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220331163705752.png)
+![image-20220331163705752](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220331163705752.png)
 
 ## 5. **SpringBoot模块之间的pom关系详解**
 
@@ -110,7 +110,7 @@ Spring Boot CLI是一个[命令行工具](https://cloud.tencent.com/product/cli?
 
 先看SpringBoot源码项目的pom关系，如下图：
 
-![image-20220331163745484](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220331163745484.png)
+![image-20220331163745484](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220331163745484.png)
 
 根据上图可得出以下结论：
 

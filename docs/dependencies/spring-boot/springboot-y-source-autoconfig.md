@@ -251,7 +251,7 @@ public @interface EnableAutoConfiguration {
 
    - 加载之后的结果图
 
-   ![image-20220511220015163](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220511220015163.png)
+   ![image-20220511220015163](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220511220015163.png)
 
 3. 过滤出满足条件的配置信息
 

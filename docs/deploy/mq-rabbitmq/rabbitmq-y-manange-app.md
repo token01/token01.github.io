@@ -288,7 +288,7 @@ rabbitmqctl set_cluster_name {name}
 
 **集群名称 默认是集群中第一个节点的名称**，通过该命令重新设置。在 web 管理界面右上角有可以修改，如下图
 
-![image-20220924215257905](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220924215257905.png)
+![image-20220924215257905](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220924215257905.png)
 
 通过集群状态也能查看到当前的集群名称
 

@@ -84,7 +84,7 @@ public class ScheduleDemo {
 
 > SpringTask的源码在这里：
 
-![image-20220719042742912](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220719042742912.png)
+![image-20220719042742912](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220719042742912.png)
 
 #### 3.2.1 @EnableScheduling注解
 
@@ -132,7 +132,7 @@ public class SchedulingConfiguration {
 
 **Spring 容器中 Bean 的生命周期流程**
 
-![image-20220719042950892](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220719042950892.png)
+![image-20220719042950892](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220719042950892.png)
 
 #### 3.2.3 ScheduledTaskRegistrar注册task
 
@@ -180,7 +180,7 @@ protected void scheduleTasks() {
 
 注册哪些Task，怎么设计类的呢？
 
-![image-20220719043438091](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220719043438091.png)
+![image-20220719043438091](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220719043438091.png)
 
 #### 3.2.4 ScheduledAnnotationBeanPostProcessor加载Scheduled注解
 

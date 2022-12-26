@@ -19,7 +19,7 @@ category:
 - Spring如何解决循环依赖问题
 - Spring中Bean的生命周期
 
-![image-20220711222356102](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220711222356102.png)
+![image-20220711222356102](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220711222356102.png)
 
 ## 2. BeanFactory中getBean的主体思路
 
@@ -392,7 +392,7 @@ Spring 容器可以管理 singleton 作用域 Bean 的生命周期，在此作�
 
 **Spring 容器中 Bean 的生命周期流程**
 
-![image-20220711224531547](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220711224531547.png)
+![image-20220711224531547](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220711224531547.png)
 
 
 

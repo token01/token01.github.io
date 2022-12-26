@@ -54,11 +54,11 @@ Spring里面的bean就类似是定义的一个组件，而这个组件的作用�
 
 传统程序设计下，都是主动去创建相关对象然后再组合起来：
 
-![image-20220709202804834](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709202804834.png)
+![image-20220709202804834](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709202804834.png)
 
 当有了IoC/DI的容器后，在客户端类中不再主动去创建这些对象了，如图
 
-![image-20220709202845187](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709202845187.png)
+![image-20220709202845187](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709202845187.png)
 
 ### 2.3 IoC能做什么
 
@@ -509,7 +509,7 @@ public class B {
 
 比如当你一个Controller中注入了太多的Service类，Sonar会给你提示相关告警
 
-![image-20220709205214414](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709205214414.png)
+![image-20220709205214414](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709205214414.png)
 
 对于这个问题，说明你的类当中有太多的责任，那么你要好好想一想是不是自己违反了类的[单一性职责原则](https://pdai.tech/md/dev-spec/spec/dev-th-solid.html#s单一职责srp)，从而导致有这么多的依赖要注入。
 

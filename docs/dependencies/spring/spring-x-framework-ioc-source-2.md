@@ -13,7 +13,7 @@ category:
 
 上文，我们看了IOC设计要点和设计结构；紧接着这篇，我们可以看下源码的实现了：Spring如何实现将资源配置（以xml配置为例）通过加载，解析，生成BeanDefination并注册到IoC容器中的（就是我们圈出来的部分）
 
-![image-20220711215020687](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220711215020687.png)
+![image-20220711215020687](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220711215020687.png)
 
 ## 2. 如何将Bean从XML配置中解析后放到IoC容器中的？
 
@@ -216,7 +216,7 @@ public void refresh() throws BeansException, IllegalStateException {
 - 将初始化的阶段封装，用来记录当前初始化到什么阶段；常见的设计是xxxPhase/xxxStage；
 - 资源加载初始化有失败等处理，必然是**try/catch/finally**...
 
-![image-20220711220055068](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220711220055068.png)
+![image-20220711220055068](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220711220055068.png)
 
 #### 2.4.1 初始化BeanFactory之obtainFreshBeanFactory
 
@@ -751,7 +751,7 @@ public void registerBeanDefinition(String beanName, BeanDefinition beanDefinitio
 
 现在通过上面的代码，总结一下IOC容器初始化的基本步骤：
 
-![image-20220711221826522](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220711221826522.png)
+![image-20220711221826522](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220711221826522.png)
 
 - 初始化的入口在容器实现中的 refresh()调用来完成
 - 对 bean 定义载入 IOC 容器使用的方法是 loadBeanDefinition,其中的大致过程如下：

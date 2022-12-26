@@ -263,7 +263,7 @@ protected Object createProxy(Class<?> beanClass, @Nullable String beanName,
 
 proxyFactory.getProxy(classLoader)
 
-![image-20220712214709488](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220712214709488.png)
+![image-20220712214709488](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220712214709488.png)
 
 ```java
 /**

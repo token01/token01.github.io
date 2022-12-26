@@ -79,7 +79,7 @@ public boolean limit(int maxCount, int interval) {
 
 漏桶算法思路很简单，我们把水比作是请求，**漏桶比作是系统处理能力极限**，水先进入到漏桶里，漏桶里的**水按一定速率流出**，当流出的速率小于流入的速率时，由于**漏桶容量有限，后续进入的水直接溢出（拒绝请求）**，以此实现限流。
 
-![image-20220610211108002](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220610211108002.png)
+![image-20220610211108002](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220610211108002.png)
 
 #### 3.2.1 实现思路：
 
@@ -96,7 +96,7 @@ public boolean limit(int maxCount, int interval) {
 
 系统会维护一个令牌（token）桶，**以一个恒定的速度往桶里放入令牌（token）**，这时如果有请求进来想要被处理，则需要先从桶里获取一个令牌（token），当桶里没有令牌（token）可取时，则该请求将被拒绝服务。**令牌桶算法通过控制桶的容量、发放令牌的速率，来达到对请求的限制**。
 
-![image-20220610211432413](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220610211432413.png)
+![image-20220610211432413](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220610211432413.png)
 
 ####  3.3.1 实现思路：
 
@@ -161,7 +161,7 @@ end
 
 限流常在网关这一层做，比如Nginx、Openresty、Kong、Zuul、Spring Cloud Gateway等，而像spring cloud - gateway网关限流底层实现原理，就是基于Redis + Lua，通过内置Lua限流脚本的方式。
 
-![image-20220610212734116](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220610212734116.png)
+![image-20220610212734116](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220610212734116.png)
 
 ## 参考文章
 

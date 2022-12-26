@@ -17,7 +17,7 @@ category:
 
    链接:https://pan.baidu.com/s/1RTSb0jGWQdZ3xk4TX9FgaA  密码:g9c5
 
-   ![image-20210515161010336](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210515161010336.png)
+   ![image-20210515161010336](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210515161010336.png)
 
 2. 将base64 设置到sessionStorage, 打开新窗口展示
 

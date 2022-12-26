@@ -71,7 +71,7 @@ docker ps   #查看下进程
 
 地址：http://ip:9000，首次访问需要先创建管理员账号和密码，设置下
 
-![image-20221118133933435](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221118133933435.png)
+![image-20221118133933435](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221118133933435.png)
 
 ## 参考文章
 

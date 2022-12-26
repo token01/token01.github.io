@@ -293,7 +293,7 @@ DruidDataSource启动之后，会启动三个线程，分别是：
 这个消费者模型中，生产者只有一个线程CreateConnectionThread，而消费者包括用户线程和定始调用的销毁线程DestroyConnectionThread。
 这个过程可以用如下图表示：
 
-![image-20220519232504124](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220519232504124.png)
+![image-20220519232504124](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220519232504124.png)
 
 ## 参考问题
 

@@ -60,7 +60,7 @@ vue-cli-service build --target lib --name mycom lib/lib.js
 
 完成之后，在工程的dist文件夹下，将生成以下文件：
 
-![image-20221014132327142](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221014132327142.png)
+![image-20221014132327142](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221014132327142.png)
 
 这些文件有不同的应用场合，我们需要用到的，其实就只有.umd.min.js和.css两个文件。由于有多个文件，需要在package中指明我们要用的是哪个，所以需要在package中加入：
 
@@ -188,7 +188,7 @@ open https://npm.taobao.org/sync/vite
 
 则访问 https://npmmirror.com/sync/vite 就可以同步了
 
-![image-20221108172214025](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221108172214025.png)
+![image-20221108172214025](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221108172214025.png)
 
 ## 9. 包上传公司仓库
 

@@ -36,4 +36,4 @@ channel.basicPublish(EXCHANGE_NAME,
 
 在 web 中展示的竖线是 `Pri`
 
-![image-20220923204004494](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220923204004494.png)
+![image-20220923204004494](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220923204004494.png)

@@ -390,7 +390,7 @@ docker run -d --name ruoyi-ui -p 8081:8081 ruoyi-ui
 
 访问服务器ip:8081即可进入若依项目
 
-![image-20220615173424184](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220615173424184.png)
+![image-20220615173424184](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220615173424184.png)
 
 ## 参考文章
 

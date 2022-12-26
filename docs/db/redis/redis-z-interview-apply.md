@@ -90,7 +90,7 @@ Worst run took 1429x longer than the average latency.
 
 慢查询，就会导致后面的请求发生排队，对于客户端来说，响应延迟也会变长。
 
-![image-20220628231317888](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628231317888.png)
+![image-20220628231317888](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628231317888.png)
 
 - **bigkey**
 

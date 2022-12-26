@@ -27,7 +27,7 @@ Quartz是OpenSymphony开源组织在Job scheduling领域又一个开源项目，
 
 ### 1.2 Quartz的体系结构
 
-![image-20220718211623319](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718211623319.png)
+![image-20220718211623319](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718211623319.png)
 
 - **Job** 表示一个工作，要执行的具体内容。
 - **JobDetail** 表示一个具体的可执行的调度程序，Job 是这个可执行程调度程序所要执行的内容，另外 JobDetail 还包含了这个任务调度的方案和策略。

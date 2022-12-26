@@ -45,7 +45,7 @@ public void execute(Runnable command) {
 
 流程图
 
-![image-20200316223656604](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20200316223656604.png)
+![image-20200316223656604](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20200316223656604.png)
 
 ## 2. 构造器的作用
 

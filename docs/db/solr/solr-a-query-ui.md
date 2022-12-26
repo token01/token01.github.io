@@ -2,7 +2,7 @@
 
 ## 1. Solr 查询界面
 
-![image-20210304140431497](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20210304140431497.png)
+![image-20210304140431497](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210304140431497.png)
 
 ## 2. 基本查询
 

@@ -24,7 +24,7 @@ excel 的读取，写入在项目中也是非常常用的功能
 
 ### 3.0 excel示例
 
-![image-20220329112239096](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220329112239096.png)
+![image-20220329112239096](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220329112239096.png)
 
 ### 3.1 新建实体类
 

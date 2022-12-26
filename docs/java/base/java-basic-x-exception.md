@@ -14,7 +14,7 @@ category:
 
 Java异常类层次结构图：
 
-![image-20220814163355883](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220814163355883.png)
+![image-20220814163355883](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220814163355883.png)
 
 ### 1.1 Throwable
 
@@ -207,7 +207,7 @@ try {
   - 当try捕获到异常，catch语句块里没有处理此异常的情况：当try语句块里的某条语句出现异常时，而没有处理此异常的catch语句块时，此异常将会抛给JVM处理，finally语句块里的语句还是会被执行，但finally语句块后的语句不会被执行；
   - 当try捕获到异常，catch语句块里有处理此异常的情况：在try语句块中是按照顺序来执行的，当执行到某一条语句出现异常时，程序将跳到catch语句块，并与catch语句块逐一匹配，找到与之对应的处理程序，其他的catch语句块将不会被执行，而try语句块中，出现异常之后的语句也不会被执行，catch语句块执行完后，执行finally语句块里的语句，最后执行finally语句块后的语句；
 
-![image-20220814172227401](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220814172227401.png)
+![image-20220814172227401](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220814172227401.png)
 
 - 一个完整的例子
 

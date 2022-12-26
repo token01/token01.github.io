@@ -148,7 +148,7 @@ EXPLAIN (SELECT * FROM user_info  WHERE id IN (1, 2, 3))
     	(SELECT * FROM user_info WHERE id IN (3, 4, 5));
 ```
 
-![image-20190910230049046](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20190910230049046.png)
+![image-20190910230049046](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190910230049046.png)
 
 ### 3.2 table 
 

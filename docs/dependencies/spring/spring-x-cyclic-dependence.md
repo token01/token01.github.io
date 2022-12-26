@@ -13,7 +13,7 @@ category:
 
 既然要解决循环依赖，那么就要知道循环依赖是什么。如下图所示：
 
-![image-20221201223817058](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221201223817058.png)
+![image-20221201223817058](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221201223817058.png)
 
 通过上图，我们可以看出：
 

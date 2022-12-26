@@ -37,7 +37,7 @@ Redis事务执行是三个阶段：
 - 如果客户端发送的命令为 EXEC 、 DISCARD 、 WATCH 、 MULTI 四个命令的其中一个， 那么服务器立即执行这个命令。
 - 与此相反， 如果客户端发送的命令是 EXEC 、 DISCARD 、 WATCH 、 MULTI 四个命令以外的其他命令， 那么服务器并不立即执行这个命令， 而是将这个命令放入一个事务队列里面， 然后向客户端返回 QUEUED 回复。
 
-![image-20220628223526301](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628223526301.png)
+![image-20220628223526301](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628223526301.png)
 
 ## 4 Redis事务其它实现？
 
@@ -103,7 +103,7 @@ Redis使用WATCH命令来决定事务是继续执行还是回滚，那就需要�
 
 当使用EXEC执行事务时，首先会比对WATCH所监控的键值对，如果没发生改变，它会执行事务队列中的命令，提交事务；如果发生变化，将不会执行事务中的任何命令，同时事务回滚。当然无论是否回滚，Redis都会取消执行事务前的WATCH命令。
 
-![image-20220628223740040](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220628223740040.png)
+![image-20220628223740040](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220628223740040.png)
 
 ## 7 为什么 Redis 不支持回滚？
 

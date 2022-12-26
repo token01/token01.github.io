@@ -10,7 +10,7 @@
 
 2. 判断元素在`Z轴`上的堆叠顺序，不仅仅是直接比较两个元素的`z-index`值的大小，这个堆叠顺序实际由元素的**层叠上下文**、**层叠等级**共同决定。
 
-![image-20220404110849700](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220404110849700.png)
+![image-20220404110849700](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220404110849700.png)
 
 ## 2. 什么是“层叠上下文”
 

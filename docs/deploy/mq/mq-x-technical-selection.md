@@ -115,11 +115,11 @@ Kafka 自 0.11 版本开始引入了幂等性和事务，Kafka 的幂等性是�
 
 #### 3.1.1 功能的总结性对比
 
-![image-20220925222646789](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220925222646789.png)
+![image-20220925222646789](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220925222646789.png)
 
-![image-20220925222743222](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220925222743222.png)
+![image-20220925222743222](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220925222743222.png)
 
-![image-20220925222933406](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220925222933406.png)
+![image-20220925222933406](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220925222933406.png)
 
 ### 3.2 性能
 

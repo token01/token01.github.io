@@ -4,7 +4,7 @@
 
 我们部门表中存着祖籍列表，我们希望能直接查出所有祖籍部门的中文名
 
-![image-20220302144445229](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220302144445229.png)
+![image-20220302144445229](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220302144445229.png)
 
 如：这几个部门的祖籍都是什么
 

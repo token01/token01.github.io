@@ -13,6 +13,12 @@ actions:
     link: /blog/blog.md
     type: default
 features:
+
+  - title: 语言|平台
+    icon: language
+    details: android、python、微信
+    link: /language/python/
+
   - title: Java
     icon: java
     details: Java基础、Java集合、Java8、JVM
@@ -43,11 +49,10 @@ features:
     details: Docker、运维
     link: /deploy/docker/docker-basic-overview
 
-  - title: 语言|平台
-    icon: language
-    details: android、python、微信
-    link: /language/python/
-
+  - title: 区块链
+    icon: blockchain
+    details: 区块链白皮书、主流区块链
+    link: /blockchain/basic-logic/The_white_paper_the_currency
 
   - title: 杂项|思考
     icon: anonymous

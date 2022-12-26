@@ -9,7 +9,8 @@ export default sidebar({
   "/deploy/": "structure",
   "/language/": "structure",
   "/think/": "structure",
-  "/blockchain/": "structure"
+  "/blockchain/": "structure",
+  "/learning-path/": "structure"
 
 }
 );

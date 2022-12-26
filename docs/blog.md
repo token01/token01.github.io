@@ -11,7 +11,7 @@ projects:
   - icon: project
     name: 进阶之路
     desc: 凤凰涅槃进阶之路
-    link: /home.md
+    link: /README.md
 
   # - icon: book
   #   name: Java电子书下载
@@ -21,7 +21,7 @@ projects:
   - icon: article
     name: 学习路线
     desc: CS 学习指南
-    link: /learningPath/
+    link: /learning-path/
 
   - icon: friend
     name: 面试逆袭

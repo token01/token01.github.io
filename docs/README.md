@@ -10,7 +10,7 @@ actions:
     link: /java/base/Java-basis-oop
     type: primary
   - text: 博客入口
-    link: /blog.md
+    link: /blog/blog.md
     type: default
 features:
   - title: Java
@@ -91,6 +91,7 @@ copyright: false
 - [芋道源码](http://www.iocoder.cn/?qun)
 - [张开涛博客](<https://www.iteye.com/blog/user/jinnianshilongnian>)
 - [纯洁的微笑](http://www.ityouknow.com/)
+- [Java程序员进阶之路](https://tobebetterjavaer.com/)
 - 等等优秀的博客会在具体文章后列出
 
 <!-- ## 公众号

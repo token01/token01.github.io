@@ -445,15 +445,15 @@ private BigDecimal calcTotalAmount(List<CartPromotionItem> cartItemList) {
 
 #### 4.1.1 填写促销
 
-![image-20220323200719031](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220323200719031.png)
+![image-20220323200719031](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220323200719031.png)
 
 #### 4.1.2 特惠促销
 
-![image-20220323200820529](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220323200820529.png)
+![image-20220323200820529](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220323200820529.png)
 
 #### 4.1.3 会员价格
 
-![image-20220323200838867](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220323200838867.png)
+![image-20220323200838867](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220323200838867.png)
 
 ## 5. 相关问题
 

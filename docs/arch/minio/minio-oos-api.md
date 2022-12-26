@@ -25,7 +25,7 @@ public ObjectWriteResponse putObject(PutObjectArgs args)
 
 - 单个对象的最大大小限制在5TB。**putObject在对象大于5MiB时，自动使用multiple parts方式上传**。这样，当上传失败时，客户端只需要上传未成功的部分即可（类似断点上传）。上传的对象使用MD5SUM签名进行完整性验证。
 
-  ![image-20220724170305247](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724170305247.png)
+  ![image-20220724170305247](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724170305247.png)
 
 #### 1.1.1 示例1，InputStream上传：
 
@@ -219,7 +219,7 @@ public SelectResponseStream selectObjectContent(SelectObjectContentArgs args)
 一般可用于，前端请求一个上传策略，后端返回给前端，前端使用Post请求+访问策略去上传文件，这可以用于JS+SDK的混合方式集成Minio。
 
 
-![image-20220723204551259](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723204551259.png)
+![image-20220723204551259](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723204551259.png)
 
 ```java
 public Map<String,String> getPresignedPostFormData(PostPolicy policy)
@@ -240,7 +240,7 @@ public Map<String,String> getPresignedPostFormData(PostPolicy policy)
         Map<String, String> formData = minioClient.getPresignedPostFormData(policy);
 ```
 可以看到返回了认证令牌、签名等信息。
-![image-20220723204729442](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723204729442.png)
+![image-20220723204729442](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723204729442.png)
 
 然后，第三方就可以使用这些策略，直接使用POST上传对象。
 

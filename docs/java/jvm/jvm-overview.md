@@ -7,13 +7,13 @@ category:
 
 # JVM相关知识体系详解
 
-![jvm-overview](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/jvm-overview.png)
+![jvm-overview](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/jvm-overview.png)
 
 ## 1. 学习要点
 
 > 不同的虚拟机实现方式上也有差别，如果没有特别指出，这里的JVM指的是sun的HotSpot；不同的JDK版本略有差别，这里主要以1.8为主，具体差异请看各个章节中详解。下图主要表示的逻辑关系，用来将所有知识点放到一张图里，帮助你理解。
 
-![java-jvm-overview](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/java-jvm-overview.png)
+![java-jvm-overview](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/java-jvm-overview.png)
 
 > **A. Java进阶 - JVM相关 知识体系**： 首先按照上述`学习思路`，理解总体知识点在全局上与知识体系之间的对应关系。
 
@@ -53,7 +53,7 @@ category:
 
 > **F. Java进阶 - JVM相关 排错调优**： 最后围绕着调试和排错，分析理解JVM调优参数，动态字节码技术及动态在线调试的原理；学会使用常用的调工具和在线动态调试工具等。
 
-![image-20220819213534570](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819213534570.png)
+![image-20220819213534570](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220819213534570.png)
 
 - [调试排错 - JVM 调优参数](https://pdai.tech/md/java/jvm/java-jvm-param.html)
   - 本文对JVM涉及的常见的调优参数和垃圾回收参数进行阐述

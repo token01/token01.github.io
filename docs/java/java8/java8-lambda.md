@@ -327,7 +327,7 @@ System.out.printf("serial: %.2fs, parallel %.2fs%n", (t1 - t0) * 1e-9, (t2 - t1)
 
 看下所有API:
 
-![image-20220710212311833](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220710212311833.png)
+![image-20220710212311833](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220710212311833.png)
 
 
 

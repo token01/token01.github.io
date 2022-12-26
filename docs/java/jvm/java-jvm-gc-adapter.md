@@ -26,7 +26,7 @@ category:
 
 下图展示了新生代GC和老年代GC配合使用方法，有连线的表示可以配合使用。注意ParNew和Parallel Old是不能同时使用的
 
-![image-20220429231123110](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220429231123110.png)
+![image-20220429231123110](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220429231123110.png)
 
 ## 3. 如何选择合适的垃圾回收器
 

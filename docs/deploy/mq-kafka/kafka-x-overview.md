@@ -31,7 +31,7 @@ Kafka主要设计目标如下：
 
 在点对点消息系统中，消息持久化到一个队列中。此时，将有一个或多个消费者消费队列中的数据。但是一条消息只能被消费一次。当一个消费者消费了队列中的某条数据之后，该条数据则从消息队列中删除。该模式即使有多个消费者同时消费数据，也能保证数据处理的顺序。这种架构描述示意图如下：
 
-![image-20220920221833661](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220920221833661.png)
+![image-20220920221833661](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220920221833661.png)
 
 **生产者发送一条消息到queue，只有一个消费者能收到**。
 
@@ -39,7 +39,7 @@ Kafka主要设计目标如下：
 
 在发布-订阅消息系统中，消息被持久化到一个topic中。与点对点消息系统不同的是，消费者可以订阅一个或多个topic，消费者可以消费该topic中所有的数据，同一条数据可以被多个消费者消费，数据被消费后不会立马删除。在发布-订阅消息系统中，消息的生产者称为发布者，消费者称为订阅者。该模式的示例图如下：
 
-![image-20220920222015034](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220920222015034.png)
+![image-20220920222015034](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220920222015034.png)
 
 **发布者发送到topic的消息，只有订阅了topic的订阅者才会收到消息**。
 
@@ -83,7 +83,7 @@ Kafka主要设计目标如下：
 
 在深入理解Kafka之前，先介绍一下Kafka中的术语。下图展示了Kafka的相关术语以及之间的关系：
 
-![image-20220920223233429](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220920223233429.png)
+![image-20220920223233429](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220920223233429.png)
 
 上图中一个topic配置了3个partition。Partition1有两个offset：0和1。Partition2有4个offset。Partition3有1个offset。副本的id和副本所在的机器的id恰好相同。
 

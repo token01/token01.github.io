@@ -2,7 +2,7 @@
 
 我们常常需要在输入框的前方添加提示，后方添加按钮。
 
-![img](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/bg2015071324.png)
+![img](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/bg2015071324.png)
 
 HTML代码如下。
 

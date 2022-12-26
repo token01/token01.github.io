@@ -37,7 +37,7 @@ df (选项) (参数)
 
 #### 2.1.3 示例
 
-![image-20220401145602336](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220401145602336.png)
+![image-20220401145602336](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220401145602336.png)
 
 #### 2.1.4 tldr 中的介绍
 
@@ -110,7 +110,7 @@ iostat (选项) (参数)
 
 #### 2.2.4 示例
 
-![image-20220401145950590](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220401145950590.png)
+![image-20220401145950590](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220401145950590.png)
 
 ### 2.3 . iotop
 
@@ -145,5 +145,5 @@ iotop (选项)
 - a：显示累积使用量。
 - q：退出。
 
-![image-20220401150415728](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220401150415728.png)
+![image-20220401150415728](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220401150415728.png)
 

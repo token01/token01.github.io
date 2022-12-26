@@ -12,7 +12,7 @@
 
   - 没有一个能对齐的
 
-    ![image-20220403233950269](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220403233950269.png)
+    ![image-20220403233950269](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220403233950269.png)
 
 - align-items: baseline;
 
@@ -32,7 +32,7 @@
 
 >适用于那些没有中文等，特殊情况的
 
-![image-20220403234509741](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220403234509741.png)
+![image-20220403234509741](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220403234509741.png)
 
 ### 2.2 方案2：手工计算
 
@@ -84,7 +84,7 @@
 
 最终效果如下：
 
-![clipboard.png](https://segmentfault.com/img/bV2Nvn?w=592&h=120)
+![clipboard.png](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/bV2Nvn)
 
 ### 2.3 方案3：自动计算
 
@@ -132,7 +132,7 @@
 
 效果也还可以，英文的出入比较大，中文略有差距：
 
-![image-20220403235355217](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220403235355217.png)
+![image-20220403235355217](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220403235355217.png)
 
 ## 参考文章
 

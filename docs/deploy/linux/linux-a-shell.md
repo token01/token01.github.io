@@ -10,7 +10,7 @@ category:
 
 Shell 是一个命令解释器，它为用户提供了一个向 Linux 内核发送请求以便运行程序界面系统级程序，用户可以用 Shell 来启动、挂起、停止甚至是编写一些程序。
 
-![image-20220330153029197](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220330153029197.png)
+![image-20220330153029197](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220330153029197.png)
 
 ## 2. **Shell 编程快速入门**
 
@@ -65,7 +65,7 @@ Shell 变量分为**系统变量**和**自定义变量**。系统变量有$HOME�
 
 ### 4.1 **定义**
 
-![image-20220330153653301](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220330153653301.png)
+![image-20220330153653301](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220330153653301.png)
 
 ### 4.2 **基本语法**
 

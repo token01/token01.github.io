@@ -14,7 +14,7 @@ category:
 
 下图红色勾选的是我们前面的系列详解的，除此之外你可以看到搜索库ElasticSearch在前十名内：
 
-![image-20220802214203215](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802214203215.png)
+![image-20220802214203215](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220802214203215.png)
 
 所以为什么要学习ElasticSearch呢？
 
@@ -107,7 +107,7 @@ Elasticsearch 也是使用 Java 编写的，它的内部使用 Lucene 做索引�
 
 为了方便理解，作一个ES和数据库的对比
 
-![image-20220802220035938](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802220035938.png)
+![image-20220802220035938](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220802220035938.png)
 
 ## 参考文章
 

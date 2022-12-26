@@ -14,7 +14,7 @@
 
 `top` 命令查下系统运行情况，进程31951占用CPU 80.6%。
 
-![image-20220326145102943](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220326145102943.png)
+![image-20220326145102943](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220326145102943.png)
 
 `jps -l` 确认一下，31951就是博客的进程ID，或 `cat /proc/31951/cmdline` 看下进程的启用命令。
 
@@ -26,7 +26,7 @@ root@iZ94dcq8q6jZ:~# jps -l
 
 `top -Hp 3379` 以线程模式查看下进程31951的所有线程情况
 
-![image-20220326145242586](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220326145242586.png)
+![image-20220326145242586](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220326145242586.png)
 
 假设想看下第二个线程31998的情况，31998是操作系统的线程ID，先转成16进制。
 

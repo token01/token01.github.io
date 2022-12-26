@@ -146,19 +146,19 @@ OSS会周期性地通过校验等方式验证数据的完整性，及时发现�
 
 OSS可用于图片、音视频、日志等海量文件的存储。各种终端设备、Web网站程序、移动应用可以直接向OSS写入或读取数据。OSS支持流式写入和文件写入两种方式。
 
-![image-20220722223504937](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220722223504937.png)
+![image-20220722223504937](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220722223504937.png)
 
 ### 4.2 网页或者移动应用的静态和动态资源分离
 
 利用海量互联网带宽，OSS可以实现海量数据的互联网并发下载。OSS提供原生的传输加速功能，支持上传加速、下载加速，提升跨国、跨洋数据上传、下载的体验。同时，OSS也可以结合CDN产品，提供静态内容存储、分发到边缘节点的解决方案，利用CDN边缘节点缓存的数据，提升同一个文件被同一地区客户大量重复并发下载的体验。
 
-![image-20220722223627660](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220722223627660.png)
+![image-20220722223627660](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220722223627660.png)
 
 ### 4.3 云端数据处理
 
 上传文件到OSS后，可以配合媒体处理服务和图片处理服务进行云端的数据处理。
 
-![image-20220722223702103](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220722223702103.png)
+![image-20220722223702103](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220722223702103.png)
 
 ## 参考文章
 

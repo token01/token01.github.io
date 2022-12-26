@@ -1,43 +1,108 @@
-# 商城设计要点(七)-MySQL读写分离带来的数据不一致问题
+# mall中广告(轮播图)设计
 
 ## 1. 简介
 
-互联网业务大部分都是 `读多写少`，为了提升数据库集群的吞吐性能，我们通常会采用 `主从架构`、`读写分离`
+用于管理首页显示的轮播广告信息。
 
-![image-20220326211746699](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220326211746699.png)
+## 2. 数据库设计
 
-部署一个主库实例，客户端请求`所有写操作`全部写到主库，然后借助 MySQL 自带的 `主从同步` 功能，做一些简单配置，可以近乎实时的将主库的数据同步给 `多个从库实例`，主从延迟非常小，一般**不超过 1 毫秒**。
+```
+create table sms_home_advertise
+(
+   id                   bigint not null auto_increment,
+   name                 varchar(100) comment '名称',
+   type                 int(1) comment '轮播位置：0->PC首页轮播；1->app首页轮播',
+   pic                  varchar(500) comment '图片地址',
+   start_time           datetime comment '开始时间',
+   end_time             datetime comment '结束时间',
+   status               int(1) comment '上下线状态：0->下线；1->上线',
+   click_count          int comment '点击数',
+   order_count          int comment '下单数',
+   url                  varchar(500) comment '链接地址',
+   note                 varchar(500) comment '备注',
+   sort                 int default 0 comment '排序',
+   primary key (id)
+);
+```
 
-客户端请求的`所有读操作`全部打到 `从库`，借助多实例集群提升`读请求`的整体处理能力。
+## 3. 代码设计
 
-这个方案看似天衣无缝，但实际有个 **副作用**
+### 3.1 分页查询广告
 
-主从同步虽然近乎实时，但还是有个 `时间差` ，主库数据刚更新完，但数据还没来得及同步到从库，后续`读请求`直接访问了从库，看到的还是旧数据，影响用户体验。
+```java
+@Override
+public List<SmsHomeAdvertise> list(String name, Integer type, String endTime, Integer pageSize, Integer pageNum) {
+    PageHelper.startPage(pageNum, pageSize);
+    SmsHomeAdvertiseExample example = new SmsHomeAdvertiseExample();
+    SmsHomeAdvertiseExample.Criteria criteria = example.createCriteria();
+    if (!StringUtils.isEmpty(name)) {
+        criteria.andNameLike("%" + name + "%");
+    }
+    if (type != null) {
+        criteria.andTypeEqualTo(type);
+    }
+    if (!StringUtils.isEmpty(endTime)) {
+        String startStr = endTime + " 00:00:00";
+        String endStr = endTime + " 23:59:59";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date start = null;
+        try {
+            start = sdf.parse(startStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date end = null;
+        try {
+            end = sdf.parse(endStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (start != null && end != null) {
+            criteria.andEndTimeBetween(start, end);
+        }
+    }
+    example.setOrderByClause("sort desc");
+    return advertiseMapper.selectByExample(example);
+}
+```
 
-任何事情都不是完美的，从主同步也是一样，没有完美的解决方案，我们要找到其中的平衡取舍点。
+### 3.2 新增广告
 
-我们以电商为例，看看如何从 `产品层面` 来化解这个问题
+初始化点击次数和订单次数是在代码层做的
 
-## 2. 复现场景
+```java
+ @Override
+    public int create(SmsHomeAdvertise advertise) {
+        advertise.setClickCount(0);
+        advertise.setOrderCount(0);
+        return advertiseMapper.insert(advertise);
+    }
+```
 
-1. 在下单确认页面，点击购买按钮，进入了支付页面
 
-​	![image-20220326212046726](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220326212046726.png)
 
-2. 输入支付宝支付密码，进入**支付成功页面**，页面有查看订单详情的入口。
+## 4. 界面设计
 
-​	![image-20220326212106205](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220326212106205.png)
+### 4.1 管理端
 
-3. 点击 `查看交易详情` ，才跳到真正的 订单详情页，可以查看订单的支付状态（订单数据取自从库）
+#### 4.1.1 广告列表
 
-   ![image-20220326212128598](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220326212128598.png)
+![image-20220320185355632](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220320185355632.png)
 
-## 3. 方案解析
+#### 4.1.2 编辑广告
 
-我们在支付成功后，并没有立即跳到 `订单详情页`，而是增加了一个 无关紧要的 `中间页（支付成功页）`，一是告诉你支付的结果是成功的，钱没丢，不要担心；另外也可以增加一些推荐商品，引流提升网站的GMV。最重要的，增加了一个缓冲期，为 `订单的主从库数据同步` 争取了更多的时间。
+![image-20220320185414101](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220320185414101.png)
 
-可谓一举多得，其他互联网业务也是类似道理。
+### 4.2 移动端
 
-## 参考文章
+#### 4.2.1 首页轮播广告
 
-[聊聊电商系统中常见的9大坑！库存超卖、重复下单、物流单ABA](https://mp.weixin.qq.com/s/BgVr0jEBJwQI5UW_ele08A)
+![image-20220320185525867](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220320185525867.png)
+
+## 5. 使用感受
+
+### 5.1 扩展性不强
+
+现在只有，PC首页轮播，app首页轮播。如果我们其他地方需要轮播，我们需要改代码。
+
+如果配上字典表的话，情况会好一点

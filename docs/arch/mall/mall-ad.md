@@ -87,17 +87,17 @@ public List<SmsHomeAdvertise> list(String name, Integer type, String endTime, In
 
 #### 4.1.1 广告列表
 
-![image-20220320185355632](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220320185355632.png)
+![image-20220320185355632](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220320185355632.png)
 
 #### 4.1.2 编辑广告
 
-![image-20220320185414101](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220320185414101.png)
+![image-20220320185414101](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220320185414101.png)
 
 ### 4.2 移动端
 
 #### 4.2.1 首页轮播广告
 
-![image-20220320185525867](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220320185525867.png)
+![image-20220320185525867](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220320185525867.png)
 
 ## 5. 使用感受
 

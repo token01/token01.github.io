@@ -354,7 +354,7 @@ public class OssProperties {
 
 然后编译一下项目，将配置类转为spring-configuration-metadata.json文件，这样这些配置在yml中就有提示功能了。
 
-![image-20220723232931077](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723232931077.png)
+![image-20220723232931077](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723232931077.png)
 
 最后在根据我们配置的OSS类型，创建不同的自动配置类，这里创建的MinioConfiguration，主要是根据配置注入MinioClient及MinioTemplate模板类，将其交给Spring容器管理。
 

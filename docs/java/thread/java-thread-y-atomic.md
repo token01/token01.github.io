@@ -14,7 +14,7 @@ Java从JDK1.5开始提供了java.util.concurrent.atomic包，**atomic包中的�
 
 并发包 `java.util.concurrent` 的原子类都存放在`java.util.concurrent.atomic`下,如下图所示。
 
-![image-20190917225827634](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20190917225827634.png)
+![image-20190917225827634](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190917225827634.png)
 
 ### **2.1 基本类型**
 

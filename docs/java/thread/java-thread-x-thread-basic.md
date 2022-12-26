@@ -19,7 +19,7 @@ category:
 
 ## 1. 线程状态转换
 
-![image-20220525184540003](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525184540003.png)
+![image-20220525184540003](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220525184540003.png)
 
 
 
@@ -73,7 +73,7 @@ category:
 
 ### 1.7 完整的转换图
 
-![image-20190920002523155](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20190920002523155.png)
+![image-20190920002523155](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190920002523155.png)
 
 ## 2. 线程使用方式
 

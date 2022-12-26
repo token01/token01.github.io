@@ -66,7 +66,7 @@ public class ReentrantLockTest extends Thread {
 
 - 在jdk1.5里面，`ReentrantLock`的性能是明显优于`synchronized`的，但是在jdk1.6里面，`synchronized`做了优化，他们之间的性能差别已经不明显了。
 
-![image-20220521212704737](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220521212704737.png)
+![image-20220521212704737](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220521212704737.png)
 
 - `ReentrantLock`并不是一种替代内置加锁的方法，而是作为一种可选择的高级功能。
 - 相比于`synchronized`，`ReentrantLock`在功能上更加丰富，它具有**可重入、可中断、可限时、公平锁**等特点。
@@ -204,11 +204,11 @@ public class LockInterrupt extends Thread {
 
 执行后，确实出现了死锁，使用jstack可以看到如下结果：
 
-![image-20220521212950477](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220521212950477.png)
+![image-20220521212950477](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220521212950477.png)
 
 通过中断来停止线程，结果如下：
 
-![image-20220521213011570](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220521213011570.png)
+![image-20220521213011570](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220521213011570.png)
 
 ### 4.3 可限时
 

@@ -22,7 +22,7 @@
 
 我们一般是基于买家维度来设计，下图是 `淘宝` 的订单列表
 
-![image-20220326213429736](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220326213429736.png)
+![image-20220326213429736](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220326213429736.png)
 
 一个订单号 19 位，我们会发现同一个用户不同订单的最后 6 位都是一样的，没错，那是用户id的后6位。
 

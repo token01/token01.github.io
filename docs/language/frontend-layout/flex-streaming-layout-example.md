@@ -2,7 +2,7 @@
 
 每行的项目数固定，会自动分行。
 
-![img](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/bg2015071330.png)
+![img](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/bg2015071330.png)
 
 CSS的写法。
 

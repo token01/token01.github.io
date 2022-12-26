@@ -145,7 +145,7 @@ services:
 docker-compose logs -f
 ```
 
-![image-20220725233426822](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220725233426822.png)
+![image-20220725233426822](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220725233426822.png)
 
 ## 4. 总结
 

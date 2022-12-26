@@ -31,7 +31,7 @@ chmod +x minio
 ./minio server /mnt/data
 ```
 
-![image-20210925212033260](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210925212033260.png)
+![image-20210925212033260](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210925212033260.png)
 
 默认用户名密码minioadmin:minioadmin，修改默认用户名密码可以使用：
 
@@ -52,7 +52,7 @@ export MINIO_ROOT_PASSWORD=12345678
 ./minio server --console-address ":9001" /mnt/data
 ```
 
-![image-20210925212415270](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210925212415270.png)
+![image-20210925212415270](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210925212415270.png)
 
 ### 2.2 docker安装
 

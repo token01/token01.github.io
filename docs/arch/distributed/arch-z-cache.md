@@ -1,491 +1,176 @@
 ---
-order: 20
+#order: 160
 category:
   - 架构
 ---
 
-# 分布式系统-全局唯一ID实现方案
+# 分布式系统-分布式缓存及方案实现
 
->常见的分布式ID生成方式，大致分类的话可以分为两类：
->
->- **一种是类DB型的**，根据设置不同起始值和步长来实现趋势递增，需要考虑服务的容错性和可用性; 
->- **另一种是类snowflake型**，这种就是将64位划分为不同的段，每段代表不同的涵义，基本就是时间戳、机器ID和序列数。这种方案就是需要考虑时钟回拨的问题以及做一些 buffer的缓冲设计提高性能。
+>TODO 待完善中
 
-## 1. 为什么需要全局唯一ID
+## 1. 本地缓存和分布式缓存
 
-传统的单体架构的时候，我们基本是单库然后业务单表的结构。每个业务表的ID一般我们都是从1增，通过AUTO_INCREMENT=1设置自增起始值，但是在分布式服务架构模式下分库分表的设计，使得多个库或多个表存储相同的业务数据。这种情况根据数据库的自增ID就会产生相同ID的情况，不能保证主键的唯一性。
+- **本地缓存**：指的是在应用中的缓存组件，其最大的优点是应用和cache是在同一个进程内部，请求缓存非常快速，没有过多的网络开销等，在单应用不需要集群支持或者集群情况下各节点无需互相通知的场景下使用本地缓存较合适；同时，它的缺点也是因为缓存跟应用程序耦合，**多个应用程序无法直接的共享缓存**，各应用或集群的各节点都需要维护自己的单独缓存，对内存是一种浪费。
+- **分布式缓存**：指的是与应用分离的缓存组件或服务，其最大的优点是自身就是一个独立的应用，与本地应用隔离，多个应用可直接的共享缓存。
 
-![image-20220615212429251](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220615212429251.png)
+目前各种类型的缓存都活跃在成千上万的应用服务中，还没有一种缓存方案可以解决一切的业务场景或数据类型，我们需要根据自身的特殊场景和背景，选择最适合的缓存方案。缓存的使用是程序员、架构师的必备技能，好的程序员能根据数据类型、业务场景来准确判断使用何种类型的缓存，如何使用这种缓存，以最小的成本最快的效率达到最优的目的。
 
+## 2. 分布式缓存的实现方案
 
+### 2.1 Redis缓存
 
-如上图，如果第一个订单存储在 DB1 上则订单 ID 为1，当一个新订单又入库了存储在 DB2 上订单 ID 也为1。我们系统的架构虽然是分布式的，但是在用户层应是无感知的，重复的订单主键显而易见是不被允许的。那么针对分布式系统如何做到主键唯一性呢？
+> Redis是一款内存高速缓存数据库。Redis全称为：**Remote Dictionary Server**（远程数据服务），使用C语言编写，Redis是一个key-value存储系统（键值存储系统），支持丰富的数据类型，如：String、list、set、zset、hash。
 
-## 2. UUID
+Redis是一种支持key-value等多种数据结构的存储系统。可用于缓存，事件发布或订阅，高速队列等场景。支持网络，提供字符串，哈希，列表，队列，集合结构直接存取，基于内存，可持久化。同时性能强劲，具有复制特性以及解决问题而生的独一无二的数据模型。它可以存储键值对与5种不同类型的值之间的映射，可以将存储在内存的键值对数据持久化到硬盘，可以使用复制特性来扩展读性能，还可以使用客户端分片来扩展写性能。
 
-`UUID （Universally Unique Identifier）`，通用唯一识别码的缩写。UUID是由一组32位数的16进制数字所构成，所以UUID理论上的总数为 `16^32=2^128`，约等于 `3.4 x 10^38`。也就是说若每纳秒产生1兆个UUID，要花100亿年才会将所有UUID用完。
+![image-20220621192129955](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621192129955.png)
 
-生成的UUID是由 8-4-4-4-12格式的数据组成，其中32个字符和4个连字符' - '，一般我们使用的时候会将连字符删除 uuid.`toString().replaceAll("-","")`。
+Redis内部使用一个redisObject对象来标识所有的key和value数据，redisObject最主要的信息如图所示：type代表一个value对象具体是何种数据类型，encoding是不同数据类型在Redis内部的存储方式，比如——type=string代表value存储的是一个普通字符串，那么对应的encoding可以是raw或是int，如果是int则代表世界Redis内部是按数值类型存储和表示这个字符串。
 
-目前UUID的产生方式有5种版本，每个版本的算法不同，应用范围也不同。
+- 编码方式
 
-- `基于时间的UUID` - 版本1： 这个一般是通过当前时间，随机数，和本地Mac地址来计算出来，可以通过 org.apache.logging.log4j.core.util包中的 UuidUtil.getTimeBasedUuid()来使用或者其他包中工具。由于使用了MAC地址，因此能够确保唯一性，但是同时也暴露了MAC地址，私密性不够好。
-- `DCE安全的UUID` - 版本2 DCE（Distributed Computing Environment）安全的UUID和基于时间的UUID算法相同，但会把时间戳的前4位置换为POSIX的UID或GID。这个版本的UUID在实际中较少用到。
-- `基于名字的UUID（MD5）`- 版本3 基于名字的UUID通过计算名字和名字空间的MD5散列值得到。这个版本的UUID保证了：相同名字空间中不同名字生成的UUID的唯一性；不同名字空间中的UUID的唯一性；相同名字空间中相同名字的UUID重复生成是相同的。
-- `随机UUID` - 版本4 根据随机数，或者伪随机数生成UUID。这种UUID产生重复的概率是可以计算出来的，但是重复的可能性可以忽略不计，因此该版本也是被经常使用的版本。JDK中使用的就是这个版本。
-- `基于名字的UUID（SHA1）` - 版本5 和基于名字的UUID算法类似，只是散列值计算使用SHA1（Secure Hash Algorithm 1）算法。
+  左边的raw列为对象的编码方式：字符串可以被编码为raw（一般字符串）或Rint（为了节约内存，Redis会将字符串表示的64位有符号整数编码为整数来进行储存）；列表可以被编码为ziplist或linkedlist，ziplist是为节约大小较小的列表空间而作的特殊表示；集合可以被编码为intset或者hashtable，intset是只储存数字的小集合的特殊表示；hash表可以编码为zipmap或者hashtable，zipmap是小hash表的特殊表示；有序集合可以被编码为ziplist或者skiplist格式，ziplist用于表示小的有序集合，而skiplist则用于表示任何大小的有序集合。
 
-我们 Java中 JDK自带的 UUID产生方式就是版本4根据随机数生成的 UUID 和版本3基于名字的 UUID，有兴趣的可以去看看它的源码。
+- 网络I/O模型
 
-```java
+  从网络I/O模型上看，Redis使用单线程的I/O复用模型，自己封装了一个简单的AeEvent事件处理框架，主要实现了epoll、kqueue和select。对于单纯只有I/O操作来说，单线程可以将速度优势发挥到最大，但是Redis也提供了一些简单的计算功能，比如排序、聚合等，对于这些操作，单线程模型实际会严重影响整体吞吐量，CPU计算过程中，整个I/O调度都是被阻塞住的，在这些特殊场景的使用中，需要额外的考虑。相较于memcached的预分配内存管理，Redis使用现场申请内存的方式来存储数据，并且很少使用free-list等方式来优化内存分配，会在一定程度上存在内存碎片。Redis跟据存储命令参数，会把带过期时间的数据单独存放在一起，并把它们称为临时数据，非临时数据是永远不会被剔除的，即便物理内存不够，导致swap也不会剔除任何非临时数据（但会尝试剔除部分临时数据）。
 
-public static void main(String[] args) {
+- redis持久化
 
-    //获取一个版本4根据随机字节数组的UUID。
-    UUID uuid = UUID.randomUUID();
-    System.out.println(uuid.toString().replaceAll("-",""));
+  我们描述Redis为内存数据库，作为缓存服务，大量使用内存间的数据快速读写，支持高并发大吞吐；而作为数据库，则是指Redis对缓存的持久化支持。Redis由于支持了非常丰富的内存数据库结构类型，如何把这些复杂的内存组织方式持久化到磁盘上? Redis的持久化与传统数据库的方式差异较大，Redis一共支持四种持久化方式，主要使用的两种：
 
-    //获取一个版本3(基于名称)根据指定的字节数组的UUID。
-    byte[] nbyte = {10, 20, 30};
-    UUID uuidFromBytes = UUID.nameUUIDFromBytes(nbyte);
-    System.out.println(uuidFromBytes.toString().replaceAll("-",""));
-}
-  
-```
+  - **定时快照方式(snapshot)**：该持久化方式实际是在Redis内部一个定时器事件，每隔固定时间去检查当前数据发生的改变次数与时间是否满足配置的持久化触发的条件，如果满足则通过操作系统fork调用来创建出一个子进程，这个子进程默认会与父进程共享相同的地址空间，这时就可以通过子进程来遍历整个内存来进行存储操作，而主进程则仍然可以提供服务，当有写入时由操作系统按照内存页（page）为单位来进行copy-on-write保证父子进程之间不会互相影响。它的缺点是快照只是代表一段时间内的内存映像，所以系统重启会丢失上次快照与重启之间所有的数据。
 
-得到的UUID结果，
+  - **基于语句追加文件的方式(aof)**：aof方式实际类似MySQl的基于语句的binlog方式，即每条会使Redis内存数据发生改变的命令都会追加到一个log文件中，也就是说这个log文件就是Redis的持久化数据。 aof的方式的主要缺点是追加log文件可能导致体积过大，当系统重启恢复数据时如果是aof的方式则加载数据会非常慢，几十G的数据可能需要几小时才能加载完，当然这个耗时并不是因为磁盘文件读取速度慢，而是由于读取的所有命令都要在内存中执行一遍。另外由于每条命令都要写log，所以使用aof的方式，Redis的读写性能也会有所下降。
 
-```bash
-59f51e7ea5ca453bbfaf2c1579f09f1d
-7f49b84d0bbc38e9a493718013baace6
-```
+    Redis的持久化使用了Buffer I/O，所谓Buffer I/O是指Redis对持久化文件的写入和读取操作都会使用物理内存的Page Cache，而大多数数据库系统会使用Direct I/O来绕过这层Page Cache并自行维护一个数据的Cache。而当Redis的持久化文件过大（尤其是快照文件），并对其进行读写时，磁盘文件中的数据都会被加载到物理内存中作为操作系统对该文件的一层Cache，而这层Cache的数据与Redis内存中管理的数据实际是重复存储的。虽然内核在物理内存紧张时会做Page Cache的剔除工作，但内核很可能认为某块Page Cache更重要，而让你的进程开始Swap，这时你的系统就会开始出现不稳定或者崩溃了，因此在持久化配置后，针对内存使用需要实时监控观察。
 
-虽然 UUID 生成方便，本地生成没有网络消耗，但是使用起来也有一些缺点，
+#### 2.2.1 Redis分布式存储方案
 
-- **不易于存储**：UUID太长，16字节128位，通常以36长度的字符串表示，很多场景不适用。
-- **信息不安全**：基于MAC地址生成UUID的算法可能会造成MAC地址泄露，暴露使用者的位置。
-- **对MySQL索引不利**：如果作为数据库主键，在InnoDB引擎下，UUID的无序性可能会引起数据位置频繁变动，严重影响性能，可以查阅 Mysql 索引原理 B+树的知识。
+与memcached客户端支持分布式方案不同，Redis更倾向于在服务端构建分布式存储，如图
 
-## 3. 数据库生成
+<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621193312837.png" alt="image-20220621193312837"  />
 
-是不是一定要基于外界的条件才能满足分布式唯一ID的需求呢，我们能不能在我们分布式数据库的基础上获取我们需要的ID？
+Redis分布式集群图1
 
-由于分布式数据库的起始自增值一样所以才会有冲突的情况发生，那么我们将分布式系统中数据库的同一个业务表的自增ID设计成不一样的起始值，然后设置固定的步长，步长的值即为分库的数量或分表的数量。
+<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621193334604.png" alt="image-20220621193334604"  />
 
-以MySQL举例，利用给字段设置`auto_increment_increment`和`auto_increment_offset`来保证ID自增。
+Redis分布式集群图2
 
-- `auto_increment_offset`：表示自增长字段从那个数开始，他的取值范围是1 .. 65535。
-- `auto_increment_increment`：表示自增长字段每次递增的量，其默认值是1，取值范围是1 .. 65535。
 
-假设有三台机器，则DB1中order表的起始ID值为1，DB2中order表的起始值为2，DB3中order表的起始值为3，它们自增的步长都为3，则它们的ID生成范围如下图所示：
 
-![image-20220615213155448](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220615213155448.png)
+Redis Cluster是一个实现了分布式且允许单点故障的Redis高级版本，它**没有中心节点，具有线性可伸缩的功能**。如图2，其中节点与节点之间通过二进制协议进行通信，节点与客户端之间通过ascii协议进行通信。在数据的放置策略上，Redis Cluster将整个key的数值域分成2的14次方16384个hash槽，每个节点上可以存储一个或多个hash槽，也就是说当前Redis Cluster支持的最大节点数就是16384。Redis Cluster使用的分布式算法也很简单：`crc16( key ) % HASH_SLOTS_NUMBER`。整体设计可总结为：
 
+- 数据hash分布在不同的Redis节点实例上；
+- M/S（主/从）的切换采用Sentinel；
+- 写：只会写master Instance，从sentinel获取当前的master Instance；
+- 读：从Redis Node中基于权重选取一个Redis Instance读取，失败/超时则轮询其他Instance；Redis本身就很好的支持读写分离，在单进程的I/O场景下，可以有效的避免主库的阻塞风险；
 
+通过RPC服务访问，RPC server端封装了Redis客户端，客户端基于Jedis开发。 可以看到，通过集群+主从结合的设计，Redis在扩展和稳定高可用性能方面都是比较成熟的。但是，在数据一致性问题上，Redis没有提供CAS操作命令来保障高并发场景下的数据一致性问题，不过它却提供了事务的功能，Redis的Transactions提供的并不是严格的ACID的事务（比如一串用EXEC提交执行的命令，在执行中服务器宕机，那么会有一部分命令执行了，剩下的没执行）。但是这个Transactions还是提供了基本的命令打包执行的功能（在服务器不出问题的情况下，可以保证一连串的命令是顺序在一起执行的，中间有会有其它客户端命令插进来执行）。Redis还提供了一个Watch功能，你可以对一个key进行Watch，然后再执行Transactions，在这过程中，如果这个Watched的值进行了修改，那么这个Transactions会发现并拒绝执行。
 
-通过这种方式明显的优势就是依赖于数据库自身不需要其他资源，并且ID号单调自增，可以实现一些对ID有特殊要求的业务。
+#### 2.2.2 失效策略
 
-但是缺点也很明显，首先它**强依赖DB**，当DB异常时整个系统不可用。虽然配置主从复制可以尽可能的增加可用性，但是**数据一致性在特殊情况下难以保证**。主从切换时的不一致可能会导致重复发号。还有就是**ID发号性能瓶颈限制在单台MySQL的读写性能**。
+在失效策略上，Redis支持6种的数据淘汰策略：
 
-## 4. 使用redis实现
+- volatile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰；
 
-Redis实现分布式唯一ID主要是通过提供像 `INCR` 和 `INCRBY` 这样的自增原子命令，由于Redis自身的单线程的特点所以能保证生成的 ID 肯定是唯一有序的。
+- volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰；
 
-但是单机存在性能瓶颈，无法满足高并发的业务需求，所以可以采用集群的方式来实现。集群的方式又会涉及到和数据库集群同样的问题，所以也需要设置分段和步长来实现。
+- volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰 ；
 
-为了避免长期自增后数字过大可以通过与当前时间戳组合起来使用，另外为了保证并发和业务多线程的问题可以采用 Redis + Lua的方式进行编码，保证安全。
+- allkeys-lru：从数据集（server.db[i].dict）中挑选最近最少使用的数据淘汰；
 
-Redis 实现分布式全局唯一ID，它的性能比较高，生成的数据是有序的，对排序业务有利，但是同样它依赖于redis，**需要系统引进redis组件，增加了系统的配置复杂性**。
+- allkeys-random：从数据集（server.db[i].dict）中任意选择数据淘汰；
 
-当然现在Redis的使用性很普遍，所以如果其他业务已经引进了Redis集群，则可以资源利用考虑使用Redis来实现。
+- no-enviction（驱逐）：禁止驱逐数据。
 
-## 5. 雪花算法-Snowflake
+#### 2.2.3 redis应用场景
 
-Snowflake，雪花算法是由Twitter开源的分布式ID生成算法，以划分命名空间的方式将 64-bit位分割成多个部分，每个部分代表不同的含义。而 Java中64bit的整数是Long类型，所以在 Java 中 SnowFlake 算法生成的 ID 就是 long 来存储的。
+- **在主页中显示最新的项目列表**：Redis使用的是常驻内存的缓存，速度非常快。LPUSH用来插入一个内容ID，作为关键字存储在列表头部。LTRIM用来限制列表中的项目数最多为5000。如果用户需要的检索的数据量超越这个缓存容量，这时才需要把请求发送到数据库。
+- **删除和过滤**：如果一篇文章被删除，可以使用LREM从缓存中彻底清除掉。
+- **排行榜及相关问题**：排行榜（leader board）按照得分进行排序。ZADD命令可以直接实现这个功能，而ZREVRANGE命令可以用来按照得分来获取前100名的用户，ZRANK可以用来获取用户排名，非常直接而且操作容易。
+- **按照用户投票和时间排序**：排行榜，得分会随着时间变化。LPUSH和LTRIM命令结合运用，把文章添加到一个列表中。一项后台任务用来获取列表，并重新计算列表的排序，ZADD命令用来按照新的顺序填充生成列表。列表可以实现非常快速的检索，即使是负载很重的站点。
+- **过期项目处理**：使用Unix时间作为关键字，用来保持列表能够按时间排序。对current_time和time_to_live进行检索，完成查找过期项目的艰巨任务。另一项后台任务使用ZRANGE…WITHSCORES进行查询，删除过期的条目。
+- **计数**：进行各种数据统计的用途是非常广泛的，比如想知道什么时候封锁一个IP地址。INCRBY命令让这些变得很容易，通过原子递增保持计数；GETSET用来重置计数器；过期属性用来确认一个关键字什么时候应该删除。
+- **特定时间内的特定项目**：这是特定访问者的问题，可以通过给每次页面浏览使用SADD命令来解决。SADD不会将已经存在的成员添加到一个集合。
+- **Pub/Sub**：在更新中保持用户对数据的映射是系统中的一个普遍任务。Redis的pub/sub功能使用了SUBSCRIBE、UNSUBSCRIBE和PUBLISH命令，让这个变得更加容易。
+- **队列**：在当前的编程中队列随处可见。除了push和pop类型的命令之外，Redis还有阻塞队列的命令，能够让一个程序在执行时被另一个程序添加到队列。 实际工程中，对于缓存的应用可以有多种的实战方式，包括侵入式硬编码，抽象服务化应用，以及轻量的注解式使用等。本文将主要介绍下注解式方式。
 
-- **第1位**占用1bit，其值始终是0，可看做是符号位不使用。
-- **第2位**开始的41位是时间戳，41-bit位可表示2^41个数，每个数代表毫秒，那么雪花算法可用的时间年限是`(1L<<41)/(1000L360024*365)`=69 年的时间。
-- **中间的10-bit位**可表示机器数，即2^10 = 1024台机器，但是一般情况下我们不会部署这么台机器。如果我们对IDC（互联网数据中心）有需求，还可以将 10-bit 分 5-bit 给 IDC，分5-bit给工作机器。这样就可以表示32个IDC，每个IDC下可以有32台机器，具体的划分可以根据自身需求定义。
-- **最后12-bit位**是自增序列，可表示2^12 = 4096个数。
-
-这样的划分之后相当于**在一毫秒一个数据中心的一台机器上可产生4096个有序的不重复的ID**。但是我们 IDC 和机器数肯定不止一个，所以毫秒内能生成的有序ID数是翻倍的。
-
-![image-20220615213822755](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220615213822755.png)
-
-Snowflake 的Twitter官方原版是用Scala写的，对Scala语言有研究的同学可以去阅读下，以下是 Java 版本的写法。
-
-```java
-package com.jajian.demo.distribute;
-
-/**
- * Twitter_Snowflake<br>
- * SnowFlake的结构如下(每部分用-分开):<br>
- * 0 - 0000000000 0000000000 0000000000 0000000000 0 - 00000 - 00000 - 000000000000 <br>
- * 1位标识，由于long基本类型在Java中是带符号的，最高位是符号位，正数是0，负数是1，所以id一般是正数，最高位是0<br>
- * 41位时间截(毫秒级)，注意，41位时间截不是存储当前时间的时间截，而是存储时间截的差值（当前时间截 - 开始时间截)
- * 得到的值），这里的的开始时间截，一般是我们的id生成器开始使用的时间，由我们程序来指定的（如下下面程序IdWorker类的startTime属性）。41位的时间截，可以使用69年，年T = (1L << 41) / (1000L * 60 * 60 * 24 * 365) = 69<br>
- * 10位的数据机器位，可以部署在1024个节点，包括5位datacenterId和5位workerId<br>
- * 12位序列，毫秒内的计数，12位的计数顺序号支持每个节点每毫秒(同一机器，同一时间截)产生4096个ID序号<br>
- * 加起来刚好64位，为一个Long型。<br>
- * SnowFlake的优点是，整体上按照时间自增排序，并且整个分布式系统内不会产生ID碰撞(由数据中心ID和机器ID作区分)，并且效率较高，经测试，SnowFlake每秒能够产生26万ID左右。
- */
-public class SnowflakeDistributeId {
-
-
-    // ==============================Fields===========================================
-    /**
-     * 开始时间截 (2015-01-01)
-     */
-    private final long twepoch = 1420041600000L;
-
-    /**
-     * 机器id所占的位数
-     */
-    private final long workerIdBits = 5L;
-
-    /**
-     * 数据标识id所占的位数
-     */
-    private final long datacenterIdBits = 5L;
-
-    /**
-     * 支持的最大机器id，结果是31 (这个移位算法可以很快的计算出几位二进制数所能表示的最大十进制数)
-     */
-    private final long maxWorkerId = -1L ^ (-1L << workerIdBits);
-
-    /**
-     * 支持的最大数据标识id，结果是31
-     */
-    private final long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
-
-    /**
-     * 序列在id中占的位数
-     */
-    private final long sequenceBits = 12L;
-
-    /**
-     * 机器ID向左移12位
-     */
-    private final long workerIdShift = sequenceBits;
-
-    /**
-     * 数据标识id向左移17位(12+5)
-     */
-    private final long datacenterIdShift = sequenceBits + workerIdBits;
-
-    /**
-     * 时间截向左移22位(5+5+12)
-     */
-    private final long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
-
-    /**
-     * 生成序列的掩码，这里为4095 (0b111111111111=0xfff=4095)
-     */
-    private final long sequenceMask = -1L ^ (-1L << sequenceBits);
-
-    /**
-     * 工作机器ID(0~31)
-     */
-    private long workerId;
-
-    /**
-     * 数据中心ID(0~31)
-     */
-    private long datacenterId;
-
-    /**
-     * 毫秒内序列(0~4095)
-     */
-    private long sequence = 0L;
-
-    /**
-     * 上次生成ID的时间截
-     */
-    private long lastTimestamp = -1L;
-
-    //==============================Constructors=====================================
-
-    /**
-     * 构造函数
-     *
-     * @param workerId     工作ID (0~31)
-     * @param datacenterId 数据中心ID (0~31)
-     */
-    public SnowflakeDistributeId(long workerId, long datacenterId) {
-        if (workerId > maxWorkerId || workerId < 0) {
-            throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
-        }
-        if (datacenterId > maxDatacenterId || datacenterId < 0) {
-            throw new IllegalArgumentException(String.format("datacenter Id can't be greater than %d or less than 0", maxDatacenterId));
-        }
-        this.workerId = workerId;
-        this.datacenterId = datacenterId;
-    }
-
-    // ==============================Methods==========================================
-
-    /**
-     * 获得下一个ID (该方法是线程安全的)
-     *
-     * @return SnowflakeId
-     */
-    public synchronized long nextId() {
-        long timestamp = timeGen();
-
-        //如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
-        if (timestamp < lastTimestamp) {
-            throw new RuntimeException(
-                    String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
-        }
-
-        //如果是同一时间生成的，则进行毫秒内序列
-        if (lastTimestamp == timestamp) {
-            sequence = (sequence + 1) & sequenceMask;
-            //毫秒内序列溢出
-            if (sequence == 0) {
-                //阻塞到下一个毫秒,获得新的时间戳
-                timestamp = tilNextMillis(lastTimestamp);
-            }
-        }
-        //时间戳改变，毫秒内序列重置
-        else {
-            sequence = 0L;
-        }
-
-        //上次生成ID的时间截
-        lastTimestamp = timestamp;
-
-        //移位并通过或运算拼到一起组成64位的ID
-        return ((timestamp - twepoch) << timestampLeftShift) //
-                | (datacenterId << datacenterIdShift) //
-                | (workerId << workerIdShift) //
-                | sequence;
-    }
-
-    /**
-     * 阻塞到下一个毫秒，直到获得新的时间戳
-     *
-     * @param lastTimestamp 上次生成ID的时间截
-     * @return 当前时间戳
-     */
-    protected long tilNextMillis(long lastTimestamp) {
-        long timestamp = timeGen();
-        while (timestamp <= lastTimestamp) {
-            timestamp = timeGen();
-        }
-        return timestamp;
-    }
-
-    /**
-     * 返回以毫秒为单位的当前时间
-     *
-     * @return 当前时间(毫秒)
-     */
-    protected long timeGen() {
-        return System.currentTimeMillis();
-    }
-}
-
-```
-
-测试的代码如下
-
-```java
-public static void main(String[] args) {
-    SnowflakeDistributeId idWorker = new SnowflakeDistributeId(0, 0);
-    for (int i = 0; i < 1000; i++) {
-        long id = idWorker.nextId();
-//      System.out.println(Long.toBinaryString(id));
-        System.out.println(id);
-    }
-}
-```
-
-**雪花算法提供了一个很好的设计思想，雪花算法生成的ID是趋势递增，不依赖数据库等第三方系统，以服务的方式部署，稳定性更高，生成ID的性能也是非常高的，而且可以根据自身业务特性分配bit位，非常灵活**。
-
-但是雪花算法强**依赖机器时钟**，如果机器上时钟回拨，会导致发号重复或者服务会处于不可用状态。如果恰巧回退前生成过一些ID，而时间回退后，生成的ID就有可能重复。官方对于此并没有给出解决方案，而是简单的抛错处理，这样会造成在时间被追回之前的这段时间服务不可用。
-
-很多其他类雪花算法也是在此思想上的设计然后改进规避它的缺陷，后面介绍的`百度 UidGenerator` 和 `美团分布式ID生成系统 Leaf` 中snowflake模式都是在 snowflake 的基础上演进出来的。
-
-## 6. 百度-UidGenerator
-
-> 百度的 `UidGenerator` 是百度开源基于Java语言实现的唯一ID生成器，是在雪花算法 snowflake 的基础上做了一些改进。`UidGenerator`以组件形式工作在应用项目中, 支持自定义workerId位数和初始化策略，适用于docker等虚拟化环境下实例自动重启、漂移等场景。
-
-在实现上，UidGenerator 提供了两种生成唯一ID方式，分别是 `DefaultUidGenerator` 和 `CachedUidGenerator`，官方建议如果有**性能考虑**的话使用 `CachedUidGenerator` 方式实现。
-
-`UidGenerator` 依然是以划分命名空间的方式将 64-bit位分割成多个部分，只不过它的默认划分方式有别于雪花算法 snowflake。它默认是由 `1-28-22-13` 的格式进行划分。可根据你的业务的情况和特点，自己调整各个字段占用的位数。
-
-- **第1位**仍然占用1bit，其值始终是0。
-- **第2位**开始的28位是时间戳，28-bit位可表示2^28个数，这里不再是以毫秒而是以秒为单位，每个数代表秒则可用`（1L<<28）/ (360024365) ≈ 8.51` 年的时间。
-- 中间的 workId （数据中心+工作机器，可以其他组成方式）则由 **22-bit位**组成，可表示 2^22 = 4194304个工作ID。
-- 最后由**13-bit位**构成自增序列，可表示2^13 = 8192个数。
-
-![image-20220615215123947](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220615215123947.png)
-
-
-
-其中 workId （机器 id），最多可支持约420w次机器启动。**内置实现为在启动时由数据库分配（表名为 WORKER_NODE），默认分配策略为用后即弃，后续可提供复用策略**。
-
-```sql
-DROP TABLE IF EXISTS WORKER_NODE;
-CREATE TABLE WORKER_NODE
-(
-ID BIGINT NOT NULL AUTO_INCREMENT COMMENT 'auto increment id',
-HOST_NAME VARCHAR(64) NOT NULL COMMENT 'host name',
-PORT VARCHAR(64) NOT NULL COMMENT 'port',
-TYPE INT NOT NULL COMMENT 'node type: ACTUAL or CONTAINER',
-LAUNCH_DATE DATE NOT NULL COMMENT 'launch date',
-MODIFIED TIMESTAMP NOT NULL COMMENT 'modified time',
-CREATED TIMESTAMP NOT NULL COMMENT 'created time',
-PRIMARY KEY(ID)
-)
- COMMENT='DB WorkerID Assigner for UID Generator',ENGINE = INNODB;
-
-  
-```
-
-
-### 6.1 DefaultUidGenerator 实现
-
-`DefaultUidGenerator` 就是正常的根据时间戳和机器位还有序列号的生成方式，和雪花算法很相似，对于时钟回拨也只是抛异常处理。仅有一些不同，如**以秒为为单位**而不再是毫秒和支持Docker等虚拟化环境。
-
-```java
-protected synchronized long nextId() {
-    long currentSecond = getCurrentSecond();
-
-    // Clock moved backwards, refuse to generate uid
-    if (currentSecond < lastSecond) {
-        long refusedSeconds = lastSecond - currentSecond;
-        throw new UidGenerateException("Clock moved backwards. Refusing for %d seconds", refusedSeconds);
-    }
-
-    // At the same second, increase sequence
-    if (currentSecond == lastSecond) {
-        sequence = (sequence + 1) & bitsAllocator.getMaxSequence();
-        // Exceed the max sequence, we wait the next second to generate uid
-        if (sequence == 0) {
-            currentSecond = getNextSecond(lastSecond);
-        }
-
-    // At the different second, sequence restart from zero
-    } else {
-        sequence = 0L;
-    }
-
-    lastSecond = currentSecond;
-
-    // Allocate bits for UID
-    return bitsAllocator.allocate(currentSecond - epochSeconds, workerId, sequence);
-}
-```
+### 2.2 memcached缓存
 
-如果你要使用 DefaultUidGenerator 的实现方式的话，以上划分的占用位数可通过 spring 进行参数配置。
+memcached是应用较广的开源分布式缓存产品之一，它本身其实不提供分布式解决方案。在服务端，memcached集群环境实际就是一个个memcached服务器的堆积，环境搭建较为简单；cache的分布式主要是在客户端实现，通过客户端的路由处理来达到分布式解决方案的目的。客户端做路由的原理非常简单，应用服务器在每次存取某key的value时，通过某种算法把key映射到某台memcached服务器nodeA上，因此这个key所有操作都在nodeA上，结构图如图6、图7所示。
 
-```xml
-<bean id="defaultUidGenerator" class="com.baidu.fsg.uid.impl.DefaultUidGenerator" lazy-init="false">
-    <property name="workerIdAssigner" ref="disposableWorkerIdAssigner"/>
+![image-20220621202928495](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621202928495.png)
 
-    <!-- Specified bits & epoch as your demand. No specified the default value will be used -->
-    <property name="timeBits" value="29"/>
-    <property name="workerBits" value="21"/>
-    <property name="seqBits" value="13"/>
-    <property name="epochStr" value="2016-09-20"/>
-</bean>
+图6 memcached客户端路由图
 
-  
-```
+![image-20220621202947235](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621202947235.png)
 
-### 6.2 CachedUidGenerator 实现
+图7 memcached一致性hash示例图
 
-而官方建议的性能较高的 `CachedUidGenerator` 生成方式，是使用 RingBuffer 缓存生成的id。数组每个元素成为一个slot。RingBuffer容量，默认为Snowflake算法中sequence最大值（2^13 = 8192）。可通过 boostPower 配置进行扩容，以提高 RingBuffer 读写吞吐量。
+memcached客户端采用一致性hash算法作为路由策略，如图7，相对于一般hash（如简单取模）的算法，一致性hash算法除了计算key的hash值外，还会计算每个server对应的hash值，然后将这些hash值映射到一个有限的值域上（比如0~2^32）。通过寻找hash值大于hash(key)的最小server作为存储该key数据的目标server。如果找不到，则直接把具有最小hash值的server作为目标server。同时，一定程度上，解决了扩容问题，增加或删除单个节点，对于整个集群来说，不会有大的影响。最近版本，增加了虚拟节点的设计，进一步提升了可用性。
 
-Tail指针、Cursor指针用于环形数组上读写slot：
+memcached是一个高效的分布式内存cache，了解memcached的内存管理机制，才能更好的掌握memcached，让我们可以针对我们数据特点进行调优，让其更好的为我所用。我们知道memcached仅支持基础的key-value键值对类型数据存储。在memcached内存结构中有两个非常重要的概念：slab和chunk。如图8所示。
 
-- **Tail指针** 表示Producer生产的最大序号(此序号从0开始，持续递增)。Tail不能超过Cursor，即生产者不能覆盖未消费的slot。当Tail已赶上curosr，此时可通过rejectedPutBufferHandler指定PutRejectPolicy
-- **Cursor指针** 表示Consumer消费到的最小序号(序号序列与Producer序列相同)。Cursor不能超过Tail，即不能消费未生产的slot。当Cursor已赶上tail，此时可通过rejectedTakeBufferHandler指定TakeRejectPolicy
+![image-20220621203132597](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220621203132597.png)
 
-![image-20220615215921262](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220615215921262.png)
+图8 memcached内存结构图
 
-CachedUidGenerator采用了双RingBuffer，Uid-RingBuffer用于存储Uid、Flag-RingBuffer用于存储Uid状态(是否可填充、是否可消费)。
+slab是一个内存块，它是memcached一次申请内存的最小单位。在启动memcached的时候一般会使用参数-m指定其可用内存，但是并不是在启动的那一刻所有的内存就全部分配出去了，只有在需要的时候才会去申请，而且每次申请一定是一个slab。Slab的大小固定为1M（1048576 Byte），一个slab由若干个大小相等的chunk组成。每个chunk中都保存了一个item结构体、一对key和value。
 
-由于数组元素在内存中是连续分配的，可最大程度利用CPU cache以提升性能。但同时会带来「伪共享」FalseSharing问题，为此在Tail、Cursor指针、Flag-RingBuffer中采用了CacheLine 补齐方式。
+虽然在同一个slab中chunk的大小相等的，但是在不同的slab中chunk的大小并不一定相等，在memcached中按照chunk的大小不同，可以把slab分为很多种类（class），默认情况下memcached把slab分为40类（class1～class40），在class 1中，chunk的大小为80字节，由于一个slab的大小是固定的1048576字节（1M），因此在class1中最多可以有13107个chunk（也就是这个slab能存最多13107个小于80字节的key-value数据）。
 
-![image-20220615215956912](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220615215956912.png)
+memcached内存管理采取预分配、分组管理的方式，分组管理就是我们上面提到的slab class，按照chunk的大小slab被分为很多种类。内存预分配过程是怎样的呢? 向memcached添加一个item时候，memcached首先会根据item的大小，来选择最合适的slab class：例如item的大小为190字节，默认情况下class 4的chunk大小为160字节显然不合适，class 5的chunk大小为200字节，大于190字节，因此该item将放在class 5中（显然这里会有10字节的浪费是不可避免的），计算好所要放入的chunk之后，memcached会去检查该类大小的chunk还有没有空闲的，如果没有，将会申请1M（1个slab）的空间并划分为该种类chunk。例如我们第一次向memcached中放入一个190字节的item时，memcached会产生一个slab class 2（也叫一个page），并会用去一个chunk，剩余5241个chunk供下次有适合大小item时使用，当我们用完这所有的5242个chunk之后，下次再有一个在160～200字节之间的item添加进来时，memcached会再次产生一个class 5的slab（这样就存在了2个pages）。
 
-**RingBuffer填充时机**
+总结来看，memcached内存管理需要注意的几个方面：
 
-- **初始化预填充** RingBuffer初始化时，预先填充满整个RingBuffer。
-- **即时填充** Take消费时，即时检查剩余可用slot量(tail - cursor)，如小于设定阈值，则补全空闲slots。阈值可通过paddingFactor来进行配置，请参考Quick Start中CachedUidGenerator配置。
-- **周期填充** 通过Schedule线程，定时补全空闲slots。可通过scheduleInterval配置，以应用定时填充功能，并指定Schedule时间间隔。
+- chunk是在page里面划分的，而page固定为1m，所以chunk最大不能超过1m。
+- chunk实际占用内存要加48B，因为chunk数据结构本身需要占用48B。
+- 如果用户数据大于1m，则memcached会将其切割，放到多个chunk内。
+- 已分配出去的page不能回收。
 
-## 7. 美团Leaf
+对于key-value信息，最好不要超过1m的大小；同时信息长度最好相对是比较均衡稳定的，这样能够保障最大限度的使用内存；同时，memcached采用的LRU清理策略，合理甚至过期时间，提高命中率。
 
-> Leaf是美团基础研发平台推出的一个分布式ID生成服务，名字取自德国哲学家、数学家莱布尼茨的著名的一句话：“There are no two identical leaves in the world”，世间不可能存在两片相同的叶子。
+无特殊场景下，key-value能满足需求的前提下，使用memcached分布式集群是较好的选择，搭建与操作使用都比较简单；分布式集群在单点故障时，只影响小部分数据异常，目前还可以通过Magent缓存代理模式，做单点备份，提升高可用；整个缓存都是基于内存的，因此响应时间是很快，不需要额外的序列化、反序列化的程序，但同时由于基于内存，数据没有持久化，集群故障重启数据无法恢复。高版本的memcached已经支持CAS模式的原子操作，可以低成本的解决并发控制问题。
 
-Leaf 也提供了两种ID生成的方式，分别是 `Leaf-segment 数据库方案`和 `Leaf-snowflake 方案`。
+## 3. 分布式缓存的实现技术
 
-### 7.1 Leaf-segment 数据库方案
+> 在分布式缓存的实现方案中，有哪些常见的技术实现要点呢？从Redis的视角看，在它的实现中主要包含如下实现技术要点:
 
-Leaf-segment 数据库方案，是在上文描述的在使用数据库的方案上，做了如下改变：
+- 持久化：RDB和AOF机制详解
+  - 为了防止数据丢失以及服务重启时能够恢复数据，Redis支持数据的持久化，主要分为两种方式，分别是RDB和AOF; 当然实际场景下还会使用这两种的混合模式。
+- 消息传递：发布订阅模式详解
+  - Redis 发布订阅(pub/sub)是一种消息通信模式：发送者(pub)发送消息，订阅者(sub)接收消息。
+-  事件：Redis事件机制详解
+  - Redis 采用事件驱动机制来处理大量的网络IO。它并没有使用 libevent 或者 libev 这样的成熟开源方案，而是自己实现一个非常简洁的事件驱动库 ae_event。
+- 事务：Redis事务详解
+  - Redis 事务的本质是一组命令的集合。事务支持一次执行多个命令，一个事务中所有命令都会被序列化。在事务执行过程，会按照顺序串行化执行队列中的命令，其他客户端提交的命令请求不会插入到事务执行命令序列中。
+- 高可用：主从复制详解
+  - 我们知道要避免单点故障，即保证高可用，便需要冗余（副本）方式提供集群服务。而Redis 提供了主从库模式，以保证数据副本的一致，主从库之间采用的是读写分离的方式。本文主要阐述Redis的主从复制。
+- 高可用：哨兵机制（Redis Sentinel）详解
+  - 在上文主从复制的基础上，如果注节点出现故障该怎么办呢？ 在 Redis 主从集群中，哨兵机制是实现主从库自动切换的关键机制，它有效地解决了主从复制模式下故障转移的问题。
+-  高可拓展：分片技术（Redis Cluster）详解
+  - 前面两篇文章，主从复制和哨兵机制保障了高可用，就读写分离而言虽然slave节点来扩展主从的读并发能力，但是写能力和存储能力是无法进行扩展的，就只能是master节点能够承载的上限。如果面对海量数据那么必然需要构建master（主节点分片)之间的集群，同时必然需要吸收高可用（主从复制和哨兵机制）能力，即每个master分片节点还需要有slave节点，这是分布式系统中典型的纵向扩展（集群的分片技术）的体现；所以在Redis 3.0版本中对应的设计就是Redis Cluster。
 
-- 原方案每次获取ID都得读写一次数据库，造成数据库压力大。改为利用proxy server批量获取，每次获取一个segment(step决定大小)号段的值。用完之后再去数据库获取新的号段，可以大大的减轻数据库的压力。
-- 各个业务不同的发号需求用 `biz_tag`字段来区分，每个biz-tag的ID获取相互隔离，互不影响。如果以后有性能需求需要对数据库扩容，不需要上述描述的复杂的扩容操作，只需要对biz_tag分库分表就行。
+## 4. 分布式缓存中常见的问题和解决方案
 
-数据库表设计如下：
+> 缓存中存在的问题如下，具体可以看：Redis进阶 - 缓存问题：一致性, 穿击, 穿透, 雪崩, 污染等 
 
-```sql
-CREATE TABLE `leaf_alloc` (
-  `biz_tag` varchar(128)  NOT NULL DEFAULT '' COMMENT '业务key',
-  `max_id` bigint(20) NOT NULL DEFAULT '1' COMMENT '当前已经分配了的最大id',
-  `step` int(11) NOT NULL COMMENT '初始步长，也是动态调整的最小步长',
-  `description` varchar(256)  DEFAULT NULL COMMENT '业务key的描述',
-  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`biz_tag`)
-) ENGINE=InnoDB;
-```
-
-原来获取ID每次都需要写数据库，现在只需要把step设置得足够大，比如1000。那么只有当1000个号被消耗完了之后才会去重新读写一次数据库。读写数据库的频率从1减小到了1/step，大致架构如下图所示：
-
-![image-20220615220442152](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220615220442152.png)
-
-同时Leaf-segment 为了解决 TP999（满足千分之九百九十九的网络请求所需要的最低耗时）数据波动大，当号段使用完之后还是会在更新数据库的I/O上，TP999 数据会出现偶尔的尖刺的问题，提供了双buffer优化。
-
-简单的说就是，Leaf 取号段的时机是在号段消耗完的时候进行的，也就意味着号段临界点的ID下发时间取决于下一次从DB取回号段的时间，并且在这期间进来的请求也会因为DB号段没有取回来，导致线程阻塞。如果请求DB的网络和DB的性能稳定，这种情况对系统的影响是不大的，但是假如取DB的时候网络发生抖动，或者DB发生慢查询就会导致整个系统的响应时间变慢。
-
-为了DB取号段的过程能够做到无阻塞，不需要在DB取号段的时候阻塞请求线程，即当号段消费到某个点时就异步的把下一个号段加载到内存中，而不需要等到号段用尽的时候才去更新号段。这样做就可以很大程度上的降低系统的 TP999 指标。详细实现如下图所示：
-
-![image-20220615220646262](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220615220646262.png)
-
-采用双buffer的方式，Leaf服务内部有两个号段缓存区segment。当前号段已下发10%时，如果下一个号段未更新，则另启一个更新线程去更新下一个号段。当前号段全部下发完后，如果下个号段准备好了则切换到下个号段为当前segment接着下发，循环往复。
-
-- 每个biz-tag都有消费速度监控，通常推荐segment长度设置为服务高峰期发号QPS的600倍（10分钟），这样即使DB宕机，Leaf仍能持续发号10-20分钟不受影响。
-- 每次请求来临时都会判断下个号段的状态，从而更新此号段，所以偶尔的网络抖动不会影响下个号段的更新。
-
-对于这种方案依然存在一些问题，它**仍然依赖 DB的稳定性，需要采用主从备份的方式提高 DB的可用性**，还有 Leaf-segment方案生成的ID是趋势递增的，这样ID号是可被计算的，例如订单ID生成场景，**通过订单id号相减就能大致计算出公司一天的订单量，这个是不能忍受的**。
-
-### 7.2 Leaf-snowflake方案
-
-Leaf-snowflake方案完全沿用 snowflake 方案的bit位设计，对于workerID的分配引入了Zookeeper持久顺序节点的特性自动对snowflake节点配置 wokerID。避免了服务规模较大时，动手配置成本太高的问题。
-
-Leaf-snowflake是按照下面几个步骤启动的：
-
-- 启动Leaf-snowflake服务，连接Zookeeper，在leaf_forever父节点下检查自己是否已经注册过（是否有该顺序子节点）。
-- 如果有注册过直接取回自己的workerID（zk顺序节点生成的int类型ID号），启动服务。
-- 如果没有注册过，就在该父节点下面创建一个持久顺序节点，创建成功后取回顺序号当做自己的workerID号，启动服务。
-
-![image-20220615221138652](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220615221138652.png)
-
-为了减少对 Zookeeper的依赖性，会在本机文件系统上缓存一个workerID文件。当ZooKeeper出现问题，恰好机器出现问题需要重启时，能保证服务能够正常启动。
-
-上文阐述过在类 snowflake算法上都存在时钟回拨的问题，Leaf-snowflake在解决时钟回拨的问题上是通过校验自身系统时间与 `leaf_forever/${self}`节点记录时间做比较然后启动报警的措施。
-
-![image-20220615221226542](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220615221226542.png)
-
-美团官方建议是由于强依赖时钟，对时间的要求比较敏感，**在机器工作时NTP同步也会造成秒级别的回退，建议可以直接关闭NTP同步。要么在时钟回拨的时候直接不提供服务直接返回ERROR_CODE，等时钟追上即可。或者做一层重试，然后上报报警系统，更或者是发现有时钟回拨之后自动摘除本身节点并报警。**
-
-在性能上官方提供的数据目前 Leaf 的性能在4C8G 的机器上QPS能压测到近5w/s，TP999 1ms。
+- 缓存穿透问题
+- 缓存击穿问题
+- 缓存雪崩问题
+- 缓存污染（或满了）
+  - 最大缓存设置多大
+  - 缓存淘汰策略
+- 数据库和缓存一致性问题
+  - 4种相关模式
+    - Cache aside
+    - Read through
+    - Write through
+    - Write behind caching
+  - 方案：队列 + 重试机制
+  - 方案：异步更新缓存(基于订阅binlog的同步机制)
 
 ## 参考文章
 
-[**分布式系统 - 全局唯一ID实现方案**](https://pdai.tech/md/arch/arch-z-id.html)
-
+[分布式系统 - 分布式缓存及方案实现](https://pdai.tech/md/arch/arch-z-cache.html)

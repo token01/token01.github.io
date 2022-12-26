@@ -90,13 +90,13 @@ category:
 
 > CAP理论是分布式系统、特别是分布式存储领域中被讨论的最多的理论。其中C代表一致性 (Consistency)，A代表可用性 (Availability)，P代表分区容错性 (Partition tolerance)。CAP理论告诉我们C、A、P三者不能同时满足，最多只能满足其中两个。
 
-![image-20220615223816600](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220615223816600.png)
+![image-20220615223816600](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220615223816600.png)
 
 ### 2.2 BASE理论
 
 > BASE是“Basically Available, Soft state, Eventually consistent(基本可用、软状态、最终一致性)”的首字母缩写。其中的软状态和最终一致性这两种技巧擅于对付存在分区的场合，并因此提高了可用性。
 
-![image-20220615223858440](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220615223858440.png)
+![image-20220615223858440](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220615223858440.png)
 
 ## 3. 分布式一致性算法
 

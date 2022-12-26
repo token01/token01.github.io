@@ -10,9 +10,7 @@ category:
 
 CAP理论是分布式系统、特别是分布式存储领域中被讨论的最多的理论。其中C代表一致性 (Consistency)，A代表可用性 (Availability)，P代表分区容错性 (Partition tolerance)。CAP理论告诉我们C、A、P三者不能同时满足，最多只能满足其中两个。
 
-
-![image.png](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/202212241416757.png)
-
+<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220617212438370.png" alt="image-20220617212438370"  />
 
 ### 1.1 CAP 三选二
 

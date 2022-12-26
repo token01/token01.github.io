@@ -1,155 +1,221 @@
-# Tomcat优化一：优化自身的配置
+# Tomcat安装
 
 ## 1. 简介
 
-Tomcat服务器在JavaEE项目中使用率非常高，所以在生产环境对Tomcat的优化也变得非常重要了。
+企业使用较多的是Tomcat8
 
-对于Tomcat的优化，主要是从2个方面入手，一是**Tomcat自身的配置**，另一个是**Tomcat所运行的jvm虚拟机的调优**。
+## 2. Tomcat下载
 
-## 2. 前置配置：登录系统，配置tomcat用户
+[Tomcat8下载](https://tomcat.apache.org/download-80.cgi)
 
-如果不配置tomcat用户，那么查看tomcat状态时，将会出现403错误
+Tomcat主要有三个安装版本
 
-![image-20210728220240999](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210728220240999.png)
+- tar.gz：Linux环境下的压缩包，免安装
 
-![image-20210728220259132](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210728220259132.png)
+- Windows.zip：Windows压缩包，免安装，解压即用，同时注意根据自己电脑是64位系统还是32位系统下载对应的压缩包
+- Windows Service Installer：Windows安装包，32位和64位版本的Windows系统都适用
 
-如果需要登录系统，必须配置tomcat用户，在安装完Tomcat后，进行如下操作
+![image-20210728212527098](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210728212527098.png)
 
-在`/conf/tomcat-users.xml`文件中的`<tomcat-users>`标签里面添加如下内容
+## 3.安装Tomcat
 
-```sh
-<!-- 修改配置文件，配置tomcat的管理用户 -->
-<role rolename="manager"/>
-<role rolename="manager-gui"/>
-<role rolename="admin"/>
-<role rolename="admin-gui"/>
-<user username="tomcat" password="tomcat" roles="admin-gui,admin,manager-gui,manager"/>
-```
+1. 将下载好的`apache-tomcat-8.5.47.tar.gz`放到指定目录，我这里放到`/usr/local/tomcat`，如下图所示
 
-如果是tomcat7，配置了tomcat用户就可以登录系统了，但是tomcat8中不行，还需要修改另一个配置文件，否则访问不了，提示403，打开`webapps/manager/META-INF/context.xml`文件
+   ![image-20210728212849291](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210728212849291.png)
 
-```sh
-<!-- 将Valve标签的内容注释掉，保存退出即可 -->
-<?xml version="1.0" encoding="UTF-8"?>
+2. 进入`/usr/local/tomcat`目录，解压Tomcat压缩包
 
-<Context antiResourceLocking="false" privileged="true" >
-  <!--<Valve className="org.apache.catalina.valves.RemoteAddrValve"
-         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />-->
-  <Manager sessionAttributeValueClassNameFilter="java\.lang\.(?:Boolean|Integer|Long|Number|String)|org\.apache\.catalina\.filters\.CsrfPreventionFilter\$LruCache(?:\$1)?|java\.util\.(?:Linked)?HashMap"/>
-</Context>
-```
+   ```sh
+   # 进入/usr/local/tomcat目录
+   cd /usr/local/tomcat
+   # 解压Tomcat压缩包
+   tar -zxvf  apache-tomcat-8.5.69.tar.gz 
+   ```
 
-再次点击的时候，就需要输入账户密码了：tomcat/tomcat
+3. 启动Tomcat
 
-![image-20210728220849612](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210728220849612.png)
+   进入Tomcat的bin目录，启动Tomcat
 
-登录之后可以看到服务器状态等信息，主要包括服务器信息，JVM，ajp和http信息
+   ```sh
+   # 进入Tomcat的bin目录，启动Tomcat
+   cd apache-tomcat-8.5.69/bin/
+   
+   # 启动Tomcat
+   ./startup.sh
+   ```
 
-![image-20210728220924142](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210728220924142.png)
+4. 查看Tomcat是否启动成功
 
-## 3. 优化1：AJP连接
+   ```sh
+   # 查看Tomcat是否启动成功执行
+   ps -ef | grep tomcat
+   # 如果输出如下，说明Tomcat安装成功
+   root     15254     1  9 21:30 pts/1    00:00:03 /usr/local/java/jdk1.8.0_181/jre/bin/java -Djava.util.logging.config.file=/usr/local/tomcat/apache-tomcat-8.5.69/conf/log
+   root     15982 13726  0 21:31 pts/1    00:00:00 grep --color=auto tomcat
+   
+   ```
 
-> 新版tomcat8，已自动禁止
+   
 
-在服务状态页面中可以看到，默认状态下会启用AJP服务，并且占用8009端口。
+5. 使用浏览器访问Tomcat
 
-![image-20210728221223607](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210728221223607.png)
+    使用浏览器访问Tomcat，地址Linux的ip:8080，我这里的ip端口是`http://ip:8080/`，如下图说明在Linux（CentOS7）环境安装启动Tomcat成功
 
-### 3.1 什么是AJP
+   **注意：开放8080端口或者关闭防火墙**
 
-AJP（Apache JServer Protocol）
-AJPv13协议是面向包的。WEB服务器和Servlet容器通过TCP连接来交互；为了节省SOCKET创建的昂贵代价，WEB服务器会尝试维护一个永久TCP连接到servlet容器，并且在多个请求和响应周期过程会重用连接。
-![image-20210728221317207](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210728221317207.png)
+   ![image-20210728214559556](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210728214559556.png)
 
-我们一般是使用Nginx+Tomcat的架构，所以用不着AJP协议，把AJP连接器禁用。
-
-修改conf下的server.xml文件，将AJP服务禁用掉即可。
-
-```sh
-<!-- 禁用AJP连接 -->
-<!-- <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" /> -->
-```
-
-重启tomcat，查看效果。可以看到AJP服务已经不存在了。
-
-![image-20210728221415136](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210728221415136.png)
-
-## 4. 优化2：执行器（线程池）
-
-在tomcat中每一个用户请求都是一个线程，所以可以使用线程池提高性能。
-
-修改server.xml文件：
+**附加：开放8080端口或者关闭防火墙，如果是阿里云只能在阿里云控制台配置开放端口**
 
 ```sh
-<!--将注释打开-->
-<Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
-        maxThreads="500" minSpareThreads="50" prestartminSpareThreads="true" maxQueueSize="100"/>
+# 开启8080端口
+firewall-cmd --zone=public --add-port=8080/tcp --permanent
 
-<!--
-参数说明：
-maxThreads：最大并发数，默认设置 200，一般建议在 500 ~ 1000，根据硬件设施和业务来判断
-minSpareThreads：Tomcat 初始化时创建的线程数，默认设置 25
-prestartminSpareThreads： 在 Tomcat 初始化的时候就初始化 minSpareThreads 的参数值，如果不等于 true，minSpareThreads 的值就没啥效果了
-maxQueueSize，最大的等待队列数，超过则拒绝请求
--->
+# 查询端口号8080是否开启
+firewall-cmd --query-port=8080/tcp
 
-<!--在Connector中设置executor属性指向上面的执行器-->
-<Connector executor="tomcatThreadPool" port="8080" protocol="HTTP/1.1"
-               connectionTimeout="20000"
-               redirectPort="8443" />
+# 重启防火墙
+firewall-cmd --reload
+
+# 查看开放端口列表
+firewall-cmd --list-port
+
+# 命令含义
+--zone #作用域
+--add-port=8080/tcp #添加端口，格式为：端口/通讯协议
+--permanent #永久生效，没有此参数重启后失效
+
+# 关闭防火墙
+systemctl stop firewalld.service #停止firewall
+systemctl disable firewalld.service #禁止firewall开机启动
 ```
 
-保存退出，重启tomcat，查看效果。
+## 4. 设置Tomcat为开机启动项
 
-![image-20210728222804439](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210728222804439.png)
+按照上面的方式启动Tomcat，如果我们的虚拟机或者服务器关闭了，重启服务器后Tomcat是关闭的，但是我们希望虚拟机或者服务器重启后，Tomcat可以自己启动，所以我们需要设置Tomcat为开机启动项
 
-在页面中显示最大线程数为-1，这个是正常的，仅仅是显示的问题，实际使用的是指定的值。如果配置了一个Executor，则该属性的任何值将被正确记录，但是它将被显示为-1
+创建setenv.sh文件，为Tomcat添加启动参数
 
-## 5. 优化3：3种运行模式
-
-tomcat的运行模式有3种：
-
-- bio
-  性能非常低下，没有经过任何优化处理和支持
-
-- nio
-  nio(new I/O)，是Java SE 1.4及后续版本提供的一种新的I/O操作方式(即java.nio包及其子包)。Java nio是一个基于缓冲区、并能提供非阻塞I/O操作的Java API，因此nio也被看成是non-blocking I/O的缩写。它拥有比传统I/O操作(bio)更好的并发运行性能。Tomcat8默认使用nio运行模式。
-
-- apr
-  安装起来最困难，但是从操作系统级别来解决异步的IO问题，大幅度的提高性能
-
-对于每种协议，Tomcat都提供了对应的I/O方式的实现，而且Tomcat官方还提供了在每种协议下每种I/O实现方案的差异， HTTP协议下的处理方式如下表，详情可查看Tomcat官网说明
-
-|              | BIO              | NIO                 | NIO2                 | APR                 |
-| ------------ | ---------------- | ------------------- | -------------------- | ------------------- |
-| 类名         | `Http11Protocol` | `Http11NioProtocol` | `Http11Nio2Protocol` | `Http11AprProtocol` |
-| 引用版本     | ≥3.0             | ≥6.0                | ≥8.0                 | ≥5.5                |
-| 轮询支持     | 否               | 是                  | 是                   | 是                  |
-| 轮询队列大小 | N/A              | `maxConnections`    | `maxConnections`     | `maxConnections`    |
-| 读请求头     | 阻塞             | 非阻塞              | 非阻塞               | 阻塞                |
-| 读请求体     | 阻塞             | 阻塞                | 阻塞                 | 阻塞                |
-| 写响应       | 阻塞             | 阻塞                | 阻塞                 |                     |
-| 等待新请求   | 阻塞             | 非阻塞              | 非阻塞               | 非阻塞              |
-| SSL支持      | Java SSL         | Java SSL            | Java SSL             | Open SSL            |
-| SSL握手      | 阻塞             | 非阻塞              | 非阻塞               | 阻塞                |
-| 最大链接数   | `maxConnections` | `maxConnections`    | `maxConnections`     | `maxConnections`    |
-
-推荐使用nio，在tomcat8中有最新的nio2，速度更快，建议使用nio2
-
-设置nio2：
+catalina.sh在执行的时候会调用同级路径下的setenv.sh来设置额外的环境变量，因此在/usr/local/tomcat/apache-tomcat-8.5.69/bin路径下创建setenv.sh文件，内容如下：
 
 ```sh
-<Connector executor="tomcatThreadPool"  port="8080" protocol="org.apache.coyote.http11.Http11Nio2Protocol"
-               connectionTimeout="20000"
-               redirectPort="8443" />
+# 设置Tomcat的PID文件
+CATALINA_PID="$CATALINA_BASE/tomcat.pid"
+# 添加JVM选项
+JAVA_OPTS="-server -XX:PermSize=256M -XX:MaxPermSize=1024m -Xms512M -Xmx1024M -XX:MaxNewSize=256m"
 ```
 
-![image-20210728223416722](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210728223416722.png)
+在`/usr/local/tomcat/apache-tomcat-8.5.69/bin/catalina.sh`文件开头添加`JAVA_HOME`和`JRE_HOME`，其中`/usr/local/jdk1.8.0_152`为jdk的安装目录
 
-可以看到已经设置为nio2了。
+```sh
+export JAVA_HOME=/usr/local/jdk1.8.0_152
+export JRE_HOME=/usr/local/jdk1.8.0_152/jre
+```
+
+
+如果在catalina.sh不配置JAVA_HOME和JRE_HOME就会报如下的错误
+
+```sh
+[root@JourWon ~]# systemctl status tomcat
+● tomcat.service - Tomcat
+   Loaded: loaded (/usr/lib/systemd/system/tomcat.service; enabled; vendor preset: disabled)
+   Active: failed (Result: exit-code) since Mon 2019-10-21 19:54:54 CST; 6s ago
+  Process: 8746 ExecStart=/usr/local/tomcat/apache-tomcat-8.5.47/bin/startup.sh (code=exited, status=1/FAILURE)
+
+Oct 21 19:54:54 JourWon systemd[1]: Starting Tomcat...
+Oct 21 19:54:54 JourWon startup.sh[8746]: Neither the JAVA_HOME nor the JRE_...d
+Oct 21 19:54:54 JourWon startup.sh[8746]: At least one of these environment ...m
+Oct 21 19:54:54 JourWon systemd[1]: tomcat.service: control process exited,...=1
+Oct 21 19:54:54 JourWon systemd[1]: Failed to start Tomcat.
+Oct 21 19:54:54 JourWon systemd[1]: Unit tomcat.service entered failed state.
+Oct 21 19:54:54 JourWon systemd[1]: tomcat.service failed.
+Hint: Some lines were ellipsized, use -l to show in full.
+```
+
+在/usr/lib/systemd/system路径下添加tomcat.service文件，内容如下：
+
+```sh
+[Unit]
+Description=Tomcat
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=forking
+TimeoutSec=0
+PIDFile=/usr/local/tomcat/apache-tomcat-8.5.47/tomcat.pid
+ExecStart=/usr/local/tomcat/apache-tomcat-8.5.47/bin/startup.sh
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+```
+
+此外service文件修改后需要调用`systemctl daemon-reload`命令重新加载。
+
+配置`TimeoutSec=0`的目的是让开机启动不处理tomcat启动超时，保证tomcat耗时过长时不会被系统terminating，如果不配置可能出现下面的情况
+
+```sh
+Oct 21 20:26:37 JourWon startup.sh[1634]: Existing PID file found during start.
+Oct 21 20:26:37 JourWon startup.sh[1634]: Removing/clearing stale PID file.
+Oct 21 20:26:37 JourWon startup.sh[1634]: Tomcat started.
+Oct 21 20:26:37 JourWon systemd[1]: PID file /usr/local/tomcat/apache-tomcat-8.5.47/tomcat.pid not readable (yet?) after start.
+Oct 21 20:26:38 JourWon polkitd[464]: Unregistered Authentication Agent for unix-process:1628:19013 (system bus name :1.23, object path /org/freedesktop/PolicyKit1/AuthenticationAgent, loca
+Oct 21 20:28:07 JourWon systemd[1]: tomcat.service start operation timed out. Terminating.
+Oct 21 20:28:07 JourWon systemd[1]: Failed to start Tomcat.
+
+```
+
+把Tomcat加入开机自启动
+
+```sh
+systemctl enable tomcat.service
+```
+
+
+重启服务器
+
+```sh
+reboot
+```
+再次连接后，查看服务状态
+```sh
+systemctl status tomcat
+● tomcat.service - Tomcat
+   Loaded: loaded (/usr/lib/systemd/system/tomcat.service; enabled; vendor preset: disabled)
+   Active: activating (start) since Mon 2019-10-21 20:12:19 CST; 8s ago
+  Process: 9244 ExecStart=/usr/local/tomcat/apache-tomcat-8.5.47/bin/startup.sh (code=exited, status=0/SUCCESS)
+   CGroup: /system.slice/tomcat.service
+           └─9255 /usr/local/jdk1.8.0_152/jre/bin/java -Djava.util.logging.config.file=/usr/local/tomcat/apache-tomcat-8.5.47/conf/logging.properties -Djava.util.logging.manager=org.apac...
+
+Oct 21 20:12:19 JourWon systemd[1]: Starting Tomcat...
+Oct 21 20:12:19 JourWon startup.sh[9244]: Existing PID file found during start.
+Oct 21 20:12:19 JourWon startup.sh[9244]: Removing/clearing stale PID file.
+Oct 21 20:12:19 JourWon startup.sh[9244]: Tomcat started.
+Oct 21 20:12:19 JourWon systemd[1]: PID file /usr/local/tomcat/apache-tomcat-8.5.47/tomcat.pid not readable (yet?) after start.
+```
+
+查看开机启动列表命令
+
+```sh
+systemctl list-unit-files | grep enabled
+```
+
+查看Tomcat是否设置为开机启动项，如果显示为enabled，说明设置成功
+
+参数说明
+
+- static：表示该服务与其他服务相关联,不能单独设置该服务的启动状态
+- disabled：表示禁止开机启动
+- enabled：表示允许开机启动
+
+```sh
+systemctl list-unit-files | grep tomcat
+tomcat.service                                enabled
+```
 
 ## 参考文章
 
-[史上最强Tomcat8性能优化](https://blog.csdn.net/ThinkWon/article/details/102744033)
+[Linux(CentOS7)安装Tomcat与设置Tomcat为开机启动项](https://thinkwon.blog.csdn.net/article/details/102717537)
 

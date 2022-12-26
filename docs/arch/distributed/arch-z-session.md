@@ -1,421 +1,189 @@
 ---
-order: 31
+order: 70
 category:
   - 架构
 ---
 
-# 分布式系统  -  Redisson实现分布式锁原理
+# 分布式系统-分布式会话及实现方案
 
-![image-20221216152713896](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216152713896.png)
+>无状态的token或者有状态的Session集中管理是目前最为常用的方案，本节主要讨论的有状态的分布式Session会话, 包括Session Stick, Session Replication, Session 数据集中存储, Cookie Based 以及Token方式等
 
-## 0. 前言
+## 1. 基础概念
 
-在一个分布式系统中，由于涉及到多个实例同时对同一个资源加锁的问题，像传统的synchronized、ReentrantLock等单进程情况加锁的api就不再适用，需要使用分布式锁来保证多服务实例之间加锁的安全性。常见的分布式锁的实现方式有zookeeper和redis等。而由于redis分布式锁相对于比较简单，在实际的项目中，redis分布式锁被用于很多实际的业务场景中。
+> Session + Cookie 会话方案比较简单，这里我在网上找了点资料，再回顾下基础吧。
 
-redis分布式锁的实现中又以Redisson比较出名，所以本文来着重看一下Redisson是如何实现分布式锁的，以及Redisson提供了哪些其它的功能。
+### 1.1 为什么要产生Session
 
-## 1. 如何保证加锁的原子性
+http协议本身是无状态的，客户端只需要向服务器请求下载内容，客户端和服务器都不记录彼此的历史信息，每一次请求都是独立的。
 
->Redisson实现加锁的原子性是依赖lua脚本来实现的
->
->PS:Redisson 的最终加锁是由Lua脚本来实现的，redis在执行lua脚本的时候是可以保证加锁的原子性的
+为什么是无状态的呢？因为浏览器与服务器是使用socket套接字进行通信，服务器将请求结果返回给浏览器之后，会关闭当前的socket链接，而且服务器也会在处理页面完毕之后销毁页面对象。
 
-说到redis的分布式锁，可能第一时间就想到了setNx命令，这个命令保证一个key同时只能有一个线程设置成功，这样就能实现加锁的互斥性。但是Redisson并没有通过setNx命令来实现加锁，而是自己实现了一套完成的加锁的逻辑。
+然而在Web应用的很多场景下需要维护用户状态才能正常工作(是否登录等)，或者说提供便捷(记住密码，浏览历史等)，状态的保持就是一个很重要的功能。因此在web应用开发里就出现了保持http链接状态的技术：一个是cookie技术，另一种是session技术。
 
-Redisson的加锁使用代码如下，接下来会有几节着重分析一下这段代码逻辑背后实现的原理。
+### 1.2 Session有什么作用，如何产生并发挥作用
 
-![image-20221216153411470](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216153411470.png)
+要明白Session就必须要弄明白什么是Cookie，以及Cookie和Session的关系。
 
-先通过RedissonClient，传入锁的名称，拿到一个RLock，然后通过RLock实现加锁和释放锁。
+- **什么是Cookie**
 
-![image-20221216153429479](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216153429479.png)
+Cookie技术是http状态保持在客户端的解决方案，Cookie就是由服务器发给客户端的特殊信息，而这些信息以文本文件的方式存放在客户端，然后客户端每次向服务器发送请求的时候都会带上这些特殊的信息。
 
-getLock获得的RLock接口的实现是RedissonLock，所以我们看一下RedissonLock对lock()方法的实现。
+- **Cookie的产生**
 
-![image-20221216153454064](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216153454064.png)
+当用户首次使用浏览器访问一个支持Cookie的网站的时候，用户会提供包括用户名在内的个人信息并且提交至服务器；接着，服务器在向客户端回传相应的超文本的同时也会发回这些个人信息，当然这些信息并不是存放在HTTP响应体（Response Body）中的，而是存放于HTTP响应头（Response Header）；当客户端浏览器接收到来自服务器的响应之后，浏览器会将这些信息存放在一个统一的位置。
 
-lock方法会调用重载的lock方法，传入的leaseTime为-1，调用到这个lock方法，之后会调用tryAcquire实现加锁的逻辑。
+存储在硬盘上的cookie 不可以在不同的浏览器间共享，可以在同一浏览器的不同进程间共享，比如两个IE窗口。这是因为每中浏览器存储cookie的位置不一样，比如
 
-![image-20221216153651580](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216153651580.png)
+- ​	
+  - ​	Chrome下的cookie放在：C:\Users\sharexie\AppData\Local\Google\Chrome\User Data\Default\Cache
+  - Firefox下的cookie放在：C:\Users\sharexie\AppData\Roaming\Mozilla\Firefox\Profiles\tq2hit6m.default\cookies.sqlite （倒数第二个文件名是随机的文件名字）
+  - Ie下的cookie放在：C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Cookies
 
-tryAcquire最后会调到tryAcquireAsync方法，传入了leaseTime和当前加锁线程的id。tryAcquire和tryAcquireAsync的区别就是tryAcquireAsync是异步执行，而tryAcquire是同步等待tryAcquireAsync的结果，也就是异步转同步的过程。
+- **Cookie的内容、作用域以及有效期**
 
-![image-20221216153755162](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216153755162.png)
+cookie的内容主要包括：名字，值，过期时间，路径和域。路径与域合在一起就构成了cookie的作用范围。
 
-tryAcquireAsync方法会根据leaseTime是不是-1来判断使用哪个分支加锁，其实不论走哪个分支，最后都是调用tryLockInnerAsync方法来实现加锁，只不过是参数不同罢了。但是我们这里的leaseTime其实就是-1，所以会走下面的分支，尽管传入到tryAcquireAsync的leaseTime是-1，但是在调用tryLockInnerAsync方法传入的leaseTime参数是internalLockLeaseTime，默认是30s。
+如果不设置过期时间，则表示这个cookie的生命期为浏览器会话期间，只要关闭浏览器窗口，cookie就消失了，这种生命期为浏览器会话期的 cookie被称为会话cookie。会话cookie一般不存储在硬盘上而是保存在内存里。如果设置了过期时间，浏览器就会把cookie保存到硬盘上，关闭后再次打开浏览器，这些cookie仍然有效直到超过设定的过期时间。
 
-tryLockInnerAsync方法。
+- **Cookie如何使用**
 
-![image-20221216153908319](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216153908319.png)
+cookie 的使用是由浏览器按照一定的原则在后台自动发送给服务器的。
 
-通过tryLockInnerAsync方法的实现可以看出，最终加锁是通过一段lua脚本来实现加锁的，redis在执行lua脚本的时候是可以保证加锁的原子性的，所以Redisson实现加锁的原子性是依赖lua脚本来实现的。其实对于RedissonLock这个实现来说，最终实现加锁的逻辑都是通过tryLockInnerAsync来实现的。
+当客户端二次向服务器发送请求的时候，浏览器检查所有存储的cookie，如果某个cookie所声明的作用范围大于等于将要请求的资源所在的位置，则把该cookie附在请求资源的HTTP请求头上发送给服务器。有了Cookie这样的技术实现，服务器在接收到来自客户端浏览器的请求之后，就能够通过分析存放于请求头的Cookie得到客户端特有的信息，从而动态生成与该客户端相对应的内容。通常，我们可以从很多网站的登录界面中看到“请记住我”这样的选项，如果你勾选了它之后再登录，那么在下一次访问该网站的时候就不需要进行重复而繁琐的登录动作了，而这个功能就是通过Cookie实现的。
 
-来一张图总结一下lock方法加锁的调用逻辑。
+- **什么是Session**
 
-![image-20221216153949830](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216153949830.png)
+Session一般叫做会话，Session技术是http状态保持在服务端的解决方案，它是通过服务器来保持状态的。我们可以把客户端浏览器与服务器之间一系列交互的动作称为一个 Session。是服务器端为客户端所开辟的存储空间，在其中保存的信息就是用于保持状态。因此，session是解决http协议无状态问题的服务端解决方案，它能让客户端和服务端一系列交互动作变成一个完整的事务。
 
-## **2. 如何通过lua脚本实现加锁**
+- **Session的创建**
 
->lua脚本加锁逻辑：
->
->1. 先调用redids的exist命令判断加锁的key存不存在
->2. 不存在(第一次加锁)
->   1. 调用redis的hincrby的命令，设置加锁的key和加锁的某个客户端的某个线程，加锁次数设置为1（加锁次数是可重入的关键）
->   2. 调用redis的pexpire的命令，将加锁的key过期时间设置为30s
->3. 存在
->   1. 判断加锁的key是否是当前要加锁的线程，是的话加锁成功，对应的加锁次数加1（可重入实现）
+那么Session在何时创建呢？当然还是在服务器端程序运行的过程中创建的，不同语言实现的应用程序有不同创建Session的方法。
 
-通过上面分析可以看出，redis是通过执行lua脚本来实现加锁，保证加锁的原子性。那么接下来分析一下这段lua脚本干了什么。
+当客户端第一次请求服务端，当server端程序调用 HttpServletRequest.getSession(true)这样的语句时的时候，服务器会为客户端创建一个session，并将通过特殊算法算出一个session的ID，用来标识该session对象。
 
-![image-20221216154147848](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216154147848.png)
+Session存储在服务器的内存中(tomcat服务器通过StandardManager类将session存储在内存中)，也可以持久化到file，数据库，memcache，redis等。客户端只保存sessionid到cookie中，而不会保存session。
 
-其中这段脚本中的lua脚本中的参数的意思：
+浏览器的关闭并不会导致Session的删除，只有当超时、程序调用HttpSession.invalidate()以及服务端程序关闭才会删除。
 
-- KEYS[1]：就是锁的名称，对于我们的demo来说，就是myLock
-- ARGV[1]：就是锁的过期时间，不指定的话默认是30s
-- ARGV[2]：代表了加锁的唯一标识，由UUID和线程id组成。一个Redisson客户端一个UUID，UUID代表了一个唯一的客户端。所以由UUID和线程id组成了加锁的唯一标识，可以理解为某个客户端的某个线程加锁。
+- **Tomcat中的Session创建**
 
-那么这些参数是怎么传过去的呢，其实是在这里。
+`ManagerBase`是所有session管理工具类的基类，它是一个抽象类，所有具体实现session管理功能的类都要继承这个类，该类有一个受保护的方法，该方法就是创建sessionId值的方法：
 
-![image-20221216154400005](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216154400005.png)
+(tomcat的session的id值生成的机制是一个随机数加时间加上jvm的id值，jvm的id值会根据服务器的硬件信息计算得来，因此不同jvm的id值都是唯一的)。
 
-- getName：方法就是获取锁的名称
-- leaseTime：就是传入的锁的过期时间，如果指定超时时间就是指定的时间，没指定默认是30s
-- getLockName：就是获取加锁的客户端线程的唯一标识。
+`StandardManager`类是tomcat容器里默认的session管理实现类，它会将session的信息存储到web容器所在服务器的内存里。 `PersistentManagerBase`也是继承ManagerBase类，它是所有持久化存储session信息的基类，PersistentManager继承了PersistentManagerBase，但是这个类只是多了一个静态变量和一个getName方法，目前看来意义不大，对于持久化存储session，tomcat还提供了StoreBase的抽象类，它是所有持久化存储session的基类，另外tomcat还给出了文件存储FileStore和数据存储JDBCStore两个实现。
 
-### 2.1 lua的加锁
+- **Cookie与Session的关系**
 
-分析一下这段lua的加锁的逻辑。
+cookie和session的方案虽然分别属于客户端和服务端，但是服务端的session的实现对客户端的cookie有依赖关系的，服务端执行session机制时候会生成session的id值，这个id值会发送给客户端，客户端每次请求都会把这个id值放到http请求的头部发送给服务端，而这个id值在客户端会保存下来，保存的容器就是cookie，因此当我们完全禁掉浏览器的cookie的时候，服务端的session也会不能正常使用。
 
-1. 先调用redis的exists命令判断加锁的key存不存在，如果不存在的话，那么就进入if。不存在的意思就是还没有某个客户端的某个线程来加锁，第一次加锁肯定没有人来加锁，于是第一次if条件成立。
+## 2. 会话技术的发展
 
-2. 然后调用redis的hincrby的命令，设置加锁的key和加锁的某个客户端的某个线程，加锁次数设置为1，加锁次数很关键，是实现可重入锁特性的一个关键数据。用hash数据结构保存。hincrby命令完成后就形成如下的数据结构。
+> 会话技术的发展?
 
+- 单机 - Session + Cookie
+- 多机器
+  - 在负载均衡侧 - Session 粘滞
+  - Session数据同步
+- 多机器，集群 - session集中管理，比如redis；目前方案上用的最多的是SpringSession，早前也有用tomcat集成方式的。
+- 无状态token，比如JWT
+
+## 3. 分布式会话的方案
+
+> 无状态的token或者有状态的Session集中管理是目前最为常用的方案， 本节主要讨论的有状态的分布式Session会话。
+
+### 3.1 Session Stick
+
+> 为什么这种方案到目前还有很多项目使用呢？因为不需要在项目代码侧改动，而是只需要在负载均衡侧改动。
+
+方案即将客户端的每次请求都转发至同一台服务器，这就需要负载均衡器能够根据每次请求的会话标识（SessionId）来进行请求转发，如下图所示。
+
+<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623225012021.png" alt="image-20220623225012021" />
+
+这种方案实现比较简单，对于Web服务器来说和单机的情况一样。但是可能会带来如下问题：
+
+- 如果有一台服务器宕机或者重启，那么这台机器上的会话数据会全部丢失。
+- 会话标识是应用层信息，那么负载均衡要将同一个会话的请求都保存到同一个Web服务器上的话，就需要进行应用层（第7层）的解析，这个开销比第4层大。
+- 负载均衡器将变成一个有状态的节点，要将会话保存到具体Web服务器的映射。和无状态节点相比，内存消耗更大，容灾方面也会更麻烦。
+
+### 3.2 Session Replication
+
+Session Replication 的方案则不对负载均衡器做更改，而是在Web服务器之间增加了会话数据同步的功能，各个服务器之间通过同步保证不同Web服务器之间的Session数据的一致性，如下图所示。
+
+<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623225319136.png" alt="image-20220623225319136"  />
+
+Session Replication 方案对负载均衡器不再有要求，但是同样会带来以下问题：
+
+- 同步Session数据会造成额外的网络带宽的开销，只要Session数据有变化，就需要将新产生的Session数据同步到其他服务器上，服务器数量越多，同步带来的网络带宽开销也就越大。
+- 每台Web服务器都需要保存全部的Session数据，如果整个集群的Session数量太多的话，则对于每台机器用于保存Session数据的占用会很严重。
+
+### 3.3 Session 数据集中存储
+
+Session 数据集中存储方案则是将集群中的所有Session集中存储起来，Web服务器本身则并不存储Session数据，不同的Web服务器从同样的地方来获取Session，如下图所示。
+
+<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623225533405.png" alt="image-20220623225533405" />
+
+相对于Session Replication方案，此方案的Session数据将不保存在本机，并且Web服务器之间也没有了Session数据的复制，但是该方案存在的问题在于：
+
+- 读写Session数据引入了网络操作，这相对于本机的数据读取来说，问题就在于存在时延和不稳定性，但是通信发生在内网，则问题不大。
+- 如果集中存储Session的机器或集群出现问题，则会影响应用。
+
+### 3.4 Cookie Based
+
+Cookie Based 方案是将**Session数据放在Cookie里**，访问Web服务器的时候，再由Web服务器生成对应的Session数据，如下图所示。
+
+<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623225744196.png" alt="image-20220623225744196" />
+
+但是Cookie Based 方案依然存在不足：
+
+- Cookie长度的限制。这会导致Session长度的限制。
+- 安全性。Seesion数据本来是服务端数据，却被保存在了客户端，即使可以加密，但是依然存在不安全性。
+- 带宽消耗。这里不是指内部Web服务器之间的宽带消耗，而是数据中心的整体外部带宽的消耗。
+- 性能影响。每次HTTP请求和响应都带有Seesion数据，对Web服务器来说，在同样的处理情况下，响应的结果输出越少，支持的并发就会越高。
+
+## 4. Token
+
+JSON Web Token，一般用它来替换掉Session实现数据共享。
+
+使用基于 Token 的身份验证方法，在服务端不需要存储用户的登录记录。大概的流程是这样的：
+
+- 1、客户端通过用户名和密码登录服务器；
+- 2、服务端对客户端身份进行验证；
+- 3、服务端对该用户生成Token，返回给客户端；
+- 4、客户端将Token保存到本地浏览器，一般保存到cookie中；
+- 5、客户端发起请求，需要携带该Token；
+- 6、服务端收到请求后，首先验证Token，之后返回数据
+
+![image-20220623230215140](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623230215140.png)
+
+**优点**：
+
+- 无状态、可扩展 ：在客户端存储的Token是无状态的，并且能够被扩展。基于这种无状态和不存储Session信息，负载均衡器能够将用户信息从一个服务传到其他服务器上。
+- 安全：请求中发送token而不再是发送cookie能够防止CSRF(跨站请求伪造)。
+- 可提供接口给第三方服务：使用token时，可以提供可选的权限给第三方应用程序。
+- 多平台跨域
+
+对应用程序和服务进行扩展的时候，需要介入各种各种的设备和应用程序。 假如我们的后端api服务器a.com只提供数据，而静态资源则存放在cdn 服务器b.com上。当我们从a.com请求b.com下面的资源时，由于触发浏览器的同源策略限制而被阻止。
+
+**我们通过CORS（跨域资源共享）标准和token来解决资源共享和安全问题**。
+
+举个例子，我们可以设置b.com的响应首部字段为：
+
+```bash
+// 第一行指定了允许访问该资源的外域 URI。
+Access-Control-Allow-Origin: http://a.com
+
+// 第二行指明了实际请求中允许携带的首部字段，这里加入了Authorization，用来存放token。
+Access-Control-Allow-Headers: Authorization, X-Requested-With, Content-Type, Accept
+
+// 第三行用于预检请求的响应。其指明了实际请求所允许使用的 HTTP 方法。
+Access-Control-Allow-Methods: GET, POST, PUT,DELETE
+
+// 然后用户从a.com携带有一个通过了验证的token访问B域名，数据和资源就能够在任何域上被请求到。
+
+  
 ```
-myLock:{
-
-"b983c153-7421-469a-addb-44fb92259a1b:1":1
-
-}
-```
-
-3. 最后调用redis的pexpire的命令，将加锁的key过期时间设置为30s。
-
-​	从这里可以看出，第一次有某个客户端的某个线程来加锁的逻辑还是挺简单的，就是判断有没有人加过锁，没有的话就自己去加锁，设置加锁的key，再存一下加锁的线程和加锁次数，设置一下锁的过期时间为30s。
-
-### 2.2 lua脚本加锁流程图
-
-画一张图来看一下lua脚本加锁的逻辑干了什么。
-
-![image-20221216155034735](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216155034735.png)
-
-至于第二段if是干什么的，我们后面再说。
-
-## 3. **为什么需要设置加锁key的过期时间**
-
->为了防止死锁
-
-通过上面的加锁逻辑可以知道，虽然我们没有手动设置锁的过期时间，但是Redisson默认会设置一个30s的过期时间，为什么需要过期时间呢？
-
-主要原因是为了防止死锁。当某个客户端获取到锁，还没来得及主动释放锁，那么此时假如客户端宕机了，又或者是释放锁失败了，那么如果没有设置过期时间，那么这个锁key会一直在，那么其它线程来加锁的时候会发现key已经被加锁了，那么其它线程一直会加锁失败，就会产生死锁的问题。
-
-## 4.（看门狗）**如何自动延长加锁时间**
-
->加锁成功后，没有指定过期时间、客户端起一个定时任务、来定时延长加锁时间，默认每10s执行一次。所以watchdog的本质其实就是一个定时任务。
-
-通过上面的分析我们都知道，在加锁的时候，就算没有指定锁的过期时间，Redisson默认也会给锁设置30s的过期时间，主要是用来防止死锁。
-
-虽然设置了默认过期时间能够防止死锁，但是这也有一个问题，如果在30s内，任务没有结束，但是锁已经被释放了，失效了，一旦有其它线程加锁成功，那么就完全有可能出现线程安全数据错乱的问题。
-
-所以Redisson对于这种未指定超时时间的加锁，就实现了一个叫watchdog机制，也就是看门狗机制来自动延长加锁的时间。
-
-在客户端通过tryLockInnerAsync方法加锁成功之后，如果你没有指定锁过期的时间，那么客户端会起一个定时任务，来定时延长加锁时间，默认每10s执行一次。所以watchdog的本质其实就是一个定时任务。
-
-![image-20221216160948252](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216160948252.png)
-
-最后会定期执行如下的一段lua脚本来实现加锁时间的延长。
-
-![image-20221216161003382](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216161003382.png)
-
-解释一下这段lua脚本中参数的意思，其实是跟加锁的参数的意思是一样
-
-- KEYS[1]：就是锁的名称，对于我们的demo来说，就是myLock
-- ARGV[1]：就是锁的过期时间
-- ARGV[2]：代表了加锁的唯一标识，b983c153-7421-469a-addb-44fb92259a1b:1。
-
-这段lua脚本的意思就是判断来续约的线程跟加锁的线程是同一个，如果是同一个，那么将锁的过期时间延长到30s，然后返回1，代表续约成功，不是的话就返回0，代表续约失败，下一次定时任务也就不会执行了。
-
-![image-20221216161259355](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216161259355.png)
-
-> 注意：因为有了看门狗机制，所以说如果你没有设置过期时间（超时自动释放锁的逻辑后面会说）并且没有主动去释放锁，那么这个锁就永远不会被释放，因为定时任务会不断的去延长锁的过期时间，造成死锁的问题。但是如果发生宕机了，是不会造成死锁的，因为宕机了，服务都没了，那么看门狗的这个定时任务就没了，也自然不会去续约，等锁自动过期了也就自动释放锁了，跟上述说的为什么需要设置过期时间是一样的。
-
-## 5. **如何实现可重入加锁**
-
-可重入加锁的意思就是同一个客户端同一个线程也能多次对同一个锁进行加锁。
-
-也就是同时可以执行多次 lock方法，流程都是一样的，最后也会调用到lua脚本，所以可重入加锁的逻辑最后也是通过加锁的lua脚本来实现的。
-
-上面加锁逻辑的lua脚本的前段我上面已经说过，下半部分也就是可重入加锁的逻辑。
-
-![image-20221216161540409](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216161540409.png)
-
-下面这段if的意思就是，判断当前已经加锁的key对应的加锁线程跟要来加锁的线程是不是同一个，如果是的话，就将这个线程对应的加锁次数加1，也就实现了可重入加锁，同时返回nil回去。
-
-可重入加锁成功之后，加锁key和对应的值可能是这样。
-
-```
-myLock:{
-
-"b983c153-7421-469a-addb-44fb92259a1b:1":2
-
-}
-```
-
-所以加锁lua脚本的第二段if的逻辑其实是实现可重入加锁的逻辑。
-
-![image-20221216161636532](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216161636532.png)
-
-## 6. （解锁）如何主动释放锁和避免其它线程释放了自己加的锁
-
-当业务执行完成之后，肯定需要主动释放锁，那么为什么需要主动释放锁呢？
-
-- 第一，假设你任务执行完，没有手动释放锁，如果没有指定锁的超时时间，那么因为有看门狗机制，势必会导致这个锁无法释放，那么就可能造成死锁的问题。
-
-- 第二，如果你指定了锁超时时间（锁超时自动释放逻辑后面会说），虽然并不会造成死锁的问题，但是会造成资源浪费的问题。假设你设置的过期时间是30s，但是你的任务2s就完成了，那么这个锁还会白白被占有28s的时间，这28s内其它线程都无法成功加锁。
-
-所以任务完成之后，一定需要主动释放锁。
-
-那么Redisson是如何主动释放锁和避免其它线程释放了自己加的锁？
-
-主动释放锁是通过unlock方法来完成的，接下来就分析一下unlock方法的实现。unlock会调用unlockAsync，传入当然释放线程的id，代表了当前线程来释放锁，unlock其实也是将unlockAsync的异步操作转为同步操作。
-
-![image-20221216162637083](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216162637083.png)
-
-unlockAsync最后会调用RedissonLock的unlockInnerAsync来实现释放锁的逻辑。
-
-![image-20221216162653470](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216162653470.png)
-
-### 6.1 解锁lua脚本
-
-1. 先判断来释放锁的线程是不是加锁的线程，如果不是，那么直接返回nil，所以从这里可以看出，主要是通过一个if条件来防止线程释放了其它线程加的锁。
-
-2. 如果来释放锁的线程是加锁的线程，那么就将加锁次数减1，然后拿到剩余的加锁次数 counter 变量。
-
-3. 如果counter大于0，说明有重入加锁，锁还没有彻底的释放完，那么就设置一下锁的过期时间，然后返回0
-
-4. 如果counter没大于0，说明当前这个锁已经彻底释放完了，于是就把锁对应的key给删除，然后发布一个锁已经释放的消息，然后返回1。
-
-![image-20221216162808214](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216162808214.png)
-
-## 7. **如何实现超时自动释放锁**
-
->设置自动释放锁后，锁过期时间由我们自己指定。其他加锁逻辑不变。
->
->但是不会开启watchdog后台线程，续约加锁时间，加锁key到了过期时间就会自动删除，也就达到了释放锁的目的。
-
-前面我们说了不指定锁超时时间的话，那么会有看门狗线程不断的延长加锁时间，不会导致锁超时释放，自动过期。那么指定超时时间的话，是如何实现到了指定时间超时释放锁的呢？
-
-能够设置超时自动释放锁的方法。
-
-```
-void lock(long leaseTime, TimeUnit unit)
-```
-
-```
-boolean tryLock(long waitTime, long leaseTime, TimeUnit unit)
-```
-
-通过传入leaseTime参数就可以指定锁超时的时间。
-
-无论指不指定超时时间，最终其实都会调用tryAcquireAsync方法，只不过当不指定超时时间时，leaseTime传入的是-1，也就是代表不指定超时时间，但是Redisson默认还是会设置30s的过期时间；当指定超时时间，那么leaseTime就是我们自己指定的时间，最终也是通过同一个加锁的lua脚本逻辑。
-
-指定和不指定超时时间的主要区别是，加锁成功之后的逻辑不一样，不指定超时时间时，会开启watchdog后台线程，不断的续约加锁时间，而指定超时时间，就不会去开启watchdog定时任务，这样就不会续约，加锁key到了过期时间就会自动删除，也就达到了释放锁的目的。
-
-![image-20221216163218532](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216163218532.png)
-
-所以指定超时时间达到超时释放锁的功能主要还是通过redis自动过期来实现，因为指定了超时时间，加锁成功之后就不会开启watchdog机制来延长加锁的时间。
-
-> 在实际项目中，指不指定锁的超时时间是根据具体的业务来的，如果你能够比较准确的预估出代码执行的时间，那么可以指定锁超时释放时间来防止业务执行错误导致无法释放锁的问题，如果不能预估出代码执行的时间，那么可以不指定超时时间。
-
-## **8. 如何实现不同线程加锁的互斥**
-
->因为lua脚本加锁的逻辑同时只有一个线程能够执行（redis是单线程的原因）。而lua脚本本身是原子性的
-
-上面我们分析了第一次加锁逻辑和可重入加锁的逻辑，因为lua脚本加锁的逻辑同时只有一个线程能够执行（redis是单线程的原因），所以一旦有线程加锁成功，那么另一个线程来加锁，前面两个if条件都不成立，最后通过调用redis的pttl命令返回锁的剩余的过期时间回去。
-
-这样，客户端就根据返回值来判断是否加锁成功，因为第一次加锁和可重入加锁的返回值都是nil，而加锁失败就返回了锁的剩余过期时间。
-
-所以加锁的lua脚本通过条件判断就实现了加锁的互斥操作，保证其它线程无法加锁成功。
-
-![image-20221216163816136](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216163816136.png)
-
-> 所以总的来说，加锁的lua脚本实现了第一次加锁、可重入加锁和加锁互斥的逻辑。
-
-## **9. 加锁失败之后如何实现阻塞等待加锁**
-
->通过 死循环（自旋）地的方式实现阻塞
-
-从上面分析，加锁失败之后，会走如下的代码。
-
-![image-20221216163902824](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216163902824.png)
-
-从这里可以看出，最终会执行死循环（自旋）地的方式来不停地通过tryAcquire方法来尝试加锁，直到加锁成功之后才会跳出死循环，如果一直没有成功加锁，那么就会一直旋转下去，所谓的阻塞，实际上就是自旋加锁的方式。
-
-但是这种阻塞可能会产生问题，因为如果其它线程释放锁失败，那么这个阻塞加锁的线程会一直阻塞加锁，这肯定会出问题的。所以有没有能够可以指定阻塞的时间，如果超过一定时间还未加锁成功的话，那么就放弃加锁的方法。答案肯定是有的，接着往下看。
-
-## **10. 如何实现阻塞等待一定时间还未加锁成功就放弃加锁**
-
-超时放弃加锁的方法
-
-```
-boolean tryLock(long waitTime, long leaseTime, TimeUnit unit)
-```
-
-```
-boolean tryLock(long time, TimeUnit unit)
-```
-
-通过waitTime参数或者time参数来指定超时时间。这两个方法的主要区别就是上面的方法支持指定锁超时时间，下面的方法不支持锁超时自动释放。
-
-tryLock(long time, TimeUnit unit)这个方法最后也是调用tryLock(long waitTime, long leaseTime, TimeUnit unit)方法的实现。代码如下。
-
-![image-20221216164448812](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216164448812.png)
-
-其实通过源码就可以看出是怎么实现一定时间之内还未获取到锁就放弃加锁的逻辑，其实相比于一直获取锁，主要是加了超时的判断，如果超时了，那么就退出循环，放弃加锁，
-
-## **11. 如何实现公平锁**
-
-### 11.1 什么是公平锁
-
-所谓的公平锁就是指线程成功加锁的顺序跟线程来加锁的顺序是一样，实现了先来先成功加锁的特性，所以叫公平锁。就跟排队一样，不插队才叫公平。
-
-前面几节讲的RedissonLock的实现是非公平锁，但是里面的一些机制，比如看门狗都是一样的。
-
-### **11.2 公平锁和非公平锁的比较**
-
-公平锁的优点是按序平均分配锁资源，不会出现线程饿死的情况，它的缺点是按序唤醒线程的开销大，执行性能不高。非公平锁的优点是执行效率高，谁先获取到锁，锁就属于谁，不会“按资排辈”以及顺序唤醒，但缺点是资源分配随机性强，可能会出现线程饿死的情况。
-
-### 11.3 如何使用公平锁？
-
-通过RedissonClient的getFairLock就可以获取到公平锁。Redisson对于公平锁的实现是RedissonFairLock类，通过RedissonFairLock来加锁，就能实现公平锁的特性，使用代码如下。
-
-![image-20221216164650827](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216164650827.png)
-
-RedissonFairLock继承了RedissonLock，主要是重写了tryLockInnerAsync方法，也就是加锁逻辑的方法。
-
-下面来分析一下RedissonFairLock的加锁逻辑。
-
-![image-20221216164712751](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216164712751.png)
-
-这段加锁的逻辑很长，我就简单说一下这段lua脚本干了啥。
-
-当线程来加锁的时候，如果加锁失败了，那么会将线程扔到一个set集合中，这样就按照加锁的顺序给线程排队，set集合的头部的线程就代表了接下来能够加锁成功的线程。当有线程释放了锁之后，其它加锁失败的线程就会来继续加锁，加锁之前会先判断一下set集合的头部的线程跟当前要加锁的线程是不是同一个，如果是的话，那就加锁成功，如果不是的话，那么就加锁失败，这样就实现了加锁的顺序性。
-
-当然这段lua脚本还做了一些其它细节的事，这里就不再赘述。
-
-## **12. 如何实现读写锁**
-
-在实际的业务场景中，其实会有很多读多写少的场景，那么对于这种场景来说，使用独占锁来加锁，在高并发场景下会导致大量的线程加锁失败，阻塞，对系统的吞吐量有一定的影响，为了适配这种读多写少的场景，Redisson也实现了读写锁的功能。
-
-读写锁的特点：
-
-- 读与读是共享的，不互斥
-- 读与写互斥
-- 写与写互斥
-
-Redisson使用读写锁的代码。
-
-![image-20221216164831330](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216164831330.png)
-
-Redisson通过RedissonReadWriteLock类来实现读写锁的功能，通过这个类可以获取到读锁或者写锁，所以真正的加锁的逻辑是由读锁和写锁实现的。
-
-那么Redisson是如何具体实现读写锁的呢？
-
-前面说过，加锁成功之后会在redis中维护一个hash的数据结构，存储加锁线程和加锁次数。在读写锁的实现中，会往hash数据结构中多维护一个mode的字段，来表示当前加锁的模式。
-
-所以能够实现读写锁，最主要是因为维护了一个加锁模式的字段mode，这样有线程来加锁的时候，就能根据当前加锁的模式结合读写的特性来判断要不要让当前来加锁的线程加锁成功。
-
-- 如果没有加锁，那么不论是读锁还是写锁都能加成功，成功之后根据锁的类型维护mode字段。
-- 如果模式是读锁，那么加锁线程是来加读锁的，就让它加锁成功。
-- 如果模式是读锁，那么加锁线程是来加写锁的，就让它加锁失败。
-- 如果模式是写锁，那么加锁线程是来加写锁的，就让它加锁失败（加锁线程自己除外）。
-- 如果模式是写锁，那么加锁线程是来加读锁的，就让它加锁失败（加锁线程自己除外）。
-
-## 13. 如何实现批量加锁(联锁)
-
-批量加锁的意思就是同时加几个锁，只有这些锁都算加成功了，才是真正的加锁成功。
-
-比如说，在一个下单的业务场景中，同时需要锁定订单、库存、商品，基于这种需要锁多种资源的场景中，Redisson提供了批量加锁的实现，对应的实现类是RedissonMultiLock。
-
-Redisson提供了批量加锁使用代码如下。
-
-![image-20221216165005622](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216165005622.png)
-
-Redisson对于批量加锁的实现其实很简单，源码如下
-
-![image-20221216165023566](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216165023566.png)
-
-就是根据顺序去依次调用传入myLock1、myLock2、myLock3 加锁方法，然后如果都成功加锁了，那么multiLock就算加锁成功。
-
-## 14. Redis分布式锁存在的问题
-
-对于单Redis实例来说，如果Redis宕机了，那么整个系统就无法工作了。所以为了保证Redis的高可用性，一般会使用主从或者哨兵模式。但是如果使用了主从或者哨兵模式，此时Redis的分布式锁的功能可能就会出现问题。
-
-举个例子来说，假如现在使用了哨兵模式，如图。
-
-![image-20221216165112674](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216165112674.png)
-
-基于这种模式，Redis客户端会在master节点上加锁，然后异步复制给slave节点。
-
-但是突然有一天，因为一些原因，master节点宕机了，那么哨兵节点感知到了master节点宕机了，那么就会从slave节点选择一个节点作为主节点，实现主从切换，如图：
-
-![image-20221216165143149](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216165143149.png)
-
-这种情况看似没什么问题，但是不幸的事发生了，那就是客户端对原先的主节点加锁，加成之后还没有来得及同步给从节点，主节点宕机了，从节点变成了主节点，此时从节点是没有加锁信息的，如果有其它的客户端来加锁，是能够加锁成功的，这不是很坑爹么。。
-
-那么如何解决这种问题呢？Redis官方提供了一种叫RedLock的算法，Redisson刚好实现了这种算法，接着往下看。
-
-## 15. 如何实现RedLock算法
-
-### 15.1 RedLock算法
-
-在Redis的分布式环境中，我们假设有N个Redis master。这些节点完全互相独立，不存在主从复制或者其他集群协调机制。之前我们已经描述了在Redis单实例下怎么安全地获取和释放锁。我们确保将在每（N)个实例上使用此方法获取和释放锁。在这个样例中，我们假设有5个Redis master节点，这是一个比较合理的设置，所以我们需要在5台机器上面或者5台虚拟机上面运行这些实例，这样保证他们不会同时都宕掉。
-
-为了取到锁，客户端应该执行以下操作:
-
-1. 获取当前Unix时间，以毫秒为单位。
-2. 依次尝试从N个实例，使用相同的key和随机值获取锁。在步骤2，当向Redis设置锁时,客户端应该设置一个网络连接和响应超时时间，这个超时时间应该小于锁的失效时间。例如你的锁自动失效时间为10秒，则超时时间应该在5-50毫秒之间。这样可以避免服务器端Redis已经挂掉的情况下，客户端还在死死地等待响应结果。如果服务器端没有在规定时间内响应，客户端应该尽快尝试另外一个Redis实例。
-3. 客户端使用当前时间减去开始获取锁时间（步骤1记录的时间）就得到获取锁使用的时间。当且仅当从大多数（这里是3个节点）的Redis节点都取到锁，并且使用的时间小于锁失效时间时，锁才算获取成功。
-4. 如果取到了锁，key的真正有效时间等于有效时间减去获取锁所使用的时间（步骤3计算的结果）。
-5. 如果因为某些原因，获取锁失败（没有在至少N/2+1个Redis实例取到锁或者取锁时间已经超过了有效时间），客户端应该在所有的Redis实例上进行解锁（即便某些Redis实例根本就没有加锁成功）。
-
-### 15.2 Redisson对RedLock算法的实现
-
-使用方法如下。
-
-```java
-RLock lock1 = redissonInstance1.getLock("lock1");
-RLock lock2 = redissonInstance2.getLock("lock2");
-RLock lock3 = redissonInstance3.getLock("lock3"); 
-RedissonRedLock lock = new RedissonRedLock(lock1, lock2, lock3);
-// 同时加锁：lock1 lock2 lock3
-// 红锁在大部分节点上加锁成功就算成功。
-lock.lock();
-...
-lock.unlock();
-```
-
-RedissonRedLock加锁过程如下：
-
-- 获取所有的redisson node节点信息，循环向所有的redisson node节点加锁，假设节点数为N，例子中N等于5。一个redisson node代表一个主从节点。
-- 如果在N个节点当中，有N/2 + 1个节点加锁成功了，那么整个RedissonRedLock加锁是成功的。
-- 如果在N个节点当中，小于N/2 + 1个节点加锁成功，那么整个RedissonRedLock加锁是失败的。
-- 如果中途发现各个节点加锁的总耗时，大于等于设置的最大等待时间，则直接返回失败。
-
-RedissonRedLock底层其实也就基于RedissonMultiLock实现的，RedissonMultiLock要求所有的加锁成功才算成功，RedissonRedLock要求只要有N/2 + 1个成功就算成功。
-
-![image-20221216165936419](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221216165936419.png)
 
 ## 参考文章
 
-[Redisson夺命15连问](https://mp.weixin.qq.com/s/ueCXJpHel0SoI6dnfvYqHA)
+[**分布式系统 - 分布式会话及实现方案**](https://pdai.tech/md/arch/arch-z-session.html)

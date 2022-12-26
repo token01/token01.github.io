@@ -18,23 +18,23 @@ category:
 
 为保证存储在SSO中数据的安全性，SSO资源（桶和对象）默认为私有，只有资源拥有者可以访问。
 
-![image-20220723215329125](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723215329125.png)
+![image-20220723215329125](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723215329125.png)
 
 如果要允许他人访问和使用自己的SSO资源，可以设置访问权限控制策略，向他人授予指定资源的特定权限。
 
 ### 1.2 访问权限控制的典型场景（华为OBS）
 
-![image-20220723215427075](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723215427075.png)
+![image-20220723215427075](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723215427075.png)
 
-![image-20220723215435149](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723215435149.png)
+![image-20220723215435149](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723215435149.png)
 
-![image-20220723215448794](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723215448794.png)
+![image-20220723215448794](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723215448794.png)
 
 ### 1.3 OBS如何进行访问权限控制（华为OBS）
 
 OBS提供丰富灵活的访问权限控制手段，满足不同场景下的授权需求。
 
-![image-20220723215518369](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723215518369.png)
+![image-20220723215518369](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723215518369.png)
 
 ## 2. IAM用户权限控制
 
@@ -48,7 +48,7 @@ OBS提供丰富灵活的访问权限控制手段，满足不同场景下的授�
 
 用户是权限最直接的体现，Minio提供了用户管理功能，可以在控制台直接添加用户密码（密码最少八位），及相关权限。
 
-![image-20220723215838647](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723215838647.png)
+![image-20220723215838647](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723215838647.png)
 
 #### 2.1.2 用户分组管理
 
@@ -56,17 +56,17 @@ OBS提供丰富灵活的访问权限控制手段，满足不同场景下的授�
 
 直接在下面菜单创建分组：
 
-![image-20220723215919268](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723215919268.png)
+![image-20220723215919268](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723215919268.png)
 
 添加分组时，可以绑定用户：
 
-![image-20220723215939690](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723215939690.png)
+![image-20220723215939690](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723215939690.png)
 
 点击操作，可以对当前分组添加多个角色：
 
-![image-20220723220008424](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723220008424.png)
+![image-20220723220008424](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723220008424.png)
 
-![image-20220723220020227](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723220020227.png)
+![image-20220723220020227](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723220020227.png)
 
 ### 2.2 IAM权限
 
@@ -83,7 +83,7 @@ IAM权限作用于SSO所有的桶和对象。如果要授予IAM用户操作SSO�
 
 策略结构包括：Version（策略版本号）和Statement（策略权限语句），其中Statement可以有多个，表示不同的授权项。
 
-![image-20220723220938897](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723220938897.png)
+![image-20220723220938897](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723220938897.png)
 
 S3标准策略语法（阿里华为SSO有点小改动，结构类似），示例：
 
@@ -145,11 +145,11 @@ AWS Identity and Access Management (IAM) 是一种 Web 服务，可以帮助您�
 
 首先在控制台点击IAM策略，然后点击创建策略。
 
-![image-20220723221412178](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723221412178.png)
+![image-20220723221412178](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723221412178.png)
 
 填写策略名称，输入策略Json。
 
-![image-20220723221434656](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723221434656.png)
+![image-20220723221434656](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723221434656.png)
 
 策略Json文件内容如下：
 
@@ -181,24 +181,24 @@ AWS Identity and Access Management (IAM) 是一种 Web 服务，可以帮助您�
 
 添加之后，可以查看到当前决策的内容信息，也可以修改Json文件。
 
-![image-20220723221535166](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723221535166.png)
+![image-20220723221535166](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723221535166.png)
 
 然后进入用户管理，选择用户后，再添加我们自定义的权限策略。
 
-![image-20220723221901440](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723221901440.png)
+![image-20220723221901440](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723221901440.png)
 
 **测试**：
 使用当前用户账号创建客户端，然后直接读写操作，发现是正常具有权限的。
 
-![image-20220723221920534](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723221920534.png)
+![image-20220723221920534](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723221920534.png)
 
 然后去掉s3:PutObject，也就是上传文件的权限。
 
-![image-20220723221941094](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723221941094.png)
+![image-20220723221941094](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723221941094.png)
 
 在执行putObject时，返回403访问被拒绝，而getObject时则正常执行
 
-![image-20220723221959046](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723221959046.png)
+![image-20220723221959046](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723221959046.png)
 
 ## 3. 桶策略
 
@@ -212,23 +212,23 @@ AWS Identity and Access Management (IAM) 是一种 Web 服务，可以帮助您�
 
 点击存储桶的管理按钮，进入管理页面。
 
-![image-20220723222415091](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723222415091.png)
+![image-20220723222415091](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723222415091.png)
 
 然后可以在Summary中，看到当前桶的访问策略为私有Private。
 
-![image-20220723222505048](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723222505048.png)
+![image-20220723222505048](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723222505048.png)
 
 可以点击Private，弹出设置权限，可选的只有Private和Public。
 
-![image-20220723222524252](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723222524252.png)
+![image-20220723222524252](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723222524252.png)
 
 当选择私有时，未登录或者未授权访问文件，会出现以下未授权页面：
 
-![image-20220723222551161](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723222551161.png)
+![image-20220723222551161](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723222551161.png)
 
 当选择公开时，无需登录和授权可以直接访问文件：
 
-![image-20220723222613339](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723222613339.png)
+![image-20220723222613339](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723222613339.png)
 
 #### 3.1.2 访问规则管理
 
@@ -238,15 +238,15 @@ AWS Identity and Access Management (IAM) 是一种 Web 服务，可以帮助您�
 
 首先点击添加访问规则按钮。
 
-![image-20220723222714145](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723222714145.png)
+![image-20220723222714145](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723222714145.png)
 
 然后添加访问前缀，访问规则。
 
-![image-20220723222802171](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723222802171.png)
+![image-20220723222802171](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723222802171.png)
 
 访问规则支持一下三种：
 
-![image-20220723222822997](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723222822997.png)
+![image-20220723222822997](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723222822997.png)
 
 ### 3.2 后台管理桶策略
 

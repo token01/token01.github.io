@@ -9,7 +9,7 @@
 
 ## 2. 表设计
 
-![image-20220320091410960](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220320091410960.png)
+![image-20220320091410960](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220320091410960.png)
 
 ### 2.1 商品属性分类表
 
@@ -110,38 +110,38 @@ create table pms_product_category_attribute_relation
 
 #### 4.1.1 商品属性分类列表
 
-![image-20220320085212569](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220320085212569.png)
+![image-20220320085212569](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220320085212569.png)
 
 #### 4.1.2 商品规格列表
 
-![image-20220320085314213](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220320085314213.png)
+![image-20220320085314213](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220320085314213.png)
 
 #### 4.1.3 商品参数列表
 
-![image-20220320085349425](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220320085349425.png)
+![image-20220320085349425](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220320085349425.png)
 
 #### 4.1.4 添加商品属性
 
-![image-20220320085501748](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220320085501748.png)
+![image-20220320085501748](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220320085501748.png)
 
 #### 4.1.5添加商品时，选中商品属性分类，就会显示该分类的属性，用于生成sku
 
-![image-20220320085541469](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220320085541469.png)
+![image-20220320085541469](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220320085541469.png)
 
 #### 4.1.6 添加商品时，选中商品属性分类，会显示该分类的参数用于录入
 
-![image-20220320085637294](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220320085637294.png)
+![image-20220320085637294](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220320085637294.png)
 
 ### 4.2 移动端
 
 #### 4.2.1 选择商品规格
 
-![image-20220320085754333](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220320085754333.png)
+![image-20220320085754333](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220320085754333.png)
 
 #### 4.2.2 查看商品参数
 
-![image-20220320085836611](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220320085836611.png)
+![image-20220320085836611](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220320085836611.png)
 
 #### 4.2.3 搜索商品时用于选择分类后的筛选
 
-![image-20220320085906873](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220320085906873.png)
+![image-20220320085906873](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220320085906873.png)

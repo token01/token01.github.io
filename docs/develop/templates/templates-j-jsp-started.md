@@ -34,7 +34,7 @@
 
       创建的webapp会有个小蓝点的特殊标识。如没有请配置
 
-      ![image-20201012095417642](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20201012095417642.png)
+      ![image-20201012095417642](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20201012095417642.png)
 
 2. 在`jsp`文件夹下创建`index.jsp`
 
@@ -53,7 +53,7 @@
    </html>
    ```
 
-![image-20201012100215862](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20201012100215862.png)
+![image-20201012100215862](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20201012100215862.png)
 
 4. 创建controller
 
@@ -96,7 +96,7 @@
 
    - 通过spring-boot:run启动服务,idea里直接双击即可:
 
-     ![image-20201012100720902](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20201012100720902.png)
+     ![image-20201012100720902](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20201012100720902.png)
 
 ## 2. 常见问题
 
@@ -104,7 +104,7 @@
 
 参考如下图配置
 
-![image-20201012095417642](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20201012095417642.png)
+![image-20201012095417642](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20201012095417642.png)
 
 ### 2.2 JSP访问404
 

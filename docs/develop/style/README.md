@@ -1,8 +1,8 @@
 ---
-title: 开发 - 规范/风格
+title: 代码规范/风格
 index: false
 dir:
-  order: 70
+  order: 60
 ---
 
 ## 目录

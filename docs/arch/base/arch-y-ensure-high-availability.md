@@ -11,7 +11,7 @@ category:
 
 高可用性对于我们来说应该属于经常提到的名词，本文我们将介绍在分布式系统中保证高可用性的一些常用经验。
 
-![image-20221013102031819](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221013102031819.png)
+![image-20221013102031819](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221013102031819.png)
 
 ## 0. 影响可用性的因素有哪些
 
@@ -30,7 +30,7 @@ Availability=MTTF/(MTTF+MTTRMTTF)
 
 MTTF 是 Mean Time To Failure，指平均故障前的时间，即系统平均能够正常运行多长时间才发生一次故障。系统的可靠性越高，MTTF 越长(简单理解MTTF 就是指系统正常运行的时间)。MTTR 是 Mean Time To Recovery， 平均修复时间，即从故障出现到故障修复的这段时间，也就是系统不可用的时间，这段时间越短越好。系统可用性指标可以用通过下表的999标准衡量，现在普遍要求至少2个9，最好4个9以上：
 
-![image-20221012203820810](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012203820810.png)
+![image-20221012203820810](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012203820810.png)
 
 ## 2. 故障不可避免
 
@@ -81,7 +81,7 @@ Zookeeper 采用主从设计，服务集群由 Leader、Follower 和 Observer �
 
 断路器的基本设计图如下，由关闭、打开、半开三种状态组成：
 
-![image-20221012205543264](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012205543264.png)
+![image-20221012205543264](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012205543264.png)
 
 - 关闭(Closed)状态：此时服务调用方可以调用服务提供方。断路器中使用失败计数器周期性统计请求失败次数和请求总次数的比例，如果最近失败频率超过了周期时间内允许失败的阈值，则切换到打开(Open)状态。在关闭状态下，失败计数器基于时间周期运作，会在每个统计周期开始前自动重置，防止某次偶然错误导致断路器进入打开状态。
 - 打开(Open)状态：在该状态下，对应用程序的请求会立即返回错误响应或者执行预设的失败降级逻辑，而不调用服务提供方。断路器进入打开状态后会启动超时计时器，在计时器到达后，断路器进入半开状态。
@@ -105,7 +105,7 @@ Zookeeper 采用主从设计，服务集群由 Leader、Follower 和 Observer �
 
 漏桶算法(Leaky Bucket)是网络世界中流量整形(Traffic Shaping)或速率限制(Rate Limiting)时经常使用的一种算法，它的主要目的是控制数据注入到系统的速率，平滑对系统的突发流量，为系统提供一个稳定的请求流量。
 
-![image-20221012210842217](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012210842217.png)
+![image-20221012210842217](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012210842217.png)
 
 如上图所示，水(请求)先进入到漏桶，而出去的水量表示系统处理的请求。当访问流量过大时漏桶中就会积水，如果水太多了就会溢出，此时请求将会被拒绝。
 
@@ -113,7 +113,7 @@ Zookeeper 采用主从设计，服务集群由 Leader、Follower 和 Observer �
 
 令牌桶算法则是一个存放固定容量令牌的桶，按照固定速率往桶里添加令牌。桶中存放的令牌数有最大上限，超出之后就被丢弃。当流量或者网络请求到达时，每个请求都要获取一个令牌，如果能够获取到，则直接处理，同时令牌桶会删除一个令牌。如果获取不到，该请求就要被限流，要么直接丢弃，要么在缓冲区等待。
 
-![image-20221012211150889](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221012211150889.png)
+![image-20221012211150889](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221012211150889.png)
 
 ## 4. 其他设计与方案
 

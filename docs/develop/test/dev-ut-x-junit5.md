@@ -1,98 +1,84 @@
 ---
-order: 30
+order: 40
 category:
   - Test
-
 ---
 
-# 单元测试 - JUnit4 详解
+# 单元测试 - Junit5 详解
 
-> JUint是Java编程语言的单元测试框架，用于编写和运行可重复的自动化测试。本文主要针对Junit4要点进行梳理总结。
+> JUnit 5是JUnit的下一代。目标是为JVM上的开发人员端测试创建一个最新的基础。这包括专注于Java 8及更高版本，以及启用许多不同风格的测试。
 
-## 1. 什么是JUnit？
-
-JUint是Java编程语言的单元测试框架，用于编写和运行可重复的自动化测试。
-
-## 2.  JUnit特点？
-
-JUnit 是一个开放的资源框架，用于编写和运行测试。
-
-- 提供注解来识别测试方法。
-- 提供断言来测试预期结果。
-- JUnit 测试允许你编写代码更快，并能提高质量。
-- JUnit 优雅简洁。没那么复杂，花费时间较少。
-- JUnit测试可以自动运行并且检查自身结果并提供即时反馈。所以也没有必要人工梳理测试结果的报告。
-- JUnit测试可以被组织为测试套件，包含测试用例，甚至其他的测试套件。
-- JUnit在一个条中显示进度。如果运行良好则是绿色；如果运行失败，则变成红色。
-
-## 3. 官方资料
+## 1. 官方资料
 
 > 最好的资料依然在Junit官方网站，以下我帮你总结下Junit相关的官方网址。
 
 - 官网地址
 
-https://junit.org/junit4/
+https://junit.org/junit5/
 
 - 官方入门文档
 
-https://github.com/junit-team/junit4/wiki/Assertions
+https://junit.org/junit5/docs/current/user-guide/#overview
+
+- 官方例子
+
+https://github.com/junit-team/junit5-samples
 
 - 官方github
 
 https://github.com/junit-team
 
-## 4. 常用注解
+## 2. Junit5的架构
 
-- **@Test**
+与以前版本的JUnit不同，JUnit 5由三个不同子项目中的几个不同模块组成。
 
-在junit3中，是通过对测试类和测试方法的命名来确定是否是测试，且所有的测试类必须继承junit的测试基类。在junit4中，定义一个测试方法变得简单很多，只需要在方法前加上@Test就行了。
+> JUnit 5 = JUnit Platform + JUnit Jupiter + JUnit Vintage
 
-注意：测试方法必须是public  void，即公共、无返回数据。可以抛出异常。
+- **JUnit Platform**是基于JVM的运行测试的基础框架在，它定义了开发运行在这个测试框架上的TestEngine API。此外该平台提供了一个控制台启动器，可以从命令行启动平台，可以为Gradle和 Maven构建插件，同时提供基于JUnit 4的Runner。
+- **JUnit Jupiter**是在JUnit 5中编写测试和扩展的新编程模型和扩展模型的组合.Jupiter子项目提供了一个TestEngine在平台上运行基于Jupiter的测试。
+- **JUnit Vintage**提供了一个TestEngine在平台上运行基于JUnit 3和JUnit 4的测试。
 
-- **@Ignore**
+架构图如下:
 
-有时候我们想暂时不运行某些测试方法\测试类，可以在方法前加上这个注解。在运行结果中，junit会统计忽略的用例数，来提醒你。但是不建议经常这么做，因为这样的坏处时，容易忘记去更新这些测试方法，导致代码不够干净，用例遗漏。使用此标注的时候不能与其它标注一起使用，如：和@Test 标注一起使用，那就没用了
+![image-20220831221957679](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831221957679.png)
 
-- **@BeforeClass**
+## 3. JUnit Jupiter API 的使用
 
-当我们运行几个有关联的用例时，可能会在数据准备或其它前期准备中执行一些相同的命令，这个时候为了让代码更清晰，更少冗余，可以将公用的部分提取出来，放在一个方法里，并为这个方法注解@BeforeClass。意思是在测试类里所有用例运行之前，运行一次这个方法。例如创建数据库连接、读取文件等。
+> JUnit Jupiter是在JUnit 5中编写测试和扩展的新编程模型和扩展模型的组合; 所以我们使用Jupiter来学习Junit5。
 
-注意：方法名可以任意，但必须是public static void，即公开、静态、无返回。这个方法只会运行一次。
+### 3.1 常用注解
 
-- **@AfterClass**
+**@Test** 表示方法是一种测试方法。 与JUnit 4的@Test注解不同，此注释不会声明任何属性。
 
-跟@BeforeClass对应，在测试类里所有用例运行之后，运行一次。用于处理一些测试后续工作，例如清理数据，恢复现场。
+**@ParameterizedTest** 表示方法是参数化测试
 
-注意：同样必须是public static void，即公开、静态、无返回。这个方法只会运行一次。
+**@RepeatedTest** 表示方法是重复测试模板
 
-- **@Before**
+**@TestFactory** 表示方法是动态测试的测试工程
 
-与@BeforeClass的区别在于，@Before不止运行一次，它会在每个用例运行之前都运行一次。主要用于一些独立于用例之间的准备工作。
+**@DisplayName** 为测试类或者测试方法自定义一个名称
 
-比如两个用例都需要读取数据库里的用户A信息，但第一个用例会删除这个用户A，而第二个用例需要修改用户A。那么可以用@BeforeClass创建数据库连接。用@Before来插入一条用户A信息。
+**@BeforeEach** 表示方法在每个测试方法运行前都会运行 ，**@AfterEach** 表示方法在每个测试方法运行之后都会运行
 
-注意：必须是public void，不能为static。不止运行一次，根据用例数而定。
+**@BeforeAll** 表示方法在所有测试方法之前运行 ，**@AfterAll** 表示方法在所有测试方法之后运行
 
-- **@After**：与@Before对应。
-- **@Runwith**
-  - 首先要分清几个概念：测试方法、测试类、测试集、测试运行器。
-  - 其中测试方法就是用@Test注解的一些函数。
-  - 测试类是包含一个或多个测试方法的一个Test.java文件。
-  - 测试集是一个suite，可能包含多个测试类。
-  - 测试运行器则决定了用什么方式偏好去运行这些测试集/类/方法。
-  - 而@Runwith就是放在测试类名之前，用来确定这个类怎么运行的。也可以不标注，会使用默认运行器。常见的运行器有：
-    - @RunWith(Parameterized.class) 参数化运行器，配合@Parameters使用junit的参数化功能
-    - @RunWith(Suite.class) @SuiteClasses({ATest.class,BTest.class,CTest.class})测试集运行器配合使用测试集功能
-    - @RunWith(JUnit4.class) junit4的默认运行器
-    - @RunWith(JUnit38ClassRunner.class) 用于兼容junit3.8的运行器
-    - 一些其它运行器具备更多功能。例如@RunWith(SpringJUnit4ClassRunner.class)集成了spring的一些功能
-- **@Parameters**： 用于使用参数化功能。
+**@Nested** 表示带注解的类是嵌套的非静态测试类，**@BeforeAll**和 **@AfterAll**方法不能直接在@Nested测试类中使用，除非修改测试实例生命周期。
 
-## 5. 编写单元测试
+**@Tag** 用于在类或方法级别声明用于过滤测试的标记
 
-> 接下来，我们开始学习JUnit4单元测试实例:
+**@Disabled** 用于禁用测试类或测试方法
 
-### 5.1 Maven包引入
+**@ExtendWith** 用于注册自定义扩展，该注解可以继承
+
+**@FixMethodOrder(MethodSorters.NAME_ASCENDING)**，控制测试类中方法执行的顺序，这种测试方式将按方法名称的进行排序，由于是按字符的字典顺序，所以以这种方式指定执行顺序会始终保持一致；不过这种方式需要对测试方法有一定的命名规则，如 测试方法均以testNNN开头（NNN表示测试方法序列号 001-999）
+
+## 4. 编写单元测试
+
+> 接下来，我们开始学习JUnit5单元测试实例:
+
+### 4.1 Maven包引入
+
+最新的包引入，请参考这里:https://junit.org/junit5/docs/current/user-guide/#running-tests
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -101,43 +87,57 @@ https://github.com/junit-team
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>java-junit4</artifactId>
+    <groupId>pdai.tech</groupId>
+    <artifactId>java-junit5</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
     <dependencies>
+        <!-- Only needed to run tests in a version of IntelliJ IDEA that bundles older versions -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>1.7.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.7.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>5.7.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.7.0</version>
+        </dependency>
+
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
         </dependency>
     </dependencies>
 
 </project>
 ```
 
-### 5.2 测试:Hello World
+### 4.2 测试:Hello World
+
+第一个测试:
 
 ```java
-package tech.pdai.junit4;
+package tech.pdai.junit5;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Hello world test.
@@ -146,661 +146,892 @@ import static org.junit.Assert.assertEquals;
 public class HelloWorldTest {
 
     @Test
-    public void firstTest() {
+    void firstTest() {
         assertEquals(2, 1 + 1);
     }
-}
+}  
 ```
 
 执行结果
 
-![image-20220831214552642](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831214552642.png)
+![image-20220831222625032](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831222625032.png)
 
-@Test注解在方法上标记方法为测试方法，以便构建工具和 IDE 能够识别并执行它们。JUnit 4 需要测试方法为public，这和Junit 5 有差别。
+@Test注解在方法上标记方法为测试方法，以便构建工具和 IDE 能够识别并执行它们。JUnit 5不再需要手动将测试类与测试方法为public，包可见的访问级别就足够了。
 
 ### 5.3 测试:生命周期
 
-- **@BeforeClass**注解修饰的方法(该方法要用static修饰)会在所有方法运行前被执行，且只执行一次，通常用来为后面测试方法的准备工作，如加载配置、进行数据库的连接等。父类的@BeforeClass注解方法会在子类的@BeforeClass注解方法执行前执行。
-- **@Before**注解修饰的方法会在每个测试方法执行前执行一次,父类@Before修饰的方法会在子类@Before修饰的方法执行前 执行
-- **@After**注解修饰的方法会在每个测试方法执行后执行一次,父类@After修饰的方法会在子类@After修饰的方法执行后执行。
-- **@AfterClass**注解修饰的方法(该方法要用static修饰)会在所有方法执行结束后执行一次，且也只执行一次，通常用来对资源进行释放，比如数据库连接的关闭等，无论测试用例里的其他方法有没有抛出异常，该方法最终都会被执行。而且父类中的被@AfterClass注解方法修饰的方法会在子类的@AfterClass注解修饰的方法执行之后才会被执行。
+首先，需要对比下Junit5和Junit4注解:
+
+| Junit4       | Junit5          | 注释                                                         |
+| ------------ | --------------- | ------------------------------------------------------------ |
+| @Test        | @Test           | 表示该方法是一个测试方法                                     |
+| @BeforeClass | **@BeforeAll**  | 表示使用了该注解的方法应该在当前类中所有测试方法之前执行（只执行一次），并且它必须是 static方法（除非@TestInstance指定生命周期为Lifecycle.PER_CLASS） |
+| @AfterClass  | **@AfterAll**   | 表示使用了该注解的方法应该在当前类中所有测试方法之后执行（只执行一次），并且它必须是 static方法（除非@TestInstance指定生命周期为Lifecycle.PER_CLASS） |
+| @Before      | **@BeforeEach** | 表示使用了该注解的方法应该在当前类中每一个测试方法之前执行   |
+| @After       | **@AfterEach**  | 表示使用了该注解的方法应该在当前类中每一个测试方法之后执行   |
+| @Ignore      | @Disabled       | 用于禁用（或者说忽略）一个测试类或测试方法                   |
+| @Category    | @Tag            | 用于声明过滤测试的tag标签，该注解可以用在方法或类上          |
+
+测试用例:
 
 ```java
-package tech.pdai.junit4;
+package tech.pdai.junit5;
 
-import org.junit.*;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Standard Test.
+ *
  */
 public class StandardTest {
 
-    @BeforeClass
-    public static void beforeClass() {
-        System.out.println("in before class");
+    @BeforeAll
+    static void initAll() {
+        System.out.println("BeforeAll");
     }
 
-    @AfterClass
-    public static void afterClass() {
-        System.out.println("in after class");
-    }
-
-    @Before
-    public void before() {
-        System.out.println("in before");
-    }
-
-    @After
-    public void after() {
-        System.out.println("in after");
+    @BeforeEach
+    void init() {
+        System.out.println("BeforeEach");
     }
 
     @Test
-    public void testCase1() {
-        System.out.println("in test case 1");
+    void succeedingTest() {
+        System.out.println("succeedingTest");
     }
 
     @Test
-    public void testCase2() {
-        System.out.println("in test case 2");
+    void failingTest() {
+        System.out.println("failingTest");
+        fail("a failing test");
+    }
+
+    @Test
+    @Disabled("for demonstration purposes")
+    void skippedTest() {
+        // not executed
+    }
+
+    @Test
+    void abortedTest() {
+        System.out.println("abortedTest");
+        assumeTrue("abc".contains("Z"));
+        fail("test should have been aborted");
+    }
+
+    @AfterEach
+    void tearDown() {
+        System.out.println("AfterEach");
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        System.out.println("AfterEach");
     }
 
 }
-
 ```
 
 执行结果
 
-![image-20220831215023723](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831215023723.png)
+![image-20220831223001414](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831223001414.png)
+
+观察正确和错误的结果:
+
+```bash
+BeforeAll
+
+BeforeEach
+succeedingTest
+AfterEach
+
+
+BeforeEach
+failingTest
+AfterEach
+
+
+org.opentest4j.AssertionFailedError: a failing test
+  at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:39)
+  // ...
+
+
+BeforeEach
+abortedTest
+AfterEach
+
+
+org.opentest4j.TestAbortedException: Assumption failed: assumption is not true
+	at org.junit.jupiter.api.Assumptions.throwTestAbortedException(Assumptions.java:256)
+  // ...
+
+AfterEach
+
+Process finished with exit code 255
+```
 
 ### 5.4 测试:禁用测试
 
-**@Ignore**：暂不执行该方法；
+这是一个禁用的测试案例：
 
 ```java
-package tech.pdai.junit4;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Ignore;
-import org.junit.Test;
-
-/**
- * Ignore Test.
- */
-public class IgnoreTest {
-
-    /**
-     * ignore.
-     */
-    @Ignore
+@Disabled
+class DisabledClassTest {
     @Test
-    public void ignoreTest(){
-        System.out.println("ignore test");
+    void testWillBeSkipped() {
     }
 }
 ```
 
-执行结果
+这是一个带有禁用测试方法的测试案例：
 
-![image-20220831215116619](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831215116619.png)
+```java
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+class DisabledTest {
+
+    @Disabled
+    @Test
+    void testWillBeSkipped() {
+    }
+
+    @Test
+    void testWillBeExecuted() {
+    }
+}
+```
 
 ### 5.5 测试:断言测试
 
-- **断言测试注解有哪些**
+> 准备好测试实例、执行了被测类的方法以后，断言能确保你得到了想要的结果。一般的断言，无非是检查一个实例的属性（比如，判空与判非空等），或者对两个实例进行比较（比如，检查两个实例对象是否相等）等。无论哪种检查，断言方法都可以接受一个字符串作为最后一个可选参数，它会在断言失败时提供必要的描述信息。如果提供出错信息的过程比较复杂，它也可以被包装在一个 lambda 表达式中，这样，只有到真正失败的时候，消息才会真正被构造出来。
 
-| 断言                                                         | 描述                                                         |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| void assertEquals([String message],expected value,actual value) | 断言两个值相等。值类型可能是int，short，long，byte，char，Object，第一个参数是一个可选字符串消息 |
-| void assertTrue([String message],boolean condition)          | 断言一个条件为真                                             |
-| void assertFalse([String message],boolean condition)         | 断言一个条件为假                                             |
-| void assertNotNull([String message],java.lang.Object object) | 断言一个对象不为空（null）                                   |
-| void assertNull([String message],java.lang.Object object)    | 断言一个对象为空（null）                                     |
-| void assertSame([String message],java.lang.Object expected,java.lang.Object actual) | 断言两个对象引用相同的对象                                   |
-| void assertNotSame([String message],java.lang.Object unexpected,java.lang.Object actual) | 断言两个对象不是引用同一个对象                               |
-| void assertArrayEquals([String message],expectedArray,resultArray) | 断言预期数组和结果数组相等，数组类型可能是int，short，long，byte，char，Object |
+- 常用断言 Assertions
+  - `assertEquals` 断言预期值和实际值相等
+  - `assertAll` 分组断言,执行其中包含的所有断言
+  - `assertArrayEquals` 断言预期数组和实际数组相等
+  - `assertFalse` 断言条件为假
+  - `assertNotNull` 断言不为空
+  - `assertSame` 断言两个对象相等
+  - `assertTimeout` 断言超时
+  - `fail` 使单元测试失败
 
-- **简单测试**
-
-```java
-package tech.pdai.junit4;
-
-import org.junit.Assert;
-import org.junit.Test;
-
-/**
- * Assertion Test.
- */
-public class AssertionTest {
-
-    @Test
-    public void test() {
-        String obj1 = "junit";
-        String obj2 = "junit";
-        String obj3 = "test";
-        String obj4 = "test";
-        String obj5 = null;
-
-        int var1 = 1;
-        int var2 = 2;
-
-        int[] array1 = {1, 2, 3};
-        int[] array2 = {1, 2, 3};
-
-        Assert.assertEquals(obj1, obj2);
-
-        Assert.assertSame(obj3, obj4);
-        Assert.assertNotSame(obj2, obj4);
-
-        Assert.assertNotNull(obj1);
-        Assert.assertNull(obj5);
-
-        Assert.assertTrue(var1 < var2);
-        Assert.assertFalse(var1 > var2);
-
-        Assert.assertArrayEquals(array1, array2);
-
-    }
-}
-
-```
-
-在以上类中我们可以看到，这些断言方法是可以工作的。
-
-- assertEquals() 如果比较的两个对象是相等的，此方法将正常返回；否则失败显示在JUnit的窗口测试将中止。
-- assertSame() 和 assertNotSame() 方法测试两个对象引用指向完全相同的对象。
-- assertNull() 和 assertNotNull() 方法测试一个变量是否为空或不为空(null)。
-- assertTrue() 和 assertFalse() 方法测试if条件或变量是true还是false。
-- assertArrayEquals() 将比较两个数组，如果它们相等，则该方法将继续进行不会发出错误。否则失败将显示在JUnit窗口和中止测试。
-- **更多测试，来自官网**https://github.com/junit-team/junit4/wiki/Assertions
+定义一个Person实体类
 
 ```java
-package tech.pdai.junit4;
+package tech.pdai.junit5.entity;
 
-import org.hamcrest.core.CombinableMatcher;
-import org.junit.Test;
-
-import java.util.Arrays;
-
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 /**
- * More Assertion Test from Junit-Team.
+ * Person.
+ *
  */
-public class Assertion2Test {
+@Data
+@AllArgsConstructor
+public class Person {
 
-    @Test
-    public void testAssertArrayEquals() {
-        byte[] expected = "trial".getBytes();
-        byte[] actual = "trial".getBytes();
-        assertArrayEquals("failure - byte arrays not same", expected, actual);
-    }
+    private String firstName;
 
-    @Test
-    public void testAssertEquals() {
-        assertEquals("failure - strings are not equal", "text", "text");
-    }
-
-    @Test
-    public void testAssertFalse() {
-        assertFalse("failure - should be false", false);
-    }
-
-    @Test
-    public void testAssertNotNull() {
-        assertNotNull("should not be null", new Object());
-    }
-
-    @Test
-    public void testAssertNotSame() {
-        assertNotSame("should not be same Object", new Object(), new Object());
-    }
-
-    @Test
-    public void testAssertNull() {
-        assertNull("should be null", null);
-    }
-
-    @Test
-    public void testAssertSame() {
-        Integer aNumber = Integer.valueOf(768);
-        assertSame("should be same", aNumber, aNumber);
-    }
-
-    // JUnit Matchers assertThat
-    @Test
-    public void testAssertThatBothContainsString() {
-        assertThat("albumen", both(containsString("a")).and(containsString("b")));
-    }
-
-    @Test
-    public void testAssertThatHasItems() {
-        assertThat(Arrays.asList("one", "two", "three"), hasItems("one", "three"));
-    }
-
-    @Test
-    public void testAssertThatEveryItemContainsString() {
-        assertThat(Arrays.asList(new String[]{"fun", "ban", "net"}), everyItem(containsString("n")));
-    }
-
-    // Core Hamcrest Matchers with assertThat
-    @Test
-    public void testAssertThatHamcrestCoreMatchers() {
-        assertThat("good", allOf(equalTo("good"), startsWith("good")));
-        assertThat("good", not(allOf(equalTo("bad"), equalTo("good"))));
-        assertThat("good", anyOf(equalTo("bad"), equalTo("good")));
-        assertThat(7, not(CombinableMatcher.<Integer>either(equalTo(3)).or(equalTo(4))));
-        assertThat(new Object(), not(sameInstance(new Object())));
-    }
-
-    @Test
-    public void testAssertTrue() {
-        assertTrue("failure - should be true", true);
-    }
+    private String lastName;
 }
 ```
 
-执行结果
+测试代码:
 
-![image-20220831215444837](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831215444837.png)
+```java
+package tech.pdai.junit5;
+
+import org.junit.jupiter.api.Test;
+import tech.pdai.junit5.entity.Person;
+
+import static java.time.Duration.ofMillis;
+import static java.time.Duration.ofMinutes;
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * Assertions Test.
+ *
+ */
+public class AssertionsTest {
+
+    Person person = new Person("John", "Doe");
+
+    @Test
+    void standardAssertions() {
+        assertEquals(2, 2);
+        assertEquals(4, 4, "The optional assertion message is now the last parameter.");
+        assertTrue(2 == 2, () -> "Assertion messages can be lazily evaluated -- "
+                + "to avoid constructing complex messages unnecessarily.");
+    }
+
+    @Test
+    void groupedAssertions() {
+        // In a grouped assertion all assertions are executed, and any
+        // failures will be reported together.
+        assertAll("person",
+                () -> assertEquals("John", person.getFirstName()),
+                () -> assertEquals("Doe", person.getLastName())
+        );
+    }
+
+    @Test
+    void dependentAssertions() {
+        // Within a code block, if an assertion fails the
+        // subsequent code in the same block will be skipped.
+        assertAll("properties",
+                () -> {
+                    String firstName = person.getFirstName();
+                    assertNotNull(firstName);
+
+                    // Executed only if the previous assertion is valid.
+                    assertAll("first name",
+                            () -> assertTrue(firstName.startsWith("J")),
+                            () -> assertTrue(firstName.endsWith("n"))
+                    );
+                },
+                () -> {
+                    // Grouped assertion, so processed independently
+                    // of results of first name assertions.
+                    String lastName = person.getLastName();
+                    assertNotNull(lastName);
+
+                    // Executed only if the previous assertion is valid.
+                    assertAll("last name",
+                            () -> assertTrue(lastName.startsWith("D")),
+                            () -> assertTrue(lastName.endsWith("e"))
+                    );
+                }
+        );
+    }
+
+    @Test
+    void exceptionTesting() {
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            throw new IllegalArgumentException("a message");
+        });
+        assertEquals("a message", exception.getMessage());
+    }
+
+    @Test
+    void timeoutNotExceeded() {
+        // The following assertion succeeds.
+        assertTimeout(ofMinutes(2), () -> {
+            // Perform task that takes less than 2 minutes.
+        });
+    }
+
+    @Test
+    void timeoutNotExceededWithResult() {
+        // The following assertion succeeds, and returns the supplied object.
+        String actualResult = assertTimeout(ofMinutes(2), () -> {
+            return "a result";
+        });
+        assertEquals("a result", actualResult);
+    }
+
+    @Test
+    void timeoutNotExceededWithMethod() {
+        // The following assertion invokes a method reference and returns an object.
+        String actualGreeting = assertTimeout(ofMinutes(2), AssertionsTest::greeting);
+        assertEquals("hello world!", actualGreeting);
+    }
+
+    @Test
+    void timeoutExceeded() {
+        // The following assertion fails with an error message similar to:
+        // execution exceeded timeout of 10 ms by 91 ms
+        assertTimeout(ofMillis(10), () -> {
+            // Simulate task that takes more than 10 ms.
+            Thread.sleep(100);
+        });
+    }
+
+    @Test
+    void timeoutExceededWithPreemptiveTermination() {
+        // The following assertion fails with an error message similar to:
+        // execution timed out after 10 ms
+        assertTimeoutPreemptively(ofMillis(10), () -> {
+            // Simulate task that takes more than 10 ms.
+            Thread.sleep(100);
+        });
+    }
+
+    private static String greeting() {
+        return "hello world!";
+    }
+}
+```
+
+这里注意下:`assertTimeoutPreemptively()` 和 `assertTimeout()` 的区别为: 两者都是断言超时，前者在指定时间没有完成任务就会立即返回断言失败；后者会在任务执行完毕之后才返回。
+
+执行结果:
+
+![image-20220831223351165](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831223351165.png)
+
+观察错误的结果:
+
+```java
+org.opentest4j.AssertionFailedError: execution timed out after 10 ms
+	at org.junit.jupiter.api.AssertTimeout.assertTimeoutPreemptively(AssertTimeout.java:158)
+	at org.junit.jupiter.api.AssertTimeout.assertTimeoutPreemptively(AssertTimeout.java:119)
+	at org.junit.jupiter.api.AssertTimeout.assertTimeoutPreemptively(AssertTimeout.java:101)
+	at org.junit.jupiter.api.AssertTimeout.assertTimeoutPreemptively(AssertTimeout.java:97)
+	at org.junit.jupiter.api.Assertions.assertTimeoutPreemptively(Assertions.java:3323)
+	at tech.pdai.junit5.AssertionsTest.timeoutExceededWithPreemptiveTermination(AssertionsTest.java:108)
+  // ...
+
+org.opentest4j.AssertionFailedError: execution exceeded timeout of 10 ms by 92 ms
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:39)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:117)
+	at org.junit.jupiter.api.AssertTimeout.assertTimeout(AssertTimeout.java:90)
+	at org.junit.jupiter.api.AssertTimeout.assertTimeout(AssertTimeout.java:70)
+	at org.junit.jupiter.api.AssertTimeout.assertTimeout(AssertTimeout.java:52)
+	at org.junit.jupiter.api.AssertTimeout.assertTimeout(AssertTimeout.java:48)
+	at org.junit.jupiter.api.Assertions.assertTimeout(Assertions.java:3186)
+	at tech.pdai.junit5.AssertionsTest.timeoutExceeded(AssertionsTest.java:98)
+  // ...
+
+
+Process finished with exit code 255
+```
 
 ### 5.6 测试:异常测试
 
-Junit 用代码处理提供了一个追踪异常的选项。你可以测试代码是否它抛出了想要得到的异常。expected 参数和 @Test 注释一起使用。现在让我们看看 @Test(expected):
+我们代码中对于带有异常的方法通常都是使用 try-catch 方式捕获处理，针对测试这样带有异常抛出的代码，而 JUnit 5 提供方法 `Assertions#assertThrows(Class<T>, Executable)` 来进行测试，第一个参数为异常类型，第二个为函数式接口参数，跟 Runnable 接口相似，不需要参数，也没有返回，并且支持 Lambda表达式方式使用，具体使用方式可参考下方代码:
 
 ```java
-package tech.pdai.junit4;
+package tech.pdai.junit5;
 
-import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Exception Test.
  */
 public class ExceptionTest {
 
-    @Test(expected = ArithmeticException.class)
-    public void exceptionTest() {
-        System.out.println("in exception success test");
-        int a = 0;
-        int b = 1 / a;
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void exceptionFailTest() {
-        System.out.println("in exception fail test");
-        int a = 0;
-        int b = 1 / a;
-    }
-}
-```
-
-执行结果
-
-![image-20220831215613241](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831215613241.png)
-
-观察错误的信息：
-
-```java
-in exception success test
-in exception fail test
-
-java.lang.Exception: Unexpected exception, expected<java.lang.NullPointerException> but was<java.lang.ArithmeticException>
-
-	at org.junit.internal.runners.statements.ExpectException.evaluate(ExpectException.java:28)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
-	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
-	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:68)
-	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:33)
-	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:230)
-	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)
-Caused by: java.lang.ArithmeticException: / by zero
-	at tech.pdai.junit4.ExceptionTest.exceptionFailTest(ExceptionTest.java:21)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.internal.runners.statements.ExpectException.evaluate(ExpectException.java:19)
-	... 14 more
-```
-
-### 5.7 测试:时间测试
-
-JUnit提供了一个暂停的方便选项，如果一个测试用例比起指定的毫秒数花费了更多的时间，那么JUnit将自动将它标记为失败，timeout参数和@Test注解一起使用，例如@Test(timeout=1000)。
-
-- **简单例子**
-
-```java
-package tech.pdai.junit4;
-
-import org.junit.Test;
-
-import java.util.concurrent.TimeUnit;
-
-/**
- * Timeout Test.
- */
-public class TimeoutTest {
-
-    @Test(timeout = 1000)
-    public void testCase1() throws InterruptedException {
-        TimeUnit.SECONDS.sleep(5000);
-        System.out.println("in timeout exception");
-    }
-} 
-```
-
-执行结果
-
-![image-20220831215749198](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831215749198.png)
-
-观察错误的信息：
-
-```java
-org.junit.runners.model.TestTimedOutException: test timed out after 1000 milliseconds
-
-	at java.lang.Thread.sleep(Native Method)
-	at java.lang.Thread.sleep(Thread.java:340)
-	at java.util.concurrent.TimeUnit.sleep(TimeUnit.java:386)
-	at tech.pdai.junit4.TimeoutTest.testCase1(TimeoutTest.java:14)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:298)
-	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:292)
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
-	at java.lang.Thread.run(Thread.java:748)
-```
-
-- **超时规则**
-
-应用到测试类的所有测试用例
-
-```java
-package tech.pdai.junit4;
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.Timeout;
-
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
-/**
- * Timeout Rule.
- */
-public class HasGlobalTimeoutTest {
-
-    public static String log;
-
-    private final CountDownLatch latch = new CountDownLatch(1);
-
-    @Rule
-    public Timeout globalTimeout = Timeout.seconds(10); // 10 seconds max per method tested
-
+    // 标准的测试例子
     @Test
-    public void testSleepForTooLong() throws Exception {
-        log += "ran1";
-        TimeUnit.SECONDS.sleep(100); // sleep for 100 seconds
-    }
-
-    @Test
-    public void testBlockForever() throws Exception {
-        log += "ran2";
-        latch.await(); // will block
-    }
-}
-```
-
-执行结果
-
-![image-20220831220027821](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831220027821.png)
-
-### 5.8 测试:参数化测试
-
-Junit 4 引入了一个新的功能参数化测试。参数化测试允许开发人员使用不同的值反复运行同 一个测试。你将遵循 5 个步骤来创建参数化测试：
-
-- 为准备使用参数化测试的测试类指定特殊的运行器 org.junit.runners.Parameterized。
-- 为测试类声明几个变量，分别用于存放期望值和测试所用数据。
-- 为测试类声明一个带有参数的公共构造函数，并在其中为第二个环节中声明的几个变量赋值。
-- 为测试类声明一个使用注解 org.junit.runners.Parameterized.Parameters 修饰的，返回值为 java.util.Collection 的公共静态方法，并在此方法中初始化所有需要测试的参数对。
-- 编写测试方法，使用定义的变量作为参数进行测试。
-
-**什么是@RunWith**?
-
-首先要分清几个概念：测试方法、测试类、测试集、测试运行器。
-
-- 其中测试方法就是用@Test注解的一些函数。
-- 测试类是包含一个或多个测试方法的一个**Test.java文件，
-- 测试集是一个suite，可能包含多个测试类。
-- 测试运行器则决定了用什么方式偏好去运行这些测试集/类/方法。
-
-而@Runwith就是放在测试类名之前，用来确定这个类怎么运行的。也可以不标注，会使用默认运行器。**常见的运行器**有：
-
-- @RunWith(Parameterized.class) 参数化运行器，配合@Parameters使用JUnit的参数化功能
-- @RunWith(Suite.class) @SuiteClasses({ATest.class,BTest.class,CTest.class}) 测试集运行器配合使用测试集功能
-- @RunWith(JUnit4.class)， junit4的默认运行器
-- @RunWith(JUnit38ClassRunner.class)，用于兼容junit3.8的运行器 一些其它运行器具备更多功能。例如@RunWith(SpringJUnit4ClassRunner.class)集成了spring的一些功能
-- **测试例子**
-
-待测试类
-
-```java
-package tech.pdai.junit4;
-
-/**
- * PrimeNumberChecker.
- */
-public class PrimeNumberChecker {
-
-    public Boolean validate(final Integer parimeNumber) {
-        for (int i = 2; i < (parimeNumber / 2); i++) {
-            if (parimeNumber % i == 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-}
-
-```
-
-测试类
-
-```java
-package tech.pdai.junit4;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-
-import java.util.Arrays;
-import java.util.Collection;
-
-/**
- * Parameterized Test.
- *
- */
-@RunWith(Parameterized.class) // 步骤一: 指定定参数运行器
-public class PrimeNumberCheckerTest {
-
-    /**
-     * 步骤二：声明变量
-     */
-    private Integer inputNumber;
-    private Boolean expectedResult;
-    private PrimeNumberChecker primeNumberChecker;
-
-    /**
-     * 步骤三：为测试类声明一个带有参数的公共构造函数，为变量赋值
-     */
-    public PrimeNumberCheckerTest(Integer inputNumber,
-                                  Boolean expectedResult) {
-        this.inputNumber = inputNumber;
-        this.expectedResult = expectedResult;
-    }
-
-    /**
-     * 步骤四：为测试类声明一个使用注解 org.junit.runners.Parameterized.Parameters 修饰的，返回值为
-     * java.util.Collection 的公共静态方法，并在此方法中初始化所有需要测试的参数对
-     *   1）该方法必须由Parameters注解修饰
-     2）该方法必须为public static的
-     3）该方法必须返回Collection类型
-     4）该方法的名字不做要求
-     5）该方法没有参数
-     */
-    @Parameterized.Parameters
-    public static Collection primeNumbers() {
-        return Arrays.asList(new Object[][]{
-                {2, true},
-                {6, false},
-                {19, true},
-                {22, false},
-                {23, true}
+    @DisplayName("Exception Test Demo")
+    void assertThrowsException() {
+        String str = null;
+        assertThrows(IllegalArgumentException.class, () -> {
+            Integer.valueOf(str);
         });
     }
 
-    @Before
-    public void initialize() {
-        primeNumberChecker = new PrimeNumberChecker();
-    }
-
-    /**
-     * 步骤五：编写测试方法，使用自定义变量进行测试
-     */
+    // 注:异常失败例子，当Lambda表达式中代码出现的异常会跟首个参数的异常类型进行比较，如果不属于同一类异常，则失败
     @Test
-    public void testPrimeNumberChecker() {
-        System.out.println("Parameterized Number is : " + inputNumber);
-        Assert.assertEquals(expectedResult,
-                primeNumberChecker.validate(inputNumber));
-    }
-}
-
-```
-
-执行结果
-
-![image-20220831220632173](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831220632173.png)
-
-### 5.9 测试:套件测试
-
-“套件测试”是指捆绑了几个单元测试用例并运行起来。在JUnit中，@RunWith 和 @Suite 这两个注解是用来运行套件测试。先来创建几个测试类
-
-测试类1
-
-```java
-package tech.pdai.junit4.testsuite;
-
-import org.junit.Test;
-
-public class JunitTest1 {
-
-    @Test
-    public void printMessage(){
-        System.out.println("in JunitTest1");
+    @DisplayName("Exception Test Demo2")
+    void assertThrowsException2() {
+        String str = null;
+        assertThrows(NullPointerException.class, () -> {
+            Integer.valueOf(str);
+        });
     }
 }
 ```
 
-测试类2
+执行结果:
+
+![image-20220831223526545](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831223526545.png)
+
+观察错误的结果:
 
 ```java
-package tech.pdai.junit4.testsuite;
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown ==> expected: <java.lang.NullPointerException> but was: <java.lang.NumberFormatException>
 
-import org.junit.Test;
-
-public class JunitTest2 {
-
-    @Test
-    public void printMessage(){
-        System.out.println("in JunitTest2");
-    }
-}
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:65)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:37)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3007)
+	at tech.pdai.junit5.ExceptionTest.assertThrowsException2(ExceptionTest.java:26)
+  // ...
+Caused by: java.lang.NumberFormatException: null
+	at java.lang.Integer.parseInt(Integer.java:542)
+	at java.lang.Integer.valueOf(Integer.java:766)
+	at tech.pdai.junit5.ExceptionTest.lambda$assertThrowsException2$1(ExceptionTest.java:27)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:55)
+	... 68 more
 ```
 
-测试套件
+### 5.7 测试:嵌套测试
+
+嵌套测试给测试编写者更多的能力，来表达几组测试之间的关系。这里有一个详细的例子。
+
+用于测试stack的嵌套测试套件:
 
 ```java
-package tech.pdai.junit4.testsuite;
+package tech.pdai.junit5;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import java.util.EmptyStackException;
+import java.util.Stack;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Test suite.
+ * Stack test for Nest Demo.
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-        /**
-         * 此处类的配置顺序会影响执行顺序
-         */
-        JunitTest1.class,
-        JunitTest2.class
-})
-public class JunitSuiteTest {
+@DisplayName("A stack")
+public class NestedTest {
+
+    Stack stack;
+
+    @Test
+    @DisplayName("is instantiated with new Stack()")
+    void isInstantiatedWithNew() {
+        new Stack<>();
+    }
+
+    @Nested
+    @DisplayName("when new")
+    class WhenNew {
+        @BeforeEach
+        void createNewStack() {
+            stack = new Stack<>();
+        }
+
+        @Test
+        @DisplayName("is empty")
+        void isEmpty() {
+            assertTrue(stack.isEmpty());
+        }
+
+        @Test
+        @DisplayName("throws EmptyStackException when popped")
+        void throwsExceptionWhenPopped() {
+            assertThrows(EmptyStackException.class, () -> stack.pop());
+        }
+
+        @Test
+        @DisplayName("throws EmptyStackException when peeked")
+        void throwsExceptionWhenPeeked() {
+            assertThrows(EmptyStackException.class, () -> stack.peek());
+        }
+
+        @Nested
+        @DisplayName("after pushing an element")
+        class AfterPushing {
+            String anElement = "an element";
+
+            @BeforeEach
+            void pushAnElement() {
+                stack.push(anElement);
+            }
+
+            @Test
+            @DisplayName("it is no longer empty")
+            void isNotEmpty() {
+                assertFalse(stack.isEmpty());
+            }
+
+            @Test
+            @DisplayName("returns the element when popped and is empty")
+            void returnElementWhenPopped() {
+                assertEquals(anElement, stack.pop());
+                assertTrue(stack.isEmpty());
+            }
+
+            @Test
+            @DisplayName("returns the element when peeked but remains not empty")
+            void returnElementWhenPeeked() {
+                assertEquals(anElement, stack.peek());
+                assertFalse(stack.isEmpty());
+            }
+        }
+    }
 }
 
 ```
 
-执行结果
+执行结果:
 
-![image-20220831220802814](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831220802814.png)
+![image-20220831223642847](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831223642847.png)
 
-### 5.10 测试:测试顺序
+### 5.8 测试:重复测试
 
-自定义测试方法的顺序，比如按照方法的名字顺序：
+JUnit Jupiter通过使用@RepeatedTest注解方法并指定所需的重复次数，提供了重复测试指定次数的功能。每次重复测试的调用都像执行常规的@Test方法一样，完全支持相同的生命周期回调和扩展。
+
+以下示例演示了如何声明名为repeatedTest()的测试，该测试将自动重复10次。
 
 ```java
-package tech.pdai.junit4;
+@RepeatedTest(10)
+void repeatedTest() {
+    // ...
+}
+```
 
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
+除了指定重复次数外，还可以通过@RepeatedTest注解的name属性为每次重复配置自定义显示名称。此外，显示名称可以是模式，由静态文本和动态占位符的组合而成。目前支持以下占位符:
+
+- {displayName}: @RepeatedTest方法的显示名称
+- {currentRepetition}: 当前重复次数
+- {totalRepetitions}: 重复的总次数
+
+测试例子
+
+```java
+package tech.pdai.junit5;
+
+import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Order.
+ * Repeat Test.
  */
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestMethodOrder {
+public class RepeatTest {
 
-    @Test
-    public void testA() {
-        System.out.println("first");
+    @BeforeEach
+    void beforeEach(TestInfo testInfo, RepetitionInfo repetitionInfo) {
+        int currentRepetition = repetitionInfo.getCurrentRepetition();
+        int totalRepetitions = repetitionInfo.getTotalRepetitions();
+        String methodName = testInfo.getTestMethod().get().getName();
+        System.out.println(String.format("About to execute repetition %d of %d for %s", //
+                currentRepetition, totalRepetitions, methodName));
     }
 
-    @Test
-    public void testC() {
-        System.out.println("third");
+    @RepeatedTest(3)
+    void repeatedTest() {
+        // ...
     }
 
-    @Test
-    public void testB() {
-        System.out.println("second");
+    @RepeatedTest(2)
+    void repeatedTestWithRepetitionInfo(RepetitionInfo repetitionInfo) {
+        assertEquals(2, repetitionInfo.getTotalRepetitions());
+    }
+
+    @RepeatedTest(value = 1, name = "{displayName} {currentRepetition}/{totalRepetitions}")
+    @DisplayName("Repeat!")
+    void customDisplayName(TestInfo testInfo) {
+        assertEquals(testInfo.getDisplayName(), "Repeat! 1/1");
+    }
+
+    @RepeatedTest(value = 1, name = RepeatedTest.LONG_DISPLAY_NAME)
+    @DisplayName("Details...")
+    void customDisplayNameWithLongPattern(TestInfo testInfo) {
+        assertEquals(testInfo.getDisplayName(), "Details... :: repetition 1 of 1");
+    }
+
+    @RepeatedTest(value = 2, name = "Wiederholung {currentRepetition} von {totalRepetitions}")
+    void repeatedTestInGerman() {
+        // ...
     }
 }
 ```
 
-执行结果
+执行结果:
 
-![image-20220831220905525](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220831220905525.png)
+![image-20220831223753727](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831223753727.png)
+
+### 5.9 测试:参数化测试
+
+JUnit Jupiter开箱即用，提供了不少source注解。下面的每个小节都为他们提供了简要的概述和示例。请参阅org.junit.jupiter.params.provider包中的JavaDoc以获取更多信息。
+
+- **@ValueSource**
+
+@ValueSource是最简单的source之一。它可以让你指定一个原生类型（String，int，long或double）的数组，并且只能为每次调用提供一个参数。
+
+```java
+@ParameterizedTest
+@ValueSource(ints = { 1, 2, 3 })
+void testWithValueSource(int argument) {
+    assertNotNull(argument);
+}
+```
+
+- **@EnumSource**
+
+@EnumSource提供了一个使用Enum常量的简便方法。该注释提供了一个可选的name参数，可以指定使用哪些常量。如果省略，所有的常量将被用在下面的例子中。
+
+```java
+@ParameterizedTest
+@EnumSource(TimeUnit.class)
+void testWithEnumSource(TimeUnit timeUnit) {
+    assertNotNull(timeUnit);
+}
+@ParameterizedTest
+@EnumSource(value = TimeUnit.class, names = { "DAYS", "HOURS" })
+void testWithEnumSourceInclude(TimeUnit timeUnit) {
+    assertTrue(EnumSet.of(TimeUnit.DAYS, TimeUnit.HOURS).contains(timeUnit));
+}
+```
+
+@EnumSource注解还提供了一个可选的mode参数，可以对将哪些常量传递给测试方法进行细化控制。例如，您可以从枚举常量池中排除名称或指定正则表达式，如下例所示。
+
+```java
+@ParameterizedTest
+@EnumSource(value = TimeUnit.class, mode = EXCLUDE, names = { "DAYS", "HOURS" })
+void testWithEnumSourceExclude(TimeUnit timeUnit) {
+    assertFalse(EnumSet.of(TimeUnit.DAYS, TimeUnit.HOURS).contains(timeUnit));
+    assertTrue(timeUnit.name().length() > 5);
+}
+@ParameterizedTest
+@EnumSource(value = TimeUnit.class, mode = MATCH_ALL, names = "^(M|N).+SECONDS$")
+void testWithEnumSourceRegex(TimeUnit timeUnit) {
+    String name = timeUnit.name();
+    assertTrue(name.startsWith("M") || name.startsWith("N"));
+    assertTrue(name.endsWith("SECONDS"));
+} 
+```
+
+- **@MethodSource**
+
+@MethodSource允许你引用一个或多个测试类的工厂方法。这样的方法必须返回一个Stream，Iterable，Iterator或者参数数组。另外，这种方法不能接受任何参数。默认情况下，除非测试类用@TestInstance(Lifecycle.PER_CLASS)注解，否则这些方法必须是静态的。
+
+如果只需要一个参数，则可以返回参数类型的实例Stream，如以下示例所示。
+
+```java
+@ParameterizedTest
+@MethodSource("stringProvider")
+void testWithSimpleMethodSource(String argument) {
+    assertNotNull(argument);
+}
+static Stream<String> stringProvider() {
+    return Stream.of("foo", "bar");
+}
+```
+
+支持原始类型（DoubleStream，IntStream和LongStream）的流，示例如下：
+
+```java
+@ParameterizedTest
+@MethodSource("range")
+void testWithRangeMethodSource(int argument) {
+    assertNotEquals(9, argument);
+}
+static IntStream range() {
+    return IntStream.range(0, 20).skip(10);
+}
+```
+
+如果测试方法声明多个参数，则需要返回一个集合或Arguments实例流，如下所示。请注意，Arguments.of(Object…)是Arguments接口中定义的静态工厂方法。
+
+```java
+@ParameterizedTest
+@MethodSource("stringIntAndListProvider")
+void testWithMultiArgMethodSource(String str, int num, List<String> list) {
+    assertEquals(3, str.length());
+    assertTrue(num >=1 && num <=2);
+    assertEquals(2, list.size());
+}
+static Stream<Arguments> stringIntAndListProvider() {
+    return Stream.of(
+        Arguments.of("foo", 1, Arrays.asList("a", "b")),
+        Arguments.of("bar", 2, Arrays.asList("x", "y"))
+    );
+}
+```
+
+- **@CsvSource**
+
+@CsvSource允许您将参数列表表示为以逗号分隔的值（例如，字符串文字）。
+
+```java
+@ParameterizedTest
+@CsvSource({ "foo, 1", "bar, 2", "'baz, qux', 3" })
+void testWithCsvSource(String first, int second) {
+    assertNotNull(first);
+    assertNotEquals(0, second);
+}
+```
+
+@CsvSource使用'作为转义字符。 请参阅上述示例和下表中的’baz, qux’值。 一个空的引用值''会导致一个空的String; 而一个完全空的值被解释为一个null引用。如果null引用的目标类型是基本类型，则引发ArgumentConversionException。
+
+| 示例输入                          | 结果字符列表      |
+| --------------------------------- | ----------------- |
+| @CsvSource({ “foo, bar” })        | "foo", "bar"      |
+| @CsvSource({ “foo, ‘baz, qux’” }) | "foo", "baz, qux" |
+| @CsvSource({ “foo, ‘’” })         | "foo", ""         |
+| @CsvSource({ “foo, “ })           | "foo", null       |
+
+- **@CsvFileSource**
+
+@CsvFileSource让你使用classpath中的CSV文件。CSV文件中的每一行都会导致参数化测试的一次调用。
+
+```java
+@ParameterizedTest
+@CsvFileSource(resources = "/two-column.csv")
+void testWithCsvFileSource(String first, int second) {
+    assertNotNull(first);
+    assertNotEquals(0, second);
+}
+```
+
+two-column.csv
+
+```bash
+foo, 1
+bar, 2
+"baz, qux", 3
+```
+
+与@CsvSource中使用的语法相反，@CsvFileSource使用双引号"作为转义字符，请参阅上面例子中的"baz, qux"值，一个空的转义值""会产生一个空字符串， 一个完全为空的值被解释为null引用，如果null引用的目标类型是基本类型，则引发ArgumentConversionException。
+
+- **@ArgumentsSource**
+
+可以使用@ArgumentsSource指定一个自定义的，可重用的ArgumentsProvider。
+
+```java
+@ParameterizedTest
+@ArgumentsSource(MyArgumentsProvider.class)
+void testWithArgumentsSource(String argument) {
+    assertNotNull(argument);
+}
+static class MyArgumentsProvider implements ArgumentsProvider {
+    @Override
+    public Stream< ? extends Arguments > provideArguments(ExtensionContext context) {
+        return Stream.of("foo", "bar").map(Arguments::of);
+    }
+}
+```
+
+执行结果:
+
+![image-20220831224036160](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831224036160.png)
+
+### 5.10 测试:动态测试
+
+除了这些标准测试外，JUnit Jupiter还引入了一种全新的测试编程模型。这种新的测试是动态测试，它是由 **@TestFactory** 注解的工厂方法在运行时生成的。
+
+与@Test方法相比，@TestFactory方法本身不是测试用例，而是测试用例的工厂。因此，动态测试是工厂的产物。从技术上讲，@TestFactory方法必须返回DynamicNode实例的Stream，Collection，Iterable或Iterator。 DynamicNode的可实例化的子类是DynamicContainer和DynamicTest。 DynamicContainer实例由一个显示名称和一个动态子节点列表组成，可以创建任意嵌套的动态节点层次结构。然后，DynamicTest实例将被延迟执行，从而实现测试用例的动态甚至非确定性生成。
+
+任何由@TestFactory返回的Stream都要通过调用stream.close()来正确关闭，使得使用诸如Files.lines()之类的资源变得安全。
+
+与@Test方法一样，@TestFactory方法不能是private或static，并且可以选择声明参数，以便通过ParameterResolvers解析。
+
+DynamicTest是运行时生成的测试用例。它由显示名称和Executable组成。 Executable是@FunctionalInterface，这意味着动态测试的实现可以作为lambda表达式或方法引用来提供。
+
+```java
+package tech.pdai.junit5;
+
+import org.junit.jupiter.api.DynamicNode;
+import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.TestFactory;
+import org.junit.jupiter.api.function.ThrowingConsumer;
+
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.DynamicContainer.dynamicContainer;
+import static org.junit.jupiter.api.DynamicTest.dynamicTest;
+
+/**
+ * Dynamic Test.
+ */
+public class DynamicsTest {
+
+    // This will result in a JUnitException!
+    @TestFactory
+    List<String> dynamicTestsWithInvalidReturnType() {
+        return Arrays.asList("Hello");
+    }
+
+    @TestFactory
+    Collection<DynamicTest> dynamicTestsFromCollection() {
+        return Arrays.asList(
+                dynamicTest("1st dynamic test", () -> assertTrue(true)),
+                dynamicTest("2nd dynamic test", () -> assertEquals(4, 2 * 2))
+        );
+    }
+
+    @TestFactory
+    Iterable<DynamicTest> dynamicTestsFromIterable() {
+        return Arrays.asList(
+                dynamicTest("3rd dynamic test", () -> assertTrue(true)),
+                dynamicTest("4th dynamic test", () -> assertEquals(4, 2 * 2))
+        );
+    }
+
+    @TestFactory
+    Iterator<DynamicTest> dynamicTestsFromIterator() {
+        return Arrays.asList(
+                dynamicTest("5th dynamic test", () -> assertTrue(true)),
+                dynamicTest("6th dynamic test", () -> assertEquals(4, 2 * 2))
+        ).iterator();
+    }
+
+    @TestFactory
+    Stream<DynamicTest> dynamicTestsFromStream() {
+        return Stream.of("A", "B", "C")
+                .map(str -> dynamicTest("test" + str, () -> { /* ... */ }));
+    }
+
+    @TestFactory
+    Stream<DynamicTest> dynamicTestsFromIntStream() {
+        // Generates tests for the first 10 even integers.
+        return IntStream.iterate(0, n -> n + 2).limit(10)
+                .mapToObj(n -> dynamicTest("test" + n, () -> assertTrue(n % 2 == 0)));
+    }
+
+    @TestFactory
+    Stream<DynamicTest> generateRandomNumberOfTests() {
+        // Generates random positive integers between 0 and 100 until
+        // a number evenly divisible by 7 is encountered.
+        Iterator<Integer> inputGenerator = new Iterator<Integer>() {
+            Random random = new Random();
+            int current;
+
+            @Override
+            public boolean hasNext() {
+                current = random.nextInt(100);
+                return current % 7 != 0;
+            }
+
+            @Override
+            public Integer next() {
+                return current;
+            }
+        };
+        // Generates display names like: input:5, input:37, input:85, etc.
+        Function<Integer, String> displayNameGenerator = (input) -> "input:" + input;
+        // Executes tests based on the current input value.
+        ThrowingConsumer<Integer> testExecutor = (input) -> assertTrue(input % 7 != 0);
+        // Returns a stream of dynamic tests.
+        return DynamicTest.stream(inputGenerator, displayNameGenerator, testExecutor);
+    }
+
+    @TestFactory
+    Stream<DynamicNode> dynamicTestsWithContainers() {
+        return Stream.of("A", "B", "C")
+                .map(input -> dynamicContainer("Container " + input, Stream.of(
+                        dynamicTest("not null", () -> assertNotNull(input)),
+                        dynamicContainer("properties", Stream.of(
+                                dynamicTest("length > 0", () -> assertTrue(input.length() > 0)),
+                                dynamicTest("not empty", () -> assertFalse(input.isEmpty()))
+                        ))
+                )));
+    }
+}
+
+```
+
+执行结果:
+
+![image-20220831224139153](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220831224139153.png)
 
 ## 参考文章
 
-[**单元测试 - JUnit4 详解**](https://pdai.tech/md/develop/ut/dev-ut-x-junit.html)
+[**单元测试 - Junit5 详解**](https://pdai.tech/md/develop/ut/dev-ut-x-junit5.html)

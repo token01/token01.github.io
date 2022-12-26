@@ -20,8 +20,7 @@ category:
 
 BASE是对CAP中一致性和可用性权衡的结果，其来源于对大规模互联网系统分布式实践的结论，是基于CAP定理逐步演化而来的，其核心思想是即使无法做到强一致性（Strong consistency），更具体地说，是对 CAP 中 AP 方案的一个补充。其基本思路就是：通过业务，牺牲强一致性而获得可用性，并允许数据在一段时间内是不一致的，但是最终达到一致性状态。
 
-![image.png](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/202212241415602.png)
-
+<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220617214817618.png" alt="image-20220617214817618"  />
 
 
 

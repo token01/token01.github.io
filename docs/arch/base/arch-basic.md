@@ -18,7 +18,7 @@ category:
 
 Eric Evans 在 Domain‐Driven Design 一书中吐槽了所谓的意大利面式架构，即代码确实做了有用的事，但很难解释它是如何去执行的；他认为造成这种窘境的主要原因是，将领域问题的复杂度与技术细节的复杂度混合在了一起，最终导致整体复杂度的指数级增长。
 
-![image-20220704092621383](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704092621383.png)
+![image-20220704092621383](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704092621383.png)
 
 复杂性不是凭空而来，很多时候也不是刻意为之，这也就意味着复杂性的增加往往不会以我们的主观意志为转移。就像房间里的大象，我们无法逃避，也不能视而不见。复杂性的来源可能是：
 

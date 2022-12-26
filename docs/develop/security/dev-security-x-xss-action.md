@@ -1,221 +1,1005 @@
 ---
-order: 60
+order: 31
 category:
   - 开发
   - 安全
 ---
 
-# 开发安全 - 点击劫持详解
+# 开发安全 - 防止XSS攻击实战
 
->点击劫持其实是一种视觉上的欺骗手段，攻击者将一个透明的、不可见的iframe覆盖在一个网页上，通过调整iframe页面位置，诱使用户在页面上进行操作，在不知情的情况下用户的点击恰好是点击在iframe页面的一些功能按钮上。
+## 1. 简介
 
-## 1. 点击劫持简介
+跨站脚本（英语：Cross-site scripting，通常简称为：XSS）是一种网站应用程序的安全漏洞攻击，是代码注入的一种。
 
-> 点击劫持是一种恶意技术，欺骗网络用户点击与用户认为他们点击的内容不同的内容，从而可能在点击看似无害的网页时泄露机密信息。〜维基百科
+1. 恶意攻击者**往Web页面里插入恶意Script代码**
 
-点击劫持攻击基本上意味着欺骗用户通过框架页面点击某些东西来执行一些恶意攻击，比如，当攻击者在窗口中使用透明iframe诱骗用户点击CTA（例如按钮或链接）到另一个具有相同外观窗口的服务器时发生攻击。从某种意义上说，攻击者劫持了原始服务器的点击并将其发送到另一台服务器。这是对访问者本身和服务器的攻击。
+   >例如留言板等，用户主动输入的场景
 
-以下是点击劫持的几种可能漏洞或用图。
+2. 当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。
 
-- 诱骗用户公开其社交网络个人资料信息
-- 在Facebook上分享或喜欢链接
-- 点击Google Adsense广告即可生成每次点击付费收入
-- 让用户在Twitter或Facebook上关注某人
-- 下载并运行恶意软件（恶意软件），允许远程攻击者控制其他计算机
-- 在Facebook粉丝页面上获得喜欢或在Google Plus上获得+1
-- 播放YouTube视频以获取观看次数
+   >其他用户执行了恶意脚本
 
-点击劫持很容易实现，如果您的网站只需单击即可完成操作，那么很可能是点击劫持。它可能不像跨站点脚本或代码注入攻击那样常见，但它仍然存在另一个漏洞。有时看到视觉效果会很有帮助。
+常见的用法
 
-## 2. 攻击方式
+- 盗取cookie
 
-### 2.1 图片覆盖攻击（XSIO）
+  ```js
+  <script>alert("document.cookie");</script>
+  ```
 
-点击劫持的本质就是一种视觉欺骗，通过这种思想，黑客可以完成很多劫持，例如：钓鱼网站的实现，通过图片覆盖导致链接到一些未知的网站，从而达到黑客正真的目的。原理：通过调整图片的style使得图片能够覆盖在他所指定的任意位置。
+- 链接劫持
 
-XSIO不同于XSS，它利用的是图片的style，或者能够控制CSS。如果应用没有限制style的position为absolute的话，图片就可以覆盖到页面上的任意位置，形成点击劫持。
+  ```js
+  <script>window.location.href="http://www.baidu.com";</script>
+  ```
 
-### 2.2 Flash点击劫持
+## 2. 解决思路
 
-攻击者通过Flash构造出了点击劫持，在完成一系列复杂的动作之后，最终控制了用户的摄像头，原理：黑客在Flash游戏页面内嵌了一个iframe，通过游戏选项按钮诱导用户去点击按钮，从而最终实现Flash点击劫持！每次点击完成之后按钮的位置都是可变化的、移动的。
+1. 通过拦截器拦截请求
 
-### 2.3 拖拽劫持与数据窃取
+2. 对请求参数进行过滤
 
-目前很多浏览器都开始支持Drag&Drop的API。对于用户来说，拖拽他们的操作更加简单。浏览器拖拽的对象可以是一个连接，也可以是一段文字，还可以从一个窗口拖拽到另外一个窗口，因此拖拽不受同源策略的影响。
+   **清除所有HTML标签，但是不删除标签内的内容**
 
-“拖拽劫持”的思路是诱使用户从隐藏的不可见iframe中拖拽出攻击者希望得到的数据，然后放到攻击者能够控制的另外一个页面，从而窃取数据。
+## 3. 实战
 
-### 2.4 触屏劫持（TapJacking）
-
-触屏，从手机OS的角度来看，触屏实际上就是一个事件，手机OS捕捉这些事件，并执行相应的动作。
-
-一次触屏操作，可能会对应一下几个事件的发生：
-
-- touchstart，手指触摸屏幕时发生；
-- Touchend，手指离开屏幕时发生；
-- Touchmove，手指滑动时发生；
-- Touchcancel，系统可取消touch事件
-
-## 3. 攻击示例
-
-点击劫持（ClickJacking）是一种视觉上的欺骗手段。大概有两种方式，一是攻击者使用一个透明的iframe，覆盖在一个网页上，然后诱使用户在该页面上进行操作，此时用户将在不知情的情况下点击透明的iframe页面；二是攻击者使用一张图片覆盖在网页，遮挡网页原有位置的含义。
-
-![image-20220707220322111](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220707220322111.png)
-
-### 3.1 iframe覆盖（嵌入iframe框）
-
-> 以下是网上的一个例子，忽略其真实性和意义，只是辅助你理解其思路
-
-假如我们在百度有个贴吧，想偷偷让别人关注它。于是我们准备一个页面：
-
-```html
-<!DOCTYPE HTML>
-<html>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-    <head>
-    <title>点击劫持</title>
-    <style>
-        html,body,iframe{
-            display: block;
-            height: 100%;
-            width: 100%;
-            margin: 0;
-            padding: 0;
-            border:none;
-        }
-        iframe{
-            opacity:0;
-            filter:alpha(opacity=0);
-            position:absolute;
-            z-index:2;
-        }
-        button{
-            position:absolute;
-            top: 315px;
-            left: 462px;
-            z-index: 1;
-            width: 72px;
-            height: 26px;
-        }
-    </style>
-    </head>
-    <body>
-        那些不能说的秘密
-        <button>查看详情</button>
-        <iframe src="http://tieba.baidu.com/f?kw=%C3%C0%C5%AE"></iframe>
-    </body>
-</html>
-
-```
-
-网址传播出去后，用户手贱点击了查看详情后，其实就会点到关注按钮。
-
-PS：可以把iframe透明设为0.3看下实际点到的东西。
-
-![image-20220707220616837](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220707220616837.png)
-
-这样贴吧就多了一个粉丝了。
-
-### 3.2 粘贴劫持
-
-假设你现在是一个黑客，并且你已经建了一个论坛，在注册页面设置两处常见的要求“Enter your email”栏以及”Retype your email”栏。然后悄悄地在”Retype your email”栏放个隐藏iframe，此位置会加载另一个正常网站的设置页面表单。
-
-https://security.love/XSSJacking/index2.html
-
-![image-20220707220738260](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220707220738260.png)
-
-
-
-当用户在你的网站上注册时，大多数人会先输入一遍邮箱，然后复制第一栏中的邮箱再粘贴到第二栏中（小编默默躺枪）——就在这个过程中，用户剪切板中的内容已经神不知鬼不觉地被插入到那个正常网站设置页面中。如果这家正常网站相应表单字段存在XSS漏洞，则攻击代码就能发挥作用。受害者根本就不知道整个过程是怎么进行、何时进行的。
-
-攻击中所利用的粘贴劫持技术，是将XSS payload粘贴到其他域名的文本栏框架。由于这些框架的位置可以改变，并且不可见，因此可以利用点击劫持让用户觉得他还在访问他“正在”访问的那个网站。事实上，他已经触发了Self-XSS漏洞，黑客可得到他的敏感信息。
-
-通过XSS劫持攻击，黑客可以盗取该用户的cookie、收件箱信息、配置详情，修改配置文件设置（比如手机号、邮箱号）或是执行其他恶意操作。
-
-### 3.3 拖放劫持
-
-实际上就是点击劫持的演进版本。
-
-在现在的Web应用中，有一些需要用户采用鼠标拖放完成的操作，而且用户也经常在浏览器中使用鼠标拖放操作来代替复制粘贴。因此，拖放操作劫持很大程度的扩展了
-
-点击劫持的攻击范围，也将劫持模式从单纯的鼠标点击扩展到了鼠标拖放行为。
-
-例子：通过劫持某个页面的拖放操作实现对其他页面链接的窃取，这些连写中可能会有session key、token、password等信息；或者可以把其他浏览器中的页面内容拖放到富文本编辑器模式中，这样就能够看到页面源代码了，而这些HTML源代码中可能会存在铭感信息。
-
-### 3.4 组合利用方式
-
-在挖掘xss时，你可能会遇到self-xss，那么这时你可以考虑self_xss+点击劫持或csrf+self-xss
-
-## 4. 点击劫持利用框架
-
-- **首先，为了快速生成clickjacking的poc框架**
-
-https://github.com/samyk/quickjack
-
-- **可以通过截图的方式方便的把需要劫持的部分网页截取出来**，这个工具也提供在线的使用
-
-http://samy.pl/quickjack/quickjack.html
-
-通过截取之后按下“I‘am done“按钮就会生成对应的截取代码
-
-- **可以使用burp自带的工具进行生成poc**,参考以下链接：
-
-https://support.portswigger.net/customer/en/portal/articles/2363105-using-burp-to-find-clickjacking-vulnerabilities
-
-- **可以使用CJExploiter**
-
-CJExploiter是一个支持拖放的点击劫持漏洞利用辅助工具。首先在本地用浏览器打开“index.html”，输入目标的URL并点击“View Site”。你可以自定义JS，最后点击“Exploit it”，你就能得到POC了。可参考https://www.freebuf.com/sectool/104892.html
-
-## 5. 点击劫持防御
-
-> X-FRAME-OPTIONS是目前最可靠的方法。
-
-x-frame-options（XFO），是一个HTTP响应头，也称为HTTP安全头，自2008年以来一直存在。在2013年，它正式发布为RFC 7034，但不是互联网标准。此标题告诉您的浏览器在处理您网站的内容时的行为方式。其成立的主要原因是通过不允许在帧中呈现页面来提供点击劫持保护。这可以包括在页面的呈现`<frame>`，`<iframe>`或`<object>`。iframe用于将第三方内容嵌入并隔离到网站中。使用iframe的内容示例可能包括社交媒体共享按钮，Google地图，视频播放器，音频播放器，第三方广告，甚至一些OAuth实施。
-
-并且在IE8、Firefox3.6、Chrome4以上的版本均能很好的支持。
-
-这个头有三个值：
-
-- DENY // 拒绝任何域加载
-- SAMEORIGIN // 允许同源域下加载
-- ALLOW-FROM // 可以定义允许frame加载的页面地址, 比如 `x-frame-options: ALLOW-FROM https://domain.com/`
-- 在Nginx上启用
-
-要x-frame-options在Nginx上启用标头，只需将其添加到服务器块配置中即可。
+### 3.1 防止XSS攻击的过滤器
 
 ```java
-add_header x-frame-options "SAMEORIGIN" always; 
+**
+ * 防止XSS攻击的过滤器
+ * 
+ */
+public class XssFilter implements Filter
+{
+    /**
+     * 排除链接
+     */
+    public List<String> excludes = new ArrayList<>();
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException
+    {
+        String tempExcludes = filterConfig.getInitParameter("excludes");
+        if (StringUtils.isNotEmpty(tempExcludes))
+        {
+            String[] url = tempExcludes.split(",");
+            for (int i = 0; url != null && i < url.length; i++)
+            {
+                excludes.add(url[i]);
+            }
+        }
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException
+    {
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse resp = (HttpServletResponse) response;
+        if (handleExcludeURL(req, resp))
+        {
+            chain.doFilter(request, response);
+            return;
+        }
+        XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper((HttpServletRequest) request);
+        chain.doFilter(xssRequest, response);
+    }
+
+    private boolean handleExcludeURL(HttpServletRequest request, HttpServletResponse response)
+    {
+        String url = request.getServletPath();
+        String method = request.getMethod();
+        // GET DELETE 不过滤
+        if (method == null || method.matches("GET") || method.matches("DELETE"))
+        {
+            return true;
+        }
+        return StringUtils.matches(url, excludes);
+    }
+
+    @Override
+    public void destroy()
+    {
+
+    }
+}
 ```
 
-- 在Apache上启用
-
-要在Apache上启用，只需将其添加到您的httpd.conf文件（Apache配置文件）。
+### 3.2 XSS过滤处理
 
 ```java
-header always set x-frame-options "SAMEORIGIN"
+
+/**
+ * XSS过滤处理
+ * 
+ */
+public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper
+{
+    /**
+     * @param request
+     */
+    public XssHttpServletRequestWrapper(HttpServletRequest request)
+    {
+        super(request);
+    }
+
+    @Override
+    public String[] getParameterValues(String name)
+    {
+        String[] values = super.getParameterValues(name);
+        if (values != null)
+        {
+            int length = values.length;
+            String[] escapseValues = new String[length];
+            for (int i = 0; i < length; i++)
+            {
+                // 防xss攻击和过滤前后空格
+                escapseValues[i] = EscapeUtil.clean(values[i]).trim();
+            }
+            return escapseValues;
+        }
+        return super.getParameterValues(name);
+    }
+
+    @Override
+    public ServletInputStream getInputStream() throws IOException
+    {
+        // 非json类型，直接返回
+        if (!isJsonRequest())
+        {
+            return super.getInputStream();
+        }
+
+        // 为空，直接返回
+        String json = IOUtils.toString(super.getInputStream(), "utf-8");
+        if (StringUtils.isEmpty(json))
+        {
+            return super.getInputStream();
+        }
+
+        // xss过滤
+        json = EscapeUtil.clean(json).trim();
+        byte[] jsonBytes = json.getBytes("utf-8");
+        final ByteArrayInputStream bis = new ByteArrayInputStream(jsonBytes);
+        return new ServletInputStream()
+        {
+            @Override
+            public boolean isFinished()
+            {
+                return true;
+            }
+
+            @Override
+            public boolean isReady()
+            {
+                return true;
+            }
+
+            @Override
+            public int available() throws IOException
+            {
+                return jsonBytes.length;
+            }
+
+            @Override
+            public void setReadListener(ReadListener readListener)
+            {
+            }
+
+            @Override
+            public int read() throws IOException
+            {
+                return bis.read();
+            }
+        };
+    }
+
+    /**
+     * 是否是Json请求
+     * 
+     * @param request
+     */
+    public boolean isJsonRequest()
+    {
+        String header = super.getHeader(HttpHeaders.CONTENT_TYPE);
+        return StringUtils.startsWithIgnoreCase(header, MediaType.APPLICATION_JSON_VALUE);
+    }
+}
 ```
 
-- 在IIS上启用
+### 3.3 转义和反转义工具类
 
-要在IIS上启用，只需将其添加到您站点的Web.config文件中即可。
+```java
 
-```xml
-<system.webServer>
-    ...
+/**
+ * 转义和反转义工具类
+ * 
+ */
+public class EscapeUtil
+{
+    public static final String RE_HTML_MARK = "(<[^<]*?>)|(<[\\s]*?/[^<]*?>)|(<[^<]*?/[\\s]*?>)";
 
-    <httpProtocol>
-        <customHeaders>
-            <add name="X-Frame-Options" value="SAMEORIGIN" />
-        </customHeaders>
-    </httpProtocol>
+    private static final char[][] TEXT = new char[64][];
 
-    ...
-</system.webServer>
+    static
+    {
+        for (int i = 0; i < 64; i++)
+        {
+            TEXT[i] = new char[] { (char) i };
+        }
+
+        // special HTML characters
+        TEXT['\''] = "&#039;".toCharArray(); // 单引号
+        TEXT['"'] = "&#34;".toCharArray(); // 双引号
+        TEXT['&'] = "&#38;".toCharArray(); // &符
+        TEXT['<'] = "&#60;".toCharArray(); // 小于号
+        TEXT['>'] = "&#62;".toCharArray(); // 大于号
+    }
+
+    /**
+     * 转义文本中的HTML字符为安全的字符
+     * 
+     * @param text 被转义的文本
+     * @return 转义后的文本
+     */
+    public static String escape(String text)
+    {
+        return encode(text);
+    }
+
+    /**
+     * 还原被转义的HTML特殊字符
+     * 
+     * @param content 包含转义符的HTML内容
+     * @return 转换后的字符串
+     */
+    public static String unescape(String content)
+    {
+        return decode(content);
+    }
+
+    /**
+     * 清除所有HTML标签，但是不删除标签内的内容
+     * 
+     * @param content 文本
+     * @return 清除标签后的文本
+     */
+    public static String clean(String content)
+    {
+        return new HTMLFilter().filter(content);
+    }
+
+    /**
+     * Escape编码
+     * 
+     * @param text 被编码的文本
+     * @return 编码后的字符
+     */
+    private static String encode(String text)
+    {
+        if (StringUtils.isEmpty(text))
+        {
+            return StringUtils.EMPTY;
+        }
+
+        final StringBuilder tmp = new StringBuilder(text.length() * 6);
+        char c;
+        for (int i = 0; i < text.length(); i++)
+        {
+            c = text.charAt(i);
+            if (c < 256)
+            {
+                tmp.append("%");
+                if (c < 16)
+                {
+                    tmp.append("0");
+                }
+                tmp.append(Integer.toString(c, 16));
+            }
+            else
+            {
+                tmp.append("%u");
+                if (c <= 0xfff)
+                {
+                    // issue#I49JU8@Gitee
+                    tmp.append("0");
+                }
+                tmp.append(Integer.toString(c, 16));
+            }
+        }
+        return tmp.toString();
+    }
+
+    /**
+     * Escape解码
+     * 
+     * @param content 被转义的内容
+     * @return 解码后的字符串
+     */
+    public static String decode(String content)
+    {
+        if (StringUtils.isEmpty(content))
+        {
+            return content;
+        }
+
+        StringBuilder tmp = new StringBuilder(content.length());
+        int lastPos = 0, pos = 0;
+        char ch;
+        while (lastPos < content.length())
+        {
+            pos = content.indexOf("%", lastPos);
+            if (pos == lastPos)
+            {
+                if (content.charAt(pos + 1) == 'u')
+                {
+                    ch = (char) Integer.parseInt(content.substring(pos + 2, pos + 6), 16);
+                    tmp.append(ch);
+                    lastPos = pos + 6;
+                }
+                else
+                {
+                    ch = (char) Integer.parseInt(content.substring(pos + 1, pos + 3), 16);
+                    tmp.append(ch);
+                    lastPos = pos + 3;
+                }
+            }
+            else
+            {
+                if (pos == -1)
+                {
+                    tmp.append(content.substring(lastPos));
+                    lastPos = content.length();
+                }
+                else
+                {
+                    tmp.append(content.substring(lastPos, pos));
+                    lastPos = pos;
+                }
+            }
+        }
+        return tmp.toString();
+    }
+
+    public static void main(String[] args)
+    {
+        String html = "<script>alert(1);</script>";
+        String escape = EscapeUtil.escape(html);
+        // String html = "<scr<script>ipt>alert(\"XSS\")</scr<script>ipt>";
+        // String html = "<123";
+        // String html = "123>";
+        System.out.println("clean: " + EscapeUtil.clean(html));
+        System.out.println("escape: " + escape);
+        System.out.println("unescape: " + EscapeUtil.unescape(escape));
+    }
+}
 
 ```
 
-除此之外有的浏览器厂商也增加扩展功能来防御clickjacking，如firefox的"content security policy"和"No-script"
+### 3.4 HTML过滤器，用于去除XSS漏洞隐患。
 
-## 参考文章
+```java
+package com.ruoyi.common.utils.html;
 
-[**开发安全 - 点击劫持详解**](https://pdai.tech/md/develop/security/dev-security-x-click-hijack.html)
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * HTML过滤器，用于去除XSS漏洞隐患。
+ *
+ * @author ruoyi
+ */
+public final class HTMLFilter
+{
+    /**
+     * regex flag union representing /si modifiers in php
+     **/
+    private static final int REGEX_FLAGS_SI = Pattern.CASE_INSENSITIVE | Pattern.DOTALL;
+    private static final Pattern P_COMMENTS = Pattern.compile("<!--(.*?)-->", Pattern.DOTALL);
+    private static final Pattern P_COMMENT = Pattern.compile("^!--(.*)--$", REGEX_FLAGS_SI);
+    private static final Pattern P_TAGS = Pattern.compile("<(.*?)>", Pattern.DOTALL);
+    private static final Pattern P_END_TAG = Pattern.compile("^/([a-z0-9]+)", REGEX_FLAGS_SI);
+    private static final Pattern P_START_TAG = Pattern.compile("^([a-z0-9]+)(.*?)(/?)$", REGEX_FLAGS_SI);
+    private static final Pattern P_QUOTED_ATTRIBUTES = Pattern.compile("([a-z0-9]+)=([\"'])(.*?)\\2", REGEX_FLAGS_SI);
+    private static final Pattern P_UNQUOTED_ATTRIBUTES = Pattern.compile("([a-z0-9]+)(=)([^\"\\s']+)", REGEX_FLAGS_SI);
+    private static final Pattern P_PROTOCOL = Pattern.compile("^([^:]+):", REGEX_FLAGS_SI);
+    private static final Pattern P_ENTITY = Pattern.compile("&#(\\d+);?");
+    private static final Pattern P_ENTITY_UNICODE = Pattern.compile("&#x([0-9a-f]+);?");
+    private static final Pattern P_ENCODE = Pattern.compile("%([0-9a-f]{2});?");
+    private static final Pattern P_VALID_ENTITIES = Pattern.compile("&([^&;]*)(?=(;|&|$))");
+    private static final Pattern P_VALID_QUOTES = Pattern.compile("(>|^)([^<]+?)(<|$)", Pattern.DOTALL);
+    private static final Pattern P_END_ARROW = Pattern.compile("^>");
+    private static final Pattern P_BODY_TO_END = Pattern.compile("<([^>]*?)(?=<|$)");
+    private static final Pattern P_XML_CONTENT = Pattern.compile("(^|>)([^<]*?)(?=>)");
+    private static final Pattern P_STRAY_LEFT_ARROW = Pattern.compile("<([^>]*?)(?=<|$)");
+    private static final Pattern P_STRAY_RIGHT_ARROW = Pattern.compile("(^|>)([^<]*?)(?=>)");
+    private static final Pattern P_AMP = Pattern.compile("&");
+    private static final Pattern P_QUOTE = Pattern.compile("\"");
+    private static final Pattern P_LEFT_ARROW = Pattern.compile("<");
+    private static final Pattern P_RIGHT_ARROW = Pattern.compile(">");
+    private static final Pattern P_BOTH_ARROWS = Pattern.compile("<>");
+
+    // @xxx could grow large... maybe use sesat's ReferenceMap
+    private static final ConcurrentMap<String, Pattern> P_REMOVE_PAIR_BLANKS = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String, Pattern> P_REMOVE_SELF_BLANKS = new ConcurrentHashMap<>();
+
+    /**
+     * set of allowed html elements, along with allowed attributes for each element
+     **/
+    private final Map<String, List<String>> vAllowed;
+    /**
+     * counts of open tags for each (allowable) html element
+     **/
+    private final Map<String, Integer> vTagCounts = new HashMap<>();
+
+    /**
+     * html elements which must always be self-closing (e.g. "<img />")
+     **/
+    private final String[] vSelfClosingTags;
+    /**
+     * html elements which must always have separate opening and closing tags (e.g. "<b></b>")
+     **/
+    private final String[] vNeedClosingTags;
+    /**
+     * set of disallowed html elements
+     **/
+    private final String[] vDisallowed;
+    /**
+     * attributes which should be checked for valid protocols
+     **/
+    private final String[] vProtocolAtts;
+    /**
+     * allowed protocols
+     **/
+    private final String[] vAllowedProtocols;
+    /**
+     * tags which should be removed if they contain no content (e.g. "<b></b>" or "<b />")
+     **/
+    private final String[] vRemoveBlanks;
+    /**
+     * entities allowed within html markup
+     **/
+    private final String[] vAllowedEntities;
+    /**
+     * flag determining whether comments are allowed in input String.
+     */
+    private final boolean stripComment;
+    private final boolean encodeQuotes;
+    /**
+     * flag determining whether to try to make tags when presented with "unbalanced" angle brackets (e.g. "<b text </b>"
+     * becomes "<b> text </b>"). If set to false, unbalanced angle brackets will be html escaped.
+     */
+    private final boolean alwaysMakeTags;
+
+    /**
+     * Default constructor.
+     */
+    public HTMLFilter()
+    {
+        vAllowed = new HashMap<>();
+
+        final ArrayList<String> a_atts = new ArrayList<>();
+        a_atts.add("href");
+        a_atts.add("target");
+        vAllowed.put("a", a_atts);
+
+        final ArrayList<String> img_atts = new ArrayList<>();
+        img_atts.add("src");
+        img_atts.add("width");
+        img_atts.add("height");
+        img_atts.add("alt");
+        vAllowed.put("img", img_atts);
+
+        final ArrayList<String> no_atts = new ArrayList<>();
+        vAllowed.put("b", no_atts);
+        vAllowed.put("strong", no_atts);
+        vAllowed.put("i", no_atts);
+        vAllowed.put("em", no_atts);
+
+        vSelfClosingTags = new String[] { "img" };
+        vNeedClosingTags = new String[] { "a", "b", "strong", "i", "em" };
+        vDisallowed = new String[] {};
+        vAllowedProtocols = new String[] { "http", "mailto", "https" }; // no ftp.
+        vProtocolAtts = new String[] { "src", "href" };
+        vRemoveBlanks = new String[] { "a", "b", "strong", "i", "em" };
+        vAllowedEntities = new String[] { "amp", "gt", "lt", "quot" };
+        stripComment = true;
+        encodeQuotes = true;
+        alwaysMakeTags = false;
+    }
+
+    /**
+     * Map-parameter configurable constructor.
+     *
+     * @param conf map containing configuration. keys match field names.
+     */
+    @SuppressWarnings("unchecked")
+    public HTMLFilter(final Map<String, Object> conf)
+    {
+
+        assert conf.containsKey("vAllowed") : "configuration requires vAllowed";
+        assert conf.containsKey("vSelfClosingTags") : "configuration requires vSelfClosingTags";
+        assert conf.containsKey("vNeedClosingTags") : "configuration requires vNeedClosingTags";
+        assert conf.containsKey("vDisallowed") : "configuration requires vDisallowed";
+        assert conf.containsKey("vAllowedProtocols") : "configuration requires vAllowedProtocols";
+        assert conf.containsKey("vProtocolAtts") : "configuration requires vProtocolAtts";
+        assert conf.containsKey("vRemoveBlanks") : "configuration requires vRemoveBlanks";
+        assert conf.containsKey("vAllowedEntities") : "configuration requires vAllowedEntities";
+
+        vAllowed = Collections.unmodifiableMap((HashMap<String, List<String>>) conf.get("vAllowed"));
+        vSelfClosingTags = (String[]) conf.get("vSelfClosingTags");
+        vNeedClosingTags = (String[]) conf.get("vNeedClosingTags");
+        vDisallowed = (String[]) conf.get("vDisallowed");
+        vAllowedProtocols = (String[]) conf.get("vAllowedProtocols");
+        vProtocolAtts = (String[]) conf.get("vProtocolAtts");
+        vRemoveBlanks = (String[]) conf.get("vRemoveBlanks");
+        vAllowedEntities = (String[]) conf.get("vAllowedEntities");
+        stripComment = conf.containsKey("stripComment") ? (Boolean) conf.get("stripComment") : true;
+        encodeQuotes = conf.containsKey("encodeQuotes") ? (Boolean) conf.get("encodeQuotes") : true;
+        alwaysMakeTags = conf.containsKey("alwaysMakeTags") ? (Boolean) conf.get("alwaysMakeTags") : true;
+    }
+
+    private void reset()
+    {
+        vTagCounts.clear();
+    }
+
+    // ---------------------------------------------------------------
+    // my versions of some PHP library functions
+    public static String chr(final int decimal)
+    {
+        return String.valueOf((char) decimal);
+    }
+
+    public static String htmlSpecialChars(final String s)
+    {
+        String result = s;
+        result = regexReplace(P_AMP, "&amp;", result);
+        result = regexReplace(P_QUOTE, "&quot;", result);
+        result = regexReplace(P_LEFT_ARROW, "&lt;", result);
+        result = regexReplace(P_RIGHT_ARROW, "&gt;", result);
+        return result;
+    }
+
+    // ---------------------------------------------------------------
+
+    /**
+     * given a user submitted input String, filter out any invalid or restricted html.
+     *
+     * @param input text (i.e. submitted by a user) than may contain html
+     * @return "clean" version of input, with only valid, whitelisted html elements allowed
+     */
+    public String filter(final String input)
+    {
+        reset();
+        String s = input;
+
+        s = escapeComments(s);
+
+        s = balanceHTML(s);
+
+        s = checkTags(s);
+
+        s = processRemoveBlanks(s);
+
+        // s = validateEntities(s);
+
+        return s;
+    }
+
+    public boolean isAlwaysMakeTags()
+    {
+        return alwaysMakeTags;
+    }
+
+    public boolean isStripComments()
+    {
+        return stripComment;
+    }
+
+    private String escapeComments(final String s)
+    {
+        final Matcher m = P_COMMENTS.matcher(s);
+        final StringBuffer buf = new StringBuffer();
+        if (m.find())
+        {
+            final String match = m.group(1); // (.*?)
+            m.appendReplacement(buf, Matcher.quoteReplacement("<!--" + htmlSpecialChars(match) + "-->"));
+        }
+        m.appendTail(buf);
+
+        return buf.toString();
+    }
+
+    private String balanceHTML(String s)
+    {
+        if (alwaysMakeTags)
+        {
+            //
+            // try and form html
+            //
+            s = regexReplace(P_END_ARROW, "", s);
+            // 不追加结束标签
+            s = regexReplace(P_BODY_TO_END, "<$1>", s);
+            s = regexReplace(P_XML_CONTENT, "$1<$2", s);
+
+        }
+        else
+        {
+            //
+            // escape stray brackets
+            //
+            s = regexReplace(P_STRAY_LEFT_ARROW, "&lt;$1", s);
+            s = regexReplace(P_STRAY_RIGHT_ARROW, "$1$2&gt;<", s);
+
+            //
+            // the last regexp causes '<>' entities to appear
+            // (we need to do a lookahead assertion so that the last bracket can
+            // be used in the next pass of the regexp)
+            //
+            s = regexReplace(P_BOTH_ARROWS, "", s);
+        }
+
+        return s;
+    }
+
+    private String checkTags(String s)
+    {
+        Matcher m = P_TAGS.matcher(s);
+
+        final StringBuffer buf = new StringBuffer();
+        while (m.find())
+        {
+            String replaceStr = m.group(1);
+            replaceStr = processTag(replaceStr);
+            m.appendReplacement(buf, Matcher.quoteReplacement(replaceStr));
+        }
+        m.appendTail(buf);
+
+        // these get tallied in processTag
+        // (remember to reset before subsequent calls to filter method)
+        final StringBuilder sBuilder = new StringBuilder(buf.toString());
+        for (String key : vTagCounts.keySet())
+        {
+            for (int ii = 0; ii < vTagCounts.get(key); ii++)
+            {
+                sBuilder.append("</").append(key).append(">");
+            }
+        }
+        s = sBuilder.toString();
+
+        return s;
+    }
+
+    private String processRemoveBlanks(final String s)
+    {
+        String result = s;
+        for (String tag : vRemoveBlanks)
+        {
+            if (!P_REMOVE_PAIR_BLANKS.containsKey(tag))
+            {
+                P_REMOVE_PAIR_BLANKS.putIfAbsent(tag, Pattern.compile("<" + tag + "(\\s[^>]*)?></" + tag + ">"));
+            }
+            result = regexReplace(P_REMOVE_PAIR_BLANKS.get(tag), "", result);
+            if (!P_REMOVE_SELF_BLANKS.containsKey(tag))
+            {
+                P_REMOVE_SELF_BLANKS.putIfAbsent(tag, Pattern.compile("<" + tag + "(\\s[^>]*)?/>"));
+            }
+            result = regexReplace(P_REMOVE_SELF_BLANKS.get(tag), "", result);
+        }
+
+        return result;
+    }
+
+    private static String regexReplace(final Pattern regex_pattern, final String replacement, final String s)
+    {
+        Matcher m = regex_pattern.matcher(s);
+        return m.replaceAll(replacement);
+    }
+
+    private String processTag(final String s)
+    {
+        // ending tags
+        Matcher m = P_END_TAG.matcher(s);
+        if (m.find())
+        {
+            final String name = m.group(1).toLowerCase();
+            if (allowed(name))
+            {
+                if (!inArray(name, vSelfClosingTags))
+                {
+                    if (vTagCounts.containsKey(name))
+                    {
+                        vTagCounts.put(name, vTagCounts.get(name) - 1);
+                        return "</" + name + ">";
+                    }
+                }
+            }
+        }
+
+        // starting tags
+        m = P_START_TAG.matcher(s);
+        if (m.find())
+        {
+            final String name = m.group(1).toLowerCase();
+            final String body = m.group(2);
+            String ending = m.group(3);
+
+            // debug( "in a starting tag, name='" + name + "'; body='" + body + "'; ending='" + ending + "'" );
+            if (allowed(name))
+            {
+                final StringBuilder params = new StringBuilder();
+
+                final Matcher m2 = P_QUOTED_ATTRIBUTES.matcher(body);
+                final Matcher m3 = P_UNQUOTED_ATTRIBUTES.matcher(body);
+                final List<String> paramNames = new ArrayList<>();
+                final List<String> paramValues = new ArrayList<>();
+                while (m2.find())
+                {
+                    paramNames.add(m2.group(1)); // ([a-z0-9]+)
+                    paramValues.add(m2.group(3)); // (.*?)
+                }
+                while (m3.find())
+                {
+                    paramNames.add(m3.group(1)); // ([a-z0-9]+)
+                    paramValues.add(m3.group(3)); // ([^\"\\s']+)
+                }
+
+                String paramName, paramValue;
+                for (int ii = 0; ii < paramNames.size(); ii++)
+                {
+                    paramName = paramNames.get(ii).toLowerCase();
+                    paramValue = paramValues.get(ii);
+
+                    // debug( "paramName='" + paramName + "'" );
+                    // debug( "paramValue='" + paramValue + "'" );
+                    // debug( "allowed? " + vAllowed.get( name ).contains( paramName ) );
+
+                    if (allowedAttribute(name, paramName))
+                    {
+                        if (inArray(paramName, vProtocolAtts))
+                        {
+                            paramValue = processParamProtocol(paramValue);
+                        }
+                        params.append(' ').append(paramName).append("=\\\"").append(paramValue).append("\"");
+                    }
+                }
+
+                if (inArray(name, vSelfClosingTags))
+                {
+                    ending = " /";
+                }
+
+                if (inArray(name, vNeedClosingTags))
+                {
+                    ending = "";
+                }
+
+                if (ending == null || ending.length() < 1)
+                {
+                    if (vTagCounts.containsKey(name))
+                    {
+                        vTagCounts.put(name, vTagCounts.get(name) + 1);
+                    }
+                    else
+                    {
+                        vTagCounts.put(name, 1);
+                    }
+                }
+                else
+                {
+                    ending = " /";
+                }
+                return "<" + name + params + ending + ">";
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        // comments
+        m = P_COMMENT.matcher(s);
+        if (!stripComment && m.find())
+        {
+            return "<" + m.group() + ">";
+        }
+
+        return "";
+    }
+
+    private String processParamProtocol(String s)
+    {
+        s = decodeEntities(s);
+        final Matcher m = P_PROTOCOL.matcher(s);
+        if (m.find())
+        {
+            final String protocol = m.group(1);
+            if (!inArray(protocol, vAllowedProtocols))
+            {
+                // bad protocol, turn into local anchor link instead
+                s = "#" + s.substring(protocol.length() + 1);
+                if (s.startsWith("#//"))
+                {
+                    s = "#" + s.substring(3);
+                }
+            }
+        }
+
+        return s;
+    }
+
+    private String decodeEntities(String s)
+    {
+        StringBuffer buf = new StringBuffer();
+
+        Matcher m = P_ENTITY.matcher(s);
+        while (m.find())
+        {
+            final String match = m.group(1);
+            final int decimal = Integer.decode(match).intValue();
+            m.appendReplacement(buf, Matcher.quoteReplacement(chr(decimal)));
+        }
+        m.appendTail(buf);
+        s = buf.toString();
+
+        buf = new StringBuffer();
+        m = P_ENTITY_UNICODE.matcher(s);
+        while (m.find())
+        {
+            final String match = m.group(1);
+            final int decimal = Integer.valueOf(match, 16).intValue();
+            m.appendReplacement(buf, Matcher.quoteReplacement(chr(decimal)));
+        }
+        m.appendTail(buf);
+        s = buf.toString();
+
+        buf = new StringBuffer();
+        m = P_ENCODE.matcher(s);
+        while (m.find())
+        {
+            final String match = m.group(1);
+            final int decimal = Integer.valueOf(match, 16).intValue();
+            m.appendReplacement(buf, Matcher.quoteReplacement(chr(decimal)));
+        }
+        m.appendTail(buf);
+        s = buf.toString();
+
+        s = validateEntities(s);
+        return s;
+    }
+
+    private String validateEntities(final String s)
+    {
+        StringBuffer buf = new StringBuffer();
+
+        // validate entities throughout the string
+        Matcher m = P_VALID_ENTITIES.matcher(s);
+        while (m.find())
+        {
+            final String one = m.group(1); // ([^&;]*)
+            final String two = m.group(2); // (?=(;|&|$))
+            m.appendReplacement(buf, Matcher.quoteReplacement(checkEntity(one, two)));
+        }
+        m.appendTail(buf);
+
+        return encodeQuotes(buf.toString());
+    }
+
+    private String encodeQuotes(final String s)
+    {
+        if (encodeQuotes)
+        {
+            StringBuffer buf = new StringBuffer();
+            Matcher m = P_VALID_QUOTES.matcher(s);
+            while (m.find())
+            {
+                final String one = m.group(1); // (>|^)
+                final String two = m.group(2); // ([^<]+?)
+                final String three = m.group(3); // (<|$)
+                // 不替换双引号为&quot;，防止json格式无效 regexReplace(P_QUOTE, "&quot;", two)
+                m.appendReplacement(buf, Matcher.quoteReplacement(one + two + three));
+            }
+            m.appendTail(buf);
+            return buf.toString();
+        }
+        else
+        {
+            return s;
+        }
+    }
+
+    private String checkEntity(final String preamble, final String term)
+    {
+
+        return ";".equals(term) && isValidEntity(preamble) ? '&' + preamble : "&amp;" + preamble;
+    }
+
+    private boolean isValidEntity(final String entity)
+    {
+        return inArray(entity, vAllowedEntities);
+    }
+
+    private static boolean inArray(final String s, final String[] array)
+    {
+        for (String item : array)
+        {
+            if (item != null && item.equals(s))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean allowed(final String name)
+    {
+        return (vAllowed.isEmpty() || vAllowed.containsKey(name)) && !inArray(name, vDisallowed);
+    }
+
+    private boolean allowedAttribute(final String name, final String paramName)
+    {
+        return allowed(name) && (vAllowed.isEmpty() || vAllowed.get(name).contains(paramName));
+    }
+}
+```
+
+### 3.5 yml 中配置规则
+
+```yml
+# 防止XSS攻击
+xss: 
+  # 过滤开关
+  enabled: true
+  # 排除链接（多个用逗号分隔）
+  excludes: /system/notice
+  # 匹配链接
+  urlPatterns: /system/*,/monitor/*,/tool/*
+```
+
+### 3.6 过滤配置
+
+```java
+
+/**
+ * Filter配置
+ *
+ * @author ruoyi
+ */
+@Configuration
+public class FilterConfig
+{
+    @Value("${xss.excludes}")
+    private String excludes;
+
+    @Value("${xss.urlPatterns}")
+    private String urlPatterns;
+
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @Bean
+    @ConditionalOnProperty(value = "xss.enabled", havingValue = "true")
+    public FilterRegistrationBean xssFilterRegistration()
+    {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setDispatcherTypes(DispatcherType.REQUEST);
+        registration.setFilter(new XssFilter());
+        registration.addUrlPatterns(StringUtils.split(urlPatterns, ","));
+        registration.setName("xssFilter");
+        registration.setOrder(FilterRegistrationBean.HIGHEST_PRECEDENCE);
+        Map<String, String> initParameters = new HashMap<String, String>();
+        initParameters.put("excludes", excludes);
+        registration.setInitParameters(initParameters);
+        return registration;
+    }
+    
+}
+```
+

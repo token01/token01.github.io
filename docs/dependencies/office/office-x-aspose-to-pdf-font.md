@@ -4,7 +4,7 @@
 
 我们使用Aspose.Word 生成word的时候字体都是正常的，但是转成pdf 之后字体就丢失了。
 
-![image-20220609085737039](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220609085737039.png)
+![image-20220609085737039](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220609085737039.png)
 
 ## 2. 问题原因
 
@@ -36,4 +36,4 @@ Aspose.Word 使用的字体文件并没有正确指向系统的字体（网上�
 
 ## 4. 转换效果
 
-![image-20220609090124782](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220609090124782.png)
+![image-20220609090124782](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220609090124782.png)

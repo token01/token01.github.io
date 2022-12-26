@@ -1,830 +1,268 @@
 ---
-order: 50
+order: 5
 category:
   - Test
 ---
 
-# 单元测试 - Mockito 详解
 
-> Mock通常是指，在测试一个对象A时，我们构造一些假的对象来模拟与A之间的交互，而这些Mock对象的行为是我们事先设定且符合预期。通过这些Mock对象来测试A在正常逻辑，异常逻辑或压力情况下工作是否正常。而Mockito是最流行的Java mock框架之一。
 
-## 1. 什么是 Mock 测试
+# 性能测试指标
 
-> Mock通常是指，在测试一个对象A时，我们构造一些假的对象来模拟与A之间的交互，而这些Mock对象的行为是我们事先设定且符合预期。通过这些Mock对象来测试A在正常逻辑，异常逻辑或压力情况下工作是否正常。
+> 性能测试的基础：就是在**确保功能实现正确的前提**下，通过**合适的性能测试加压方式和策略**，并收集考察服务端应用程序的各项性能指标，以及服务器硬件资源的使用情况，来评估是**否存在性能问题隐患**。
 
-Mock 测试就是在测试过程中，对于某些不容易构造（如 HttpServletRequest 必须在Servlet 容器中才能构造出来）或者不容易获取比较复杂的对象（如 JDBC 中的ResultSet 对象），用一个虚拟的对象（Mock 对象）来创建以便测试的测试方法。Mock 最大的功能是帮你把单元测试的耦合分解开，如果你的代码对另一个类或者接口有依赖，它能够帮你模拟这些依赖，并帮你验证所调用的依赖的行为。
+## 1. 性能指标分类
 
-先来看看下面这个示例：
+从性能测试分析度量的度角来看，可以从如下几个维度来收集考察各项性能指标：
 
-![image-20220901202108892](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901202108892.png)
+- 系统性能指标
+- 资源性能指标
+- 中间件指标
+- 数据库指标
+- 稳定性指标
+- 可扩展性指标
+- 可靠性指标
 
-从上图可以看出如果我们要对A进行测试，那么就要先把整个依赖树构建出来，也就是BCDE的实例。
+下面将从如上这几个维度，分别从各自维度常见指标，以及指标含义、指标行业参考标准等方面进行介绍。
 
-一种替代方案就是使用mocks
+## 2. 系统性能指标
 
-![image-20220901202216817](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901202216817.png)
+系统性能指标，常见的可从如下几类进行参考：
 
-从图中可以清晰的看出, mock对象就是在调试期间用来作为真实对象的替代品。
+- 响应时间
+- 系统处理能力
+- 吞吐量
+- 并发用户数
+- 错误率
 
-mock测试就是在测试过程中，对那些不容易构建的对象用一个虚拟对象来代替测试的方法就叫mock测试。
+### 2.1 响应时间(RT)
 
-## 2. Mock 适用在什么场景
+#### 2.1.1 **定义和解释**：
 
-> 在使用Mock的过程中，发现Mock是有一些通用性的，对于一些应用场景，是非常适合使用Mock的：
+响应时间，简称 RT。是指系统对请求作出响应的时间，可以理解为是指用户从客户端发起一个请求开始，到客户端接收到从服务器端返回的响应结束，整个过程所耗费的时间。直观上看，这个指标与人对软件性能的主观感受是非常一致的，因为它完整地记录了整个计算机系统处理请求的时间。
 
-- 真实对象具有不可确定的行为(产生不可预测的结果，如股票的行情)
-- 真实对象很难被创建(比如具体的web容器)
-- 真实对象的某些行为很难触发(比如网络错误)
-- 真实情况令程序的运行速度很慢
-- 真实对象有用户界面
-- 测试需要询问真实对象它是如何被调用的(比如测试可能需要验证某个回调函数是否被调用了)
-- 真实对象实际上并不存在(当需要和其他开发小组，或者新的硬件系统打交道的时候，这是一个普遍的问题)
+在性能检测中一般以压力发起端至被压测服务器返回处理结果的时间为计量，单位一般为秒或毫秒，由于一个系统通常会提供许多功能，而不同功能的处理逻辑也千差万别，因而不同功能的响应时间也不尽相同，甚至同一功能在不同输入数据的情况下响应时间也不相同。所以，在讨论一个系统的响应时间时，通常是指该系统所有功能的平均时间或者所有功能的最大响应时间。
 
-当然，也有一些不得不Mock的场景：
+#### 2.1.2 **行业参考标准**：
 
-- 一些比较难构造的Object：这类Object通常有很多依赖，在单元测试中构造出这样类通常花费的成本太大。
-- 执行操作的时间较长Object：有一些Object的操作费时，而被测对象依赖于这一个操作的执行结果，例如大文件写操作，数据的更新等等，出于测试的需求，通常将这类操作进行Mock。
-- 异常逻辑：一些异常的逻辑往往在正常测试中是很难触发的，通过Mock可以人为的控制触发异常逻辑。
+不同行业不同业务可接受的响应时间是不同的，一般情况，对于在线实时交易：
 
-在一些压力测试的场景下，也不得不使用Mock，例如在分布式系统测试中，通常需要测试一些单点（如namenode，jobtracker）在压力场景下的工作是否正常。而通常测试集群在正常逻辑下无法提供足够的压力（主要原因是受限于机器数量），这时候就需要应用Mock去满足。
+- 互联网企业：500 毫秒以下，例如淘宝业务 10 毫秒左右。
+- 金融企业：1 秒以下为佳，部分复杂业务 3 秒以下。
+- 保险企业：3 秒以下为佳。
+- 制造业：5 秒以下为佳。
+- 时间窗口：不同数据量结果是不一样的，大数据量的情况下，2 小时内完成。
 
-## 3. Mockito
+> 需要指出的是，响应时间的绝对值并不能直接反映软件的性能的高低，软件性能的高低实际上取决于用户对该响应时间的接受程度。
 
-> Mockito是最流行的Java mock框架之一.
+>之前参与的项目：1-3s之间。大部分1秒以下，负责事务3s
 
-### 3.1 官方资料
+### 2.2 系统处理能力(TPS,QPS,HPS)
 
-- Mockito 官方网站
+#### 2.2.1**定义和解释**
 
-https://site.mockito.org/
+系统处理能力是指系统在利用系统硬件平台和软件平台进行信息处理的能力。系统处理能力通过系统每秒钟能够处理的交易数量来评价，交易有两种理解：一是业务人员角度的一笔业务过程；二是系统角度的一次交易申请和响应过程。前者称为业务交易过程，后者称为事务。两种交易指标都可以评价应用系统的处理能力。
 
-- PowerMockito Github
+一般情况下，系统处理能力又用以下几个指标来度量：
 
-https://github.com/powermock/powermock/
+- HPS（Hits Per Second）：每秒点击次数，单位是次/秒。
+- TPS（Transaction per Second）：**系统每秒处理交易数**，单位是笔/秒。
+- QPS（Query per Second）：**系统每秒处理查询次数**，单位是次/秒。
 
-### 3.2 Maven包引入
+对于互联网业务中，如果某些业务有且仅有一个请求连接，那么 TPS=QPS=HPS，**一般情况下用 TPS 来衡量整个业务流程，用 QPS 来衡量接口查询次数，用 HPS 来表示对服务器点击请求。**
 
-```java
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+#### 2.2.2 **行业参考标准：**
 
-    <groupId>pdai.tech</groupId>
-    <artifactId>java-mockito</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>3.7.7</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-</project>
-```
+无论 TPS、QPS、HPS，此指标是衡量系统处理能力非常重要的指标，越大越好，根据经验，一般情况下：
 
-### 3.3 测试:Hello World
+- 金融行业：1000TPS~50000TPS，不包括互联网化的活动
+- 保险行业：100TPS~100000TPS，不包括互联网化的活动
+- 制造行业：10TPS~5000TPS
+- 互联网电子商务：10000TPS~1000000TPS
+- 互联网中型网站：1000TPS~50000TPS
+- 互联网小型网站: 500TPS~10000TPS
 
-> 本例子主要用来测试DemoService类，但是DemoService又依赖于DemoDao，这时候我们便可以mock出DemoDao的返回预期值，从而测试DemoService类。
+>之前参与的项目：500TPS-3000TPS
 
-待测试类DemoService
+### 2.3 吞吐量
 
-```java
-package tech.pdai.mockito.service;
+#### 2.3.1 **定义和解释**
 
-import tech.pdai.mockito.dao.DemoDao;
+吞吐量是指系统在单位时间内处理请求的数量。
 
-public class DemoService {
+对于单用户的系统，响应时间可以很好地度量系统的性能，但对于并发系统，通常需要用吞吐量作为性能指标。
 
-    private DemoDao demoDao;
+> 而对于一个多用户的系统，如果只有一个用户使用时系统的平均响应时间是 t，当有你 n 个用户使用时，每个用户看到的响应时间通常并不是 n×t，而往往比 n×t 小很多（当然，在某些特殊情况下也可能比 n×t 大，甚至大很多）。一般而言，吞吐量是一个比较通用的指标，两个具有不同用户数和用户使用模式的系统，如果其最大吞吐量基本一致，则可以判断两个系统的处理能力基本一致。
 
-    public DemoService(DemoDao demoDao) {
-        this.demoDao = demoDao;
-    }
+### 2.4 并发用户数
 
-    public int getDemoStatus(){
-        return demoDao.getDemoStatus();
-    }
-}
-```
+#### 2.4.1 **定义和解释**
 
-依赖DemoDao
+并发用户数指在同一时刻内，登录系统并进行业务操作的用户数量。
 
-```java
-package tech.pdai.mockito.dao;
+并发用户数对于长连接系统来说最大并发用户数即是系统的并发接入能力。对于短连接系统而言最大并发用户数并不等于系统的并发接入能力，而是与系统架构、系统处理能力等各种情况相关。
 
-import java.util.Random;
+与吞吐量相比，并发用户数是一个更直观但也更笼统的性能指标。实际上，并发用户数是一个非常不准确的指标，因为用户不同的使用模式会导致不同用户在单位时间发出不同数量的请求。
 
-public class DemoDao {
+### 2.5 错误率(FR)
 
-    public int getDemoStatus(){
-        return new Random().nextInt();
-    }
-}
-```
+#### 2.5.1 **定义和解释**：
 
-测试类
+错误率简称 FR，指系统在负载情况下，失败交易的概率。错误率＝(失败交易数/交易总数)*100%。
 
-```java
-package tech.pdai.mockito;
+#### 2.5.2 **行业参考标准：**
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.mockito.Mockito;
-import tech.pdai.mockito.dao.DemoDao;
-import tech.pdai.mockito.service.DemoService;
+不同系统对错误率的要求不同，但一般不超出千分之六，即成功率不低于 99.4%
 
-/**
- * Hello World Test.
- */
-public class HelloWorldTest {
+>之前参与的项目，不低于成功率99.5 
 
-    @Test
-    public void helloWorldTest() {
-        // mock DemoDao instance
-        DemoDao mockDemoDao = Mockito.mock(DemoDao.class);
+## 3. 资源性能指标
 
-        // 使用 mockito 对 getDemoStatus 方法打桩
-        Mockito.when(mockDemoDao.getDemoStatus()).thenReturn(1);
+资源性能指标，常见的可从如下几类进行参考：
 
-        // 调用 mock 对象的 getDemoStatus 方法，结果永远是 1
-        Assert.assertEquals(1, mockDemoDao.getDemoStatus());
+- CPU
+- 内存
+- 磁盘吐吞量
+- 网络吐吞量
 
-        // mock DemoService
-        DemoService mockDemoService = new DemoService(mockDemoDao);
-        Assert.assertEquals(1, mockDemoService.getDemoStatus() );
-    }
-}
-```
+### 3.1 CPU
 
-执行结果
+#### 3.1.1 **定义和解释**：
 
-![image-20220901204730424](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901204730424.png)
+CPU 又称为中央处理器，是一块超大规模的集成电路，是一台计算机的运算核心（Core）和控制核心（ Control Unit）。它的功能主要是解释计算机指令以及处理计算机软件中的数据。
 
-### 3.4 测试:使用mock方法
+#### 3.1.2 **行业参考标准**：
 
-包含两块测试：一个是类测试，一个接口测试，具体如下：
+CPU 指标主要指的 CPU 利用率，包括用户态 (user)、系统态 (sys)、等待态 (wait)、空闲态 (idle)。
 
-```java
-package tech.pdai.mockito;
+- CPU 利用率要低于业界警戒值范围之内，即小于或者等于 75%;
+- CPU sys% 小于或者等于 30%;
+- CPU wait% 小于或者等于 5%；
 
-import org.junit.Assert;
-import org.junit.Test;
+## 3.2 内存
 
-import java.util.List;
-import java.util.Random;
+#### 3.2.1 **定义和解释**：
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+内存是计算机中重要的部件之一，它是与 CPU 进行沟通的桥梁。计算机中所有程序的运行都是在内存中进行的，因此内存的性能对计算机的影响非常大。
 
-/**
- * Mock Class Test.
- */
-public class MockClassTest {
+#### 3.2.2 **行业参考标准**：
 
-    @Test
-    public void mockClassTest() {
-        Random mockRandom = mock(Random.class);
+现在的操作系统为了最大利用内存，在内存中存放了缓存，因此内存利用率 100% 并不代表内存有瓶颈，衡量系统内存是否有瓶颈主要靠 SWAP（与虚拟内存交换）交换空间利用率，**一般情况下，SWAP 交换空间利用率要低于 70%,太多的交换将会引起系统性能低下**。
 
-        // 默认值: mock 对象的方法的返回值默认都是返回类型的默认值
-        System.out.println(mockRandom.nextBoolean()); // false
-        System.out.println(mockRandom.nextInt()); // 0
-        System.out.println(mockRandom.nextDouble()); // 0.0
+### 3.3 磁盘吐吞量
 
-        // mock: 指定调用 nextInt 方法时，永远返回 100
-        when(mockRandom.nextInt()).thenReturn(100);
-        Assert.assertEquals(100, mockRandom.nextInt());
-        Assert.assertEquals(100, mockRandom.nextInt());
-    }
+#### 3.3.1 **定义和解释**：
 
-    @Test
-    public void mockInterfaceTest() {
-        List mockList = mock(List.class);
+磁盘吞吐量简称为 Disk Throughput，是指在无磁盘故障的情况下单位时间内通过磁盘的数据量。
 
-        // 接口的默认值：和类方法一致，都是默认返回值
-        Assert.assertEquals(0, mockList.size());
-        Assert.assertEquals(null, mockList.get(0));
+#### 3.3.2 **行业参考标准**：
 
-        // 注意：调用 mock 对象的写方法，是没有效果的
-        mockList.add("a");
-        Assert.assertEquals(0, mockList.size());      // 没有指定 size() 方法返回值，这里结果是默认值
-        Assert.assertEquals(null, mockList.get(0));   // 没有指定 get(0) 返回值，这里结果是默认值
+磁盘指标主要有每秒读写多少兆，磁盘繁忙率，磁盘队列数，平均服务时间，平均等待时间，空间利用率。其中磁盘繁忙率是直接反映磁盘是否有瓶颈的的重要依据，一般情况下，磁盘繁忙率要低于 70%。
 
-        // mock值测试
-        when(mockList.get(0)).thenReturn("a");          // 指定 get(0)时返回 a
-        Assert.assertEquals(0, mockList.size());        // 没有指定 size() 方法返回值，这里结果是默认值
-        Assert.assertEquals("a", mockList.get(0));      // 因为上面指定了 get(0) 返回 a，所以这里会返回 a
-        Assert.assertEquals(null, mockList.get(1));     // 没有指定 get(1) 返回值，这里结果是默认值
-    }
-}
-```
+### 3.4 网络吐吞量
 
-执行结果
+#### 3.4.1 **定义和解释**：
 
-![image-20220901205111308](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901205111308.png)
+网络吞吐量简称为 Network Throughput，是指在无网络故障的情况下单位时间内通过的网络的数据数量。单位为 Byte/s。网络吞吐量指标用于衡量系统对于网络设备或链路传输能力的需求。当网络吞吐量指标接近网络设备或链路最大传输能力时，则需要考虑升级网络设备。
 
-### 3.5 测试:适用@Mock注解
+#### 3.4.2 **行业参考标准**：
 
-> @Mock 注解可以理解为对 mock 方法的一个替代。
+网络吞吐量指标主要有每秒有多少兆流量进出，一般情况下不能超过设备或链路最大传输能力的 70%。
 
-使用该注解时，要使用MockitoAnnotations.initMocks 方法，让注解生效, 比如放在@Before方法中初始化。
+## 4. 中间件指标
 
-比较优雅优雅的写法是用MockitoJUnitRunner，它可以自动执行MockitoAnnotations.initMocks 方法。
+常用的中间件例如 Tomcat、Weblogic 等指标主要包括 JVM, ThreadPool, JDBC,具体如下：
 
-```java
-package tech.pdai.mockito;
+![image-20220703213503244](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220703213503244.png)
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+**行业参考标准**：
 
-import java.util.Random;
+- 当前正在运行的线程数不能超过设定的最大值。一般情况下系统性能较好的情况下，线程数最小值设置 50 和最大值设置 200 比较合适。
+- 当前运行的 JDBC 连接数不能超过设定的最大值。一般情况下系统性能较好的情况下，JDBC 最小值设置 50 和最大值设置 200 比较合适。
+- ＧＣ频率不能频繁，特别是 FULL GC 更不能频繁，一般情况下系统性能较好的情况下，JVM 最小堆大小和最大堆大小分别设置 1024M 比较合适。
 
-import static org.mockito.Mockito.when;
+## 5. 数据库指标
 
-/**
- * Mock Annotation
- */
-@RunWith(MockitoJUnitRunner.class)
-public class MockAnnotationTest {
+常用的数据库例如ＭySQL 指标主要包括 SQL、吞吐量、缓存命中率、连接数等，具体如下：
 
-    @Mock
-    private Random random;
+![image-20220703213707066](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220703213707066.png)
 
-    @Test
-    public void test() {
-        when(random.nextInt()).thenReturn(100);
-        Assert.assertEquals(100, random.nextInt());
-    }
-}
-```
+#### 5.1 **行业参考标准**：
 
-### 3.6 测试:参数匹配
+- SQL 耗时越小越好，一般情况下微秒级别。
+- 命中率越高越好，一般情况下不能低于 95%。
+- 锁等待次数越低越好，等待时间越短越好。
 
-如果参数匹配既申明了精确匹配，也声明了模糊匹配；又或者同一个值的精确匹配出现了两次，使用时会匹配符合匹配条件的最新声明的匹配。
+1. 稳定性指标 最短稳定时间：系统按照最大容量的 80% 或标准压力（系统的预期日常压力）情况下运行，能够稳定运行的最短时间。
 
-```java
-package tech.pdai.mockito;
+一般来说，对于正常工作日（8 小时）运行的系统，至少应该能保证系统稳定运行８小时以上。
 
+对于 7*24 运行的系统，至少应该能够保证系统稳定运行 24 小时以上。如果系统不能稳定的运行，上线后，随着业务量的增长和长时间运行，将会出现性能下降甚至崩溃的风险。
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+#### 5.2 **参考标准：**
 
-import java.util.List;
+- TPS 曲线稳定，没有大幅度的波动。
+- 各项资源指标没有泄露或异常情况。
 
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
+## 8. 可扩展性指标
 
+**定义和解释**：是指应用软件或操作系统以群集方式部署，增加的硬件资源与增加的处理能力之间的关系。
 
-/**
- * Mock Parameter Test.
- */
-@RunWith(MockitoJUnitRunner.class)
-public class ParameterTest {
+计算公式为：`（增加性能/原始性能）/（增加资源/原始资源）*100%`。
 
-    @Mock
-    private List<String> testList;
+扩展能力应通过多轮测试获得扩展指标的变化趋势。一般扩展能力非常好的应用系统，扩展指标应是线性或接近线性的，现在很多大规模的分布式系统的扩展能力非常好。
 
-    @Test
-    public void test01() {
+**参考标准**：
 
-        // 精确匹配 0
-        when(testList.get(0)).thenReturn("a");
-        Assert.assertEquals("a", testList.get(0));
+理想的扩展能力是资源增加几倍，性能就提升几倍。扩展能力至少在 70% 以上。
 
-        // 精确匹配 0
-        when(testList.get(0)).thenReturn("b");
-        Assert.assertEquals("b", testList.get(0));
+## 9. 可靠性指标
 
-        // 模糊匹配
-        when(testList.get(anyInt())).thenReturn("c");
-        Assert.assertEquals("c", testList.get(0));
-        Assert.assertEquals("c", testList.get(1));
+对于服务端性能测试，从系统可靠性指标度量分析时，常见从三类来入手：
 
-    }
-}
-```
+- 双机热备
+- 集群
+- 备份和恢复
 
-anyInt 只是用来匹配参数的工具之一，目前 mockito 有多种匹配函数，部分如下：
+### 9.1 双机热备
 
-| 函数名               | 匹配类型                                  |
-| -------------------- | ----------------------------------------- |
-| any()                | 所有对象类型                              |
-| anyInt()             | 基本类型 int、非 null 的 Integer 类型     |
-| anyChar()            | 基本类型 char、非 null 的 Character 类型  |
-| anyShort()           | 基本类型 short、非 null 的 Short 类型     |
-| anyBoolean()         | 基本类型 boolean、非 null 的 Boolean 类型 |
-| anyDouble()          | 基本类型 double、非 null 的 Double 类型   |
-| anyFloat()           | 基本类型 float、非 null 的 Float 类型     |
-| anyLong()            | 基本类型 long、非 null 的 Long 类型       |
-| anyByte()            | 基本类型 byte、非 null 的 Byte 类型       |
-| anyString()          | String 类型(不能是 null)                  |
-| anyList()            | `List<T>` 类型(不能是 null)               |
-| anyMap()             | `Map<K, V>`类型(不能是 null)              |
-| anyCollection()      | `Collection<T>`类型(不能是 null)          |
-| anySet()             | `Set<T>`类型(不能是 null)                 |
-| any(`Class<T>` type) | type类型的对象(不能是 null)               |
-| isNull()             | null                                      |
-| notNull()            | 非 null                                   |
-| isNotNull()          | 非 null                                   |
+对于将双机热备作为可靠性保障手段的系统，可衡量的指标如下：
 
-### 3.7 测试:Mock异常
+- 节点切换是否成功及其消耗时间。
+- 双机切换是否有业务中断。
+- 节点回切是否成功及其耗时。
+- 双机回切是否有业务中断。
+- 节点回切过程中的数据丢失量在进行双机切换的同时，使用压力发生工具模拟实际业务发生情况，对应用保持一定的性能压力，保证测试结果符合生产实际情况。
 
-> Mockito 使用 thenThrow 让方法抛出异常
+### 9.2 集群
 
-如下代码中，包含两个例子：一个是单个异常，一个是多个异常。
+对于使用集群方式的系统，主要通过以下方式考量其集群可靠性：
 
-```java
-package tech.pdai.mockito;
+- 集群中某个节点出现故障时，系统是否有业务中断情况出现
+- 在集群中新增一个节点时，是否需要重启系统
+- 当故障节点恢复后，加入集群，是否需要重启系统
+- 当故障节点恢复后，加入集群，系统是否有业务中断情况出现
+- 节点切换需要多长时间在验证集群可靠性的同时，需根据具体情况使用压力工具模拟实际业务发生相关情况，对应用保持一定的性能压力，确保测试结果符合生产实际情况。
 
-import org.junit.Assert;
-import org.junit.Test;
+### 9.3 备份和恢复
 
-import java.util.Random;
+本指标为了验证系统的备份/恢复机制是否有效可靠，包括系统的备份和恢复、数据库的备份和恢复、应用的备份和恢复，包括以下测试内容：
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+- 备份是否成功及其消耗时间。
+- 备份是否使用脚本自动化完成。
+- 恢复是否成功及其消耗时间。
+- 恢复是否使用脚本自动化完成指标体系的运用原则。
+- 指标项的采用和考察取决于对相应系统的测试目的和测试需求。被测系统不一样，测试目的不一样，测试需求也不一样，考察的指标项也有很大差别。
+- 部分系统涉及额外的前端用户接入能力的，需要考察用户接入并发能力指标。
+- 对于批量处理过程的性能验证，主要考虑批量处理效率并估算批量处理时间窗口。
+- 如测试目标涉及到系统性能容量，测试需求中应根据相关指标项的定义，明确描述性能指标需求。
+- 测试指标获取后，需说明相关的前提条件（如在多少的业务量、系统资源情况等）。
 
-/**
- * Exception Test.
- */
-public class ThrowTest {
+其中上述提到的【可扩展指标】和【可靠性指标】，大多数公司在开展性能测试的时候很少会涉及到这些测试点，但这些点从产品整体性能和质量角度来讲，又是不得不关注的一些重点，算是给大家提供一些测试思路。
 
-    /**
-     * 例子1： thenThrow 用来让函数调用抛出异常.
-     */
-    @Test
-    public void throwTest1() {
+## 10. 压测结果范例
 
-        Random mockRandom = mock(Random.class);
-        when(mockRandom.nextInt()).thenThrow(new RuntimeException("异常"));
-
-        try {
-            mockRandom.nextInt();
-            Assert.fail();  // 上面会抛出异常，所以不会走到这里
-        } catch (Exception ex) {
-            Assert.assertTrue(ex instanceof RuntimeException);
-            Assert.assertEquals("异常", ex.getMessage());
-        }
-    }
-
-    /**
-     * thenThrow 中可以指定多个异常。在调用时异常依次出现。若调用次数超过异常的数量，再次调用时抛出最后一个异常。
-     */
-    @Test
-    public void throwTest2() {
-
-        Random mockRandom = mock(Random.class);
-        when(mockRandom.nextInt()).thenThrow(new RuntimeException("异常1"), new RuntimeException("异常2"));
-
-        try {
-            mockRandom.nextInt();
-            Assert.fail();
-        } catch (Exception ex) {
-            Assert.assertTrue(ex instanceof RuntimeException);
-            Assert.assertEquals("异常1", ex.getMessage());
-        }
-
-        try {
-            mockRandom.nextInt();
-            Assert.fail();
-        } catch (Exception ex) {
-            Assert.assertTrue(ex instanceof RuntimeException);
-            Assert.assertEquals("异常2", ex.getMessage());
-        }
-    }
-}
-```
-
-执行结果
-
-![image-20220901205609282](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901205609282.png)
-
-> 对应返回类型是 void 的函数，thenThrow 是无效的，要使用 doThrow。
-
-```java
-package tech.pdai.mockito;
-
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
-
-import static org.mockito.Mockito.doThrow;
-
-/**
- * Do Throw for void return.
- */
-@RunWith(MockitoJUnitRunner.class)
-public class DoThrowTest {
-
-    static class ExampleService {
-
-        public void hello() {
-            System.out.println("Hello");
-        }
-
-    }
-
-    @Mock
-    private ExampleService exampleService;
-
-    @Test
-    public void test() {
-
-        // 这种写法可以达到效果
-        doThrow(new RuntimeException("异常")).when(exampleService).hello();
-
-        try {
-            exampleService.hello();
-            Assert.fail();
-        } catch (RuntimeException ex) {
-            Assert.assertEquals("异常", ex.getMessage());
-        }
-
-    }
-}
-```
-
-此外还有，可以查看官方文档
-
-- doAnswer(Answer)
-- doNothing()
-- doCallRealMethod()
-
-### 3.8 测试:spy 和 @Spy 注解
-
-spy 和 mock不同，不同点是：
-
-- spy 的参数是对象示例，mock 的参数是 class。
-- 被 spy 的对象，调用其方法时默认会走真实方法。mock 对象不会。
-
-下面是一个对比：
-
-```java
-import org.junit.Assert;
-import org.junit.Test;
-import static org.mockito.Mockito.*;
-
-
-class ExampleService {
-
-    int add(int a, int b) {
-        return a+b;
-    }
-
-}
-
-public class MockitoDemo {
-
-    // 测试 spy
-    @Test
-    public void test_spy() {
-
-        ExampleService spyExampleService = spy(new ExampleService());
-
-        // 默认会走真实方法
-        Assert.assertEquals(3, spyExampleService.add(1, 2));
-
-        // 打桩后，不会走了
-        when(spyExampleService.add(1, 2)).thenReturn(10);
-        Assert.assertEquals(10, spyExampleService.add(1, 2));
-
-        // 但是参数比匹配的调用，依然走真实方法
-        Assert.assertEquals(3, spyExampleService.add(2, 1));
-
-    }
-
-    // 测试 mock
-    @Test
-    public void test_mock() {
-
-        ExampleService mockExampleService = mock(ExampleService.class);
-
-        // 默认返回结果是返回类型int的默认值
-        Assert.assertEquals(0, mockExampleService.add(1, 2));
-
-    }
-
-}
-
-```
-
-spy 对应注解 @Spy，和 @Mock 是一样用的。
-
-```java
-import org.junit.Assert;
-import org.junit.Test;
-import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
-
-import static org.mockito.Mockito.*;
-
-
-class ExampleService {
-
-    int add(int a, int b) {
-        return a+b;
-    }
-
-}
-
-public class MockitoDemo {
-
-    @Spy
-    private ExampleService spyExampleService;
-
-    @Test
-    public void test_spy() {
-
-        MockitoAnnotations.initMocks(this);
-
-        Assert.assertEquals(3, spyExampleService.add(1, 2));
-
-        when(spyExampleService.add(1, 2)).thenReturn(10);
-        Assert.assertEquals(10, spyExampleService.add(1, 2));
-
-    }
-
-}
-```
-
-对于@Spy，如果发现修饰的变量是 null，会自动调用类的无参构造函数来初始化。
-
-所以下面两种写法是等价的：
-
-```java
-// 写法1
-@Spy
-private ExampleService spyExampleService;
-
-// 写法2
-@Spy
-private ExampleService spyExampleService = new ExampleService();
-
-```
-
-如果没有无参构造函数，必须使用写法2。例子：
-
-```java
-import org.junit.Assert;
-import org.junit.Test;
-import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
-
-class ExampleService {
-
-    private int a;
-
-    public ExampleService(int a) {
-        this.a = a;
-    }
-
-    int add(int b) {
-        return a+b;
-    }
-
-}
-
-public class MockitoDemo {
-
-    @Spy
-    private ExampleService spyExampleService = new ExampleService(1);
-
-    @Test
-    public void test_spy() {
-
-        MockitoAnnotations.initMocks(this);
-
-        Assert.assertEquals(3, spyExampleService.add(2));
-
-    }
-
-}
-```
-
-### 3.9 测试:测试隔离
-
-> 根据 JUnit 单测隔离 ，当 Mockito 和 JUnit 配合使用时，也会将非static变量或者非单例隔离开。
-
-比如使用 @Mock 修饰的 mock 对象在不同的单测中会被隔离开。
-
-示例：
-
-```java
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-
-import static org.mockito.Mockito.*;
-
-@RunWith(MockitoJUnitRunner.class)
-public class MockitoDemo {
-
-    static class ExampleService {
-
-        public int add(int a, int b) {
-            return a+b;
-        }
-
-    }
-
-    @Mock
-    private ExampleService exampleService;
-
-    @Test
-    public void test01() {
-        System.out.println("---call test01---");
-
-        System.out.println("打桩前: " + exampleService.add(1, 2));
-
-        when(exampleService.add(1, 2)).thenReturn(100);
-
-        System.out.println("打桩后: " + exampleService.add(1, 2));
-    }
-
-    @Test
-    public void test02() {
-        System.out.println("---call test02---");
-
-        System.out.println("打桩前: " + exampleService.add(1, 2));
-
-        when(exampleService.add(1, 2)).thenReturn(100);
-
-        System.out.println("打桩后: " + exampleService.add(1, 2));
-    }
-
-}
-
-```
-
-将两个单测一起运行，运行结果是：
-
-```bash
----call test01---
-打桩前: 0
-打桩后: 100
----call test02---
-打桩前: 0
-打桩后: 100
-```
-
-test01 先被执行，打桩前调用add(1, 2)的结果是0，打桩后是 100。
-
-然后 test02 被执行，打桩前调用add(1, 2)的结果是0，而非 100，这证明了我们上面的说法。
-
-### 3.10 测试:结合PowerMock支持静态方法
-
-> PowerMock 是一个增强库，用来增加 Mockito 、EasyMock 等测试库的功能。
-
-Mockito为什么不能mock静态方法?
-
-因为Mockito使用继承的方式实现mock的，用CGLIB生成mock对象代替真实的对象进行执行，为了mock实例的方法，你可以在subclass中覆盖它，而static方法是不能被子类覆盖的，所以Mockito不能mock静态方法。
-
-但PowerMock可以mock静态方法，因为它直接在bytecode上工作。
-
-- **Mockito 默认是不支持静态方法**
-
-比如我们在 ExampleService 类中定义静态方法 add：
-
-```java
-public class ExampleService {
-
-    public static int add(int a, int b) {
-        return a+b;
-    }
-
-}
-```
-
-尝试给静态方法打桩，会报错：
-
-```java
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-
-import static org.mockito.Mockito.*;
-
-@RunWith(MockitoJUnitRunner.class)
-public class MockitoDemo {
-
-    @Test
-    public void test() {
-
-        // 会报错
-        when(ExampleService.add(1, 2)).thenReturn(100);
-
-    }
-
-}
-```
-
-- **可以用 Powermock 弥补 Mockito 缺失的静态方法 mock 功能**
-
-在 pom.xml 中配置以下依赖：(版本的匹配问题可以参考：https://github.com/powermock/powermock/wiki/Mockito)
-
-```xml
-<properties>
-    <powermock.version>2.0.2</powermock.version>
-</properties>
-<dependencies>
-   <dependency>
-      <groupId>org.powermock</groupId>
-      <artifactId>powermock-module-junit4</artifactId>
-      <version>${powermock.version}</version>
-      <scope>test</scope>
-   </dependency>
-   <dependency>
-      <groupId>org.powermock</groupId>
-      <artifactId>powermock-api-mockito2</artifactId>
-      <version>${powermock.version}</version>
-      <scope>test</scope>
-   </dependency>
-</dependencies>
-```
-
-示例：
-
-```java
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-
-import static org.mockito.Mockito.*;
-
-@RunWith(PowerMockRunner.class)     // 这是必须的
-@PrepareForTest(ExampleService.class)  // 声明要处理 ExampleService
-public class MockitoDemo {
-    @Test
-    public void test() {
-
-        PowerMockito.mockStatic(ExampleService.class);  // 这也是必须的
-
-        when(ExampleService.add(1, 2)).thenReturn(100);
-
-        Assert.assertEquals(100, ExampleService.add(1, 2));
-        Assert.assertEquals(0, ExampleService.add(2, 2));
-
-    }
-}
-
-```
-
-
-
-- **PowerMockRunner 支持 Mockito 的 @Mock 等注解**
-
-上面我们用了 PowerMockRunner ，MockitoJUnitRunner 就不能用了。但不要担心， @Mock 等注解还能用。
-
-```java
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.powermock.modules.junit4.PowerMockRunner;
-
-import java.util.Random;
-
-import static org.mockito.Mockito.*;
-
-@RunWith(PowerMockRunner.class)
-public class MockitoDemo {
-
-    @Mock
-    private Random random;
-
-    @Test
-    public void test() {
-
-        when(random.nextInt()).thenReturn(1);
-        Assert.assertEquals(1,  random.nextInt());
-
-    }
-}
-```
+![image-20220704093608768](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704093608768.png)
 
 ## 参考文章
 
-[**单元测试 - Mockito 详解**](https://pdai.tech/md/develop/ut/dev-ut-x-mockito.html)
+[ 性能专题：一文搞懂性能测试常见指标](https://testerhome.com/articles/21178)

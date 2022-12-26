@@ -10,4 +10,4 @@ maven 同步和clean 都没有效果
 
 删除项目中的 .idea/libraries 文件夹，重新打开就可以了
 
-![image-20220324085125797](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220324085125797.png)
+![image-20220324085125797](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220324085125797.png)

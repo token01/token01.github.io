@@ -1,127 +1,97 @@
-# git工作流
+# git merge的三种操作
 
-## 1. 简介
+## 1. 背景
 
-Git 有多种工作流方式，我们接下来就介绍几种常见的工作流，以便大家选择最适合自己的方式。
+git merge的三种操作merge, squash merge, 和rebase merge
 
-## 2. 常见工作流
+举例来说：
+ 假设在master分支的B点拉出一个新的分支dev，经过一段时间开发后：
 
-### 2.1 主干开发
+- master分支上有两个新的提交M1和M2
+- dev分支上有三个提交D1，D2，和D3
 
-严格意义上说他并不算工作流，所有提交都在主干上
+如下图所示：
 
-![image-20211209213253441](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20211209213253441.png)
+![image-20211210215256075](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20211210215256075.png)
 
-#### 2.1.1 优势
+现在我们完成了dev分支的开发测试工作，需要把dev分支合并回master分支。
 
-- 方便，所有都提交到master
-- 适合一些小组件/工具
+## 2. merge 的三种操作
 
-#### 2.1.2 缺陷
+### 2.1 merge
 
-- 缺乏有效管理
+这是最基本的merge，就是把提交历史原封不动的拷贝过来，包含完整的提交历史记录。
 
-### 2.2 Git Flow
+```sh
+git checkout master
+git merge dev
+```
 
-`Git工作流` 是最广为人知的工作流。由`Vincent Driessen` 在2010年所发明，这种工作流建立在两个具有永久生命周期的分支基础之上：
+![image-20211210215426765](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20211210215426765.png)
 
-- master分支 - 对应生产环境的线上代码。所有开发代码都会在某个时间点合并到master分支。
-- develop分支 - 对应的是预生产的代码。当功能分支开发完毕之后，会被合并到develop分支。
+**此时还会生产一个merge commit (D4')**，这个merge commit不包含任何代码改动，而包含在dev分支上的几个commit列表(D1, D2和D3)。查看git的提交历史(git log)可以看到所有的这些提交历史记录。
 
-与之并行的，是在开发周期之内，还会使用一些其他类型的分支以便支持开发流程：
+### 2.2 squash merge
 
-- feature-* ( * 表示通配符，下同) 分支 — 功能分支用来开发下次发布包含的新功能。这些分支应当都是从develop分支派生出来，然后最终也应该合并回develop分支。
-- hotfix-* 分支 — 当master分支中含有不应出现的状况时，则有必要派生出hotfix分支对master分支进行紧急修复。这些分支应当派生自master 分支，并且最终应当同时合并回master 和develop 分支。
-- release-* 分支 — release 分支用于准备一次新的生产环境版本更新。创建release-*分支用来修复一些在测试环境未发现的小BUG，以及更新此版本的原信息。其应当派生自develop分支，并且最终同时合并回master 分支和 develop分支。
+根据字面意思，这个操作完成的是压缩的提交；解决的是什么问题呢，由于在dev分支上执行的是开发工作，有一些很小的提交，或者是纠正前面的错误的提交，对于这类提交对整个工程来说不需要单独显示出来一次提交，不然导致项目的提交历史过于复杂；所以基于这种原因，我们可以把dev上的所有提交都合并成一个提交；然后提交到主干。
 
-![image-20211209213326278](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20211209213326278.png)
+```sh
+ git checkout master
+ git merge --squash dev
+```
 
-#### 2.2.1 **优势**
+![image-20211210215937039](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20211210215937039.png)
 
-- 在项目周期之内，该工作流保证任何时刻两个主要分支都是处于纯净状态的
-- 由于遵循系统化的模式，因此分支命名容易理解
-- 大多数Git工具都支持该工作流的[扩展工具](https://link.zhihu.com/?target=https%3A//github.com/nvie/gitflow)
-- 当项目中需要同时维护多个生产版本时，该工作流模式非常理想
+在这个例子中，我们把D1，D2和D3的改动合并成了一个D。
 
-#### 2.2.2 **缺陷**
+注意，squash merge并不会替你产生提交，它只是把所有的改动合并，然后放在本地文件，需要你再次手动执行git commit操作；此时又要注意了，因为你要你手动commit，也就是说这个commit是你产生的，不是有原来dev分支上的开发人员产生的，提交者本身发生了变化。也可以这么理解，就是你把dev分支上的所有代码改动一次性porting到master分支上而已。
 
-- Git 的历史记录将变得异常混乱，可读性很差
-- master / develop 分支的割裂使CI/CD流程变得更加困难
-- 当项目维护单一生产环境版本时，该工作流则不适用
+### 2.3 rebase merge
 
-### 2.3 **GitHub Flow**
+由于squash merge会变更提交者作者信息，这是一个很大的问题，后期问题追溯不好处理(当然也可以由分支dev的所有者来执行squash merge操作，以解决部分问题)，rebase merge可以保留提交的作者信息，同时可以合并commit历史，完美的解决了上面的问题。
 
-GitHub 工作流是一个轻型的工作流，它是GitHub 在2011年 创建，其工作流遵循以下6个原则：
+```sh
+ git checkout dev
+ git rebase -i master
+ git checkout master
+ git merge dev
+```
 
-1. 任何时刻的master分支代码都是可以用来部署的
-2. 任何新变更都需要从master派生出一个分支，并且为其起一个描述新变更内容的名字：比如 new-oauth2-scopes
-3. 在本地提交该新分支变更，并且应经常性的向服务器端该同名分支推送变更
-4. 当你需要帮助、反馈，或认为新分支可以合并的时候，新建一个[pull request](https://link.zhihu.com/?target=http%3A//help.github.com/send-pull-requests/)
-5. 只有在其他人review通过之后，新分支才允许合并到 `master` 分支
-6. 一旦新分支被合并推送至`master`分支，master分支应当立即进行部署
+rebase merge分两步完成：
+ 第一步：执行rebase操作，结果是看起来dev分支是从M2拉出来的，而不是从B拉出来的，然后使用-i参数手动调整commit历史，是否合并如何合并。例如下rebase -i命令会弹出文本编辑框：
 
-![image-20211209213349934](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20211209213349934.png)
+```bash
+pick <D1> Message for commit #1
+pick <D2> Message for commit #2
+pick <D3> Message for commit #3
+```
 
-#### 2.3.1 **优势**
+假设D2是对D1的一个拼写错误修正，因此可以不需要显式的指出来，我们把D2修改为fixup：
 
-- 该工作流对于CI/CD流程友好
-- 是Git工作流的一种简版替换
-- 当项目维护单一生产环境版本时，该工作流适用
 
-#### 2.3.2 缺陷
 
-- 生产环境对应的代码极易处于不稳定状态
-- 对于依赖[发布计划](https://www.zhihu.com/search?q=发布计划&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"article"%2C"sourceId"%3A434078984})的项目无法充分支持
-- 该工作流并不涉及关于部署，环境，发布和问题等方面的解决方案
-- 当项目维护多生产环境版本时，该工作流不适用
+```bash
+pick <D1> Message for commit #1
+fixup <D2> Message for commit #2
+pick <D3> Message for commit #3
+```
 
-### 2.4 **GitLab Flow**
+rebase之后的状态变为：
 
-GitLab工作流由[GitLab](https://link.zhihu.com/?target=https%3A//about.gitlab.com/2014/09/29/gitlab-flow/)创建于2014年。这种工作流将[功能驱动的开发模式](https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Feature-driven_development)与问题跟踪结合在一起。与GitHub工作流最大的不同，是GitLab工作流新创建了与环境相关的分支（比如，`staging`分支和`production`分支），适用于每次合并功能分支后不需马上部署至生产环境的项目（如SaaS软件，移动软件项目等）。
+![image-20211210220238914](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20211210220238914.png)
 
-GitLab工作流遵循以下11条原则：
+D1'是D1和D2的合并。
 
-1. 使用功能分支进行开发，而不是直接在`master`分支上提交代码 （如果你的开发主分支是 `master`的话，下同）
-2. 测试每一次commit，而不仅仅是对`master`分支进行测试
-3. 在所有commits上运行自动化测试（如果你的测试脚本运行时间超过5分钟，就让他们并行）
-4. 在[合并代码](https://www.zhihu.com/search?q=合并代码&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"article"%2C"sourceId"%3A434078984})之前进行code review，而不是在合并之后
-5. 以分支名或者tag为准进行自动化的部署
-6. tag由人来设定，而不是CI
-7. 发布版本应建立在tag上
-8. 已push的commits永远不要进行rebase
-9. 所有人从`master`派生新分支，最终合并回`master
-10. 修复bug时应该优先修复`master`分支的代码，修复之后再cherry-pick到线上分支
-11. commit messages 要有意义
+第二步：再执行merge操作，把dev分支合并到master分支：
 
-![image-20211209213428242](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20211209213428242.png)
+![image-20211210220256208](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20211210220256208.png)
 
-#### 2.4.1 **优势**
 
-- 相对于前两种工作流，GitLab工作流定义了如何进行CI和CD流程的整合
-- 提交历史会非常清爽，历史信息看上去会更具可读性
-- 当项目维护单一生产环境版本时，该工作流适用
 
-#### 2.4.2 **缺陷**
+注意：在执行rebase的时候可能会出现冲突的问题，此时需要手工解决冲突的问题，然后执行(git add)命令；所有冲突解决完之后，这时不需要执行(git commit)命令，而是运行(git rebase --continue)命令，一直到rebase完成；如果中途想放弃rebase操作，可以运行(git rebase --abort)命令回到rebase之前的状态。
 
-- 比GitHub工作流更加复杂
-- 当项目维护多生产环境版本时，将会变得和Git Flow一样复杂
 
-### 2.5 **One Flow**
-
-One Flow 最初在[GitFlow considered harmful by Adam Ruka, 2015](https://link.zhihu.com/?target=http%3A//endoflineblog.com/gitflow-considered-harmful)这篇文章中提出，作为Git Flow的另一种选择。使用One Flow需要满足的最重要的条件，是生产版本的每一次更新都基于前一生产版本，与Git Flow最大的区别是没有`develop`这一分支。
-
-#### 2.5.1 **优势**
-
-- 提交历史会非常清爽，历史信息看上去会更具可读性
-- 灵活的团队协作机制
-- 当项目维护单一生产环境版本时，该工作流适用
-
-#### 2.5.2 **缺陷**
-
-- 自动化CI/CD能力的项目慎用
-- 功能分支不明确，不适用[持续集成](https://www.zhihu.com/search?q=持续集成&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"article"%2C"sourceId"%3A434078984})
-- 当项目维护多生产环境版本时，该工作流不适用
 
 ## 参考文章
 
-[四种常见的Git工作流](https://zhuanlan.zhihu.com/p/434078984)
+[git merge的三种操作merge, squash merge, 和rebase merge](https://www.jianshu.com/p/ff1877c5864e)

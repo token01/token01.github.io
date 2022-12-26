@@ -36,13 +36,13 @@ category:
 
 因为单一应用服务器能够处理的请求连接有限，在网站访问高峰时期，应用服务器会成为整个网站的瓶颈。因此使用负载均衡处理器势在必然。通过负载均衡调度服务器，可将来自浏览器的访问请求分发到应用的集群中的任何一台服务器上。
 
-![image-20220704202752594](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704202752594.png)
+![image-20220704202752594](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704202752594.png)
 
 ### 1.5 数据库读写分离
 
 当用户达到一定规模后，数据库因为负载压力过高而成为网站的瓶颈。而目前主流的数据库都提供主从热备功能，通过配置两台数据库主从关系，可以将一台数据库的数据更新同步到另一台服务器上。网站利用数据库这一功能实现数据库读写分离，从而改善数据库负载压力。
 
-![image-20220704202808118](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704202808118.png)
+![image-20220704202808118](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704202808118.png)
 
 ### 1.6 使用反向代理和CDN加速网站响应
 
@@ -50,7 +50,7 @@ category:
 
 CDN和反向代理的基本原理都是缓存，区别在于CDN部署在网络提供商的机房，而反向代理是部署在网站的中心机房，当用户请求到达中心机房后，首先访问的反向代理，如果反向代理缓存着用户请求的资源，则直接返回给用户。
 
-![image-20220704202934009](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704202934009.png)
+![image-20220704202934009](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704202934009.png)
 
 ### 1.7 使用分布式文件系统和分布式数据库系统
 
@@ -58,13 +58,13 @@ CDN和反向代理的基本原理都是缓存，区别在于CDN部署在网络�
 
 分布式数据库时网站数据库拆分的最后手段，只用在单表数据规模非常大的时候才使用。不到不得已时，网站更常用的数据库拆分手段是业务拆分，将不同业务的数据部署在不同的物理服务器上。
 
-![image-20220704203026849](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704203026849.png)
+![image-20220704203026849](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704203026849.png)
 
 ### 1.8 使用NoSQL和搜索引擎
 
 搜索引擎也基本已经形成现在大型网站必须提供的功能了，网站需要采用一些非关系数据库技术如NoSQL和非数据库查询技术如搜索引擎。
 
-![image-20220704203106737](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704203106737.png)
+![image-20220704203106737](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704203106737.png)
 
 ### 1.9 业务拆分
 
@@ -72,13 +72,13 @@ CDN和反向代理的基本原理都是缓存，区别在于CDN部署在网络�
 
 具体到技术上，也会根据产品线划分，将一个网站拆分成许多不同的应用，每个应用独立部署维护。应用之间可以通过超链接建立管理，也可以通过消息队列进行数据分发，**当然最多的还是通过访问同一个数据存储系统来构成一个关联的完整系统**。
 
-![image-20220704203305103](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704203305103.png)
+![image-20220704203305103](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704203305103.png)
 
 ### 1.10 分布式服务
 
 由于每一个应用系统都需要执行许多相同的业务操作，比如用户管理，session管理，那么可以将这些公用的业务提取出来，独立部署。
 
-![image-20220704203400514](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704203400514.png)
+![image-20220704203400514](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704203400514.png)
 
 ## 2. 示例:电商系统架构演进
 
@@ -111,7 +111,7 @@ CDN和反向代理的基本原理都是缓存，区别在于CDN部署在网络�
 
 ### 4.0 业务垂直拆分
 
-![image-20220704203919468](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704203919468.png)
+![image-20220704203919468](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704203919468.png)
 
 这时候为了进一步提升用户体验，加速用户的网站访问速度，会使用CDN来缓存信息，用户会访问最近的CDN节点来提升访问速度。此时的架构图如下：
 
@@ -123,13 +123,13 @@ CDN和反向代理的基本原理都是缓存，区别在于CDN部署在网络�
 
 ####  4.2分库分表架构
 
-![image-20220704204058186](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704204058186.png)
+![image-20220704204058186](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704204058186.png)
 
 随着流量的进一步增大，这时候系统仍然会有瓶颈出现，以订单系统为例： 单个机房的机器是有限的，不能一直新增下去，并且基于容灾的考虑，一般采用同城双机房的方式，机房之间用专线链接，同城跨机房质检的延时在几毫秒，此时的架构图如下：
 
 #### 4.3 同城双机房
 
-![image-20220704204203286](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704204203286.png)
+![image-20220704204203286](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704204203286.png)
 
 由于数据库主库只能是在一个机房，所以仍然会有一半的数据库访问是跨机房的，虽然延时只有几毫秒，但是一个调用链里的数据库访问太多后，这个延时也会积少成多。其次这个架构还是没能解决数据库连接数瓶颈问题
 
@@ -138,7 +138,7 @@ CDN和反向代理的基本原理都是缓存，区别在于CDN部署在网络�
 
 ### 5.0 单元化
 
-![image-20220704204400586](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704204400586.png)
+![image-20220704204400586](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704204400586.png)
 
 从上面的架构图里能看到，流量从接入层按照路由规则（比如以用户ID来路由）路由到不同单元，每个单元内都是高内聚，包含了核心系统，数据层面的分片逻辑是与接入层路有逻辑一致，也解决了数据库连接的瓶颈问题，但是一些跨单元的调用是无法避免的，同时也有些无法拆分的业务需要放在中心单元，供所有其他单元调用。
 

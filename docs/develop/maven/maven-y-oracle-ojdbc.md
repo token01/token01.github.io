@@ -1,75 +1,28 @@
-# nexus私服上传第三方包
+# Maven的中心资源库中没有com.oracle.ojdbc驱动包
 
-## 1. 操作步骤
+## 1. 问题
 
-### 1.1 创建repositories
+maven 提示没有com.oracle.ojdbc驱动包 无法正常下载
 
-![image-20211004225113417](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20211004225113417.png)
+## 2. 原因
 
-![image-20211004225141529](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20211004225141529.png)
+maven的中心资源库中没有ojdbc驱动包，所以需要安装到本地仓库
 
-### 1.2 配置repositories
+## 3. 解决
 
-配置如下（定义名称并激活），然后自行拖到页面的最下方，点击添加即可
+1. 下载
 
-![image-20211004225316142](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20211004225316142.png)
+   链接:https://pan.baidu.com/s/1Gciezpe3SnEATTTs2i1QXw  密码:e8ej
 
-### 1.3 maven-public配置3rd
+2. 安装到本地仓库
 
-![image-20211004225459127](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20211004225459127.png)
+   ```tex
+   mvn install:install-file -DgroupId=com.oracle -DartifactId=ojdbc14 -Dversion=10.2.0.4.0 -Dpackaging=jar -Dfile=/Users/zsz/Project/software/jar/oracle/ojdbc14-10.2.0.4.0.jar
+   ```
 
-![image-20211004225514115](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20211004225514115.png)
-
-### 1.4 Maven添加第三方仓库地址（全局配置）
-
-![image-20211004225624932](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20211004225624932.png)
-
-![image-20211004225652991](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20211004225652991.png)
-
-### 1.5 配置settings.xml
-
-在profiles 中添加如下内容
-
-```xml
-<repository>
-          <id>3rdnexus</id>          <url>http://192.168.0.1:8081/repository/3rd/</url>
-          <release>
-            <enable>true</enable>
-          </release>
-          <snapshots>
-            <enable>true</enable>
-          </snapshots>
-        </repository>
-  </profiles>   
-```
-
-添加server
-
-```
-<server>
-      <id>3rdnexus</id>      #此ID要与profile中的ID对应
-      <username>test</username>
-      <password>123456</password>
- </server>
-```
-
-### 1.6 上传本地包
-
-```
-ls
-ojdbc14-10.2.0.4.0.jar
-```
-
-```sh
-mvn deploy:deploy-file -DgroupId=com.oracle -DartifactId=ojdbc14 -Dversion=10.2.0.4.0 -Dpackaging=jar -Dfile=/Users/zsz/Project/software/jar/oracle/ojdbc14-10.2.0.4.0.jar -Durl=http://192.168.0.1:8081/repository/3rd/ -DrepositoryId=3rdnexus
-```
-
-### 1.7 **查看本地上传的jar包：**
-
-![image-20211004230728014](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20211004230728014.png)
-
-![image-20211004230745224](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20211004230745224.png)
+   
 
 ## 参考文章
 
-[部署maven及Nexus私服](https://cloud.tencent.com/developer/article/1623922)
+[【oracle】Failure to find com.oracle:ojdbc14:jar问题](https://blog.csdn.net/weixin_45784642/article/details/103012989)
+

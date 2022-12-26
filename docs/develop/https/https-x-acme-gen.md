@@ -75,7 +75,7 @@ acme.sh --issue  -d mydomain.com   --nginx
 
 ##### 2.1.2.1 nginx服务器示例
 
-![image-20220724224849353](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724224849353.png)
+![image-20220724224849353](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724224849353.png)
 
 #### 2.1.3 假装webserver，完成验证
 

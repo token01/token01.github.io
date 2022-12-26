@@ -23,7 +23,7 @@ category:
 ### 2.2 方案
 
 要实现断点续传，需要依赖于MD5秒传和分片上传。之前我们分片上传的简单流程如下图所示，我们可以在这个流程中加入断点续传。
-![image-20220724210700258](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724210700258.png)
+![image-20220724210700258](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724210700258.png)
 
 #### 2.2.1 文件状态查询
 
@@ -34,7 +34,7 @@ category:
 #### 2.2.2 查询已上传分片信息
 
 如果是上传失败，则查询根据该文件uploadId 查询已上传的分片信息，Minio 是支持这种查询的，比如下图中就可查到分片的相关信息：
-![image-20220724210757660](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724210757660.png)
+![image-20220724210757660](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724210757660.png)
 
 #### 2.2.3. 继续上传
 
@@ -48,15 +48,15 @@ category:
 
 在Minio中的java SDK 中是提供了对象数据查询的API，可以查看到对象的数据大小信息。
 
-![image-20220724210915900](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724210915900.png)
+![image-20220724210915900](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724210915900.png)
 
 知道文件大小之后，我们就可以进行切片，比如100M的大小，按照5M进行切分为20片，计算出每一片的起始位置和长度，Minio 获取文件的API 是支持分段获取流的。
 
-![image-20220724210943891](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724210943891.png)
+![image-20220724210943891](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724210943891.png)
 
 在实现了上述的分片下载后，就可以实现断点下载了，原理和上传一样，如下图所示：
 
-![image-20220724211002451](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724211002451.png)
+![image-20220724211002451](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724211002451.png)
 
 ## 参考文章
 

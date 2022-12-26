@@ -13,13 +13,13 @@
 
 ### 2.1 使用正则表达式或通配符来过滤
 
-![image-20220323094256012](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220323094256012.png)
+![image-20220323094256012](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220323094256012.png)
 
 ### 2.2 根据分支名来过滤
 
 Fliter by name(with wildcards)
 
-![image-20220323094604488](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220323094604488.png)
+![image-20220323094604488](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220323094604488.png)
 
 ## 参考文章
 

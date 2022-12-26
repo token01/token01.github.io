@@ -16,7 +16,7 @@ category:
 
 ### 1.1 优化方案
 
-![image-20220724203557314](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724203557314.png)
+![image-20220724203557314](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724203557314.png)
 
 1. 前端服务进行大文件分片处理，将分片信息传递给文件服务，文件服务返回所有分片的上传链接及uploadId。
 2. 前端服务直接请求Minio 服务器，并发上传分片
@@ -30,7 +30,7 @@ category:
 
 在Minio 的上传接口源码中，创建分片请求的方法是`protected` 关键字修饰的，无法通过创建`MinioClient`对象来访问，那么只能通过子类继承来访问了。
 
-![image-20220724203729888](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724203729888.png)
+![image-20220724203729888](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724203729888.png)
 
 首先自定义一个Minio 客户端类，继承MinioClient类，其作用主要是将以下几个方法暴露出来，以便调用：
 
@@ -514,15 +514,15 @@ onFileSuccess(rootFile, file, message) {
 
 首先添加一个文件，可以看到打印了`uploadId`和每个分块上传的URL：
 
-![image-20220724204550517](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724204550517.png)
+![image-20220724204550517](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724204550517.png)
 
 点击开始按钮，可以看到多个分片的[并发](https://so.csdn.net/so/search?q=并发&spm=1001.2101.3001.7020)请求，最后调用了合并文件接口，并返回了true。
 
-![image-20220724204612100](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724204612100.png)
+![image-20220724204612100](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724204612100.png)
 
 查看Minio 控制台，可以看到文件大小都一致。
 
-![image-20220724204641755](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724204641755.png)
+![image-20220724204641755](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724204641755.png)
 
 下载上传的文件，进行播放，发现一切正常，说明基本上就实现该功能了，可能还会有其他小问题，就需要开发时进行严格的测试并修改了。
 

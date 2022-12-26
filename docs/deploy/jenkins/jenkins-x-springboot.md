@@ -1,147 +1,213 @@
-# Jenkins共享库编写与使用
+# Jenkins使用jenkinsfile部署springboot项目
 
 ## 1. 背景
 
-如果你经常使用 Jenkins Pipeline 一定会遇到多个不同流水线中有大量重复代码的情况，很多时候为了方便我们都是直接复制粘贴到不同的管道中去的，但是长期下去这些代码的维护就会越来越麻烦。为了解决这个问题，Jenkins 中提供了共享库的概念来解决重复代码的问题，我们只需要将公共部分提取出来，然后就可以在所有的 Pipeline 中引用这些共享库下面的代码了。
+jenkinsfile的文件通用性更强，可以方便的复制到各个项目
 
-## 2. 共享库是什么？
+## 2. 创建任务
 
-共享库（shared library）是一些**独立的 Groovy 脚本的集合**，我们可以在运行 Pipeline 的时候去获取这些共享库代码。使用共享库最好的方式同样是把代码使用 Git 仓库进行托管，这样我们就可以进行版本化管理了。
+创建的时候选择：流水线
 
-使用共享库一般只需要3个步骤即可：
+![image-20210919194741168](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210919194741168.png)
 
-- 首先创建 Groovy 脚本，添加到 Git 仓库中
-- 然后在 Jenkins 中配置将共享库添加到 Jenkins 中来
-- 最后，在我们的流水线中导入需要使用的共享库：`@Library('your-shared-library')`，这样就可以使用共享库中的代码了。
+## 3. 部署文件jenkinsfile代码
 
-## 3. 共享库内容
+在项目根目录下建：jenkinsfile文件
 
-在共享库中一般会有两种通用的代码：
+```sh
+#!groovy
 
-### 3.1 vars 下的steps
+@Library('jenkinslib') _
 
-> **Steps**：这些 Steps 在 Jenkins 中被称为**全局变量**，我们可以在所有的 Jenkins Pipeline 中使用这些自定义的 Steps。
+def color = new org.devops.color()
+def build = new org.devops.build()
+def deploy = new org.devops.deploy()
+def systemtime = new org.devops.systemtime()
 
-比如，我们可以编写一个标准的 Step 来部署应用或者发送消息通知等，我们就可以将代码添加到 `vars/YourStepName.groovy` 文件中，然后实现一个 `call` 函数即可：
+def String isDeploy = "${env.isDeploy}"
+//目标服务器ip和路径，根据实际情况修改
+def String serverIp = '192.168.0.1'
+def String targetPath = '/home/myproject'
 
-```groovy
-#!/usr/bin/env groovy
-// vars/YourStepName.groovy
+//部署包的简称，根据实际情况修改
+def artifactShortName = 'MYAPP_SERVER'
+def String releaseVersion = "${env.releaseVersion}"
 
-def call() {
-  // Do something here...
+pipeline {
+    agent {
+        node {
+            label 'master'
+        }
+    }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        disableConcurrentBuilds()
+    }
+    triggers {
+        cron 'H 22 * * *'
+    }
+    parameters {
+        string defaultValue: '0.10.0', description: '请输入本次构建的前三段版本号', name: 'releaseVersion', trim: true
+        choice choices: ['是', '否'], description: '是否要发布到服务器，默认发布', name: 'isDeploy'
+    }
+    stages {
+        stage('Mvn Build') {
+            steps {
+                script {
+                    color.PrintMes('开始打包', 'green')
+                    build.Build('mvn', 'mvn clean package', 'master')
+                    //默认为jdk8
+                }
+            }
+//            post {
+//                success {
+//                    wrap([$class: 'BuildUser']) {
+//                        script {
+//                            currentTime = systemtime.GetSysTime('yyMMdd')
+//                            //部署包是jar还是war，以及路径要根据实际情况修改
+//                            sh """cd my-admin/target
+//                                cp my-admin.jar ${artifactShortName}-${releaseVersion}-${env.GIT_COMMIT.take(8)}-BETA-${currentTime}.jar
+//                            """
+//                            //根据实际情况修改制品路径和名称，这个是用来把包提取到jenkins页面，给测试下载的
+//                            archiveArtifacts 'my-admin/target/*.jar'
+//                            currentBuild.description = "Start By ${env.BUILD_USER} And Build Success"
+//                        }
+//                    }
+//                }
+//            }
+        }
+        stage('archive') {
+            steps {
+                script {
+                    color.PrintMes('开始压缩', 'green')
+                    currentTime = systemtime.GetSysTime('yyMMdd')
+                    //部署包是jar还是war，以及路径要根据实际情况修改
+                    sh """ rm -rf archive"""
+                    sh """ mkdir archive """
+                    sh """ cp my-admin/target/*.jar archive """
+                    sh """ cp doc/版本更新说明.md archive """
+                    sh """ tar -zcvf ${artifactShortName}-${releaseVersion}-${env.GIT_COMMIT.take(8)}-BETA-${currentTime}.tar.gz archive """
+                    //根据实际情况修改制品路径和名称，这个是用来把包提取到jenkins页面，给测试下载的
+                    archiveArtifacts '*.tar.gz'
+                    currentBuild.description = "Start By ${env.BUILD_USER} And Build Success"
+
+                }
+            }
+        }
+        stage('Deploy App') {
+            when {
+                expression {
+                    return (isDeploy == '是')
+                }
+            }
+            steps {
+                script {
+                    color.PrintMes('自动发布', 'green')
+                    deployCommand = """cd /home/myproject/ && sh deploy.sh restart"""
+                    deploy.Publish(serverIp, deployCommand, targetPath, 'my-admin/target/my-admin.jar', 'my-admin/target')
+                }
+            }
+        }
+    }
 }
-```
-
-### 3.2 src下的通用代码（通常放帮助类）
-
-这些代码需要放在 `src/your/package/name` 目录下面，然后就可以使用常规的 Groovy 语法了，例如：
 
 ```
-#!/usr/bin/env groovy
-// com/qikqiak/GlobalVars.groovy
-package com.qikqiak
 
-class GlobalVars {
-   static String foo = "bar"
+## 4. 项目启动脚本
+
+```sh
+#!/bin/sh
+# author ygn
+# ./deploy.sh start 启动
+# ./deploy.sh stop 停止
+# ./deploy.sh restart 重启
+# ./deploy.sh status 状态
+AppName=my-admin.jar
+
+# JVM参数
+JVM_OPTS="-Dname=$AppName  -Duser.timezone=Asia/Shanghai -Xms512M -Xmx512M -XX:PermSize=256M -XX:MaxPermSize=512M -XX:+HeapDumpOnOutOfMemoryError -XX:+PrintGCDateStamps  -XX:+PrintGCDetails -XX:NewRatio=1 -XX:SurvivorRatio=30 -XX:+UseParallelGC -XX:+UseParallelOldGC"
+APP_HOME=`pwd`
+LOG_PATH=$APP_HOME/logs/$AppName.log
+
+if [ "$1" = "" ];
+then
+    echo -e "\033[0;31m 未输入操作名 \033[0m  \033[0;34m {start|stop|restart|status} \033[0m"
+    exit 1
+fi
+
+if [ "$AppName" = "" ];
+then
+    echo -e "\033[0;31m 未输入应用名 \033[0m"
+    exit 1
+fi
+
+function start()
+{
+    PID=`ps -ef |grep java|grep $AppName|grep -v grep|awk '{print $2}'`
+
+	if [ x"$PID" != x"" ]; then
+	    echo "$AppName is running..."
+	else
+	  echo "启动完整命令： nohup java -jar  $JVM_OPTS $AppName --spring.profiles.active=prod > /dev/null 2>&1 &"
+		nohup java -jar  $JVM_OPTS $AppName --spring.profiles.active=prod > /dev/null 2>&1 &
+		sleep 5
+		status
+	fi
 }
-```
 
-我们可以在 Jenkins Pipeline 中使用 `import` 导入上面的类，并引用其中的静态变量，比如 `GlobalVars.foo`。
+function stop()
+{
+    echo "Stop $AppName"
+	
+	PID=""
+	query(){
+		PID=`ps -ef |grep java|grep $AppName|grep -v grep|awk '{print $2}'`
+	}
 
-## 4. 示例
-
-### 4.1 步骤1：vars的steps示例
-
-新建一个名为 `pipeline-library-demo` 的文件夹，将该项目加入到 Git 仓库中。首先创建一个名为 `vars` 的目录，自定义一个 step 就是在 `vars` 目录下面的一个 `.groovy` 文件，这些被称为全局变量，比如我们添加一个 `sayHi.groovy` 的文件，代码如下所示：
-
-```groovy
-#!/usr/bin/env groovy
-
-def call(String name='zsz') {
-  echo "Hello, ${name}."
+	query
+	if [ x"$PID" != x"" ]; then
+		kill -TERM $PID
+		echo "$AppName (pid:$PID) exiting..."
+		while [ x"$PID" != x"" ]
+		do
+			sleep 1
+			query
+		done
+		echo "$AppName exited."
+	else
+		echo "$AppName already stopped."
+	fi
 }
-```
 
-需要注意的是需要实现 call 方法，添加了一个名为 name 的参数，具有默认值 `zsz`，可以用 `${name}` 来进行访问。
-
-### 4.2 步骤2：src 的通用代码示例
-
-然后创建一个名为 `src/com/zsz/GlobalVars.groovy` 的文件，文件内容如下所示：
-
-```groovy
-#!/usr/bin/env groovy
-package com.qikqiak
-
-class GlobalVars {
-  static String foo = "bar"
-
-  // 在 Pipeline 中可以引用这里的静态变量：
-  // 
-  // import com.zsz.GlobalVars
-  // println GlobalVars.foo
+function restart()
+{
+    stop
+    sleep 2
+    start
 }
-```
 
-### 4.3 完整的代码目录如下所示：
-
-```
-$ tree .
-.
-├── README.md
-├── src
-│   └── com
-│       └── zsz
-│           └── GlobalVars.groovy
-└── vars
-    └── sayHi.groovy
-
-4 directories, 3 files
-```
-
-### 4.4 上传代码到git
-
-https://gitee.com/zszdevelop/pipeline-library-demo
-
-### 4.5 Jenkins 添加共享库
-
-共享库创建完成后，我们需要让 Jenkins 知道这个共享库，我们可以从 Jenkins 的 Web 页面进行添加。在 Jenkins 首页 -> 系统管理 -> 系统配置，在 `Global Pipeline Libraries` 区域配置共享库：
-
-![image-20211001182353785](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20211001182353785.png)
-
-
-
-### 4.6 新建流水线项目
-
-保存后即可使用配置共享库。接下来新建一个名为 `share-lib-demo` 的流水线项目，在 `Pipeline script` 区域添加如下代码：
-
-```groovy
-@Library('pipeline-library-demo')_
-
-import com.qikqiak.GlobalVars
-
-stage('Demo') {
-    echo 'Hello world'
-    sayHi '张三'
-    println GlobalVars.foo
+function status()
+{
+    PID=`ps -ef |grep java|grep $AppName|grep -v grep|wc -l`
+    if [ $PID != 0 ];then
+        echo "$AppName is running..."
+    else
+        echo "$AppName is not running..."
+    fi
 }
+
+case $1 in
+    start)
+    start;;
+    stop)
+    stop;;
+    restart)
+    restart;;
+    status)
+    status;;
+    *)
+
+esac
+
 ```
-
-![image-20211001182543979](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20211001182543979.png)
-
-需要注意的是 `@Library('pipeline-library-demo')_` 最后有一个下划线 `_`，这个下划线并不是写错了，如果 `@Libray` 后面紧接的一行不是 `import` 语句的话，就需要这个下划线，我们这里后面就是一条 `import` 语句，所以这里可以省略这个下划线。
-
-### 4.7 构建输出
-
-配置完成后，构建这个 Pipeline，正常就可以看到如下所示的构建结果
-
-![image-20211001182654054](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20211001182654054.png)
-
-## 5. 参考文章
-
-[jenkins官网](https://www.jenkins.io/zh/doc/book/pipeline/shared-libraries/)
-
-[Jenkins 共享库示例](https://www.qikqiak.com/post/jenkins-shared-library-demo/)
-
-[DevOps流水线最佳实践](https://github.com/zszdevelop/jenkinslibrary)
 

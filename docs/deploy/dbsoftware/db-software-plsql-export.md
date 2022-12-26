@@ -1,24 +1,8 @@
-# Navicat创建Oracle数据库
+# plsql导出建表语句（包括存储过程、视图）
 
-## 1. 创建表空间
 
-![image-20210522104059827](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210522104059827.png)
 
-![image-20210522104241385](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210522104241385.png)
+## 参考文章
 
-## 2. 创建一个新用户
-
-**用户名需要设置为全大写英文字母**
-
-![image-20210522104518587](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210522104518587.png)
-
-为该用户设置角色
-
-![image-20210522104628577](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210522104628577.png)
-
-![image-20210522104637174](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210522104637174.png)
-
-设置“服务器权限”
-
-![image-20210522104733656](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210522104733656.png)
+[plsql导出建表语句（包括存储过程、视图）](https://blog.csdn.net/qq_25221835/article/details/88020830)
 

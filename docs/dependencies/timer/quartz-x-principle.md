@@ -104,7 +104,7 @@ Quartz的集群模式指的是**一个集群下多个节点管理同一批任务
 
 ### 5.1 Quartz集群模式部署图
 
-![image-20220719213026199](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220719213026199.png)
+![image-20220719213026199](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220719213026199.png)
 
 ### 5.2 集群模式原理分析
 

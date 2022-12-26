@@ -48,7 +48,7 @@ c3=hash(cache3);
 
 接下来就是数据如何存储到cache服务器上了，key值哈希之后的结果顺时针找上述环形hash空间中，距离自己最近的机器节点，然后将数据存储到上面， 如上图所示，k1 存储到 c3 服务器上， k4,k3存储到c1服务器上， k2存储在c2服务器上。用图表示如下:
 
-![image-20220618205821327](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618205821327.png)
+![image-20220618205821327](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220618205821327.png)
 
 ### 3.2 删除节点
 

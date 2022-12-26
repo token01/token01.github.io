@@ -44,7 +44,7 @@ category:
 
 分布式可繁可简，最简单的分布式就是大家最常用的，在负载均衡服务器后加一堆web服务器，然后在上面搞一个缓存服务器来保存临时状态，后面共享一个数据库，其实很多号称分布式专家的人也就停留于此，大致结构如下图所示：
 
-![image-20220616200046673](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220616200046673.png)
+![image-20220616200046673](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220616200046673.png)
 
 这种环境下真正进行分布式的只是web server而已，并且web server之间没有任何联系，所以结构和实现都非常简单。
 
@@ -54,7 +54,7 @@ category:
 
 这样看起来，分布式是一个非常庞大的体系，只不过你可以根据具体需求进行适当地裁剪。按照最完备的分布式体系来看，可以由以下模块组成：
 
-![image-20220616200940794](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220616200940794.png)
+![image-20220616200940794](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220616200940794.png)
 
 - **分布式任务处理服务：**负责具体的业务逻辑处理
 - **分布式节点注册和查询：**负责管理所有分布式节点的命名和物理信息的注册与查询，是节点之间联系的桥梁

@@ -24,7 +24,7 @@ category:
 
 属于Java并发中JUC，具体可以看[JUC - 类汇总和学习指南](https://pdai.tech/md/java/thread/java-thread-x-juc-overview.html)
 
-![image-20220719041508424](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220719041508424.png)
+![image-20220719041508424](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220719041508424.png)
 
 ## 2. ScheduledExecutorService实现案例
 

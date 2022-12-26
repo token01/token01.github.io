@@ -17,17 +17,17 @@
 
 破解密钥：L-g782dn2d-1f1yqxx1rv1sqd（网上找的）
 
-![image-20220921091805609](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921091805609.png)
+![image-20220921091805609](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921091805609.png)
 
 ### 2.3 确保jar包正常运行（使用本地jre）
 
 因为我们exe打包给用户，用户可能并没有java环境，所以我们需要使用本地jre
 
-![image-20220921093857650](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921093857650.png)
+![image-20220921093857650](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921093857650.png)
 
 此博文 以ruoyi-vue 版本为例
 
-![image-20220921092743600](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921092743600.png)
+![image-20220921092743600](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921092743600.png)
 
 ## 3. 打exe包
 
@@ -37,45 +37,45 @@ open 可以导入 已经配置好的 XXX.exe4j 配置脚本
 
 新配置 直接next即可
 
-![image-20220921094014148](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921094014148.png)
+![image-20220921094014148](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921094014148.png)
 
 ### 3.2 步骤二
 
-![image-20220919144257442](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220919144257442.png)
+![image-20220919144257442](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220919144257442.png)
 
 ### 3.3 步骤三
 
-![image-20220921094253925](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921094253925.png)
+![image-20220921094253925](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921094253925.png)
 
 ### 3.4 步骤四
 
-![image-20220921094856778](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921094856778.png)
+![image-20220921094856778](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921094856778.png)
 
 这个高级选项64位是一定要选的
 
-![image-20220919144924352](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220919144924352.png)
+![image-20220919144924352](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220919144924352.png)
 
 ### 3.5 步骤五
 
 选择要打包的jar包
 
-![image-20220921095131884](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921095131884.png)
+![image-20220921095131884](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921095131884.png)
 
 选择启动类 这里要注意 要选择 springboot的jar包启动类
 
-![image-20220921095247307](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921095247307.png)
+![image-20220921095247307](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921095247307.png)
 
 ### 3.6 步骤六
 
 配置 JER 版本
 
-![image-20220919145154975](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220919145154975.png)
+![image-20220919145154975](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220919145154975.png)
 
 在目标系统上，生成的可执行文件按以下可配置顺序搜索JRE或JDK。
 
 所以这里最好配成相对exe的路径（比如同级目录，之后将exe和JRE一起打包给用户）
 
-![image-20220921095504298](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921095504298.png)
+![image-20220921095504298](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921095504298.png)
 
 ### 3.7 步骤七
 
@@ -83,41 +83,41 @@ open 可以导入 已经配置好的 XXX.exe4j 配置脚本
 
 这里我们是控制台启动 所以不配置
 
-![image-20220921095622448](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921095622448.png)
+![image-20220921095622448](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921095622448.png)
 
 ### 3.8 步骤八
 
 这里是一些 输出信息配置 这里我们默认就好
 
-![image-20220919145354944](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220919145354944.png)
+![image-20220919145354944](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220919145354944.png)
 
 ### 3.9 步骤九
 
 编译生成exe (路径在步骤三填写的地址) 编译成功后会跳转到 步骤十
 
-![image-20220919145450324](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220919145450324.png)
+![image-20220919145450324](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220919145450324.png)
 
 ### 3.10 步骤十
 
 打包完成测试
 
-![image-20220919145501107](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220919145501107.png)
+![image-20220919145501107](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220919145501107.png)
 
-![image-20220919151139541](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220919151139541.png)
+![image-20220919151139541](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220919151139541.png)
 
 导出配置
 
-![image-20220921100004983](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921100004983.png)
+![image-20220921100004983](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921100004983.png)
 
 ## 4. 启动与测试
 
 双击就能启动我们exe，可以看到控制台已经启动了
 
-![image-20220921100358747](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921100358747.png)
+![image-20220921100358747](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921100358747.png)
 
 输入我们的8080端口，可以看到项目已经跑起来了
 
-![image-20220921100435788](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921100435788.png)
+![image-20220921100435788](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921100435788.png)
 
 ## 5. 注册成windows服务
 
@@ -132,7 +132,7 @@ F:\fadu\02_ruoyi\exe\instsrv.exe ruoyi-server  F:\fadu\02_ruoyi\exe\srvany.exe
 
 ```
 
-![image-20220921101055841](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921101055841.png)
+![image-20220921101055841](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921101055841.png)
 
 ### 5.2 注册表
 
@@ -141,25 +141,25 @@ win+R 输入regedit 打开注册表
 右键添加项Parameters
 在项里添加字符串值 AppDirectory 数据 F:\fadu\02_ruoyi\exe
 Application 数据 F:\fadu\02_ruoyi\exe\ruoyi.exe
-![image-20220921101829291](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921101829291.png)
+![image-20220921101829291](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921101829291.png)
 
 ### 5.3 查看服务
 
 计算机—>管理----->服务找到我们的ruoyi-server服务
 
-![image-20220921102058809](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921102058809.png)
+![image-20220921102058809](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921102058809.png)
 
 启动服务
 
-![image-20220921102239384](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921102239384.png)
+![image-20220921102239384](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921102239384.png)
 
 ### 5.4 测试
 
-![image-20220921102311268](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921102311268.png)
+![image-20220921102311268](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921102311268.png)
 
 直接打开浏览器可以看到我们的项目启动成功了，然后大家可以测试关机，再开机访问
 
-![image-20220921102325148](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921102325148.png)
+![image-20220921102325148](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921102325148.png)
 
 ### 5.5 移除服务
 
@@ -189,7 +189,7 @@ net start ruoyi-server
 
 注意修改路径和名称
 
-![image-20220921105705692](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220921105705692.png)
+![image-20220921105705692](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220921105705692.png)
 
 注意：
 

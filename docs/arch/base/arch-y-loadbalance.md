@@ -123,9 +123,6 @@ DNS、硬件、软件这3中方式可以组合使用，基本原则：
 
 - 软件方式用于实现**机器级别**的负载均衡。
 
-
-
-
 <img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220701211454617.png" alt="image-20220701211454617"  />
 
 ## 5. 负载均衡算法

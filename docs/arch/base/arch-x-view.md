@@ -21,11 +21,11 @@ category:
 
 核心是解决业务带来的系统复杂性，了解客户/业务方的痛点，项目定义，现有环境；梳理高阶需求和非功能性需求，进行问题域划分与领域建模等工作；沟通，方案建议，多次迭代，交付总体架构。
 
-![image-20220704155449826](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704155449826.png)
+![image-20220704155449826](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704155449826.png)
 
 看看京东业务架构（网上分享图）：
 
-![image-20220704155536633](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704155536633.png)
+![image-20220704155536633](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704155536633.png)
 
 ### 1.2 应用/技术架构
 
@@ -37,7 +37,7 @@ category:
 
 > 功能视角和业务视角有重合的地方，主要针对开发而言的服务功能；
 
-![image-20220704160030358](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704160030358.png)
+![image-20220704160030358](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704160030358.png)
 
 #### 1.2.2 视角：技术视角-总体
 
@@ -47,15 +47,15 @@ category:
 
 从技术层面描述，主要是分层模型，例如持久层、数据层、逻辑层、应用层、表现层等，然后每层使用什么技术框架，例如Spring、hibernate、ioc、MVC、成熟的类库、中间件、WebService等，分别说明，要求这些技术能够将整个系统的主要实现概括。
 
-![image-20220704160212346](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704160212346.png)
+![image-20220704160212346](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704160212346.png)
 
 ##### 1.2.2.2 示例二： 前后端分离
 
-![image-20220704160339416](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704160339416.png)
+![image-20220704160339416](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704160339416.png)
 
 ##### 1.2.2.2 示例三：微服务
 
-![image-20220704160408430](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704160408430.png)
+![image-20220704160408430](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704160408430.png)
 
 #### 1.2.3 视角：技术视角-数据架构
 
@@ -65,13 +65,13 @@ category:
 
 PAAS，IAAS...
 
-![image-20220704160603956](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704160603956.png)
+![image-20220704160603956](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704160603956.png)
 
 #### 12.5 视角：技术视角-运维架构
 
 负责运维系统的规划、选型、部署上线，建立规范化的运维体系。
 
-![image-20220704160636044](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704160636044.png)
+![image-20220704160636044](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704160636044.png)
 
 ### 1.3 物理架构
 
@@ -81,7 +81,7 @@ PAAS，IAAS...
 
 下面为业务性能及网络性能监控的物理部署架构图，分网络接入层和汇聚层两个层次对网络流量报文进行捕获和深入分析。
 
-![image-20220704160722727](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704160722727.png)
+![image-20220704160722727](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704160722727.png)
 
 物理部署架构设计说明：
 
@@ -94,7 +94,7 @@ PAAS，IAAS...
 
 下面为运维大数据平台的物理部署拓扑图，分为三个集群，Hadoop集群、ES日志集群和Kalfka消息集群。
 
-![image-20220704160844858](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704160844858.png)
+![image-20220704160844858](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704160844858.png)
 
 物理部署架构设计说明：
 
@@ -110,7 +110,7 @@ PAAS，IAAS...
 - **面向领域**，业务语义显性化，以领域去思考问题，而不是模块。将隐式的业务逻辑从一推 if-else 里面抽取出来，用通用语言去命名、去写代码、去扩展，让其变成显示概念；很多重要的业务概念，按照事务脚本的写法，其含义完全淹没在代码逻辑中没有突显出来。
 - **职责划分**，根据实际业务合理划分模型，模型之间依赖结构和边界更加清晰，避免了混乱的依赖关系，进而增加可读性、可维护性；单一职责，模型只关注自身的本职工作，避免“越权”而导致混乱的调用关系。通过建模，更好的表达现实世界中的复杂业务，随着时间的发展，不断增加系统对实际业务的沉淀，也将更好的通过清晰的代码描述业务逻辑，模型的内聚增加了系统的高度模块化，提升代码的可重用性，对比传统三层模式中，很有可能大量重复的功能散落在各个 Service 内部。
 
-![image-20220704171935631](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704171935631.png)
+![image-20220704171935631](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704171935631.png)
 
 ## 参考文章
 

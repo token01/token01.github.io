@@ -36,7 +36,7 @@ Quartz提供两种基本作业存储类型:
 
 整体项目结构如下：
 
-![image-20220718212751866](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718212751866.png)
+![image-20220718212751866](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718212751866.png)
 
 
 
@@ -1129,15 +1129,15 @@ public class HelloJob extends QuartzJobBean {
 
 展示正在运行的Jobs:
 
-![image-20220718213439437](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718213439437.png)
+![image-20220718213439437](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718213439437.png)
 
 增加新的Job:
 
-![image-20220718213456674](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718213456674.png)
+![image-20220718213456674](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718213456674.png)
 
 Jobs持久化在数据库:
 
-![image-20220718213527855](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718213527855.png)
+![image-20220718213527855](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718213527855.png)
 
 ## 参考文章
 

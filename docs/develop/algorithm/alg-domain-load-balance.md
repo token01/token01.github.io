@@ -1,211 +1,134 @@
-# 分布式算法-Raft算法
+# 负载均衡算法-汇总
 
->Paxos是出了名的难懂，而Raft正是为了探索一种更易于理解的一致性算法而产生的。它的首要设计目的就是易于理解，所以在选主的冲突处理等方式上它都选择了非常简单明了的解决方案。
+## 1. 常见的负载均衡算法
 
-## 1. Raft算法简介
+常见的负载均衡算法包含:
 
-不同于Paxos算法直接从分布式一致性问题出发推导出来，Raft算法则是从多副本状态机的角度提出，用于管理多副本状态机的日志复制。Raft实现了和Paxos相同的功能，它将一致性分解为多个子问题: Leader选举(Leader election)、日志同步(Log replication)、安全性(Safety)、日志压缩(Log compaction)、成员变更(Membership change)等。同时，Raft算法使用了更强的假设来减少了需要考虑的状态，使之变的易于理解和实现
+- 轮询法(Round Robin)
+- 加权轮询法(Weight Round Robin)
+- 平滑加权轮询法(Smooth Weight Round Robin)
+- 随机法(Random)
+- 加权随机法(Weight Random)
+- 源地址哈希法(Hash)
+- 最小连接数法(Least Connections)
 
-### 1.1 角色
+### 1.1 轮询法(Round Robin)
 
-Raft将系统中的角色分为`领导者(Leader)`、`跟从者(Follower)`和`候选人(Candidate)`:
+将请求按顺序轮流地分配到后端服务器上，它均衡地对待后端的每一台服务器，而不关心服务器实际的连接数和当前的系统负载。
 
-- `Leader`: 接受客户端请求，并向Follower同步请求日志，当日志同步到大多数节点上后告诉Follower提交日志。
-- `Follower`: 接受并持久化Leader同步的日志，在Leader告之日志可以提交之后，提交日志。
-- `Candidate`: Leader选举过程中的临时角色。
+### 1.2 加权轮询法(Weight Round Robin)
 
-<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220618214154124.png" alt="image-20220618214154124"  />
+不同的后端服务器可能机器的配置和当前系统的负载并不相同，因此它们的抗压能力也不相同。给配置高、负载低的机器配置更高的权重，让其处理更多的请；而配置低、负载高的机器，给其分配较低的权重，降低其系统负载，加权轮询能很好地处理这一问题，并将请求顺序且按照权重分配到后端。
 
-Raft要求系统在任意时刻最多只有一个Leader，正常工作期间只有Leader和Followers。
+### 1.3 随机法(Random)
 
-### 1.1 角色状态转换
+通过系统的随机算法，根据后端服务器的列表大小值来随机选取其中的一台服务器进行访问。由概率统计理论可以得知，随着客户端调用服务端的次数增多，其实际效果越来越接近于平均分配调用量到后端的每一台服务器，也就是轮询的结果。
 
-![image-20220618214234993](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618214234993.png)
+### 1.4 加权随机法(Weight Random)
 
-Follower只响应其他服务器的请求。如果Follower超时没有收到Leader的消息，它会成为一个Candidate并且开始一次Leader选举。收到大多数服务器投票的Candidate会成为新的Leader。Leader在宕机之前会一直保持Leader的状态。
+与加权轮询法一样，加权随机法也根据后端机器的配置，系统的负载分配不同的权重。不同的是，它是按照权重随机请求后端服务器，而非顺序。
 
-![image-20220618214332007](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618214332007.png)
+### 1.5 源地址哈希法(Hash)
 
-Raft算法将时间分为一个个的任期(term)，每一个term的开始都是Leader选举。在成功选举Leader之后，Leader会在整个term内管理整个集群。如果Leader选举失败，该term就会因为没有Leader而结束。
+源地址哈希的思想是根据获取客户端的IP地址，通过哈希函数计算得到的一个数值，用该数值对服务器列表的大小进行取模运算，得到的结果便是客服端要访问服务器的序号。采用源地址哈希法进行负载均衡，同一IP地址的客户端，当后端服务器列表不变时，它每次都会映射到同一台后端服务器进行访问。
 
-## 2. Raft算法子问题
+### 1.6 最小连接数法(Least Connections)
 
-Raft实现了和Paxos相同的功能，它将一致性分解为多个子问题: Leader选举(Leader election)、日志同步(Log replication)、安全性(Safety)、日志压缩(Log compaction)、成员变更(Membership change)等
+最小连接数算法比较灵活和智能，由于后端服务器的配置不尽相同，对于请求的处理有快有慢，它是根据后端服务器当前的连接情况，动态地选取其中当前积压连接数最少的一台服务器来处理当前的请求，尽可能地提高后端服务的利用效率，将负责合理地分流到每一台服务器。
 
-### 2.1 Leader选举
+## 2. Nginx的5种负载均衡算法
 
-Raft 使用心跳(heartbeat)触发Leader选举。当服务器启动时，初始化为Follower。Leader向所有Followers周期性发送heartbeat。如果Follower在选举超时时间内没有收到Leader的heartbeat，就会等待一段随机的时间后发起一次Leader选举。
+### 2.1 轮询法(Round Robin)(默认)
 
-Follower将其当前term加一然后转换为Candidate。它首先给自己投票并且给集群中的其他服务器发送 RequestVote RPC (RPC细节参见八、Raft算法总结)。结果有以下三种情况:
+每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除。
 
-- 赢得了多数的选票，成功选举为Leader；
-- 收到了Leader的消息，表示有其它服务器已经抢先当选了Leader；
-- 没有服务器赢得多数的选票，Leader选举失败，等待选举时间超时后发起下一次选举。
+### 2.2 加权轮询法(Weight Round Robin)- weight
 
-![image-20220618214439541](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618214439541.png)
+指定轮询几率，weight和访问比率成正比，用于后端服务器性能不均的情况。
 
-选举出Leader后，Leader通过定期向所有Followers发送心跳信息维持其统治。若Follower一段时间未收到Leader的心跳则认为Leader可能已经挂了，再次发起Leader选举过程。
+例如:
 
-Raft保证选举出的Leader上一定具有最新的已提交的日志，这一点将在四、安全性中说明
+```bash
+upstream bakend {  
+  server 192.168.0.14 weight=10;  
+  server 192.168.0.15 weight=10;  
 
-### 2.2 日志同步
+  
+```
 
-Leader选出后，就开始接收客户端的请求。Leader把请求作为日志条目(Log entries)加入到它的日志中，然后并行的向其他服务器发起 AppendEntries RPC (RPC细节参见八、Raft算法总结)复制日志条目。当这条日志被复制到大多数服务器上，Leader将这条日志应用到它的状态机并向客户端返回执行结果。
+### 2.3 源地址哈希法(Hash)- ip_hash
 
-![image-20220618214525365](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618214525365.png)
+每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session的问题。
 
-某些Followers可能没有成功的复制日志，Leader会无限的重试 AppendEntries RPC直到所有的Followers最终存储了所有的日志条目。
+例如:
 
-日志由有序编号(log index)的日志条目组成。每个日志条目包含它被创建时的任期号(term)，和用于状态机执行的命令。如果一个日志条目被复制到大多数服务器上，就被认为可以提交(commit)了。
+```bash
+upstream bakend {  
+  ip_hash;  
+  server 192.168.0.14:88;  
+  server 192.168.0.15:80;  
+}
+```
 
-![image-20220618214549608](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618214549608.png)
+### 2.4 fair(第三方)
 
-Raft日志同步保证如下两点:
+按后端服务器的响应时间来分配请求，响应时间短的优先分配。
 
-- 如果不同日志中的两个条目有着相同的索引和任期号，则它们所存储的命令是相同的。
-- 如果不同日志中的两个条目有着相同的索引和任期号，则它们之前的所有条目都是完全一样的。
+```bash
+upstream backend {  
+  server server1;  
+  server server2;  
+  fair;  
+}
+```
 
-第一条特性源于Leader在一个term内在给定的一个log index最多创建一条日志条目，同时该条目在日志中的位置也从来不会改变。
+### 2.5 url_hash(第三方)
 
-第二条特性源于 AppendEntries 的一个简单的一致性检查。当发送一个 AppendEntries RPC 时，Leader会把新日志条目紧接着之前的条目的log index和term都包含在里面。如果Follower没有在它的日志中找到log index和term都相同的日志，它就会拒绝新的日志条目。
+按访问url的hash结果来分配请求，使每个url定向到同一个后端服务器，后端服务器为缓存时比较有效。
 
-一般情况下，Leader和Followers的日志保持一致，因此 AppendEntries 一致性检查通常不会失败。然而，Leader崩溃可能会导致日志不一致: 旧的Leader可能没有完全复制完日志中的所有条目
+例: 在upstream中加入hash语句，server语句中不能写入weight等其他的参数，hash_method是使用的hash算法。
 
-![image-20220618214611341](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618214611341.png)
+```bash
+upstream backend {  
+  server squid1:3128;  
+  server squid2:3128;  
+  hash $request_uri;  
+  hash_method crc32;  
+} 
+```
 
+tips:
 
-
-上图阐述了一些Followers可能和新的Leader日志不同的情况。一个Follower可能会丢失掉Leader上的一些条目，也有可能包含一些Leader没有的条目，也有可能两者都会发生。丢失的或者多出来的条目可能会持续多个任期。
-
-Leader通过强制Followers复制它的日志来处理日志的不一致，Followers上的不一致的日志会被Leader的日志覆盖。
-
-Leader为了使Followers的日志同自己的一致，Leader需要找到Followers同它的日志一致的地方，然后覆盖Followers在该位置之后的条目。
-
-Leader会从后往前试，每次AppendEntries失败后尝试前一个日志条目，直到成功找到每个Follower的日志一致位点，然后向后逐条覆盖Followers在该位置之后的条目。
-
-### 2.3 安全性
-
-Raft增加了如下两条限制以保证安全性:
-
-- 拥有最新的已提交的log entry的Follower才有资格成为Leader。
-
-  这个保证是在RequestVote RPC中做的，Candidate在发送RequestVote RPC时，要带上自己的最后一条日志的term和log index，其他节点收到消息时，如果发现自己的日志比请求中携带的更新，则拒绝投票。日志比较的原则是，如果本地的最后一条log entry的term更大，则term大的更新，如果term一样大，则log index更大的更新。
-
-- Leader只能推进commit index来提交当前term的已经复制到大多数服务器上的日志，旧term日志的提交要等到提交当前term的日志来间接提交(log index 小于 commit index的日志被间接提交)。
-
-之所以要这样，是因为可能会出现已提交的日志又被覆盖的情况:
-
-![image-20220618225358166](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618225358166.png)
-
-
-
-在阶段a，term为2，S1是Leader，且S1写入日志(term, index)为(2, 2)，并且日志被同步写入了S2；
-
-在阶段b，S1离线，触发一次新的选主，此时S5被选为新的Leader，此时系统term为3，且写入了日志(term, index)为(3， 2);
-
-S5尚未将日志推送到Followers就离线了，进而触发了一次新的选主，而之前离线的S1经过重新上线后被选中变成Leader，此时系统term为4，此时S1会将自己的日志同步到Followers，按照上图就是将日志(2， 2)同步到了S3，而此时由于该日志已经被同步到了多数节点(S1, S2, S3)，因此，此时日志(2，2)可以被提交了。；
-
-在阶段d，S1又下线了，触发一次选主，而S5有可能被选为新的Leader(这是因为S5可以满足作为主的一切条件: 1. term = 5 > 4，2. 最新的日志为(3，2)，比大多数节点(如S2/S3/S4的日志都新)，然后S5会将自己的日志更新到Followers，于是S2、S3中已经被提交的日志(2，2)被截断了。
-
-增加上述限制后，即使日志(2，2)已经被大多数节点(S1、S2、S3)确认了，但是它不能被提交，因为它是来自之前term(2)的日志，直到S1在当前term(4)产生的日志(4， 4)被大多数Followers确认，S1方可提交日志(4，4)这条日志，当然，根据Raft定义，(4，4)之前的所有日志也会被提交。此时即使S1再下线，重新选主时S5不可能成为Leader，因为它没有包含大多数节点已经拥有的日志(4，4)。
-
-### 2.4 日志压缩
-
-在实际的系统中，不能让日志无限增长，否则系统重启时需要花很长的时间进行回放，从而影响可用性。Raft采用对整个系统进行snapshot来解决，snapshot之前的日志都可以丢弃。
-
-每个副本独立的对自己的系统状态进行snapshot，并且只能对已经提交的日志记录进行snapshot。
-
-Snapshot中包含以下内容:
-
-- 日志元数据。最后一条已提交的 log entry的 log index和term。这两个值在snapshot之后的第一条log entry的AppendEntries RPC的完整性检查的时候会被用上。
-- 系统当前状态。
-
-当Leader要发给某个日志落后太多的Follower的log entry被丢弃，Leader会将snapshot发给Follower。或者当新加进一台机器时，也会发送snapshot给它。发送snapshot使用InstalledSnapshot RPC。
-
-做snapshot既不要做的太频繁，否则消耗磁盘带宽， 也不要做的太不频繁，否则一旦节点重启需要回放大量日志，影响可用性。推荐当日志达到某个固定的大小做一次snapshot。
-
-做一次snapshot可能耗时过长，会影响正常日志同步。可以通过使用copy-on-write技术避免snapshot过程影响正常日志同步。
-
-### 2.5 成员变更
-
-成员变更是在集群运行过程中副本发生变化，如增加/减少副本数、节点替换等。
-
-成员变更也是一个分布式一致性问题，既所有服务器对新成员达成一致。但是成员变更又有其特殊性，因为在成员变更的一致性达成的过程中，参与投票的进程会发生变化。
-
-如果将成员变更当成一般的一致性问题，直接向Leader发送成员变更请求，Leader复制成员变更日志，达成多数派之后提交，各服务器提交成员变更日志后从旧成员配置(Cold)切换到新成员配置(Cnew)。
-
-因为各个服务器提交成员变更日志的时刻可能不同，造成各个服务器从旧成员配置(Cold)切换到新成员配置(Cnew)的时刻不同。
-
-成员变更不能影响服务的可用性，但是成员变更过程的某一时刻，可能出现在Cold和Cnew中同时存在两个不相交的多数派，进而可能选出两个Leader，形成不同的决议，破坏安全性。
-
-![image-20220618225530175](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618225530175.png)
-
-由于成员变更的这一特殊性，成员变更不能当成一般的一致性问题去解决。
-
-为了解决这一问题，Raft提出了两阶段的成员变更方法。集群先从旧成员配置Cold切换到一个过渡成员配置，称为共同一致(joint consensus)，共同一致是旧成员配置Cold和新成员配置Cnew的组合Cold U Cnew，一旦共同一致Cold U Cnew被提交，系统再切换到新成员配置Cnew。
-
-![image-20220618225554335](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618225554335.png)
-
-Raft两阶段成员变更过程如下:
-
-- Leader收到成员变更请求从Cold切成Cnew；
-- Leader在本地生成一个新的log entry，其内容是Cold∪Cnew，代表当前时刻新旧成员配置共存，写入本地日志，同时将该log entry复制至Cold∪Cnew中的所有副本。在此之后新的日志同步需要保证得到Cold和Cnew两个多数派的确认；
-- Follower收到Cold∪Cnew的log entry后更新本地日志，并且此时就以该配置作为自己的成员配置；
-- 如果Cold和Cnew中的两个多数派确认了Cold U Cnew这条日志，Leader就提交这条log entry；
-- 接下来Leader生成一条新的log entry，其内容是新成员配置Cnew，同样将该log entry写入本地日志，同时复制到Follower上；
-- Follower收到新成员配置Cnew后，将其写入日志，并且从此刻起，就以该配置作为自己的成员配置，并且如果发现自己不在Cnew这个成员配置中会自动退出；
-- Leader收到Cnew的多数派确认后，表示成员变更成功，后续的日志只要得到Cnew多数派确认即可。Leader给客户端回复成员变更执行成功。
-
-异常分析:
-
-- 如果Leader的Cold U Cnew尚未推送到Follower，Leader就挂了，此后选出的新Leader并不包含这条日志，此时新Leader依然使用Cold作为自己的成员配置。
-- 如果Leader的Cold U Cnew推送到大部分的Follower后就挂了，此后选出的新Leader可能是Cold也可能是Cnew中的某个Follower。
-- 如果Leader在推送Cnew配置的过程中挂了，那么同样，新选出来的Leader可能是Cold也可能是Cnew中的某一个，此后客户端继续执行一次改变配置的命令即可。
-- 如果大多数的Follower确认了Cnew这个消息后，那么接下来即使Leader挂了，新选出来的Leader肯定位于Cnew中。
-- 两阶段成员变更比较通用且容易理解，但是实现比较复杂，同时两阶段的变更协议也会在一定程度上影响变更过程中的服务可用性，因此我们期望增强成员变更的限制，以简化操作流程。
-
-两阶段成员变更，之所以分为两个阶段，是因为对Cold与Cnew的关系没有做任何假设，为了避免Cold和Cnew各自形成不相交的多数派选出两个Leader，才引入了两阶段方案。
-
-如果增强成员变更的限制，假设Cold与Cnew任意的多数派交集不为空，这两个成员配置就无法各自形成多数派，那么成员变更方案就可能简化为一阶段。
-
-那么如何限制Cold与Cnew，使之任意的多数派交集不为空呢? 方法就是每次成员变更只允许增加或删除一个成员。
-
-可从数学上严格证明，只要每次只允许增加或删除一个成员，Cold与Cnew不可能形成两个不相交的多数派。
-
-一阶段成员变更:
-
-- 成员变更限制每次只能增加或删除一个成员(如果要变更多个成员，连续变更多次)。
-- 成员变更由Leader发起，Cnew得到多数派确认后，返回客户端成员变更成功。
-- 一次成员变更成功前不允许开始下一次成员变更，因此新任Leader在开始提供服务前要将自己本地保存的最新成员配置重新投票形成多数派确认。
-- Leader只要开始同步新成员配置，即可开始使用新的成员配置进行日志同步。
-
-## 4. Raft与Multi-Paxos对比
-
-Raft与Multi-Paxos都是基于领导者的一致性算法，乍一看有很多地方相同，下面总结一下Raft与Multi-Paxos的异同。
-
-Raft与Multi-Paxos中相似的概念:
-
-![image-20220618225706411](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618225706411.png)
-
-Raft与Multi-Paxos的不同:
-
-![image-20220618225725131](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618225725131.png)
-
-## 5. 应用场景
-
-### 5.1 nacos 注册中心
-
-nacos 注册中心采用的就是raft
-
-### 5.2 redis哨兵Sentinel
-
-`Sentinel` 使用的算法核心是 Raft 算法，主要用途就是用于分布式系统，系统容错，以及Leader选举
-
-### 5.3 消息中间件rabbitmq 和 Kafka
-
-[Kafka在2.8版本中会“抛弃”Zookeeper，选择拥抱Raft？](https://www.codingw.net/Article?id=650)
+```bash
+upstream bakend{#定义负载均衡设备的Ip及设备状态  
+  ip_hash;  
+  server 127.0.0.1:9090 down;  
+  server 127.0.0.1:8080 weight=2;  
+  server 127.0.0.1:6060;  
+  server 127.0.0.1:7070 backup;  
+}
+```
+
+在需要使用负载均衡的server中增加
+
+```bash
+proxy_pass http://bakend/; 
+```
+
+每个设备的状态设置为:
+
+- down 表示单前的server暂时不参与负载
+- weight 默认为1.weight越大，负载的权重就越大。
+- max_fails : 允许请求失败的次数默认为1.当超过最大次数时，返回proxy_next_upstream 模块定义的错误
+- fail_timeout:max_fails次失败后，暂停的时间。
+- backup:  其它所有的非backup机器down或者忙的时候，请求backup机器。所以这台机器压力会最轻。
+
+nginx支持同时设置多组的负载均衡，用来给不用的server来使用。
+
+- client_body_in_file_only: 设置为On，可以讲client post过来的数据记录到文件中用来做debug。
+- client_body_temp_path: 设置记录文件的目录，可以设置最多3层目录。
+- location: 对URL进行匹配，可以进行重定向或者进行新的代理，负载均衡。
 
 ## 参考文章
 
-[**分布式算法 - Raft算法**](https://pdai.tech/md/algorithm/alg-domain-distribute-x-raft.html)
-
+[**负载均衡算法 - 汇总**](https://pdai.tech/md/algorithm/alg-domain-load-balance.html)

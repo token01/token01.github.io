@@ -1,830 +1,256 @@
----
-order: 50
-category:
-  - Test
----
+# JMeter配置元件
 
-# 单元测试 - Mockito 详解
+## **1. 简介**
 
-> Mock通常是指，在测试一个对象A时，我们构造一些假的对象来模拟与A之间的交互，而这些Mock对象的行为是我们事先设定且符合预期。通过这些Mock对象来测试A在正常逻辑，异常逻辑或压力情况下工作是否正常。而Mockito是最流行的Java mock框架之一。
+JMeter配置元件可以用来初始化默认值和变量，读取文件数据，设置公共请求参数，赋予变量值等，以便后续采样器使用。将在其作用域的初始化阶段处理。配置元件（Config Element）提供对静态数据配置的支持，可以为取样器设置默认值和变量。
 
-## 1. 什么是 Mock 测试
+### 1.1 添加配置元件
 
-> Mock通常是指，在测试一个对象A时，我们构造一些假的对象来模拟与A之间的交互，而这些Mock对象的行为是我们事先设定且符合预期。通过这些Mock对象来测试A在正常逻辑，异常逻辑或压力情况下工作是否正常。
+首先我们来看一下JMeter的配置元件，路径：添加-配置元件；我们可以清楚地看到JMeter5中共有19个配置元件，如下图所示：
 
-Mock 测试就是在测试过程中，对于某些不容易构造（如 HttpServletRequest 必须在Servlet 容器中才能构造出来）或者不容易获取比较复杂的对象（如 JDBC 中的ResultSet 对象），用一个虚拟的对象（Mock 对象）来创建以便测试的测试方法。Mock 最大的功能是帮你把单元测试的耦合分解开，如果你的代码对另一个类或者接口有依赖，它能够帮你模拟这些依赖，并帮你验证所调用的依赖的行为。
+![image-20220623154721019](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623154721019.png)
 
-先来看看下面这个示例：
+## 2.常用配置元件详解
 
-![image-20220901202108892](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901202108892.png)
+　　这一小节，宏哥就**由上而下**地详细地讲解一下常用的配置元件。
 
-从上图可以看出如果我们要对A进行测试，那么就要先把整个依赖树构建出来，也就是BCDE的实例。
+### 2.1 CSV Data Set Config
 
-一种替代方案就是使用mocks
+#### 2.1.1 初识
 
-![image-20220901202216817](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901202216817.png)
+![image-20220623154830681](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623154830681.png)
 
-从图中可以清晰的看出, mock对象就是在调试期间用来作为真实对象的替代品。
+#### 2.1.2 参数详解及说明，
 
-mock测试就是在测试过程中，对那些不容易构建的对象用一个虚拟对象来代替测试的方法就叫mock测试。
+如下表所示：
 
-## 2. Mock 适用在什么场景
+| 参 数               | 描 述                                                        | 是否必填 |
+| :------------------ | :----------------------------------------------------------- | :------- |
+| Name                | 脚本中显示的这个元件的描述性名称                             | 是       |
+| Filename            | 待读取文件的名称。可以写入绝对路径，也可以写入相对路径（相对于bin目录），如果直接写文件名，则该文件要放在bin目录中。对于分布式测试，主机和远程机中相应目录下应该有相同的CSV文件 | 是       |
+| File Encoding       | 文件读取时的编码格式，不填则使用操作系统的编码格式           | 否       |
+| Ignore first line   | 是否忽略首行，如果csv文件中没有表头，则选择false             | 是       |
+| Variable Names      | 变量名列表，多个变量名之间必须用分隔符分隔。如果该项为空，则文件首行会被读取并解析为列名列表 | 否       |
+| Delimiter           | 参数分隔符，将一行数据分隔成多个变量，默认为逗号，也可以使用“\t”。如果一行数据分隔后的值比Vairable Names中定义的变量少，这些变量将保留以前的值（如果有值的话） | 是       |
+| Allow quoted data?  | 是否允许变量使用双引号，允许的话，变量将可以括在双引号内，并且这些变量名可以包含分隔符 | 否       |
+| Recycle on EOF?     | 是否循环读取csv文件内容，达到文件结尾后，是否从文件开始循环重新读取；默认为 true | 是       |
+| Stop thread on EOF? | 是否循环读取csv文件内容，达到文件结尾后，线程是否该终止；默认为 true | 是       |
+| Recycle on EOF?     | 当Recycle on EOF为False时，停止线程，当Recycle on EOF为True时，此项无意义，默认为 false | 是       |
+| Sharing mode        | 1. All threads（默认）：一个线程组内，各个线程（用户）唯一顺序取值；2. current thread：一个线程组内，各个线程（用户）各自顺序取值；3、线程组各自独立，但每个线程组内各个线程（用户）唯一顺序取值； | 是       |
 
-> 在使用Mock的过程中，发现Mock是有一些通用性的，对于一些应用场景，是非常适合使用Mock的：
+#### 2.1.3 Recycle on EOF 和Stop thread on EOF的关系？
 
-- 真实对象具有不可确定的行为(产生不可预测的结果，如股票的行情)
-- 真实对象很难被创建(比如具体的web容器)
-- 真实对象的某些行为很难触发(比如网络错误)
-- 真实情况令程序的运行速度很慢
-- 真实对象有用户界面
-- 测试需要询问真实对象它是如何被调用的(比如测试可能需要验证某个回调函数是否被调用了)
-- 真实对象实际上并不存在(当需要和其他开发小组，或者新的硬件系统打交道的时候，这是一个普遍的问题)
+- 当Recycle on EOF 选择true时，Stop thread on EOF选择true和false无任何意义，因为既然前面已经设置了文件是不停的循环读取，后面的控制stop就相当于失效； 
+- 当Recycle on EOF 选择false时，Stop thread on EOF选择true，则当线程数超过文件里的参数的个数时，实际请求数为参数的个数；
+-  当Recycle on EOF 选择false时，Stop thread on EOF选择flase，当线程数超过文件里参数的个数时，实际请求次数为线程数，但当线程数超过参数次数时，由于没有参数，所以结果仍然是失败的。
 
-当然，也有一些不得不Mock的场景：
+#### 2.1.4 Sharing mode
 
-- 一些比较难构造的Object：这类Object通常有很多依赖，在单元测试中构造出这样类通常花费的成本太大。
-- 执行操作的时间较长Object：有一些Object的操作费时，而被测对象依赖于这一个操作的执行结果，例如大文件写操作，数据的更新等等，出于测试的需求，通常将这类操作进行Mock。
-- 异常逻辑：一些异常的逻辑往往在正常测试中是很难触发的，通过Mock可以人为的控制触发异常逻辑。
+如果希望每个线程拥有自己独立的值集合，那么就需要创建一系列数据文件，为每个线程准备一个数据文件，如test1.csv、test2.csv等，使用文件名test${__threadNum}.csv,并将“sharing mode"设置为"Current thread"
 
-在一些压力测试的场景下，也不得不使用Mock，例如在分布式系统测试中，通常需要测试一些单点（如namenode，jobtracker）在压力场景下的工作是否正常。而通常测试集群在正常逻辑下无法提供足够的压力（主要原因是受限于机器数量），这时候就需要应用Mock去满足。
+- All threads：文件在所有线程间共享。
 
-## 3. Mockito
+- Identifier：所有线程共享相同的标识，共享相同的文件。如有４个线程组，测试人员可以使用一个通用ＩＤ，以便在两个或多个线程组之间共享文件。
 
-> Mockito是最流行的Java mock框架之一.
+- Current thread：每个文件会针对每个线程单独打开。
 
-### 3.1 官方资料
+- Current thread group：每个文件会针对每个线程组打开一次。
 
-- Mockito 官方网站
+### 2.2 HTTP Header Manager
 
-https://site.mockito.org/
+支持用户添加或者重写HTTP请求头。JMeter支持多个信息头管理器。多个信息头条目合并成一个信息头列表，跟随http请求一并提交到服务端。
 
-- PowerMockito Github
+1. 当有多个信息头管理器，且不同的管理器内有名称相同的信息头条目存在时，顺序靠前的管理器的信息头条目会覆盖后面的；
 
-https://github.com/powermock/powermock/
+2. 当只有一个信息头管理器，但管理器内有名称相同的信息头条目时，会同时生效；
 
-### 3.2 Maven包引入
+#### 2.2.1 初识
 
-```java
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+![image-20220623155758985](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623155758985.png)
 
-    <groupId>pdai.tech</groupId>
-    <artifactId>java-mockito</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>3.7.7</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-</project>
-```
+#### 2.2.2 参数详解及说明
 
-### 3.3 测试:Hello World
+如下表所示：
 
-> 本例子主要用来测试DemoService类，但是DemoService又依赖于DemoDao，这时候我们便可以mock出DemoDao的返回预期值，从而测试DemoService类。
+| 参数  | 描述                             | 是否必填 |
+| :---- | :------------------------------- | :------- |
+| Name  | 请求头的名称，比如Content-Type   | 否       |
+| Value | 请求头的值，比如application/json | 否       |
 
-待测试类DemoService
+#### 2.2.3 常用请求头
 
-```java
-package tech.pdai.mockito.service;
+这些一般可以抓包和在浏览器中查到，如下表所示：
 
-import tech.pdai.mockito.dao.DemoDao;
+![image-20220623155859879](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623155859879.png)
 
-public class DemoService {
+### 2.3 HTTP Cookie Manager
 
-    private DemoDao demoDao;
+主要有两个功能：
 
-    public DemoService(DemoDao demoDao) {
-        this.demoDao = demoDao;
-    }
+- 一个功能是：像web浏览器一样存储和发送Cookie。如果有一个HTTP请求和相应里包含Cookie，Cookie管理器会自动存储Cookie，那么接下来针对特定web站点的所有请求中使用该Cookie。可在结果树中查看。
 
-    public int getDemoStatus(){
-        return demoDao.getDemoStatus();
-    }
-}
-```
+接收到的Cookie可以被保存为变量，须定义属性"CookieManager.save.cookie=true"。另外，在被存储前Cookie名称会加上前缀“COOKIE_"，要恢复早前处理方式，则定义属性”CookieManager.name.prefix="(一个或多个空格）。
 
-依赖DemoDao
+如果启动了该功能，那么名称为TEST的Cookie,可以通过${COOKIE_TEST}加以引用。手动为Cookie管理器添加一个Cookie（为所有JMeter线程所共享）。
 
-```java
-package tech.pdai.mockito.dao;
+#### 2.3.1 初识
 
-import java.util.Random;
+![image-20220623160045957](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623160045957.png)
 
-public class DemoDao {
+#### 2.3.2 参数详细说明
 
-    public int getDemoStatus(){
-        return new Random().nextInt();
-    }
-}
-```
+如下表所示：
 
-测试类
+| 参数                        | 描述                                                         | 是否必填 |
+| :-------------------------- | :----------------------------------------------------------- | :------- |
+| Name                        | 树中显示此元件描述的名称                                     | 是       |
+| Comments                    | 注释                                                         | 否       |
+| Clear cookie each Iteration | 每次线程组运行前，都会清楚cookie，但是如果是手动添加的cookie，不会被清除 | 否       |
+| Cookie Policy               | 选择Cookie的管理策略，建议选择兼容性，兼容性强               | 是       |
+| User Define cookie          | 用户自定义cookie                                             | 否       |
 
-```java
-package tech.pdai.mockito;
+### 2.4 HTTP Cache Manager
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.mockito.Mockito;
-import tech.pdai.mockito.dao.DemoDao;
-import tech.pdai.mockito.service.DemoService;
+　　被用来为其作用域内的HTTP请求提供缓存功能，如果“Use Cache-Control/Expires header When ..."选中，那么会根据当前时间来选择，如果请求是”GET"，而时间指向未来，那么采样器就会立即返回，而无须从远程服务器 请求URL,这样是为了模拟浏览器的操作，请注意Cache-Control头必须是“pulic”的，并且只有"max-age"终结选项会被处理，如果请求文档自从其被缓存以来没有发生任何改变，那么响应包体就会为空。
 
-/**
- * Hello World Test.
- */
-public class HelloWorldTest {
+#### 2.4.1 初识
 
-    @Test
-    public void helloWorldTest() {
-        // mock DemoDao instance
-        DemoDao mockDemoDao = Mockito.mock(DemoDao.class);
+![image-20220623160216803](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623160216803.png)
 
-        // 使用 mockito 对 getDemoStatus 方法打桩
-        Mockito.when(mockDemoDao.getDemoStatus()).thenReturn(1);
+#### 2.4.2 参数详细说明
 
-        // 调用 mock 对象的 getDemoStatus 方法，结果永远是 1
-        Assert.assertEquals(1, mockDemoDao.getDemoStatus());
+如下表所示：
 
-        // mock DemoService
-        DemoService mockDemoService = new DemoService(mockDemoDao);
-        Assert.assertEquals(1, mockDemoService.getDemoStatus() );
-    }
-}
-```
+| 参数                       | 描述                                     | 是否必填 |
+| :------------------------- | :--------------------------------------- | :------- |
+| Name                       | 树中显示此元件的描述性名称               | 是       |
+| Comments                   | 注释                                     | 否       |
+| Clear Cache each iteration | 如果选择此选项，则在线程开始时清除缓存。 | 否       |
+| Use Cache                  | 如果选择此选项，则在线程开始时使用缓存。 | 否       |
+| Max Number                 | 如果选择此选项，则在线程开始时最大缓存。 | 否       |
 
-执行结果
+### 2.5 HTTP Request Defaults
 
-![image-20220901204730424](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901204730424.png)
+在实际测试计划中，我们经常会碰到Http Sampler请求有较多的参数与配置会重复，每一个Http Sampler都单独设置的话比较浪费时间和精力，为了节省工作量，JMeter提供了HTTP Request Defaults元件，用来把这些重复的部分封装起来，一次设置多次使用。可以设定一些缺省值，假设有10个请求，访问域名 和端口都是一样的，那HTTP请求中就不再需要单独配置了，比较方便（增加脚本的移植性）。
 
-### 3.4 测试:使用mock方法
+这个元件可以设置HTTP请求控制器使用的默认值。例如，图中【服务器名称或IP】项目内填入了【example.com】，后面的HTTP请求如果IP也是example.com的话，那么只要将【服务器名称或IP】留空，那么这个字段将自动继承HTTP请求默认值中的值。其他诸如【协议】、【端口号】、【路径】等同此。
 
-包含两块测试：一个是类测试，一个接口测试，具体如下：
+#### 2.5.1 初识
 
-```java
-package tech.pdai.mockito;
+![image-20220623160414799](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623160414799.png)
 
-import org.junit.Assert;
-import org.junit.Test;
+#### 2.5.2 参数详细说明
 
-import java.util.List;
-import java.util.Random;
+| 参数             | 描述                                                         | 是否必填 |
+| :--------------- | :----------------------------------------------------------- | :------- |
+| Name             | 用作标识一个取样器，建议使用一个见名知义的名称               | 是       |
+| Comments         | 注释                                                         | 否       |
+| Protocol         | 协议，向目标服务器发送HTTP请求时的协议，可以是http或者是Https |          |
+| IP               | HTTP请求发送的目标服务器名称或者IP地址                       |          |
+| Port Number      | 目标服务器端口                                               |          |
+| Path             | 目标URL路径（不包括服务器地址和端口）                        |          |
+| Content encdoing | 内容的编码方式                                               |          |
+| Parameter        | 参数                                                         |          |
+| body data        | 参数                                                         |          |
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+### 2.6Counter
 
-/**
- * Mock Class Test.
- */
-public class MockClassTest {
+计数器，顾名思义就是在测试执行过程中会记录迭代次数。可以在线程组任何位置创建，允许用户配置起点、最大值和增量。配置后，计数器将从起点循环到最大值，然后重新开始，直到线程结束。允许用户创建一个计数器，可在线程组中任何地方被引用。
 
-    @Test
-    public void mockClassTest() {
-        Random mockRandom = mock(Random.class);
+#### 2.6.1 初识
 
-        // 默认值: mock 对象的方法的返回值默认都是返回类型的默认值
-        System.out.println(mockRandom.nextBoolean()); // false
-        System.out.println(mockRandom.nextInt()); // 0
-        System.out.println(mockRandom.nextDouble()); // 0.0
+![image-20220623160550620](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623160550620.png)
 
-        // mock: 指定调用 nextInt 方法时，永远返回 100
-        when(mockRandom.nextInt()).thenReturn(100);
-        Assert.assertEquals(100, mockRandom.nextInt());
-        Assert.assertEquals(100, mockRandom.nextInt());
-    }
+#### 2.6.2 参数详细说明
 
-    @Test
-    public void mockInterfaceTest() {
-        List mockList = mock(List.class);
+| 参数                                         | 描述                                                         | 是否必填 |
+| :------------------------------------------- | :----------------------------------------------------------- | :------- |
+| Name                                         | 控制器名称，可以随意设置                                     | 否       |
+| Comments                                     | 注释，可以随意设置                                           | 否       |
+| Starting value                               | 启动，记录数量起始值                                         |          |
+| Increment                                    | 递增，记录迭代次数步长，1后是2，步长就是1                    |          |
+| Maximum value                                | 记录的最大值                                                 |          |
+| Number format                                | 计算器格式，可以是数字，例如000000（6位长度，000,000（6位长度，3位间隔开）；字符加数字，例如CUST_000000（字符加6位数字 ） |          |
+| Exported Variable Name                       | 引用变量名称，记数器记录的值可以存入的此引用名（变量），可供其他元件调用 |          |
+| Track counter independently for each user    | 与每位用户独立的跟踪计数器，每个线程都有自己的计数器，相互不干扰 |          |
+| Reset counter on each Thread Group Iteration | 每次迭代复原计数器                                           |          |
 
-        // 接口的默认值：和类方法一致，都是默认返回值
-        Assert.assertEquals(0, mockList.size());
-        Assert.assertEquals(null, mockList.get(0));
+### 2.7 DNS Cache Manager
 
-        // 注意：调用 mock 对象的写方法，是没有效果的
-        mockList.add("a");
-        Assert.assertEquals(0, mockList.size());      // 没有指定 size() 方法返回值，这里结果是默认值
-        Assert.assertEquals(null, mockList.get(0));   // 没有指定 get(0) 返回值，这里结果是默认值
+### 2.7.1 初识
 
-        // mock值测试
-        when(mockList.get(0)).thenReturn("a");          // 指定 get(0)时返回 a
-        Assert.assertEquals(0, mockList.size());        // 没有指定 size() 方法返回值，这里结果是默认值
-        Assert.assertEquals("a", mockList.get(0));      // 因为上面指定了 get(0) 返回 a，所以这里会返回 a
-        Assert.assertEquals(null, mockList.get(1));     // 没有指定 get(1) 返回值，这里结果是默认值
-    }
-}
-```
+![image-20220623160659187](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623160659187.png)
 
-执行结果
+#### 2.7.2 参数详细说明
 
-![image-20220901205111308](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901205111308.png)
+| 参数                    | 描述                                                         | 是否必填 |
+| :---------------------- | :----------------------------------------------------------- | :------- |
+| Name                    | 树中显示此元件的描述性名称                                   |          |
+| Comments                | 注释                                                         |          |
+| Clear cache each iter   | 清除每个迭代的缓存，如果选择此选项，则每次启动新迭代时，都会清除每个线程的DNS缓存。 |          |
+| Use System DNS resolver | 使用系统DNS解析器；将使用系统DNS解析器。为了正确工作，请编辑 $ JAVA_HOME / jre / lib / security / java.security并添加networkaddress.cache.ttl = 0 |          |
+| Use custom DNS resolver | 使用自定义DNS解析器；将使用自定义DNS解析器（来自dnsjava库）。 |          |
 
-### 3.5 测试:适用@Mock注解
+### 2.8 FTP Request Defaults
 
-> @Mock 注解可以理解为对 mock 方法的一个替代。
+被用于设置FTP请求的默认值
 
-使用该注解时，要使用MockitoAnnotations.initMocks 方法，让注解生效, 比如放在@Before方法中初始化。
+#### 2.8.1 初识
 
-比较优雅优雅的写法是用MockitoJUnitRunner，它可以自动执行MockitoAnnotations.initMocks 方法。
+![image-20220623160810169](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623160810169.png)
 
-```java
-package tech.pdai.mockito;
+### 2.9 HTTP Authorization Manager
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+HTTP认证是一种安全机制，在客户端、浏览器或者程序向服务器发起请求时，需要提供用户名和密码且验证通过（拿到凭证）才能继续发起交互。
 
-import java.util.Random;
+#### 2.9.1 初识
 
-import static org.mockito.Mockito.when;
+![image-20220623160901657](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623160901657.png)
 
-/**
- * Mock Annotation
- */
-@RunWith(MockitoJUnitRunner.class)
-public class MockAnnotationTest {
+### 2.10 JDBC Connection Configuration
 
-    @Mock
-    private Random random;
+#### 2.10.1 初识
 
-    @Test
-    public void test() {
-        when(random.nextInt()).thenReturn(100);
-        Assert.assertEquals(100, random.nextInt());
-    }
-}
-```
+![image-20220623160939734](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623160939734.png)
 
-### 3.6 测试:参数匹配
+### 2.11 Random Variable
 
-如果参数匹配既申明了精确匹配，也声明了模糊匹配；又或者同一个值的精确匹配出现了两次，使用时会匹配符合匹配条件的最新声明的匹配。
+#### 2.11.1 初始
 
-```java
-package tech.pdai.mockito;
+![image-20220623161104053](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623161104053.png)
 
+#### 2.11.2 参数详细说明
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+| 参数                     | 描述                                                         | 是否必填 |
+| :----------------------- | :----------------------------------------------------------- | :------- |
+| Name                     | 树中显示的此元件的描述性名称。                               |          |
+| Comments                 | 注释                                                         |          |
+| Variable Name            | 变量名，存储随机字符串的变量的名称。                         |          |
+| Output Format            | 格式化字符串，要使用的java.text.DecimalFormat格式字符串。例如，“ 000”将生成至少3位数字，或者“ USER_000”将生成USER_nnn形式的输出。如果未指定，则默认为使用Long.toString（）生成数字。 |          |
+| Minimum Value            | 最小值；生成的随机数的最小值（长整数）。                     |          |
+| Maximum Value            | 最大值；生成的随机数的最大值（长整数）。                     |          |
+| Seed for Random function | 随机种子，随机数生成器的种子。默认值为当前时间，以毫秒为单位。如果在“将每个线程”设置为true的情况下使用相同的种子值，则与“ 随机” 类一样，您将为earch线程获得相同的值 |          |
+| Per Thread(User)?        | 每个线程，如果为False，则在线程组中的所有线程之间共享生成器。如果为True，则每个线程都有自己的随机生成器。 |          |
 
-import java.util.List;
+### 2.12 User Defined Variables（重要）
 
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
+如果您有多个线程组，请确保对不同的值使用不同的名称，因为UDV在线程组之间共享。同样，这些变量在处理完元素之后才可用，因此您不能引用在同一元素中定义的变量。您可以引用在早期UDV或测试计划中定义的变量。
 
+>UDV在线程组之间共享，根据这个特性，我们全局的东西就可以设在这
 
-/**
- * Mock Parameter Test.
- */
-@RunWith(MockitoJUnitRunner.class)
-public class ParameterTest {
+#### 2.12.1 初识
 
-    @Mock
-    private List<String> testList;
+![image-20220623161309686](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220623161309686.png)
 
-    @Test
-    public void test01() {
+#### 2.12.2 参数详细说明
 
-        // 精确匹配 0
-        when(testList.get(0)).thenReturn("a");
-        Assert.assertEquals("a", testList.get(0));
-
-        // 精确匹配 0
-        when(testList.get(0)).thenReturn("b");
-        Assert.assertEquals("b", testList.get(0));
-
-        // 模糊匹配
-        when(testList.get(anyInt())).thenReturn("c");
-        Assert.assertEquals("c", testList.get(0));
-        Assert.assertEquals("c", testList.get(1));
-
-    }
-}
-```
-
-anyInt 只是用来匹配参数的工具之一，目前 mockito 有多种匹配函数，部分如下：
-
-| 函数名               | 匹配类型                                  |
-| -------------------- | ----------------------------------------- |
-| any()                | 所有对象类型                              |
-| anyInt()             | 基本类型 int、非 null 的 Integer 类型     |
-| anyChar()            | 基本类型 char、非 null 的 Character 类型  |
-| anyShort()           | 基本类型 short、非 null 的 Short 类型     |
-| anyBoolean()         | 基本类型 boolean、非 null 的 Boolean 类型 |
-| anyDouble()          | 基本类型 double、非 null 的 Double 类型   |
-| anyFloat()           | 基本类型 float、非 null 的 Float 类型     |
-| anyLong()            | 基本类型 long、非 null 的 Long 类型       |
-| anyByte()            | 基本类型 byte、非 null 的 Byte 类型       |
-| anyString()          | String 类型(不能是 null)                  |
-| anyList()            | `List<T>` 类型(不能是 null)               |
-| anyMap()             | `Map<K, V>`类型(不能是 null)              |
-| anyCollection()      | `Collection<T>`类型(不能是 null)          |
-| anySet()             | `Set<T>`类型(不能是 null)                 |
-| any(`Class<T>` type) | type类型的对象(不能是 null)               |
-| isNull()             | null                                      |
-| notNull()            | 非 null                                   |
-| isNotNull()          | 非 null                                   |
-
-### 3.7 测试:Mock异常
-
-> Mockito 使用 thenThrow 让方法抛出异常
-
-如下代码中，包含两个例子：一个是单个异常，一个是多个异常。
-
-```java
-package tech.pdai.mockito;
-
-import org.junit.Assert;
-import org.junit.Test;
-
-import java.util.Random;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-/**
- * Exception Test.
- */
-public class ThrowTest {
-
-    /**
-     * 例子1： thenThrow 用来让函数调用抛出异常.
-     */
-    @Test
-    public void throwTest1() {
-
-        Random mockRandom = mock(Random.class);
-        when(mockRandom.nextInt()).thenThrow(new RuntimeException("异常"));
-
-        try {
-            mockRandom.nextInt();
-            Assert.fail();  // 上面会抛出异常，所以不会走到这里
-        } catch (Exception ex) {
-            Assert.assertTrue(ex instanceof RuntimeException);
-            Assert.assertEquals("异常", ex.getMessage());
-        }
-    }
-
-    /**
-     * thenThrow 中可以指定多个异常。在调用时异常依次出现。若调用次数超过异常的数量，再次调用时抛出最后一个异常。
-     */
-    @Test
-    public void throwTest2() {
-
-        Random mockRandom = mock(Random.class);
-        when(mockRandom.nextInt()).thenThrow(new RuntimeException("异常1"), new RuntimeException("异常2"));
-
-        try {
-            mockRandom.nextInt();
-            Assert.fail();
-        } catch (Exception ex) {
-            Assert.assertTrue(ex instanceof RuntimeException);
-            Assert.assertEquals("异常1", ex.getMessage());
-        }
-
-        try {
-            mockRandom.nextInt();
-            Assert.fail();
-        } catch (Exception ex) {
-            Assert.assertTrue(ex instanceof RuntimeException);
-            Assert.assertEquals("异常2", ex.getMessage());
-        }
-    }
-}
-```
-
-执行结果
-
-![image-20220901205609282](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220901205609282.png)
-
-> 对应返回类型是 void 的函数，thenThrow 是无效的，要使用 doThrow。
-
-```java
-package tech.pdai.mockito;
-
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
-
-import static org.mockito.Mockito.doThrow;
-
-/**
- * Do Throw for void return.
- */
-@RunWith(MockitoJUnitRunner.class)
-public class DoThrowTest {
-
-    static class ExampleService {
-
-        public void hello() {
-            System.out.println("Hello");
-        }
-
-    }
-
-    @Mock
-    private ExampleService exampleService;
-
-    @Test
-    public void test() {
-
-        // 这种写法可以达到效果
-        doThrow(new RuntimeException("异常")).when(exampleService).hello();
-
-        try {
-            exampleService.hello();
-            Assert.fail();
-        } catch (RuntimeException ex) {
-            Assert.assertEquals("异常", ex.getMessage());
-        }
-
-    }
-}
-```
-
-此外还有，可以查看官方文档
-
-- doAnswer(Answer)
-- doNothing()
-- doCallRealMethod()
-
-### 3.8 测试:spy 和 @Spy 注解
-
-spy 和 mock不同，不同点是：
-
-- spy 的参数是对象示例，mock 的参数是 class。
-- 被 spy 的对象，调用其方法时默认会走真实方法。mock 对象不会。
-
-下面是一个对比：
-
-```java
-import org.junit.Assert;
-import org.junit.Test;
-import static org.mockito.Mockito.*;
-
-
-class ExampleService {
-
-    int add(int a, int b) {
-        return a+b;
-    }
-
-}
-
-public class MockitoDemo {
-
-    // 测试 spy
-    @Test
-    public void test_spy() {
-
-        ExampleService spyExampleService = spy(new ExampleService());
-
-        // 默认会走真实方法
-        Assert.assertEquals(3, spyExampleService.add(1, 2));
-
-        // 打桩后，不会走了
-        when(spyExampleService.add(1, 2)).thenReturn(10);
-        Assert.assertEquals(10, spyExampleService.add(1, 2));
-
-        // 但是参数比匹配的调用，依然走真实方法
-        Assert.assertEquals(3, spyExampleService.add(2, 1));
-
-    }
-
-    // 测试 mock
-    @Test
-    public void test_mock() {
-
-        ExampleService mockExampleService = mock(ExampleService.class);
-
-        // 默认返回结果是返回类型int的默认值
-        Assert.assertEquals(0, mockExampleService.add(1, 2));
-
-    }
-
-}
-
-```
-
-spy 对应注解 @Spy，和 @Mock 是一样用的。
-
-```java
-import org.junit.Assert;
-import org.junit.Test;
-import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
-
-import static org.mockito.Mockito.*;
-
-
-class ExampleService {
-
-    int add(int a, int b) {
-        return a+b;
-    }
-
-}
-
-public class MockitoDemo {
-
-    @Spy
-    private ExampleService spyExampleService;
-
-    @Test
-    public void test_spy() {
-
-        MockitoAnnotations.initMocks(this);
-
-        Assert.assertEquals(3, spyExampleService.add(1, 2));
-
-        when(spyExampleService.add(1, 2)).thenReturn(10);
-        Assert.assertEquals(10, spyExampleService.add(1, 2));
-
-    }
-
-}
-```
-
-对于@Spy，如果发现修饰的变量是 null，会自动调用类的无参构造函数来初始化。
-
-所以下面两种写法是等价的：
-
-```java
-// 写法1
-@Spy
-private ExampleService spyExampleService;
-
-// 写法2
-@Spy
-private ExampleService spyExampleService = new ExampleService();
-
-```
-
-如果没有无参构造函数，必须使用写法2。例子：
-
-```java
-import org.junit.Assert;
-import org.junit.Test;
-import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
-
-class ExampleService {
-
-    private int a;
-
-    public ExampleService(int a) {
-        this.a = a;
-    }
-
-    int add(int b) {
-        return a+b;
-    }
-
-}
-
-public class MockitoDemo {
-
-    @Spy
-    private ExampleService spyExampleService = new ExampleService(1);
-
-    @Test
-    public void test_spy() {
-
-        MockitoAnnotations.initMocks(this);
-
-        Assert.assertEquals(3, spyExampleService.add(2));
-
-    }
-
-}
-```
-
-### 3.9 测试:测试隔离
-
-> 根据 JUnit 单测隔离 ，当 Mockito 和 JUnit 配合使用时，也会将非static变量或者非单例隔离开。
-
-比如使用 @Mock 修饰的 mock 对象在不同的单测中会被隔离开。
-
-示例：
-
-```java
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-
-import static org.mockito.Mockito.*;
-
-@RunWith(MockitoJUnitRunner.class)
-public class MockitoDemo {
-
-    static class ExampleService {
-
-        public int add(int a, int b) {
-            return a+b;
-        }
-
-    }
-
-    @Mock
-    private ExampleService exampleService;
-
-    @Test
-    public void test01() {
-        System.out.println("---call test01---");
-
-        System.out.println("打桩前: " + exampleService.add(1, 2));
-
-        when(exampleService.add(1, 2)).thenReturn(100);
-
-        System.out.println("打桩后: " + exampleService.add(1, 2));
-    }
-
-    @Test
-    public void test02() {
-        System.out.println("---call test02---");
-
-        System.out.println("打桩前: " + exampleService.add(1, 2));
-
-        when(exampleService.add(1, 2)).thenReturn(100);
-
-        System.out.println("打桩后: " + exampleService.add(1, 2));
-    }
-
-}
-
-```
-
-将两个单测一起运行，运行结果是：
-
-```bash
----call test01---
-打桩前: 0
-打桩后: 100
----call test02---
-打桩前: 0
-打桩后: 100
-```
-
-test01 先被执行，打桩前调用add(1, 2)的结果是0，打桩后是 100。
-
-然后 test02 被执行，打桩前调用add(1, 2)的结果是0，而非 100，这证明了我们上面的说法。
-
-### 3.10 测试:结合PowerMock支持静态方法
-
-> PowerMock 是一个增强库，用来增加 Mockito 、EasyMock 等测试库的功能。
-
-Mockito为什么不能mock静态方法?
-
-因为Mockito使用继承的方式实现mock的，用CGLIB生成mock对象代替真实的对象进行执行，为了mock实例的方法，你可以在subclass中覆盖它，而static方法是不能被子类覆盖的，所以Mockito不能mock静态方法。
-
-但PowerMock可以mock静态方法，因为它直接在bytecode上工作。
-
-- **Mockito 默认是不支持静态方法**
-
-比如我们在 ExampleService 类中定义静态方法 add：
-
-```java
-public class ExampleService {
-
-    public static int add(int a, int b) {
-        return a+b;
-    }
-
-}
-```
-
-尝试给静态方法打桩，会报错：
-
-```java
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-
-import static org.mockito.Mockito.*;
-
-@RunWith(MockitoJUnitRunner.class)
-public class MockitoDemo {
-
-    @Test
-    public void test() {
-
-        // 会报错
-        when(ExampleService.add(1, 2)).thenReturn(100);
-
-    }
-
-}
-```
-
-- **可以用 Powermock 弥补 Mockito 缺失的静态方法 mock 功能**
-
-在 pom.xml 中配置以下依赖：(版本的匹配问题可以参考：https://github.com/powermock/powermock/wiki/Mockito)
-
-```xml
-<properties>
-    <powermock.version>2.0.2</powermock.version>
-</properties>
-<dependencies>
-   <dependency>
-      <groupId>org.powermock</groupId>
-      <artifactId>powermock-module-junit4</artifactId>
-      <version>${powermock.version}</version>
-      <scope>test</scope>
-   </dependency>
-   <dependency>
-      <groupId>org.powermock</groupId>
-      <artifactId>powermock-api-mockito2</artifactId>
-      <version>${powermock.version}</version>
-      <scope>test</scope>
-   </dependency>
-</dependencies>
-```
-
-示例：
-
-```java
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-
-import static org.mockito.Mockito.*;
-
-@RunWith(PowerMockRunner.class)     // 这是必须的
-@PrepareForTest(ExampleService.class)  // 声明要处理 ExampleService
-public class MockitoDemo {
-    @Test
-    public void test() {
-
-        PowerMockito.mockStatic(ExampleService.class);  // 这也是必须的
-
-        when(ExampleService.add(1, 2)).thenReturn(100);
-
-        Assert.assertEquals(100, ExampleService.add(1, 2));
-        Assert.assertEquals(0, ExampleService.add(2, 2));
-
-    }
-}
-
-```
-
-
-
-- **PowerMockRunner 支持 Mockito 的 @Mock 等注解**
-
-上面我们用了 PowerMockRunner ，MockitoJUnitRunner 就不能用了。但不要担心， @Mock 等注解还能用。
-
-```java
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.powermock.modules.junit4.PowerMockRunner;
-
-import java.util.Random;
-
-import static org.mockito.Mockito.*;
-
-@RunWith(PowerMockRunner.class)
-public class MockitoDemo {
-
-    @Mock
-    private Random random;
-
-    @Test
-    public void test() {
-
-        when(random.nextInt()).thenReturn(1);
-        Assert.assertEquals(1,  random.nextInt());
-
-    }
-}
-```
+| 参数                  | 描述                                                         | 是否必填 |
+| :-------------------- | :----------------------------------------------------------- | :------- |
+| Name                  | 树中显示此元件描述的名称                                     |          |
+| Comments              | 注释                                                         |          |
+| User Define Variables | 用户定义的变量。变量名称/值对。您需要在$ {...}结构的方括号内放置“名称”（Name）列下的字符串，以便以后使用变量。然后，整个$ {...}将由“值”列中的字符串替换 |          |
 
 ## 参考文章
 
-[**单元测试 - Mockito 详解**](https://pdai.tech/md/develop/ut/dev-ut-x-mockito.html)
+[Jmeter(八) - 从入门到精通 - JMeter配置元件](https://cloud.tencent.com/developer/inventory/1923/article/1643120)
+

@@ -1,660 +1,792 @@
 ---
-order: 10
+order: 30
 category:
   - Lib
 ---
 
-# 常用开发库-Lombok工具库详解
+# 常用开发库 - 日志类库详解
 
->Lombok是一款非常实用Java工具，可用来帮助开发人员消除Java的冗长代码，尤其是对于简单的Java对象（POJO）。实际上我并不推荐使用Lombok（不主动使用它）, 但是因为它有着很大的使用量，我们仍然有必要掌握它，不仅知道如何使用和它解决的问题，还要知道它的坑。
+> Java日志库是最能体现Java库在进化中的渊源关系的，在理解时重点理解日志框架本身和日志门面，以及比较好的实践等。要关注其历史渊源和设计（比如桥接），而具体在使用时查询接口即可， 否则会陷入JUL(Java Util Log), JCL(Commons Logging), Log4j, SLF4J, Logback，Log4j2傻傻分不清楚的境地。
 
-## 1. Lombok的引入
+## 1. 日志库简介
 
-我们通常需要编写大量代码才能使类变得有用。如以下内容：
+> 我认为全面理解日志库需要从下面三个角度去理解：
 
-- `toString()`方法
-- `hashCode()` and `equals()`方法
-- `Getter` and `Setter` 方法
-- 构造函数
+- 最重要的一点是 区分**日志系统**和**日志门面**;
+- 其次是日志库的使用, 包含配置与API使用；配置侧重于日志系统的配置，API使用侧重于日志门面；
+- 最后是选型，改造和最佳实践等
 
-对于这种简单的类，这些方法通常是无聊的、重复的，而且是可以很容易地机械地生成的那种东西(ide通常提供这种功能)。
+## 2. 日志库之日志系统
 
-### 1.1 在引入Lombok之前我们是怎么做的
+### 2.1 java.util.logging (JUL)
 
-IDE中添加`getter/setter`, `toString`等代码
+JDK1.4 开始，通过 java.util.logging 提供日志功能。虽然是官方自带的log lib，JUL的使用确不广泛。主要原因:
 
-<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220726210844622.png" alt="image-20220726210844622"  />
+- JUL从JDK1.4 才开始加入(2002年)，当时各种第三方log lib已经被广泛使用了
+- JUL早期存在性能问题，到JDK1.5上才有了不错的进步，但现在和Logback/Log4j2相比还是有所不如
+- JUL的功能不如Logback/Log4j2等完善，比如Output Handler就没有Logback/Log4j2的丰富，有时候需要自己来继承定制，又比如默认没有从ClassPath里加载配置文件的功能
 
-## 2. Lombok的安装和使用
+### 2.2 Log4j
 
-> 下面总结下如何使用。
+Log4j 是 apache 的一个开源项目，创始人 Ceki Gulcu。Log4j 应该说是 Java 领域资格最老，应用最广的日志工具。Log4j 是高度可配置的，并可通过在运行时的外部文件配置。它根据记录的优先级别，并提供机制，以指示记录信息到许多的目的地，诸如：数据库，文件，控制台，UNIX 系统日志等。
 
-### 2.1 Lombok官网
+Log4j 中有三个主要组成部分：
 
-- [Lombok官网](https://projectlombok.org/)
+- loggers - 负责捕获记录信息。
+- appenders - 负责发布日志信息，以不同的首选目的地。
+- layouts - 负责格式化不同风格的日志信息。
 
-### 2.2 Lombok安装
+官网地址：[http://logging.apache.org/log4j/2.x/ ](http://logging.apache.org/log4j/2.x/)
 
-IDEA搜索Lombok插件
+Log4j 的短板在于性能，在Logback 和 Log4j2 出来之后，Log4j的使用也减少了。
 
-![image-20220726211113328](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220726211113328.png)
+### 2.3 Logback
 
-另外需要注意的是，在使用lombok注解的时候记得要导入lombok.jar包到工程，如果使用的是Maven的工程项目的话，要在其pom.xml中添加依赖如下
+Logback 是由 log4j 创始人 Ceki Gulcu 设计的又一个开源日志组件，是作为 Log4j 的继承者来开发的，提供了性能更好的实现，异步 logger，Filter等更多的特性。
+
+logback 当前分成三个模块：logback-core、logback-classic 和 logback-access。
+
+- logback-core - 是其它两个模块的基础模块。
+- logback-classic - 是 log4j 的一个 改良版本。此外 logback-classic 完整实现 SLF4J API 使你可以很方便地更换成其它日志系统如 log4j 或 JDK14 Logging。
+- logback-access - 访问模块与 Servlet 容器集成提供通过 Http 来访问日志的功能。
+
+官网地址: [http://logback.qos.ch/ ](http://logback.qos.ch/)
+
+### 2.4 Log4j2
+
+维护 Log4j 的人为了性能又搞出了 Log4j2。
+
+Log4j2 和 Log4j1.x 并不兼容，设计上很大程度上模仿了 SLF4J/Logback，性能上也获得了很大的提升。
+
+Log4j2 也做了 Facade/Implementation 分离的设计，分成了 log4j-api 和 log4j-core。
+
+官网地址: [http://logging.apache.org/log4j/2.x/ ](http://logging.apache.org/log4j/2.x/)
+
+### 2.5 Log4j vs Logback vs Log4j2
+
+> 从性能上Log4J2要强，但从生态上Logback+SLF4J优先。
+
+#### 2.5.1 初步对比
+
+> logback和log4j2都宣称自己是log4j的后代，一个是出于同一个作者，另一个则是在名字上根正苗红。
+
+撇开血统不谈，比较一下log4j2和logback：
+
+- log4j2比logback更新：log4j2的GA版在2014年底才推出，比logback晚了好几年，这期间log4j2确实吸收了slf4j和logback的一些优点（比如日志模板），同时应用了不少的新技术
+- 由于采用了更先进的锁机制和LMAX Disruptor库，log4j2的性能优于logback，特别是在多线程环境下和使用异步日志的环境下
+- 二者都支持Filter（应该说是log4j2借鉴了logback的Filter），能够实现灵活的日志记录规则（例如仅对一部分用户记录debug级别的日志）
+- 二者都支持对配置文件的动态更新
+- 二者都能够适配slf4j，logback与slf4j的适配应该会更好一些，毕竟省掉了一层适配库
+- logback能够自动压缩/删除旧日志
+- logback提供了对日志的HTTP访问功能
+- log4j2实现了“无垃圾”和“低垃圾”模式。简单地说，log4j2在记录日志时，能够重用对象（如String等），尽可能避免实例化新的临时对象，减少因日志记录产生的垃圾对象，减少垃圾回收带来的性能下降
+- log4j2和logback各有长处，总体来说，如果对性能要求比较高的话，log4j2相对还是较优的选择。
+
+#### 2.5.2 性能对比
+
+> 附上log4j2与logback性能对比的benchmark，这份benchmark是Apache Logging出的，有多大水分不知道，仅供参考
+
+同步写文件日志的benchmark：
+
+![image-20220829220257796](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220829220257796.png)
+
+异步写日志的benchmark：
+
+![image-20220829220353199](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220829220353199.png)
+
+当然，这些benchmark都是在日志Pattern中不包含Location信息（如日志代码行号 ，调用者信息，Class名/源码文件名等）时测定的，如果输出Location信息的话，性能谁也拯救不了：
+
+![image-20220829220432056](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220829220432056.png)
+
+## 3. 日志库之日志门面
+
+### 3.1 common-logging
+
+> common-logging 是 apache 的一个开源项目。也称Jakarta Commons Logging，缩写 JCL。
+
+common-logging 的功能是提供日志功能的 API 接口，本身并不提供日志的具体实现（当然，common-logging 内部有一个 Simple logger 的简单实现，但是功能很弱，直接忽略），而是在运行时动态的绑定日志实现组件来工作（如 log4j、java.util.loggin）。
+
+官网地址: [http://commons.apache.org/proper/commons-logging/  (opens new window)](http://commons.apache.org/proper/commons-logging/)
+
+### 3.2 slf4j
+
+> 全称为 Simple Logging Facade for Java，即 java 简单日志门面。
+
+什么，作者又是 Ceki Gulcu！这位大神写了 Log4j、Logback 和 slf4j，专注日志组件开发五百年，一直只能超越自己。
+
+类似于 Common-Logging，slf4j 是对不同日志框架提供的一个 API 封装，可以在部署的时候不修改任何配置即可接入一种日志实现方案。但是，slf4j 在编译时静态绑定真正的 Log 库。使用 SLF4J 时，如果你需要使用某一种日志实现，那么你必须选择正确的 SLF4J 的 jar 包的集合（各种桥接包）。
+
+官网地址: [http://www.slf4j.org/  (opens new window)](http://www.slf4j.org/)
+
+![image-20220829220646182](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220829220646182.png)
+
+### 3.3 common-logging vs slf4j
+
+> slf4j 库类似于 Apache Common-Logging。但是，他在编译时静态绑定真正的日志库。这点似乎很麻烦，其实也不过是导入桥接 jar 包而已。
+
+slf4j 一大亮点是提供了更方便的日志记录方式：
+
+不需要使用logger.isDebugEnabled()来解决日志因为字符拼接产生的性能问题。slf4j 的方式是使用{}作为字符串替换符，形式如下：
+
+```java
+logger.debug("id: {}, name: {} ", id, name);
+```
+
+## 4. 日志库使用方案
+
+使用日志解决方案基本可分为三步：
+
+- 引入 jar 包
+- 配置
+- 使用 API
+
+常见的各种日志解决方案的第 2 步和第 3 步基本一样，实施上的差别主要在第 1 步，也就是使用不同的库。
+
+### 4.1 日志库jar包
+
+这里首选推荐使用 slf4j + logback 的组合。
+
+如果你习惯了 common-logging，可以选择 common-logging+log4j。
+
+强烈建议不要直接使用日志实现组件(logback、log4j、java.util.logging)，理由前面也说过，就是无法灵活替换日志库。
+
+还有一种情况：你的老项目使用了 common-logging，或是直接使用日志实现组件。如果修改老的代码，工作量太大，需要兼容处理。在下文，都将看到各种应对方法。
+
+注：据我所知，当前仍没有方法可以将 slf4j 桥接到 common-logging。如果我孤陋寡闻了，请不吝赐教。
+
+#### 4.1.1 slf4j 直接绑定日志组件
+
+- slf4j + logback
+
+添加依赖到 pom.xml 中即可。
+
+logback-classic-1.0.13.jar 会自动将 slf4j-api-1.7.21.jar 和 logback-core-1.0.13.jar 也添加到你的项目中。
 
 ```xml
-<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 <dependency>
-    <groupId>org.projectlombok</groupId>
-    <artifactId>lombok</artifactId>
-    <version>1.18.12</version>
-    <scope>provided</scope>
+  <groupId>ch.qos.logback</groupId>
+  <artifactId>logback-classic</artifactId>
+  <version>1.0.13</version>
 </dependency>
 ```
 
-### 2.3 Lombok注解说明
+- slf4j + log4j
 
-看[官网这里](https://projectlombok.org/features/all)
+添加依赖到 pom.xml 中即可。
 
-- `val`：用在局部变量前面，相当于将变量声明为final
-- `@NonNull`：给方法参数增加这个注解会自动在方法内对该参数进行是否为空的校验，如果为空，则抛出`NPE`（NullPointerException）
-- `@Cleanup`：自动管理资源，用在局部变量之前，在当前变量范围内即将执行完毕退出之前会自动清理资源，自动生成`try-finally`这样的代码来关闭流
-- `@Getter/@Setter`：用在属性上，再也不用自己手写`setter`和`getter`方法了，还可以指定访问范围
-- `@ToString`：用在类上，可以自动覆写`toString`方法，当然还可以加其他参数，例如`@ToString(exclude=”id”)`排除id属性，或者`@ToString(callSuper=true, includeFieldNames=true)`调用父类的`toString`方法，包含所有属性
-- `@EqualsAndHashCode`：用在类上，自动生成`equals`方法和`hashCode`方法
-- `@NoArgsConstructor`, `@RequiredArgsConstructor` and `@AllArgsConstructor`：用在类上，自动生成无参构造和使用所有参数的构造函数以及把所有+ `@NonNull属性作为参数的构造函数，如果指定`staticName = “of”`参数，同时还会生成一个返回类对象的静态工厂方法，比使用构造函数方便很多
-- `@Data`：注解在类上，相当于同时使用了`@ToString`、`@EqualsAndHashCode`、`@Getter`、`@Setter`和`@RequiredArgsConstrutor`这些注解，对于POJO类十分有用
-- `@Value`：用在类上，是`@Data`的不可变形式，相当于为属性添加final声明，只提供getter方法，而不提供setter方法
-- `@Builder`：用在类、构造器、方法上，为你提供复杂的builder APIs，让你可以像如下方式一样调用`Person.builder().name("Adam Savage").city("San Francisco").job("Mythbusters").job("Unchained Reaction").build()`;更多说明参考Builder
-- `@SneakyThrows`：自动抛受检异常，而无需显式在方法上使用throws语句
-- `@Synchronized`：用在方法上，将方法声明为同步的，并自动加锁，而锁对象是一个私有的属性`$lock`或`$LOCK`，而java中的synchronized关键字锁对象是this，锁在this或者自己的类对象上存在副作用，就是你不能阻止非受控代码去锁this或者类对象，这可能会导致竞争条件或者其它线程错误
-- `@Getter(lazy=true)`：可以替代经典的Double Check Lock样板代码
-- `@Log`：根据不同的注解生成不同类型的log对象，但是实例名称都是log，有六种可选实现类
-- `@CommonsLog` Creates log = org.apache.commons.logging.LogFactory.getLog(LogExample.class);
-- `@Log` Creates log = java.util.logging.Logger.getLogger(LogExample.class.getName());
-- `@Log4j` Creates log = org.apache.log4j.Logger.getLogger(LogExample.class);
-- `@Log4j2` Creates log = org.apache.logging.log4j.LogManager.getLogger(LogExample.class);
-- `@Slf4j` Creates log = org.slf4j.LoggerFactory.getLogger(LogExample.class);
-- `@XSlf4j` Creates log = org.slf4j.ext.XLoggerFactory.getXLogger(LogExample.class);
+slf4j-log4j12-1.7.21.jar 会自动将 slf4j-api-1.7.21.jar 和 log4j-1.2.17.jar 也添加到你的项目中。
 
-## 3. Lombok代码示例
-
-### 3.1 val示例
-
-```java
-public static void main(String[] args) {
-    val sets = new HashSet<String>();
-    val lists = new ArrayList<String>();
-    val maps = new HashMap<String, String>();
-    //=>相当于如下
-    final Set<String> sets2 = new HashSet<>();
-    final List<String> lists2 = new ArrayList<>();
-    final Map<String, String> maps2 = new HashMap<>();
-}
+```xml
+<dependency>
+  <groupId>org.slf4j</groupId>
+  <artifactId>slf4j-log4j12</artifactId>
+  <version>1.7.21</version>
+</dependency>
 ```
 
-### 3.2 `@NonNull`示例
+- slf4j + java.util.logging
 
-```java
-public void notNullExample(@NonNull String string) {
-    string.length();
-}
-//=>相当于
-public void notNullExample(String string) {
-    if (string != null) {
-        string.length();
-    } else {
-        throw new NullPointerException("null");
-    }
-} 
+添加依赖到 pom.xml 中即可。
+
+slf4j-jdk14-1.7.21.jar 会自动将 slf4j-api-1.7.21.jar 也添加到你的项目中。
+
+```xml
+<dependency>
+  <groupId>org.slf4j</groupId>
+  <artifactId>slf4j-jdk14</artifactId>
+  <version>1.7.21</version>
+</dependency>
 ```
 
-### 3.3 `@Cleanup`示例
+#### 4.1.2 slf4j 兼容非 slf4j 日志组件
 
-```java
-public static void main(String[] args) {
-    try {
-        @Cleanup InputStream inputStream = new FileInputStream(args[0]);
-    } catch (FileNotFoundException e) {
-        e.printStackTrace();
-    }
-    //=>相当于
-    InputStream inputStream = null;
-    try {
-        inputStream = new FileInputStream(args[0]);
-    } catch (FileNotFoundException e) {
-        e.printStackTrace();
-    } finally {
-        if (inputStream != null) {
-            try {
-                inputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-}
+在介绍解决方案前，先提一个概念——桥接
+
+- 什么是桥接呢
+
+假如你正在开发应用程序所调用的组件当中已经使用了 common-logging，这时你需要 jcl-over-slf4j.jar 把日志信息输出重定向到 slf4j-api，slf4j-api 再去调用 slf4j 实际依赖的日志组件。这个过程称为桥接。下图是官方的 slf4j 桥接策略图：
+
+![image-20220829221132739](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220829221132739.png)
+
+从图中应该可以看出，无论你的老项目中使用的是 common-logging 或是直接使用 log4j、java.util.logging，都可以使用对应的桥接 jar 包来解决兼容问题。
+
+- slf4j 兼容 common-logging
+
+```xml
+<dependency>
+  <groupId>org.slf4j</groupId>
+  <artifactId>jcl-over-slf4j</artifactId>
+  <version>1.7.12</version>
+</dependency>
 ```
 
-### 3.4 `@Getter/@Setter`示例
+- slf4j 兼容 log4j
 
-```java
-@Setter(AccessLevel.PUBLIC)
-@Getter(AccessLevel.PROTECTED)
-private int id;
-private String shape;
-
-  
+```xml
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>log4j-over-slf4j</artifactId>
+    <version>1.7.12</version>
+</dependency>
 ```
 
-### 3.5 `@ToString`示例
+- slf4j 兼容 java.util.logging
 
-```java
-@ToString(exclude = "id", callSuper = true, includeFieldNames = true)
-public class LombokDemo {
-    private int id;
-    private String name;
-    private int age;
-    public static void main(String[] args) {
-        //输出LombokDemo(super=LombokDemo@48524010, name=null, age=0)
-        System.out.println(new LombokDemo());
-    }
-}
+```xml
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>jul-to-slf4j</artifactId>
+    <version>1.7.12</version>
+</dependency>
 ```
 
-### 3.6 `@EqualsAndHashCode`示例
+- spring 集成 slf4j
 
-```java
-@EqualsAndHashCode(exclude = {"id", "shape"}, callSuper = false)
-public class LombokDemo {
-    private int id;
-    private String shape;
-}
+做 java web 开发，基本离不开 spring 框架。很遗憾，spring 使用的日志解决方案是 common-logging + log4j。
+
+所以，你需要一个桥接 jar 包：logback-ext-spring。
+
+```xml
+<dependency>
+  <groupId>ch.qos.logback</groupId>
+  <artifactId>logback-classic</artifactId>
+  <version>1.1.3</version>
+</dependency>
+<dependency>
+  <groupId>org.logback-extensions</groupId>
+  <artifactId>logback-ext-spring</artifactId>
+  <version>0.1.2</version>
+</dependency>
+<dependency>
+  <groupId>org.slf4j</groupId>
+  <artifactId>jcl-over-slf4j</artifactId>
+  <version>1.7.12</version>
+</dependency>
+
 ```
 
-### 3.7 `@NoArgsConstructor`, `@RequiredArgsConstructor` and `@AllArgsConstructor`示例
+#### 4.1.3 common-logging 绑定日志组件
 
-```java
-@NoArgsConstructor
-@RequiredArgsConstructor(staticName = "of")
-@AllArgsConstructor
-public class LombokDemo {
-    @NonNull
-    private int id;
-    @NonNull
-    private String shape;
-    private int age;
-    public static void main(String[] args) {
-        new LombokDemo(1, "circle");
-        //使用静态工厂方法
-        LombokDemo.of(2, "circle");
-        //无参构造
-        new LombokDemo();
-        //包含所有参数
-        new LombokDemo(1, "circle", 2);
-    }
-}
+- common-logging + log4j
+
+添加依赖到 pom.xml 中即可。
+
+```xml
+<dependency>
+  <groupId>commons-logging</groupId>
+  <artifactId>commons-logging</artifactId>
+  <version>1.2</version>
+</dependency>
+<dependency>
+  <groupId>log4j</groupId>
+  <artifactId>log4j</artifactId>
+  <version>1.2.17</version>
+</dependency>
 ```
 
-### 3.8 `@Data`示例
+### 4.2 日志库配置 - 针对于日志框架
 
-```java
-import lombok.Data;
-@Data
-public class Menu {
-    private String shopId;
-    private String skuMenuId;
-    private String skuName;
-    private String normalizeSkuName;
-    private String dishMenuId;
-    private String dishName;
-    private String dishNum;
-    //默认阈值
-    private float thresHold = 0;
-    //新阈值
-    private float newThresHold = 0;
-    //总得分
-    private float totalScore = 0;
-}  
-```
+#### 4.2.1 log4j2 配置
 
-### 3.9 `@Value`示例
+log4j2 基本配置形式如下：
 
-```java
-@Value
-public class LombokDemo {
-    @NonNull
-    private int id;
-    @NonNull
-    private String shap;
-    private int age;
-    //相当于
-    private final int id;
-    public int getId() {
-        return this.id;
-    }
+```xml
+<?xml version="1.0" encoding="UTF-8"?>;
+<Configuration>
+  <Properties>
+    <Property name="name1">value</property>
+    <Property name="name2" value="value2"/>
+  </Properties>
+  <Filter type="type" ... />
+  <Appenders>
+    <Appender type="type" name="name">
+      <Filter type="type" ... />
+    </Appender>
     ...
-}
+  </Appenders>
+  <Loggers>
+    <Logger name="name1">
+      <Filter type="type" ... />
+    </Logger>
+    ...
+    <Root level="level">
+      <AppenderRef ref="name"/>
+    </Root>
+  </Loggers>
+</Configuration>
 ```
 
-### 3.10 `@Builder`示例
+配置示例：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug" strict="true" name="XMLConfigTest"
+               packages="org.apache.logging.log4j.test">
+  <Properties>
+    <Property name="filename">target/test.log</Property>
+  </Properties>
+  <Filter type="ThresholdFilter" level="trace"/>
+ 
+  <Appenders>
+    <Appender type="Console" name="STDOUT">
+      <Layout type="PatternLayout" pattern="%m MDC%X%n"/>
+      <Filters>
+        <Filter type="MarkerFilter" marker="FLOW" onMatch="DENY" onMismatch="NEUTRAL"/>
+        <Filter type="MarkerFilter" marker="EXCEPTION" onMatch="DENY" onMismatch="ACCEPT"/>
+      </Filters>
+    </Appender>
+    <Appender type="Console" name="FLOW">
+      <Layout type="PatternLayout" pattern="%C{1}.%M %m %ex%n"/><!-- class and line number -->
+      <Filters>
+        <Filter type="MarkerFilter" marker="FLOW" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+        <Filter type="MarkerFilter" marker="EXCEPTION" onMatch="ACCEPT" onMismatch="DENY"/>
+      </Filters>
+    </Appender>
+    <Appender type="File" name="File" fileName="${filename}">
+      <Layout type="PatternLayout">
+        <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+      </Layout>
+    </Appender>
+  </Appenders>
+ 
+  <Loggers>
+    <Logger name="org.apache.logging.log4j.test1" level="debug" additivity="false">
+      <Filter type="ThreadContextMapFilter">
+        <KeyValuePair key="test" value="123"/>
+      </Filter>
+      <AppenderRef ref="STDOUT"/>
+    </Logger>
+ 
+    <Logger name="org.apache.logging.log4j.test2" level="debug" additivity="false">
+      <AppenderRef ref="File"/>
+    </Logger>
+ 
+    <Root level="trace">
+      <AppenderRef ref="STDOUT"/>
+    </Root>
+  </Loggers>
+ 
+</Configuration>
+```
+
+#### 4.2.2 logback 配置
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+ 
+<!-- logback中一共有5种有效级别，分别是TRACE、DEBUG、INFO、WARN、ERROR，优先级依次从低到高 -->
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+ 
+  <property name="DIR_NAME" value="spring-helloworld"/>
+ 
+  <!-- 将记录日志打印到控制台 -->
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] [%-5p] %c{36}.%M - %m%n</pattern>
+    </encoder>
+  </appender>
+ 
+  <!-- RollingFileAppender begin -->
+  <appender name="ALL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- 根据时间来制定滚动策略 -->
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${user.dir}/logs/${DIR_NAME}/all.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+ 
+    <!-- 根据文件大小来制定滚动策略 -->
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>30MB</maxFileSize>
+    </triggeringPolicy>
+ 
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] [%-5p] %c{36}.%M - %m%n</pattern>
+    </encoder>
+  </appender>
+ 
+  <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- 根据时间来制定滚动策略 -->
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${user.dir}/logs/${DIR_NAME}/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+ 
+    <!-- 根据文件大小来制定滚动策略 -->
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>10MB</maxFileSize>
+    </triggeringPolicy>
+ 
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>ERROR</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+ 
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] [%-5p] %c{36}.%M - %m%n</pattern>
+    </encoder>
+  </appender>
+ 
+  <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- 根据时间来制定滚动策略 -->
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${user.dir}/logs/${DIR_NAME}/warn.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+ 
+    <!-- 根据文件大小来制定滚动策略 -->
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>10MB</maxFileSize>
+    </triggeringPolicy>
+ 
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>WARN</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+ 
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] [%-5p] %c{36}.%M - %m%n</pattern>
+    </encoder>
+  </appender>
+ 
+  <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- 根据时间来制定滚动策略 -->
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${user.dir}/logs/${DIR_NAME}/info.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+ 
+    <!-- 根据文件大小来制定滚动策略 -->
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>10MB</maxFileSize>
+    </triggeringPolicy>
+ 
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>INFO</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+ 
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] [%-5p] %c{36}.%M - %m%n</pattern>
+    </encoder>
+  </appender>
+ 
+  <appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- 根据时间来制定滚动策略 -->
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${user.dir}/logs/${DIR_NAME}/debug.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+ 
+    <!-- 根据文件大小来制定滚动策略 -->
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>10MB</maxFileSize>
+    </triggeringPolicy>
+ 
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>DEBUG</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+ 
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] [%-5p] %c{36}.%M - %m%n</pattern>
+    </encoder>
+  </appender>
+ 
+  <appender name="TRACE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- 根据时间来制定滚动策略 -->
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${user.dir}/logs/${DIR_NAME}/trace.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+ 
+    <!-- 根据文件大小来制定滚动策略 -->
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>10MB</maxFileSize>
+    </triggeringPolicy>
+ 
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>TRACE</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+ 
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] [%-5p] %c{36}.%M - %m%n</pattern>
+    </encoder>
+  </appender>
+ 
+  <appender name="SPRING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- 根据时间来制定滚动策略 -->
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${user.dir}/logs/${DIR_NAME}/springframework.%d{yyyy-MM-dd}.log
+      </fileNamePattern>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+ 
+    <!-- 根据文件大小来制定滚动策略 -->
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>10MB</maxFileSize>
+    </triggeringPolicy>
+ 
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] [%-5p] %c{36}.%M - %m%n</pattern>
+    </encoder>
+  </appender>
+  <!-- RollingFileAppender end -->
+ 
+  <!-- logger begin -->
+  <!-- 本项目的日志记录，分级打印 -->
+  <logger name="org.zp.notes.spring" level="TRACE" additivity="false">
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="ERROR"/>
+    <appender-ref ref="WARN"/>
+    <appender-ref ref="INFO"/>
+    <appender-ref ref="DEBUG"/>
+    <appender-ref ref="TRACE"/>
+  </logger>
+ 
+  <!-- SPRING框架日志 -->
+  <logger name="org.springframework" level="WARN" additivity="false">
+    <appender-ref ref="SPRING"/>
+  </logger>
+ 
+  <root level="TRACE">
+    <appender-ref ref="ALL"/>
+  </root>
+  <!-- logger end -->
+ 
+</configuration>
+
+```
+
+#### 4.2.3 log4j 配置
+
+完整的 log4j.xml 参考示例
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+ 
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+ 
+  <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern"
+             value="%d{yyyy-MM-dd HH:mm:ss,SSS\} [%-5p] [%t] %c{36\}.%M - %m%n"/>
+    </layout>
+ 
+    <!--过滤器设置输出的级别-->
+    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+      <param name="levelMin" value="debug"/>
+      <param name="levelMax" value="fatal"/>
+      <param name="AcceptOnMatch" value="true"/>
+    </filter>
+  </appender>
+ 
+ 
+  <appender name="ALL" class="org.apache.log4j.DailyRollingFileAppender">
+    <param name="File" value="${user.dir}/logs/spring-common/jcl/all"/>
+    <param name="Append" value="true"/>
+    <!-- 每天重新生成日志文件 -->
+    <param name="DatePattern" value="'-'yyyy-MM-dd'.log'"/>
+    <!-- 每小时重新生成日志文件 -->
+    <!--<param name="DatePattern" value="'-'yyyy-MM-dd-HH'.log'"/>-->
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern"
+             value="%d{yyyy-MM-dd HH:mm:ss,SSS\} [%-5p] [%t] %c{36\}.%M - %m%n"/>
+    </layout>
+  </appender>
+ 
+  <!-- 指定logger的设置，additivity指示是否遵循缺省的继承机制-->
+  <logger name="org.zp.notes.spring" additivity="false">
+    <level value="error"/>
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="ALL"/>
+  </logger>
+ 
+  <!-- 根logger的设置-->
+  <root>
+    <level value="warn"/>
+    <appender-ref ref="STDOUT"/>
+  </root>
+</log4j:configuration>
+```
+
+### 4.3 日志库API - 针对于日志门面
+
+#### 4.3.1 slf4j 用法
+
+使用 slf4j 的 API 很简单。使用LoggerFactory初始化一个Logger实例，然后调用 Logger 对应的打印等级函数就行了。
 
 ```java
-@Builder
-public class BuilderExample {
-    private String name;
-    private int age;
-    @Singular
-    private Set<String> occupations;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+ 
+public class App {
+    private static final Logger log = LoggerFactory.getLogger(App.class);
     public static void main(String[] args) {
-        LombokDemo3 test = LombokDemo3.builder().age(11).name("test")
-                .occupation("1")
-                .occupation("2")
-                .build();
-    }
-}
-
-  
-```
-
-@Singular可以为集合类型的参数或字段生成一种特殊的方法, 它采用修改列表中一个元素而不是整个列表的方式，可以是增加一个元素，也可以是删除一个元素。
-
-在使用@Singular注释注释一个集合字段（使用@Builder注释类），lombok会将该构建器节点视为一个集合，并生成两个adder方法而不是setter方法。
-
-生成代码如下：
-
-```java
-public LombokDemo3.LombokDemo3Builder occupation(String occupation) {
-    if (this.occupations == null) {
-        this.occupations = new ArrayList();
-    }
-
-    this.occupations.add(occupation);
-    return this;
-}
-
-public LombokDemo3.LombokDemo3Builder occupations(Collection<? extends String> occupations) {
-    if (occupations == null) {
-        throw new NullPointerException("occupations cannot be null");
-    } else {
-        if (this.occupations == null) {
-            this.occupations = new ArrayList();
-        }
-
-        this.occupations.addAll(occupations);
-        return this;
-    }
-}
-
-public LombokDemo3.LombokDemo3Builder clearOccupations() {
-    if (this.occupations != null) {
-        this.occupations.clear();
-    }
-
-    return this;
-}
-```
-
-- Builder.Default
-
-```java
-@Builder
-@ToString
-public class BuilderDefaultExample {
-
-    @Builder.Default
-    private final String id = UUID.randomUUID().toString();
-    
-    private String username;
-
-    @Builder.Default
-    private long insertTime = System.currentTimeMillis();
-
-}
-```
-
-### 3.11 `@SneakyThrows`示例
-
-```java
-import lombok.SneakyThrows;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-public class Test {
-    @SneakyThrows()
-    public void read() {
-        InputStream inputStream = new FileInputStream("");
-    }
-    @SneakyThrows
-    public void write() {
-        throw new UnsupportedEncodingException();
-    }
-    //相当于
-    public void read() throws FileNotFoundException {
-        InputStream inputStream = new FileInputStream("");
-    }
-    public void write() throws UnsupportedEncodingException {
-        throw new UnsupportedEncodingException();
+        String msg = "print log, current level: {}";
+        log.trace(msg, "trace");
+        log.debug(msg, "debug");
+        log.info(msg, "info");
+        log.warn(msg, "warn");
+        log.error(msg, "error");
     }
 }
 ```
 
-### 3.12 `@Synchronized`示例
+#### 4.3.2 common-logging 用法
+
+common-logging 用法和 slf4j 几乎一样，但是支持的打印等级多了一个更高级别的：fatal。
+
+此外，common-logging 不支持{}替换参数，你只能选择拼接字符串这种方式了。
 
 ```java
-public class SynchronizedDemo {
-    @Synchronized
-    public static void hello() {
-        System.out.println("world");
-    }
-    //相当于
-    private static final Object $LOCK = new Object[0];
-    public static void hello() {
-        synchronized ($LOCK) {
-            System.out.println("world");
-        }
-    }
-}
-```
-
-### 3.12 `@Getter(lazy = true)`示例
-
-```java
-public class GetterLazyExample {
-    @Getter(lazy = true)
-    private final double[] cached = expensive();
-    private double[] expensive() {
-        double[] result = new double[1000000];
-        for (int i = 0; i < result.length; i++) {
-            result[i] = Math.asin(i);
-        }
-        return result;
-    }
-}
-
-// 相当于如下所示: 
-
-import java.util.concurrent.atomic.AtomicReference;
-public class GetterLazyExample {
-    private final AtomicReference<java.lang.Object> cached = new AtomicReference<>();
-    public double[] getCached() {
-        java.lang.Object value = this.cached.get();
-        if (value == null) {
-            synchronized (this.cached) {
-                value = this.cached.get();
-                if (value == null) {
-                    final double[] actualValue = expensive();
-                    value = actualValue == null ? this.cached : actualValue;
-                    this.cached.set(value);
-                }
-            }
-        }
-        return (double[]) (value == this.cached ? null : value);
-    }
-    private double[] expensive() {
-        double[] result = new double[1000000];
-        for (int i = 0; i < result.length; i++) {
-            result[i] = Math.asin(i);
-        }
-        return result;
-    }
-}
-```
-
-## 4. Lombok深入理解
-
-> 接下来我们深入理解下Lombok：
-
-### 4.1 Lombok解决了什么问题
-
-这个简单，就是简化代码。
-
-### 4.2 Lombok的原理
-
-> 会发现在Lombok使用的过程中，只需要添加相应的注解，无需再为此写任何代码。自动生成的代码到底是如何产生的呢？
-
-核心之处就是对于注解的解析上。JDK5引入了注解的同时，也提供了两种解析方式。
-
-- **运行时解析**
-
-运行时能够解析的注解，必须将@Retention设置为RUNTIME, 比如`@Retention(RetentionPolicy.RUNTIME)`，这样就可以通过反射拿到该注解。java.lang,reflect反射包中提供了一个接口AnnotatedElement，该接口定义了获取注解信息的几个方法，Class、Constructor、Field、Method、Package等都实现了该接口，对反射熟悉的朋友应该都会很熟悉这种解析方式。
-
-- **编译时解析**
-
-编译时解析有两种机制，分别简单描述下：
-
-1）Annotation Processing Tool
-
-apt自JDK5产生，JDK7已标记为过期，不推荐使用，JDK8中已彻底删除，自JDK6开始，可以使用Pluggable Annotation Processing API来替换它，apt被替换主要有2点原因：
-
-- api都在com.sun.mirror非标准包下
-- 没有集成到javac中，需要额外运行
-
-2）Pluggable Annotation Processing API
-
-[JSR 269: Pluggable Annotation Processing API](https://www.jcp.org/en/jsr/proposalDetails?id=269)自JDK6加入，作为apt的替代方案，它解决了apt的两个问题，javac在执行的时候会调用实现了该API的程序，这样我们就可以对编译器做一些增强，这时javac执行的过程如下
-
-![image-20220726213510502](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220726213510502.png)
-
-
-
-Lombok本质上就是一个实现了“JSR 269 API”的程序。在使用javac的过程中，它产生作用的具体流程如下：
-
-- javac对源代码进行分析，生成了一棵抽象语法树（AST）
-- 运行过程中调用实现了“JSR 269 API”的Lombok程序
-- 此时Lombok就对第一步骤得到的AST进行处理，找到@Data注解所在类对应的语法树（AST），然后修改该语法树（AST），增加getter和setter方法定义的相应树节点
-- javac使用修改后的抽象语法树（AST）生成字节码文件，即给class增加新的节点（代码块）
-
-![image-20220726213815931](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220726213815931.png)
-
-从上面的Lombok执行的流程图中可以看出，在Javac 解析成AST抽象语法树之后, Lombok 根据自己编写的注解处理器，动态地修改 AST，增加新的节点（即Lombok自定义注解所需要生成的代码），最终通过分析生成JVM可执行的字节码Class文件。使用Annotation Processing自定义注解是在编译阶段进行修改，而JDK的反射技术是在运行时动态修改，两者相比，反射虽然更加灵活一些但是带来的性能损耗更加大。
-
-### 4.3 Lombok类似原理工具有什么
-
-> 换言之，我们可以通过Lombok同样的思路解决什么问题？ 
-
-- 第一个问题，我可以通过上述原理，自己实现一个类似Lombok 吗？
-
-可以的，给你找了[一篇文章](https://www.jianshu.com/p/fc06578e805a)
-
-- 还有一些其它类库使用这种方式实现，比如:
-  - [Google Auto](https://github.com/google/auto)
-  - Dagger
-  - ...
-
-### 4.4 Lombok没有未来 - Java14 Record了解下
-
-> Lombok是没有未来的，因为Java完全可以对于这种纯数据载体通过另外一种方式表示, 所以有了[JEP 359: Records](https://openjdk.java.net/jeps/359), 简单而言就是通过一个语法糖来解决。
-
-![image-20220726214107051](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220726214107051.png)
-
-- 从前
-
-```java
-public class Range {
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
  
-    private final int min;
-    private final int max;
+public class JclTest {
+    private static final Log log = LogFactory.getLog(JclTest.class);
  
-    public Range(int min, int max) {
-        this.min = min;
-        this.max = max;
-    }
- 
-    public int getMin() {
-        return min;
-    }
- 
-    public int getMax() {
-        return max;
-    }
- 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Range range = (Range) o;
-        return min == range.min && max == range.max;
-    }
- 
-    @Override
-    public int hashCode() {
-        return Objects.hash(min, max);
-    }
- 
-    @Override
-    public String toString() {
-        return "Range{" +
-          "min=" + min +
-          ", max=" + max +
-          '}';
+    public static void main(String[] args) {
+        String msg = "print log, current level: ";
+        log.trace(msg + "trace");
+        log.debug(msg + "debug");
+        log.info(msg + "info");
+        log.warn(msg + "warn");
+        log.error(msg + "error");
+        log.fatal(msg + "fatal");
     }
 }
 ```
 
-- Java14 record
+## 5. 日志库选型与改造
+
+### 5.1 对Java日志组件选型的建议
+
+slf4j已经成为了Java日志组件的明星选手，可以完美替代JCL，使用JCL桥接库也能完美兼容一切使用JCL作为日志门面的类库，现在的新系统已经没有不使用slf4j作为日志API的理由了。
+
+日志记录服务方面，log4j在功能上输于logback和log4j2，在性能方面log4j2则全面超越log4j和logback。所以新系统应该在logback和log4j2中做出选择，对于性能有很高要求的系统，应优先考虑log4j2
+
+### 5.2 对日志架构使用比较好的实践
+
+#### 5.2.1 总是使用Log Facade，而不是具体Log Implementation
+
+正如之前所说的，使用 Log Facade 可以方便的切换具体的日志实现。而且，如果依赖多个项目，使用了不同的Log Facade，还可以方便的通过 Adapter 转接到同一个实现上。如果依赖项目使用了多个不同的日志实现，就麻烦的多了。
+
+具体来说，现在推荐使用 Log4j-API 或者 SLF4j，不推荐继续使用 JCL。
+
+#### 5.2.2 只添加一个 Log Implementation依赖
+
+毫无疑问，项目中应该只使用一个具体的 Log Implementation，建议使用 Logback 或者Log4j2。如果有依赖的项目中，使用的 Log Facade不支持直接使用当前的 Log Implementation，就添加合适的桥接器依赖。具体的桥接关系可以看上一篇文章的图。
+
+#### 5.2.3 具体的日志实现依赖应该设置为optional和使用runtime scope
+
+在项目中，Log Implementation的依赖强烈建议设置为runtime scope，并且设置为optional。例如项目中使用了 SLF4J 作为 Log Facade，然后想使用 Log4j2 作为 Implementation，那么使用 maven 添加依赖的时候这样设置:
+
+```xml
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-core</artifactId>
+    <version>${log4j.version}</version>
+    <scope>runtime</scope>
+    <optional>true</optional>
+</dependency>
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-slf4j-impl</artifactId>
+    <version>${log4j.version}</version>
+    <scope>runtime</scope>
+    <optional>true</optional>
+</dependency>
+```
+
+设为optional，依赖不会传递，这样如果你是个lib项目，然后别的项目使用了你这个lib，不会被引入不想要的Log Implementation 依赖；
+
+Scope设置为runtime，是为了防止开发人员在项目中直接使用Log Implementation中的类，而不适用Log Facade中的类。
+
+#### 5.2.4 如果有必要, 排除依赖的第三方库中的Log Impementation依赖
+
+这是很常见的一个问题，第三方库的开发者未必会把具体的日志实现或者桥接器的依赖设置为optional，然后你的项目继承了这些依赖——具体的日志实现未必是你想使用的，比如他依赖了Log4j，你想使用Logback，这时就很尴尬。另外，如果不同的第三方依赖使用了不同的桥接器和Log实现，也极容易形成环。
+
+这种情况下，推荐的处理方法，是使用exclude来排除所有的这些Log实现和桥接器的依赖，只保留第三方库里面对Log Facade的依赖。
+
+比如阿里的JStorm就没有很好的处理这个问题，依赖jstorm会引入对Logback和log4j-over-slf4j的依赖，如果你想在自己的项目中使用Log4j或其他Log实现的话，就需要加上excludes:
+
+```xml
+<dependency>
+    <groupId>com.alibaba.jstorm</groupId>
+    <artifactId>jstorm-core</artifactId>
+    <version>2.1.1</version>
+    <exclusions>
+        <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+```
+
+#### 5.2.5 避免为不会输出的log付出代价
+
+Log库都可以灵活的设置输出界别，所以每一条程序中的log，都是有可能不会被输出的。这时候要注意不要额外的付出代价。
+
+先看两个有问题的写法：
 
 ```java
-public record Range(int min, int max) {}
+logger.debug("start process request, url: " + url);
+logger.debug("receive request: {}", toJson(request));
 ```
 
-没错就是这个简单！这个语法糖是不是有 “卧槽” 的感觉？我们声明这种类使用record 标识（目前不知道 record 会不会上升到关键字的高度）。当你用record 声明一个类时，该类将自动拥有以下功能：
+第一条是直接做了字符串拼接，所以即使日志级别高于debug也会做一个字符串连接操作；第二条虽然用了SLF4J/Log4j2 中的懒求值方式来避免不必要的字符串拼接开销，但是toJson()这个函数却是都会被调用并且开销更大。
 
-- 获取成员变量的简单方法，以上面代码为例 min() 和 max() 。注意区别于我们平常getter的写法。
-- 一个 equals 方法的实现，执行比较时会比较该类的所有成员属性
-- 重写 equals 当然要重写 hashCode
-- 一个可以打印该类所有成员属性的 toString 方法。
-- 请注意只会有一个构造方法。
-
-因为这个特性是 preview feature，默认情况下是无法编译和执行的。同样以上面为例我们需要执行：
-
-```bash
- $ javac -d classes --enable-preview --release 14 Range.java
- $ java -classpath classes --enable-preview Range
-```
-
-在 Jshell 中运行
-
-```bash
-jshell> Range r = new Range(10, 20);
-r ==> Range[min=10, max=20]
-jshell> r.min()
-$5 ==> 10
-jshell> r.toString()
-$6 ==> "Range[min=10, max=20]"
-jshell> r
-r ==> Range[min=10, max=20]
-```
-
-虽然 record 声明的类没有 final 关键字，实际上它是一个不可变类。除了一些限制外，它依旧是一个普通的Java 类。因此，我们可以像添加普通类一样添加逻辑。我们可以在构造实例时强制执行前提条件：
+推荐的写法如下:
 
 ```java
-public record Range(int min, int max) {
-    public Range {
-        if (min >= max)
-            throw new IllegalArgumentException("min should be less than max");
-    }
+logger.debug("start process request, url:{}", url); // SLF4J/LOG4J2
+logger.debug("receive request: {}", () -> toJson(request)); // LOG4J2
+logger.debug(() -> "receive request: " + toJson(request)); // LOG4J2
+if (logger.isDebugEnabled()) { // SLF4J/LOG4J2
+    logger.debug("receive request: " + toJson(request)); 
 }
 ```
 
-另外我们也可以给 Records 类增加普通方法、静态属性、静态方法，这里不再举例；
+#### 5.2.6 日志格式中最好不要使用行号，函数名等字段
 
-**为了简化语法糖的推理，不能在类内声明成员属性**。以下是错误的示范：
+原因是，为了获取语句所在的函数名，或者行号，log库的实现都是获取当前的stacktrace，然后分析取出这些信息，而获取stacktrace的代价是很昂贵的。如果有很多的日志输出，就会占用大量的CPU。在没有特殊需要的情况下，建议不要在日志中输出这些这些字段。
 
-```java
-public record Range(int min, int max) {
-    // 错误的示范
-    private String name;
-}
-```
+最后， log中不要输出稀奇古怪的字符！
 
-## 5. Lombok有什么坑
-
-> 谈谈Lombok容易被忽视的坑, 看似代码简洁背后的代价。
-
-### 5.1 `@Data`的坑
-
-在使用Lombok过程中，如果对于各种注解的底层原理不理解的话，很容易产生意想不到的结果。
-
-举一个简单的例子，我们知道，当我们使用`@Data`定义一个类的时候，会自动帮我们生成`equals()`方法 。
-
-但是如果只使用了`@Data`，而不使用`@EqualsAndHashCode(callSuper=true)`的话，会默认是`@EqualsAndHashCode(callSuper=false)`,这时候生成的`equals()`方法只会比较子类的属性，不会考虑从父类继承的属性，无论父类属性访问权限是否开放。
-
-这就可能得到意想不到的结果。
-
-### 5.2 代码可读性，可调试性低
-
-在代码中使用了Lombok，确实可以帮忙减少很多代码，因为Lombok会帮忙自动生成很多代码。但是**这些代码是要在编译阶段才会生成的**，所以在开发的过程中，其实很多代码其实是缺失的。
-
-在代码中大量使用Lombok，就导致代码的可读性会低很多，而且也会给代码调试带来一定的问题。 比如，我们想要知道某个类中的某个属性的getter方法都被哪些类引用的话，就没那么简单了。
-
-### 5.3 Lombok有很强的侵入性
-
-- **强J队友**
-
-因为Lombok的使用要求开发者一定要在IDE中安装对应的插件。如果未安装插件的话，使用IDE打开一个基于Lombok的项目的话会提示找不到方法等错误。导致项目编译失败。也就是说，如果项目组中有一个人使用了Lombok，那么其他人就必须也要安装IDE插件。否则就没办法协同开发。
-
-更重要的是，如果我们定义的一个jar包中使用了Lombok，那么就要求所有依赖这个jar包的所有应用都必须安装插件，这种侵入性是很高的。
-
-- **影响升级**
-
-因为Lombok对于代码有很强的侵入性，就可能带来一个比较大的问题，那就是会影响我们对JDK的升级。按照如今JDK的升级频率，每半年都会推出一个新的版本，但是Lombok作为一个第三方工具，并且是由开源团队维护的，那么他的迭代速度是无法保证的。
-
-所以，如果我们需要升级到某个新版本的JDK的时候，若其中的特性在Lombok中不支持的话就会受到影响。
-
-还有一个可能带来的问题，就是Lombok自身的升级也会受到限制。因为一个应用可能依赖了多个jar包，而每个jar包可能又要依赖不同版本的Lombok，这就导致在应用中需要做版本仲裁，而我们知道，jar包版本仲裁是没那么容易的，而且发生问题的概率也很高。
-
-### 5.4 Lombok破坏了封装性
-
-以上几个问题，我认为都是有办法可以避免的。但是有些人排斥使用Lombok还有一个重要的原因，那就是他会破坏封装性。
-
-众所周知，Java的三大特性包括`封装性`、`继承性`和`多态性`。
-
-如果我们在代码中直接使用Lombok，那么他会自动帮我们生成getter、setter 等方法，这就意味着，一个类中的所有参数都自动提供了设置和读取方法。
-
-举个简单的例子，我们定义一个购物车类：
+部分开发人员为了方便看到自己的log，会在log语句中加上醒目的前缀，比如:
 
 ```java
-@Data
-public class ShoppingCart { 
-
-    //商品数目
-    private int itemsCount; 
-
-    //总价格
-    private double totalPrice; 
-
-    //商品明细
-    private List items = new ArrayList<>();
-
-}
+logger.debug("========================start process request=============");
 ```
 
-我们知道，购物车中商品数目、商品明细以及总价格三者之前其实是有关联关系的，如果需要修改的话是要一起修改的。
+虽然对于自己来说是方便了，但是如果所有人都这样来做的话，那log输出就没法看了！正确的做法是使用grep 来看只自己关心的日志。
 
-但是，我们使用了Lombok的`@Data`注解，对于itemsCount 和 totalPrice这两个属性。虽然我们将它们定义成 `private` 类型，但是提供了 `public` 的 `getter`、`setter` 方法。
+### 5.3 对现有系统日志架构的改造建议
 
-外部可以通过 `setter` 方法随意地修改这两个属性的值。我们可以随意调用 `setter` 方法，来重新设置 itemsCount、totalPrice 属性的值，这也会导致其跟 items 属性的值不一致。
+如果现有系统使用JCL作为日志门面，又确实面临着JCL的ClassLoader机制带来的问题，完全可以引入slf4j并通过桥接库将JCL api输出的日志桥接至slf4j，再通过适配库适配至现有的日志输出服务（如log4j），如下图：
 
-而面向对象封装的定义是：通过访问权限控制，隐藏内部数据，外部仅能通过类提供的有限的接口访问、修改内部数据。所以，暴露不应该暴露的 setter 方法，明显违反了面向对象的封装特性。
+![image-20220829223131879](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220829223131879.png)
 
-好的做法应该是不提供`getter/setter`，而是只提供一个public的addItem方法，同时去修改itemsCount、totalPrice以及items三个属性。
+这样做不需要任何代码级的改造，就可以解决JCL的ClassLoader带来的问题，但没有办法享受日志模板等slf4j的api带来的优点。不过之后在现系统上开发的新功能就可以使用slf4j的api了，老代码也可以分批进行改造。
 
-> 以上问题其实也是可以解决的，但这提醒了我们需要理解Lombok，而不是一股脑的用`@Data`注解。 
+如果现有系统使用JCL作为日志门面，又头疼JCL不支持logback和log4j2等新的日志服务，也可以通过桥接库以slf4j替代JCL，但同样无法直接享受slf4j api的优点。
 
-## 6. 总结
+如果想要使用slf4j的api，那么就不得不进行代码改造了，当然改造也可以参考1中提到的方式逐步进行。
 
-- 优缺点
-  - 优点：大大减少了代码量，使代码非常简洁
-  - 缺点：可能存在对队友不友好、对代码不友好、对调试不友好、对升级不友好等问题。Lombok还会导致破坏封装性的问题。`@Data`中覆盖`equals`和`hashCode`的坑等。
-- 什么样的情况使用Lombok
-  - 团队整体的共识，IDE规范，相关代码规范等
-  - 对Lombok足够了解，比如知道其中的坑等
-- 不推荐使用Lombok的理由
-  - 其实我们不缺时间写Getter和Setter的，这些代码通常是由IDE生成的。简化也是有代价的。
-  - 对Lombok认知不够，导致带来的坑。
-  - Java14中Record了解下
+如果现系统面临着log4j的性能问题，可以使用Apache Logging提供的log4j到log4j2的桥接库log4j-1.2-api，把通过log4j api输出的日志桥接至log4j2。这样可以最快地使用上log4j2的先进性能，但组件中缺失了slf4j，对后续进行日志架构改造的灵活性有影响。另一种办法是先把log4j桥接至slf4j，再使用slf4j到log4j2的适配库。这样做稍微麻烦了一点，但可以逐步将系统中的日志输出标准化为使用slf4j的api，为后面的工作打好基础。
 
 ## 参考文章
 
-[常用开发库](https://pdai.tech/md/develop/package/dev-package-x-lombok.html#lombok%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8)
+[**常用开发库 - 日志类库详解**](https://pdai.tech/md/develop/package/dev-package-x-log.html)

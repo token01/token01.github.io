@@ -18,7 +18,7 @@ category:
 
 ### 1. 大使模式：创建代表消费者服务或应用程序发送网络请求的帮助服务
 
-![image-20220704231448639](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704231448639.png)
+![image-20220704231448639](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704231448639.png)
 
 进程外的代理服务（之前介绍中间件的时候也提到了，很多框架层面的事情可以以软件框架的形式寄宿在进程内，也可以以独立的代理形式做一个网络中间件）。这里的大使模式意思就是这么一个网络代理进程，用于和远端的服务进行通讯，完成下面的工作：
 
@@ -34,13 +34,13 @@ category:
 
 ### 2. 反腐模式：在现代应用程序和遗留系统之间实现装饰或适配器层
 
-![image-20220704231641497](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704231641497.png)
+![image-20220704231641497](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704231641497.png)
 
 使用一层反腐层来作为新老系统通讯的中间人。这样新系统可以完全使用新的通讯方式和架构方式，老的系统又不用进行特别改造可以暂时保留，等老系统不用之后可以废弃这个反腐层。这种模式适合新老系统迁移的过渡方案，不属于永久使用的架构设计模式
 
 ### 3. 外部配置存储：将应用程序部署包中的配置信息移动到中心化的位置
 
-![image-20220704231728207](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704231728207.png)
+![image-20220704231728207](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704231728207.png)
 
 这个模式说的就是可以有一个外部的配置服务来保存配置信息，在之前第五篇文章介绍中间件的时候我详细说明过配置服务的功能。不管是处于管理运维的角度还是方便安全的角度，具有配置共享配置外存特点的独立配置服务对于大型的网站来说必不可少。实现的话有很多开源项目提供了配置服务。
 
@@ -62,7 +62,7 @@ category:
 
 ### 5. 网关卸压模式：把共享或特定的服务功能放到网关代理
 
-![image-20220704231932879](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704231932879.png)
+![image-20220704231932879](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704231932879.png)
 
 名字有点难以理解，其实这种模式我们可能一直在用。就是用一个代理网关层做一些和业务无关的又麻烦的点，比如SSL，实现上用Nginx实现就很简单。我们经常会对外启用HTTPS服务，然后对内服务实际提供的是HTTP接口，通过网关做一下协议转换。
 
@@ -74,7 +74,7 @@ category:
 
 ### 7. 健康端点监控模式：在应用程序中执行功能检查，外部工具可以定期通过暴露的端点访问
 
-![image-20220704232130905](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704232130905.png)
+![image-20220704232130905](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704232130905.png)
 
 这个模式其实是挺重要的一点，有几个点需要注意：
 
@@ -86,7 +86,7 @@ category:
 
 ### 8. 绞杀者模式：通过使用新的应用程序和服务逐渐替换特定功能部件来逐步迁移旧系统
 
-![image-20220704232408285](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704232408285.png)
+![image-20220704232408285](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704232408285.png)
 
 名字挺吓人，这个模式说的是如何做迁移。通过建立一个门面来作为后端新老服务的路由，慢慢把服务替换为新服务，最后当所有的服务都是新服务后删除这个门面即可。这样对于消费者感知不到这个迁移的过程。在上一篇文章中我们提到的换引擎的方式其实说的是保留原有的门面，也是通过这个门面做底层引擎的替换。其实我觉得对于减少外围影响这种模式是完全可以理所当然想到的，真正难的过程还是之前说的数据迁移和底层服务实现的过程。
 
@@ -109,7 +109,7 @@ category:
 
 ### 10. 命令和查询责任分离模式：通过使用单独的接口来分离读取数据和更新数据的操作
 
-![image-20220704232715071](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704232715071.png)
+![image-20220704232715071](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704232715071.png)
 
  英文缩写是CQRS，看到这个关键字你可能会觉得有点熟悉了。CQRS原来说的是我们可以有两套数据模型分别用于读和写。好处是，我们可以让读和写具有完全不同的数据结构，减少相互的干扰，减少权限控制的复杂度。这里说的不一定是指架构层面我们可以这么做，也指在程序内部，我们可以有两套命令模型来处理读写这两个事情，分别进行优化和定制。
 
@@ -117,7 +117,7 @@ category:
 
 ###  11. 事件溯源模式：使用仅追加存储去记录描述对域中的数据采取的操作的完整系列事件
 
-![image-20220704232750858](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704232750858.png)
+![image-20220704232750858](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704232750858.png)
 
 事件溯源（ES）是一种有趣的模式，说的是我们记录的不是数据的当前状态而是叠加的数据变化序列（是不是想到了区块链的数据记录方式）。传统的CRUD方式因为有更新这个操作，所以会产生性能并发方面的局限性，而且我们还需要配备额外的日志来做审计，否则就产生了信息丢失。而事件溯源模式记录的是事件而不是当前状态，所以有下面的特点：
 
@@ -135,7 +135,7 @@ category:
 
 ### 12. 物化视图模式：针对所需的查询操作，当数据没有理想地格式化时，在一个或多个数据存储中的数据上生成预填充视图
 
-![image-20220704232902291](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704232902291.png)
+![image-20220704232902291](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704232902291.png)
 
 我们在使用数据存储的时候往往会更多考虑存储而不是读取。我们使用各种数据库范式来设计数据库，在读取数据的时候我们需要做大量的关联查询以输出符合需要的查询结果。这个时候性能往往会成为瓶颈，物化视图是一种空间换时间的做法。与其在查询的时候做关联，倒不如提前保存一份面向于查询和输出的数据格式。因此，物化视图适合下面的场景：
 
@@ -149,7 +149,7 @@ category:
 
 ### 13. 基于队列的负载均衡模式：使用一个队列作为任务和服务之间的缓冲区，平滑间歇性重负载
 
-![image-20220704232956349](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704232956349.png)
+![image-20220704232956349](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704232956349.png)
 
 消息队列我们太熟悉了，之前我们也反复提高过好多次，甚至我说这是架构三马车之一。这个模式在这里强调的是削峰的优势。这里我还想提几点：
 
@@ -158,7 +158,7 @@ category:
 
 ### 14. 优先级队列模式：确定发送到服务的请求的优先级，使得具有较高优先级的请求更快地被接收和处理
 
-![image-20220704233208874](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704233208874.png)
+![image-20220704233208874](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704233208874.png)
 
 区别于FIFO结构的队列，优先级队列允许消息标识处理优先级。这里实现上如上面两个图有两种方式：
 
@@ -195,11 +195,11 @@ category:
 
 ### 16. 分片模式：将数据存储区划分为一组水平分区或分片
 
-![image-20220704233331801](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704233331801.png)
+![image-20220704233331801](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704233331801.png)
 
-![image-20220704233343555](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704233343555.png)
+![image-20220704233343555](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704233343555.png)
 
-![image-20220704233353950](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704233353950.png)
+![image-20220704233353950](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704233353950.png)
 
 一直有一个说法就是不到没路可走的时候不要考虑数据库分片。有的时候业务量大到单个业务表在经过缓存+队列削峰等措施之后的平均的TPS超过1万，单表实在是扛不住，还是只能考虑分片手段。
 
@@ -227,7 +227,7 @@ category:
 
 ### 18. 索引表模式：为查询经常引用的数据存储区中的字段创建索引
 
-![image-20220704233457711](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704233457711.png)
+![image-20220704233457711](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704233457711.png)
 
 出于下面的原因，我们会考虑索引表：
 
@@ -279,13 +279,13 @@ category:
 
 ### 23. 竞争消费者模式：使用多个并发消费者来处理在同一消息通道上接收的消息
 
-![image-20220704233914820](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704233914820.png)
+![image-20220704233914820](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704233914820.png)
 
 这里说的是消息队列的消息消费者是一组对等的消费者，通过竞争方式来拉取数据执行。之前提到过这是MQ的最常见的一种模式，一般而言我们会部署多个消费节点进行负载均衡，在负载较大的时候可以方便得增加消费者进行消费能力扩容。不过对于这种模式消费者应当是对等的无状态的，在某个消费者在消费失败的时候消息重新回到队列随后可能会被另一个消费者进行处理。
 
 ### 24. 重试模式：在应用程序尝试连接到服务或网络资源遇到预期的临时故障时，让程序通过透明地重试以前失败的操作来处理
 
-![image-20220704233949973](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704233949973.png)
+![image-20220704233949973](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704233949973.png)
 
 重试适用于瞬态故障，之后会提到断路器模式，两种模式可以结合使用。首先说说重试的几个发起人：
 
@@ -302,7 +302,7 @@ category:
 
 ### 25. 调度、代理、主管模式：在一组分布式服务和其它远程资源之间协调一组操作
 
-![image-20220704234033054](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704234033054.png)
+![image-20220704234033054](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704234033054.png)
 
 
 
@@ -318,7 +318,7 @@ category:
 
 ### 26. 舱壁模式：将应用程序的元素隔离到池中，如果其中一个失败，其它的将继续运行
 
-![image-20220704234117476](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704234117476.png)
+![image-20220704234117476](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704234117476.png)
 
 资源隔离有好几个层次，可以在进程内部做线程池或队列的隔离，在微服务的服务划分上考虑隔离出单独的物理服务，或是在服务器层面通过虚拟化技术或Docker技术进行资源隔离。隔离了就不会相互影响，但是会有成本、性能、管理便利性方面的开销。实现能够根据需求分析出可能的资源相互影响的点，提前规划隔离往往可以避免很多问题的发生。之前有遇到过几个事故是这样的：
 
@@ -328,7 +328,7 @@ category:
 
 ### 27. 断路器模式：连接到远程服务或资源时, 处理可能需要花费时间来修复的故障
 
-![image-20220704234159148](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704234159148.png)
+![image-20220704234159148](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704234159148.png)
 
 分布式应用环节多网络环境复杂，如果遇到依赖服务调用失败的情况我们或许可以进行重试期待服务马上可以恢复，但是在某些时候依赖的服务是彻底挂了而不是网络故障无法及时恢复，如果不考虑进行熔断的，可能服务调用方会被服务提供方拖死。这个时候可以引入断路器机制，如图所示断路器一般采用三态实现，瞬间恢复可能会让底层服务压力过大：
 
@@ -348,7 +348,7 @@ category:
 
 ### 28. 事务补偿模式：撤消通过一系列步骤执行的工作，它们一起定义最终一致的操作
 
-![image-20220704234234642](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220704234234642.png)
+![image-20220704234234642](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220704234234642.png)
 
 这个模式说的是失败时必须进行撤销的操作，可以由一组补偿程序来做相应的补偿。在这里我想说的更广一点，在服务调用的时候，调用失败有几种可能：
 

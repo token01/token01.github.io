@@ -3,7 +3,7 @@ title: 测试
 index: false
 
 dir:
-  order: 80
+  order: 50
 category:
   - 开发
 ---

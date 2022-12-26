@@ -1,24 +1,22 @@
-# Navicat创建Oracle数据库
+# PL/SQL Developer导入、导出表结构和表数据
 
-## 1. 创建表空间
+## 1. 导出表结构:
 
-![image-20210522104059827](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210522104059827.png)
+Tools(工具)-->Export User Objects（导出用户对象）-->选择要导出的表(包括Sequence等)-->.sql文件，导出的都为sql文件
 
-![image-20210522104241385](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210522104241385.png)
+## 2. 导出表数据:
 
-## 2. 创建一个新用户
+Tools(工具)-->Export Tables(导出表)-->选择表,选择SQL Inserts(SQL 插入)-->.sql文件
 
-**用户名需要设置为全大写英文字母**
+![image-20201111111105145](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20201111111105145.png)
 
-![image-20210522104518587](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210522104518587.png)
+## 3. 导入步骤
 
-为该用户设置角色
+注：导入之前最好把以前的表删除，当然导入另外数据库除外。
+1、tools->import tables->SQL Inserts 导入.sql文件。
+2、tools->import talbes->Oracle Import然后再导入dmp文件。
 
-![image-20210522104628577](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210522104628577.png)
 
-![image-20210522104637174](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210522104637174.png)
 
-设置“服务器权限”
-
-![image-20210522104733656](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210522104733656.png)
+[PL/SQL Developer导入、导出表结构和表数据](https://www.jianshu.com/p/3e051d36c4bd)
 

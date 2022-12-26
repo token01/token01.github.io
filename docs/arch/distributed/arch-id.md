@@ -1,210 +1,491 @@
 ---
-order: 40
+order: 20
 category:
   - 架构
 ---
 
-# 微服务基础-康威定律
+# 分布式系统-全局唯一ID实现方案
 
->微服务这个概念很早就提出了， 真正火起来是在2016年左右，而康威定律(Conway's Law)就是微服务理论基础。
+>常见的分布式ID生成方式，大致分类的话可以分为两类：
+>
+>- **一种是类DB型的**，根据设置不同起始值和步长来实现趋势递增，需要考虑服务的容错性和可用性; 
+>- **另一种是类snowflake型**，这种就是将64位划分为不同的段，每段代表不同的涵义，基本就是时间戳、机器ID和序列数。这种方案就是需要考虑时钟回拨的问题以及做一些 buffer的缓冲设计提高性能。
 
-## 1. 背景
+## 1. 为什么需要全局唯一ID
 
-微服务是最近非常火热的新概念，大家都在追，也都觉得很对，但是似乎没有很充足的理论基础说明这是正确的，给人的感觉是 不明觉厉 。前段时间看了Mike Amundsen《远距离条件下的康威定律——分布式世界中实现团队构建》（是Design RESTful API的作者）在InfoQ上的一个分享，觉得很有帮助，结合自己的一些思考，整理了该演讲的内容。
+传统的单体架构的时候，我们基本是单库然后业务单表的结构。每个业务表的ID一般我们都是从1增，通过AUTO_INCREMENT=1设置自增起始值，但是在分布式服务架构模式下分库分表的设计，使得多个库或多个表存储相同的业务数据。这种情况根据数据库的自增ID就会产生相同ID的情况，不能保证主键的唯一性。
 
-可能出乎很多人意料之外的一个事实是，微服务很多核心理念其实在半个世纪前的一篇文章中就被阐述过了，而且这篇文章中的很多论点在软件开发飞速发展的这半个世纪中竟然一再被验证，这就是康威定律(Conway's Law).
+![image-20220615212429251](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220615212429251.png)
 
-![image-20220617221459652](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220617221459652.png)
 
-在康威的这篇文章中，最有名的一句话就是：
 
-> Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations. - Melvin Conway(1967)
+如上图，如果第一个订单存储在 DB1 上则订单 ID 为1，当一个新订单又入库了存储在 DB2 上订单 ID 也为1。我们系统的架构虽然是分布式的，但是在用户层应是无感知的，重复的订单主键显而易见是不被允许的。那么针对分布式系统如何做到主键唯一性呢？
 
-中文直译大概的意思就是：设计系统的组织，其产生的设计等同于组织之内、组织之间的沟通结构。
+## 2. UUID
 
-看看下面的图片，再想想Apple的产品、微软的产品设计，就能形象生动的理解这句话了。
+`UUID （Universally Unique Identifier）`，通用唯一识别码的缩写。UUID是由一组32位数的16进制数字所构成，所以UUID理论上的总数为 `16^32=2^128`，约等于 `3.4 x 10^38`。也就是说若每纳秒产生1兆个UUID，要花100亿年才会将所有UUID用完。
 
-![image-20220617221604888](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220617221604888.png)
+生成的UUID是由 8-4-4-4-12格式的数据组成，其中32个字符和4个连字符' - '，一般我们使用的时候会将连字符删除 uuid.`toString().replaceAll("-","")`。
 
-用通俗的说法就是：**组织形式等同于系统设计**。
+目前UUID的产生方式有5种版本，每个版本的算法不同，应用范围也不同。
 
-这里的系统按原作者的意思并不局限于软件系统。 据说这篇文章最初投的哈佛商业评论，结果程序员屌丝的文章不入商业人士的法眼，无情被拒，康威就投到了一个编程相关的杂志，所以被误解为是针对软件开发的。最初这篇文章显然不敢自称定律（law），只是描述了作者自己的发现和总结。后来，在Brooks Law著名的人月神话中，引用这个论点，并将其“吹捧”成了现在我们熟知“康威定律”。
+- `基于时间的UUID` - 版本1： 这个一般是通过当前时间，随机数，和本地Mac地址来计算出来，可以通过 org.apache.logging.log4j.core.util包中的 UuidUtil.getTimeBasedUuid()来使用或者其他包中工具。由于使用了MAC地址，因此能够确保唯一性，但是同时也暴露了MAC地址，私密性不够好。
+- `DCE安全的UUID` - 版本2 DCE（Distributed Computing Environment）安全的UUID和基于时间的UUID算法相同，但会把时间戳的前4位置换为POSIX的UID或GID。这个版本的UUID在实际中较少用到。
+- `基于名字的UUID（MD5）`- 版本3 基于名字的UUID通过计算名字和名字空间的MD5散列值得到。这个版本的UUID保证了：相同名字空间中不同名字生成的UUID的唯一性；不同名字空间中的UUID的唯一性；相同名字空间中相同名字的UUID重复生成是相同的。
+- `随机UUID` - 版本4 根据随机数，或者伪随机数生成UUID。这种UUID产生重复的概率是可以计算出来的，但是重复的可能性可以忽略不计，因此该版本也是被经常使用的版本。JDK中使用的就是这个版本。
+- `基于名字的UUID（SHA1）` - 版本5 和基于名字的UUID算法类似，只是散列值计算使用SHA1（Secure Hash Algorithm 1）算法。
 
-## 2. 康威定律详细介绍
+我们 Java中 JDK自带的 UUID产生方式就是版本4根据随机数生成的 UUID 和版本3基于名字的 UUID，有兴趣的可以去看看它的源码。
 
-Mike从他的角度归纳这篇论文中的其他一些核心观点，如下：
+```java
 
-- 第一定律
+public static void main(String[] args) {
 
-  Communication dictates design
+    //获取一个版本4根据随机字节数组的UUID。
+    UUID uuid = UUID.randomUUID();
+    System.out.println(uuid.toString().replaceAll("-",""));
 
-  组织沟通方式会通过系统设计表达出来
+    //获取一个版本3(基于名称)根据指定的字节数组的UUID。
+    byte[] nbyte = {10, 20, 30};
+    UUID uuidFromBytes = UUID.nameUUIDFromBytes(nbyte);
+    System.out.println(uuidFromBytes.toString().replaceAll("-",""));
+}
+  
+```
 
-- 第二定律
+得到的UUID结果，
 
-  There is never enough time to do something right, but there is always enough time to do it over
+```bash
+59f51e7ea5ca453bbfaf2c1579f09f1d
+7f49b84d0bbc38e9a493718013baace6
+```
 
-  时间再多一件事情也不可能做得完美，但总有时间做完一件事情
+虽然 UUID 生成方便，本地生成没有网络消耗，但是使用起来也有一些缺点，
 
-- 第三定律
+- **不易于存储**：UUID太长，16字节128位，通常以36长度的字符串表示，很多场景不适用。
+- **信息不安全**：基于MAC地址生成UUID的算法可能会造成MAC地址泄露，暴露使用者的位置。
+- **对MySQL索引不利**：如果作为数据库主键，在InnoDB引擎下，UUID的无序性可能会引起数据位置频繁变动，严重影响性能，可以查阅 Mysql 索引原理 B+树的知识。
 
-  There is a homomorphism from the linear graph of a system to the linear graph of its design organization
+## 3. 数据库生成
 
-  线型系统和线型组织架构间潜在的异质同态特性
+是不是一定要基于外界的条件才能满足分布式唯一ID的需求呢，我们能不能在我们分布式数据库的基础上获取我们需要的ID？
 
-- 第四定律
+由于分布式数据库的起始自增值一样所以才会有冲突的情况发生，那么我们将分布式系统中数据库的同一个业务表的自增ID设计成不一样的起始值，然后设置固定的步长，步长的值即为分库的数量或分表的数量。
 
-  The structures of large systems tend to disintegrate during development, qualitatively more so than with small systems
+以MySQL举例，利用给字段设置`auto_increment_increment`和`auto_increment_offset`来保证ID自增。
 
-  大的系统组织总是比小系统更倾向于分解
+- `auto_increment_offset`：表示自增长字段从那个数开始，他的取值范围是1 .. 65535。
+- `auto_increment_increment`：表示自增长字段每次递增的量，其默认值是1，取值范围是1 .. 65535。
 
-## 3.定律说明
+假设有三台机器，则DB1中order表的起始ID值为1，DB2中order表的起始值为2，DB3中order表的起始值为3，它们自增的步长都为3，则它们的ID生成范围如下图所示：
 
-### 3.1 第一定律：
+![image-20220615213155448](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220615213155448.png)
 
-**组织沟通方式会通过系统设计表达出来**
 
-> 人是复杂得社会动物
 
-组织的沟通和系统设计之间的紧密联系，在很多别的领域有类似的阐述。对于复杂的系统，聊设计就离不开聊人与人的沟通，解决好人与人的沟通问题，才能有一个好的系统设计。相信几乎每个程序员都读过的《人月神话》（1975年，感觉都是老古董了，经典的就是经得起时间考验）里面许多观点都和这句话有异曲同工之妙。
+通过这种方式明显的优势就是依赖于数据库自身不需要其他资源，并且ID号单调自增，可以实现一些对ID有特殊要求的业务。
 
-![image-20220617222147729](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220617222147729.png)
+但是缺点也很明显，首先它**强依赖DB**，当DB异常时整个系统不可用。虽然配置主从复制可以尽可能的增加可用性，但是**数据一致性在特殊情况下难以保证**。主从切换时的不一致可能会导致重复发号。还有就是**ID发号性能瓶颈限制在单台MySQL的读写性能**。
 
-比如《人月神话》中最著名的一句话就是
+## 4. 使用redis实现
 
-> Adding manpower to a late software project makes it later --Fred Brooks, (1975)
+Redis实现分布式唯一ID主要是通过提供像 `INCR` 和 `INCRBY` 这样的自增原子命令，由于Redis自身的单线程的特点所以能保证生成的 ID 肯定是唯一有序的。
 
-Boss们都听到了吗？为了赶进度加程序员就像用水去灭油锅里的火一样（无奈大家还是前赴后继）。
+但是单机存在性能瓶颈，无法满足高并发的业务需求，所以可以采用集群的方式来实现。集群的方式又会涉及到和数据库集群同样的问题，所以也需要设置分段和步长来实现。
 
-为什么？人月神话也给出了很简洁的答案：沟通成本 = n(n-1)/2，**沟通成本随着项目或者组织的人员增加呈指数级增长**。是的，项目管理这个算法的复杂度是O(n^2)。举个例子
+为了避免长期自增后数字过大可以通过与当前时间戳组合起来使用，另外为了保证并发和业务多线程的问题可以采用 Redis + Lua的方式进行编码，保证安全。
 
-- 5个人的项目组，需要沟通的渠道是 5*(5–1)/2 = 10
-- 15个人的项目组，需要沟通的渠道是15*(15–1)/2 = 105
-- 50个人的项目组，需要沟通的渠道是50*(50–1)/2 = 1,225
-- 150个人的项目组，需要沟通的渠道是150*(150–1)/2 = 11,175
+Redis 实现分布式全局唯一ID，它的性能比较高，生成的数据是有序的，对排序业务有利，但是同样它依赖于redis，**需要系统引进redis组件，增加了系统的配置复杂性**。
 
-所以知道为什么互联网创业公司都这么小了吧，必须小啊，不然等CEO和所有人讲一遍创业的想法后，风投的钱都烧完了。
+当然现在Redis的使用性很普遍，所以如果其他业务已经引进了Redis集群，则可以资源利用考虑使用Redis来实现。
 
-Mike还举了一个非常有意思的理论，叫“Dunbar Number”，这是一个叫Dunbar（废话）生物学家在1992年最早提出来的。最初，他发现灵长类的大脑容量和其对应的族群大小有一定关联，进而推断出人类的大脑能维系的关系的一些有趣估计。举例来说
+## 5. 雪花算法-Snowflake
 
-- 亲密（intimate）朋友: 5
-- 信任（trusted）朋友: 15
-- 酒肉（close）朋友: 35
-- 照面（casual）朋友: 150
+Snowflake，雪花算法是由Twitter开源的分布式ID生成算法，以划分命名空间的方式将 64-bit位分割成多个部分，每个部分代表不同的含义。而 Java中64bit的整数是Long类型，所以在 Java 中 SnowFlake 算法生成的 ID 就是 long 来存储的。
 
-![image-20220617222405482](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220617222405482.png)
+- **第1位**占用1bit，其值始终是0，可看做是符号位不使用。
+- **第2位**开始的41位是时间戳，41-bit位可表示2^41个数，每个数代表毫秒，那么雪花算法可用的时间年限是`(1L<<41)/(1000L360024*365)`=69 年的时间。
+- **中间的10-bit位**可表示机器数，即2^10 = 1024台机器，但是一般情况下我们不会部署这么台机器。如果我们对IDC（互联网数据中心）有需求，还可以将 10-bit 分 5-bit 给 IDC，分5-bit给工作机器。这样就可以表示32个IDC，每个IDC下可以有32台机器，具体的划分可以根据自身需求定义。
+- **最后12-bit位**是自增序列，可表示2^12 = 4096个数。
+
+这样的划分之后相当于**在一毫秒一个数据中心的一台机器上可产生4096个有序的不重复的ID**。但是我们 IDC 和机器数肯定不止一个，所以毫秒内能生成的有序ID数是翻倍的。
+
+![image-20220615213822755](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220615213822755.png)
+
+Snowflake 的Twitter官方原版是用Scala写的，对Scala语言有研究的同学可以去阅读下，以下是 Java 版本的写法。
+
+```java
+package com.jajian.demo.distribute;
+
+/**
+ * Twitter_Snowflake<br>
+ * SnowFlake的结构如下(每部分用-分开):<br>
+ * 0 - 0000000000 0000000000 0000000000 0000000000 0 - 00000 - 00000 - 000000000000 <br>
+ * 1位标识，由于long基本类型在Java中是带符号的，最高位是符号位，正数是0，负数是1，所以id一般是正数，最高位是0<br>
+ * 41位时间截(毫秒级)，注意，41位时间截不是存储当前时间的时间截，而是存储时间截的差值（当前时间截 - 开始时间截)
+ * 得到的值），这里的的开始时间截，一般是我们的id生成器开始使用的时间，由我们程序来指定的（如下下面程序IdWorker类的startTime属性）。41位的时间截，可以使用69年，年T = (1L << 41) / (1000L * 60 * 60 * 24 * 365) = 69<br>
+ * 10位的数据机器位，可以部署在1024个节点，包括5位datacenterId和5位workerId<br>
+ * 12位序列，毫秒内的计数，12位的计数顺序号支持每个节点每毫秒(同一机器，同一时间截)产生4096个ID序号<br>
+ * 加起来刚好64位，为一个Long型。<br>
+ * SnowFlake的优点是，整体上按照时间自增排序，并且整个分布式系统内不会产生ID碰撞(由数据中心ID和机器ID作区分)，并且效率较高，经测试，SnowFlake每秒能够产生26万ID左右。
+ */
+public class SnowflakeDistributeId {
+
+
+    // ==============================Fields===========================================
+    /**
+     * 开始时间截 (2015-01-01)
+     */
+    private final long twepoch = 1420041600000L;
+
+    /**
+     * 机器id所占的位数
+     */
+    private final long workerIdBits = 5L;
+
+    /**
+     * 数据标识id所占的位数
+     */
+    private final long datacenterIdBits = 5L;
+
+    /**
+     * 支持的最大机器id，结果是31 (这个移位算法可以很快的计算出几位二进制数所能表示的最大十进制数)
+     */
+    private final long maxWorkerId = -1L ^ (-1L << workerIdBits);
+
+    /**
+     * 支持的最大数据标识id，结果是31
+     */
+    private final long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
+
+    /**
+     * 序列在id中占的位数
+     */
+    private final long sequenceBits = 12L;
+
+    /**
+     * 机器ID向左移12位
+     */
+    private final long workerIdShift = sequenceBits;
+
+    /**
+     * 数据标识id向左移17位(12+5)
+     */
+    private final long datacenterIdShift = sequenceBits + workerIdBits;
+
+    /**
+     * 时间截向左移22位(5+5+12)
+     */
+    private final long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
+
+    /**
+     * 生成序列的掩码，这里为4095 (0b111111111111=0xfff=4095)
+     */
+    private final long sequenceMask = -1L ^ (-1L << sequenceBits);
+
+    /**
+     * 工作机器ID(0~31)
+     */
+    private long workerId;
+
+    /**
+     * 数据中心ID(0~31)
+     */
+    private long datacenterId;
+
+    /**
+     * 毫秒内序列(0~4095)
+     */
+    private long sequence = 0L;
+
+    /**
+     * 上次生成ID的时间截
+     */
+    private long lastTimestamp = -1L;
+
+    //==============================Constructors=====================================
+
+    /**
+     * 构造函数
+     *
+     * @param workerId     工作ID (0~31)
+     * @param datacenterId 数据中心ID (0~31)
+     */
+    public SnowflakeDistributeId(long workerId, long datacenterId) {
+        if (workerId > maxWorkerId || workerId < 0) {
+            throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
+        }
+        if (datacenterId > maxDatacenterId || datacenterId < 0) {
+            throw new IllegalArgumentException(String.format("datacenter Id can't be greater than %d or less than 0", maxDatacenterId));
+        }
+        this.workerId = workerId;
+        this.datacenterId = datacenterId;
+    }
+
+    // ==============================Methods==========================================
+
+    /**
+     * 获得下一个ID (该方法是线程安全的)
+     *
+     * @return SnowflakeId
+     */
+    public synchronized long nextId() {
+        long timestamp = timeGen();
+
+        //如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
+        if (timestamp < lastTimestamp) {
+            throw new RuntimeException(
+                    String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
+        }
+
+        //如果是同一时间生成的，则进行毫秒内序列
+        if (lastTimestamp == timestamp) {
+            sequence = (sequence + 1) & sequenceMask;
+            //毫秒内序列溢出
+            if (sequence == 0) {
+                //阻塞到下一个毫秒,获得新的时间戳
+                timestamp = tilNextMillis(lastTimestamp);
+            }
+        }
+        //时间戳改变，毫秒内序列重置
+        else {
+            sequence = 0L;
+        }
+
+        //上次生成ID的时间截
+        lastTimestamp = timestamp;
+
+        //移位并通过或运算拼到一起组成64位的ID
+        return ((timestamp - twepoch) << timestampLeftShift) //
+                | (datacenterId << datacenterIdShift) //
+                | (workerId << workerIdShift) //
+                | sequence;
+    }
+
+    /**
+     * 阻塞到下一个毫秒，直到获得新的时间戳
+     *
+     * @param lastTimestamp 上次生成ID的时间截
+     * @return 当前时间戳
+     */
+    protected long tilNextMillis(long lastTimestamp) {
+        long timestamp = timeGen();
+        while (timestamp <= lastTimestamp) {
+            timestamp = timeGen();
+        }
+        return timestamp;
+    }
+
+    /**
+     * 返回以毫秒为单位的当前时间
+     *
+     * @return 当前时间(毫秒)
+     */
+    protected long timeGen() {
+        return System.currentTimeMillis();
+    }
+}
+
+```
+
+测试的代码如下
+
+```java
+public static void main(String[] args) {
+    SnowflakeDistributeId idWorker = new SnowflakeDistributeId(0, 0);
+    for (int i = 0; i < 1000; i++) {
+        long id = idWorker.nextId();
+//      System.out.println(Long.toBinaryString(id));
+        System.out.println(id);
+    }
+}
+```
+
+**雪花算法提供了一个很好的设计思想，雪花算法生成的ID是趋势递增，不依赖数据库等第三方系统，以服务的方式部署，稳定性更高，生成ID的性能也是非常高的，而且可以根据自身业务特性分配bit位，非常灵活**。
+
+但是雪花算法强**依赖机器时钟**，如果机器上时钟回拨，会导致发号重复或者服务会处于不可用状态。如果恰巧回退前生成过一些ID，而时间回退后，生成的ID就有可能重复。官方对于此并没有给出解决方案，而是简单的抛错处理，这样会造成在时间被追回之前的这段时间服务不可用。
+
+很多其他类雪花算法也是在此思想上的设计然后改进规避它的缺陷，后面介绍的`百度 UidGenerator` 和 `美团分布式ID生成系统 Leaf` 中snowflake模式都是在 snowflake 的基础上演进出来的。
+
+## 6. 百度-UidGenerator
+
+> 百度的 `UidGenerator` 是百度开源基于Java语言实现的唯一ID生成器，是在雪花算法 snowflake 的基础上做了一些改进。`UidGenerator`以组件形式工作在应用项目中, 支持自定义workerId位数和初始化策略，适用于docker等虚拟化环境下实例自动重启、漂移等场景。
+
+在实现上，UidGenerator 提供了两种生成唯一ID方式，分别是 `DefaultUidGenerator` 和 `CachedUidGenerator`，官方建议如果有**性能考虑**的话使用 `CachedUidGenerator` 方式实现。
+
+`UidGenerator` 依然是以划分命名空间的方式将 64-bit位分割成多个部分，只不过它的默认划分方式有别于雪花算法 snowflake。它默认是由 `1-28-22-13` 的格式进行划分。可根据你的业务的情况和特点，自己调整各个字段占用的位数。
+
+- **第1位**仍然占用1bit，其值始终是0。
+- **第2位**开始的28位是时间戳，28-bit位可表示2^28个数，这里不再是以毫秒而是以秒为单位，每个数代表秒则可用`（1L<<28）/ (360024365) ≈ 8.51` 年的时间。
+- 中间的 workId （数据中心+工作机器，可以其他组成方式）则由 **22-bit位**组成，可表示 2^22 = 4194304个工作ID。
+- 最后由**13-bit位**构成自增序列，可表示2^13 = 8192个数。
+
+![image-20220615215123947](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220615215123947.png)
+
+
+
+其中 workId （机器 id），最多可支持约420w次机器启动。**内置实现为在启动时由数据库分配（表名为 WORKER_NODE），默认分配策略为用后即弃，后续可提供复用策略**。
+
+```sql
+DROP TABLE IF EXISTS WORKER_NODE;
+CREATE TABLE WORKER_NODE
+(
+ID BIGINT NOT NULL AUTO_INCREMENT COMMENT 'auto increment id',
+HOST_NAME VARCHAR(64) NOT NULL COMMENT 'host name',
+PORT VARCHAR(64) NOT NULL COMMENT 'port',
+TYPE INT NOT NULL COMMENT 'node type: ACTUAL or CONTAINER',
+LAUNCH_DATE DATE NOT NULL COMMENT 'launch date',
+MODIFIED TIMESTAMP NOT NULL COMMENT 'modified time',
+CREATED TIMESTAMP NOT NULL COMMENT 'created time',
+PRIMARY KEY(ID)
+)
+ COMMENT='DB WorkerID Assigner for UID Generator',ENGINE = INNODB;
+
+  
+```
+
+
+### 6.1 DefaultUidGenerator 实现
+
+`DefaultUidGenerator` 就是正常的根据时间戳和机器位还有序列号的生成方式，和雪花算法很相似，对于时钟回拨也只是抛异常处理。仅有一些不同，如**以秒为为单位**而不再是毫秒和支持Docker等虚拟化环境。
+
+```java
+protected synchronized long nextId() {
+    long currentSecond = getCurrentSecond();
+
+    // Clock moved backwards, refuse to generate uid
+    if (currentSecond < lastSecond) {
+        long refusedSeconds = lastSecond - currentSecond;
+        throw new UidGenerateException("Clock moved backwards. Refusing for %d seconds", refusedSeconds);
+    }
+
+    // At the same second, increase sequence
+    if (currentSecond == lastSecond) {
+        sequence = (sequence + 1) & bitsAllocator.getMaxSequence();
+        // Exceed the max sequence, we wait the next second to generate uid
+        if (sequence == 0) {
+            currentSecond = getNextSecond(lastSecond);
+        }
+
+    // At the different second, sequence restart from zero
+    } else {
+        sequence = 0L;
+    }
+
+    lastSecond = currentSecond;
+
+    // Allocate bits for UID
+    return bitsAllocator.allocate(currentSecond - epochSeconds, workerId, sequence);
+}
+```
 
-是不是和上面的沟通成本的数字很貌似有关联？是的，我们的大脑智力只能支持我们维系这么多的关系。（大家都知道这不是程序猿擅长的领域，在开发团队里，这个值应该更小，估计和猿差不多 -_-凸 ）
+如果你要使用 DefaultUidGenerator 的实现方式的话，以上划分的占用位数可通过 spring 进行参数配置。
 
-沟通的问题，会带来系统设计的问题，进而影响整个系统的开发效率和最终产品结果。
+```xml
+<bean id="defaultUidGenerator" class="com.baidu.fsg.uid.impl.DefaultUidGenerator" lazy-init="false">
+    <property name="workerIdAssigner" ref="disposableWorkerIdAssigner"/>
 
-### 3.2 第二定律
+    <!-- Specified bits & epoch as your demand. No specified the default value will be used -->
+    <property name="timeBits" value="29"/>
+    <property name="workerBits" value="21"/>
+    <property name="seqBits" value="13"/>
+    <property name="epochStr" value="2016-09-20"/>
+</bean>
 
-时间再多一件事情也不可能做得完美，但总有时间做完一件事情
+  
+```
 
-> 一口气吃不成胖子，先搞定能搞定的
+### 6.2 CachedUidGenerator 实现
 
-Eric Hollnagel是敏捷开发社区的泰斗之一，在他《Efficiency-Effectiveness Trade Offs》 一书中解释了类似的论点。
+而官方建议的性能较高的 `CachedUidGenerator` 生成方式，是使用 RingBuffer 缓存生成的id。数组每个元素成为一个slot。RingBuffer容量，默认为Snowflake算法中sequence最大值（2^13 = 8192）。可通过 boostPower 配置进行扩容，以提高 RingBuffer 读写吞吐量。
 
-> Problem too complicated? Ignore details. Not enough resources?Give up features. --Eric Hollnagel (2009)
+Tail指针、Cursor指针用于环形数组上读写slot：
 
-![image-20220617222535941](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220617222535941.png)
+- **Tail指针** 表示Producer生产的最大序号(此序号从0开始，持续递增)。Tail不能超过Cursor，即生产者不能覆盖未消费的slot。当Tail已赶上curosr，此时可通过rejectedPutBufferHandler指定PutRejectPolicy
+- **Cursor指针** 表示Consumer消费到的最小序号(序号序列与Producer序列相同)。Cursor不能超过Tail，即不能消费未生产的slot。当Cursor已赶上tail，此时可通过rejectedTakeBufferHandler指定TakeRejectPolicy
 
-系统越做越复杂，功能越来越多，外部市场的竞争越来越剧烈，投资人的期待越来越高。但人的智力是有上限的，即使再牛逼的人，融到钱再多也不一定招到足够多合适的人。对于一个巨复杂的系统，我们永远无法考虑周全。Eric认为，这个时候最好的解决办法竟然是——“破罐子破摔”。
+![image-20220615215921262](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220615215921262.png)
 
-其实我们在日常开发中也经常碰到。产品经理的需求太复杂了？适当忽略一些细节，先抓主线。产品经理的需求太多了？放弃一些功能。
+CachedUidGenerator采用了双RingBuffer，Uid-RingBuffer用于存储Uid、Flag-RingBuffer用于存储Uid状态(是否可填充、是否可消费)。
 
-据说Eric被一家航空公司请去做安全咨询顾问，复杂保证飞机飞行系统的稳定性和安全性。Eric认为做到安全有两种方式：
+由于数组元素在内存中是连续分配的，可最大程度利用CPU cache以提升性能。但同时会带来「伪共享」FalseSharing问题，为此在Tail、Cursor指针、Flag-RingBuffer中采用了CacheLine 补齐方式。
 
-- 常规的安全指的是尽可能多的发现并消除错误的部分，达到绝对安全，这是理想。
-- **另一种则是弹性安全，即使发生错误，只要及时恢复，也能正常工作，这是现实。**
+![image-20220615215956912](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220615215956912.png)
 
-对于飞机这样的复杂系统，再牛逼的人也无法考虑到漏洞的方方面面，所以Eric建议放弃打造完美系统的想法，而是通过不断的试飞，发现问题，确保问题发生时，系统能自动复原即可，而不追求飞行系统的绝对正确和安全。
+**RingBuffer填充时机**
 
-下面的图很好的解释了这个过程：
+- **初始化预填充** RingBuffer初始化时，预先填充满整个RingBuffer。
+- **即时填充** Take消费时，即时检查剩余可用slot量(tail - cursor)，如小于设定阈值，则补全空闲slots。阈值可通过paddingFactor来进行配置，请参考Quick Start中CachedUidGenerator配置。
+- **周期填充** 通过Schedule线程，定时补全空闲slots。可通过scheduleInterval配置，以应用定时填充功能，并指定Schedule时间间隔。
 
-![image-20220617222717319](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220617222717319.png)
+## 7. 美团Leaf
 
-听着很耳熟不是吗？这不就是 持续集成 和敏捷开发吗？的确就是。
+> Leaf是美团基础研发平台推出的一个分布式ID生成服务，名字取自德国哲学家、数学家莱布尼茨的著名的一句话：“There are no two identical leaves in the world”，世间不可能存在两片相同的叶子。
 
-另一方面，这和互联网公司维护的分布式系统的弹性设计也是一个道理。对于一个分布式系统，我们几乎永远不可能找到并修复所有的bug，单元测试覆盖1000%也没有用，错误流淌在分布式系统的血液里。解决方法不是消灭这些问题，而是容忍这些问题，在问题发生时，能自动修复，微服务组成的系统，每一个微服务都可能挂掉，这是常态，我们只要有足够的冗余和备份即可。即所谓的弹性设计或者叫高可用设计。
+Leaf 也提供了两种ID生成的方式，分别是 `Leaf-segment 数据库方案`和 `Leaf-snowflake 方案`。
 
-### 3.3 第三定律
+### 7.1 Leaf-segment 数据库方案
 
-线型系统和线型组织架构间潜在的异质同态特性
+Leaf-segment 数据库方案，是在上文描述的在使用数据库的方案上，做了如下改变：
 
-> 种瓜得瓜，做独立自治的子系统减少沟通成本
+- 原方案每次获取ID都得读写一次数据库，造成数据库压力大。改为利用proxy server批量获取，每次获取一个segment(step决定大小)号段的值。用完之后再去数据库获取新的号段，可以大大的减轻数据库的压力。
+- 各个业务不同的发号需求用 `biz_tag`字段来区分，每个biz-tag的ID获取相互隔离，互不影响。如果以后有性能需求需要对数据库扩容，不需要上述描述的复杂的扩容操作，只需要对biz_tag分库分表就行。
 
-![image-20220617222913061](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220617222913061.png)
+数据库表设计如下：
 
-这是第一定律组织和设计间内在关系的一个具体应用。更直白的说，你想要什么样的系统，就搭建什么样的团队。如果你的团队分成前端团队，java后台开发团队，DBA团队，运维团队，你的系统就会长成下面的样子：
+```sql
+CREATE TABLE `leaf_alloc` (
+  `biz_tag` varchar(128)  NOT NULL DEFAULT '' COMMENT '业务key',
+  `max_id` bigint(20) NOT NULL DEFAULT '1' COMMENT '当前已经分配了的最大id',
+  `step` int(11) NOT NULL COMMENT '初始步长，也是动态调整的最小步长',
+  `description` varchar(256)  DEFAULT NULL COMMENT '业务key的描述',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`biz_tag`)
+) ENGINE=InnoDB;
+```
 
-![image-20220617222953443](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220617222953443.png)
+原来获取ID每次都需要写数据库，现在只需要把step设置得足够大，比如1000。那么只有当1000个号被消耗完了之后才会去重新读写一次数据库。读写数据库的频率从1减小到了1/step，大致架构如下图所示：
 
-相反，如果你的系统按照业务边界划分的，大家按照一个业务目标去把自己的模块做成小系统，小产品的话，你的大系统就会成长成下面的样子，即微服务的架构
+![image-20220615220442152](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220615220442152.png)
 
-![image-20220617223417916](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220617223417916.png)
+同时Leaf-segment 为了解决 TP999（满足千分之九百九十九的网络请求所需要的最低耗时）数据波动大，当号段使用完之后还是会在更新数据库的I/O上，TP999 数据会出现偶尔的尖刺的问题，提供了双buffer优化。
 
-微服务的团队间应该是  inter-operate, not integrate 。 inter-operate 是定义好系统的边界和接口，在一个团队内全栈，让团队自治，原因就是因为如果团队按照这样的方式组建，将沟通的成本维持在系统内部，每个子系统就会更加内聚，彼此的依赖耦合变弱，跨系统的沟通成本也就能减低。
+简单的说就是，Leaf 取号段的时机是在号段消耗完的时候进行的，也就意味着号段临界点的ID下发时间取决于下一次从DB取回号段的时间，并且在这期间进来的请求也会因为DB号段没有取回来，导致线程阻塞。如果请求DB的网络和DB的性能稳定，这种情况对系统的影响是不大的，但是假如取DB的时候网络发生抖动，或者DB发生慢查询就会导致整个系统的响应时间变慢。
 
-### 3.4 第四定律
+为了DB取号段的过程能够做到无阻塞，不需要在DB取号段的时候阻塞请求线程，即当号段消费到某个点时就异步的把下一个号段加载到内存中，而不需要等到号段用尽的时候才去更新号段。这样做就可以很大程度上的降低系统的 TP999 指标。详细实现如下图所示：
 
-大的系统组织总是比小系统更倾向于分解
+![image-20220615220646262](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220615220646262.png)
 
-> 合久必分，分久必合
+采用双buffer的方式，Leaf服务内部有两个号段缓存区segment。当前号段已下发10%时，如果下一个号段未更新，则另启一个更新线程去更新下一个号段。当前号段全部下发完后，如果下个号段准备好了则切换到下个号段为当前segment接着下发，循环往复。
 
-前面说了，人是复杂的社会动物，人与人的通过非常复杂。但是当我们面对复杂系统时，又往往只能通过增加人力来解决。这时，我们的组织一般是如何解决这个沟通问题的呢？Divide and conquer,分而治之。大家看看自己的公司的组织，是不是一个一线经理一般都是管理15个人以下的？二线经理再管理更少的一线？三线再管理更少的，以此类推。（这里完全没有暗示开发经理比程序猿更难管理）
+- 每个biz-tag都有消费速度监控，通常推荐segment长度设置为服务高峰期发号QPS的600倍（10分钟），这样即使DB宕机，Leaf仍能持续发号10-20分钟不受影响。
+- 每次请求来临时都会判断下个号段的状态，从而更新此号段，所以偶尔的网络抖动不会影响下个号段的更新。
 
-所以，一个大的组织因为沟通成本/管理问题，总为被拆分成一个个小团队。
+对于这种方案依然存在一些问题，它**仍然依赖 DB的稳定性，需要采用主从备份的方式提高 DB的可用性**，还有 Leaf-segment方案生成的ID是趋势递增的，这样ID号是可被计算的，例如订单ID生成场景，**通过订单id号相减就能大致计算出公司一天的订单量，这个是不能忍受的**。
 
-创业的想法太好了，反正风投钱多，多招点程序猿
+### 7.2 Leaf-snowflake方案
 
-人多管不过来啊，找几个经理帮我管，我管经理
+Leaf-snowflake方案完全沿用 snowflake 方案的bit位设计，对于workerID的分配引入了Zookeeper持久顺序节点的特性自动对snowflake节点配置 wokerID。避免了服务规模较大时，动手配置成本太高的问题。
 
-最后， 康威定律 告诉我们组织沟通的方式会在系统设计上有所表达，每个经理都被赋予一定的职责去做大系统的某一小部分，他们和大系统便有了沟通的边界，所以大的系统也会因此被拆分成一个个小团队负责的小系统（微服务是一种好的模式）
+Leaf-snowflake是按照下面几个步骤启动的：
 
-## 4. 康威定律如何解释微服务的合理性
+- 启动Leaf-snowflake服务，连接Zookeeper，在leaf_forever父节点下检查自己是否已经注册过（是否有该顺序子节点）。
+- 如果有注册过直接取回自己的workerID（zk顺序节点生成的int类型ID号），启动服务。
+- 如果没有注册过，就在该父节点下面创建一个持久顺序节点，创建成功后取回顺序号当做自己的workerID号，启动服务。
 
-### 4.1 如何奠定了微服务架构的理论基础
+![image-20220615221138652](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220615221138652.png)
 
-> **了解了康威定律是什么，再来看看他如何在半个世纪前就奠定了微服务架构的理论基础**。
+为了减少对 Zookeeper的依赖性，会在本机文件系统上缓存一个workerID文件。当ZooKeeper出现问题，恰好机器出现问题需要重启时，能保证服务能够正常启动。
 
-1. 人与人的沟通是非常复杂的，一个人的沟通精力是有限的，所以当问题太复杂需要很多人解决的时候，我们需要做拆分组织来打成对沟通效率的管理
+上文阐述过在类 snowflake算法上都存在时钟回拨的问题，Leaf-snowflake在解决时钟回拨的问题上是通过校验自身系统时间与 `leaf_forever/${self}`节点记录时间做比较然后启动报警的措施。
 
-2. 组织内人与人的沟通方式决定了他们参与的系统设计，管理者可以通过不同的拆分方式带来不同的团队间沟通方式，从而影响系统设计
+![image-20220615221226542](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220615221226542.png)
 
-3. 如果子系统是内聚的，和外部的沟通边界是明确的，能降低沟通成本，对应的设计也会更加高效。
+美团官方建议是由于强依赖时钟，对时间的要求比较敏感，**在机器工作时NTP同步也会造成秒级别的回退，建议可以直接关闭NTP同步。要么在时钟回拨的时候直接不提供服务直接返回ERROR_CODE，等时钟追上即可。或者做一层重试，然后上报报警系统，更或者是发现有时钟回拨之后自动摘除本身节点并报警。**
 
-4. 复杂得系统需要通过容错弹性的方式持续优化，不要指望一个大而全的设计或架构，好的架构和设计都是慢慢迭代出来的
+在性能上官方提供的数据目前 Leaf 的性能在4C8G 的机器上QPS能压测到近5w/s，TP999 1ms。
 
-### 4.2 康威的实践意义
+## 参考文章
 
-**带来的具体的实践建议**
-
-1. 我们要用一切手段提升沟通效率，比如slack，github，wiki。能2个人讲清楚的事情，就不要拉更多人，每个人每个系统都有明确的分工，出了问题知道马上找谁，避免踢皮球的问题。
-
-2. 通过MVP的方式来设计系统，通过不断的迭代来验证优化，系统应该是弹性设计的。
-
-3. 你想要什么样的系统设计，就架构什么样的团队，能扁平化就扁平化。最好按业务来划分团队，这样能让团队自然的自治内聚，明确的业务边界会减少和外部的沟通成本，每个小团队都对自己的模块的整个生命周期负责，没有边界不清，没有无效的扯皮，inter-operate, not integrate。
-
-4.  做小而美的团队，人多会带来沟通的成本，让效率下降。亚马逊的Bezos有个逗趣的比喻，如果2个披萨不够一个团队吃的，那么这个团队就太大了。事实上一般一个互联网公司小产品的团队差不多就是7，8人左右（包含前后端测试交互用研等，可能身兼数职）。
-
-### 4.3 康威理论下的微服务该是怎么样的
-
-> 对应下衡量微服务的标准，我们很容易会发现他们之间的密切关系
-
-- 分布式服务组成的系统
-- 按照业务而不是技术来划分组织
-- 做有声明的产品而不是项目
-- Smart endpoints and dumb pipes（我的理解是强服务个体和弱通信）
-- 自动化运维
-- 容错
-- 快速演化
-
-## 5. 总结
-
-- 定律一: 组织沟通方式会通过系统设计表达出来，就是说架构的布局和组织结构会有相似。
-- 定律二: 时间再多一件事情也不可能做的完美，但总有时间做完一件事情。一口气吃不成胖子，先搞定能搞定的。
-- 定律三: 线型系统和线型组织架构间有潜在的异质同态特性。种瓜得瓜，做独立自治的子系统减少沟通成本。
-- 定律四: 大的系统组织总是比小系统更倾向于分解。合久必分，分而治之。
+[**分布式系统 - 全局唯一ID实现方案**](https://pdai.tech/md/arch/arch-z-id.html)
 

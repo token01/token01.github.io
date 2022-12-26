@@ -18,4 +18,4 @@
 
 双击运行
 
-![image-20210714212048937](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210714212048937.png)
+![image-20210714212048937](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210714212048937.png)

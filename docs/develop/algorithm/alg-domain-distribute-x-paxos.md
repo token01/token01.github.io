@@ -26,13 +26,13 @@ Paxos将系统中的角色分为`提议者 (Proposer)`，`决策者 (Acceptor)`�
 
 在多副本状态机中，每个副本同时具有Proposer、Acceptor、Learner三种角色。
 
-![image-20220618212528338](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618212528338.png)
+![image-20220618212528338](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220618212528338.png)
 
 > 可以理解为人大代表(Proposer)在人大向其它代表(Acceptors)提案，通过后让老百姓(Learner)落实。
 
 ### 2.2 三个阶段
 
-![image-20220618212629562](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618212629562.png)
+![image-20220618212629562](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220618212629562.png)
 
 
 
@@ -59,7 +59,7 @@ Proposer在收到多数Acceptors的Accept之后，标志着本次Accept成功，
 
 ### 2.3 伪代码
 
-![image-20220618212811301](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618212811301.png)
+![image-20220618212811301](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220618212811301.png)
 
 
 
@@ -81,17 +81,17 @@ Proposer在收到多数Acceptors的Accept之后，标志着本次Accept成功，
 
 下面举几个例子，实例1如下图:
 
-![image-20220618212905675](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618212905675.png)
+![image-20220618212905675](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220618212905675.png)
 
 图中P代表Prepare阶段，A代表Accept阶段。3.1代表Proposal ID为3.1，其中3为时间戳，1为Server ID。X和Y代表提议Value。
 
 实例1中P 3.1达成多数派，其Value(X)被Accept，然后P 4.5学习到Value(X)，并Accept。
 
-![image-20220618212927385](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618212927385.png)
+![image-20220618212927385](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220618212927385.png)
 
 实例2中P 3.1没有被多数派Accept(只有S3 Accept)，但是被P 4.5学习到，P 4.5将自己的Value由Y替换为X，Accept(X)。
 
-![image-20220618212943918](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618212943918.png)
+![image-20220618212943918](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220618212943918.png)
 
 
 
@@ -99,7 +99,7 @@ Proposer在收到多数Acceptors的Accept之后，标志着本次Accept成功，
 
 Paxos算法可能形成活锁而永远不会结束，如下图实例所示:
 
-![image-20220618213008146](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618213008146.png)
+![image-20220618213008146](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220618213008146.png)
 
 回顾两个承诺之一，Acceptor不再应答Proposal ID小于等于当前请求的Prepare请求。意味着需要应答Proposal ID大于当前请求的Prepare请求。
 
@@ -122,7 +122,7 @@ https://blog.csdn.net/yeqiuzs/article/details/76862026
 - 针对每一个要确定的值，运行一次Paxos算法实例(Instance)，形成决议。每一个Paxos实例使用唯一的Instance ID标识。
 - 在所有Proposers中选举一个Leader，由Leader唯一地提交Proposal给Acceptors进行表决。这样没有Proposer竞争，解决了活锁问题。在系统中仅有一个Leader进行Value提交的情况下，Prepare阶段就可以跳过，从而将两阶段变为一阶段，提高效率。
 
-![image-20220618213321990](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220618213321990.png)
+![image-20220618213321990](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220618213321990.png)
 
 
 

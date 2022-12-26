@@ -1,232 +1,417 @@
 ---
-order: 240
+order: 210
 category:
   - Minio
 ---
 
-# Minio进阶 - Minio秒传
+# Minio基础 - SpringBoot集成Minio
 
-## 1. MD5秒传
+## 1. 前言
 
-### 1.1 摘要算法
+之前介绍了如何使用Minio提供的JAVA SDK进行上传和下载文件，在此基础上，我们可以使用spring boot集成Minio JAVA SDK，添加自动配置、装配、客户端管理等功能，简化开发。
 
-摘要算法是一种能产生特殊输出格式的算法，这种算法的特点是：无论用户输入什么长度的原始数据，经过计算后输出的密文都是固定长度的，这种算法的原理是根据一定的运算规则对原数据进行某种形式的提取，这种提取就是摘要，被摘要的数据内容与原数据有密切联系，只要原数据稍有改变，输出的“摘要”便完全不同，因此，基于这种原理的算法便能对数据完整性提供较为健全的保障。
+## 2. Spring Boot集成Minio
 
-但是，由于输出的密文是提取原数据经过处理的定长值，所以它已经不能还原为原数据，即消息摘要算法是不可逆的，理论上无法通过反向运算取得原数据内容，因此它通常只能被用来做数据完整性验证。
+### 2.1 环境搭建
 
-摘要算法:
+首先我们搭建一个spring boot基础工程，引入以下依赖
 
-- MD2
-- MD5
-- SHA-1
-- SHA-256
-- SHA-384
-- SHA-512
+```xml
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.minio/minio -->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>8.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>me.tongfei</groupId>
+            <artifactId>progressbar</artifactId>
+            <version>0.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.7.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.4</version>
+        </dependency>
 
-### 1.2 MD5加密
+```
 
-MD5即Message-Digest Algorithm 5（信息-摘要算法 5），用于确保信息传输完整一致。是计算机广泛使用的杂凑算法之一（又译摘要算法、哈希算法），主流编程语言普遍已有MD5实现。
+### 2.2 操作模板类
 
-任意长度的数据经过MD5加密后得到的值的长度都是固定的，并且对原数据修改一个字符对于加密后的值都有很大的变动。
+在spring中，提供了很多集成第三方的操作模板类，比如RedisTemplate、RestTemplate等等，我们可以参照这些，提供一个minio SDK的集成模板类，这样在使用API时就比较方便了。
 
-比如使用hutool工具类对字符串进行加密：
+首先需要创建一个OSS文件对象，上传文件成功后，我们需要将文件信息返回给前端
 
 ```java
-    Digester md5 = new Digester(DigestAlgorithm.MD5);
-    String digestHex = md5.digestHex("testStr");
-    System.out.println(digestHex);// 32e3f38e0012b78faf9b7d1adb34cb48
-```
-也可以对文件进行加密：
-
-```java
-    Digester md5 = new Digester(DigestAlgorithm.MD5);
-    File file=new File("F:\\AuthUser.java");
-    String digestHex = md5.digestHex(file);
-    System.out.println(digestHex);// 835bb25fab66d6fc70ea497f49363194
-```
-总结：MD5是一种摘要加密算法，可以对文件、字符串等进行加密规则运算，然后得到一个固定长度的字符串，如果数据有一点修改，加密后的密文就不一样。
-
-### 1.3 MD5秒传
-
-**MD5秒传的基本原理**：在实际文件上传应用场景中，当文件体积大、量比较多时，可以对上传前做文件md5值验证，查看该文件是否已上传过，如果已上传，则直接显示上传成功，返回之前文件的访问链接，如果未上传过，则再执行上传。
-
-## 2. 入门案例
-
-### 2.1 搭建前端项目
-
-前端上传组件使用的是[vue-uploader](https://github.com/simple-uploader/vue-uploader)。
-
-创建一个VUE 项目，将官网中的测试案例复制进来：
-
-![image-20221001232458133](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221001232458133.png)
-
-修改`main.js`中的一段代码：
-
-```java
-import uploader from 'vue-simple-uploader';
-```
-
-修改App.vue 中上传地址为之前我们写的[Minio](https://so.csdn.net/so/search?q=Minio&spm=1001.2101.3001.7020) 上传地址：
-
-![image-20221001232532357](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221001232532357.png)
-
-关闭自动上传：
-
-```html
-<uploader ref="uploader" :auto-start="false" :options="options" :file-status-text="statusText" class="uploader-example" @file-complete="fileComplete" @complete="complete" />
-```
-
-然后启动项目：
-
-```bash
-npm install vue-simple-uploader --save
-cnpm install 
-npm run start
-```
-
-
-访问主页地址，测试上传文件：
-
-![image-20221001232628653](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221001232628653.png)
-
-### 2.2 集成SparkMD5
-
-[文档地址](https://www.npmjs.com/package/spark-md5)
-
-SparkMD5 是 MD5 算法的快速 md5 实现。该脚本基于 JKM md5 库，这是最快的算法。
-
-安装：
-
-```bash
-npm install spark-md5 --save
-```
-
-在App.vue中引入SparkMD5 ，onFileAdded 添加文件事件中，调用计算MD5方法computeMD5：
-
-```html
-<script>
-import SparkMD5 from 'spark-md5';
-export default {
-  data () {
-    return {
-      options: {
-        // 目标上传 URL，可以是字符串也可以是函数，如果是函数的话，则会传入 Uploader.File 实例、当前块 Uploader.Chunk 以及是否是测试模式，默认值为 '/'
-        target: '//localhost:8081/file/upload', // '//jsonplaceholder.typicode.com/posts/',
-        // 是否测试每个块是否在服务端已经上传了，主要用来实现秒传、跨浏览器上传等，默认 true。
-        testChunks: false,
-        // 分块时按照该值来分。最后一个上传块的大小是可能是大于等于1倍的这个值但是小于两倍的这个值大小，
-        // 可见这个 Issue #51，默认 1*1024*1024。
-        chunkSize: 100 * 1024 * 1024
-      },
-      attrs: {
-        accept: 'image/*'
-      },
-      statusText: {
-        success: '成功了',
-        error: '出错了',
-        uploading: '上传中',
-        paused: '暂停中',
-        waiting: '等待中'
-      }
-    };
-  },
-  mounted () {
-    this.$nextTick(() => {
-      window.uploader = this.$refs.uploader.uploader;
-    });
-  },
-  methods: {
-    onFileAdded(file) {
-      console.log('文件被添加：' + file.name);
-      this.panelShow = true;
-      // 计算MD5
-      this.computeMD5(file, this.options.chunkSize);
-    },
+@Data
+@AllArgsConstructor
+public class OssFile {
     /**
-     * 计算文件的MD5 值
+     * OSS 存储时文件路径
      */
-    computeMD5(file, chunkSize) {
-      console.log('开始计算MD5', file);
-      const fileReader = new FileReader();
-      const time = new Date().getTime();
-      const blobSlice = File.prototype.slice || File.prototype.mozSlice || File.prototype.webkitSlice;
-      let currentChunk = 0;
-      const chunks = Math.ceil(file.size / chunkSize);
-      const spark = new SparkMD5.ArrayBuffer();
-      file.pause();
-      loadNext();
-      fileReader.onload = e => {
-        spark.append(e.target.result);
-        if (currentChunk < chunks) {
-          currentChunk++;
-          loadNext();
-        } else {
-          const md5 = spark.end();
-          file.uniqueIdentifier = md5;
-          file.resume();
-          console.log(`MD5计算完毕：${file.name} \nMD5：${md5} \n分片：${chunks} 大小:${file.size} 用时：${new Date().getTime() - time} ms`);
-        }
-      };
-      fileReader.onerror = function () {
-        this.error(`文件${file.name}读取出错，请检查该文件`);
-        file.cancel();
-      };
-      function loadNext() {
-        const start = currentChunk * chunkSize;
-        const end = ((start + chunkSize) >= file.size) ? file.size : start + chunkSize;
-        fileReader.readAsArrayBuffer(blobSlice.call(file.file, start, end));
-      }
-    },
-    complete () {
-      console.log('complete', arguments);
-    },
-    fileComplete () {
-      console.log('file complete', arguments);
-    }
-  }
-};
-</script>
+    String ossFilePath;
+    /**
+     * 原始文件名
+     */
+    String originalFileName;
+}
+
+
 ```
 
-添加几个文件，可以在控制台中看到打印的文件MD5信息：
-
-![image-20221001232850838](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221001232850838.png)
-
-查看上传文件接口，可以看到，将MD5 传给了后台。
-
-![image-20221001232907340](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221001232907340.png)
-
-### 2.3 后台代码
-
-既然前端计算出MD5已经穿了过来，就比较简单了，只需要在保存文件之前判断，该文件的MD5 是否已存在，若存在直接返回之前的访问路径，不存在则再执行上传操作。
+接着创建了一个MinioTemplate，提供了系列对Minio API的集成。
 
 ```java
- @RequestMapping("/upload")
-    @ResponseBody
-    public Object upload(MultipartFile file, String bucketName, HttpServletRequest request) throws IOException {
-        // MD5 秒传
-        // 1. 获取到该文件的MD5
-        String md5 = request.getParameter("uniqueIdentifier");
-        // 2. 判断该MD5 是否已存在
-        boolean contains = md5Set.contains(md5);
-        // 3. 已存在直接返回访问路径
-        if (contains) {
-            return "该文件已上传，链接为：" + "http:xxxxxxxxxxxx";
-        } else {
-            // 4. 不存在则执行上传并保存MD5 记录到数据库
-            OssFile ossFile = minioTemplate.putObject(file.getInputStream(), bucketName, file.getOriginalFilename());
-            md5Set.add(md5);
-            return ossFile;
+@Slf4j
+@AllArgsConstructor
+public class MinioTemplate {
+
+    /**
+     * MinIO 客户端
+     */
+    MinioClient minioClient;
+
+    /**
+     * MinIO 配置类
+     */
+    OssProperties ossProperties;
+
+    /**
+     * 查询所有存储桶
+     *
+     * @return Bucket 集合
+     */
+    @SneakyThrows
+    public List<Bucket> listBuckets() {
+        return minioClient.listBuckets();
+    }
+
+    /**
+     * 桶是否存在
+     *
+     * @param bucketName 桶名
+     * @return 是否存在
+     */
+    @SneakyThrows
+    public boolean bucketExists(String bucketName) {
+        return minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
+    }
+
+    /**
+     * 创建存储桶
+     *
+     * @param bucketName 桶名
+     */
+    @SneakyThrows
+    public void makeBucket(String bucketName) {
+        if (!bucketExists(bucketName)) {
+            minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
+
         }
     }
+
+    /**
+     * 删除一个空桶 如果存储桶存在对象不为空时，删除会报错。
+     *
+     * @param bucketName 桶名
+     */
+    @SneakyThrows
+    public void removeBucket(String bucketName) {
+        minioClient.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
+    }
+
+    /**
+     * 上传文件
+     *
+     * @param inputStream      流
+     * @param originalFileName 原始文件名
+     * @param bucketName       桶名
+     * @return OssFile
+     */
+    @SneakyThrows
+    public OssFile putObject(InputStream inputStream, String bucketName, String originalFileName) {
+        String uuidFileName = generateOssUuidFileName(originalFileName);
+        try {
+            if (StrUtil.isEmpty(bucketName)) {
+                bucketName = ossProperties.getDefaultBucketName();
+            }
+            minioClient.putObject(
+                    PutObjectArgs.builder().bucket(bucketName).object(uuidFileName).stream(
+                            inputStream, inputStream.available(), -1)
+                            .build());
+            return new OssFile(uuidFileName, originalFileName);
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        }
+    }
+
+    /**
+     * 返回临时带签名、过期时间一天、Get请求方式的访问URL
+     *
+     * @param bucketName  桶名
+     * @param ossFilePath Oss文件路径
+     * @return
+     */
+    @SneakyThrows
+    public String getPresignedObjectUrl(String bucketName, String ossFilePath) {
+        return minioClient.getPresignedObjectUrl(
+                GetPresignedObjectUrlArgs.builder()
+                        .method(Method.GET)
+                        .bucket(bucketName)
+                        .object(ossFilePath)
+                        .expiry(60 * 60 * 24)
+                        .build());
+    }
+
+    /**
+     * GetObject接口用于获取某个文件（Object）。此操作需要对此Object具有读权限。
+     *
+     * @param bucketName  桶名
+     * @param ossFilePath Oss文件路径
+     */
+    @SneakyThrows
+    public InputStream getObject(String bucketName, String ossFilePath) {
+        return minioClient.getObject(
+                GetObjectArgs.builder().bucket(bucketName).object(ossFilePath).build());
+    }
+
+    /**
+     * 查询桶的对象信息
+     *
+     * @param bucketName 桶名
+     * @param recursive  是否递归查询
+     * @return
+     */
+    @SneakyThrows
+    public Iterable<Result<Item>> listObjects(String bucketName, boolean recursive) {
+        return minioClient.listObjects(
+                ListObjectsArgs.builder().bucket(bucketName).recursive(recursive).build());
+    }
+
+	/**
+     * 生成随机文件名，防止重复
+     *
+     * @param originalFilename 原始文件名
+     * @return 
+     */
+    public String generateOssUuidFileName(String originalFilename) {
+        return "files" + StrUtil.SLASH + DateUtil.format(new Date(), "yyyy-MM-dd") + StrUtil.SLASH + UUID.randomUUID() + StrUtil.SLASH + originalFilename;
+    }
+
+    /**
+     * 获取带签名的临时上传元数据对象，前端可获取后，直接上传到Minio
+     *
+     * @param bucketName
+     * @param fileName
+     * @return
+     */
+    @SneakyThrows
+    public Map<String, String> getPresignedPostFormData(String bucketName, String fileName) {
+        // 为存储桶创建一个上传策略，过期时间为7天
+        PostPolicy policy = new PostPolicy(bucketName, ZonedDateTime.now().plusDays(7));
+        // 设置一个参数key，值为上传对象的名称
+        policy.addEqualsCondition("key", fileName);
+        // 添加Content-Type以"image/"开头，表示只能上传照片
+        policy.addStartsWithCondition("Content-Type", "image/");
+        // 设置上传文件的大小 64kiB to 10MiB.
+        policy.addContentLengthRangeCondition(64 * 1024, 10 * 1024 * 1024);
+        return minioClient.getPresignedPostFormData(policy);
+    }
+
+    /**
+     * 初始化默认存储桶
+     */
+    @PostConstruct
+    public void initDefaultBucket() {
+        String defaultBucketName = ossProperties.getDefaultBucketName();
+        if (bucketExists(defaultBucketName)) {
+            log.info("默认存储桶已存在");
+        } else {
+            log.info("创建默认存储桶");
+            makeBucket(ossProperties.getDefaultBucketName());
+        }
+        ;
+    }
+}
+
+
 ```
 
-## 3. 案例存在的问题
+### 2.3 自动配置
 
-入门案例中，存在不少问题，实际开发时自行解决：
+在了解了BAT公司提供的对象存储OSS后，发现其API接口标准都是差不多的，从扩展性的角度出发，我们当前服务应当支持各种类型的OSS，比如阿里、华为、腾讯等。所以这里先定义一个枚举类，提供除了Minio还适配其他厂商的支持。
 
-- 应该在上传之前进行MD5校验，单独写一个校验接口，而不是上传的过程中校验
+```java
+@Getter
+@AllArgsConstructor
+public enum OssType {
+    /**
+     * Minio 对象存储
+     */
+    MINIO("minio", 1),
 
+    /**
+     * 华为 OBS
+     */
+    OBS("obs", 2),
+
+    /**
+     * 腾讯 COS
+     */
+    COS("tencent", 3),
+
+    /**
+     * 阿里巴巴 SSO
+     */
+    ALIBABA("alibaba", 4),
+    ;
+
+    /**
+     * 名称
+     */
+    final String name;
+    /**
+     * 类型
+     */
+    final int type;
+
+}
+
+```
+
+创建OSS配置类，可以选择不同类型的OSS集成，以及集成需要的访问地址、用户密码等信息配置。
+
+```java
+@Data
+@ConfigurationProperties(prefix = "oss")
+public class OssProperties {
+
+    /**
+     * 是否开启
+     */
+    Boolean enabled;
+
+    /**
+     * 存储对象服务器类型
+     */
+    OssType type;
+
+    /**
+     * OSS 访问端点，集群时需提供统一入口
+     */
+    String endpoint;
+
+    /**
+     * 用户名
+     */
+    String accessKey;
+
+    /**
+     * 密码
+     */
+    String secretKey;
+
+    /**
+     * 默认存储桶名，没有指定时，会放在默认的存储桶
+     */
+    String defaultBucketName;
+}
+
+
+```
+
+然后编译一下项目，将配置类转为spring-configuration-metadata.json文件，这样这些配置在yml中就有提示功能了。
+
+![image-20220723232931077](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723232931077.png)
+
+最后在根据我们配置的OSS类型，创建不同的自动配置类，这里创建的MinioConfiguration，主要是根据配置注入MinioClient及MinioTemplate模板类，将其交给Spring容器管理。
+
+```java
+@Configuration(proxyBeanMethods = false)
+@ConditionalOnClass({MinioClient.class})
+@EnableConfigurationProperties(OssProperties.class)
+@ConditionalOnExpression("${oss.enabled}")
+@ConditionalOnProperty(value = "oss.type", havingValue = "minio")
+public class MinioConfiguration {
+
+
+    @Bean
+    @SneakyThrows
+    @ConditionalOnMissingBean(MinioClient.class)
+    public MinioClient minioClient(OssProperties ossProperties) {
+        return MinioClient.builder()
+                .endpoint(ossProperties.getEndpoint())
+                .credentials(ossProperties.getAccessKey(), ossProperties.getSecretKey())
+                .build();
+    }
+
+    @Bean
+    @ConditionalOnBean({MinioClient.class})
+    @ConditionalOnMissingBean(MinioTemplate.class)
+    public MinioTemplate minioTemplate(MinioClient minioClient, OssProperties ossProperties) {
+        return new MinioTemplate(minioClient, ossProperties);
+    }
+}
+
+```
+
+### 2.4 测试
+
+首先，在yml中添加Minio的配置：
+
+```
+oss:
+  enabled: true
+  type: MINIO
+  endpoint: http://127.0.0.1:9000
+  access-key: admin
+  secret-key: admin123
+  default-bucket-name: pearl-buckent
+```
+
+然后创建一个访问接口，直接调用minioTemplate进行文件操作，这样就十分便利，达到了简化开发的目的。
+
+```java
+@Autowired
+MinioTemplate minioTemplate;
+@PostMapping("/upload")
+@ResponseBody
+public Object upload(MultipartFile file, String bucketName) throws IOException {
+    return minioTemplate.putObject(file.getInputStream(), bucketName, file.getOriginalFilename());
+}
+```
 ## 参考文章
 
-[Minio入门系列【17】MD5秒传原理及入门案例](https://yunyanchengyu.blog.csdn.net/article/details/123393489)
+[Minio入门系列【12】Spring Boot集成Minio](https://yunyanchengyu.blog.csdn.net/article/details/120920171)

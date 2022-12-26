@@ -29,7 +29,7 @@ https://jetbra.in/s
 
    如没有试用，**可执行重置30天试用期脚本**
 
-   ![image-20210302085059153](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210302085059153.png)
+   ![image-20210302085059153](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20210302085059153.png)
 
    打开该文件夹后，有对应系统的执行脚本，执行即可：
 
@@ -40,13 +40,13 @@ https://jetbra.in/s
 
 3. 将网盘中最新的 IDEA 破解补丁 `BetterIntelliJ.zip`拖入 IDEA 界面中，如下图所示：
 
-   ![image-20210302085140706](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210302085140706.png)
+   ![image-20210302085140706](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20210302085140706.png)
 
 4. 输入**key.txt里面的激活码**
 
    未输入只有30天的试用，添加激活码后有效期到2099
 
-   ![image-20210302085242986](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210302085242986.png)
+   ![image-20210302085242986](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20210302085242986.png)
 
 ## 方案3：idea插件形式（推荐）
 
@@ -56,16 +56,16 @@ https://jetbra.in/s
 
 1. 设置插件仓库
 
-   ![image-20210625103250617](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210625103250617.png)
+   ![image-20210625103250617](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210625103250617.png)
 
    设置为：https://plugins.zhile.io
 
 2. 搜索IDE Eval Reset，并重启
 
-   ![image-20210625103409257](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210625103409257.png)
+   ![image-20210625103409257](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210625103409257.png)
 
 3. 点击 IDE 的菜单：`Help -> Eval Reset`
 
-   ![image-20210625105026315](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210625105026315.png)
+   ![image-20210625105026315](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210625105026315.png)
 
-   ![image-20210625105042459](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210625105042459.png)
+   ![image-20210625105042459](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210625105042459.png)

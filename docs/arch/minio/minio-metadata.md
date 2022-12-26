@@ -40,9 +40,9 @@ category:
 
 对于小文件，**数据和元数据都同时保存在对应的xl.meta的文件中**。对应大文件的写入，会创建相应的目录，该目录下是对应的part的数据文件和元数据。
 
-![image-20220721225520501](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220721225520501.png)
+![image-20220721225520501](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220721225520501.png)
 
-![image-20220721225531228](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220721225531228.png)
+![image-20220721225531228](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220721225531228.png)
 
 由图3可知：当前集群中有2个bucket：test1和test2。 test1中有3个对象：分别是x，y，wget-log三个对象。x是30M的大文件，通过multipart上传到集群中，有2个part，分别为part.1和part.2文件。wget-log文件是一个小文件，大小为357.9KB.
 

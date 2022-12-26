@@ -11,13 +11,13 @@
 
 举个例子：比如说现在有个手机商品叫小米8，小米8有不同的属性，比如有它有黑色和蓝色的，有32G和64G版本的。**此时`小米8`就是一个SPU，而`小米8黑色64G`就是一个SKU**。
 
-![image-20220319204336926](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220319204336926.png)
+![image-20220319204336926](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220319204336926.png)
 
 ## 2. SKU 的数据库设计
 
 由于商品的销售属性是动态的，没法确定到底有多少个，此时我们可以改用JSON格式来存储，在`pms_sku_stock`表中添加了`sp_data`字段。
 
-![image-20220319204927694](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220319204927694.png)
+![image-20220319204927694](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220319204927694.png)
 
 `sp_data`存储的就是一个JSON数组，比如颜色为黑色，容量为32G的手机存储信息如下。
 
@@ -108,7 +108,7 @@ public class PmsProductServiceImpl implements PmsProductService {
 
 数据类似如下
 
-![image-20220309231416451](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220309231416451.png)
+![image-20220309231416451](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220309231416451.png)
 
 但我们前端不可能直接显示30条数据，我们希望按类别来选择。
 
@@ -254,7 +254,7 @@ stock: 2}
 			},
 ```
 
-![image-20220311222612306](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220311222612306.png)
+![image-20220311222612306](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20220311222612306.png)
 
 #### 4.1.3. 选中SKU 流程
 

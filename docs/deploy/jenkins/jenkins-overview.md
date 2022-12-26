@@ -18,7 +18,7 @@ Jenkins是一款开源持续集成(CI&CD ) 工具软件，用于自动化各种�
 
 > 将软件开发生命周期的整个过程都自动化，**从开发人员向代码库中提交代码开始，到将此代码投入生产环境中使用为止**。为了使整个软件开发流程处于 DevOps 模式或自动化模式，我们就需要对 CI/CD 流水线进行自动化。
 
-![image-20220805153241027](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805153241027.png)
+![image-20220805153241027](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805153241027.png)
 
 ### 1.2 发展历史
 
@@ -51,7 +51,7 @@ docker run -p 18080:8080 -p 50000:5000 --name jenkins \
 
   访问：http://localhost:18080/
 
-  ![image-20220718162800163](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718162800163.png)
+  ![image-20220718162800163](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718162800163.png)
 
 - 查看登录默认密码
 
@@ -63,36 +63,36 @@ docker run -p 18080:8080 -p 50000:5000 --name jenkins \
      docker logs jenkins
      ```
 
-     ![image-20220718164259903](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718164259903.png)
+     ![image-20220718164259903](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718164259903.png)
 
 - 安装插件
 
   选择安装插件方式，这里我们直接安装推荐的插件：
 
-  ![image-20220718163403228](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718163403228.png)
+  ![image-20220718163403228](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718163403228.png)
 
   进入插件安装界面，联网等待插件安装：
 
-  ![image-20220718163528739](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718163528739.png)
+  ![image-20220718163528739](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718163528739.png)
 
 - 安装完成后，创建管理员账号：
 
-  ![image-20220718164407366](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718164407366.png)
+  ![image-20220718164407366](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718164407366.png)
 
 - 进行实例配置，配置Jenkins的URL：
 
-  ![image-20220718164430212](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718164430212.png)
+  ![image-20220718164430212](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718164430212.png)
 
 - 点击系统管理->插件管理，进行一些自定义的插件安装：
 
-  ![image-20220718164455056](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718164455056.png)
+  ![image-20220718164455056](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718164455056.png)
 
 - 确保以下插件被正确安装：
 
   - 根据角色管理权限的插件：Role-based Authorization Strategy
   - 远程使用ssh的插件：SSH plugin
 
-  ![image-20220718164526521](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718164526521.png)
+  ![image-20220718164526521](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718164526521.png)
 
 ### 2.3 角色权限管理
 
@@ -100,23 +100,23 @@ docker run -p 18080:8080 -p 50000:5000 --name jenkins \
 
 - 在系统管理->全局安全配置中启用基于角色的权限管理：
 
-![image-20210915173908996](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210915173908996.png)
+![image-20210915173908996](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210915173908996.png)
 
-![image-20210915184054625](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210915184054625.png)
+![image-20210915184054625](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210915184054625.png)
 
 - 进入系统管理->Manage and Assign Roles界面：
 
-![image-20210915184216609](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210915184216609.png)
+![image-20210915184216609](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210915184216609.png)
 
-![image-20210915184242961](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210915184242961.png)
+![image-20210915184242961](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210915184242961.png)
 
 - 添加角色与权限的关系：
 
-![image-20210915184813357](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210915184813357.png)
+![image-20210915184813357](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210915184813357.png)
 
 - 给用户分配角色：
 
-![image-20210915184857025](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210915184857025.png)
+![image-20210915184857025](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210915184857025.png)
 
 
 
@@ -133,13 +133,13 @@ docker run -p 18080:8080 -p 50000:5000 --name jenkins \
 
 - 凭据-> 系统-> 全局凭据
 
-  ![image-20220719162249565](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220719162249565.png)
+  ![image-20220719162249565](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220719162249565.png)
 
 #### 2.4.2  新建凭据
 
 在点击【添加凭据】，类型选择【Username with password】，将gitlab的用户名 密码分别添加至【用户名】【密码】一栏，ID一栏自行定夺，可以写一个有含义的便于分辨的ID , 点击【确定】即可。
 
-![image-20220719162332282](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220719162332282.png)
+![image-20220719162332282](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220719162332282.png)
 
 
 
@@ -147,11 +147,11 @@ docker run -p 18080:8080 -p 50000:5000 --name jenkins \
 
 #### 2.4.3  更新凭据
 
-![image-20220719164250279](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220719164250279.png)
+![image-20220719164250279](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220719164250279.png)
 
 #### 2.4.4 删除凭据
 
-![image-20220719164322687](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220719164322687.png)
+![image-20220719164322687](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220719164322687.png)
 
 ### 2.5 构建工具集成
 
@@ -166,21 +166,21 @@ Jenkins调用这些工具的方式是通过环境变量调用。有两种方式
 
 - 通过系统管理->全局工具配置来进行全局工具的配置，比如maven的配置：
 
-  ![image-20220719171244730](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220719171244730.png)
+  ![image-20220719171244730](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220719171244730.png)
 
 - 新增maven的安装配置：
 
-  ![image-20220718164627533](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718164627533.png)
+  ![image-20220718164627533](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718164627533.png)
 
 #### 2.4.2 集成node
 
 1. 安装node插件
 
-![image-20220719171421702](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220719171421702.png)
+![image-20220719171421702](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220719171421702.png)
 
 2. 配置node
 
-![image-20220719171832103](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220719171832103.png)
+![image-20220719171832103](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220719171832103.png)
 
 ## 3. 构建项目
 
@@ -195,7 +195,7 @@ Jenkins中自动构建项目的类型有很多，常用的
 - 流水线项目（ Pipeline Project）
 - 多分支流水线
 
-![image-20220804163341844](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804163341844.png)
+![image-20220804163341844](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804163341844.png)
 
 >每种类型的构建其实都可以完成一样的构建过程与结果，只是在操作方式、灵活度等方面有所区别，在实际开发中可以根据自己的需求和习惯来选择。
 
@@ -215,13 +215,13 @@ Jenkins中自动构建项目的类型有很多，常用的
 >  - 打包的版本号
 >- JDK:  指定JDK 的版本
 
-![image-20220804163554777](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804163554777.png)
+![image-20220804163554777](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804163554777.png)
 
 ### 4.2 Source Code Management（源码管理）
 
 代码库信息,支持git 和 svn 等
 
-![image-20220804163653770](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804163653770.png)
+![image-20220804163653770](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804163653770.png)
 
 ### 4.3 Build Triggers （构建触发器）
 
@@ -240,7 +240,7 @@ Jenkins中自动构建项目的类型有很多，常用的
 >
 >- 轮询 SCM
 
-![image-20220720174622820](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220720174622820.png)
+![image-20220720174622820](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220720174622820.png)
 
 ### 4.4 Build Environment (构建环境)
 
@@ -258,7 +258,7 @@ Jenkins中自动构建项目的类型有很多，常用的
 >- Terminate a build if it's stuck：如果构建卡住了，请终止它
 >- With Ant
 
-![image-20220802164409193](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220802164409193.png)
+![image-20220802164409193](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802164409193.png)
 
 ### 4.5 Build (构建)
 
@@ -276,7 +276,7 @@ Jenkins中自动构建项目的类型有很多，常用的
 >
 >- Get linked maven deployments：获取链接maven部署
 
-![image-20220804164222858](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804164222858.png)
+![image-20220804164222858](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804164222858.png)
 
 ### 4.6 Post-build Actions (构建后操作)
 
@@ -290,7 +290,7 @@ Artifact归档,邮件通知,发布单元测试报告,触发下游项目等
 >- Aggregate downstream test results:  汇总测试结果
 >- Publish JUnit test result report：发布JUnit测试结果报告
 
-![image-20220804164405332](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804164405332.png)
+![image-20220804164405332](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804164405332.png)
 
 ## 5. 构建 - maven项目
 
@@ -298,7 +298,7 @@ Artifact归档,邮件通知,发布单元测试报告,触发下游项目等
 
 默认配置好了maven 环境
 
-![image-20220804170018918](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804170018918.png)
+![image-20220804170018918](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804170018918.png)
 
 ## 6. 构建 - 流水线项目（ Pipeline Project）
 
@@ -679,17 +679,17 @@ stage('Example Deploy') {
 
 多分支流水线和流水线语法一致，只不过会把所有源码分支列出来
 
-![image-20220805151532567](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805151532567.png)
+![image-20220805151532567](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805151532567.png)
 
 ### 7.1 常见问题
 
 #### 7.1.1 看不到新分支
 
-![image-20220805152030804](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805152030804.png)
+![image-20220805152030804](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805152030804.png)
 
 #### 7.1.2 分支太多如何过滤
 
-![image-20220805152242844](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805152242844.png)
+![image-20220805152242844](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805152242844.png)
 
 
 

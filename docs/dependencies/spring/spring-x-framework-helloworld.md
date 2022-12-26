@@ -19,7 +19,7 @@ category:
 
 如下是官方在解释Spring框架的常用场景的图
 
-![image-20220709125203199](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709125203199.png)
+![image-20220709125203199](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709125203199.png)
 
 我加上一些注释后，是比较好理解的；引入这个图，重要的原因是为后面设计一个案例帮助你构建认知。
 
@@ -80,7 +80,7 @@ category:
 </project>
 ```
 
-![image-20220709125439070](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709125439070.png)
+![image-20220709125439070](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709125439070.png)
 
 - **POJO - User**
 
@@ -346,7 +346,7 @@ public class App {
 
 - **整体结构和运行app**
 
-![image-20220709125714067](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709125714067.png)
+![image-20220709125714067](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709125714067.png)
 
 ## 2. 这个例子体现了Spring的哪些核心要点
 
@@ -382,7 +382,7 @@ public class App {
     
   ```
 
-  ![image-20220709132850453](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709132850453.png)
+  ![image-20220709132850453](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709132850453.png)
 
   
 
@@ -539,7 +539,7 @@ public class App {
 
 - **整体结构和运行app**
 
-![image-20220709133837520](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709133837520.png)
+![image-20220709133837520](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709133837520.png)
 
 ### 3.2 注解配置方式改造
 
@@ -654,7 +654,7 @@ public class App {
 
 - **整体结构和运行app**
 
-![image-20220709134144143](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709134144143.png)
+![image-20220709134144143](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709134144143.png)
 
 ### 3.3 SpringBoot托管配置
 
@@ -668,7 +668,7 @@ Springboot实际上通过约定大于配置的方式，使用xx-starter统一的
 
 （这样是不是能够帮助你在整体上构建了知识体系的认知了呢？）
 
-![image-20220709134254882](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709134254882.png)
+![image-20220709134254882](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709134254882.png)
 
 ## 参考文章
 

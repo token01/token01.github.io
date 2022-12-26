@@ -13,15 +13,15 @@ MyBatis的二级缓存是Application级别的缓存，它可以提高对数据�
 
 ### 1.1 MyBatis的缓存机制整体设计以及二级缓存的工作模式
 
-![image-20220730223727802](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730223727802.png)
+![image-20220730223727802](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730223727802.png)
 
 如图所示，当开一个会话时，一个SqlSession对象会使用一个Executor对象来完成会话操作，MyBatis的二级缓存机制的关键就是对这个Executor对象做文章。如果用户配置了"cacheEnabled=true"，那么MyBatis在为SqlSession对象创建Executor对象时，会对Executor对象加上一个装饰者：CachingExecutor，这时SqlSession使用CachingExecutor对象来完成操作请求。CachingExecutor对于查询请求，会先判断该查询请求在Application级别的二级缓存中是否有缓存结果，如果有查询结果，则直接返回缓存结果；如果缓存中没有，再交给真正的Executor对象来完成查询操作，之后CachingExecutor会将真正Executor返回的查询结果放置到缓存中，然后在返回给用户。
 
-![image-20220730223946842](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730223946842.png)
+![image-20220730223946842](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730223946842.png)
 
 CachingExecutor是Executor的装饰者，以增强Executor的功能，使其具有缓存查询的功能，这里用到了设计模式中的装饰者模式，CachingExecutor和Executor的接口的关系如下类图所示：
 
-![image-20220730224029324](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730224029324.png)
+![image-20220730224029324](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730224029324.png)
 
 ### 1.2 MyBatis二级缓存的划分
 
@@ -31,7 +31,7 @@ MyBatis并不是简单地对整个Application就只有一个Cache缓存对象，
 
 MyBatis将Application级别的二级缓存细分到Mapper级别，即对于每一个Mapper.xml,如果在其中使用了`<cache>` 节点，则MyBatis会为这个Mapper创建一个Cache缓存对象，如下图所示：
 
-![image-20220730224120468](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730224120468.png)
+![image-20220730224120468](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730224120468.png)
 
 注：上述的每一个Cache对象，都会有一个自己所属的namespace命名空间，并且会将Mapper的 namespace作为它们的ID；
 
@@ -39,7 +39,7 @@ MyBatis将Application级别的二级缓存细分到Mapper级别，即对于每�
 
 如果你想让多个Mapper公用一个Cache的话，你可以使用`<cache-ref namespace="">`节点，来指定你的这个Mapper使用到了哪一个Mapper的Cache缓存。
 
-![image-20220730224223709](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730224223709.png)
+![image-20220730224223709](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730224223709.png)
 
 ### 1.3 使用二级缓存，必须要具备的条件
 
@@ -75,7 +75,7 @@ MyBatis对二级缓存的设计非常灵活，它自己内部实现了一系列�
 
 MyBatis定义了大量的Cache的装饰器来增强Cache缓存的功能，如下类图所示。
 
-![image-20220730224548219](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730224548219.png)
+![image-20220730224548219](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730224548219.png)
 
 对于每个Cache而言，都有一个容量限制，MyBatis各供了各种策略来对Cache缓存的容量进行控制，以及对Cache中的数据进行刷新和置换。MyBatis主要提供了以下几个刷新和置换策略：
 
@@ -121,7 +121,7 @@ MyBatis定义了大量的Cache的装饰器来增强Cache缓存的功能，如下
 
 > MyBatis二级缓存的一个重要特点：即松散的Cache缓存管理和维护
 
-![image-20220730224933178](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730224933178.png)
+![image-20220730224933178](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730224933178.png)
 
 一个Mapper中定义的增删改查操作只能影响到自己关联的Cache对象。如上图所示的Mapper namespace1中定义的若干CRUD语句，产生的缓存只会被放置到相应关联的Cache1中，即Mapper namespace2,namespace3,namespace4 中的CRUD的语句不会影响到Cache1。
 

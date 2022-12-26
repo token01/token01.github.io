@@ -324,7 +324,7 @@ public interface SqlNode {
 }
 ```
 
-![image-20220729203622877](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729203622877.png)
+![image-20220729203622877](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220729203622877.png)
 
 SqlSource Sql源接口，代表从xml文件或注解映射的sql内容，主要就是用于创建BoundSql，有实现类DynamicSqlSource(动态Sql源)，StaticSqlSource(静态Sql源)等：
 
@@ -334,19 +334,19 @@ public interface SqlSource {
 }
 ```
 
-![image-20220729203745109](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729203745109.png)
+![image-20220729203745109](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220729203745109.png)
 
 BoundSql类，封装mybatis最终产生sql的类，包括sql语句，参数，参数源数据等参数：
 
-![image-20220729203818827](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729203818827.png)
+![image-20220729203818827](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220729203818827.png)
 
 XNode，一个Dom API中的Node接口的扩展类：
 
-![image-20220729203850391](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729203850391.png)
+![image-20220729203850391](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220729203850391.png)
 
 BaseBuilder接口及其实现类(属性，方法省略了，大家有兴趣的自己看),这些Builder的作用就是用于构造sql：
 
-![image-20220729203950526](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729203950526.png)
+![image-20220729203950526](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220729203950526.png)
 
 下面我们简单分析下其中4个Builder：
 
@@ -357,7 +357,7 @@ BaseBuilder接口及其实现类(属性，方法省略了，大家有兴趣的�
 
 LanguageDriver接口及其实现类(属性，方法省略了，大家有兴趣的自己看)，该接口主要的作用就是构造sql:
 
-![image-20220729204118825](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729204118825.png)
+![image-20220729204118825](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220729204118825.png)
 
 简单分析下XMLLanguageDriver(处理xml中的sql，RawLanguageDriver处理静态sql)：XMLLanguageDriver内部会使用XMLScriptBuilder解析xml中的sql部分。
 
@@ -377,31 +377,31 @@ Spring与Mybatis整合的时候需要配置SqlSessionFactoryBean，该配置会�
 
 SqlSessionFactoryBean实现了Spring的InitializingBean接口，InitializingBean接口的afterPropertiesSet方法中会调用buildSqlSessionFactory方法 该方法内部会使用XMLConfigBuilder解析属性configLocation中配置的路径，还会使用XMLMapperBuilder属性解析mapperLocations属性中的各个xml文件。部分源码如下：
 
-![image-20220729204316213](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729204316213.png)
+![image-20220729204316213](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220729204316213.png)
 
 由于XMLConfigBuilder内部也是使用XMLMapperBuilder，我们就看看XMLMapperBuilder的解析细节：
 
-![image-20220729204341385](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729204341385.png)
+![image-20220729204341385](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220729204341385.png)
 
-![image-20220729204415735](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729204415735.png)
+![image-20220729204415735](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220729204415735.png)
 
 我们关注一下，增删改查节点的解析：
 
-![image-20220729204453691](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729204453691.png)
+![image-20220729204453691](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220729204453691.png)
 
 XMLStatementBuilder的解析：
 
-![image-20220729204514730](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729204514730.png)
+![image-20220729204514730](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220729204514730.png)
 
 默认会使用XMLLanguageDriver创建SqlSource（Configuration构造函数中设置）。
 
 XMLLanguageDriver创建SqlSource：
 
-![image-20220729204620410](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729204620410.png)
+![image-20220729204620410](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220729204620410.png)
 
 XMLScriptBuilder解析sql：
 
-![image-20220729204640347](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729204640347.png)
+![image-20220729204640347](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220729204640347.png)
 
 得到SqlSource之后，会放到Configuration中，有了SqlSource，就能拿BoundSql了，BoundSql可以得到最终的sql。
 
@@ -477,15 +477,15 @@ private class TrimHandler implements NodeHandler {
 
 以上update方法最终通过parseDynamicTags方法得到的SqlNode集合如下：
 
-![image-20220729205509165](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729205509165.png)
+![image-20220729205509165](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220729205509165.png)
 
 trim节点：
 
-![image-20220729205555040](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729205555040.png)
+![image-20220729205555040](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220729205555040.png)
 
 由于这个update方法是个动态节点，因此构造出了DynamicSqlSource。DynamicSqlSource内部就可以构造sql了:
 
-![image-20220729205618798](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729205618798.png)
+![image-20220729205618798](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220729205618798.png)
 
 DynamicSqlSource内部的SqlNode属性是一个MixedSqlNode。然后我们看看各个SqlNode实现类的apply方法。下面分析一下各个SqlNode实现类的apply方法实现：
 

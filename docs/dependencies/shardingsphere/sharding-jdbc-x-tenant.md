@@ -86,7 +86,7 @@ SELECT i.* FROM t_order_1 o JOIN t_order_item_1 i ON o.order_id=i.order_id WHERE
 
 对应HintShardingAlgorithm，用于处理使用Hint行分片的场景。需要配合HintShardingStrategy使用。
 
-![image-20220717205845609](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717205845609.png)
+![image-20220717205845609](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717205845609.png)
 
 #### 1.2.3 分片策略
 
@@ -112,7 +112,7 @@ SELECT i.* FROM t_order_1 o JOIN t_order_item_1 i ON o.order_id=i.order_id WHERE
 
 对应NoneShardingStrategy。不分片的策略。
 
-![image-20220717210154703](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717210154703.png)
+![image-20220717210154703](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717210154703.png)
 
 #### 1.2.4  SQL Hint
 
@@ -120,7 +120,7 @@ SELECT i.* FROM t_order_1 o JOIN t_order_item_1 i ON o.order_id=i.order_id WHERE
 
 ### 1.3 ShardingJDBC 内部结构
 
-![image-20220717210304411](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717210304411.png)
+![image-20220717210304411](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717210304411.png)
 
 - **黄色部分**
 
@@ -925,15 +925,15 @@ http://localhost:8080/doc.html
 
 插入数据
 
-![image-20220717211255832](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717211255832.png)
+![image-20220717211255832](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717211255832.png)
 
 DB 中对应schema中的数据
 
-![image-20220717211329998](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717211329998.png)
+![image-20220717211329998](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717211329998.png)
 
 查询数据
 
-![image-20220717211351781](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717211351781.png)
+![image-20220717211351781](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717211351781.png)
 
 相关查询console打印出的日志：
 
@@ -1234,19 +1234,19 @@ http://localhost:8080/doc.html
 
 插入数据，会进入hint策略对应的算法
 
-![image-20220717212104640](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717212104640.png)
+![image-20220717212104640](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717212104640.png)
 
 成功插入数据（因为我们上面hintManager中是tenant-a)
 
-![image-20220717212128817](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717212128817.png)
+![image-20220717212128817](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717212128817.png)
 
 DB 中对应schema中的数据
 
-![image-20220717212149832](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717212149832.png)
+![image-20220717212149832](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717212149832.png)
 
 查询数据
 
-![image-20220717212211601](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717212211601.png)
+![image-20220717212211601](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717212211601.png)
 
 
 执行console log

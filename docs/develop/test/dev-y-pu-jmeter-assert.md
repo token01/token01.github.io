@@ -6,7 +6,7 @@
 
 ## 2. 预览断言
 
-![image-20220630140754410](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220630140754410.png)
+![image-20220630140754410](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220630140754410.png)
 
 ## 3.常用断言详解
 
@@ -18,7 +18,7 @@
 
 我们先来看看这个 **响应断言** 长得是啥样子，路径：**线程组 > 添加 > 断言 > 响应断言**，如下图所示： 
 
-![image-20220630140923526](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220630140923526.png)
+![image-20220630140923526](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220630140923526.png)
 
 #### 3.1.2 关键参数说明如下：
 
@@ -74,7 +74,7 @@ JSON断言也是测试工作中经常用到的一种断言方法，它只能针�
 
 路径：**线程组 > 添加 > 断言 > JSON断言**，如下图所示： 
 
-![image-20220630141336067](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220630141336067.png)
+![image-20220630141336067](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220630141336067.png)
 
 #### 3.2.2 关键参数说明如下：
 

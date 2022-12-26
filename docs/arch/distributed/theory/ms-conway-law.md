@@ -14,7 +14,7 @@ category:
 
 可能出乎很多人意料之外的一个事实是，微服务很多核心理念其实在半个世纪前的一篇文章中就被阐述过了，而且这篇文章中的很多论点在软件开发飞速发展的这半个世纪中竟然一再被验证，这就是康威定律(Conway's Law).
 
-![image-20220617221459652](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220617221459652.png)
+![image-20220617221459652](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220617221459652.png)
 
 在康威的这篇文章中，最有名的一句话就是：
 
@@ -24,7 +24,7 @@ category:
 
 看看下面的图片，再想想Apple的产品、微软的产品设计，就能形象生动的理解这句话了。
 
-![image-20220617221604888](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220617221604888.png)
+![image-20220617221604888](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220617221604888.png)
 
 用通俗的说法就是：**组织形式等同于系统设计**。
 
@@ -68,7 +68,7 @@ Mike从他的角度归纳这篇论文中的其他一些核心观点，如下：
 
 组织的沟通和系统设计之间的紧密联系，在很多别的领域有类似的阐述。对于复杂的系统，聊设计就离不开聊人与人的沟通，解决好人与人的沟通问题，才能有一个好的系统设计。相信几乎每个程序员都读过的《人月神话》（1975年，感觉都是老古董了，经典的就是经得起时间考验）里面许多观点都和这句话有异曲同工之妙。
 
-![image-20220617222147729](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220617222147729.png)
+![image-20220617222147729](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220617222147729.png)
 
 比如《人月神话》中最著名的一句话就是
 
@@ -92,7 +92,7 @@ Mike还举了一个非常有意思的理论，叫“Dunbar Number”，这是一
 - 酒肉（close）朋友: 35
 - 照面（casual）朋友: 150
 
-![image-20220617222405482](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220617222405482.png)
+![image-20220617222405482](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220617222405482.png)
 
 是不是和上面的沟通成本的数字很貌似有关联？是的，我们的大脑智力只能支持我们维系这么多的关系。（大家都知道这不是程序猿擅长的领域，在开发团队里，这个值应该更小，估计和猿差不多 -_-凸 ）
 
@@ -108,7 +108,7 @@ Eric Hollnagel是敏捷开发社区的泰斗之一，在他《Efficiency-Effecti
 
 > Problem too complicated? Ignore details. Not enough resources?Give up features. --Eric Hollnagel (2009)
 
-![image-20220617222535941](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220617222535941.png)
+![image-20220617222535941](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220617222535941.png)
 
 系统越做越复杂，功能越来越多，外部市场的竞争越来越剧烈，投资人的期待越来越高。但人的智力是有上限的，即使再牛逼的人，融到钱再多也不一定招到足够多合适的人。对于一个巨复杂的系统，我们永远无法考虑周全。Eric认为，这个时候最好的解决办法竟然是——“破罐子破摔”。
 
@@ -123,7 +123,7 @@ Eric Hollnagel是敏捷开发社区的泰斗之一，在他《Efficiency-Effecti
 
 下面的图很好的解释了这个过程：
 
-![image-20220617222717319](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220617222717319.png)
+![image-20220617222717319](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220617222717319.png)
 
 听着很耳熟不是吗？这不就是 持续集成 和敏捷开发吗？的确就是。
 
@@ -135,15 +135,15 @@ Eric Hollnagel是敏捷开发社区的泰斗之一，在他《Efficiency-Effecti
 
 > 种瓜得瓜，做独立自治的子系统减少沟通成本
 
-![image-20220617222913061](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220617222913061.png)
+![image-20220617222913061](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220617222913061.png)
 
 这是第一定律组织和设计间内在关系的一个具体应用。更直白的说，你想要什么样的系统，就搭建什么样的团队。如果你的团队分成前端团队，java后台开发团队，DBA团队，运维团队，你的系统就会长成下面的样子：
 
-![image-20220617222953443](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220617222953443.png)
+![image-20220617222953443](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220617222953443.png)
 
 相反，如果你的系统按照业务边界划分的，大家按照一个业务目标去把自己的模块做成小系统，小产品的话，你的大系统就会成长成下面的样子，即微服务的架构
 
-![image-20220617223417916](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220617223417916.png)
+![image-20220617223417916](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220617223417916.png)
 
 微服务的团队间应该是  inter-operate, not integrate 。 inter-operate 是定义好系统的边界和接口，在一个团队内全栈，让团队自治，原因就是因为如果团队按照这样的方式组建，将沟通的成本维持在系统内部，每个子系统就会更加内聚，彼此的依赖耦合变弱，跨系统的沟通成本也就能减低。
 

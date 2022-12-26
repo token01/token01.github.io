@@ -24,11 +24,11 @@
 
    - 安装之后打开主界面
 
-     ![image-20210302215814334](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210302215814334.png)
+     ![image-20210302215814334](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210302215814334.png)
 
    - 选择最底下的插件设置，搜索**gitee**
 
-     ![image-20210302220048598](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210302220048598.png)
+     ![image-20210302220048598](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210302220048598.png)
 
 2. 建立gitee（码云）图传库
 
@@ -40,27 +40,27 @@
 
    **这个选项勾上，这样码云会自动给你的仓库建立master分支，这点很重要!!!** 我因为这点折腾了很久，因为使用github做图床picgo好像会自动帮你生成master分支，而picgo里的gitee插件不会帮你自动生成分支。
 
-   ![image-20210302220240165](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210302220240165.png)
+   ![image-20210302220240165](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210302220240165.png)
 
 3. 在gitee生成私人令牌
 
-   ![image-20210302220642408](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210302220642408.png)
+   ![image-20210302220642408](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210302220642408.png)
 
 4. 配置PicGo
 
-   ![image-20210302221134472](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210302221134472.png)
+   ![image-20210302221134472](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210302221134472.png)
 
 5. 测试
 
    将图片放置上传区，已经能正常上传到gitee中了
 
-   ![image-20210302221336071](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210302221336071.png)
+   ![image-20210302221336071](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210302221336071.png)
 
 ## 3. Typora 配置picgo
 
 偏好设置-》图像
 
-![image-20210302221557746](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210302221557746.png)
+![image-20210302221557746](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210302221557746.png)
 
 这样当我们把图片复制到typora的时候，他就会自动上传
 

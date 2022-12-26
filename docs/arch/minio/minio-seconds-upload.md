@@ -58,7 +58,7 @@ MD5即Message-Digest Algorithm 5（信息-摘要算法 5），用于确保信息
 
 创建一个VUE 项目，将官网中的测试案例复制进来：
 
-![image-20221001232458133](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221001232458133.png)
+![image-20221001232458133](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221001232458133.png)
 
 修改`main.js`中的一段代码：
 
@@ -68,7 +68,7 @@ import uploader from 'vue-simple-uploader';
 
 修改App.vue 中上传地址为之前我们写的[Minio](https://so.csdn.net/so/search?q=Minio&spm=1001.2101.3001.7020) 上传地址：
 
-![image-20221001232532357](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221001232532357.png)
+![image-20221001232532357](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221001232532357.png)
 
 关闭自动上传：
 
@@ -87,7 +87,7 @@ npm run start
 
 访问主页地址，测试上传文件：
 
-![image-20221001232628653](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221001232628653.png)
+![image-20221001232628653](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221001232628653.png)
 
 ### 2.2 集成SparkMD5
 
@@ -190,11 +190,11 @@ export default {
 
 添加几个文件，可以在控制台中看到打印的文件MD5信息：
 
-![image-20221001232850838](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221001232850838.png)
+![image-20221001232850838](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221001232850838.png)
 
 查看上传文件接口，可以看到，将MD5 传给了后台。
 
-![image-20221001232907340](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221001232907340.png)
+![image-20221001232907340](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221001232907340.png)
 
 ### 2.3 后台代码
 

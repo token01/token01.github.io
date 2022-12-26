@@ -13,7 +13,7 @@ MinIO是采用Golang实现的高性能对象存储系统，基于Apache License 
 
 MinIO支持以单点、分布式集群等方式进行部署。其中，MinIO分布式集群是指在多个服务器节点均部署MinIO服务，并将其组建为分布式存储集群，对外提供标准S3接口以进行统一访问，其架构如图2-1所示。
 
-![image-20220722211312080](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220722211312080.png)
+![image-20220722211312080](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220722211312080.png)
 
 MinIO集群采用去中心化无共享架构，各节点间为对等关系，连接至任一节点均可实现对集群的访问，并通过DNS轮询等方式实现节点间的负载均衡。这种节点间保持对等关系的设计并非最常见的分布式集群架构。当前大多数的分布式存储集群，其节点往往可划分为多类角色，例如负责连接并处理外部应用请求的访问节点、负责存储元数据的管理节点、实际的数据存储节点等。MinIO则与之不同，MinIO集群中的所有节点都同时承担了多种角色，集元数据存储、数据存储、应用访问等功能于一体，真正实现了去中心化和所有节点的完全对等。其优势在于有效地减少了集群内的复杂调度过程以及因中心节点带来的故障风险和性能瓶颈。
 
@@ -23,7 +23,7 @@ MinIO集群采用去中心化无共享架构，各节点间为对等关系，连
 2. 对数据对象进行分片，默认策略是得到相同数量的数据分片和校验分片；
 3. 而后通过哈希算法计算出该数据对象对应的纠删组，并将数据和校验分片存储至纠删组内的硬盘上。
 
-![image-20220722211726136](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220722211726136.png)
+![image-20220722211726136](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220722211726136.png)
 
 如图2-2所示，假设某MinIO集群内纠删组包含4块硬盘，某数据对象名为MyObject，其隶属存储桶名为MyBucket，哈希计算得到对应的纠删组为Disk 1~4。那么在Disk 1~4的数据路径下，都会生成MyBucket/MyObject子路径，子路径中包含2个文件，分别为存储元数据信息的xl.json和MyObject对象在该盘上的第一个分片part.1。其中，xl表示MinIO中数据对象的默认存储格式。
 
@@ -47,7 +47,7 @@ MinIO集群采用去中心化无共享架构，各节点间为对等关系，连
 
 MinIO官方提供了另一种扩容机制——联邦扩容，即通过引入etcd，将多个MinIO分布式集群在逻辑上组成一个联邦，对外以一个整体提供服务，并提供统一的命名空间。MinIO联邦集群的架构如图3-1所示。
 
-![image-20220722212622430](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220722212622430.png)
+![image-20220722212622430](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220722212622430.png)
 
 其中，etcd是一个开源的分布式键值存储数据库，在联邦中用于记录存储桶IP地址。联邦内的各个集群其数据存储以及一致性维护仍由各集群自行管理，联邦只是对外提供一个整体逻辑视图。通过连接到联邦中任一集群的任一节点，可以查询并访问联邦内所有集群的全部数据，由此获得了逻辑上的空间扩大感。但实际上，对于一个外部应用访问，联邦需依赖etcd定位到存储桶的实际存储节点，再进行数据访问，联邦则对外屏蔽了桶IP查找和定位过程，从而在逻辑上对外形成了一个统一整体。因此，etcd实际上起到了类似路由寻址的效果。
 
@@ -59,7 +59,7 @@ MinIO联邦集群的数据访问机制具体如下：
 
 ②联邦会将bucket1实际所在的集群节点IP地址写入etcd中，例如bucket1实际将存储于联邦中的集群1上，而集群1包含2个节点，其节点IP地址分别为192.168.1.103和192.168.1.104，则etcd中将写入如下两条记录：
 
-![image-20220722212921098](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220722212921098.png)
+![image-20220722212921098](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220722212921098.png)
 
 ③客户端应用向联邦请求上传1个对象至bucket1；
 
@@ -77,11 +77,11 @@ MinIO联邦集群的数据访问机制具体如下：
 
 假定将两个MinIO集群组成联邦，每个集群包含2个节点4块磁盘。etcd建议配置为3节点集群，以避免单点故障。具体部署信息如表4-1所示。
 
-![image-20220722213126008](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220722213126008.png)
+![image-20220722213126008](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220722213126008.png)
 
 **第一步：搭建etcd集群。**在http://github.com/etcd-io/etcd/releases中下载合适版本进行解压安装，创建配置文件etcd.conf，以192.168.1.107为例，配置内容如下：
 
-![image-20220722213157388](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220722213157388.png)
+![image-20220722213157388](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220722213157388.png)
 
 在192.168.1.108和192.168.1.109上同样进行上述配置。需注意：配置文件为YAML格式，参数initial-cluster必须与各节点上配置的name参数以及initial-advertise-peer-urls参数进行对应。
 
@@ -89,7 +89,7 @@ MinIO联邦集群的数据访问机制具体如下：
 
 **第二步：逐一搭建各MinIO集群。**建议在搭建新集群时就直接加入到联邦，以便后续的扩容操作。以集群1为例，其上192.168.1.103和192.168.1.104节点的配置和启动命令如下：
 
-![image-20220722213310216](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220722213310216.png)
+![image-20220722213310216](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220722213310216.png)
 
 注意：MinIO_ETCD_ENDPOINTS参数需与搭建的ETCD集群所有节点IP相对应；MINIO_PUBLIC_IPS参数则为该集群的所有节点IP，如上述示例中对应集群1的2个节点IP；MINIO_DOMAIN参数必须进行配置，即使你并不通过域名访问存储桶，否则联邦无法生效。
 

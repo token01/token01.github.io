@@ -52,7 +52,7 @@ category:
 
 从如下POM的依赖关系可以看出Spring Boot Admin本质上集成了actuartor，将实时警报，此外添加一些实时警报功能等。
 
-![image-20220720204640820](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220720204640820.png)
+![image-20220720204640820](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220720204640820.png)
 
 ### 1.2 SpringBoot Admin的Client和Server？
 
@@ -116,7 +116,7 @@ public class SpringBootHelloWorldApplication {
 
 这样你便可以打开如下网址查看Server UI，很显然目前没有客户端注册上来。
 
-![image-20220720205007867](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220720205007867.png)
+![image-20220720205007867](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220720205007867.png)
 
 ### 2.2 注册Client
 
@@ -154,33 +154,33 @@ management:
 
 打开 http://localhost:8080/wallboard
 
-![image-20220720205101689](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220720205101689.png)
+![image-20220720205101689](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220720205101689.png)
 
 左侧是主要功能：
 
 Insight - Details
 
-![image-20220720205624005](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220720205624005.png)
+![image-20220720205624005](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220720205624005.png)
 
 Insight - Metrics
 
-![image-20220720205743086](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220720205743086.png)
+![image-20220720205743086](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220720205743086.png)
 
 Insight - Configurations
 
-![image-20220720205832953](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220720205832953.png)
+![image-20220720205832953](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220720205832953.png)
 
 Loggers
 
-![image-20220720205910150](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220720205910150.png)
+![image-20220720205910150](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220720205910150.png)
 
 JVM
 
-![image-20220720210025579](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220720210025579.png)
+![image-20220720210025579](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220720210025579.png)
 
 Mappings
 
-![image-20220720210045166](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220720210045166.png)
+![image-20220720210045166](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220720210045166.png)
 
 ## 3. 进一步理解
 
@@ -209,7 +209,7 @@ spring:
 
 刷新SBA UI就可以看到增加了JMX相关的连接
 
-![image-20220720210348392](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220720210348392.png)
+![image-20220720210348392](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220720210348392.png)
 
 ### 3.2 如何显示日志内容？
 
@@ -225,7 +225,7 @@ logging:
 
 刷新SBA UI就可以看到增加了日志文件相关的连接
 
-![image-20220720210606935](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220720210606935.png)
+![image-20220720210606935](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220720210606935.png)
 
 ### 3.3 如何继承Spring Security？
 
@@ -277,7 +277,7 @@ spring.boot.admin.notify.mail.to=admin@example.com
 
 除了邮件通知这种，内置还支持很多其他方式以及支持自定义notification，比如钉钉，微信通知等
 
-![image-20220720210755484](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220720210755484.png)
+![image-20220720210755484](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220720210755484.png)
 
 ## 参考文章
 

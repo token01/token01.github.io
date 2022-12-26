@@ -85,13 +85,13 @@ css属性
 
 >Ps:text 标签设置宽度都不管用
 
-![image-20220401214519580](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220401214519580.png)
+![image-20220401214519580](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220401214519580.png)
 
 #### 3.2.1 解决办法
 
 换成`<view>`标签就可以
 
-![image-20220401214627701](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220401214627701.png)
+![image-20220401214627701](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220401214627701.png)
 
 ## 参考文章
 

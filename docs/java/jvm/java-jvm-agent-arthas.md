@@ -79,7 +79,7 @@ java -jar arthas-boot.jar
 
 - https://alibaba.github.io/arthas/dashboard
 
-![image-20220827222601003](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220827222601003.png)
+![image-20220827222601003](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220827222601003.png)
 
 #### 2.3.2 Thread
 
@@ -246,7 +246,7 @@ ts=2018-09-18 10:11:45;thread_name=http-bio-8080-exec-10;id=d9;is_daemon=true;pr
 
 观察方法执行的时候哪个子调用比较慢:
 
-![image-20220827223031123](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220827223031123.png)
+![image-20220827223031123](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220827223031123.png)
 
 #### 2.3.9 Watch
 
@@ -330,7 +330,7 @@ $ classloader
 
 - https://alibaba.github.io/arthas/web-console
 
-![image-20220827223405858](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220827223405858.png)
+![image-20220827223405858](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220827223405858.png)
 
 ### 2.4 Arthas 命令集
 
@@ -529,7 +529,7 @@ monitor -c 5 demo.MathGame primeFactors
 
 首先我们先放出一张整体宏观的模块调用图：
 
-![image-20220827225837014](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220827225837014.png)
+![image-20220827225837014](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220827225837014.png)
 
 源码理解可以看移步这两篇文章:
 

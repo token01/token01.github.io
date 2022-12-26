@@ -47,7 +47,7 @@ activeCount <= minIdle 时，触发emptySignal()，创建连接。
 | evictConnections     | DruidConnectionHolder[]            | 需要关闭的连接存放的数组。shrink中该数组中的连接都会被关闭掉。 |
 | activeConnections    | Map<DruidPooledConnection, Object> | getConnection之后，存放的容器。                              |
 
-![image-20220525230547564](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525230547564.png)
+![image-20220525230547564](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220525230547564.png)
 
 ## 参考文章
 

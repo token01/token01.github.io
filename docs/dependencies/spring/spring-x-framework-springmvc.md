@@ -12,15 +12,15 @@ category:
 
 > 前文我们介绍了Spring框架和Spring框架中最为重要的两个技术点（IOC和AOP），同时我们也通过几个Demo应用了Core Container中包
 
-![image-20220709223125150](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709223125150.png)
+![image-20220709223125150](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709223125150.png)
 
 Demo中core container中包使用如下
 
-![image-20220709223210562](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709223210562.png)
+![image-20220709223210562](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709223210562.png)
 
 那么问题是，我们如何更好的构建上层的应用呢？比如web 应用？
 
-![image-20220709223226799](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709223226799.png)
+![image-20220709223226799](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709223226799.png)
 
 针对上层的Web应用，SpringMVC诞生了，它也是Spring技术栈中最为重要的一个框架。
 
@@ -38,7 +38,7 @@ Demo中core container中包使用如下
 
 用一种业务逻辑、数据、界面显示分离的方法，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。MVC被独特的发展起来用于映射传统的输入、处理和输出功能在一个逻辑的图形化用户界面的结构中。
 
-![image-20220709223507661](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709223507661.png)
+![image-20220709223507661](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709223507661.png)
 
 - **Model**（模型）是应用程序中用于处理应用程序数据逻辑的部分。通常模型对象负责在数据库中存取数据。
 
@@ -76,7 +76,7 @@ Spring Web MVC 是一种基于Java 的实现了Web MVC 设计模式的请求驱�
 
 > 首先让我们整体看一下Spring Web MVC 处理请求的流程：
 
-![image-20220709224128266](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709224128266.png)
+![image-20220709224128266](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709224128266.png)
 
 **核心架构的具体流程步骤**如下：
 
@@ -96,7 +96,7 @@ Spring Web MVC 是一种基于Java 的实现了Web MVC 设计模式的请求驱�
 
 进入Servlet前可以有preFilter, Servlet处理之后还可有postFilter
 
-![image-20220709224424268](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709224424268.png)
+![image-20220709224424268](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709224424268.png)
 
 
 
@@ -104,19 +104,19 @@ Spring Web MVC 是一种基于Java 的实现了Web MVC 设计模式的请求驱�
 
 在视图解析/渲染时，还需要考虑国际化(Local)，显然这里需要有LocaleResolver.
 
-![image-20220709224512500](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709224512500.png)
+![image-20220709224512500](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709224512500.png)
 
 3. **ThemeResolver**
 
 如何控制视图样式呢？SpringMVC中还设计了ThemeSource接口和ThemeResolver，包含一些静态资源的集合(样式及图片等），用来控制应用的视觉风格。
 
-![image-20220709224551384](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709224551384.png)
+![image-20220709224551384](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709224551384.png)
 
 4. **对于文件的上传请求**？
 
 对于常规请求上述流程是合理的，但是如果是文件的上传请求，那么就不太一样了；所以这里便出现了MultipartResolver。
 
-![image-20220709224624723](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709224624723.png)
+![image-20220709224624723](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709224624723.png)
 
 ## 5. Spring MVC案例
 
@@ -124,7 +124,7 @@ Spring Web MVC 是一种基于Java 的实现了Web MVC 设计模式的请求驱�
 
 本例子中主要文件和结构如下：
 
-![image-20220709224655987](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709224655987.png)
+![image-20220709224655987](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709224655987.png)
 
 ### 5.1 Maven包引入
 
@@ -522,19 +522,19 @@ pdai@MacBook-Pro bin %
 
 将我们下载的Tomcat和Tomcat Server - Local关联
 
-![image-20220709225052744](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709225052744.png)
+![image-20220709225052744](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709225052744.png)
 
 在Deploy中添加我们的项目
 
-![image-20220709225106948](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709225106948.png)
+![image-20220709225106948](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709225106948.png)
 
 运行和管理Tomcat Sever（注意context路径）
 
-![image-20220709225124925](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709225124925.png)
+![image-20220709225124925](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709225124925.png)
 
 运行后访问我们的web程序页面（注意context路径）
 
-![image-20220709225200075](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709225200075.png)
+![image-20220709225200075](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709225200075.png)
 
 ## 参考文章
 

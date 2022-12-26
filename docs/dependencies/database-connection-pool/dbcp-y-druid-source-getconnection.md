@@ -6,18 +6,18 @@
 
 DruidDataSource连接池实现了javaX.sql包中，DataSource接口的全部方法。getConnection也来自于javax.sql.DataSource接口。
 
-![image-20220522090249593](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220522090249593.png)
+![image-20220522090249593](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220522090249593.png)
 
-![image-20220522090308435](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220522090308435.png)
+![image-20220522090308435](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220522090308435.png)
 
 ### 1.2 DruidPooledConnection实现接口java.sql.Connection。
 
 而DruidPooledConnection也实现了接口java.sql.Connection。
 这样就能在各种场景中通过这个接口来获取数据库连接。
 
-![image-20220522090459058](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220522090459058.png)
+![image-20220522090459058](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220522090459058.png)
 
-![image-20220522090744812](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220522090744812.png)
+![image-20220522090744812](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220522090744812.png)
 
 这样就能在各种场景中通过这个接口来获取数据库连接。
 
@@ -53,11 +53,11 @@ public DruidPooledConnection getConnection(long maxWaitMillis) throws SQLExcepti
 
 new了一个FilterChainImpl对象，而这个对象的构造函数 this 。
 
-![image-20220522091641489](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220522091641489.png)
+![image-20220522091641489](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220522091641489.png)
 
 查看了一下，DruidDataSource的父类DruidAbstractDataSource正好实现了DataSourceProxy接口，也就是说，DruidDataSource本身就是一个DataSourceProxy。
 
-![image-20220522091502064](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220522091502064.png)
+![image-20220522091502064](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220522091502064.png)
 
  这样做的好处是，FilterChainImpl本身不用维护任何存放filters的数组，这个数组可以直接复用DruidDataSource中的数据结构。
 

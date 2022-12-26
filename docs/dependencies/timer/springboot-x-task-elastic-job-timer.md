@@ -28,13 +28,13 @@ category:
 
 **ElasticJob-Lite**: 定位为轻量级无中心化解决方案，使用 jar 的形式提供分布式任务的协调服务。
 
-![image-20220718214257642](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718214257642.png)
+![image-20220718214257642](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718214257642.png)
 
 Elasticjob-lite的案例- [SpringBoot集成定时任务 - 分布式Elasticjob-lite方式]()
 
 **ElasticJob-Cloud**： 采用自研 Mesos Framework 的解决方案，额外提供资源治理、应用分发以及进程隔离等功能。
 
-![image-20220718214402293](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718214402293.png)
+![image-20220718214402293](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718214402293.png)
 
 **ElasticJob-Lite和ElasticJob-Cloud的区别**
 
@@ -900,7 +900,7 @@ SCRIPT Job: {"jobName":"scriptJob","taskId":"scriptJob@-@0,1,2@-@READY@-@192.168
 
 OneOff的任务，通过controller api访问
 
-![image-20220718215312961](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718215312961.png)
+![image-20220718215312961](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718215312961.png)
 
 由于这里没有配置正确的，这里会报异常日志
 
@@ -1140,27 +1140,27 @@ WARNING: All illegal access operations will be denied in a future release
 
 打开http://localhost:8088，输入我们配置的root/root账号
 
-![image-20220718215534000](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718215534000.png)
+![image-20220718215534000](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718215534000.png)
 
 ### 3.2 全局配置
 
 配置zk
 
-![image-20220718215556141](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718215556141.png)
+![image-20220718215556141](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718215556141.png)
 
 配置数据源
 
-![image-20220718215613302](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718215613302.png)
+![image-20220718215613302](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718215613302.png)
 
 ### 3.3 作业操作
 
 作业维度
 
-![image-20220718215634544](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718215634544.png)
+![image-20220718215634544](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718215634544.png)
 
 服务器维度
 
-![image-20220718215651441](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718215651441.png)
+![image-20220718215651441](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718215651441.png)
 
 ### 3.4 作业历史
 
@@ -1168,11 +1168,11 @@ WARNING: All illegal access operations will be denied in a future release
 
 历史轨迹
 
-![image-20220718215713254](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718215713254.png)
+![image-20220718215713254](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718215713254.png)
 
 历史状态
 
-![image-20220718215741737](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220718215741737.png)
+![image-20220718215741737](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220718215741737.png)
 
 ## 参考文章
 

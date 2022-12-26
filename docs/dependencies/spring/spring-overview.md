@@ -53,7 +53,7 @@ Spring 是一种轻量级开发框架，**旨在提高开发人员的开发效�
 
 下图来自，[官方文档 Spring-framework 5.0 ](https://docs.spring.io/spring-framework/docs/5.0.0.M4/spring-framework-reference/pdf/spring-framework-reference.pdf)；需要注意的是，虽然这个图来源于Spring Framwork5.0 M4 版本，但是它依然是V4版本的图，比如Spring 5版本中的web模块已经去掉了**Portlet模块**，新增了**WebFlux模块**等。
 
-![image-20220709094411825](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709094411825.png)
+![image-20220709094411825](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709094411825.png)
 
 上图中包含了 Spring 框架的所有模块，这些模块可以满足一切企业级应用开发的需求，在开发过程中可以根据需求有选择性地使用所需要的模块。下面分别对这些模块的作用进行简单介绍（并且结合SpringFramework5.x源码模块帮助你对应好各模块关系）。
 
@@ -68,7 +68,7 @@ Spring 的核心容器是其他模块建立的基础，由 Beans 模块、Core �
 
 对应的源码模块如下：
 
-![image-20220709094925366](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709094925366.png)
+![image-20220709094925366](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709094925366.png)
 
 ### 2.2 Data Access/Integration（数据访问／集成）
 
@@ -82,7 +82,7 @@ Spring 的核心容器是其他模块建立的基础，由 Beans 模块、Core �
 
 对应的源码模块如下：
 
-![image-20220709095314072](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709095314072.png)
+![image-20220709095314072](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709095314072.png)
 
 ### 2.3 Web模块
 
@@ -99,7 +99,7 @@ Spring 的 Web 层包括 Web、Servlet、WebSocket 和 Webflux 组件，具体�
 
 对应的源码模块如下：
 
-![image-20220709095421975](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709095421975.png)
+![image-20220709095421975](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709095421975.png)
 
 ### 2.4 AOP、Aspects、Instrumentation和Messaging
 
@@ -113,7 +113,7 @@ Spring 的 Web 层包括 Web、Servlet、WebSocket 和 Webflux 组件，具体�
 
 对应的源码模块如下：
 
-![image-20220709102945449](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709102945449.png)
+![image-20220709102945449](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709102945449.png)
 
 ### 2.5 Test模块
 
@@ -123,7 +123,7 @@ Test 模块：Spring 支持 Junit 和 TestNG 测试框架，而且还额外提�
 
 对应的源码模块如下：
 
-![image-20220709103037369](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709103037369.png)
+![image-20220709103037369](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709103037369.png)
 
 ## 3. 为什么用Spring?
 
@@ -131,11 +131,11 @@ Test 模块：Spring 支持 Junit 和 TestNG 测试框架，而且还额外提�
 
 最重要的体现在它能做什么，这是Spring的核心所在
 
-![image-20220709103353729](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709103353729.png)
+![image-20220709103353729](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709103353729.png)
 
 且官方对此专门对此做了详细介绍，感兴趣可以看下
 
-![image-20220709103410353](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709103410353.png)
+![image-20220709103410353](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709103410353.png)
 
 ## 4. 学习Spring时参考哪些资料呢？
 
@@ -145,25 +145,25 @@ Test 模块：Spring 支持 Junit 和 TestNG 测试框架，而且还额外提�
 
 官方的项目和教程，地址在[这里](https://spring.io/projects/spring-framework)，在学习Spring时，一定要把它当做生态体系，而是不是一个简单的开发框架。
 
-![image-20220709103505374](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709103505374.png)
+![image-20220709103505374](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709103505374.png)
 
 ### 4.2 Spring 的归档文档
 
 官方提供了系统性的文档的FTP，你可以在[这里 (opens new window)](https://docs.spring.io/spring-framework/docs/)找到所有历史版本的PDF/HTML版本。
 
-![image-20220709103536540](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709103536540.png)
+![image-20220709103536540](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709103536540.png)
 
 可以看到很多系统性的文档，包括上面引用的图，
 
-![image-20220709103614697](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709103614697.png)
+![image-20220709103614697](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709103614697.png)
 
-![image-20220709103625296](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709103625296.png)
+![image-20220709103625296](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709103625296.png)
 
 ### 4.3 Spring 的官方Github
 
 Spring官方的GitHub在[这里  (opens new window)](https://github.com/spring-projects/spring-framework)，它包含着Spring-framework的源码，如果你感兴趣，可以从这里clone代码进行阅读。
 
-![image-20220709103647666](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709103647666.png)
+![image-20220709103647666](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709103647666.png)
 
 ## 参考文章
 

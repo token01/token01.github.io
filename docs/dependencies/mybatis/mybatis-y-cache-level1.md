@@ -19,7 +19,7 @@ category:
 
 如下图所示，MyBatis一次会话: 一个SqlSession对象中创建一个本地缓存(local cache)，对于每一次查询，都会尝试根据查询的条件去本地缓存中查找是否在缓存中，如果在缓存中，就直接从缓存中取出，然后返回给用户；否则，从数据库读取数据，将查询结果存入缓存并返回给用户。
 
-![image-20220730221443271](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730221443271.png)
+![image-20220730221443271](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730221443271.png)
 
 对于会话（Session）级别的数据缓存，我们称之为一级数据缓存，简称一级缓存。
 
@@ -29,13 +29,13 @@ category:
 
 实际上, SqlSession只是一个MyBatis对外的接口，SqlSession将它的工作交给了Executor执行器这个角色来完成，负责完成对数据库的各种操作。当创建了一个SqlSession对象时，MyBatis会为这个SqlSession对象创建一个新的Executor执行器，而缓存信息就被维护在这个Executor执行器中，MyBatis将缓存和对缓存相关的操作封装成了Cache接口中。SqlSession、Executor、Cache之间的关系如下列类图所示：
 
-![image-20220730222034897](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730222034897.png)
+![image-20220730222034897](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730222034897.png)
 
 如上述的类图所示，Executor接口的实现类BaseExecutor中拥有一个Cache接口的实现类PerpetualCache，则对于BaseExecutor对象而言，它将使用PerpetualCache对象维护缓存。
 
 综上，SqlSession对象、Executor对象、Cache对象之间的关系如下图所示：
 
-![image-20220730222130162](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730222130162.png)
+![image-20220730222130162](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730222130162.png)
 
 由于Session级别的一级缓存实际上就是使用PerpetualCache维护的，那么PerpetualCache是怎样实现的呢？
 
@@ -118,7 +118,7 @@ MyBatis在开启一个数据库会话时，会创建一个新的SqlSession对象
 - 如果SqlSession调用了clearCache()，会清空PerpetualCache对象中的数据，但是该对象仍可使用；
 - SqlSession中执行了任何一个update操作(update()、delete()、insert()) ，都会清空PerpetualCache对象的数据，但是该对象可以继续使用；
 
-![image-20220730222359987](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730222359987.png)
+![image-20220730222359987](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730222359987.png)
 
 ### 1.4 SqlSession 一级缓存的工作流程
 
@@ -131,7 +131,7 @@ MyBatis在开启一个数据库会话时，会创建一个新的SqlSession对象
   - 将查询结果返回；
 - 结束。
 
-![image-20220730222449456](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730222449456.png)
+![image-20220730222449456](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730222449456.png)
 
 ### 1.5 Cache接口的设计以及CacheKey的定义
 
@@ -139,7 +139,7 @@ MyBatis在开启一个数据库会话时，会创建一个新的SqlSession对象
 
 （MyBatis内部还有很多Cache接口的实现，一级缓存只会涉及到这一个PerpetualCache子类，Cache的其他实现将会放到二级缓存中介绍）。
 
-![image-20220730222611623](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730222611623.png)
+![image-20220730222611623](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730222611623.png)
 
 我们知道，Cache最核心的实现其实就是一个Map，将本次查询使用的特征值作为key，将查询结果作为value存储到Map中。现在最核心的问题出现了：怎样来确定一次查询的特征值？换句话说就是：怎样判断某两次查询是完全相同的查询？也可以这样说：如何确定Cache中的key值？
 

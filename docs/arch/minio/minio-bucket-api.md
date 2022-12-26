@@ -20,7 +20,7 @@ Minio提供了多种语言的SDK，比如java、go、python等。JAVA开发平�
 
 每个OSS的用户都会用到上传服务。Web端常见的上传方法是用户在浏览器或App端上传文件到**应用服务器**，**应用服务器**再把文件上传到OSS。具体流程如下图所示。
 
-![image-20220723133304095](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723133304095.png)
+![image-20220723133304095](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723133304095.png)
 
 和数据直传到OSS相比，以上方法有三个缺点：
 
@@ -135,7 +135,7 @@ public void makeBucket(MakeBucketArgs args)
 ```
 创建后，就可以在控制台看到这些存储桶了，最后那个被锁定的存储桶，上传文件及删除后，发现还是会显示存在这些对象，实际磁盘上的文件并没有删除
 
-![image-20220723134100336](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723134100336.png)
+![image-20220723134100336](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723134100336.png)
 
 #### 2.3.3 查询存储桶信息列表
 
@@ -157,7 +157,7 @@ public List<Bucket> listBuckets()
 ```
 
 打印信息如下，返回的创建时间是美国时间，需要注意。
-![image-20220723134451441](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723134451441.png)
+![image-20220723134451441](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723134451441.png)
 
 #### 2.3.4 删除存储桶
 
@@ -179,7 +179,7 @@ public void removeBucket(RemoveBucketArgs args)
     }
 ```
 如果存储桶存在对象不为空时，删除会报错。
-![image-20220723134556833](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723134556833.png)
+![image-20220723134556833](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723134556833.png)
 
 ### 2.4 设置存储桶操作
 
@@ -261,7 +261,7 @@ public LifecycleConfiguration getBucketLifecycle(GetBucketLifecycleArgs args)
 
 打印结果如下：
 
-![image-20220723135014971](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723135014971.png)
+![image-20220723135014971](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723135014971.png)
 
 #### 2.4.3 通知配置
 
@@ -269,13 +269,13 @@ public LifecycleConfiguration getBucketLifecycle(GetBucketLifecycleArgs args)
 
 MinIO 服务器支持的各种事件类型有：
 
-![image-20220723135138733](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723135138733.png)
+![image-20220723135138733](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723135138733.png)
 
-![image-20220723135150879](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723135150879.png)
+![image-20220723135150879](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723135150879.png)
 
-![image-20220723135214401](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723135214401.png)
+![image-20220723135214401](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723135214401.png)
 
-![image-20220723135233435](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723135233435.png)
+![image-20220723135233435](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723135233435.png)
 
 存储桶配置通知：
 
@@ -384,7 +384,7 @@ public Tags getBucketTags(GetBucketTagsArgs args)
     System.out.println(bucketTags.get().toString());
 ```
 返回结果：
-![image-20220723135753042](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723135753042.png)
+![image-20220723135753042](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723135753042.png)
 
 #### 2.4.7 多版本设置
 
@@ -427,7 +427,7 @@ public VersioningConfiguration getBucketVersioning(GetBucketVersioningArgs args)
     System.out.println("Bucket versioning is suspended successfully");
 ```
 在控制台可以查看是否开启版本控制。
-![image-20220723140041004](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723140041004.png)
+![image-20220723140041004](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723140041004.png)
 
 #### 2.4.8 对象锁定配置
 
@@ -470,7 +470,7 @@ public ObjectLockConfiguration getObjectLockConfiguration(GetObjectLockConfigura
     System.out.println("Duration: " + objectLockConfiguration.duration());
 ```
 可以在控制台查看是否开启对象锁定，及保留模式设置的策略及保留天数。
-![image-20220723140224863](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723140224863.png)
+![image-20220723140224863](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723140224863.png)
 
 #### 2.4.9 删除配置
 

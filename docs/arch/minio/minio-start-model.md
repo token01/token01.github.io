@@ -163,7 +163,7 @@ Command-line Access: https://docs.min.io/docs/minio-client-quickstart-guide
 
 我们的验证环境采用最小的distributed minio模式：单机、one zone, one erasure coding set, 4 disk drive。下面是部署的示意图：
 
-![image-20220715200417201](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220715200417201.png)
+![image-20220715200417201](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220715200417201.png)
 
 我们没有使用“省略号”语法，在单机上不是很好模拟。我们通过下面脚本来启动该minio集群：
 
@@ -328,7 +328,7 @@ location /image/ {
 
 我们使用浏览器访问一下`http://myminio.tonybai.com:9000/`，登录后，你将看到如下页面：
 
-![image-20220715200904574](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220715200904574.png)
+![image-20220715200904574](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220715200904574.png)
 
 选择左侧的”image” bucket，点击右下角的”+”号，我们可以上传一张图片：gopher-daily-logo.png，上传后，我们退出登录。然后通过地址`http://myminio.tonybai.com:9000/image/gopher-daily-logo.png`访问该图片。你也可以通过wget命令下载该图片：
 
@@ -350,15 +350,15 @@ gopher-daily-logo.png        100%[============================================>]
 
 要开启多版本控制，必须开启纠删码模式
 
-![image-20220715165955626](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220715165955626.png)
+![image-20220715165955626](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220715165955626.png)
 
 开启纠删码模式后，我们上传的文件可以看到历史版本
 
-![image-20220715170326538](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220715170326538.png)
+![image-20220715170326538](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220715170326538.png)
 
 我们再存储可以看到他的多版本文件
 
-![image-20220715170931323](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220715170931323.png)
+![image-20220715170931323](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220715170931323.png)
 
 ## 参考文章
 

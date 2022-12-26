@@ -60,7 +60,7 @@ XSIO不同于XSS，它利用的是图片的style，或者能够控制CSS。如�
 
 点击劫持（ClickJacking）是一种视觉上的欺骗手段。大概有两种方式，一是攻击者使用一个透明的iframe，覆盖在一个网页上，然后诱使用户在该页面上进行操作，此时用户将在不知情的情况下点击透明的iframe页面；二是攻击者使用一张图片覆盖在网页，遮挡网页原有位置的含义。
 
-![image-20220707220322111](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220707220322111.png)
+![image-20220707220322111](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220707220322111.png)
 
 ### 3.1 iframe覆盖（嵌入iframe框）
 
@@ -112,7 +112,7 @@ XSIO不同于XSS，它利用的是图片的style，或者能够控制CSS。如�
 
 PS：可以把iframe透明设为0.3看下实际点到的东西。
 
-![image-20220707220616837](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220707220616837.png)
+![image-20220707220616837](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220707220616837.png)
 
 这样贴吧就多了一个粉丝了。
 
@@ -122,7 +122,7 @@ PS：可以把iframe透明设为0.3看下实际点到的东西。
 
 https://security.love/XSSJacking/index2.html
 
-![image-20220707220738260](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220707220738260.png)
+![image-20220707220738260](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220707220738260.png)
 
 
 

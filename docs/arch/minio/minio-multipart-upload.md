@@ -35,12 +35,12 @@ MinioTemplate接口：
 
 首先我在页面上上传了一个9M左右的文件：
 
-![image-20220724200722531](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724200722531.png)
+![image-20220724200722531](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724200722531.png)
 
 文件上传，经过Tomcat服务器进行处理，然后到达我们的Controller层上传文件接口，我们使用的是MultipartFile 对象来接受文件，可以看到当前MultipartFile 对象存放了文件相关信息，而此时实际的文件是由Tomcat存放在硬盘临时目录的。
 
 MultipartFile实际的对象是StandardMultipartHttpServletRequest的实例，他包含了ApplicationPart对象，ApplicationPart包含了图片中的文件信息。
-![image-20220724200830484](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724200830484.png)
+![image-20220724200830484](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724200830484.png)
 
 接收到对象后，调用的就是MinioTemplate，这里传入了各种参数：
 
@@ -177,7 +177,7 @@ PutObjectArgs首先会对存储桶名称进行校验，所以创建存储桶名�
 ```
 最终构建的PutObjectArgs对象如下：
 
-![image-20220724201355357](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724201355357.png)
+![image-20220724201355357](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724201355357.png)
 
 该对象包含了文件流、对象名、分片信息等重要数据。
 
@@ -280,7 +280,7 @@ putObject方法首先会创建PartReader 块读取对象：
 
 PartReader 包含了文件数据流及分片信息。
 
-![image-20220724201815010](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724201815010.png)
+![image-20220724201815010](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724201815010.png)
 
 接着进入一个死循环，PartReader 会获取PartSource块对象：
 
@@ -318,7 +318,7 @@ PartReader 包含了文件数据流及分片信息。
 
 每个PartSource对象，就对应一个块对象，其中包含了块数据和加密返回的签名。
 
-![image-20220724201918590](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724201918590.png)
+![image-20220724201918590](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724201918590.png)
 
 ### 2.5. 创建分片请求（获取uploadId）
 
@@ -348,7 +348,7 @@ createMultipartUpload方法会创建分块请求，根据对象名和存储桶�
 
 uploadId在循环中使用的都是同一个，说明分片上传的时候都会使用同一个uploadId，最后合并同一个uploadId的文件。
 
-![image-20220724202032288](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724202032288.png)
+![image-20220724202032288](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724202032288.png)
 
 ### 2.6 上传分片
 
@@ -377,16 +377,16 @@ uploadId在循环中使用的都是同一个，说明分片上传的时候都会
 
 分片的数据都上传后，进入到completeMultipartUpload方法，在这个方法执行之前，在Minio控制台是看不到上传对象的。
 
-![image-20220724202212381](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724202212381.png)
+![image-20220724202212381](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724202212381.png)
 
 这个方法传入了文件对象名，uploadID等，
 
-![image-20220724202251788](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724202251788.png)
+![image-20220724202251788](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724202251788.png)
 
 该方法最终也是执行的execute，使用httpclient去调用的Minio服务器合并分片，最后完成了分片上传操作。之后Tomcat回调，完成清理临时文件等操作，最后返回信息给前端，也对应了整个Servlet请求响应的整个流程。
 
-![image-20220724202351886](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724202351886.png)
+![image-20220724202351886](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724202351886.png)
 
 ## 3. 简单流程图
 
-![image-20220724202421408](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220724202421408.png)
+![image-20220724202421408](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220724202421408.png)

@@ -55,7 +55,7 @@ Root WebApplicationContext 包含需要共享给多个 Servlet 实例的数据�
 
 （PS：官网上的这张图可以可以帮助你构建DispatcherServlet和ApplicationContext在设计上的认知，这一点对于理解DispatcherServlet的设计和初始化过程非常重要）
 
-![image-20220713220057199](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220713220057199.png)
+![image-20220713220057199](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220713220057199.png)
 
 ## 2. DispatcherServlet是如何初始化的？
 
@@ -63,11 +63,11 @@ Root WebApplicationContext 包含需要共享给多个 Servlet 实例的数据�
 
 首先我们看DispatcherServlet的类结构关系，在这个类依赖结构中找到init的方法
 
-![image-20220713220205748](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220713220205748.png)
+![image-20220713220205748](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220713220205748.png)
 
 很容易找到init()的方法位于HttpServletBean中，然后跑[Spring基础 - SpringMVC请求流程和案例](https://pdai.tech/md/spring/spring-x-framework-springmvc.html)中的代码，在init方法中打断点。
 
-![image-20220713220255887](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220713220255887.png)
+![image-20220713220255887](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220713220255887.png)
 
 ### 2.1 init
 
@@ -112,7 +112,7 @@ public final void init() throws ServletException {
 
 读取配置可以从下图看出，正是初始化了我们web.xml中配置
 
-![image-20220713220525343](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220713220525343.png)
+![image-20220713220525343](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220713220525343.png)
 
 再看下initServletBean()方法，位于FrameworkServlet类中
 
@@ -357,7 +357,7 @@ protected void initStrategies(ApplicationContext context) {
 
 我们主要看initHandlerXXX相关的方法，它们之间的关系可以看SpringMVC的请求流程：
 
-![image-20220713221212802](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220713221212802.png)
+![image-20220713221212802](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220713221212802.png)
 
 
 
@@ -367,7 +367,7 @@ protected void initStrategies(ApplicationContext context) {
 
 initHandlerMapping方法如下，无非就是获取按照优先级排序后的HanlderMappings, 将来匹配时按照优先级最高的HanderMapping进行处理。
 
-![image-20220713221245137](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220713221245137.png)
+![image-20220713221245137](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220713221245137.png)
 
 initHandlerAdapters方法和initHandlerExceptionResolvers方法也是类似的，如果没有找到，那就构建默认的。
 

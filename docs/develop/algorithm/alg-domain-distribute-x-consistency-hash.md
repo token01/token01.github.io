@@ -23,6 +23,9 @@
 
 使用常见的hash算法可以把一个key值哈希到一个具有2^32个桶的空间中。也可以理解成，将key值哈希到 [0, 2^32) 的一个数字空间中。 我们假设这个是个首尾连接的环形空间。如下图:
 
+
+
+
 <img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220618205553148.png" alt="image-20220618205553148"  />
 
 假设我们现在有key1,key2,key3,key4 4个key值，我们通过一定的hash算法，将其对应到上面的环形hash空间中。

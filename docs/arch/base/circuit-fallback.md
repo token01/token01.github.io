@@ -22,7 +22,7 @@ category:
 
 ### 2.1 正常流程
 
-![image-20220702205055684](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220702205055684.png)
+![image-20220702205055684](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220702205055684.png)
 
 如上图，我们公司在该地区一共有4个外面小哥，编号0-3；该地有6家流行餐厅，几乎是用户必点。编号从A-F。故事开始前，我们做如下假定：
 
@@ -42,7 +42,7 @@ category:
 
 然而，正如江湖传言，美团外卖是个神秘的组织，有一天，一个机智的小哥，横空出世，改变了整个行业的布局。
 
-![image-20220702205410716](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220702205410716.png)
+![image-20220702205410716](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220702205410716.png)
 
 小哥在餐厅A亲自操刀，很快就做完后，送餐了。用户收到热乎乎的饭菜，吃起来没有以前的好吃，但也觉察不出任何异样，不会投诉；整个地区的小哥又重新流通起来，恢复到大叔失恋前的配送效率。
 

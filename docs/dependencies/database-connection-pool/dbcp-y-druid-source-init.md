@@ -312,7 +312,7 @@ finally处理逻辑：
 init过程，对DruidDataSource进行了初始化操作，为了防止多线程并发场景下进行init操作，采用了Double Check的方式，配合ReentrentLock两次判断来实现。
 对于真实连接的创建，如果需要同步创建，则init线程会逐个创建连接的holder,反之，如果需要异步创建，则提交到异步执行的线程池submitCreateTask。
 详细流程如下图：
-![56f612af420ddc34f1c0811a5a08f451](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/56f612af420ddc34f1c0811a5a08f451.png)
+![56f612af420ddc34f1c0811a5a08f451](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/56f612af420ddc34f1c0811a5a08f451.png)
 
 ## 参考文章
 

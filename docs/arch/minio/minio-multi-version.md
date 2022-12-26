@@ -29,23 +29,23 @@ category:
 当您将对象放入启用版本控制的存储桶中时，不会覆盖非当前版本。下图显示当一个新版本的PUT 到一个已经包含同名对象的桶中时，原来的对象（ID =fae684ddsd ）留在桶中，MinIO 生成一个新版本（ID = fae684da），并添加存储桶的较新版本。
 
 
-![image-20220723230540366](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723230540366.png)
+![image-20220723230540366](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723230540366.png)
 
 当你 DELETE 一个对象时，所有版本都保留在存储桶中，MinIO 会添加一个删除标记，如下所示：
 
-![image-20220723230624512](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723230624512.png)
+![image-20220723230624512](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723230624512.png)
 
 现在删除标记成为对象的当前版本。默认情况下，GET 请求总是检索最新存储的版本。因此，当当前版本是删除标记时执行简单的 GET 对象请求将返回404。
 
-![image-20220723230714062](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723230714062.png)
+![image-20220723230714062](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723230714062.png)
 
 通过指定如下所示的版本 ID GET 请求，您可以检索特定对象版本。
 
-![image-20220723230748189](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723230748189.png)
+![image-20220723230748189](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723230748189.png)
 
 永久删除对象需要指定要删除的版本，只有拥有相应权限的用户才能永久删除版本。如下所示，使用特定版本 ID 调用的 DELETE 请求会从存储桶中永久删除对象。不会为具有版本 ID 的 DELETE 请求添加删除标记。
 
-![image-20220723230825011](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723230825011.png)
+![image-20220723230825011](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723230825011.png)
 
 注意事项
 
@@ -67,7 +67,7 @@ category:
 
 直接在桶管理页面，可以查看版本控制信息，点击切换开启或者关闭。
 
-![image-20220723231033642](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723231033642.png)
+![image-20220723231033642](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723231033642.png)
 
 ### 2.2 SDK 开启
 
@@ -96,7 +96,7 @@ category:
 
 同一个存储桶，上传多个同名对象，可以看到添加了多个版本号。
 
-![image-20220723231144106](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220723231144106.png)
+![image-20220723231144106](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220723231144106.png)
 
 可以在获取对象时，指定版本号：
 

@@ -22,7 +22,7 @@ category:
 
    Minio对每个对象单独编码，存储服务一经部署，通常情况下是不需要更换硬盘或者修复。Minio纠删码的设计目标是为了性能和尽可能的使用硬件加速。
 
-![image-20220715111328603](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220715111328603.png)
+![image-20220715111328603](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220715111328603.png)
 
 ## 3. 什么是位衰减`bit rot`保护?
 
@@ -72,7 +72,7 @@ Reed-Solomon（RS）码是存储系统较为常用的一种纠删码，它有两
 
 以n=5，m=3为例。即5个原始数据块，乘上一个(n+m)*n的矩阵，然后得出一个(n+m)*1的矩阵。根据矩阵特点可以得知结果矩阵中前面5个值与原来的5个数据块的值相等，而最后3个则是计算出来的校验块。
 
-![image-20220715143632700](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220715143632700.png)
+![image-20220715143632700](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220715143632700.png)
 
 以上过程为编码过程。D是原始数据块，得到的C为校验块。
 
@@ -80,7 +80,7 @@ Reed-Solomon（RS）码是存储系统较为常用的一种纠删码，它有两
 
 假设丢失了m块数据。如下：
 
-![image-20220715143811177](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220715143811177.png)
+![image-20220715143811177](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220715143811177.png)
 
 那我们如何从剩余的n个数据块（注意，这里剩余的n块可能包含几个原始数据块+几个校验块）恢复出来原始的n个数据块呢，就需要通过下面的decoding（解码）过程来实现。
 
@@ -90,19 +90,19 @@ Reed-Solomon（RS）码是存储系统较为常用的一种纠删码，它有两
 
 ##### 4.2.2.2 第二步：求出B’的逆矩阵。
 
-![image-20220715144222171](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220715144222171.png)
+![image-20220715144222171](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220715144222171.png)
 
 ##### 4.2.2.3 第三步：等式两边分别乘上B’的逆矩阵。
 
-![image-20220715144253191](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220715144253191.png)
+![image-20220715144253191](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220715144253191.png)
 
 B’和它的逆矩阵相乘得到单位矩阵I，如下：
 
-![image-20220715144311947](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220715144311947.png)
+![image-20220715144311947](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220715144311947.png)
 
 左边只剩下原始数据矩阵D：
 
-![image-20220715144327852](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220715144327852.png)
+![image-20220715144327852](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220715144327852.png)
 
 至此完成解码过程。
 

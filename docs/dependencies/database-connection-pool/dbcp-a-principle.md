@@ -40,7 +40,7 @@
 
 下面以访问MySQL为例，执行一个SQL命令，如果不使用连接池，需要经过哪些流程。
 
-![image-20220519220631637](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220519220631637.png)
+![image-20220519220631637](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220519220631637.png)
 
 #### 3.1.1 不使用数据库连接池的步骤：
 
@@ -66,7 +66,7 @@
 
 ### 3.2 使用连接池流程
 
-![image-20220519220805637](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220519220805637.png)
+![image-20220519220805637](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220519220805637.png)
 
 #### 3.2.1 使用数据库连接池的步骤：
 

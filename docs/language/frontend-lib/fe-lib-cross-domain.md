@@ -16,7 +16,7 @@
 
 **案例分析**
 
-![image-20211017111604402](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20211017111604402.png)
+![image-20211017111604402](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20211017111604402.png)
 
 ## 3. 为什么前后端分离后会导致跨域问题？
 

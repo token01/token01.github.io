@@ -16,7 +16,7 @@ category:
 
 首先让我们整体看一下Spring Web MVC 处理请求的流程：
 
-![image-20220713221811447](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220713221811447.png)
+![image-20220713221811447](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220713221811447.png)
 
 **核心架构的具体流程步骤**如下：
 
@@ -311,7 +311,7 @@ protected ModelAndView handleInternal(HttpServletRequest request,
 }
 ```
 
-![image-20220713222539178](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220713222539178.png)
+![image-20220713222539178](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220713222539178.png)
 
 
 
@@ -387,15 +387,15 @@ protected ModelAndView invokeHandlerMethod(HttpServletRequest request,
 
 invokeAndHandle交给UserController中具体执行list方法执行
 
-![image-20220713222630606](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220713222630606.png)
+![image-20220713222630606](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220713222630606.png)
 
 后续invoke执行的方法，直接看整个请求流程的调用链即可
 
-![image-20220713222657107](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220713222657107.png)
+![image-20220713222657107](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220713222657107.png)
 
 执行后获得视图和Model
 
-![image-20220713222717169](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220713222717169.png)
+![image-20220713222717169](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220713222717169.png)
 
 ### 1.5  视图渲染
 

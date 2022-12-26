@@ -27,7 +27,7 @@ category:
 
 **代理模式**(Proxy pattern): 为另一个对象提供一个替身或占位符以控制对这个对象的访问
 
-![image-20220712215741243](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220712215741243.png)
+![image-20220712215741243](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220712215741243.png)
 
 举个简单的例子：
 
@@ -39,13 +39,13 @@ category:
 
 在生成代理对象的过程中，目标对象不变，代理对象中的方法是目标对象方法的增强方法。可以理解为运行期间，对象中方法的动态拦截，在拦截方法的前后执行功能操作。
 
-![image-20220712220855511](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220712220855511.png)
+![image-20220712220855511](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220712220855511.png)
 
 ### 1.2 什么是Cglib? SpringAOP和Cglib是什么关系？
 
 > Cglib是一个强大的、高性能的代码生成包，它广泛被许多AOP框架使用，为他们提供方法的拦截。
 
-![image-20220712220934360](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220712220934360.png)
+![image-20220712220934360](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220712220934360.png)
 
 - 最底层是字节码，字节码相关的知识请参考 [JVM基础 - 类字节码详解](https://pdai.tech/md/java/jvm/java-jvm-class.html)
 - ASM是操作字节码的工具
@@ -317,7 +317,7 @@ public class ProxyDemo {
 
 我们把上述Demo的主要流程画出来，你便能很快理解
 
-![image-20220712222218323](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220712222218323.png)
+![image-20220712222218323](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220712222218323.png)
 
 更多细节：
 
@@ -485,7 +485,7 @@ private Callback[] getCallbacks(Class<?> rootClass) throws Exception {
 
 可以结合调试，方便理解
 
-![image-20220712222722215](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220712222722215.png)
+![image-20220712222722215](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220712222722215.png)
 
 ## 参考文章
 

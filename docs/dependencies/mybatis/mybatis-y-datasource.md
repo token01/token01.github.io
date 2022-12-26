@@ -17,7 +17,7 @@ MyBatis把数据源DataSource分为三种：
 
 相应地，MyBatis内部分别定义了实现了java.sql.DataSource接口的UnpooledDataSource，PooledDataSource类来表示UNPOOLED、POOLED类型的数据源。
 
-![image-20220730202017360](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730202017360.png)
+![image-20220730202017360](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730202017360.png)
 
 对于JNDI类型的数据源DataSource，则是通过JNDI上下文中取值。
 
@@ -145,7 +145,7 @@ public interface DataSourceFactory {
 
 其类图如下所示：
 
-![image-20220730204145183](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730204145183.png)
+![image-20220730204145183](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730204145183.png)
 
 MyBatis创建了DataSource实例后，会将其放到Configuration对象内的Environment对象中，供以后使用。
 
@@ -239,7 +239,7 @@ private Connection doGetConnection(Properties properties) throws SQLException
 
 上述的序列图如下所示：
 
-![image-20220730204543578](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730204543578.png)
+![image-20220730204543578](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730204543578.png)
 
 总结：从上述的代码中可以看到，我们每调用一次getConnection()方法，都会通过DriverManager.getConnection()返回新的java.sql.Connection实例。
 
@@ -287,7 +287,7 @@ public static void main(String[] args) throws Exception
 
 上述程序的执行结果为：
 
-![image-20220730204747727](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730204747727.png)
+![image-20220730204747727](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730204747727.png)
 
 从此结果可以清楚地看出，创建一个Connection对象，用了250 毫秒；而执行SQL的时间用了170毫秒。
 
@@ -314,7 +314,7 @@ PooledDataSource将java.sql.Connection对象包裹成PooledConnection对象放�
 
 **PoolState连接池的大致结构**如下所示：
 
-![image-20220730205444847](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730205444847.png)
+![image-20220730205444847](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730205444847.png)
 
 - **获取java.sql.Connection对象的过程**
 
@@ -486,7 +486,7 @@ private PooledConnection popConnection(String username, String password) throws 
 
 对应的处理流程图如下所示：
 
-![image-20220730212129374](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730212129374.png)
+![image-20220730212129374](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730212129374.png)
 
 如上所示,对于PooledDataSource的getConnection()方法内，先是调用类PooledDataSource的popConnection()方法返回了一个PooledConnection对象，然后调用了PooledConnection的getProxyConnection()来返回Connection对象。
 

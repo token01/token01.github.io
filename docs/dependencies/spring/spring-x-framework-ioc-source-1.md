@@ -15,7 +15,7 @@ category:
 
 在设计时，首先需要考虑的是IOC容器的功能（输入和输出), 承接前面的文章，我们初步的画出IOC容器的整体功能。
 
-![image-20220711211622924](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220711211622924.png)
+![image-20220711211622924](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220711211622924.png)
 
 
 
@@ -46,7 +46,7 @@ category:
 
 其相互关系如下：
 
-![image-20220711212057979](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220711212057979.png)
+![image-20220711212057979](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220711212057979.png)
 
 我们再通过几个问题来辅助理解。
 
@@ -121,19 +121,19 @@ Spring 配置文件中每一个`<bean>`节点元素在 Spring 容器里都通过
 
 SpringIOC容器管理了我们定义的各种Bean对象及其相互的关系，Bean对象在Spring实现中是以BeanDefinition来描述的，其继承体系如下
 
-![image-20220711212932428](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220711212932428.png)
+![image-20220711212932428](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220711212932428.png)
 
 - **BeanDefinitionReader**
 
 Bean 的解析过程非常复杂，功能被分的很细，因为这里需要被扩展的地方很多，必须保证有足够的灵活性，以应对可能的变化。Bean 的解析主要就是对 Spring 配置文件的解析。这个解析过程主要通过下图中的类完成
 
-![image-20220711213017946](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220711213017946.png)
+![image-20220711213017946](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220711213017946.png)
 
 - **BeanDefinitionHolder**
 
 BeanDefinitionHolder 这是BeanDefination的包装类，用来存储BeanDefinition，name以及aliases等
 
-![image-20220711213038289](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220711213038289.png)
+![image-20220711213038289](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220711213038289.png)
 
 ### 2.3 ApplicationContext：IOC接口设计和实现
 
@@ -147,7 +147,7 @@ BeanDefinitionHolder 这是BeanDefination的包装类，用来存储BeanDefiniti
 
 我们来看下ApplicationContext整体结构
 
-![image-20220711213226561](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220711213226561.png)
+![image-20220711213226561](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220711213226561.png)
 
 
 
@@ -161,7 +161,7 @@ BeanDefinitionHolder 这是BeanDefination的包装类，用来存储BeanDefiniti
 
 在考虑ApplicationContext接口的实现时，关键的点在于，不同Bean的配置方式（比如xml,groovy,annotation等）有着不同的资源加载方式，这便衍生除了众多ApplicationContext的实现类。
 
-![image-20220711213419379](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220711213419379.png)
+![image-20220711213419379](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220711213419379.png)
 
 **第一，从类结构设计上看， 围绕着是否需要Refresh容器衍生出两个抽象类**：
 
@@ -197,7 +197,7 @@ BeanDefinitionHolder 这是BeanDefination的包装类，用来存储BeanDefiniti
 
 我们把之前的设计要点和设计结构结合起来看：
 
-![image-20220711213732293](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220711213732293.png)
+![image-20220711213732293](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220711213732293.png)
 
 ## 参考文章
 

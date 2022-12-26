@@ -22,7 +22,7 @@ category:
 
 类加载的结构如下：
 
-![image-20190929221807667](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20190929221807667.png)
+![image-20190929221807667](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190929221807667.png)
 
 **BootstrapClassLoader**：启动类类加载器，它用来加载<JAVA_HOME>/jre/lib路径,**-**Xbootclasspath参数指定的路径以<JAVA_HOME>/jre/classes中的类。BootStrapClassLoader是由c++实现的。
 

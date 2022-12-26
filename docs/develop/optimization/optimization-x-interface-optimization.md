@@ -10,7 +10,7 @@ category:
 
 之前工作中，遇到一个`504`超时问题。原因是因为接口耗时过长，超过`nginx`配置的`10`秒。然后 真枪实弹搞了一次接口性能优化，最后接口从`11.3s`降为`170ms`。本文将跟小伙伴们分享接口优化的**一些通用**方案。
 
-![image-20221203214622902](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221203214622902.png)
+![image-20221203214622902](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221203214622902.png)
 
 ## 1. 批量思想：批量操作数据库
 
@@ -39,11 +39,11 @@ batchInsert(transDetailList);
 
 假设一个转账接口，匹配联行号，是同步执行的，**但是它的操作耗时有点长**，优化前的流程：
 
-![image-20221203214914931](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221203214914931.png)
+![image-20221203214914931](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221203214914931.png)
 
 为了降低接口耗时，更快返回，你可以把**匹配联行号**移到**异步处理**，优化后：
 
-![image-20221203214939868](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221203214939868.png)
+![image-20221203214939868](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221203214939868.png)
 
 - 除了转账这个例子，日常工作中还有很多这种例子。比如：**用户注册成功后，短信邮件通知，也是可以异步处理的**~
 - 至于异步的实现方式，**你可以用线程池，也可以用消息队列实现**。
@@ -56,11 +56,11 @@ batchInsert(transDetailList);
 
 > 那是一次转账接口的优化，**老代码**，每次转账，都会根据客户账号，查询数据库，计算匹配联行号。
 
-![image-20221203215330857](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221203215330857.png)
+![image-20221203215330857](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221203215330857.png)
 
 因为每次**都查数据库，都计算匹配，比较耗时**，所以**使用缓存**，优化后流程如下：
 
-![image-20221203215424368](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221203215424368.png)
+![image-20221203215424368](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221203215424368.png)
 
 ## 4. 预取思想：提前初始化到缓存
 
@@ -90,11 +90,11 @@ batchInsert(transDetailList);
 
 假设我们设计一个APP首页的接口，它需要查用户信息、需要查banner信息、需要查弹窗信息等等。如果是串行一个一个查，比如查用户信息`200ms`，查banner信息`100ms`、查弹窗信息`50ms`，那一共就耗时`350ms`了，如果还查其他信息，那耗时就更大了。
 
-![image-20221203215917219](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221203215917219.png)
+![image-20221203215917219](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221203215917219.png)
 
 其实我们可以改为并行调用，即查用户信息、查banner信息、查弹窗信息，可以同时**并行发起**。
 
-![image-20221203215942817](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221203215942817.png)
+![image-20221203215942817](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221203215942817.png)
 
 ## 8. 锁粒度避免过粗
 
@@ -159,13 +159,13 @@ public int right() {
 
 **优化前**，`1000`笔明细转账数据，先落地`DB`数据库，返回处理中给用户，再异步转账。如图：
 
-![image-20221203224843846](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221203224843846.png)
+![image-20221203224843846](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221203224843846.png)
 
 记得当时压测的时候，高并发情况，这`1000`笔明细入库，耗时都比较大。所以我转换了一下思路，**把批量的明细转账记录保存的文件服务器，然后记录一笔转账总记录到数据库即可**。接着异步再把明细下载下来，进行转账和明细入库。最后优化后，性能提升了**十几倍**。
 
 **优化后**，流程图如下：
 
-![image-20221203230306806](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221203230306806.png)
+![image-20221203230306806](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221203230306806.png)
 
 如果你的接口耗时瓶颈就**在数据库插入操作这里**，用来批量操作等，还是效果还不理想，就可以考虑用文件或者`MQ`等暂存。有时候批量数据放到文件，会比插入数据库效率更高。
 
@@ -205,7 +205,7 @@ alter table user_info add index idx_name (name);
 
 有时候，即使你添加了索引，但是索引会失效的。**田螺哥整理了索引失效的常见原因**：
 
-![image-20221203230520898](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221203230520898.png)
+![image-20221203230520898](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221203230520898.png)
 
 ### 10.3 索引设计不合理
 
@@ -221,7 +221,7 @@ alter table user_info add index idx_name (name);
 
 处了索引优化，其实SQL还有很多其他有优化的空间。比如这些：
 
-![image-20221203230629979](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221203230629979.png)
+![image-20221203230629979](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221203230629979.png)
 
 ## 12.避免大事务问题
 
@@ -312,7 +312,7 @@ if(isUserVip && isFirstLogin){
 
 假设有`5`个请求过来，`isUserVip`判断通过的有`3`个请求，`isFirstLogin`通过的只有`1`个请求。那么以上代码，`isUserVip`执行的次数为`5`次，`isFirstLogin`执行的次数也是`3`次，如下：
 
-![image-20221203232219819](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221203232219819.png)
+![image-20221203232219819](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221203232219819.png)
 
 如果调整一下`isUserVip`和`isFirstLogin`的顺序：
 
@@ -324,7 +324,7 @@ if(isFirstLogin && isUserVip ){
 
 `isFirstLogin`执行的次数是`5`次，`isUserVip`执行的次数是`1`次：
 
-![image-20221203232239523](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221203232239523.png)
+![image-20221203232239523](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221203232239523.png)
 
 ## 15. 压缩传输内容
 

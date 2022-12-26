@@ -66,7 +66,7 @@ category:
 
 我们来看下面这个场景:
 
-![image-20220706215729025](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706215729025.png)
+![image-20220706215729025](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706215729025.png)
 
 - 用户误点开了带攻击的url : `http://xxx?keyword=<script>alert('aaa')</script>`
 - 网站给受害者的返回中包含了来自URL的的恶意文本
@@ -80,7 +80,7 @@ category:
 
 我们来看这种攻击的一个场景
 
-![image-20220706215925537](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706215925537.png)
+![image-20220706215925537](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706215925537.png)
 
 
 
@@ -100,7 +100,7 @@ category:
 
 我们来看这种攻击的一个场景
 
-![image-20220706220046149](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220706220046149.png)
+![image-20220706220046149](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220706220046149.png)
 
 1、用户误点开了带攻击的url : `http://xxx?name=<script>alert('aaa')</script>`
 

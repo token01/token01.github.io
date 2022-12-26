@@ -10,7 +10,7 @@ export default navbar([
      },
      {
       text: "语言|平台",
-      icon: "creative",
+      icon: "language",
       prefix: "/language/",
       children:[
         {
@@ -32,7 +32,7 @@ export default navbar([
     },
   {
     text: "Java",
-    icon: "creative",
+    icon: "java",
     prefix: "/java/",
     children: [
       
@@ -66,7 +66,7 @@ export default navbar([
 
   {
     text: "数据库",
-    icon: "creative",
+    icon: "mysql",
     prefix: "/db/",
     children: [
       
@@ -94,7 +94,7 @@ export default navbar([
   },
   {
     text: "框架|依赖",
-    icon: "creative",
+    icon: "frame",
     prefix: "/dependencies/",
     children:[
       {
@@ -118,7 +118,7 @@ export default navbar([
   
   {
     text: "开发|测试",
-    icon: "creative",
+    icon: "debug",
     prefix: "/develop/",
     children: [
       {
@@ -152,7 +152,7 @@ export default navbar([
 
   {
     text: "软件|部署",
-    icon: "creative",
+    icon: "software",
     prefix: "/deploy/",
     children: [
       {
@@ -200,7 +200,7 @@ export default navbar([
   },
   {
     text: "架构|系统",
-    icon: "creative",
+    icon: "strong",
     prefix: "/arch/",
     children: [
       {
@@ -239,7 +239,7 @@ export default navbar([
   
   {
     text: "区块链",
-    icon: "creative",
+    icon: "bitbucket",
     prefix: "/blockchain/",
     children:[
       {
@@ -262,7 +262,7 @@ export default navbar([
   },
   {
     text: "杂项|思考",
-    icon: "creative",
+    icon: "anonymous",
     prefix: "/think/",
     children:[
       {

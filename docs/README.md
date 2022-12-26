@@ -50,7 +50,7 @@ features:
     link: /deploy/docker/docker-basic-overview
 
   - title: 区块链
-    icon: blockchain
+    icon: bitbucket
     details: 区块链白皮书、主流区块链
     link: /blockchain/basic-logic/The_white_paper_the_currency
 

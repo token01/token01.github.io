@@ -6,773 +6,1411 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Mon, 26 Dec 2022 09:34:40 GMT</pubDate>
-    <lastBuildDate>Mon, 26 Dec 2022 09:34:40 GMT</lastBuildDate>
+    <pubDate>Mon, 26 Dec 2022 10:10:56 GMT</pubDate>
+    <lastBuildDate>Mon, 26 Dec 2022 10:10:56 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
-    <category>前端</category>
+    <category>学习路线</category>
     <item>
-      <title>前端-基础</title>
-      <link>https://bytecodes.tech/language/frontend-base/</link>
-      <guid>https://bytecodes.tech/language/frontend-base/</guid>
-      <source url="https://bytecodes.tech/rss.xml">前端-基础</source>
-      <category>前端</category>
-      <pubDate>Mon, 26 Dec 2022 09:08:14 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="目录" tabindex="-1"> 目录</h1>
-<p>TODO</p>
+      <title>数据结构与算法学习路线（建议收藏🔥）</title>
+      <link>https://bytecodes.tech/learning-path/algorithm.html</link>
+      <guid>https://bytecodes.tech/learning-path/algorithm.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">数据结构与算法学习路线（建议收藏🔥）</source>
+      <description>如何系统地学习数据结构与算法？为了让你对数据结构和算法能有个全面的认识，我画了一张图，里面几乎涵盖了所有数据结构和算法书籍中都会讲到的知识点。</description>
+      <category>学习路线</category>
+      <pubDate>Mon, 26 Dec 2022 09:47:33 GMT</pubDate>
+      <content:encoded><![CDATA[<p>我画了一张图，里面几乎涵盖了所有数据结构与算法书籍中都会讲到的知识点。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/algorithm-220e86a7-fa5d-44a2-a560-3cb6cfa70ad0.png" alt=""></p>
+<p>但讲良心话，对于一个初学者，或者不打算卷算法岗的程序员来说，完全就没必要把思维导图里面的所有知识点都学了，那样就太不高效了。</p>
+<p>我们学习数据结构与算法，也得讲究策略。我的建议是这样的（敲黑板、划重点了啊）：</p>
+<p><strong>7 个数据结构</strong>：</p>
+<ul>
+<li>数组</li>
+<li>链表</li>
+<li>栈</li>
+<li>队列</li>
+<li>哈希表</li>
+<li>二叉树</li>
+<li>堆</li>
+</ul>
+<p><strong>10 个算法</strong>：</p>
+<ul>
+<li>递归</li>
+<li>排序</li>
+<li>二分查找</li>
+<li>搜索</li>
+<li>哈希算法</li>
+<li>贪心算法</li>
+<li>分治算法</li>
+<li>回溯算法</li>
+<li>动态规划</li>
+<li>字符串匹配算法</li>
+</ul>
+<p>这些是学习数据结构与算法时的重点。很多人在第一次接触数据结构与算法这门课时，往往会觉得很抽象，很难搞懂，以至于站在门外徘徊不前。</p>
+<p>其实真正的原因是没有找到好的学习方法，没有抓住学习的重点。相信你认真看完我这条学习路线后，学起来就会有的放矢、事半功倍了。</p>
+<h2 id="一、什么是数据结构" tabindex="-1"> 一、什么是数据结构</h2>
+<p>数据结构是一种具有一定逻辑关系，在计算机中应用某种存储结构，并且封装了相应操作的数据元素集合。它包含三方面的内容，逻辑关系、存储关系及操作。不同种类的数据结构适合于不同种类的应用，而部分甚至专门用于特定的作业任务。例如，计算机网络依赖于路由表运作，B 树高度适用于数据库的封装。</p>
+<p>简单点说，数据结构就是把一堆数据，按照某种格式揉成一坨。</p>
+<p>大家喜欢吃宫保鸡丁吗？</p>
+<p>反正musk挺喜欢这道菜的。我就以宫保鸡丁为例，来讲一讲数据结构吧。维基百科上是这样定义的。</p>
+<p>宫保鸡丁（英语：Kung Pao chicken或Kung-Pao Chicken），又称宫爆鸡丁，呈糊辣荔枝味，源于黔菜、流传至鲁而后成于川菜的一道川味名菜。贵州、山东和四川三地对这道菜的做法不完全一样，称呼也有差异。贵州称为糊辣子鸡丁，山东则名为酱爆鸡丁，而四川是以宫保鸡丁为名的。</p>
+<p>来，抽象下宫保鸡丁。</p>
+<div><pre><code>struct KungPaoChicken {
+  鸡肉 = []
+  花生 = []
+  葱段 = []
+  花椒 = []
+  辣椒 = []
+}
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>这个结构体（struct 是 C 语言中的一个概念）就是一个自定义的数据结构，将很多不同的配料融合在了一起。对于计算机的数据结构来说，只不过是把这些配料换成了基本数据类型。</p>
+<p>抽象完宫保鸡丁再来抽象一下musk吧。</p>
+<div><pre><code>class musk {
+  int age = 18;
+  double 体重 =  65kg;
+  
+  void eat(宫保鸡丁) {
+    体重 += 1kg;
+  }
+}
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>伪代码不是很严谨哈，大家理解这个意思就行了。</p>
+<p>说到底，数据结构不过是一种抽象后的封装。像 Java，它之所以流行的一个很重要的原因，就是它提供了多种多样的、方便开发者调用的数据结构，比如说对数组的封装 ArrayList、对链表的封装 LinkedList、对哈希表的封装 HashMap、ConcurrentHashMap 等等。C 语言就没有这些，想用的话，就得自己封装。但 Java 和 C 语言的基本数据类型是一致的，int、float 这些都是相通的。</p>
+<p>对于初学者来说，平常敲代码都是直接去调用数据结构的，是很少去想这些数据结构是怎么实现的。</p>
+<p>当一个初学者向高级程序员迈进的时候，就必须得静下心来，去搞清楚 ArrayList 和 LinkedList 的内部实现，搞清楚之后就会明白，之所以它们在增删改查的时候性能上有差异，就是因为它们的内部使用了不同的数据结构所导致的。</p>
+<p>经典的数据结构与算法都有哪些呢？比如说队列、栈、堆、二分查找、动态规划等等。</p>
+<h2 id="二、什么是算法" tabindex="-1"> 二、什么是算法</h2>
+<p>算法就是操作数据的一组方法。数据结构是为算法服务的，而算法想要体现出自己的价值，就必须得有数据结构这个载体。</p>
+<p>它们俩就好像是一对恋人，离开了谁，都会孤单寂寞冷。</p>
+<p>那一些初学者可能会有这样的疑惑：我数学成绩一般，学数据结构与算法会很吃力吗？</p>
+<p>当然了，数据结构和算法离不开一些数学方面的推理和证明，比如说我们在分析某个算法的时间复杂度和空间复杂度时。但这个不需要去担心，只要你能保持高中时期的数学水准，就完全可以学好数据结构与算法。</p>
+<h2 id="三、为什么要学习数据结构和算法" tabindex="-1"> 三、为什么要学习数据结构和算法</h2>
+<p>你是不是觉得数据结构与算法，跟操作系统、计算机网络一样，都是脱离实际工作的知识，可能除了面试，这辈子都用不着？</p>
+<p>就算不懂数据结构与算法，照样可以把 Java API、开发框架用得飞起？</p>
+<p>首先，面试的确是要考数据结构与算法的。这是很多大厂的筛选要素之一。</p>
+<p>这是因为校招的时候，参加面试的学生大多数都是没有实际项目经验的，公司只能通过考察这些基础知识来筛选。</p>
+<p>大厂不怕你没有项目经验，而怕你没有长期发展的潜力。</p>
+<p>所以，很多参加校招的同学，在面试前都会疯狂刷题的，至少会突击个 100 道左右的题目。</p>
+<p>其次，实际工作当中肯定是会用到的。</p>
+<p>举个例子，存储某个业务数据时，你打算用 ArrayList 还是 LinkedList，它们底层用的是哪种数据结构，增删改查上有哪些优缺点？</p>
+<p>再比如，Redis 中的有序集合是用什么数据结构实现的？为什么要用跳表二不是二叉树呢？</p>
+<p>不懂数据结构和算法，行得通吗？</p>
+<p>还有，掌握了数据结构与算法，对阅读源码会有很大的帮助，因为很多时候，源码当中都会考量到不同数据结构之间的优点和缺点。</p>
+<p>你比如说，HashMap 为什么在链表长度大于 8 的时候将其转为红黑树？为什么不能是二叉树？</p>
+<p>总结一下。</p>
+<p>我们学习数据结构与算法，并不是为了死记硬背几个知识点，我们的目的是建立时间复杂度、空间复杂度的意识，写出高质量的代码，提升编程技能，训练逻辑思维，从而获得更高的薪资回报。</p>
+<p>为什么要学习数据结构与算法，我认为 3 点很重要：</p>
+<p>1、写出性能更佳的代码。
+2、算法是求解问题的计算步骤，而程序是用计算机可以理解的语言来描述的算法。
+3、长期来看，思考能力是一个人非常重要的核心竞争力，而算法是为数不多能训练思考能力的途径之一。</p>
+<p>是时候提升自己的内功了，这样怼人也会更自信，跳槽也不用畏畏缩缩了。</p>
+<h2 id="四、硬核算法和数据结构学习资料" tabindex="-1"> 四、硬核算法和数据结构学习资料</h2>
+<h3 id="_1-视频" tabindex="-1"> <strong>1）视频</strong></h3>
+<p>B 站上浙江大学的一个数据结构课非常不错，很系统很经典。每次看这些大学老师的讲课就越觉得考好大学很重要，很多学校的老师，在讲数据结构和算法的时候，自己都不知道自己在讲什么。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/yitiaolong-e2812c94-5945-41ad-adcd-4dbb02fae8d5.png" alt=""></p>
+<p>不得不说，陈越姥姥等人对数据结构和算法这个领域的知识理解是真的透彻，我在听这个课的时候感觉整个人都通透了。</p>
+<p>视频地址：<a href="https://www.bilibili.com/video/BV1JW411i731" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV1JW411i731</a></p>
+<p>这里还有个同学在 GitHub 上整理这门课程的所有课件和作业，学习 Java 的小伙伴可以尝试用 Java 完成下作业。</p>
+<blockquote>
+<p>GitHub 地址：<a href="https://github.com/CYBruce/DataStructure_Algorithm_ZJU" target="_blank" rel="noopener noreferrer">https://github.com/CYBruce/DataStructure_Algorithm_ZJU</a></p>
+</blockquote>
+<h3 id="_2-书籍" tabindex="-1"> <strong>2）书籍</strong></h3>
+<p>入门阶段推荐陈小玉老师的《<a href="https://book.douban.com/book/subject/34785269/" target="_blank" rel="noopener noreferrer">趣学数据结构</a>》和《<a href="https://book.douban.com/subject/27109832/" target="_blank" rel="noopener noreferrer">趣学算法</a>》。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/algorithm-2ac7da9b-e812-49d9-8012-5e2f792f87bf.png" alt=""></p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/algorithm-18b8f9d6-cbfa-482f-80a0-57081e3616d8.png" alt=""></p>
+<p>算法领域的经典参考书《<a href="https://book.douban.com/subject/19952400/" target="_blank" rel="noopener noreferrer">算法 4</a>》也非常值得推荐，里面的代码是用 Java 实现的，所以 Java 开发者可以直接选用这本书。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/algorithm-766885af-dfac-452f-b110-c9ca89a0bb9a.png" alt=""></p>
+<p>学霸型人才可以直接刷《<a href="https://book.douban.com/subject/20432061/" target="_blank" rel="noopener noreferrer">算法导论</a>》，严谨全面，可以直接拿来作为研究生阶段的算法课程教材。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/algorithm-fc895095-927c-42a4-a934-f98371a6f376.png" alt=""></p>
+<h3 id="_3-开源电子书" tabindex="-1"> <strong>3）开源电子书</strong></h3>
+<p>算法方面的开源电子书是真的非常多，这里推荐下《labuladong 的算法小抄》，仓库里面有句话我非常认同——“刷题刷题，刷的是题，培养的是思维”，这个仓库的优势就在于，它的解题思路很完备，我相信可以帮助到不少读者，至少在刷题的时候少走很多弯路。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/algorithm-d573f369-7dff-47a3-9929-46044e419aa8.png" alt=""></p>
+<blockquote>
+<p>GitHub 地址：<a href="https://github.com/labuladong/fucking-algorithm" target="_blank" rel="noopener noreferrer">https://github.com/labuladong/fucking-algorithm</a></p>
+</blockquote>
+<p>当然了，考虑到有些小伙伴需要 PDF 版的，我也准备好了。直接长按识别/扫描下方二维码，关注后回复 「<strong>刷题</strong>」 下载这份 PDF 吧：</p>
+
+<h3 id="_4-在线网站" tabindex="-1"> <strong>4）在线网站</strong></h3>
+<blockquote>
+<p>LeetCode题库：<a href="https://leetcode-cn.com/problemset/all/" target="_blank" rel="noopener noreferrer">https://leetcode-cn.com/problemset/all/</a></p>
+</blockquote>
+<p>学习算法的套路非常简单，多看、多练，至于刷题，小伙伴们都知道要刷 LeetCode。只不过 LeetCode 上现在有两千多道题，而且有些题非常难，就算每天刷 10 道，也得刷半年以上。这显然不适合绝大多数的小伙伴，所以我们要找到核心，最重要的题集。</p>
+<p>这里我给大家整理了 100 道面试高频算法题，大多数的小伙伴们按照这个路线去刷就足够应付面试了。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/algorithm-c4d31ba3-6d81-4617-a68b-81d935b2a106.png" alt=""></p>
+<blockquote>
+<p>VisuAlgo：<a href="https://visualgo.net/zh" target="_blank" rel="noopener noreferrer">https://visualgo.net/zh</a></p>
+</blockquote>
+<p>算法的难点在于，没办法在脑例子抽象出它的步骤，那 VisuAlgo 就是一个非常值得推荐的可视化算法网站。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/algorithm-b0d17b5d-d13a-46aa-a8b0-6b16772a30a6.png" alt=""></p>
+<h3 id="_5-付费专栏" tabindex="-1"> <strong>5）付费专栏</strong></h3>
+<p>小争哥在极客时间上开了一门《数据结构与算法之美》的付费专栏，风评非常不错，喜欢的小伙伴可以<a href="http://gk.link/a/11ijz" target="_blank" rel="noopener noreferrer">戳链</a>接去购买。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/algorithm-705c33b5-b90e-49c7-a3bc-a1f3c4630a66.png" alt=""></p>
+<h2 id="五、一点小心得" tabindex="-1"> 五、一点小心得</h2>
+<p>最后来分享一些让你事半功倍的学习技巧。</p>
+<p><strong>第一、边学边练</strong></p>
+<p>想一想，上学期间，除了听老师上课，自习外，最多的是什么？</p>
+<p>对了，考试。</p>
+<p>大大小小的考试，可不只是为了检验成绩，而是将你学会的举一反三，将你不会的拉出来吊打，折磨，直到下次考试的时候更进一步。</p>
+<p>其实不只是学数据结构与算法了，学习任何一门其他的课程都一样，只看只听是完全不中用的，至少要做笔记啊，要把作业给交了呀！</p>
+<p>至于刷题嘛，适量即可，不要总去挑战最难的，容易迷茫。</p>
+<p><strong>第二、多交流</strong></p>
+<p>musk有个老乡，阿秀，凭借自己的努力考上了研究生，并且在研究生阶段刷了很多题，最终上岸了字节。</p>
+<p>在刷题的过程中，他可不只是自己默默地刷，还结交了很多朋友，看到别人的解法，总是忍不住留言切磋一番，没想到，竟然结识了很多朋友。</p>
+<p>然后大家一起交流互动后，水平都有所提高。思维的碰撞，很重要！</p>
+<p><strong>第三、循序渐进</strong></p>
+<p>道理都懂，但最后坚持下来的总是寥寥无几。</p>
+<p>很重要的一个原因就是，很多人急于求成，总想一嘴吃个大胖子，结果呢？</p>
+<p>学习是逆人性的，不然某音可能就不会这么火了，因为刷视频的快感真的是爽的一塌糊涂。</p>
+<p>所以，学习的时候一定要遵循循序渐进这个真理。</p>
+<p>每天学习到一点，每周学习到两点，每个月学习到三点，在学与忘的过程中反复锤炼，聚少成多。久而久之，你就把知识沉淀成自己的啦。</p>
+<p>祝顺利！</p>
+<hr>
 ]]></content:encoded>
+      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/algorithm-220e86a7-fa5d-44a2-a560-3cb6cfa70ad0.png" type="image/png"/>
     </item>
     <item>
-      <title>前端js/vue下载后台传过来的流文件</title>
-      <link>https://bytecodes.tech/language/frontend-base/fe-download.html</link>
-      <guid>https://bytecodes.tech/language/frontend-base/fe-download.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">前端js/vue下载后台传过来的流文件</source>
-      <pubDate>Mon, 26 Dec 2022 09:08:14 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="前端js-vue下载后台传过来的流文件" tabindex="-1"> 前端js/vue下载后台传过来的流文件</h1>
-<h2 id="_1-简介" tabindex="-1"> 1. 简介</h2>
-<p>项目中经常需要用到下载文件，如导出用户信息，下载一些文件等。我们在vue中如何实现呢？主要有如下两种方案</p>
+      <title>Android 安卓学习路线（建议收藏🔥）</title>
+      <link>https://bytecodes.tech/learning-path/android.html</link>
+      <guid>https://bytecodes.tech/learning-path/android.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">Android 安卓学习路线（建议收藏🔥）</source>
+      <description>Android 安卓学习路线（建议收藏🔥）</description>
+      <category>学习路线</category>
+      <pubDate>Mon, 26 Dec 2022 09:47:33 GMT</pubDate>
+      <content:encoded><![CDATA[<p>虽然不是专业的安卓工程师，但给球友提供一份靠谱的学习路线，musk还是有这个实力的，知道哪里好哪里坏，如果你是新手，那么下面的内容可以帮助你找到学习的线路；如果你是老手，这篇文章列出的内容也可以帮助你查漏补缺。如果各位有什么其他的建议，欢迎留言交流。</p>
+<h1 id="推荐资料" tabindex="-1"> 推荐资料</h1>
 <ul>
-<li>使用Blob对象，构造a标签</li>
-<li>使用封装好的<strong>js-file-download</strong></li>
+<li>1、<a href="https://github.com/itwanger/JavaBooks#android" target="_blank" rel="noopener noreferrer">第一行代码 Android（书籍）</a></li>
+<li>2、<a href="https://www.androidperformance.com/" target="_blank" rel="noopener noreferrer">Android Tech And Perf（博客）</a></li>
+<li>3、<a href="https://www.bilibili.com/video/BV19U4y1R7zV" target="_blank" rel="noopener noreferrer">2022 最新 Android 基础教程，从开发入门到项目实战（视频）</a></li>
+<li>4、<a href="https://e.jd.com/30816230.html" target="_blank" rel="noopener noreferrer">关注 Android Jetpack开发：原理解析与应用实战（书籍，musk写过推荐序）</a></li>
+<li>5、<a href="https://e.jd.com/30622790.html" target="_blank" rel="noopener noreferrer">Flutter实战入门（书籍，musk写过推荐序）</a></li>
 </ul>
-<blockquote>
-<p>这两种方法下载的文件都<strong>不会乱码</strong>，但是 <strong>不管使用哪种方法，发送请求时都要设置 responseType</strong></p>
-</blockquote>
-<h2 id="_2-方案一-使用blob对象-构造a标签" tabindex="-1"> 2. 方案一：使用Blob对象，构造a标签</h2>
-<h3 id="_2-1-blob-简介" tabindex="-1"> 2.1 Blob 简介</h3>
-<p>Blob对象表示一个不可变、原始数据的类文件对象。Blob 表示的不一定是JavaScript原生格式的数据。File接口基于Blob，继承了blob的功能并将其扩展使其支持用户系统上的文件。</p>
-<h3 id="_2-2-blob-构造函数" tabindex="-1"> 2.2 Blob()构造函数</h3>
-<p>语法</p>
-<div><pre><code><span>var</span> aBlob <span>=</span> <span>new</span> <span>Blob</span><span>(</span> array<span>,</span> options <span>)</span><span>;</span>
-</code></pre><div aria-hidden="true"><div></div></div></div><p>参数</p>
-<ul>
-<li><em>array</em> 是一个由<code>ArrayBuffer</code> <code>ArrayBufferView</code>, Blob<code>, </code>DOMString<code>等对象构成的 [</code>Array<code>，或者其他类似对象的混合体，它将会被放进 </code>Blob`。DOMStrings会被编码为UTF-8。</li>
-<li><em>options</em> 是可选的，它可能会指定如下两个属性：
-<ul>
-<li><code>type</code>，默认值为 <code>&quot;&quot;</code>，它代表了将会被放入到blob中的数组内容的MIME类型。<strong>也就是设置文件类型。</strong></li>
-<li><code>endings</code>，默认值为<code>&quot;transparent&quot;</code>，用于指定包含行结束符<code>\n</code>的字符串如何被写入。 它是以下两个值中的一个： <code>&quot;native&quot;</code>，代表行结束符会被更改为适合宿主操作系统文件系统的换行符，或者 <code>&quot;transparent&quot;</code>，代表会保持blob中保存的结束符不变。</li>
-</ul>
-</li>
-</ul>
-<h3 id="_2-3-url对象" tabindex="-1"> 2.3 URL对象</h3>
-<p>通过创建URL对象指定文件的下载链接。</p>
-<div><pre><code><span>// 创建新的URL表示指定的File对象或者Blob对象。</span>
-<span>let</span> objectURL <span>=</span> window<span>.</span><span>URL</span><span>.</span><span>createObjectURL</span><span>(</span>blob<span>)</span><span>;</span> 
-window<span>.</span><span>URL</span><span>.</span><span>revokeObjectURL</span><span>(</span>objectURL<span>)</span><span>;</span> <span>// 释放内存</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><blockquote>
-<p>在每次调用createObjectURL()方法时，都会创建一个新的 URL 对象，即使你已经用相同的对象作为参数创建过。当不再需要这些 URL 对象时，每个对象必须通过调用 URL.revokeObjectURL()方法来释放。浏览器会在文档退出的时候自动释放它们，但是为了获得最佳性能和内存使用状况，你应该在安全的时机主动释放掉它们。</p>
-</blockquote>
-<h3 id="_2-4-利用a标签自定义文件名" tabindex="-1"> 2.4 利用a标签自定义文件名</h3>
-<div><pre><code><span>const</span> link <span>=</span> document<span>.</span><span>createElement</span><span>(</span><span>'a'</span><span>)</span><span>;</span> <span>// 生成一个a标签。</span>
-link<span>.</span>href <span>=</span> window<span>.</span><span>URL</span><span>.</span><span>createObjectURL</span><span>(</span>blob<span>)</span><span>;</span> <span>// href属性指定下载链接</span>
-link<span>.</span>download <span>=</span> fileName<span>;</span> <span>// dowload属性指定文件名</span>
-link<span>.</span><span>click</span><span>(</span><span>)</span><span>;</span> <span>// click()事件触发下载</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><p>download 属性设置文件名时，可以直接设置扩展名。如果没有设置，则浏览器将自动检测正确的文件扩展名并添加到文件 。</p>
-<h3 id="_2-5-主要完整代码" tabindex="-1"> 2.5 主要完整代码</h3>
-<ul>
-<li>
-<p>普通下载</p>
-<div><pre><code>axios<span>.</span><span>post</span><span>(</span>postUrl<span>,</span> params<span>,</span> <span>{</span><span>responseType</span><span>:</span> <span>'arraybuffer'</span><span>}</span><span>)</span><span>.</span><span>then</span><span>(</span><span>res</span> <span>=></span> <span>{</span>
-    <span>// 创建Blob对象，设置文件类型</span>
-    <span>let</span> blob <span>=</span> <span>new</span> <span>Blob</span><span>(</span><span>[</span>res<span>.</span>data<span>]</span><span>,</span> <span>{</span><span>type</span><span>:</span> <span>"application/vnd.ms-excel"</span><span>}</span><span>)</span>
-    <span>let</span> objectUrl <span>=</span> <span>URL</span><span>.</span><span>createObjectURL</span><span>(</span>blob<span>)</span> <span>// 创建URL</span>
-    location<span>.</span>href <span>=</span> objectUrl<span>;</span>
-    <span>URL</span><span>.</span><span>revokeObjectURL</span><span>(</span>objectUrl<span>)</span><span>;</span> <span>// 释放内存</span>
-<span>}</span><span>)</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></li>
-<li>
-<p>自定义下载后的文件名</p>
-<div><pre><code><span>// 利用a标签自定义下载文件名</span>
-<span>const</span> link <span>=</span> document<span>.</span><span>createElement</span><span>(</span><span>'a'</span><span>)</span>
-
-axios<span>.</span><span>post</span><span>(</span>postUrl<span>,</span> params<span>,</span> <span>{</span><span>responseType</span><span>:</span> <span>'arraybuffer'</span><span>}</span><span>)</span><span>.</span><span>then</span><span>(</span><span>res</span> <span>=></span> <span>{</span>
-    <span>// 创建Blob对象，设置文件类型</span>
-    <span>let</span> blob <span>=</span> <span>new</span> <span>Blob</span><span>(</span><span>[</span>res<span>.</span>data<span>]</span><span>,</span> <span>{</span><span>type</span><span>:</span> <span>"application/vnd.ms-excel"</span><span>}</span><span>)</span>
-    <span>let</span> objectUrl <span>=</span> <span>URL</span><span>.</span><span>createObjectURL</span><span>(</span>blob<span>)</span> <span>// 创建URL</span>
-    link<span>.</span>href <span>=</span> objectUrl
-    link<span>.</span>download <span>=</span> <span>'xxx'</span> <span>// 自定义文件名</span>
-    link<span>.</span><span>click</span><span>(</span><span>)</span> <span>// 下载文件</span>
-    <span>URL</span><span>.</span><span>revokeObjectURL</span><span>(</span>objectUrl<span>)</span><span>;</span> <span>// 释放内存</span>
-<span>}</span><span>)</span>
-
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></li>
-</ul>
-<h2 id="_3-方案二-使用-js-file-download" tabindex="-1"> 3. 方案二：使用 <code>js-file-download</code></h2>
-<ul>
-<li>
-<p>安装</p>
-<div><pre><code><span>npm</span> <span>install</span> js-file-download <span>--save</span>
-</code></pre><div aria-hidden="true"><div></div></div></div></li>
-<li>
-<p>使用</p>
-<div><pre><code><span>import</span> fileDownload <span>from</span> <span>'js-file-download'</span>
-
-axios<span>.</span><span>post</span><span>(</span>postUrl<span>,</span> params<span>,</span> <span>{</span><span>responseType</span><span>:</span> <span>'arraybuffer'</span><span>}</span><span>)</span><span>.</span><span>then</span><span>(</span><span>res</span> <span>=></span> <span>{</span>
-    <span>fileDownload</span><span>(</span>res<span>.</span>data<span>,</span> <span>'xxx.xls'</span><span>)</span>
-<span>}</span><span>)</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div></div></div></li>
-</ul>
-<h2 id="_4-可能遇到的问题" tabindex="-1"> 4. 可能遇到的问题</h2>
-<h3 id="_4-1-axios获取不到文件名" tabindex="-1"> 4.1 axios获取不到文件名</h3>
+<h1 id="programming" tabindex="-1"> Programming</h1>
+<h2 id="java" tabindex="-1"> Java</h2>
+<p>Java 是 Android App 开发默认的语言, Android Framework 也是默认使用 Java 语言，熟练掌握 Java 语言是 Android 开发者的必备技能。</p>
+<p>希望深入 Java 虚拟机的同学，也可以参考下面两本书：</p>
 <ol>
-<li>
-<p>需要在服务端加上此请求头</p>
-<div><pre><code><span>//响应时在响应头里添加 Access-Control-Expose-Headers </span>
- response<span>.</span><span>setHeader</span><span>(</span><span>"Access-Control-Expose-Headers"</span><span>,</span> <span>"Content-Disposition"</span><span>)</span><span>;</span>
-</code></pre><div aria-hidden="true"><div></div><div></div></div></div></li>
-<li>
-<p>前端还是用原生的axios post 方法吧</p>
-<div><pre><code>download(url, params, filename) {
-        // NProgress.start()
-        return axios.post(url, params, {
-            timeout: 300000,
-            baseURL: baseUrl,
-            transformRequest: [(params) => {
-                return tansParams(params);
-            }],
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "Authorization": "Bearer " + getToken()
-            },
-            responseType: "blob"
-        }).then((response) => {
-            if (filename == null||filename== undefined||filename==''){
-                // 前提是服务端要在header设置Access-Control-Expose-Headers: Content-Disposition
-                // 前端才能正常获取到Content-Disposition内容
-                const disposition = response.headers["content-disposition"];
-                let filename = disposition.substring(disposition.indexOf("filename=") + 9, disposition.length);
-                // iso8859-1的字符转换成中文
-                filename = decodeURI(escape(filename));
-                // 去掉双引号
-                filename = filename.replace(/\"/g, "");
-            }
-            
-            const content = response.data;
-            const blob = new Blob([content]);
-            if ("download" in document.createElement("a")) {
-                const elink = document.createElement("a");
-                elink.download = filename;
-                elink.style.display = "none";
-                elink.href = URL.createObjectURL(blob);
-                document.body.appendChild(elink);
-                elink.click();
-                URL.revokeObjectURL(elink.href);
-                document.body.removeChild(elink);
-            } else {
-                navigator.msSaveBlob(blob, filename);
-            }
-            // NProgress.done()
-        }).catch((r) => {
-        });
-    },
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></li>
+<li>周志明的<a href="https://book.douban.com/subject/34907497/" target="_blank" rel="noopener noreferrer">《深入理解Java虚拟机（第3版）》</a></li>
+<li>邓老师的 <a href="https://book.douban.com/subject/33390277/" target="_blank" rel="noopener noreferrer">《深入理解Android Java 虚拟机 ART》</a></li>
 </ol>
-<h2 id="参考文章" tabindex="-1"> 参考文章</h2>
-<p><a href="https://segmentfault.com/a/1190000020540788" target="_blank" rel="noopener noreferrer">前端js/vue下载后台传过来的流文件（如excel）并设置下载文件名</a></p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>统一代码风格工具editorConfig</title>
-      <link>https://bytecodes.tech/language/frontend-base/fe-editor-config.html</link>
-      <guid>https://bytecodes.tech/language/frontend-base/fe-editor-config.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">统一代码风格工具editorConfig</source>
-      <pubDate>Mon, 26 Dec 2022 09:08:14 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="统一代码风格工具editorconfig" tabindex="-1"> 统一代码风格工具editorConfig</h1>
-<h2 id="_1-背景" tabindex="-1"> 1. 背景</h2>
-<p>团队中有多人进行项目开发时，每个人可能喜欢的编辑器不同，有人喜欢webstrom、有人用VsCode、还有人用sublime。</p>
-<p>我们无法强迫开发者使用某种开发工具，那么我们如何让开发者都遵循统一的代码规范呢？</p>
-<p>这时候我们就需要editorConfig了，<strong>在editorConfig里的配置的代码规范优先级是高于编辑器默认的代码格式化规则</strong>。</p>
-<h2 id="_2-editorconfig-简介" tabindex="-1"> 2. editorConfig 简介</h2>
-<p>editorConfig不是什么软件，而是一个名称为.editorconfig的自定义文件。该文件用来定义项目的编码规范，编辑器的行为会与.editorconfig 文件中定义的一致，并且<strong>其优先级比编辑器自身的设置要高</strong></p>
-<p>当打开一个文件时，EditorConfig插件会在打开文件的目录和其每一级父目录查找.editorconfig文件，直到有一个配置文件root=true</p>
-<p>EditorConfig的配置文件是从上往下读取的并且最近的EditorConfig配置文件会被最先读取. 匹配EditorConfig配置文件中的配置项会按照读取顺序被应用, 所以最近的配置文件中的配置项拥有优先权</p>
-<p><strong>如果.editorconfig文件没有进行某些配置，则使用编辑器默认的设置</strong></p>
-<h2 id="_3-配置-editorconfig" tabindex="-1"> 3. 配置.editorconfig</h2>
-<p>在当前项目根目录下添加<code>.editorconfig</code>文件</p>
-<p>editorconfig文件是定义一些格式化规则（此规则并不会被vscode直接解析）</p>
-<h3 id="_3-1-官网的一个配置" tabindex="-1"> 3.1 官网的一个配置</h3>
-<div><pre><code># EditorConfig is awesome<span>:</span> https<span>:</span><span>/</span><span>/</span>EditorConfig<span>.</span>org
-
-# top<span>-</span>most EditorConfig file 表示是最顶层的配置文件，发现设为<span>true</span>时，才会停止查找<span>.</span>editorconfig文件
-root <span>=</span> <span>true</span>
-
-# Unix<span>-</span>style newlines <span>with</span> a newline ending every file 对于所有的文件  始终在文件末尾插入一个新行
-<span>[</span><span>*</span><span>]</span>
-end_of_line <span>=</span> lf
-insert_final_newline <span>=</span> <span>true</span>
-
-# Matches multiple files <span>with</span> brace expansion notation
-# Set <span>default</span> charset  对于所有的js<span>,</span>py文件，设置文件字符集为utf<span>-</span><span>8</span>
-<span>[</span><span>*</span><span>.</span><span>{</span>js<span>,</span>py<span>}</span><span>]</span>
-charset <span>=</span> utf<span>-</span><span>8</span>
-
-# <span>4</span> space indentation 控制py文件类型的缩进大小
-<span>[</span><span>*</span><span>.</span>py<span>]</span>
-indent_style <span>=</span> space
-indent_size <span>=</span> <span>4</span>
-
-# Tab <span>indentation</span> <span>(</span>no size specified<span>)</span> 设置某中文件的缩进风格为tab Makefile未指明
-<span>[</span>Makefile<span>]</span>
-indent_style <span>=</span> tab
-
-# Indentation override <span>for</span> all <span>JS</span> under lib directory  设置在lib目录下所有<span>JS</span>的缩进为
-<span>[</span>lib<span>/**.js]
-indent_style = space
-indent_size = 2
-
-# Matches the exact files either package.json or .travis.yml 设置确切文件 package.json/.travis/.yml的缩进类型
-[<span>{</span>package.json,.travis.yml<span>}</span>]
-indent_style = space
-indent_size = 2
-
-
-</span></code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="_4-语法" tabindex="-1"> 4. 语法</h2>
-<p>editorConfig配置文件需要是UTF-8字符集编码的, 以回车换行或换行作为一行的分隔符</p>
-<p>斜线(/)被用作为一个路径分隔符，井号(#)或分号(;)被用作于注释. 注释需要与注释符号写在同一行</p>
-<h3 id="_4-1-通配符" tabindex="-1"> 4.1 通配符</h3>
-<div><pre><code>*                匹配除/之外的任意字符串
-**               匹配任意字符串
-?                匹配任意单个字符
-[name]           匹配name中的任意一个单一字符
-[!name]          匹配不存在name中的任意一个单一字符
-{s1,s2,s3}       匹配给定的字符串中的任意一个(用逗号分隔) 
-{num1..num2}   　匹配num1到num2之间的任意一个整数, 这里的num1和num2可以为正整数也可以为负整数
-
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="_4-2-属性" tabindex="-1"> 4.2 属性</h3>
-<p>所有的属性和值都是忽略大小写的. 解析时它们都是小写的</p>
-<div><pre><code>indent_style    设置缩进风格(tab是硬缩进，space为软缩进)
-indent_size     用一个整数定义的列数来设置缩进的宽度，如果indent_style为tab，则此属性默认为tab_width
-tab_width       用一个整数来设置tab缩进的列数。默认是indent_size
-end_of_line     设置换行符，值为lf、cr和crlf
-charset         设置编码，值为latin1、utf-8、utf-8-bom、utf-16be和utf-16le，不建议使用utf-8-bom
-trim_trailing_whitespace  设为true表示会去除换行行首的任意空白字符。
-insert_final_newline      设为true表示使文件以一个空白行结尾
-root        　　　表示是最顶层的配置文件，发现设为true时，才会停止查找.editorconfig文件
-
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="_4-3-控制指定文件类型的缩进大小" tabindex="-1"> 4.3 控制指定文件类型的缩进大小</h3>
-<p>这里可以设置，如下：</p>
-<div><pre><code>[{*.json,*.yml}]
-indent_style = space
-indent_size = 2
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><p>对于<code>.json</code> <code>.yml</code> 文件，使用空格替代tab，并且一个tab会被替换为2个空格。</p>
-<h3 id="_4-4-文件末尾新行" tabindex="-1"> 4.4 文件末尾新行</h3>
-<p>始终在文件末尾插入一个新行</p>
-<div><pre><code>[*]
-end_of_line = lf
-insert_final_newline = true
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><p>对于所有的文件</p>
-<ul>
-<li>每一行的尾部自动调整为 Lf</li>
-<li>文件的末尾是一个空行</li>
-</ul>
-<h2 id="_5-实例" tabindex="-1"> 5. 实例</h2>
-<div><pre><code># 告诉EditorConfig插件，这是根文件，不用继续往上查找
-root = true
-
-# 匹配全部文件
-[*]
-# 设置字符集
-charset = utf-8
-# 缩进风格，可选space、tab
-indent_style = space
-# 缩进的空格数
-indent_size = 4
-# 结尾换行符，可选lf、cr、crlf
-end_of_line = lf
-# 在文件结尾插入新行
-insert_final_newline = true
-# 删除一行中的前后空格
-trim_trailing_whitespace = true
-
-# 匹配md结尾的文件
-[*.md]
-insert_final_newline = false
-trim_trailing_whitespace = false
-
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h4 id="_5-1-测试是否可用" tabindex="-1"> 5.1 测试是否可用：</h4>
-<p>在项目的 js 文件中使用 tab 键进行缩进，分别修改 indent_size 属性值为 2 和 4，观察是否有变化。如果没有任何变化，说明还没有安装 Editorconfig 插件。</p>
-<h2 id="_6-编辑器中安装使用" tabindex="-1"> 6. 编辑器中安装使用</h2>
-<h3 id="_6-1-vscode中安装editorconfig" tabindex="-1"> 6.1 VSCode中安装EditorConfig</h3>
-<p><img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210924210740884.png" alt="image-20210924210740884"></p>
-<p>EditorConfig扩展的作用是读取第一步创建的editorconfig文件中定义的规则，并覆盖user/workspace settings中的对应配置（从这我们也可以看出vscode本身其实是并不直接支持editorconfig的）</p>
-<h4 id="_6-1-1-全局安装或局部安装" tabindex="-1"> 6.1.1 全局安装或局部安装</h4>
-<p>editorconfig依赖包(npm install -g editorconfig | npm install -D editorconfig)
-安装editorconfig依赖包主要是因为EditorConfig依赖于editorconfig包，不安装的可能会导致EditorConfig无法正常解析我们在第一步定义的editorconfig文件</p>
-<h3 id="_6-1-2-使用" tabindex="-1"> 6.1.2 使用</h3>
-<p>打开需要格式化的文件并手动格式化代码（shift+alt+f）</p>
-<h2 id="_7-导出editorconfig文件" tabindex="-1"> 7. 导出editorconfig文件</h2>
-<h3 id="_7-1-webstorm-导出editorconfig文件" tabindex="-1"> 7.1 webstorm 导出editorconfig文件</h3>
-<p>操作步骤：webstorm里找到配置，按照以下图示导出.editorconfig，.editorconfig文件会出现在项目的根目录里：</p>
-<p><img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210924210543587.png" alt="image-20210924210543587"></p>
-<p><img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210924210707992.png" alt="image-20210924210707992"></p>
-<h2 id="参考文章" tabindex="-1"> 参考文章</h2>
-<p><a href="https://blog.csdn.net/Gabriel_wei/article/details/90286668" target="_blank" rel="noopener noreferrer">vscode使用editorconfig插件以及.editorconfig配置文件说明(统一代码风格工具——editorConfig)</a></p>
-]]></content:encoded>
-      <enclosure url="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/image-20210924210740884.png" type="image/png"/>
-    </item>
-    <item>
-      <title>不同font-size的文字底部在一条线上</title>
-      <link>https://bytecodes.tech/language/frontend-base/fe-font-size-line-bottom.html</link>
-      <guid>https://bytecodes.tech/language/frontend-base/fe-font-size-line-bottom.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">不同font-size的文字底部在一条线上</source>
-      <pubDate>Mon, 26 Dec 2022 09:08:14 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="不同font-size的文字底部在一条线上" tabindex="-1"> 不同font-size的文字底部在一条线上</h1>
-<h2 id="_1-背景" tabindex="-1"> 1. 背景</h2>
-<p>有个需求是前端需要展示￥158.8，为了凸显金额，所以158.8 的字体要大，￥的字体要小。原本挺简单的需求，却被我玩坏了</p>
-<h3 id="_1-1-问题原因" tabindex="-1"> 1.1 问题原因</h3>
-<p>虽然只是展示两个文字，但我在选择布局的时候。却选择了flex+div的形式。导致我陷在里面一直无法实现此功能。哪怕是设置为底部对齐和baseline</p>
-<ul>
-<li>
-<p>align-items: flex-end</p>
-<ul>
-<li>
-<p>没有一个能对齐的</p>
-<p><img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220403233950269.png" alt="image-20220403233950269"></p>
-</li>
-</ul>
-</li>
-<li>
-<p>align-items: baseline;</p>
-<ul>
-<li>
-<p>符号和数字对齐了,中文还差点意思</p>
-<p>![image-20220403235103157](/Users/zsz/Library/Application Support/typora-user-images/image-20220403235103157.png)</p>
-</li>
-</ul>
-</li>
-</ul>
-<p><strong>现在感觉自己啥东西都想套flex布局，这就是一个典型的反面教材</strong></p>
-<h2 id="_2-解决" tabindex="-1"> 2. 解决</h2>
-<h3 id="_2-1-基础方案1" tabindex="-1"> 2.1 基础方案1：</h3>
-<p>去掉外围的flex 布局，默认就是底部对齐的，当然中文还有点问题</p>
+<h2 id="kotlin" tabindex="-1"> Kotlin</h2>
+<p>Google 几年前就开始走 “Kotlin First” 的路线，目前很多官方的文档和 Demo 都是使用 Kotlin 语言作为默认，Kotlin 的重要性不言而喻。</p>
+<p>Google 官方也出了个<a href="https://clmirror.storage.googleapis.com/codelabs/java-to-kotlin-zh/index.html#0" target="_blank" rel="noopener noreferrer">“Refactoring to Kotlin”</a>的教程,其介绍如下：</p>
 <blockquote>
-<p>适用于那些没有中文等，特殊情况的</p>
+<p>此 Codelab 的适用对象为任何使用 Java 并考虑将其项目迁移到 Kotlin 的开发者。我们将从数个 Java 类入手，引导您使用 IDE 将它们转换为 Kotlin。接着，我们会审视转换后的代码，研究如何加以改善，使其更符合使用习惯，同时避免常见错误</p>
 </blockquote>
-<p><img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220403234509741.png" alt="image-20220403234509741"></p>
-<h3 id="_2-2-方案2-手工计算" tabindex="-1"> 2.2 方案2：手工计算</h3>
-<p>需要支持中文，你需要强制对不同大小的字体设定不同的行高。</p>
-<div><pre><code><span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>a inline<span>"</span></span><span>></span></span>
-  <span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>b<span>"</span></span><span>></span></span>哈哈<span><span><span>&lt;/</span>div</span><span>></span></span>
-  <span><span><span>&lt;</span>span</span> <span>class</span><span><span>=</span><span>"</span>b<span>"</span></span><span>></span></span>嘎嘎<span><span><span>&lt;/</span>span</span><span>></span></span>
-  <span><span><span>&lt;</span>b</span> <span>class</span><span><span>=</span><span>"</span>b<span>"</span></span><span>></span></span>呱呱<span><span><span>&lt;/</span>b</span><span>></span></span>
-  <span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>b e1<span>"</span></span><span>></span></span>haha<span><span><span>&lt;/</span>div</span><span>></span></span>
-  <span><span><span>&lt;</span>span</span> <span>class</span><span><span>=</span><span>"</span>b e2<span>"</span></span><span>></span></span>gaga<span><span><span>&lt;/</span>span</span><span>></span></span>
-  <span><span><span>&lt;</span>b</span> <span>class</span><span><span>=</span><span>"</span>b e3<span>"</span></span><span>></span></span>guagua<span><span><span>&lt;/</span>b</span><span>></span></span>
-<span><span><span>&lt;/</span>div</span><span>></span></span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><div><pre><code><span>.a</span> <span>{</span>
-  <span>width</span><span>:</span> 100%<span>;</span>
-  <span>overflow</span><span>:</span> hidden<span>;</span>
-  <span>border-bottom</span><span>:</span> 1px solid lightblue<span>;</span>
-  <span>margin</span><span>:</span> 40px auto<span>;</span>
-<span>}</span>
-<span>.inline .b</span> <span>{</span>
-  <span>display</span><span>:</span> inline<span>;</span>
-  <span>vertical-align</span><span>:</span> bottom<span>;</span>
-<span>}</span>
-<span>.a div</span> <span>{</span>
-  <span>font-size</span><span>:</span> 20px<span>;</span>
-  <span>line-height</span><span>:</span> 20px<span>;</span>
-<span>}</span>
-<span>.a span</span> <span>{</span>
-  <span>font-size</span><span>:</span> 40px<span>;</span>
-  <span>line-height</span><span>:</span> 37px<span>;</span>
-<span>}</span>
-<span>.a b</span> <span>{</span>
-  <span>line-height</span><span>:</span> 15px<span>;</span>
-<span>}</span>
-<span>.b.e1</span> <span>{</span>
-  <span>line-height</span><span>:</span> 16px<span>;</span>
-<span>}</span>
-<span>.b.e2</span> <span>{</span>
-  <span>line-height</span><span>:</span> 46px<span>;</span>  
-<span>}</span>
-<span>.b.e3</span> <span>{</span>
-  <span>line-height</span><span>:</span> 18px<span>;</span>
-<span>}</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>最终效果如下：</p>
-<p><img src="https://segmentfault.com/img/bV2Nvn?w=592&amp;h=120" alt="clipboard.png"></p>
-<h3 id="_2-3-方案3-自动计算" tabindex="-1"> 2.3 方案3：自动计算</h3>
-<p>如果不想手工调整，而想自动计算的话，代码如下：</p>
-<div><pre><code><span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>a inline<span>"</span></span><span>></span></span>
-  <span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>b c1<span>"</span></span><span>></span></span>哈哈<span><span><span>&lt;/</span>div</span><span>></span></span>
-  <span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>b c2<span>"</span></span><span>></span></span>嘎嘎<span><span><span>&lt;/</span>div</span><span>></span></span>
-  <span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>b c3<span>"</span></span><span>></span></span>呱呱<span><span><span>&lt;/</span>div</span><span>></span></span>
-  <span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>b e1<span>"</span></span><span>></span></span>haha<span><span><span>&lt;/</span>div</span><span>></span></span>
-  <span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>b e2<span>"</span></span><span>></span></span>gaga<span><span><span>&lt;/</span>div</span><span>></span></span>
-  <span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>b e3<span>"</span></span><span>></span></span>guagua<span><span><span>&lt;/</span>div</span><span>></span></span>
-<span><span><span>&lt;/</span>div</span><span>></span></span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><div><pre><code><span>.a <span>{</span></span>
-  <span><span>border-bottom</span><span>:</span> <span>1</span><span>px</span> solid <span>lightblue</span><span>;</span></span>
-<span>}</span>
-<span>.inline .b <span>{</span></span>
-  <span><span>display</span><span>:</span> inline<span>;</span></span>
-  <span><span>vertical-align</span><span>:</span> bottom<span>;</span></span>
-  <span><span>line-height</span><span>:</span> <span>1</span><span>;</span></span>
-<span>}</span>
-<span>.a .c1 <span>{</span></span>
-  <span><span>font-size</span><span>:</span> <span>40</span><span>px</span><span>;</span></span>
-<span>}</span>
-<span>.a .c2 <span>{</span></span>
-  <span><span>font-size</span><span>:</span> <span>80</span><span>px</span><span>;</span></span>
-<span>}</span>
-<span>.a .c3 <span>{</span></span>
-  <span><span>font-size</span><span>:</span> <span>20</span><span>px</span><span>;</span></span>
-<span>}</span>
-<span>.a .e1 <span>{</span></span>
-  <span><span>font-size</span><span>:</span> <span>40</span><span>px</span><span>;</span></span>
-<span>}</span>
-<span>.a .e2 <span>{</span></span>
-  <span><span>font-size</span><span>:</span> <span>80</span><span>px</span><span>;</span></span>
-<span>}</span>
-<span>.a .e3 <span>{</span></span>
-  <span><span>font-size</span><span>:</span> <span>20</span><span>px</span><span>;</span></span>
-<span>}</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>效果也还可以，英文的出入比较大，中文略有差距：</p>
-<p><img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220403235355217.png" alt="image-20220403235355217"></p>
-<h2 id="参考文章" tabindex="-1"> 参考文章</h2>
-<p><a href="https://segmentfault.com/q/1010000012994498" target="_blank" rel="noopener noreferrer">视觉上如何让不同 font-size 的文字底部在一条线上？</a></p>
-]]></content:encoded>
-      <enclosure url="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220403233950269.png" type="image/png"/>
-    </item>
-    <item>
-      <title>首页优化之-gzip压缩</title>
-      <link>https://bytecodes.tech/language/frontend-base/fe-gzip.html</link>
-      <guid>https://bytecodes.tech/language/frontend-base/fe-gzip.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">首页优化之-gzip压缩</source>
-      <pubDate>Mon, 26 Dec 2022 09:08:14 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="首页优化之-gzip压缩" tabindex="-1"> 首页优化之-gzip压缩</h1>
-<p>当前打包出来的dist 是13.6M</p>
-<p>使用gzip压缩之后变成15.8M,在原有的基础上加上了gzip</p>
-<h2 id="_1-简介" tabindex="-1"> 1. 简介</h2>
-<p>gzip 压缩是一种http请求优化方式，通过减少文件体积来提高加载速度。html、js、css文件甚至json数据都可以用它来压缩，可以减少60%以上的体积</p>
-<h2 id="_2-压缩配置" tabindex="-1"> 2. 压缩配置</h2>
-<h3 id="_2-1-安装-compression-webpack-plugin-插件" tabindex="-1"> 2.1 安装 compression webpack plugin 插件</h3>
-<div><pre><code>npm install --save-dev compression-webpack-plugin
-</code></pre><div aria-hidden="true"><div></div></div></div><h3 id="_2-2-在vue-cli3-0-生成的项目里-可在vue-config-js-中按照如下方式配置" tabindex="-1"> 2.2 在vue cli3.0 生成的项目里，可在vue.config.js 中按照如下方式配置</h3>
-<div><pre><code>
-const CompressionWebpackPlugin = require("compression-webpack-plugin");
-const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
-
-module.exports = {
- 	...
-  configureWebpack: config => {
-    const plugins = [];
-
-    // Begin 生成 gzip 压缩文件
-    plugins.push(
-        new CompressionWebpackPlugin({
-            filename: "[path].gz[query]",
-            algorithm: "gzip",
-            test: productionGzipExtensions,
-            threshold: 10240,
-            minRatio: 0.8
-        })
-    );
-    // End 生成 gzip 压缩文件
-    
-    config.plugins = [...config.plugins, ...plugins];
-	},
-	...
-}
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="_2-3-nginx-配置" tabindex="-1"> 2.3 nginx 配置</h3>
-<p>在nginx.conf 的 在http 中添加</p>
-<pre><code>gzip                on;
-#gzip_static         on;
-gzip_min_length     1k;
-gzip_comp_level     5;
-gzip_http_version   1.0;
-gzip_types          text/plain application/javascript application/x-javascript text/javascript text/xml text/css;
-</code></pre>
-<p>使用 gzip_static  需要nginx 支持，可选择性开启</p>
-<ul>
-<li>
-<p>使用前876KB</p>
-<p><img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20200326183747822.png" alt="image-20200326183747822"></p>
-</li>
-<li>
-<p>使用后311KB</p>
-<p><img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20200326183657671.png" alt="image-20200326183657671"></p>
-</li>
-</ul>
-]]></content:encoded>
-      <enclosure url="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20200326183747822.png" type="image/png"/>
-    </item>
-    <item>
-      <title>iframe</title>
-      <link>https://bytecodes.tech/language/frontend-base/fe-iframe.html</link>
-      <guid>https://bytecodes.tech/language/frontend-base/fe-iframe.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">iframe</source>
-      <pubDate>Mon, 26 Dec 2022 09:08:14 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="iframe" tabindex="-1"> iframe</h1>
-<h2 id="_1-简介" tabindex="-1"> 1.简介</h2>
-<p>在页面嵌套iframe标签，指定src就可以展示一个外部的url</p>
-<div><pre><code><span><span><span>&lt;</span>iframe</span> <span>src</span><span><span>=</span><span>"</span>www.baidu.com<span>"</span></span><span>></span></span><span><span><span>&lt;/</span>iframe</span><span>></span></span>
-</code></pre><div aria-hidden="true"><div></div></div></div><p>iframe 标签功能强大，但也是能耗最高的一个原生，安全性也差。在使用时要权衡使用</p>
-<h2 id="_2-基础使用" tabindex="-1"> 2. 基础使用</h2>
-<p>基础使用</p>
-<div><pre><code><span><span><span>&lt;</span>iframe</span> <span>src</span><span><span>=</span><span>"</span>www.baidu.com<span>"</span></span><span>></span></span><span><span><span>&lt;/</span>iframe</span><span>></span></span>
-</code></pre><div aria-hidden="true"><div></div></div></div><p>常用属性</p>
-<div><pre><code>1.frameborder:是否显示边框，1(yes),0(no)
-
-2.height:框架作为一个普通元素的高度，建议在使用css设置。
-
-3.width:框架作为一个普通元素的宽度，建议使用css设置。
-
-4.name:框架的名称，window.frames[name]时专用的属性。
-
-5.scrolling:框架的是否滚动。yes,no,auto。
-
-6.src：内框架的地址，可以使页面地址，也可以是图片的地址。
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="_2-重新加载iframe" tabindex="-1"> 2. 重新加载iframe</h2>
-<div><pre><code><span>let</span> pdfIframe <span>=</span> <span>this</span><span>.</span>$refs<span>.</span>pdfIframe<span>;</span>
-pdfIframe<span>.</span>contentWindow<span>.</span>location<span>.</span><span>reload</span><span>(</span><span>true</span><span>)</span><span>;</span>
-</code></pre><div aria-hidden="true"><div></div><div></div></div></div><h2 id="参考文章" tabindex="-1"> 参考文章</h2>
-<p><a href="https://segmentfault.com/a/1190000004502619" target="_blank" rel="noopener noreferrer">iframe,我们来谈一谈</a></p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>js导出：exports、module.exports 和 export、export default</title>
-      <link>https://bytecodes.tech/language/frontend-base/fe-js-export.html</link>
-      <guid>https://bytecodes.tech/language/frontend-base/fe-js-export.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">js导出：exports、module.exports 和 export、export default</source>
-      <pubDate>Mon, 26 Dec 2022 09:08:14 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="js导出-exports、module-exports-和-export、export-default" tabindex="-1"> js导出：exports、module.exports 和 export、export default</h1>
-<h2 id="_1-前言" tabindex="-1"> 1. 前言</h2>
-<p>js导入导出有多种方式，新手常常被绕得晕头转向</p>
-<p>它们的使用范围</p>
-<ul>
-<li>
-<p><code>require</code>: node 支持的引入</p>
-</li>
-<li>
-<p><code>module.exports / exports</code>: 只有 node 支持的导出</p>
-</li>
-<li>
-<p><code>export / import</code> : 只有es6 支持的导出引入`</p>
-</li>
-</ul>
-<blockquote>
-<p>我们大部分在vue中使用的是es6 <code>export / import</code> 的导入导出，</p>
-<p>如导出api:</p>
-<p>​	let api{</p>
-<p>​		// 网络请求</p>
-<p>​	}</p>
-<p>export default api;</p>
-<p>导入：</p>
-<p>import api from '../api/myapi';</p>
-</blockquote>
-<h2 id="_2-node模块" tabindex="-1"> 2.node模块</h2>
-<p><code>Node</code>里面的模块系统遵循的是<code>CommonJS</code>规范。 那问题又来了，什么是<code>CommonJS</code>规范呢？ 由于<code>js</code>以前比较混乱，各写各的代码，没有一个模块的概念，而这个规范出来其实就是对模块的一个定义。</p>
-<blockquote>
-<p><code>CommonJS</code>定义的模块分为: 模块标识(<code>module</code>)、模块定义(<code>exports</code>) 、模块引用(<code>require</code>)</p>
-</blockquote>
-<p>先解释 <code>exports</code> 和 <code>module.exports</code> 在一个node执行一个文件时，会给这个文件内生成一个 <code>exports</code>和<code>module</code>对象， 而<code>module</code>又有一个<code>exports</code>属性。他们之间的关系如下图，都指向一块{}内存区域。</p>
-<div><pre><code>exports = module.exports = {};
-</code></pre><div aria-hidden="true"><div></div></div></div><p><img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20210207165709128.png" alt="image-20210207165709128"></p>
-<p>那下面我们来看看代码的吧。</p>
-<div><pre><code>//utils.js
-let a = 100;
-console.log(module.exports); //能打印出结果为：{}
-console.log(exports); //能打印出结果为：{}
-
-exports.a = 200; //这里辛苦劳作帮 module.exports 的内容给改成 {a : 200}
-
-exports = '指向其他内存区'; //这里把exports的指向指走
-
-//test.js
-
-var a = require('/utils');
-console.log(a) // 打印为 {a : 200} 
-
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><blockquote>
-<p>从上面可以看出，其实<code>require</code>导出的内容是<code>module.exports</code>的指向的内存块内容，并不是<code>exports</code>的。 简而言之，<strong>区分他们之间的区别就是 <code>exports</code> 只是 <code>module.exports</code>的引用，辅助后者添加内容用的</strong>。</p>
-</blockquote>
-<p>用白话讲就是，<code>exports</code>只辅助<code>module.exports</code>操作内存中的数据，辛辛苦苦各种操作数据完，累得要死，结果到最后真正被<code>require</code>出去的内容还是<code>module.exports</code>的，真是好苦逼啊。</p>
-<p>其实大家用内存块的概念去理解，就会很清楚了。</p>
-<p>然后呢，为了避免糊涂，<strong>尽量都用 <code>module.exports</code> 导出，然后用<code>require</code>导入。</strong></p>
-<h2 id="_3-es中的模块导出导入" tabindex="-1"> 3. ES中的模块导出导入</h2>
-<p>在es中的模块，就非常清晰了。不过也有一些细节的东西需要搞清楚。 比如 <code>export</code> 和 <code>export default</code>，还有 导入的时候，<code>import a from ..</code>,<code>import {a} from ..</code>，总之也有点乱，那么下面我们就开始把它们捋清楚吧。</p>
-<h3 id="_3-1-export-和-export-default" tabindex="-1"> 3.1 export 和 export default</h3>
-<p>首先我们讲这两个导出，下面我们讲讲它们的区别</p>
+<h2 id="flutter" tabindex="-1"> Flutter</h2>
+<p><a href="https://github.com/flutter/flutter" target="_blank" rel="noopener noreferrer">Flutter</a> 作为 Google 的亲儿子，其官方的扶持力度大家有目共睹。</p>
+<p>Flutter 的发展大家可以看一下 Gityuan 的这一篇<a href="http://gityuan.com/flutter/" target="_blank" rel="noopener noreferrer">Flutter 跨平台演进及架构开篇</a>,目前字节跳动的多个 App 已经接入 Flutter 进行混合开发。</p>
+<h1 id="android-studio" tabindex="-1"> Android Studio</h1>
+<h2 id="android-studio-ide-overview" tabindex="-1"> Android Studio IDE Overview</h2>
+<p>Android Studio 作为 Android 默认的开发者工具，目前的版本更新已经解决了诸多之前的性能问题，虽然目前对硬件资源的要求仍然比较高，但是一旦你接受了这个设定，真香预警！</p>
+<p>AS 主要需要熟悉下面几点</p>
 <ol>
-<li>export与export default均可用于导出常量、函数、文件、模块等</li>
-<li>在一个文件或模块中，export、import可以有多个，export default仅有一个</li>
-<li>通过export方式导出，在导入时要加{ }，export default则不需要</li>
-<li>export能直接导出变量表达式，export default不行。</li>
+<li>AS 快捷键</li>
+<li>AS 插件</li>
+<li>AS Profile （内存、CPU、IO、NetWork）</li>
 </ol>
-<p>下面咱们看看代码去验证一下</p>
-<h3 id="_3-2-es6导出验证" tabindex="-1"> 3.2 ES6导出验证</h3>
-<h4 id="testes6export-js" tabindex="-1"> testEs6Export.js</h4>
-<div><pre><code>'use strict'
-//导出变量
-export const a = '100';  
-
- //导出方法
-export const dogSay = function(){ 
-    console.log('wang wang');
-}
-
- //导出方法第二种
-function catSay(){
-   console.log('miao miao'); 
-}
-export { catSay };
-
-//export default导出
-const m = 100;
-export default m; 
-//export defult const m = 100;// 这里不能写这种格式。
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="_3-3-es6导入验证" tabindex="-1"> 3.3 ES6导入验证</h3>
-<h4 id="index-js" tabindex="-1"> index.js</h4>
-<div><pre><code>//index.js
-'use strict'
-var express = require('express');
-var router = express.Router();
-
-import { dogSay, catSay } from './testEs6Export'; //导出了 export 方法 
-import m from './testEs6Export';  //导出了 export default 
-
-import * as testModule from './testEs6Export';//as 集合成对象导出
-
-
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  dogSay();
-  catSay();
-  console.log(m);
-  testModule.dogSay();
-  console.log(testModule.m); // undefined , 因为  as 导出是 把 零散的 export 聚集在一起作为一个对象，而export default 是导出为 default属性。
-  console.log(testModule.default); // 100
-  res.send('恭喜你，成功验证');
-});
-
-module.exports = router;
-
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>从上面可以看出，确实感觉 <code>ES6</code>的模块系统非常灵活的。</p>
-<h2 id="参考文章" tabindex="-1"> 参考文章</h2>
-<p><a href="https://juejin.im/post/6844903489257095181" target="_blank" rel="noopener noreferrer">exports、module.exports 和 export、export default 到底是咋回事</a></p>
-]]></content:encoded>
-      <enclosure url="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20210207165709128.png" type="image/png"/>
-    </item>
-    <item>
-      <title>npm install时遇到的问题 npm ERR! code ERESOLVE</title>
-      <link>https://bytecodes.tech/language/frontend-base/fe-npm-err-code-eresolve.html</link>
-      <guid>https://bytecodes.tech/language/frontend-base/fe-npm-err-code-eresolve.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">npm install时遇到的问题 npm ERR! code ERESOLVE</source>
-      <pubDate>Mon, 26 Dec 2022 09:08:14 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="npm-install时遇到的问题-npm-err-code-eresolve" tabindex="-1"> npm install时遇到的问题 npm ERR! code ERESOLVE</h1>
-<h2 id="_1-问题描述" tabindex="-1"> 1. 问题描述</h2>
-<p>在使用npm install时遇到的问题</p>
-<div><pre><code>npm ERR! code ERESOLVE
-npm ERR! ERESOLVE unable to resolve dependency tree
-npm ERR!
-npm ERR! While resolving: ruoyi@3.4.0
-npm ERR! Found: webpack@5.35.0
-npm ERR! node_modules/webpack
-npm ERR!   peer webpack@"^4.0.0 || ^5.0.0" from html-webpack-plugin@4.5.2
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="_2-原因" tabindex="-1"> 2. 原因</h2>
-<p><strong>因为npm7.x对某些事情比npm6.x更严格</strong></p>
-<h2 id="_3-解决" tabindex="-1"> 3. 解决</h2>
-<p>通常，最简单的解决方法是将--legacy-peer-deps标志传递给npm(e.g.，npm i --legacy-peer-deps），或者使用npm@6。</p>
+<h2 id="project-structure-—-java-kotlin-flutter-xml-gradle-files" tabindex="-1"> Project Structure — Java/Kotlin/Flutter, XML, .gradle files</h2>
+<p>熟悉各种项目的目录结构，资源文件、Gradle 文件</p>
+<h1 id="android-基础知识" tabindex="-1"> Android 基础知识</h1>
+<h2 id="四大组件" tabindex="-1"> 四大组件</h2>
+<p>这部分不必做过多的解释，下面列出的就是大家熟悉的 Android 四大组件，Android 开发的基础</p>
+<ol>
+<li>Activity — Activity Lifecycle, Tasks &amp; Back Stack</li>
+<li>Service</li>
+<li>Broadcast Receiver</li>
+<li>Content Provider</li>
+</ol>
+<h2 id="intents" tabindex="-1"> Intents</h2>
+<ol>
+<li>Types of Intent - Implicit, Explicit</li>
+<li>Intent Filter</li>
+</ol>
+<h2 id="static-user-interface" tabindex="-1"> Static User Interface</h2>
+<ol>
+<li>View — Button, ImageView, TextView, EditText, and etc :这是开发中会遇到的常用的组件，许多复杂的布局都是用简单基础的 View 组合而成</li>
+<li>ViewGroup - LinearLayout, RelativeLayout, FrameLayout:三大传统布局，适用于不同的场合</li>
+<li>ConstraintLayout : Google 新推的布局，目前已经取代 RelativeLayout 成为默认的 App 布局，具体使用可以参考<a href="https://developer.android.google.cn/reference/android/support/constraint/ConstraintLayout?hl=zh-cn" target="_blank" rel="noopener noreferrer">官方文档</a></li>
+</ol>
+<h2 id="dynamic-user-interface" tabindex="-1"> Dynamic User Interface</h2>
+<ol>
+<li>RecyclerView - 列表类的布局首选控件，性能相对 ListView 要好一些，功能也比 ListView 要多一些</li>
+<li>ViewPager</li>
+<li>Spinner</li>
+</ol>
+<h2 id="customview" tabindex="-1"> CustomView</h2>
+<p>Android 默认的布局很多时候都没法满足设计的需求，这时候就需要自定义 View，你需要掌握下面几个知识点的使用</p>
+<ol>
+<li>Canvas</li>
+<li>Bitmap</li>
+<li>Paint</li>
+</ol>
+<h2 id="ui-resources" tabindex="-1"> UI Resources</h2>
+<p>相比 HardCode，使用资源文件会让代码的可修改性更高</p>
+<ol>
+<li>Drawables</li>
+<li>String</li>
+<li>Styles</li>
+</ol>
+<h2 id="fragments" tabindex="-1"> Fragments</h2>
+<p>许多人提倡 App 使用 单 Activity + 多个 Fragment 的组合，可见 Fragment 在开发中的重要性，但是 Fragment 的管理又是一门技术，Fragment 的坑，只能在实际开发中慢慢填平了，不过下面的 Fragment 基础还是要牢固</p>
+<ol>
+<li>Fragment Lifecycle</li>
+<li>Fragment Manager</li>
+</ol>
+<h2 id="support-user-interface" tabindex="-1"> Support User Interface</h2>
+<p>这里列的同样是一些功能组件，需要知道这是什么东西，基本的用法</p>
+<ol>
+<li>ProgressBar - 进度条</li>
+<li>Dialogs - 弹框</li>
+<li>Toast &amp; Snackbar - 提示</li>
+</ol>
+<h2 id="storage" tabindex="-1"> Storage</h2>
+<p>App 开发不免要和文件打交道，文件的读写、存储都是必不可少的，下面列出了几种 Android 中存储相关的知识点</p>
+<ol>
+<li>Shared Preferences - 适合存储字段</li>
+<li>File Systems - 文件存储</li>
+<li>Database — RoomDB - 数据库存储，RoomDB 是 Google 新推出的数据库解决方案(在 AndroidX 中)，具体使用可以参考<a href="https://developer.android.google.cn/reference/androidx/room/RoomDatabase.html" target="_blank" rel="noopener noreferrer">官方文档</a></li>
+</ol>
+<h2 id="build" tabindex="-1"> Build</h2>
+<p>Android App 默认使用 Gradle 进行编译，关于 Gradle 的使用必须要熟悉，以及如何区分开发版本和 Release 版本，以及国内特有的多渠道打包技术、以及 ASM 等</p>
+<ol>
+<li>Gradle</li>
+<li>Debug / Release Configuration</li>
+<li>多渠道打包</li>
+<li>ASM</li>
+</ol>
+<h2 id="threading" tabindex="-1"> Threading</h2>
+<p>理解 Thread 非常重要，Android App 只有一个主线程，其余的我们称之为工作线程，我们的很多工作需要再工作线程和主线程直接切换，如何高效创建和释放线程、线程池、线程间通信、Message-Looper-Handler 模型这些知识点都要了熟于心，另外进阶的话 Binder 通信也是需要掌握的知识</p>
+<ol>
+<li>Threads</li>
+<li>Handler / Looper / Message / MessageQueue</li>
+<li>AIDL / Binder</li>
+</ol>
+<h1 id="debugging" tabindex="-1"> Debugging</h1>
+<p>这里列举了一些 Debug 的基本手段，实际开发中遇到具体问题的时候一般都会用到，不过有的可能入手难度要高一些，需要花时间去掌握。Debug 工具除了下面这几个还有很多</p>
+<ol>
+<li>Memory profiling - MAT，AS Memory Profile</li>
+<li>Logging - Log 包含非常丰富的信息，可以帮助我们还原现场</li>
+<li>Systrace - Systrace 工具可以查看一段时间内手机系统各个进程的运行状态，具体使用可以参考我博客的 <a href="https://www.androidperformance.com/2019/05/28/Android-Systrace-About/" target="_blank" rel="noopener noreferrer">Systrace 系列教程</a></li>
+<li>Exceptions - 各种异常，保证程序的健壮性</li>
+<li>Error Handling - Error 是必须要解决的问题，一般会导致 App 直接闪退，需要非常重视</li>
+</ol>
+<h1 id="memory-leak" tabindex="-1"> Memory Leak</h1>
+<p>内存泄漏是一个很大的专题，包括 Java 内容泄漏和 Native 内存泄漏，涉及的知识点非常多，可以单独拿出来做一个大的知识栈。一般来说， Java 内存泄漏会比较好检测和修复，但是 Native 内存泄漏就会比较难。</p>
+<ol>
+<li>Detecting and Fixing Memory Leaks - 内存泄漏检测和修复，是一个比较大的工程，可以参考 LeakCanary、Matrix 等开源工具</li>
+<li>Context - 使用不当会造成该释放的对象没有释放造成内存泄漏</li>
+<li>Native Memory Leaks</li>
+</ol>
+<h1 id="_3rd-party-library" tabindex="-1"> 3rd Party Library</h1>
+<p>经典的第三方类库，可以大幅节约我们的开发时间</p>
+<ol>
+<li>Image Loading - Glide, Picasso</li>
+<li>Dependency Injection - Dagger</li>
+<li>Networking - Fast Android Networking Library, Retrofit</li>
+<li>MultiThreading - RxJava, Coroutines</li>
+</ol>
+<h1 id="data-format" tabindex="-1"> Data Format</h1>
+<p>常见的一些数据保存流格式</p>
+<ol>
+<li>JSON — GSON</li>
+<li>Flat Buffer</li>
+<li>Protocol Buffer</li>
+</ol>
+<h1 id="android-jetpack" tabindex="-1"> Android Jetpack</h1>
+<p><a href="https://developer.android.google.cn/jetpack?hl=zh-cn" target="_blank" rel="noopener noreferrer">Jetpack</a> 是 Google 推出的一套库、工具和指南，可帮助开发者更轻松地编写优质应用。这些组件可帮助您遵循最佳做法、让您摆脱编写样板代码的工作并简化复杂任务，以便您将精力集中放在所需的代码上。Jetpack 包含与平台 API 解除捆绑的 androidx.* 软件包库。这意味着，它可以提供向后兼容性，且比 Android 平台的更新频率更高，以此确保您始终可以获取最新且最好的 Jetpack 组件版本。</p>
+<p>这部分推荐一个读者的书《<a href="https://e.jd.com/30816230.html" target="_blank" rel="noopener noreferrer">关注 Android Jetpack开发：原理解析与应用实战</a>》，musk为此写过推荐语，封面可见。</p>
+<ol>
+<li>Foundation Components — AppCompat, Android KTX, Multidex</li>
+<li>Architecture Components — LiveData, ViewModel, DataBinding, Paging, Work Manager, Navigation</li>
+<li>Behaviour Components - Download Manager, Media Playback, Notification, Permissions, Preference, Sharing, Slice</li>
+<li>UI Component - Animation &amp; Transition, Android Auto, Emoji, Palette, Android TV, Android Wear</li>
+</ol>
+<h1 id="architecture" tabindex="-1"> Architecture</h1>
+<p>传统的开发架构，没有绝对的哪个好哪个不好，只有哪个适合哪个不适合，下面三种你都应该知道并有一定的了解</p>
+<ol>
+<li>MVVM - MVVM 是 Model-View-ViewModel的简写。它本质上就是 MVC 的改进版。MVVM 就是将其中的 View 的状态和行为抽象化，让我们将视图 UI 和业务逻辑分开</li>
+<li>MVI ？</li>
+<li>MVP - MVP 从更早的 MVC 框架演变过来，与 MVC 有一定的相似性：Controller/Presenter 负责逻辑的处理，Model 提供数据，View 负责显示</li>
+</ol>
+<h1 id="unit-testing" tabindex="-1"> Unit Testing</h1>
+<ol>
+<li>Local Unit Testing</li>
+<li>Instrumentation Testing</li>
+</ol>
+<h1 id="firebase" tabindex="-1"> Firebase</h1>
+<p>Firebase 国内很多开发者用不到，这里简单看一下即可（说不定哪天国内就可以用了呢）</p>
+<ol>
+<li>FCM</li>
+<li>Crashlytics</li>
+<li>Analytics</li>
+<li>Remote Config</li>
+<li>App Indexing</li>
+<li>Dynamic Link</li>
+</ol>
+<h1 id="security" tabindex="-1"> Security</h1>
+<p>安全方面接触毕竟多的应该是加密、解密、混淆等，毕竟用户数据安全大于一切，不重视这个欧盟会教你做人</p>
+<ol>
+<li>Encrypt / Decrypt</li>
+<li>Proguard</li>
+<li>R8</li>
+</ol>
+<h1 id="app-release" tabindex="-1"> App Release</h1>
+<p>应用发布相关的知识，国内还得加上多渠道打包、插件化</p>
+<ol>
+<li>.keystore file</li>
+<li>App Bundle</li>
+<li>Playstore</li>
+<li>多渠道打包</li>
+<li>插件化</li>
+</ol>
+<h1 id="keep-learning-and-improving" tabindex="-1"> Keep Learning and Improving</h1>
+<p>作为一个有进取心的 Android 开发者，拥有自己的技术栈和规划非常重要，技术栈确保你有足够的市场竞争力，从而形成护城河；技术规划则可以给你一个明确的学习目标。卸载抖音、微博、斗鱼、游戏吧，做好一年的规划，<strong>Keep Learning and Improving</strong> ，共勉</p>
+<p>如果你苦于没有好的时间管理方法，可以参考这个视频<a href="https://www.bilibili.com/video/av79348217" target="_blank" rel="noopener noreferrer">我是怎么做周计划 | 生产力提升 | 我的方法</a>,这个是我熟悉的一个大佬的工作学习方法实践，推荐给大家</p>
 <blockquote>
-<p>提示：使用npm@6不需要卸载npm@7。使用npx指定npm的版本。例如：npx -p npm@6 npm i --legacy-peer-deps。</p>
+<p>凡是预则立，不预则废，年度计划太长，日计划又太短。实践下来发现以周为单位做时间管理（时间管理）最靠谱，既考虑了短期又考虑了长期，可以使自己长期坚持做某事，也有一定的时间长度用来甄有价值的事情。</p>
 </blockquote>
-<p>如果这不能立即起作用，也许可以先删除node_modules和package-lock.json。它们将被重新创建。</p>
-<h2 id="参考文章" tabindex="-1"> 参考文章</h2>
-<p><a href="https://blog.csdn.net/qq_22832075/article/details/115999117" target="_blank" rel="noopener noreferrer">在使用npm install时遇到的问题 npm ERR! code ERESOLVE</a></p>
+<hr>
 ]]></content:encoded>
     </item>
     <item>
-      <title>npm 运行项目时 Error: PostCSS received undefined instead of CSS string</title>
-      <link>https://bytecodes.tech/language/frontend-base/fe-npmrun-postcss.html</link>
-      <guid>https://bytecodes.tech/language/frontend-base/fe-npmrun-postcss.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">npm 运行项目时 Error: PostCSS received undefined instead of CSS string</source>
-      <pubDate>Mon, 26 Dec 2022 09:08:14 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="npm-运行项目时-error-postcss-received-undefined-instead-of-css-string" tabindex="-1"> npm 运行项目时 Error: PostCSS received undefined instead of CSS string</h1>
-<h2 id="_1-背景" tabindex="-1"> 1.  背景</h2>
-<p>新拉下来的项目，启动项目 npm run dev 的时候就报错：</p>
-<div><pre><code><span>Error</span><span>:</span> PostCSS received <span>undefined</span> instead <span>of</span> <span>CSS</span> string
-</code></pre><div aria-hidden="true"><div></div></div></div><h2 id="_2-原因" tabindex="-1"> 2. 原因</h2>
-<p>我的node的版本影响了node-sass的应用。</p>
-<h2 id="_3-解决办法" tabindex="-1"> 3. 解决办法</h2>
-<p>卸载当前版本，安装最新版本的node-sass</p>
-<div><pre><code>npm uninstall node-sass
+      <title>2022最新超详细大数据学习路线（建议收藏🔥）</title>
+      <link>https://bytecodes.tech/learning-path/bigdata.html</link>
+      <guid>https://bytecodes.tech/learning-path/bigdata.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">2022最新超详细大数据学习路线（建议收藏🔥）</source>
+      <description>如何系统地学习大数据？如何成为一名合格的大数据工程师？我这里给大家准备了一份 GitHub 上星标 12k 的大数据入门指南</description>
+      <category>学习路线</category>
+      <pubDate>Mon, 26 Dec 2022 09:47:33 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="关于大数据" tabindex="-1"> 关于大数据</h2>
+<ul>
+<li>1991 年，数据仓库改变诞生</li>
+<li>2005 年，Hadoop 诞生</li>
+<li>2010 年，数据湖的概念出现</li>
+<li>201X 年，大数据平台出现</li>
+<li>2016 年，阿里提出数据中台的概念</li>
+</ul>
+<p>大数据处理框架可以分为：</p>
+<p><strong>数据采集</strong>：大数据处理的第一步，第一种是通过 Sqoop 或者 Cannal 等工具进行定时抽取或者实时同步；第二种是各种埋点日志，通过 Flume 进行实时收集。</p>
+<p><strong>数据存储</strong>：大数据处理的第二步，将数据存储到 HDFS 中，实时日志流情况下通过 Kafka 输出给后面的流式计算引擎。</p>
+<p><strong>数据分析</strong>：大数据的核心环节，包括离线处理和流处理两种方式，对应的计算引擎包括 MapReduce、Spark、Flink 等，处理完的结果会保存到已经提前设计好的数据仓库中，或者 HBase、Redis、RDBMS 等各种存储系统上。</p>
+<p><strong>数据应用</strong>：数据可视化、工 AI 使用等。</p>
+<h2 id="大数据的学习路线" tabindex="-1"> 大数据的学习路线</h2>
+<h3 id="_1-语言基础" tabindex="-1"> 1）语言基础</h3>
+<p><strong>Java</strong></p>
+<p>大数据框架大多采用 Java 语言开发，并且几乎全部的框架都会提供 Java API。</p>
+<p>学 Java 的话，不用多说，直接上《<a href="https://tobebetterjavaer.com/" target="_blank" rel="noopener noreferrer">Java 程序员进阶之路</a>》网站就 OK 了。</p>
+<p>如果想读纸质书的话，推荐《<a href="https://book.douban.com/subject/30217317/" target="_blank" rel="noopener noreferrer">on Java 8</a>》。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/bigdata-9a3d4c2c-2db4-4d53-9d8f-1bb72f7454b9.png" alt=""></p>
+<p><strong>Scala</strong></p>
+<p>Scala 是一门综合了面向对象和函数式编程概念的静态类型的编程语言，运行在 Java 虚拟机上，可以和 Java 类库无缝衔接，Kafka 就是用 Scala 进行开发的。</p>
+<p>为什么要学习 Scala？因为 Flink 和 Spark 都提供了 Scala 接口，使用 Scala 开发，比使用 Java 8 更省代码。另外，spark 就是用 Scala 开发的。</p>
+<p>推荐两本书《<a href="https://book.douban.com/subject/27093751/" target="_blank" rel="noopener noreferrer">快学 Scala</a>》和 《<a href="https://book.douban.com/subject/27591387/" target="_blank" rel="noopener noreferrer">Scala 编程</a>》。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/bigdata-d5df6ea5-273a-425c-968e-da07f7ef0777.png" alt=""></p>
+<p>当然了，Scala 不是必学的。也可以放到学完 spark 之后再去学习 Scala。</p>
+<h3 id="_2-linux-基础" tabindex="-1"> 2）Linux 基础</h3>
+<p>推荐《<a href="https://book.douban.com/subject/4889838/" target="_blank" rel="noopener noreferrer">鸟哥的私房菜</a>》</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/bigdata-c0180f2c-6445-4881-ab04-90c43ef870f2.png" alt=""></p>
+<p>或者自己装个 Linux 虚拟机/云服务器直接上手实操。</p>
+<h3 id="_3-构建工具" tabindex="-1"> 3）构建工具</h3>
+<p>Maven，Java 程序员进阶之路上有教程：<a href="https://tobebetterjavaer.com/maven/maven.html" target="_blank" rel="noopener noreferrer">https://tobebetterjavaer.com/maven/maven.html</a></p>
+<h3 id="_4-框架学习" tabindex="-1"> 4）框架学习</h3>
+<ul>
+<li>日志收集框架：Flume、Logstash、Filebeat</li>
+<li>分布式文件存储系统：Hadoop HDFS</li>
+<li>数据库系统：Mongodb、HBase</li>
+<li>分布式计算框架：
+<ul>
+<li>批处理框架：Hadoop MapReduce</li>
+<li>流处理框架：Storm</li>
+<li>混合处理框架：Spark、Flink</li>
+</ul>
+</li>
+<li>查询分析框架：Hive 、Spark SQL 、Flink SQL、 Pig、Phoenix</li>
+<li>集群资源管理器：Hadoop YARN</li>
+<li>分布式协调服务：Zookeeper</li>
+<li>数据迁移工具：Sqoop</li>
+<li>任务调度框架：Azkaban、Oozie</li>
+<li>集群部署和监控：Ambari、Cloudera Manager</li>
+</ul>
+<p>列出的这些主流框架，社区都比较活跃，学习资源也比较丰富。</p>
+<p>先学 Hadoop，这是大数据生态圈的基石。</p>
+<p>接着学习计算框架，spark 和 flink 是目前最主流的两个混合处理框架。</p>
+<p>可以按工作需要学习。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/bigdata-3feb773b-246b-4dad-9c3b-1a9ef83b6f64.png" alt=""></p>
+<p>如果学习时间有限的话，初次学习的时候，同一类框架学一种就好。</p>
+<p>学习资料最权威和最全面的学习资料就是官方文档，社区也都非常活跃。</p>
+<p>这里就列一些优质书籍吧。</p>
+<ul>
+<li>《<a href="https://book.douban.com/subject/27115351/" target="_blank" rel="noopener noreferrer">hadoop 权威指南 (第四版)</a>》 2017 年</li>
+<li>《<a href="https://book.douban.com/subject/27665114/" target="_blank" rel="noopener noreferrer">Kafka 权威指南</a>》 2017 年</li>
+<li>《<a href="https://book.douban.com/subject/26292004/" target="_blank" rel="noopener noreferrer">从 Paxos 到 Zookeeper 分布式一致性原理与实践</a>》 2015 年</li>
+<li>《<a href="https://book.douban.com/subject/26649141/" target="_blank" rel="noopener noreferrer">Spark 技术内幕 深入解析 Spark 内核架构设计与实现原理</a>》 2015 年</li>
+<li>《<a href="https://book.douban.com/subject/10748460/" target="_blank" rel="noopener noreferrer">HBase 权威指南</a>》 2012 年</li>
+<li>《<a href="https://book.douban.com/subject/25791255/" target="_blank" rel="noopener noreferrer">Hive 编程指南</a>》 2013 年</li>
+</ul>
+<p>视频的话，<a href="https://space.bilibili.com/302417610/search/video?keyword=%E5%A4%A7%E6%95%B0%E6%8D%AE" target="_blank" rel="noopener noreferrer">尚硅谷的大数据相关视频</a>还不错。</p>
 
-npm install node-sass --save-dev
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><p>删除依赖，重新安装又依赖</p>
-<div><pre><code>rimraf node_modules
-
-npm install
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><p>然后再重新启动项目就成功了</p>
-<h1 id="参考文章" tabindex="-1"> 参考文章</h1>
-<p><a href="https://blog.csdn.net/Sunday97/article/details/116492447" target="_blank" rel="noopener noreferrer">Error: PostCSS received undefined instead of CSS string</a></p>
+<h2 id="学习建议" tabindex="-1"> 学习建议</h2>
+<h3 id="_1、java" tabindex="-1"> 1、Java</h3>
+<p>这个没毛病，看 <a href="https://tobebetterjavaer.com/home.html" target="_blank" rel="noopener noreferrer">Java 程序员进阶之路</a>就好了，Spring Boot 也要能掌握，看星球的《编程喵 🐱 实战项目笔记》就好了。</p>
+<h3 id="_2、mysql" tabindex="-1"> 2、MySQL</h3>
+<p>要能写复杂的 SQL 语句，为后面学习 Hive 数仓的 HQL 打好基础。</p>
+<h3 id="_3、linux" tabindex="-1"> 3、Linux</h3>
+<p>大数据的相关软件都是在 Linux 上运行的，所以 Linux 要学习的扎实一些。</p>
+<p>要能在 Linux 上配置 Hadoop、Hive、HBase、Spark 等大数据软件的运行环境和网络环境配置。</p>
+<h3 id="_4、hadoop-学习" tabindex="-1"> 4、Hadoop 学习</h3>
+<p>包括：</p>
+<ul>
+<li>HDFS：存储数据</li>
+<li>MapReduce： 对数据进行处理计算</li>
+<li>Yarn： Yarn 的全称是 Yet Another Resource Negotiator，意思是“另一种资源调度器”，这种命名和“有间客栈”一样，很妙。这里多说一句，以前 Java 有一个项目编译工具，叫做 Ant，他的命名也是类似的，叫做 “Another Neat Tool”的缩写，翻译过来是”另一种整理工具“。</li>
+</ul>
+<p>第一步，先让 Hadoop 跑起来</p>
+<p>第二步，试着用一用 Hadoop</p>
+<ul>
+<li>上传下载文件</li>
+<li>提交运行 MapReduce 示例程序</li>
+<li>查看 Job 运行状态，查看 Job 运行日志</li>
+</ul>
+<p>第三步，了解原理</p>
+<ul>
+<li>MapReduce：如何分而治之</li>
+<li>HDFS：数据到底在哪里，什么是副本</li>
+<li>Yarn 到底是什么，它能干什么；</li>
+<li>NameNode 到底在干些什么；</li>
+<li>esourceManager 到底在干些什么；</li>
+</ul>
+<p>第四步，自己写一个 MapReduce 程序</p>
+<h3 id="_5、学习-hive" tabindex="-1"> 5、学习 Hive</h3>
+<p>Hive 就是 SQL On Hadoop，Hive 提供了 SQL 接口，开发人员只需要编写简单易上手的 SQL 语句，Hive 负责把 SQL 翻译成 MapReduce，提交运行。</p>
+<h3 id="_6、学习数据采集-sqoop-flume-datax" tabindex="-1"> 6、学习数据采集 Sqoop / Flume / DataX</h3>
+<p>Sqoop 主要用于把 MySQL 里的数据导入到 Hadoop 里的。</p>
+<p>Flume 是一个分布式的海量日志采集和传输框架，可以实时的从网络协议、消息系统、文件系统采集日志，并传输到 HDFS 上。</p>
+<p>DataX 是阿里云 DataWorks 数据集成的开源版本。</p>
+<h3 id="_7、学习-spark" tabindex="-1"> 7、学习 Spark</h3>
+<p>Spark 弥补了 MapReduce 处理数据速度上慢的缺点</p>
+<h3 id="_8、学习-kafka" tabindex="-1"> 8、学习 kafka</h3>
+<p>使用 Flume 采集的数据，不是直接到 HDFS 上，而是先到 Kafka，Kafka 中的数据可以由多个消费者同时消费，其中一个消费者，就是将数据同步到 HDFS 上。</p>
+<p>Flume + Kafka，在实时流式日志的处理非常常见，后面再通过 Spark Streaming 等流式处理技术，就可完成日志的实时解析和应用。</p>
+<h3 id="_9、学习任务调度-oozie-azkaban" tabindex="-1"> 9、学习任务调度 Oozie / Azkaban</h3>
+<h3 id="_10、学习实时数据的处理-flink-spark-streaming" tabindex="-1"> 10、学习实时数据的处理 Flink / Spark Streaming</h3>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/bigdata-6652c50b-cda6-46dc-8732-69b10319f0da.png" alt="大数据的技术栈体系"></p>
+<p>再总结一份大数据学习指南的思维导图吧。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/bigdata-99b69697-4804-4113-907b-fbe14ac36964.png" alt=""></p>
+<hr>
 ]]></content:encoded>
+      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/bigdata-9a3d4c2c-2db4-4d53-9d8f-1bb72f7454b9.png" type="image/png"/>
     </item>
     <item>
-      <title>首屏优化之-vue路由懒加载和使用懒加载prefetch问题</title>
-      <link>https://bytecodes.tech/language/frontend-base/fe-vue-route-lazy-loading.html</link>
-      <guid>https://bytecodes.tech/language/frontend-base/fe-vue-route-lazy-loading.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">首屏优化之-vue路由懒加载和使用懒加载prefetch问题</source>
-      <pubDate>Mon, 26 Dec 2022 09:08:14 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="首屏优化之-vue路由懒加载和使用懒加载prefetch问题" tabindex="-1"> 首屏优化之-vue路由懒加载和使用懒加载prefetch问题</h1>
-<h2 id="_1-背景" tabindex="-1"> 1. 背景</h2>
-<p>使用路由懒加载以后 webpack 打包可以根据页面划分来生成文件，根据路由的不同来加载文件，解决了首页一次性加载文件过大导致打开过慢的问题。</p>
-<h2 id="_2-优化操作" tabindex="-1"> 2. 优化操作</h2>
-<h3 id="_2-1-常规引入页面" tabindex="-1"> 2.1 常规引入页面</h3>
-<div><pre><code><span>//常规引入页面</span>
-<span>import</span> Home <span>from</span> <span>'./views/Home.vue'</span><span>;</span>
-<span>const</span> routes <span>=</span> <span>[</span>
-    <span>{</span> <span>path</span><span>:</span> <span>'/'</span><span>,</span> <span>name</span><span>:</span> <span>'home'</span><span>,</span> <span>component</span><span>:</span> Home<span>,</span> <span>meta</span><span>:</span> <span>{</span> <span>title</span><span>:</span> <span>'Home'</span> <span>}</span> <span>}</span><span>,</span>
-<span>]</span><span>;</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="_2-2-具体优化-实现懒加载" tabindex="-1"> 2.2 具体优化：实现懒加载</h3>
-<div><pre><code><span>const</span> <span>Home</span> <span>=</span> <span>(</span><span>)</span> <span>=></span> <span>import</span><span>(</span><span>'./views/home.vue'</span><span>)</span><span>;</span>
-<span>const</span> <span>pageA</span> <span>=</span> <span>(</span><span>)</span> <span>=></span> <span>import</span><span>(</span><span>'./views/homeA.vue'</span><span>)</span><span>;</span>
-<span>const</span> <span>pageB</span> <span>=</span> <span>(</span><span>)</span> <span>=></span> <span>import</span><span>(</span><span>'./views/homeB.vue'</span><span>)</span><span>;</span>
-<span>const</span> routes <span>=</span> <span>[</span>
-    <span>{</span> <span>path</span><span>:</span> <span>'/'</span><span>,</span> <span>name</span><span>:</span> <span>'home'</span><span>,</span> <span>component</span><span>:</span> Home<span>,</span> <span>meta</span><span>:</span> <span>{</span> <span>title</span><span>:</span> <span>'Home'</span> <span>}</span> <span>}</span><span>,</span>
-    <span>{</span> <span>path</span><span>:</span> <span>'/a'</span><span>,</span> <span>name</span><span>:</span> <span>'pageA'</span><span>,</span> <span>component</span><span>:</span> pageA<span>,</span> <span>meta</span><span>:</span> <span>{</span> <span>title</span><span>:</span> <span>'APage'</span> <span>}</span> <span>}</span><span>,</span>
-    <span>{</span> <span>path</span><span>:</span> <span>'/b'</span><span>,</span> <span>name</span><span>:</span> <span>'pageB'</span><span>,</span> <span>component</span><span>:</span> pageB<span>,</span> <span>meta</span><span>:</span> <span>{</span> <span>title</span><span>:</span> <span>'BPage'</span> <span>}</span> <span>}</span>
-<span>]</span><span>;</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>看一下打包之后的效果，会看到打包出了多个chunk异步块。</p>
-<p><img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20200326162422455.png" alt="image-20200326162422455"></p>
-<h3 id="_2-3-将chunk打包组" tabindex="-1"> 2.3 将chunk打包组</h3>
-<p>不指定分组，chunk name会随机生成，我们可以将它指定成chunk name打包到一起</p>
-<div><pre><code><span>//引入页面</span>
-<span>const</span> <span>Home</span> <span>=</span> <span>(</span><span>)</span> <span>=></span> <span>import</span><span>(</span><span>'./views/Home.vue'</span><span>)</span><span>;</span>
-<span>//把页面进行分组 home-group</span>
-<span>const</span> <span>pageA</span> <span>=</span> <span>(</span><span>)</span> <span>=></span> <span>import</span><span>(</span><span>/* webpackChunkName: "home-group" */</span> <span>'./views/homeA.vue'</span><span>)</span><span>;</span>
-<span>const</span> <span>pageB</span> <span>=</span> <span>(</span><span>)</span> <span>=></span> <span>import</span><span>(</span><span>/* webpackChunkName: "home-group" */</span> <span>'./views/homeB.vue'</span><span>)</span><span>;</span>
-<span>const</span> routes <span>=</span> <span>[</span>
-    <span>{</span> <span>path</span><span>:</span> <span>'/'</span><span>,</span> <span>name</span><span>:</span> <span>'home'</span><span>,</span> <span>component</span><span>:</span> Home<span>,</span> <span>meta</span><span>:</span> <span>{</span> <span>title</span><span>:</span> <span>'Home'</span> <span>}</span> <span>}</span><span>,</span>
-    <span>{</span> <span>path</span><span>:</span> <span>'/a'</span><span>,</span> <span>name</span><span>:</span> <span>'pageA'</span><span>,</span> <span>component</span><span>:</span> pageA<span>,</span> <span>meta</span><span>:</span> <span>{</span> <span>title</span><span>:</span> <span>'APage'</span> <span>}</span> <span>}</span><span>,</span>
-    <span>{</span> <span>path</span><span>:</span> <span>'/b'</span><span>,</span> <span>name</span><span>:</span> <span>'pageB'</span><span>,</span> <span>component</span><span>:</span> pageB<span>,</span> <span>meta</span><span>:</span> <span>{</span> <span>title</span><span>:</span> <span>'BPage'</span> <span>}</span> <span>}</span>
-<span>]</span><span>;</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p><img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20200326162720918.png" alt="image-20200326162720918"></p>
-<h2 id="_3-解决prefetch提前加载导致问题" tabindex="-1"> 3. 解决prefetch提前加载导致问题</h2>
-<p>实际在浏览器里访问首页的时候也加载了其他chunk的块，是prefetch 提前加载的原因。理论上这个是不影响加载速度的，但是我实际测试还是会影响。</p>
-<p><img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20200326163849626.png" alt="image-20200326163849626"></p>
-<p>这里请求了1016个请求</p>
-<h3 id="_3-1-通过在vue-config-js里添加以下配置prefetch" tabindex="-1"> 3.1 通过在vue.config.js里添加以下配置Prefetch</h3>
-<div><pre><code><span>// vue.config.js</span>
-module<span>.</span>exports <span>=</span> <span>{</span>
-  <span>chainWebpack</span><span>:</span> <span>config</span> <span>=></span> <span>{</span>
-    <span>// 移除 prefetch 插件</span>
-    config<span>.</span>plugins<span>.</span><span>delete</span><span>(</span><span>'prefetch'</span><span>)</span>
+      <title>2022最新超详细C语言学习路线（建议收藏🔥）</title>
+      <link>https://bytecodes.tech/learning-path/c.html</link>
+      <guid>https://bytecodes.tech/learning-path/c.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">2022最新超详细C语言学习路线（建议收藏🔥）</source>
+      <description>写这篇文章来给大家讲C语言的学习，当然是希望大家真正的学会、学懂C语言，并能够真正感觉到它的用处。</description>
+      <category>学习路线</category>
+      <pubDate>Mon, 26 Dec 2022 09:47:33 GMT</pubDate>
+      <content:encoded><![CDATA[<p>我们先从 C 语言的入门开始，总共<strong>一本书，两门视频课</strong>。</p>
+<h2 id="_01-阮一峰老师的-c语言入门教程" tabindex="-1"> 01）阮一峰老师的 C语言入门教程</h2>
+<p>阮一峰老师的 C语言入门课，我第一时间就拜读了一遍，受益匪浅！可以说目前我见到的最好的 C语言入门教程了，没有之一！国内的绝大多数高校，大一都会安排 C 语言这门课，阮一峰了老师的这份《C语言入门教程》，绝对是福音。</p>
+<p>我第一时间就整理了一份 PDF 版，截个图大家可以感受下。我对这份教程非常满意，该讲的地方都讲到了，示例也给了很多，对初学者来说，入门必备。</p>
 
-    <span>// 或者</span>
-    <span>// 修改它的选项：</span>
-    config<span>.</span><span>plugin</span><span>(</span><span>'prefetch'</span><span>)</span><span>.</span><span>tap</span><span>(</span><span>options</span> <span>=></span> <span>{</span>
-      options<span>[</span><span>0</span><span>]</span><span>.</span>fileBlacklist <span>=</span> options<span>[</span><span>0</span><span>]</span><span>.</span>fileBlacklist <span>||</span> <span>[</span><span>]</span>
-      options<span>[</span><span>0</span><span>]</span><span>.</span>fileBlacklist<span>.</span><span>push</span><span>(</span><span><span>/</span><span>myasyncRoute(.)+?\.js$</span><span>/</span></span><span>)</span>
-      <span>return</span> options
-    <span>}</span><span>)</span>
-  <span>}</span>
-<span>}</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="参考文章" tabindex="-1"> 参考文章</h2>
-<p><a href="https://www.jianshu.com/p/45fe75d059e2" target="_blank" rel="noopener noreferrer">vue路由懒加载，vue首屏加载慢和使用懒加载prefetch问题，新增组件懒加载</a></p>
+<h2 id="_02-翁恺教授的c语言视频课" tabindex="-1"> 02）翁恺教授的C语言视频课</h2>
+<p>可以先看阮一峰老师的《C语言入门教程》，也可以先花一个月的时间，去 mooc 把《程序设计入门 C语言》这门视频课过一遍。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/c-2.png" alt=""></p>
+<blockquote>
+<p>视频地址：<a href="https://www.icourse163.org/course/ZJU-199001" target="_blank" rel="noopener noreferrer">https://www.icourse163.org/course/ZJU-199001</a></p>
+</blockquote>
+<p>看完这套视频，大家至少能学到：</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/c-3.jpg" alt=""></p>
+<p>学完这门入门课后，可以再看一下进阶版的。课程以一个 Windows 下的图形游戏程序入手，借助一个 C 语言图形库，展开全部的教学内容，非常有趣。</p>
+<blockquote>
+<p>视频地址：<a href="https://www.icourse163.org/course/ZJU-200001" target="_blank" rel="noopener noreferrer">https://www.icourse163.org/course/ZJU-200001</a></p>
+</blockquote>
+<p>这里给大家一点看视频的小建议哈。</p>
+<p>老老实实听课，做笔记，严格按照翁恺老师的要求完成作业。如果还有余力，那么考虑一下课后的思考题。如果没有思路，先看一下别人的讨论，然后渐渐学会自己总结。</p>
+<p><strong>没有学不会的 C 语言，只有不对的学习姿势</strong>。</p>
+<h2 id="_03-为什么要学习-c语言" tabindex="-1"> 03）为什么要学习 C语言？</h2>
+<p>很多初学者会感到困惑，C 语言既然工作岗位不多，为什么还要学习呢？学习 C语言能做什么？如果这两个问题搞不清楚的话，学习的过程中就容易脱靶。</p>
+<p>C语言是由贝尔实验室的 Dennis Ritchie 在 1969 年~ 1973 年间发明创造的。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/c-1.jpg" alt="C语言之父"></p>
+<p>Dennis Ritchie是这样评价自己的亲儿子的：“<strong>古怪的、有缺陷的，但同时也是一个巨大的成功</strong>。”这句评语还是非常中肯的。</p>
+<p><strong>第一，C语言在计算机领域起到了承上启下的作用</strong>。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/c-4.jpg" alt=""></p>
+<p>C语言非常的简洁，几乎没有任何冗余。上手难度几乎为 0，除了指针难以被新手掌握以外，其他的基础语法都很容易上手。很多编程语言都受到了C语言的影响，比如说 Java、C++、C#、Python、Go 等等，那学会了 C语言，再学习其他的编程语言就会丝滑得多。</p>
+<p>另外，大部分 Unix 内核，以及所有支撑工具和函数库都是用 C语言来编写的。以至于后来几乎所有的操作系统内核都用到了C语言，比如说 Windows、Linux、macOS 等等。那学会了 C语言，就可以学习计算机组成原理、操作系统等等偏基础的计算机基础知识。</p>
+<p>《指环王》里有这样一句话：“one ring to them all”，可以把 ring 换成 language，这个 language 就是C语言。</p>
+<p><strong>第二，C语言可以用于嵌入式系统的开发</strong></p>
+<p>除了用于计算机操作系统的编写，C语言现在主要用于嵌入式系统的开发，汽车、照相机、家用电器等设备的底层系统都是用 C 语言编写的。</p>
+<p>C语言能够直接操作硬件、管理内存、跟操作系统交互，这使得它成为了一种非常接近底层的编程语言，非常适合有极高性能要求的程序。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/c-2.jpg" alt="MATLAB+C语言来控制机械臂"></p>
+<h2 id="_04-c语言核心知识点汇总" tabindex="-1"> 04）C语言核心知识点汇总</h2>
+<p>为了方便大家的学习，我这里汇总一下 C语言的核心知识点。先来看文字版的：</p>
+<ul>
+<li>数据类型</li>
+<li>运算符和表达式</li>
+<li>输入和输出</li>
+<li>流程控制</li>
+<li>函数</li>
+<li>数组</li>
+<li>指针</li>
+<li>结构体</li>
+<li>文件操作</li>
+<li>内存管理</li>
+</ul>
+<p>再来看详细版的思维导图：</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/c-5.png" alt=""></p>
+<p>C语言有两个关键部分：</p>
+<p>第一是语法：也是入门教材里最看重的内容，也就是那些变量、数据类型、分支判断、循环、函数、指针等等。</p>
+<p>第二是函数库：简单来说，函数库就是别人编写好的 C 函数，你可以直接拿来调用，比如说调用 <code>printf()</code> 函数就可以在屏幕上打印。很多人可能觉得库函数不重要，都是别人封装好的，只要记住函数名就可以了，但其实我想表达的是，库函数才是你学习 C语言并将其应用于实践的关键。</p>
+<p>因为学会调用别人的库函数（例如malloc函数、calloc函数、realloc函数、free函数），才有机会写出自己的库函数，否则从零开始撸实在是太不现实了。</p>
+<h2 id="_05-学习-c语言的一些建议" tabindex="-1"> 05）学习 C语言的一些建议</h2>
+<p>一般来说，学习 C语言可以分为以下 5 个阶段：</p>
+<ul>
+<li>1）学习基础语法</li>
+<li>2）学会使用 C语言自带的库函数，比如说 printf 级别的</li>
+<li>3）学会使用一些基本的数据结构与算法</li>
+<li>4）有了一定的 C语言基础，开始学习一些计算机专业的核心知识，比如说操作系统、计算机组成原理等</li>
+<li>5）动手做出一些 lab，造一些简单的轮子，实现一些简单的小应用</li>
+</ul>
+<p>这里推荐 2 个蓝桥云课上的免费小 lab，大家可以动手练起来。</p>
+<h3 id="_1-可以进行加减乘除的计算器" tabindex="-1"> <strong>1）可以进行加减乘除的计算器</strong></h3>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/c-6.jpg" alt=""></p>
+<blockquote>
+<p>课程地址：<a href="https://www.lanqiao.cn/courses/75" target="_blank" rel="noopener noreferrer">https://www.lanqiao.cn/courses/75</a></p>
+</blockquote>
+<p>通过这个 lab，大家可以学到：</p>
+<ul>
+<li>计算器设计思路</li>
+<li>C 语言的格式检查</li>
+<li>C 语言输入与输出</li>
+</ul>
+<h3 id="_2-实现一个属于自己的编程语言" tabindex="-1"> <strong>2）实现一个属于自己的编程语言</strong></h3>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/c-7.png" alt=""></p>
+<blockquote>
+<p>课程地址：<a href="https://www.shiyanlou.com/courses/670" target="_blank" rel="noopener noreferrer">https://www.shiyanlou.com/courses/670</a></p>
+</blockquote>
+<p>通过这个 lab，大家可以学到：</p>
+<ul>
+<li>解析器</li>
+<li>波兰表达式</li>
+<li>解析树的计算</li>
+<li>S-Expression</li>
+<li>变量定义和使用</li>
+<li>条件判断</li>
+<li>正则表达式</li>
+<li>递归分析长字符串</li>
+<li>出错处理</li>
+<li>Q-Expression</li>
+<li>函数</li>
+<li>字符串</li>
+</ul>
+<p>这个 lab 翻译自国外的 build your own lisp：</p>
+<blockquote>
+<p><a href="https://buildyourownlisp.com/" target="_blank" rel="noopener noreferrer">https://buildyourownlisp.com/</a></p>
+</blockquote>
+<p>如果英语功底比较扎实的话，可以直接看原版。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/c-8.png" alt=""></p>
+<p>认真跟着做这些 lab，真本领就学到手了。</p>
+<h2 id="_06-学习-c语言的其他资源" tabindex="-1"> 06）学习 C语言的其他资源</h2>
+<p>给初中生看的《啊哈 C语言》，简单易懂，生动有趣，虽然只能学到 C语言的冰山一角，但也值了。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/c-9.png" alt=""></p>
+<p>给高中生、大一新生看的入门书《c primer plus》，语法全覆盖，细节多，知识点讲的清楚，缺点是琐碎，细节弯弯绕。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/c-10.png" alt=""></p>
+<p>还有一本《C 程序设计语言》，这本书的作者是 C语言之父，所以全书讲的都是 C语言的核心。代码示例大多都是库函数的实现方法，内容简洁明了，干净利落，没有废话。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/c-11.png" alt=""></p>
+<p>给</p>
+<ul>
+<li>想成为大佬的人</li>
+<li>想进阶 C语言</li>
+<li>想理解指针和内存</li>
+<li>想搞懂 Linux 内核</li>
+<li>想搞基础设备的</li>
+<li>想搞单片机的</li>
+<li>想进微软改进 Windows 的</li>
+<li>想搞贴近生活硬件的，比如说闹钟、计时器、简单的机器人</li>
+</ul>
+<p>看的进阶书《C 陷阱与缺陷》、《C 专家编程》、《C 和指针》</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/c-12.png" alt=""></p>
+<p>更多 C语言的学习资料，可以直接戳我整理的这个 GitHub/码云仓库——📚程序员必读书单整理，附下载地址，里面有大量的 C语言学习资料。</p>
+<ul>
+<li>GitHub 地址：<a href="https://github.com/itwanger/JavaBooks#c" target="_blank" rel="noopener noreferrer">https://github.com/itwanger/JavaBooks</a></li>
+<li>码云地址：<a href="https://gitee.com/itwanger/JavaBooks#c" target="_blank" rel="noopener noreferrer">https://gitee.com/itwanger/JavaBooks</a></li>
+</ul>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/c-books.jpg" alt=""></p>
+<p>简单罗列一下：</p>
+<ul>
+<li>深度探索C  对象模型</li>
+<li>数据结构与算法分析--C语言描述</li>
+<li>C Primer Plus（第五版）</li>
+<li>C程序设计语言（第二版，中文版）</li>
+<li>C和指针</li>
+<li>C陷阱与缺陷</li>
+<li>C专家编程</li>
+</ul>
+<hr>
+<p>到此为止，C语言的重点就全部划出来了，剩下的学习就交给大家了。最后，musk再唠叨几句：</p>
+<p>1、自学才是硬道理。强大的自学能力是独自解决问题的根本，程序员需要拥有强大的自学能力。</p>
+<p>2、一个人可以走得很快，但一群人才能走的更远。最好加入一些有氛围的技术交流群，结交一两个有能力的同阶段的人，切磋精进一下。</p>
+<p>3、入门阶段，coding 为主，视频为辅，不要搞反了。记住这个公式：只看+不练=假把戏。</p>
+<p>4、如果以后不想当一个优秀的工程师，不想在计算机这条道路上走得更远，只想躺平当个平平淡淡的码农，那么我推荐一条路：跟着老师一步步走，跟着大学的教学方案，一步步走就行了。</p>
+<p>上面这4条建议其实不仅适用于C语言的学习，还适用于其他任何一门编程语言的学习。如果能够这样坚持下去，几年后，你将是一名善于解决实际问题的工程师，而不是一名普普通通的码农。</p>
+<p>以上，希望能帮助到大家！</p>
+<p><em>没有什么使我停留——除了目的，纵然岸旁有玫瑰、有绿荫、有宁静的港湾，我是不系之舟</em>。</p>
+<hr>
 ]]></content:encoded>
-      <enclosure url="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20200326162422455.png" type="image/png"/>
+      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/c-1.png" type="image/png"/>
+    </item>
+    <item>
+      <title>非C++职业选手的C++学习路线（建议收藏🔥）</title>
+      <link>https://bytecodes.tech/learning-path/ccc.html</link>
+      <guid>https://bytecodes.tech/learning-path/ccc.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">非C++职业选手的C++学习路线（建议收藏🔥）</source>
+      <description>非 C++职业选手，但工作中学过一段时间，这篇分享给对 C++ 感兴趣的爱好者，文末有侯捷老师的视频资源可供下载。</description>
+      <category>学习路线</category>
+      <pubDate>Mon, 26 Dec 2022 09:47:33 GMT</pubDate>
+      <content:encoded><![CDATA[<blockquote>
+<p>非 C++职业选手，但工作中学过一段时间，这篇分享给对 C++ 感兴趣的爱好者，文末有侯捷老师的视频资源。</p>
+</blockquote>
+<h2 id="一、书籍推荐" tabindex="-1"> 一、书籍推荐</h2>
+<p>学习 C++ 语法，首推《C++ Primer 第五版》。我在参加第一份工作的时候，就买过一本《C++ Primer 第四版》，这本书一直不舍得扔，尽管它已经非常破了，但我们之间的感情是深厚的，毕竟跟随我辗转了好几个城市了。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/ccc-primer-book.png" alt=""></p>
+<p><em>是不是一下子就暴露自己工作年限了</em>？</p>
+<p>这本书非常全面地讲解了 C++ 的语法以及 C++ 的各种特性，如果能坚持看完的话，帮助会很大。如果时间比较充分的话，建议至少看两遍。如果时间比较紧张的话，至少通读一遍吧，要能把握住这本书的大体框架，然后结合个人的实际情况选择性地看一些重点章节。</p>
+<p>然后是《Effective C++》，侯捷老师译的，这本书主要讲解了编写 C++ 代码需要注意的一些条款，和《Effective Java》 属于同一个系列。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/ccc-2.jpg" alt=""></p>
+<p>第三本是《STL源码剖析》这本书，侯捷老师写的，这本书讲了C++的底层实现，包括各种容器（vector、list、heap、deque、Red Black tree、hash table、set/map）的实现、各种常见算法（排序、查找、排列组合、数据移动与复制技术）的实现等。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/ccc-3.png" alt=""></p>
+<p>第四本《深度探索C++对象模型》，侯捷老师译的，这本书讲解了 C++ 面向对象特性的底层实现机制，读起来虽然有点晦涩，但读完后就会搞明白“代码跑起来的时候实际发生了什么”。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/ccc-4.jpg" alt=""></p>
+<h2 id="二、视频推荐" tabindex="-1"> 二、视频推荐</h2>
+<p>既然有三本书都是侯捷老师的，那再刷一刷侯捷老师的视频，岂不是效果更佳？不过，由于涉及到版权，国内的 B 站、A 站都下架了相关的视频资源，包括：</p>
+<ul>
+<li>《C++面向对象高级编程》</li>
+<li>《STL》</li>
+<li>《C++ 内存管理》</li>
+<li>《C++ 11 新特性》</li>
+<li>《C++ 程序的生前死后》</li>
+</ul>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/ccc-b3de882e-3b4e-453e-a9b7-e327ca7ec30e.png" alt=""></p>
+
+<p>给大家看一下我保存的这些视频资源哈。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/ccc-5.png" alt=""></p>
+<p>如果还需要更多 C++ 的学习资料，可以直接戳我整理的这个 GitHub/码云仓库——📚程序员必读书单整理，附下载地址，里面有大量的 C++ 学习资料。</p>
+<ul>
+<li>GitHub 地址：<a href="https://github.com/itwanger/JavaBooks#c-1" target="_blank" rel="noopener noreferrer">https://github.com/itwanger/JavaBooks</a></li>
+<li>码云地址：<a href="https://gitee.com/itwanger/JavaBooks#c-1" target="_blank" rel="noopener noreferrer">https://gitee.com/itwanger/JavaBooks</a></li>
+</ul>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/cpp-books.jpg" alt=""></p>
+<p>简单罗列一下：</p>
+<ul>
+<li>大规模c++程序设计</li>
+<li>牛客校招面试题（附答案与解析）c++篇</li>
+<li>深度探索C++对象模型 PDF中文清晰版</li>
+<li>深入理解c11(c11新特性解析与应用)</li>
+<li>C++ Primer 第五版--- 高清版</li>
+<li>C++语言的设计和演化</li>
+<li>Effective.Modern.C++ - 中文版</li>
+<li>Effective+STL中文版：50条有效使用STL的经验</li>
+<li>More Effective C++中文</li>
+<li>STL源码剖析--侯捷</li>
+</ul>
+<h2 id="三、练手项目" tabindex="-1"> 三、练手项目</h2>
+<p>书有了，视频有了，还得动手去敲代码，尤其是初学阶段，记得这四个大字：<strong>唯手熟尔</strong>。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/ccc-7c451ad4-73e5-4ac4-a9e5-d0bdbae06ff0.jpg" alt=""></p>
+<p>推荐一个轻量级练手项目吧。</p>
+<p><strong>要说轻量级，必须得点名 workflow 这个开源项目，一个非常适合阅读的 C++ 开源项目</strong>。</p>
+<p>这是搜狗公司的C++服务器引擎，支撑搜狗几乎所有后端C++在线服务，包括所有搜索服务、云输入法、在线广告等。</p>
+<p>学习起来，也非常的友好，比如说搭建一个 HTTP 服务器，几行代码就能搞定：</p>
+<div><pre><code>#include &lt;stdio.h&gt;
+#include &quot;workflow/WFHttpServer.h&quot;
+
+int main()
+{
+    WFHttpServer server([](WFHttpTask *task) {
+        task-&gt;get_resp()-&gt;append_output_body(&quot;&lt;html&gt;Hello World!&lt;/html&gt;&quot;);
+    });
+
+    if (server.start(8888) == 0) {  // start server on port 8888
+        getchar(); // press &quot;Enter&quot; to end.
+        server.stop();
+    }
+
+    return 0;
+}
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>除此之外，还可以：</p>
+<ul>
+<li>实现自定义的协议的客户端/服务器端，搭建自己的 RPC 系统</li>
+<li>构建异步任务流</li>
+<li>作为文件异步IO工具使用</li>
+<li>作为并行计算工具使用</li>
+<li>构建微服务系统</li>
+</ul>
+<p>GitHub 链接：<a href="https://github.com/sogou/workflow" target="_blank" rel="noopener noreferrer">https://github.com/sogou/workflow</a></p>
+<p>最新的 master 分支对新手来说，可能学习的压力比较大，这里分享一些我这些年积攒下来阅读开源项目的小心得，希望能给小伙伴们提供一点点帮助和心得。</p>
+<p>好的开源项目动辄几万行的源码，虽然是宝藏，但如果不讲究技巧的话，即便是投入了大量的时间，也会收效甚微。</p>
+<p>毫无疑问，阅读优秀的开源项目源码是程序员提高自己编程能力的最佳手段之一。</p>
+<p>但是，有一说一，阅读别人的源代码永远不会是一件很轻松的事情。</p>
+<p><strong>首先，一定要找到好的开源项目</strong>。star 是衡量一个好的项目的一个重要标准，像 docker、Spring Boot、Redis、workflow 等等， star 数都非常的可观，所以都是非常的学习素材。</p>
+<p>优秀的开源项目都是经过作者精心布局的，本身的代码就非常的优秀。但很多人会有一种偏执，认为代码即文档。但在我看来，如果一个项目缺少了详实的文档，必然算不上优秀。</p>
+<p>规模宏大的项目一旦离开了文档的解释，总免不了令人生畏。所以，好的开源项目，一定要有完善的文档。</p>
+<p>像 workflow 的文档就挺扎实的。</p>
+<ul>
+<li>
+<p>Client基础</p>
+<ul>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/tutorial-01-wget.md" target="_blank" rel="noopener noreferrer">创建第一个任务：wget</a></li>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/tutorial-02-redis_cli.md" target="_blank" rel="noopener noreferrer">实现一次redis写入与读出：redis_cli</a></li>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/tutorial-03-wget_to_redis.md" target="_blank" rel="noopener noreferrer">任务序列的更多功能：wget_to_redis</a></li>
+</ul>
+</li>
+<li>
+<p>Server基础</p>
+<ul>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/tutorial-04-http_echo_server.md" target="_blank" rel="noopener noreferrer">第一个server：http_echo_server</a></li>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/tutorial-05-http_proxy.md" target="_blank" rel="noopener noreferrer">异步server的示例：http_proxy</a></li>
+</ul>
+</li>
+<li>
+<p>并行任务与工作流</p>
+<ul>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/tutorial-06-parallel_wget.md" target="_blank" rel="noopener noreferrer">一个简单的并行抓取：parallel_wget</a></li>
+</ul>
+</li>
+<li>
+<p>几个重要的话题</p>
+<ul>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/about-error.md" target="_blank" rel="noopener noreferrer">关于错误处理</a></li>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/about-timeout.md" target="_blank" rel="noopener noreferrer">关于超时</a></li>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/about-config.md" target="_blank" rel="noopener noreferrer">关于全局配置</a></li>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/about-dns.md" target="_blank" rel="noopener noreferrer">关于DNS</a></li>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/about-exit.md" target="_blank" rel="noopener noreferrer">关于程序退出</a></li>
+</ul>
+</li>
+<li>
+<p>计算任务</p>
+<ul>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/tutorial-07-sort_task.md" target="_blank" rel="noopener noreferrer">使用内置算法工厂：sort_task</a></li>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/tutorial-08-matrix_multiply.md" target="_blank" rel="noopener noreferrer">自定义计算任务：matrix_multiply</a></li>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/about-go-task.md" target="_blank" rel="noopener noreferrer">更加简单的使用计算任务：go_task</a></li>
+</ul>
+</li>
+<li>
+<p>文件异步IO任务</p>
+<ul>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/tutorial-09-http_file_server.md" target="_blank" rel="noopener noreferrer">异步IO的http server：http_file_server</a></li>
+</ul>
+</li>
+<li>
+<p>用户定义协议基础</p>
+<ul>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/tutorial-10-user_defined_protocol.md" target="_blank" rel="noopener noreferrer">简单的用户自定义协议client/server</a></li>
+</ul>
+</li>
+<li>
+<p>其它一些重要任务与组件</p>
+<ul>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/about-timer.md" target="_blank" rel="noopener noreferrer">关于定时器</a></li>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/about-counter.md" target="_blank" rel="noopener noreferrer">关于计数器</a></li>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/about-conditional.md" target="_blank" rel="noopener noreferrer">条件任务与资源池</a></li>
+</ul>
+</li>
+<li>
+<p>服务治理</p>
+<ul>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/about-service-governance.md" target="_blank" rel="noopener noreferrer">关于服务治理</a></li>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/about-upstream.md" target="_blank" rel="noopener noreferrer">Upstream更多文档</a></li>
+</ul>
+</li>
+<li>
+<p>连接上下文的使用</p>
+<ul>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/about-connection-context.md" target="_blank" rel="noopener noreferrer">关于连接上下文</a></li>
+</ul>
+</li>
+<li>
+<p>内置客户端</p>
+<ul>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/tutorial-12-mysql_cli.md" target="_blank" rel="noopener noreferrer">异步MySQL客户端：mysql_cli</a></li>
+<li><a href="https://github.com/sogou/workflow/blob/master/docs/tutorial-13-kafka_cli.md" target="_blank" rel="noopener noreferrer">异步kafka客户端：kafka_cli</a></li>
+</ul>
+</li>
+</ul>
+<p><strong>其次，要从低版本开始学习</strong>。比如说我们在学习 workflow 的时候，可以先从 v0.9.0 这个最终的 release 版本开始学习。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/ccc-3e0137d4-f0f3-4a1d-8e6c-c16eefcd175d.jpg" alt=""></p>
+<p>然后再逐层往上推进，这样的学习效果肯定会更佳，尤其是针对新手来说。</p>
+<p><strong>最后，保持耐心</strong>。阅读开源项目的过程中，一定会遇到一些看不懂的代码，这很正常，不要慌，更不要轻易放弃。</p>
+<p>就像我们学习物理、数学一样，遇到实在是一时半会搞不定的章节，可以选择跳过，因为作者在排版布局的时候，也容易忽略新手的感觉，把他认为是比较轻松的排在前面，但对于读者来说，可能恰恰相反。</p>
+<p>可以先做个记录，在弄懂整块代码后再回头去读那些不明白的部分。当你回头再读的时候，很有可能问题就迎刃而解了。</p>
+<p>咬牙坚持下去，抽丝剥茧，你总会成为期待中的那个样子的。</p>
+<p>我之前有提到过，<strong>提高编程能力</strong>的办法有两个。</p>
+<ul>
+<li>造轮子</li>
+<li>拆轮子</li>
+</ul>
+<p>阅读源码的过程就是拆轮子的过程，多研究别人的代码是怎么写的，会让我们在编程功底上有一个很大的飞跃。</p>
+<h2 id="四、一点小心得" tabindex="-1"> 四、一点小心得</h2>
+<p>学习并非是一朝一夕的事情，记得坚持就好。</p>
+<p>最后，再推荐一个非常适合初学者从<strong>入门到进阶</strong>的仓库，解决了<strong>面试者与学习者</strong>想要深入 C++ 及如何入坑 C++的问题。并且涵盖了源码分析，多线程并发等知识，是一个比较全面的 C++ 学习从入门到进阶提升的仓库。</p>
+<p><a href="https://github.com/Light-City/CPlusPlusThings" target="_blank" rel="noopener noreferrer">GitHub - Light-City/CPlusPlusThings: C++那些事</a></p>
+<ul>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/const" target="_blank" rel="noopener noreferrer">const 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/static" target="_blank" rel="noopener noreferrer">static 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/this" target="_blank" rel="noopener noreferrer">this 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/inline" target="_blank" rel="noopener noreferrer">inline 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/sizeof" target="_blank" rel="noopener noreferrer">sizeof 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/func_pointer" target="_blank" rel="noopener noreferrer">函数指针那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/abstract" target="_blank" rel="noopener noreferrer">纯虚函数和抽象类那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/vptr_vtable" target="_blank" rel="noopener noreferrer">vptr_vtable 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/virtual" target="_blank" rel="noopener noreferrer">virtual 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/volatile" target="_blank" rel="noopener noreferrer">volatile 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/assert" target="_blank" rel="noopener noreferrer">assert 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/bit" target="_blank" rel="noopener noreferrer">位域那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/extern" target="_blank" rel="noopener noreferrer">extern 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/struct" target="_blank" rel="noopener noreferrer">struct 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/struct_class" target="_blank" rel="noopener noreferrer">struct 与 class 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/union" target="_blank" rel="noopener noreferrer">union 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/c_poly" target="_blank" rel="noopener noreferrer">c 实现 c++ 多态那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/explicit" target="_blank" rel="noopener noreferrer">explicit 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/friend" target="_blank" rel="noopener noreferrer">friend 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/using" target="_blank" rel="noopener noreferrer">using 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/maohao" target="_blank" rel="noopener noreferrer">:: 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/enum" target="_blank" rel="noopener noreferrer">enum 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/decltype" target="_blank" rel="noopener noreferrer">decltype 那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/pointer_refer" target="_blank" rel="noopener noreferrer">引用与指针那些事</a></li>
+<li><a href="https://github.com/Light-City/CPlusPlusThings/blob/master/basic_content/macro" target="_blank" rel="noopener noreferrer">宏那些事</a></li>
+</ul>
+<hr>
+]]></content:encoded>
+      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/ccc-primer-book.png" type="image/png"/>
+    </item>
+    <item>
+      <title>2022最新超详细.NET学习路线（建议收藏🔥）</title>
+      <link>https://bytecodes.tech/learning-path/donet.html</link>
+      <guid>https://bytecodes.tech/learning-path/donet.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">2022最新超详细.NET学习路线（建议收藏🔥）</source>
+      <description>写这篇文章来给大家讲C语言的学习，当然是希望大家真正的学会、学懂.NET，并能够真正感觉到它的用处。</description>
+      <category>学习路线</category>
+      <pubDate>Mon, 26 Dec 2022 09:47:33 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="关于-net" tabindex="-1"> 关于 .net</h2>
+<p>.net 主要指的是 .NET Framework，由微软开发，一个致力于敏捷软件开发、快速应用开发的软件框架，主要服务于桌面开发。</p>
+<p>我在《Java 面试指南》专栏的《学习路线篇》里写过一篇《Java 桌面开发能找到工作吗？》也谈过桌面开发目前的现状。</p>
+<p>像早期的 QQ，还有一些前后台分离的应用就主要是用 .net 框架来做的，包括 winform、WPF。</p>
+<p>我在 2014 年的时候，开发的《大宗期货交易平台》中的客户端，就是用 .net 开发的。</p>
+<p>Java 平台和 .net 平台是主要的竞争对手。一个属于甲骨文，一个属于微软，微软在印度裔 CEO N纳德拉的带领下，感觉又恢复了往昔的帝国景象，所以我觉得 .net 平台虽然受到了 Java、Electron、QT 等等挑战，但在桌面应用领域，微软肯定是能应对这个挑战的。</p>
+<p>尤其是在 .net 开源、.net core 问世之后。</p>
+<p>图 1 是 .NET 平台截止 2020 年 12 月开发者数量大致的变化情况：</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/donet-23438f52-d682-47c8-ae9a-566f4ec4b8fa.png" alt=""></p>
+<p>.NET 是目前全球市场上唯一一个涵盖 Web、桌面客户端、手机应用、微服务、云原生、机器学习、游戏、物联网等跨平台的全能开发解决方案。</p>
+<p>所以就目前来看，.net 还是值得投入感情的，像王者荣耀就是际遇 C# 的 unity 开发的。总之一句话，有微软这么牛逼的爹，.net 肯定是有用武之地的。</p>
+<p>如果对自己能力有自信，或者说你愿意为其倾力学习的话，选择 .net 准没错，前踢 Java，左打 Python，右捶 cpp，绝对牛逼的不行🚫。</p>
+<h2 id="如何学习-net" tabindex="-1"> <a href="http://xn--vjq1wg8vm1b.net" target="_blank" rel="noopener noreferrer">如何学习.net</a></h2>
+<h3 id="学习路线" tabindex="-1"> 学习路线</h3>
+<p>第一步，当然是学语法，把异步、泛型、Lambda 学扎实，对你没看错，Java 中也有这些东西。</p>
+<p>第二步，学习 Docker，会拉去镜像，会部署数据库就够了，不用学太多，比如说你会用 Docker 拉取 SQLserver 数据库。</p>
+<p>第三步，简单学一下 <a href="http://ADO.net" target="_blank" rel="noopener noreferrer">ADO.net</a> （（ActiveX Data Objects）），能写 SQL helper 就够了，工作后可能用不到，但面试可能会考。</p>
+<p>第四步，学习 EFCore（Entity Framework Core，微软提供的跨平台ORM框架），要学精。</p>
+<p>第五步，学 MVC，之后就可以开发一些小项目了。</p>
+<p>其中的一些重点：viewmodel、JSON 序列化、仓储模式、依赖注入、过滤器 等等。</p>
+<p>可以顺带用一下 jQuery、bootstrap，这些属于前端的 JS 组件库和 CSS 库。</p>
+<p>第六步，学 WebAPI，学会 automapper 的配置和使用。</p>
+<p>第七步，学 JWT、单点登录，学了这些，就可以实现前后端分离了。到此为止，你就可以胜任市面上的绝大多数开发岗位了。</p>
+<p>第八步，学习 Docker 的分布式部署。</p>
+<p>第九步，学习 IdentityServer4，可实现接口统一验证。</p>
+<p>第十步，学习 Consul，服务发现治理（类似于 Java 中的 nocas），Ocelot网关、Polly(熔断降级)，以及微服务架构思想。</p>
+<h3 id="学习资料" tabindex="-1"> 学习资料</h3>
+<p>先推荐视频。</p>
+<p>首先要有 C# 的语言基础，那么 B 站上有两套视频教程，点赞数还不少。</p>
+<p>第一套是刘铁猛老师（拥有逾十年微软平台软件开发、测试经验）的《C#语言入门详解》全集。从评价上来看，刘老师这门课深受欢迎，旁征博引、谈笑风生、举例逻辑清晰，上课过程中有一种醍醐灌顶的感觉。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/donet-a36d4fec-a4dd-4744-9380-12b5e316695f.png" alt=""></p>
+<blockquote>
+<p>视频地址：<a href="https://www.bilibili.com/video/BV13b411b7Ht" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV13b411b7Ht</a></p>
+</blockquote>
+<p>之后是 .NET，我关注的一个 up 杨中科 分享过一个 .net 的教程。一共 195 集，杨科长还出过一本书《.net core 技术内幕与项目实战》，所以我觉得还是挺牛逼的，很接地气的一位大佬。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/donet-00c25b59-56d5-40b7-8b20-892f581ed783.png" alt=""></p>
+<blockquote>
+<p>视频地址：<a href="https://www.bilibili.com/video/BV1pK41137He" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV1pK41137He</a></p>
+</blockquote>
+<p>再推荐书籍。</p>
+<p>如果想快速入门，推荐《<a href="https://book.douban.com/subject/24748698/" target="_blank" rel="noopener noreferrer">C#图解教程</a>》。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/donet-32590c26-7f5e-4737-aae4-aa40e4b86ab1.png" alt=""></p>
+<p>之后可以看一下《<a href="https://book.douban.com/subject/1919816/" target="_blank" rel="noopener noreferrer">C#高级编程</a>》。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/donet-27e7c98a-e159-4aff-beea-63735cdae45f.png" alt=""></p>
+<p>最后是教程，那自然直接看微软官方的就行了。</p>
+<p>先看 C# 的。</p>
+<blockquote>
+<p><a href="https://learn.microsoft.com/zh-cn/dotnet/csharp/" target="_blank" rel="noopener noreferrer">https://learn.microsoft.com/zh-cn/dotnet/csharp/</a></p>
+</blockquote>
+<p>包含入门、基础知识、概念、操作、接口、委托、数组、字符串、泛型、文件系统等等。</p>
+<p>在看 .net 的。</p>
+<blockquote>
+<p><a href="https://learn.microsoft.com/zh-cn/dotnet/standard/get-started" target="_blank" rel="noopener noreferrer">https://learn.microsoft.com/zh-cn/dotnet/standard/get-started</a></p>
+</blockquote>
+<p>包含 入门、概述、工具和诊断、执行模型、部署模型、devops、编码组件、运行时库、数据访问、并行处理、测试、安全等等。</p>
+<p>最后，如果要面试的话，可以看一下这份 DotNetGuide 资料，1.6k star。</p>
+<blockquote>
+<p><a href="https://github.com/YSGStudyHards/DotNetGuide" target="_blank" rel="noopener noreferrer">https://github.com/YSGStudyHards/DotNetGuide</a></p>
+</blockquote>
+<p>最后，希望能帮助到你。</p>
+<hr>
+]]></content:encoded>
+      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/donet-23438f52-d682-47c8-ae9a-566f4ec4b8fa.png" type="image/png"/>
+    </item>
+    <item>
+      <title>2022最新超详细的 Go 语言学习路线（建议收藏🔥）</title>
+      <link>https://bytecodes.tech/learning-path/go.html</link>
+      <guid>https://bytecodes.tech/learning-path/go.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">2022最新超详细的 Go 语言学习路线（建议收藏🔥）</source>
+      <description>Go 语言越来越火了，这里整理一份 go 语言的超详细学习路线，附学习资源，可下载</description>
+      <category>学习路线</category>
+      <pubDate>Mon, 26 Dec 2022 09:47:33 GMT</pubDate>
+      <content:encoded><![CDATA[<p>尤其是国内的字节跳动，Go 在常用的编程语言中占比是最高的，大部分产品的后端都在使用 Go。</p>
+<p>那作为贴心的musk，必须得给大家梳理一波思路了，希望能给需要的读者一点点帮助和启发~</p>
+<h2 id="一、go-的优势和劣势" tabindex="-1"> 一、Go 的优势和劣势</h2>
+<p>Go 语言诞生于 2009 年，发展到现在，已经 12 岁了（应该没算错吧😭）。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-2.png" alt=""></p>
+<p>很多明星级的开源产品，比如说 Kubernetes、Docker等，都是基于 Go 语言编写的。再加上近些年来微服务架构和云原生技术的普及，也大大的带火了 Go 这门编程语言，使其在 C/C++ 和 Java 中杀出了一条血路。</p>
+<p>再加上从 2010 年 5 月起，Google 开始将 Go 语言投入到后端基础设施的实际开发中，很多我们能耳熟能详的应用都有使用 Go 语言，比如说谷歌地图、Google Cloud 等。</p>
+<p>国内的字节跳动，就别提了。</p>
+<p>Google 和字节两家大厂对 Go 的大力投入，在一定程度上又加速了 Go 这门编程语言的发展。</p>
+<p>目前，使用 Go 语言的公司越来越多了，阿里、百度、腾讯、小米这些互联网大厂也在积极拥抱。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-3.png" alt=""></p>
+<p>这使得 Go 工程师的薪资待遇也得到了很大程度上提高。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-4.png" alt=""></p>
+<p>当然了，目前基本上除了大厂，很少有其他中小型公司用 Go，因为 Go 的生态还比不上 Java，没有 Java 那么丰富健全，中小公司的投入产出比比较低。大厂有人有钱，愿意在 Go 上投入成本。</p>
+<p>另外，Go 也没有像外界吹捧的那么牛叉，就编程语言的排行榜上来看，Go 还是个滴滴（Python、C/C++、Java、C# 这些仍然是前排），有待发展。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-5.jpg" alt=""></p>
+<h2 id="二、为什么会要求-java-转-go-呢" tabindex="-1"> 二、为什么会要求 Java 转 Go 呢？</h2>
+<p>最直接的原因就是 Go 这边比较缺人，而 Java 这边基本上是招聘的多，竞聘的更多。</p>
+<p>熟练掌握 Java 的一般都比较能打，转 Go 后作战能力肯定也是不容小觑。</p>
+<p>对于我们国内的开发环境来说，Java 的确是顶流，我个人也是 Java 的重度使用者，但<strong>我私底下也在学习其他的编程语言，因为只有这样，才能最大程度上保持自己的竞争力</strong>。</p>
+<p>每种编程语言只要能发挥出它最大的优势，就是值得我们去学习和使用的。</p>
+<p>再者，编程语言这东西，你掌握了一个，再学另外一个也会很快的。</p>
+<p>截止到目前，我学过 Python、C/C++、Go、JavaScript 等等，因为有 Java 语言的底子在，学这些编程语言的时候，阻力基本上就像在泳池里游泳一样，一开始会感觉有点困难，等熟练了之后，会感觉很舒服。</p>
+<h2 id="三、go-语言该怎么学习呢" tabindex="-1"> 三、Go 语言该怎么学习呢？</h2>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-6.png" alt=""></p>
+<p>不管怎么说，Go 语言的确是值得去学习的。如果公司确实需要转 Go 岗，也完全没有必要抗拒。</p>
+<p>这里给大家推荐一个 Go 语言的学习路线图，如果你想要成为一名Go语言的开发者的话，可以沿着这张图里面的路径去学习。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-7.jpg" alt=""></p>
+<p>接下来给大家推荐一些 Go 语言的学习资料，全部免费开源，是我肝了两个大夜精挑细选出来的。</p>
+<p>记住一点：<strong>不管是学习哪一门编程语言，顺序基本上就是视频入门+教程/书籍巩固+项目练习</strong>。</p>
+<h3 id="_1-视频课" tabindex="-1"> <strong>1）视频课</strong></h3>
+<p><strong>第一套视频：《Go 编程基础》</strong>，主要面向 Go 语言新手级别的学习者。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-8.jpg" alt=""></p>
+<blockquote>
+<p>课程地址：<a href="https://github.com/unknwon/go-fundamental-programming" target="_blank" rel="noopener noreferrer">https://github.com/unknwon/go-fundamental-programming</a></p>
+</blockquote>
+<p><strong>第二套视频：尚硅谷 Go 入门到实战教程</strong>，采用真实案例，从理论到实践，一步一步将 Go 的核心编程技术、编程思想、底层实现融会贯通。</p>
+<p>虽然尚硅谷是一家培训机构，但在 B 站上公开的一些课程还真的是挺香的，学 Java 的同学可能很大一部分都看过宋红康老师的课，YYDS！</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-9.jpg" alt=""></p>
+<blockquote>
+<p>视频地址：<a href="https://www.bilibili.com/video/BV1ME411Y71o" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV1ME411Y71o</a></p>
+</blockquote>
+<h3 id="_2-教程-书籍" tabindex="-1"> <strong>2）教程/书籍</strong></h3>
+<p><strong>第一套教程：Go 语言之旅</strong>，这是一个对初学者极其友好的在线网站，并且每一步都可以直接运行代码并看到效果。初学阶段，最重要的就是能通过手敲代码感受到学习的成果。</p>
+<p>点击右侧的菜单可以快速浏览教程的所有内容，非常方便。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-10.jpg" alt=""></p>
+<blockquote>
+<p>教程地址：<a href="https://tour.go-zh.org/" target="_blank" rel="noopener noreferrer">https://tour.go-zh.org/</a></p>
+</blockquote>
+<p><strong>第二套教程：LeetCode-Go</strong>，一本 LeetCode 的刷题笔记，代码是用 Go 语言实现的，收录了超过 500 道题的题解思路和代码，代码方案都是效率超高的“标准答案”：</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-11.jpg" alt=""></p>
+<blockquote>
+<p>教程地址：<a href="https://books.halfrost.com/leetcode/" target="_blank" rel="noopener noreferrer">https://books.halfrost.com/leetcode/</a></p>
+</blockquote>
+<p><strong>第三套教程：《Go 语言设计与实现》</strong>，这份教程的内容可以分成四个部分：</p>
+<ul>
+<li>编译原理</li>
+<li>运行时</li>
+<li>基础知识</li>
+<li>进阶知识</li>
+</ul>
+<p>几乎覆盖了 Go 语言从编译到运行的方方面面，读完后能对 Go 语言有更加整体和深刻的认识。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-12.jpg" alt=""></p>
+<blockquote>
+<p>在线地址：<a href="https://draveness.me/golang/" target="_blank" rel="noopener noreferrer">https://draveness.me/golang/</a></p>
+</blockquote>
+<p>是开发者内功修炼号主飞哥给我推荐的，当时看完后就大为震撼。目前我看作者已经出版了纸质书。</p>
+<p><strong>第四套教程：《玩转 GO》</strong>，内容包括但不限于并发、网络编程、垃圾回收、组合、Go UNIX系统编程、基本数据类型（Array,Slice,Map）、Go源码、反射，接口，类型方法等高级概念。</p>
+<p>不过遗憾的是，在线阅读地址挂了，我还提交了一个 issue：</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-13.jpg" alt=""></p>
+<p>不过幸好我备份了一份离线版 PDF，里面的内容还是非常完整的：</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-14.jpg" alt=""></p>
+
+<p><strong>第五套教程：Go标准库文档</strong>，可以查询每个API的具体使用方式，这也是 Go 开发者的必备手册。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-15.jpg" alt=""></p>
+<blockquote>
+<p>在线地址：<a href="https://studygolang.com/static/pkgdoc/main.html" target="_blank" rel="noopener noreferrer">https://studygolang.com/static/pkgdoc/main.html</a></p>
+</blockquote>
+<p>再推荐一些比较优质的纸质书籍吧。</p>
+<p><strong>第一本：Go语言实战</strong>，这本书关注于 Go 语言的规范和实现，涉及的内容包括语法、Go 的类型系统、并发、通道和测试等主题。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-16.jpg" alt=""></p>
+<p><strong>第二本：《Go 语言学习笔记》</strong>，上卷专注于语言规范相关细节，下卷专注于对运行时源码做出深度剖析，诸如内存分配、垃圾回收和并发调度等。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-17.jpg" alt=""></p>
+<p><strong>第三本：《Go Web 编程》</strong>，这本书以一个网络论坛作为例子，讲解了如何使用请求处理器、多路复用器、模板引擎、存储系统等核心组件去构建一个 Go 的 Web 应用。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-18.jpg" alt=""></p>
+<p>下面是我根据一位拿到大厂 offer 的师弟菜饼提供的学习资料整理出来的书单，相信对你学习 go 语言会很有帮助的。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-4b3b67f3-ebe0-4311-8c7c-7e87f89ccdc7.jpg" alt=""></p>
+
+<h3 id="_3-实战项目" tabindex="-1"> <strong>3）实战项目</strong></h3>
+<p><strong>第一个项目：seaweedfs</strong>，GitHub 上星标 13k+，这是一个分布式文件系统，基于 Go 开发，部署方便，使用简单，功能强大。</p>
+<blockquote>
+<p>地址：<a href="https://github.com/chrislusf/seaweedfs" target="_blank" rel="noopener noreferrer">https://github.com/chrislusf/seaweedfs</a></p>
+</blockquote>
+<p><strong>第二个项目：filebrowser</strong>，GitHub 上星标 13k+，这是一个自带文件浏览器的网盘服务，支持文件浏览、生成分享链接、批量上传、创建文件夹等功能、用户系统。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-20.jpg" alt=""></p>
+<blockquote>
+<p>地址：<a href="https://github.com/filebrowser/filebrowser" target="_blank" rel="noopener noreferrer">https://github.com/filebrowser/filebrowser</a></p>
+</blockquote>
+<p><strong>第三个项目：go-admin</strong>，GitHub 上星标 5k+，基于 Go 语言的一个数据可视化与管理平台，使开发者能在极简短的时间里，用极简短的代码量搭建起一个后台管理。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-21.jpg" alt=""></p>
+<blockquote>
+<p>地址：<a href="https://github.com/GoAdminGroup/go-admin" target="_blank" rel="noopener noreferrer">https://github.com/GoAdminGroup/go-admin</a></p>
+</blockquote>
+<p><strong>第四个项目：7天用Go从零实现分布式缓存GeeCache</strong>，每天完成的部分都是可以独立运行和测试的，就像搭积木一样，最终组合在一起就是一个完整的分布式缓存系统。每天的代码在 100 行左右。。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-22.jpg" alt=""></p>
+<blockquote>
+<p>地址：<a href="https://geektutu.com/post/geecache.html" target="_blank" rel="noopener noreferrer">https://geektutu.com/post/geecache.html</a></p>
+</blockquote>
+<p>更多 Go语言的学习资料，可以直接戳我整理的这个 GitHub/码云仓库——📚程序员必读书单整理，附下载地址，里面有大量的 Go语言学习资料。</p>
+<ul>
+<li>GitHub 地址：<a href="https://github.com/itwanger/JavaBooks#go" target="_blank" rel="noopener noreferrer">https://github.com/itwanger/JavaBooks</a></li>
+<li>码云地址：<a href="https://gitee.com/itwanger/JavaBooks#go" target="_blank" rel="noopener noreferrer">https://gitee.com/itwanger/JavaBooks</a></li>
+</ul>
+<h2 id="四、java-和-go-如何做取舍" tabindex="-1"> 四、Java 和 Go 如何做取舍？</h2>
+<p>Go 语言设计的晚一点，所以可以站在巨人的肩膀上，不像 Java，历史包袱很沉重。比如 Go 在并发编程方面，就比 Java 更轻量级，性能也更强劲，因为 Java 诞生的时候还没有为高并发这样的场景做好准备。</p>
+<p>Go 的使用简单，如果有其他编程语言的基础，也容易切换，阻力小。国内的大厂，比如说字节、腾讯这些都是要经常对抗高并发的场景，所以对 Go 的人才需求量比较大。</p>
+<p>Go 这边没有 Java 那么卷，岗位的薪资却也比较客观。如果能趁早建立优势的话，以后发展的路子也就更宽广了一些。</p>
+<p>但与此同时，由于 Go 的整个生态还没有 Java 那么完善，所以中小厂直接上 Go 的寥寥无几。<strong>稳妥起见，Java 为主，Go 为辅是比较合理的选择</strong>。</p>
+<p>但一定要记住，无论什么时候，编程语言都不是最重要的，反而计算机基础是最重要的，尤其是操作系统、计网、计组、数据结构与算法这一块。</p>
+<p>万丈高楼平地起，勿在浮沙筑高台。</p>
+<p>基础扎实了，切换编程语言的时候只需要熟悉一下语法和库就 OK 了。</p>
+<p>一名优秀的程序员，只会一种编程语言肯定是不够的，应该深入掌握一门，然后再涉足 1-2 门，这样的话，你能横向对比出来哪一种编程语言在哪一些领域有着比较大的优势，体会不同编程语言之间的差异性也会让你变得更加的优秀。</p>
+<p>从个人职场发展来看，多一条腿走路，也更稳。。</p>
+<hr>
+]]></content:encoded>
+      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/go-2.png" type="image/png"/>
+    </item>
+    <item>
+      <title>MySQL学习路线（建议收藏🔥）</title>
+      <link>https://bytecodes.tech/learning-path/mysql.html</link>
+      <guid>https://bytecodes.tech/learning-path/mysql.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">MySQL学习路线（建议收藏🔥）</source>
+      <description>MySQL学习资料 | 学习路线 | 注意事项，MySQL需要学什么</description>
+      <category>学习路线</category>
+      <pubDate>Mon, 26 Dec 2022 09:47:33 GMT</pubDate>
+      <content:encoded><![CDATA[<p>MySQL 在校招面试中，被问到的频率非常高；在日常开发中，MySQL 的使用频率也非常高，几乎是 Java 后端开发必须掌握的技术栈，所以 MySQL 也被musk归纳到了<strong>Java 后端四大件</strong>中。</p>
+<h2 id="第一阶段-sql" tabindex="-1"> 第一阶段：SQL</h2>
+<p>学习 MySQL 之前，先学一手 SQL，对后面学习 MySQL 也会有非常大的帮助。</p>
+<h3 id="视频" tabindex="-1"> 视频</h3>
+<p>可以先学习 SQL，推荐中字《<strong>10小时零基础成长SQL大师</strong>》，虽然是一门国外的课程，但画面实在是太优美了，必须得推荐啊，尤其对初学者而言，直接入手这个版本能塑造良好的SQL编写思维和逻辑能力。看不懂就多看几遍嗷！</p>
+<p>这个视频虽然只需要 10 小时，但讲的内容还是非常全面的，包括 select、where、and、in、like、order by、limit、inner join、self join、outer join、union、insert、update、delete、group by等等。</p>
+<blockquote>
+<p>视频地址：<a href="https://www.bilibili.com/video/BV1UE41147KC" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV1UE41147KC</a></p>
+</blockquote>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-370c309d-b3f6-4d68-917a-4069ebc7a600.png" alt=""></p>
+<h3 id="书籍" tabindex="-1"> 书籍</h3>
+<p>书的话，有两本，一本是《<a href="https://book.douban.com/subject/35167240/" target="_blank" rel="noopener noreferrer">SQL 必知必会</a>》，一本是《<a href="https://book.douban.com/subject/27055712/" target="_blank" rel="noopener noreferrer">SQL基础教程（第2版）</a>》，任选一本即可。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-9d645bf3-fe62-47bd-bfe3-bd31d4987d5a.png" alt=""></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-ff3e8536-4690-4b60-8e69-27e641c9ea39.png" alt=""></p>
+<h2 id="第二阶段-入门-mysql" tabindex="-1"> 第二阶段：入门 MySQL</h2>
+<p>SQL 学完，再学 MySQL 就会更加丝滑，学习曲线会平滑一些。</p>
+<h3 id="视频-1" tabindex="-1"> 视频</h3>
+<p>视频的话，可以在B 站上搜 MySQL 关键字，基本上各大培训机构都有公开的视频课，课程质量也不错。随便挑一个自己喜欢的跟着学就对了。</p>
+<p>如果是声控的同学，推荐尚硅谷宋红康老师的《<strong>MySQL数据库教程天花板，mysql安装到mysql高级，强！硬！</strong>》，视频涉及到的内容数据库概述和 MySQL 的安装、SQL 之 select 使用、SQL 之 DDL、DML、DCL 使用、（视图、存储过程与函数、变量、流程控制、游标、触发器）等等内容。</p>
+<p>有同学对这门视频的评价是声音要听起来比较容易勾起学习的欲望，所讲的内容要比较容易消化吸收。</p>
+<blockquote>
+<p>视频地址：<a href="https://www.bilibili.com/video/BV1iq4y1u7vj" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV1iq4y1u7vj</a></p>
+</blockquote>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-4c9d7851-9563-4864-b565-1e28a657b160.png" alt=""></p>
+<p>如果喜欢女老师上课的话，推荐尚硅谷的另外一门课《<strong>MySQL基础教程丨mysql数据库实战</strong>》视频课，一共 178 集，基本上覆盖了 MySQL 的核心技术点，包括数据库和表的常用操作、约束、视图、存储过程等内容。不过，这个视频的录音质量真的是不太高，建议大家不要带耳机来修这门课。</p>
+<blockquote>
+<p>视频地址：<a href="https://www.bilibili.com/video/BV1xW411u7ax" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV1xW411u7ax</a></p>
+</blockquote>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-f8c57aad-669e-4980-93ed-b4e78bc87cd2.png" alt="">
+如果想突击 MySQL 的话，推荐《<strong>老杜带你学_mysql入门基础</strong>》，据说 3 天就能学完，一共 151 集，有同学对课程进行了总结提炼，这里也贴一下博客地址：</p>
+<blockquote>
+<p>博客地址：<a href="https://blog.csdn.net/weixin_43896929/article/details/120750965" target="_blank" rel="noopener noreferrer">https://blog.csdn.net/weixin_43896929/article/details/120750965</a></p>
+</blockquote>
+<blockquote>
+<p>视频地址：<a href="https://www.bilibili.com/video/BV1Vy4y1z7EX" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV1Vy4y1z7EX</a></p>
+</blockquote>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-32720432-9269-4b99-929a-b359afa96c04.png" alt=""></p>
+<h3 id="书籍-1" tabindex="-1"> 书籍</h3>
+<p>书籍的话，推荐《<a href="https://book.douban.com/subject/35670862/" target="_blank" rel="noopener noreferrer">MySQL 是怎样使用的、快速入门 MySQL</a>》、《<a href="https://book.douban.com/subject/3354490/" target="_blank" rel="noopener noreferrer">MySQL 必知必会</a>》，任选一本就可以。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-3cb6a898-977f-4586-8e78-0246c322855c.png" alt=""></p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-9d5db75f-10c8-464e-bbd4-35a79785cd61.png" alt=""></p>
+<p>《MySQL 是怎样使用的、快速入门 MySQL》这本书在掘金上也有<a href="https://s.juejin.cn/ds/MDPeuBk/" target="_blank" rel="noopener noreferrer">小册</a>，如果购买过这本小册的话，也就不用再购买纸质书了。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-22571cf9-8058-4613-b8df-9dd5cdfcb47b.png" alt=""></p>
+<h3 id="mysql-学习建议" tabindex="-1"> MySQL 学习建议</h3>
+<p>一定要在本机上把 MySQL 数据库先安装了，直接通过 MySQL 官网下载，建议安装 MySQL 5.7 以上版本。</p>
+<blockquote>
+<p><a href="https://dev.mysql.com/downloads/mysql/" target="_blank" rel="noopener noreferrer">https://dev.mysql.com/downloads/mysql/</a></p>
+</blockquote>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-10f00d3a-2cbb-4ba7-8c1f-526391de2b36.png" alt=""></p>
+<p>安装完成后，记得安装可视化工具：<strong>Navicat</strong>，方便操作。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-f0e569b0-5c8d-4387-87cd-f5df64e218cd.png" alt=""></p>
+<p>星球里分享过 macOS 的 Navicat 破解版：</p>
+<blockquote>
+<p><a href="https://t.zsxq.com/04eMf6AMZ" target="_blank" rel="noopener noreferrer">https://t.zsxq.com/04eMf6AMZ</a></p>
+</blockquote>
+<p>Windows 的话，在 Java 程序员进阶之路上分享过破解方法：</p>
+<blockquote>
+<p><a href="https://tobebetterjavaer.com/nice-article/itmind/navicatzxbwindowspjbjc.html" target="_blank" rel="noopener noreferrer">https://tobebetterjavaer.com/nice-article/itmind/navicatzxbwindowspjbjc.html</a></p>
+</blockquote>
+<p><strong>破解方法请勿外传，保密就对了</strong>。</p>
+<p>这个阶段，一定要把基本的 SQL 语句练一练：</p>
+<ul>
+<li><strong>SELECT</strong> - 从数据库中提取数据</li>
+<li><strong>UPDATE</strong> - 更新数据库中的数据</li>
+<li><strong>DELETE</strong> - 从数据库中删除数据</li>
+<li><strong>INSERT INTO</strong> - 向数据库中插入新数据</li>
+<li><strong>CREATE DATABASE</strong> - 创建新数据库</li>
+<li><strong>ALTER DATABASE</strong> - 修改数据库</li>
+<li><strong>CREATE TABLE</strong> - 创建新表</li>
+<li><strong>ALTER TABLE</strong> - 变更（改变）数据库表</li>
+<li><strong>DROP TABLE</strong> - 删除表</li>
+<li><strong>CREATE INDEX</strong> - 创建索引（搜索键）</li>
+<li><strong>DROP INDEX</strong> - 删除索引</li>
+</ul>
+<p>在之后可以到牛客上，把 SQL 相关的练习题刷一波。</p>
+<blockquote>
+<p><a href="https://www.nowcoder.com/ta/sql" target="_blank" rel="noopener noreferrer">https://www.nowcoder.com/ta/sql</a></p>
+</blockquote>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-dfdb957f-ff78-42e5-aae5-758d84852e46.png" alt=""></p>
+<p>如果你是测试人员、业务人员、数据分析岗，或者实习岗，一般掌握到这个成都就可以了。如果你是 Java 后端开发人员，或者 DBA，那就要往进阶层面走了。</p>
+<h2 id="第三阶段-进阶-mysql" tabindex="-1"> 第三阶段：进阶 MySQL</h2>
+<p>面试造火箭，工作拧螺丝，虽然日常开发中，大部分人也就写写 SQL 就行了，但不好意思，面试中（或者你想成为 MySQL 方面的专家）99% 的情况下，还是会被问到原理的，比如说索引、锁、日志、引擎等。</p>
+<p>举一些例子：</p>
+<p>1、一条 SQL 是如何执行的？也就是说，从MySQL 客户端执行了一条 SQL 语句，MySQL 服务端会进行哪些处理。</p>
+<p>2、索引相关：索引是如何实现的？MySQL 的索引采用的哪种数据结构？哈希索引和 B+ 树索引的区别是什么？</p>
+<p>3、事务相关：事务的四大特性是什么？什么是幻读、脏读、不可重复读？、MVCC 了解吗？怎么实现的？</p>
+<p>4、锁相关：表锁、行锁、意向锁、乐观锁、死锁，这些锁主要是用来解决什么问题的？</p>
+<p>5、日志相关：MySQL 日志文件有哪些？binlog 和 redo log 有什么区别？redo log 是怎么刷入磁盘的呢？</p>
+<p>6、高可用/性能相关：数据库读写分离了解吗？读写分离是如何实现的？主从复制的原理了解吗？分库分表了解吗？</p>
+<p>7、SQL 优化相关：慢 SQL 如何定位？如何优化慢 SQL？</p>
+<h3 id="书籍-2" tabindex="-1"> 书籍</h3>
+<p>推荐《<a href="https://book.douban.com/subject/36096578/" target="_blank" rel="noopener noreferrer">高性能 MySQL</a>》、《<a href="https://book.douban.com/subject/35231266/" target="_blank" rel="noopener noreferrer">MySQL 是怎样运行的：从跟上理解 MySQL</a>》、《<a href="https://book.douban.com/subject/24708143/" target="_blank" rel="noopener noreferrer">MySQL技术内幕:InnoDB存储引擎</a>》。</p>
+<p>《高性能 MySQL》出到了第四版，和第三版比，删除了不少内容，更精简了。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-af4eafb6-7a37-4931-8aac-dc44bcabfb82.png" alt=""></p>
+<p>《MySQL 是怎样运行的：从跟上理解 MySQL》这本书真不错，评价非常高。全书分为四个部分，第一部分（1-3 章），主要就是普及 MySQL；第二部分（4-9 章）是全书的基础，介绍了 InnoDB、索引、B+树；第三部分（10-17 章）主要介绍了工作中常用到的查询优化，比如说单表查询是如何执行的，连接查询是如何执行的，以及如何查看 explain 语句的执行结果；第四部分（18-22 章）介绍了事务、redo 日志、MVCC、各种锁的细节。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-018bba71-529c-41ff-8622-60439fec0b50.png" alt=""></p>
+<p>《MySQL 是怎样运行的：从跟上理解 MySQL》这本书在掘金上也有<a href="https://s.juejin.cn/ds/MDfcwNb/" target="_blank" rel="noopener noreferrer">小册</a>，购买过的可以不用再购买纸质书了，内容差不多。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-675d507a-f05b-4f53-9c7e-9394502a6576.png" alt=""></p>
+<p>《MySQL技术内幕:InnoDB存储引擎》这本书详细介绍了 MySQL 的系统架构和各种各样的存储引擎，非常顶的一本书。强烈推荐2、4、5三章。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-f0631706-60e8-473e-89e9-04ea5fc0dccd.png" alt=""></p>
+<h3 id="付费课程" tabindex="-1"> 付费课程</h3>
+<p>极客上的《<a href="http://gk.link/a/11Gcp" target="_blank" rel="noopener noreferrer">MySQL 实战 45 讲</a>》评价挺高的，可以看看。一共分为两部分，基础篇（深入浅出地讲述了 MySQL 的核心知识、以及 MySQL 的基础架构、日志系统、事务隔离、锁等内容）和实践篇（结合一个个关键的数据库问题触发，分析数据库原理并给出实践指导）。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-5338019d-a197-4438-8c0e-934a45794d91.png" alt=""></p>
+<blockquote>
+<p>星球同学可以到星球的百度网盘里取，地址在《Java 程序员进阶之路》知识星球的<a href="https://t.zsxq.com/07N3NbmEe" target="_blank" rel="noopener noreferrer">置顶链接</a>里。</p>
+</blockquote>
+<p>学完以上这些，MySQL 的能力基本上会有质的飞跃，也就会有一种豁然开朗的感觉。当然，这部分学习起来十分吃力，主要是很多内容没有实际的应用场景。但最起码有个印象，万一用到了，再系统的翻翻书，看看网上的案例就会好很多。</p>
+<p>有备无患嘛。</p>
+<h3 id="官方文档" tabindex="-1"> 官方文档</h3>
+<p>英文能力比较强的球友，可以试读一下 <a href="https://dev.mysql.com/doc/" target="_blank" rel="noopener noreferrer">MySQL 的官方文档</a>。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-eb464848-e5d9-4611-8b32-2fe799e7ca68.png" alt=""></p>
+<h2 id="第三阶段-面试突击-实战运用" tabindex="-1"> 第三阶段：面试突击/实战运用</h2>
+<p>学习可以是功利性质的（当然也可以是因为纯粹的热爱），如果不是为了高薪，我们又何苦学这么多呢？</p>
+<p>那既然学了 MySQL，就要检验学习成果，怎么检验呢？</p>
+<p>准备面试的同学可以刷一波《<a href="https://tobebetterjavaer.com/sidebar/sanfene/mysql.html" target="_blank" rel="noopener noreferrer">面试逆袭 MySQL 篇</a>》，准备和面试官来回拉扯哈。</p>
+<p>星球用户可以在星球的<a href="https://t.zsxq.com/04FuZrRVf" target="_blank" rel="noopener noreferrer">知识图谱</a>里获取 PDF 版本。</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-2aecc2a4-febb-4403-a4ce-d5656c879d3b.png" alt=""></p>
+<p>准备升职加薪/跳槽的同学，那就一定要在实际的工作当中加以运用，不然很可能学完一段时间就忘记了。</p>
+<hr>
+]]></content:encoded>
+      <enclosure url="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-370c309d-b3f6-4d68-917a-4069ebc7a600.png" type="image/png"/>
+    </item>
+    <item>
+      <title>2022最新超详细的操作系统学习路线（建议收藏🔥）</title>
+      <link>https://bytecodes.tech/learning-path/os.html</link>
+      <guid>https://bytecodes.tech/learning-path/os.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">2022最新超详细的操作系统学习路线（建议收藏🔥）</source>
+      <description>操作系统是管理计算机硬件和软件资源的程序，是计算机的基石，这里整理一份 操作系统的超详细学习路线，附学习资源，可下载</description>
+      <category>学习路线</category>
+      <pubDate>Mon, 26 Dec 2022 09:47:33 GMT</pubDate>
+      <content:encoded><![CDATA[<p>操作系统是管理计算机硬件和软件资源的程序，是计算机的基石。</p>
+<p>举个例子来讲，像 Java 中的并发编程这块，如果连进程调度的相关原理、同步和互斥都搞不懂，那多半会有两种结果：</p>
+<ul>
+<li>写出来的多线程程序出现了各种奇奇怪怪的问题；</li>
+<li>不知道为什么出现这些问题。</li>
+</ul>
+<p>喜欢视频版的话，可以到 B 站看musk的操作系统学习路线版：</p>
+<blockquote>
+<p><a href="https://www.bilibili.com/video/BV1th411b7in" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV1th411b7in</a></p>
+</blockquote>
+<p><strong>操作系统该怎么学呢？入门推荐两门视频课程</strong>。</p>
+<p>先看一门国内的，再看一门国外的，中西合璧，药效持久。</p>
+<h2 id="一、哈工大的《操作系统》实验课" tabindex="-1"> 一、哈工大的《操作系统》实验课</h2>
+<p>国内的推荐哈工大的《操作系统》实验课，以下四部分最为重要。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-1.png" alt=""></p>
+<p>1）操作系统基础篇</p>
+<blockquote>
+<p><a href="https://mooc.study.163.com/course/1000002004" target="_blank" rel="noopener noreferrer">https://mooc.study.163.com/course/1000002004</a></p>
+</blockquote>
+<p>2）操作系统之进程与线程</p>
+<blockquote>
+<p><a href="https://mooc.study.163.com/course/1000002008" target="_blank" rel="noopener noreferrer">https://mooc.study.163.com/course/1000002008</a></p>
+</blockquote>
+<p>3）操作系统之内存管理</p>
+<blockquote>
+<p><a href="https://mooc.study.163.com/course/1000003007" target="_blank" rel="noopener noreferrer">https://mooc.study.163.com/course/1000003007</a></p>
+</blockquote>
+<p>4）操作系统之外设与文件系统</p>
+<blockquote>
+<p><a href="https://mooc.study.163.com/course/1000002009" target="_blank" rel="noopener noreferrer">https://mooc.study.163.com/course/1000002009</a></p>
+</blockquote>
+<p>哈工大的操作系统课是该校 CS 课程中含金量最高的，尤其是实验课。八个实验涉及到了操作系统的核心部分，虽然 lab 不是在哈工大自创的 HITOS 上，但 linux-0.11 确实是一个非常好的选择。</p>
+<p>Linux-0.11 这个版本能让学生更加专注于实验，而不是纠结于各种奇奇怪怪的问题，作为 OS 入门算是足够了。</p>
+<p>Linux 发展到现在，内核源码与 0.11 相比，几乎是翻天覆地的变化，但这不代表研究 linux-0.11 就没有意义，毕竟内核这东西，你懂的。。。</p>
+<p>多的不说，学完 linux-0.11 后，你至少能明白，原来一个最简单的完整的操作系统，是这个样子的：它是这样一步步从 BIOS 开始加载程序加载数据的，它是这样实现单 CPU 多任务多进程调度和切换的。</p>
+<p>Linux 内核主要由 5 个模块构成，分别是：</p>
+<ul>
+<li>进程调度模块，负责控制进程对 CPU 资源的使用。</li>
+<li>内存管理模块，用于确保所有进程能够安全地共享主机内存，同时，内存管理模块还支持虚拟内存管理方式，使得进程所使用的内存比实际的内存更多。</li>
+<li>文件系统模块，用于支持对外部设备的驱动和存储。linux-0.95 版本又逐步实现了虚拟文件系统，该模块通过向所有的外部存储设备提供一个通用的文件接口，隐藏了各种硬件设备的不同细节，从而兼容其他操作系统。</li>
+<li>进程间通信模块，用于支持多种进程间的信息交换方式。</li>
+<li>网络接口模块（linux-0.96 版本才有），提供对多种网络通信标准的访问并支持网络硬件。</li>
+</ul>
+<p>它们之间的依赖关系见下图所示。其实连线代表它们之间的依赖关系，虚线代表 linux-0.11 中还未实现的部分。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-2.png" alt=""></p>
+<p>由上图可以看得出，所有模块都与进程调度模块存在依赖关系，因为它们都需要进程调度程序来挂起或重新运行它们的进程。</p>
+<p>linux-0.11 的学习推荐《Linux 内核完全注释》，该书对 linux-0.11 的全部代码文件进行了详细全面的注释和说明，能够让大家在尽量短的时间内对 Linux 的工作机制有一个全面而深刻的理解，为进一步学习 Linux 系统打下坚实的基础。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-3.jpg" alt=""></p>
+<p>高清 PDF 版在 GitHub 上的一个开源仓库（JavaBooks）里可以找得到（附 linux-0.11 内核的源码）：</p>
+<blockquote>
+<p><a href="https://github.com/itwanger/JavaBooks#Linux%E5%86%85%E6%A0%B8" target="_blank" rel="noopener noreferrer">https://github.com/itwanger/JavaBooks#Linux%E5%86%85%E6%A0%B8</a></p>
+</blockquote>
+<p>我在逛 GitHub 的时候发现了这样一个仓库：</p>
+<blockquote>
+<p><a href="https://github.com/hoverwinter/HIT-OSLab" target="_blank" rel="noopener noreferrer">https://github.com/hoverwinter/HIT-OSLab</a></p>
+</blockquote>
+<p>作者大四，他的这门操作系统实验课满分，打算自己写一个 OS，就顺带把之前的代码给开源了出来，希望对学习操作系统，以及对哈工大这门实验课感兴趣的同学一些参考。</p>
+<p>其中 lab1-lab7 给出了修改的部分，lab 8 给出了完整的修改后的 linux-0.11 的代码。虽然这个仓库已经有好多年没有更新了，但仍然有参考的价值。</p>
+<p>作者的那句：“Just coding system，it’s fantastic！”我觉得也蛮给力的。</p>
+<h2 id="二、mit-6-268-和-6-s081" tabindex="-1"> 二、MIT 6.268 和 6.S081</h2>
+<p>国外的强烈推荐 MIT 6.268 这门课（主要研究生级别），是一门公认的硬核课程，一直以来都有很高的知名度，广受好评，是理论与实践相结合的经典。</p>
+<blockquote>
+<p><a href="https://pdos.csail.mit.edu/6.828/2018/schedule.html" target="_blank" rel="noopener noreferrer">https://pdos.csail.mit.edu/6.828/2018/schedule.html</a></p>
+</blockquote>
+<p>不过，在学习这门课之前，最好之前有过一些操作系统的基础，比如说上过本校的 OS 课，比如说阅读过《操作系统导论》这本书，比如说熟悉 C语言和汇编，对计算机组成原理也有一定的了解。</p>
+<p>这门课有多牛逼呢？</p>
+<blockquote>
+<p>举个例子，以陈波老师为首的上海交通大学的 IPADS 实验室可以说是国内最强的操作系统相关实验室之一了，而陈波老师等人在读博阶段就完成了 6.828 课程的学习，并且在此基础上开发了 corey 操作系统，并发表了一篇被广泛引用的论文：Corey——An operating system for many cores。</p>
+</blockquote>
+<p>如果觉得这门课的难度有点大，可以选择 MIT 的 6.S081（Introduction to Operating System，操作系统导论）这门课，主要针对本科生级别。</p>
+<blockquote>
+<p><a href="https://pdos.csail.mit.edu/6.S081/2020/schedule.html" target="_blank" rel="noopener noreferrer">https://pdos.csail.mit.edu/6.S081/2020/schedule.html</a></p>
+</blockquote>
+<p>6.S081 这门课是基于一个类似于 Unix，但比 Unix 简单得多的一个教学操作系统 XV6 来讲解的，虽然不是原汁原味的 Linux，但对于理解 Linux 的工作方式和结构是足够了。</p>
+<p>这门课是全英文的形式，video 链接里甚至没有英文字幕，对于国内的同学来说，如果英文功底一般的话，很难较好的理解这门课程。</p>
+<p>下图是课程表，里面有 PDF 和 video 链接🔗。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-4.png" alt=""></p>
+<p>为了减轻大家的学习压力，我在哔哩哔哩上找到了这门课的克隆版，但中英文字幕的那种。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-5.png" alt=""></p>
+<p>哇，有了中英文字幕，学起来就舒服多了。课程地址我贴一下：</p>
+<blockquote>
+<p><a href="https://www.bilibili.com/video/BV19k4y1C7kA" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV19k4y1C7kA</a></p>
+</blockquote>
+<p>除了这个，我还找到了一份中文版的在线阅读文档，总共有 35 万字左右，据作者说，他大概花费了 200 个小时，辛苦劳作的结果是不仅作者自己的知识盲区补全了，也为后来者留下了一笔不可多得的学习资料。害，除了能蹦出“牛逼”两个字外，我想不到更惊艳的词汇了！</p>
+<blockquote>
+<p><a href="https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081/" target="_blank" rel="noopener noreferrer">https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081/</a></p>
+</blockquote>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-6.png" alt=""></p>
+<p>这门课的一部分会讲操作系统的基本概念，一部分是 lab，几乎每周都会有一些编程实验。</p>
+<p>我们都知道，操作系统很重要，那操作系统的学习单靠看和听肯定是不行的，必须配合实战来。做实验的意义就在于能帮我们获得一些使用和实现操作系统的实际动手经验。</p>
+<p>还有xiaofan 的学习笔记也是非常值得参考的：</p>
+<blockquote>
+<p><a href="https://fanxiao.tech/posts/MIT-6S081-notes/#11-processes-and-memory" target="_blank" rel="noopener noreferrer">https://fanxiao.tech/posts/MIT-6S081-notes/#11-processes-and-memory</a></p>
+</blockquote>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-7.png" alt=""></p>
+<p>学习 6.S081 这门课的目的有三个：</p>
+<ul>
+<li>理解操作系统的设计和实现</li>
+<li>能动手扩展一个小型 OS</li>
+<li>能动手实现系统应用</li>
+</ul>
+<h2 id="三、硬核-os-pdf" tabindex="-1"> 三、硬核 OS PDF</h2>
+<p>这里给大家推荐两门超级硬核的操作系统学习资料，我都已经整理成 PDF 了。</p>
+<p><strong>第一份，给操作系统捋条线</strong>，看图感受一下吧。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-8.png" alt=""></p>
+
+<p><strong>第二份，操作系统核心知识点</strong>，同样看图感受一下吧。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-9.png" alt=""></p>
+<p>需要的小伙伴同样可以通过上面的方式获取到。</p>
+<p>有一说一，操作系统确实难刷，大家在刷的过程中一定要记得多喝水，因为这门课实在是太干了。说实话，光是整理这两门课的过程，我就又 get 到了不少新鲜的知识点。希望我推荐的这两门课算是抛砖引玉吧，大家一起冲！</p>
+<p>记住一点，<strong>动手很重要，动手做 lab 很重要</strong>。</p>
+<hr>
+]]></content:encoded>
+      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-1.png" type="image/png"/>
+    </item>
+    <item>
+      <title>非 Python 职业选手的Python学习路线（建议收藏🔥）</title>
+      <link>https://bytecodes.tech/learning-path/python.html</link>
+      <guid>https://bytecodes.tech/learning-path/python.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">非 Python 职业选手的Python学习路线（建议收藏🔥）</source>
+      <description>非 Python职业选手，但工作中学过一段时间，这篇分享给对 Python 感兴趣的爱好者，文中有大量 Python 的学习资源可供下载。</description>
+      <category>学习路线</category>
+      <pubDate>Mon, 26 Dec 2022 09:47:33 GMT</pubDate>
+      <content:encoded><![CDATA[<blockquote>
+<p>非 Python职业选手，但工作中学过一段时间，这篇分享给对 Python 感兴趣的爱好者，文中有大量 Python 的学习资源可供下载。</p>
+</blockquote>
+<p>先上一张 Python 知识图谱，直观的了解一下 Python 的基本构成与实际应用。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/python-1.png" alt=""></p>
+<h2 id="_1-视频篇" tabindex="-1"> <strong>1）视频篇</strong></h2>
+<p>B 站也就是哔哩哔哩，是国内最大的二次元视频网站之一。作为一个半吊子 up 主，我虽然看视频不多，但现在基本想看视频就直接去 B 站了。</p>
+<p>上面也有非常多的 Python 视频可供学习。</p>
+<p>01、小甲鱼零基础入门学习Python，1669.8万播放。画面虽然有点儿童风，但配合 up 幽默的教学风格到也显得非常有意思。</p>
+<blockquote>
+<p><a href="https://www.bilibili.com/video/av4050443" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/av4050443</a></p>
+</blockquote>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/python-2.png" alt=""></p>
+<p>02、Python从入门到精通教程，1165.8万播放。虽然是培训机构出品的，但视频质量还过得去，也比较像大学老师的授课风格，况且还可以白票。前 100 集在讲 Linux 基础，没兴趣的可以直接跳过。</p>
+<blockquote>
+<p><a href="https://www.bilibili.com/video/av14184325" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/av14184325</a></p>
+</blockquote>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/python-3.png" alt=""></p>
+<p>03、Python编程从入门到实践，84.4万播放。虽然播放量一般，内容也一般，但如果想听萝莉小姐姐的声音的话，可以尝试下，听完整个人都治愈了。</p>
+<blockquote>
+<p><a href="https://www.bilibili.com/video/av35698354" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/av35698354</a></p>
+</blockquote>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/python-4.png" alt=""></p>
+<h2 id="_2-教程篇" tabindex="-1"> <strong>2）教程篇</strong></h2>
+<p>01、Python 3.10.0 文档，官方文档，毫无疑问是需要学习的。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/python-5.png" alt=""></p>
+<blockquote>
+<p><a href="https://docs.python.org/zh-cn/3/" target="_blank" rel="noopener noreferrer">https://docs.python.org/zh-cn/3/</a></p>
+</blockquote>
+<p>02、Python - 100天从新手到大师，112k star，足见受到的关注程度。</p>
+<blockquote>
+<p><a href="https://github.com/jackfrued/Python-100-Days" target="_blank" rel="noopener noreferrer">https://github.com/jackfrued/Python-100-Days</a></p>
+</blockquote>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/python-6.png" alt=""></p>
+<p>03、Python Cookbook，比较适合那些想深入理解 Python 语言机制和现代编程风格的有经验的 Python 程序员。</p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/python-7.png" alt=""></p>
+<blockquote>
+<p><a href="https://python3-cookbook.readthedocs.io/zh_CN/latest/index.html" target="_blank" rel="noopener noreferrer">https://python3-cookbook.readthedocs.io/zh_CN/latest/index.html</a></p>
+</blockquote>
+<p>更多 Python 的学习资料，可以直接戳我整理的这个 GitHub/码云仓库——📚程序员必读书单整理，附下载地址，里面有大量的 Python 学习资料。</p>
+<ul>
+<li>GitHub 地址：<a href="https://github.com/itwanger/JavaBooks#python" target="_blank" rel="noopener noreferrer">https://github.com/itwanger/JavaBooks</a></li>
+<li>码云地址：<a href="https://gitee.com/itwanger/JavaBooks#python" target="_blank" rel="noopener noreferrer">https://gitee.com/itwanger/JavaBooks</a></li>
+</ul>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/python-books.jpg" alt=""></p>
+<p>简单罗列一下：</p>
+<ul>
+<li>《Python+Cookbook》第三版中文</li>
+<li>编程小白的第一本Python入门书</li>
+<li>可爱的Python_中文版</li>
+<li>利用Python进行数据分析</li>
+<li>流畅的python</li>
+<li>深入浅出：使用Python编程</li>
+<li>用Python进行自然语言处理</li>
+<li>Python编程：从入门到实践</li>
+<li>PYTHON自然语言处理【中文版】</li>
+</ul>
+<hr>
+]]></content:encoded>
+      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/python-1.png" type="image/png"/>
     </item>
   </channel>
 </rss>

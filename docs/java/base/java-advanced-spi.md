@@ -15,7 +15,7 @@ SPI（Service Provider Interface），是JDK内置的一种 服务提供发现�
 
 SPI整体机制图如下：
 
-![image-20221024194443834](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221024194443834.png)
+![image-20221024194443834](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221024194443834.png)
 
 当服务的提供者提供了一种接口的实现之后，需要在classpath下的`META-INF/services/`目录里创建一个以服务接口命名的文件，这个文件里的内容就是这个接口的具体的实现类。当其他的程序需要这个服务的时候，就可以通过查找这个jar包（一般都是以jar包做依赖）的`META-INF/services/`中的配置文件，配置文件中有接口的具体实现类名，可以根据这个类名进行加载实例化，就可以使用该服务了。JDK中查找服务的实现的工具类是：`java.util.ServiceLoader`。
 
@@ -211,7 +211,7 @@ while(driversIterator.hasNext()) {
 
 可以看下截图，我在测试项目中添加了两个jar包，`mysql-connector-java-6.0.6.jar`和`postgresql-42.0.0.0.jar`，跟踪到DriverManager中之后：
 
-![image-20221024195818259](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221024195818259.png)
+![image-20221024195818259](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221024195818259.png)
 
 可以看到此时迭代器中有两个驱动，mysql和postgresql的都被加载了。
 
@@ -564,7 +564,7 @@ while(driversIterator.hasNext()) {
 
 最后总结一下jdk spi需要遵循的规范
 
-![image-20221024201020273](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221024201020273.png)
+![image-20221024201020273](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221024201020273.png)
 
 ### 4.2 SPI和API的区别是什么
 
@@ -588,9 +588,9 @@ while(driversIterator.hasNext()) {
 - [difference-between-spi-and-api  (opens new window)](https://stackoverflow.com/questions/2954372/difference-between-spi-and-api?answertab=votes#tab-top)
 - [设计原则：小议 SPI 和 API](https://www.cnblogs.com/happyframework/archive/2013/09/17/3325560.html)
 
-![image-20221024201315431](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221024201315431.png)
+![image-20221024201315431](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221024201315431.png)
 
-![image-20221024201327221](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221024201327221.png)
+![image-20221024201327221](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221024201327221.png)
 
 ### 4.3 SPI机制实现原理
 

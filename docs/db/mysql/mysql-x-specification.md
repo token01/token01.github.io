@@ -8,7 +8,7 @@ category:
 
 # MySQL - MySQL使用规范
 
-![image-20221014231941357](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221014231941357.png)
+![image-20221014231941357](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221014231941357.png)
 
 >16条MySQL使用规范，减少80%问题.
 >
@@ -18,7 +18,7 @@ category:
 
 阿里开发规范中，有这么一句话：
 
-![image-20221014230752999](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221014230752999.png)
+![image-20221014230752999](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221014230752999.png)
 
 **select \*** 会查询表中所有字段，如果表中的字段有更改，必须修改SQL语句，不然就会执行错误。
 
@@ -79,7 +79,7 @@ select
 from user;
 ```
 
-![image-20221014231410497](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221014231410497.png)
+![image-20221014231410497](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221014231410497.png)
 
 值越大，区分度越高。
 

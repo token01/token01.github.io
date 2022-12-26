@@ -1,330 +1,944 @@
 ---
-order: 30
+order: 40
+category:
+  - Java
 ---
 
-# Java 基础 - 图谱 & Q/A
+# Java 基础 - 注解机制详解
 
-## 1. 知识体系
+> 注解是JDK1.5版本开始引入的一个特性，用于对代码进行说明，可以对包、类、接口、字段、方法参数、局部变量等进行注解。它是框架学习和设计者必须掌握的基础。
 
-![java_basic](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/java_basic.png)
+## 1. 注解基础
 
-## 2. Q&A
+注解是JDK1.5版本开始引入的一个特性，用于对代码进行说明，可以对包、类、接口、字段、方法参数、局部变量等进行注解。它主要的作用有以下四方面：
 
-### 2.1 Java 中应该使用什么数据类型来代表价格?
+- 生成文档，通过代码里标识的元数据生成javadoc文档。
+- 编译检查，通过代码里标识的元数据让编译器在编译期间进行检查验证。
+- 编译时动态处理，编译时通过代码里标识的元数据动态处理，例如动态生成代码。
+- 运行时动态处理，运行时通过代码里标识的元数据动态处理，例如使用反射注入实例。
 
-如果不是特别关心内存和性能的话，使用BigDecimal，否则使用预定义精度的 double 类型。
+这么来说是比较抽象的，我们具体看下注解的常见分类：
 
-### 2.2 怎么将 byte 转换为 String?
+- **Java自带的标准注解**，包括`@Override`、`@Deprecated`和`@SuppressWarnings`，分别用于标明重写某个方法、标明某个类或方法过时、标明要忽略的警告，用这些注解标明后编译器就会进行检查。
+- **元注解**，元注解是用于定义注解的注解，包括`@Retention`、`@Target`、`@Inherited`、`@Documented`，`@Retention`用于标明注解被保留的阶段，`@Target`用于标明注解使用的范围，`@Inherited`用于标明注解可继承，`@Documented`用于标明是否生成javadoc文档。
+- **自定义注解**，可以根据自己的需求定义注解，并可用元注解对自定义注解进行注解。
 
-可以使用 String 接收 byte[] 参数的构造器来进行转换，需要注意的点是要使用的正确的编码，否则会使用平台默认编码，这个编码可能跟原来的编码相同，也可能不同。
+接下来我们通过这个分类角度来理解注解。
 
-### 2.3 Java 中怎样将 bytes 转换为 long 类型?
+### 1.1 Java内置注解
 
-String接收bytes的构造器转成String，再Long.parseLong
-
-### 2.4 我们能将 int 强制转换为 byte 类型的变量吗? 如果该值大于 byte 类型的范围，将会出现什么现象?
-
-是的，我们可以做强制转换，但是 Java 中 int 是 32 位的，而 byte 是 8 位的，所以，如果强制转化是，int 类型的高 24 位将会被丢弃，byte 类型的范围是从 -128 到 127。
-
-### 2.5 存在两个类，B 继承 A，C 继承 B，我们能将 B 转换为 C 么? 如 C = (C) B；
-
-可以，向下转型。但是不建议使用，容易出现类型转型异常.
-
-### 2.6 哪个类包含 clone 方法? 是 Cloneable 还是 Object?
-
-java.lang.Cloneable 是一个标示性接口，不包含任何方法，clone 方法在 object 类中定义。并且需要知道 clone() 方法是一个本地方法，这意味着它是由 c 或 c++ 或 其他本地语言实现的。
-
-### 2.7  Java 中 ++ 操作符是线程安全的吗?
-
-不是线程安全的操作。它涉及到多个指令，如读取变量值，增加，然后存储回内存，这个过程可能会出现多个线程交差。还会存在竞态条件(读取-修改-写入)。
-
-### 2.8 a = a + b 与 a += b 的区别
-
-+= 隐式的将加操作的结果类型强制转换为持有结果的类型。如果两个整型相加，如 byte、short 或者 int，首先会将它们提升到 int 类型，然后在执行加法操作。
+我们从最为常见的Java内置的注解开始说起，先看下下面的代码：
 
 ```java
-byte a = 127;
-byte b = 127;
-b = a + b; // error : cannot convert from int to byte
-b += a; // ok
-```
-
-(因为 a+b 操作会将 a、b 提升为 int 类型，所以将 int 类型赋值给 byte 就会编译出错)
-
-### 2.9 我能在不进行强制转换的情况下将一个 double 值赋值给 long 类型的变量吗?
-
-不行，你不能在没有强制类型转换的前提下将一个 double 值赋值给 long 类型的变量，因为 double 类型的范围比 long 类型更广，所以必须要进行强制转换。
-
-### 2.10 3*0.1 == 0.3 将会返回什么? true 还是 false?
-
-false，因为有些浮点数不能完全精确的表示出来。
-
-### 2.11 int 和 Integer 哪个会占用更多的内存?
-
-Integer 对象会占用更多的内存。Integer 是一个对象，需要存储对象的元数据。但是 int 是一个原始类型的数据，所以占用的空间更少。
-
-### 2.12 为什么 Java 中的 String 是不可变的(Immutable)?
-
-Java 中的 String 不可变是因为 Java 的设计者认为字符串使用非常频繁，将字符串设置为不可变可以允许多个客户端之间共享相同的字符串。更详细的内容参见答案。
-
-### 2.13 我们能在 Switch 中使用 String 吗?
-
-从 Java 7 开始，我们可以在 switch case 中使用字符串，但这仅仅是一个语法糖。内部实现在 switch 中使用字符串的 hash code。
-
-### 2.14 Java 中的构造器链是什么?
-
-当你从一个构造器中调用另一个构造器，就是Java 中的构造器链。这种情况只在重载了类的构造器的时候才会出现。
-
-### 2.15 枚举类
-
-JDK1.5出现 每个枚举值都需要调用一次构造函数
-
-### 2.16 什么是不可变对象(immutable object)? Java 中怎么创建一个不可变对象?
-
-不可变对象指对象一旦被创建，状态就不能再改变。任何修改都会创建一个新的对象，如 String、Integer及其它包装类。
-
-如何在Java中写出Immutable的类?
-
-要写出这样的类，需要遵循以下几个原则:
-
-1)immutable对象的状态在创建之后就不能发生改变，任何对它的改变都应该产生一个新的对象。
-
-2)Immutable类的所有的属性都应该是final的。
-
-3)对象必须被正确的创建，比如: 对象引用在对象创建过程中不能泄露(leak)。
-
-4)对象应该是final的，以此来限制子类继承父类，以避免子类改变了父类的immutable特性。
-
-5)如果类中包含mutable类对象，那么返回给客户端的时候，返回该对象的一个拷贝，而不是该对象本身(该条可以归为第一条中的一个特例)
-
-### 2.17 我们能创建一个包含可变对象的不可变对象吗?
-
-是的，我们是可以创建一个包含可变对象的不可变对象的，你只需要谨慎一点，不要共享可变对象的引用就可以了，如果需要变化时，就返回原对象的一个拷贝。最常见的例子就是对象中包含一个日期对象的引用。
-
-### 2.18 有没有可能两个不相等的对象有相同的 hashcode?
-
-有可能，两个不相等的对象可能会有相同的 hashcode 值，这就是为什么在 hashmap 中会有冲突。相等 hashcode 值的规定只是说如果两个对象相等，必须有相同的hashcode 值，但是没有关于不相等对象的任何规定。
-
-### 2.19 两个相同的对象会有不同的 hash code 吗?
-
-不能，根据 hash code 的规定，这是不可能的。
-
-### 2.20 我们可以在 hashcode() 中使用随机数字吗?
-
-不行，因为对象的 hashcode 值必须是相同的。
-
-### 2.21 Java 中，Comparator 与 Comparable 有什么不同?
-
-Comparable 接口用于定义对象的自然顺序，而 comparator 通常用于定义用户定制的顺序。Comparable 总是只有一个，但是可以有多个 comparator 来定义对象的顺序。
-
-### 2.22 为什么在重写 equals 方法的时候需要重写 hashCode 方法?
-
-因为有强制的规范指定需要同时重写 hashcode 与 equals 是方法，许多容器类，如 HashMap、HashSet 都依赖于 hashcode 与 equals 的规定。
-
-### 2.23 “a==b”和”a.equals(b)”有什么区别?
-
-如果 a 和 b 都是对象，则 a==b 是比较两个对象的引用，只有当 a 和 b 指向的是堆中的同一个对象才会返回 true，而 a.equals(b) 是进行逻辑比较，所以通常需要重写该方法来提供逻辑一致性的比较。例如，String 类重写 equals() 方法，所以可以用于两个不同对象，但是包含的字母相同的比较。
-
-### 2.24 a.hashCode() 有什么用? 与 a.equals(b) 有什么关系?
-
-简介: hashCode() 方法是相应对象整型的 hash 值。它常用于基于 hash 的集合类，如 Hashtable、HashMap、LinkedHashMap等等。它与 equals() 方法关系特别紧密。根据 Java 规范，两个使用 equals() 方法来判断相等的对象，必须具有相同的 hash code。
-
-1、hashcode的作用
-
-List和Set，如何保证Set不重复呢? 通过迭代使用equals方法来判断，数据量小还可以接受，数据量大怎么解决? 引入hashcode，实际上hashcode扮演的角色就是寻址，大大减少查询匹配次数。
-
-2、hashcode重要吗
-
-对于数组、List集合就是一个累赘。而对于hashmap, hashset, hashtable就异常重要了。
-
-3、equals方法遵循的原则
-
-- 对称性 若x.equals(y)true，则y.equals(x)true
-- 自反性 x.equals(x)必须true
-- 传递性 若x.equals(y)true,y.equals(z)true,则x.equals(z)必为true
-- 一致性 只要x,y内容不变，无论调用多少次结果不变
-- 其他 x.equals(null) 永远false，x.equals(和x数据类型不同)始终false
-
-### 2.25 final、finalize 和 finally 的不同之处?
-
-- final 是一个修饰符，可以修饰变量、方法和类。如果 final 修饰变量，意味着该变量的值在初始化后不能被改变。
-- Java 技术允许使用 finalize() 方法在垃圾收集器将对象从内存中清除出去之前做必要的清理工作。这个方法是由垃圾收集器在确定这个对象没有被引用时对这个对象调用的，但是什么时候调用 finalize 没有保证。
-- finally 是一个关键字，与 try 和 catch 一起用于异常的处理。finally 块一定会被执行，无论在 try 块中是否有发生异常。
-
-### 2.26 Java 中的编译期常量是什么? 使用它又什么风险?
-
-变量也就是我们所说的编译期常量，这里的 public 可选的。实际上这些变量在编译时会被替换掉，因为编译器知道这些变量的值，并且知道这些变量在运行时不能改变。这种方式存在的一个问题是你使用了一个内部的或第三方库中的公有编译时常量，但是这个值后面被其他人改变了，但是你的客户端仍然在使用老的值，甚至你已经部署了一个新的jar。为了避免这种情况，当你在更新依赖 JAR 文件时，确保重新编译你的程序。
-
-### 2.27 静态内部类与顶级类有什么区别?
-
-一个公共的顶级类的源文件名称与类名相同，而嵌套静态类没有这个要求。一个嵌套类位于顶级类内部，需要使用顶级类的名称来引用嵌套静态类，如 HashMap.Entry 是一个嵌套静态类，HashMap 是一个顶级类，Entry是一个嵌套静态类。
-
-### 2.28 Java 中，Serializable 与 Externalizable 的区别?
-
-Serializable 接口是一个序列化 Java 类的接口，以便于它们可以在网络上传输或者可以将它们的状态保存在磁盘上，是 JVM 内嵌的默认序列化方式，成本高、脆弱而且不安全。Externalizable 允许你控制整个序列化过程，指定特定的二进制格式，增加安全机制。
-
-### 2.29 说出 JDK 1.7 中的三个新特性?
-
-虽然 JDK 1.7 不像 JDK 5 和 8 一样的大版本，但是，还是有很多新的特性，如 try-with-resource 语句，这样你在使用流或者资源的时候，就不需要手动关闭，Java 会自动关闭。Fork-Join 池某种程度上实现 Java 版的 Map-reduce。允许 Switch 中有 String 变量和文本。菱形操作符(<>)用于泛型推断，不再需要在变量声明的右边申明泛型，因此可以写出可读写更强、更简洁的代码。另一个值得一提的特性是改善异常处理，如允许在同一个 catch 块中捕获多个异常。
-
-### 2.30 说出 5 个 JDK 1.8 引入的新特性?
-
-Java 8 在 Java 历史上是一个开创新的版本，下面 JDK 8 中 5 个主要的特性: 
-
--  Lambda 表达式，允许像对象一样传递匿名函数 Stream API，充分利用现代多核 CPU
-- 可以写出很简洁的代码 Date 与 Time API，最终，有一个稳定、简单的日期和时间库可供你使用 
-- 扩展方法，现在，接口中可以有静态、默认方法。
--  重复注解，现在你可以将相同的注解在同一类型上使用多次。
-
-
-
----
-
-
-
-下述包含 Java 面试过程中关于 SOLID 的设计原则，OOP 基础，如类，对象，接口，继承，多态，封装，抽象以及更高级的一些概念，如组合、聚合及关联。也包含了 GOF 设计模式的问题。
-
-### 2.31 接口是什么? 为什么要使用接口而不是直接使用具体类?
-
-接口用于定义 API。它定义了类必须得遵循的规则。同时，它提供了一种抽象，因为客户端只使用接口，这样可以有多重实现，如 List 接口，你可以使用可随机访问的 ArrayList，也可以使用方便插入和删除的 LinkedList。接口中不允许普通方法，以此来保证抽象，但是 Java 8 中你可以在接口声明静态方法和默认普通方法。
-
-### 2.32 Java 中，抽象类与接口之间有什么不同?
-
-Java 中，抽象类和接口有很多不同之处，但是最重要的一个是 Java 中限制一个类只能继承一个类，但是可以实现多个接口。抽象类可以很好的定义一个家族类的默认行为，而接口能更好的定义类型，有助于后面实现多态机制 参见第六条。
-
-### 2.33 Object有哪些公用方法?
-
-clone equals hashcode wait notify notifyall finalize toString getClass 除了clone和finalize其他均为公共方法。
-
-11个方法，wait被重载了两次
-
-### 2.34 equals与==的区别
-
-区别1. ==是一个运算符 equals是Object类的方法
-
-区别2. 比较时的区别
-
-- 用于基本类型的变量比较时: ==用于比较值是否相等，equals不能直接用于基本数据类型的比较，需要转换为其对应的包装类型。
-- 用于引用类型的比较时。==和equals都是比较栈内存中的地址是否相等 。相等为true 否则为false。但是通常会重写equals方法去实现对象内容的比较。
-
-### 2.35 String、StringBuffer与StringBuilder的区别
-
-第一点: 可变和适用范围。String对象是不可变的，而StringBuffer和StringBuilder是可变字符序列。每次对String的操作相当于生成一个新的String对象，而对StringBuffer和StringBuilder的操作是对对象本身的操作，而不会生成新的对象，所以对于频繁改变内容的字符串避免使用String，因为频繁的生成对象将会对系统性能产生影响。
-
-第二点: 线程安全。String由于有final修饰，是immutable的，安全性是简单而纯粹的。StringBuilder和StringBuffer的区别在于StringBuilder不保证同步，也就是说如果需要线程安全需要使用StringBuffer，不需要同步的StringBuilder效率更高。
-
-### 2.36 switch能否用String做参数
-
-Java1.7开始支持，但实际这是一颗Java语法糖。除此之外，byte，short，int，枚举均可用于switch，而boolean和浮点型不可以。
-
-### 2.37 接口与抽象类
-
-- 一个子类只能继承一个抽象类, 但能实现多个接口
-- 抽象类可以有构造方法, 接口没有构造方法
-- 抽象类可以有普通成员变量, 接口没有普通成员变量
-- 抽象类和接口都可有静态成员变量, 抽象类中静态成员变量访问类型任意，接口只能public static final(默认)
-- 抽象类可以没有抽象方法, 抽象类可以有普通方法；接口在JDK8之前都是抽象方法，在JDK8可以有default方法，在JDK9中允许有私有普通方法
-- 抽象类可以有静态方法；接口在JDK8之前不能有静态方法，在JDK8中可以有静态方法，且只能被接口类直接调用（不能被实现类的对象调用）
-- 抽象类中的方法可以是public、protected; 接口方法在JDK8之前只有public abstract，在JDK8可以有default方法，在JDK9中允许有private方法
-
-### 2.38 抽象类和最终类
-
-抽象类可以没有抽象方法, 最终类可以没有最终方法
-
-最终类不能被继承, 最终方法不能被重写(可以重载)
-
-### 2.39 异常
-
-相关的关键字 throw、throws、try...catch、finally
-
-- throws 用在方法签名上, 以便抛出的异常可以被调用者处理
-- throw 方法内部通过throw抛出异常
-- try 用于检测包住的语句块, 若有异常, catch子句捕获并执行catch块
-
-### 2.40 关于finally
-
-- finally不管有没有异常都要处理
-- 当try和catch中有return时，finally仍然会执行，finally比return先执行
-- 不管有没有异常抛出, finally在return返回前执行
-- finally是在return后面的表达式运算后执行的(此时并没有返回运算后的值，而是先把要返回的值保存起来，管finally中的代码怎么样，返回的值都不会改变，仍然是之前保存的值)，所以函数返回值是在finally执行前确定的
-
-注意: finally中最好不要包含return，否则程序会提前退出，返回值不是try或catch中保存的返回值
-
-finally不执行的几种情况: 程序提前终止如调用了System.exit, 病毒，断电
-
-### 2.41 受检查异常和运行时异常
-
-- 受检查的异常(checked exceptions),其必须被try...catch语句块所捕获, 或者在方法签名里通过throws子句声明。受检查的异常必须在编译时被捕捉处理,命名为Checked Exception是因为Java编译器要进行检查, Java虚拟机也要进行检查, 以确保这个规则得到遵守。
-
-常见的checked exception: ClassNotFoundException IOException FileNotFoundException EOFException
-
-- 运行时异常(runtime exceptions), 需要程序员自己分析代码决定是否捕获和处理,比如空指针,被0除...
-
-常见的runtime exception: NullPointerException ArithmeticException ClassCastException IllegalArgumentException IllegalStateException IndexOutOfBoundsException NoSuchElementException
-
-- Error的，则属于严重错误，如系统崩溃、虚拟机错误、动态链接失败等，这些错误无法恢复或者不可能捕捉，将导致应用程序中断，Error不需要捕获。
-
-### 2.42 super出现在父类的子类中。有三种存在方式
-
-- super.xxx(xxx为变量名或对象名)意思是获取父类中xxx的变量或引用
-- super.xxx(); (xxx为方法名)意思是直接访问并调用父类中的方法
-- super() 调用父类构造
-
-注: super只能指代其直接父类
-
-### 2.43 this() & super()在构造方法中的区别
-
-- 调用super()必须写在子类构造方法的第一行, 否则编译不通过
-- super从子类调用父类构造, this在同一类中调用其他构造均需要放在第一行
-- 尽管可以用this调用一个构造器, 却不能调用2个
-- this和super不能出现在同一个构造器中, 否则编译不通过
-- this()、super()都指的对象,不可以在static环境中使用
-- 本质this指向本对象的指针。super是一个关键字
-
-### 2.44 构造内部类和静态内部类对象
-
-```java
-public class Enclosingone {
-	public class Insideone {}
-	public static class Insideone{}
+class A{
+    public void test() {
+        
+    }
 }
 
-public class Test {
-	public static void main(String[] args) {
-	// 构造内部类对象需要外部类的引用
-	Enclosingone.Insideone obj1 = new Enclosingone().new Insideone();
-	// 构造静态内部类的对象
-	Enclosingone.Insideone obj2 = new Enclosingone.Insideone();
+class B extends A{
+
+    /**
+        * 重载父类的test方法
+        */
+    @Override
+    public void test() {
+    }
+
+    /**
+        * 被弃用的方法
+        */
+    @Deprecated
+    public void oldMethod() {
+    }
+
+    /**
+        * 忽略告警
+        * 
+        * @return
+        */
+    @SuppressWarnings("rawtypes")
+    public List processList() {
+        List list = new ArrayList();
+        return list;
+    }
+}
+```
+
+Java 1.5开始自带的标准注解，包括`@Override`、`@Deprecated`和`@SuppressWarnings`：
+
+- `@Override`：表示当前的方法定义将覆盖父类中的方法
+- `@Deprecated`：表示代码被弃用，如果使用了被@Deprecated注解的代码则编译器将发出警告
+- `@SuppressWarnings`：表示关闭编译器警告信息
+
+我们再具体看下这几个内置注解，同时通过这几个内置注解中的元注解的定义来引出元注解。
+
+#### 1.1.1 内置注解 - @Override
+
+我们先来看一下这个注解类型的定义：
+
+```java
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.SOURCE)
+public @interface Override {
+}
+
+```
+
+从它的定义我们可以看到，这个注解可以被用来修饰方法，并且它只在编译时有效，在编译后的class文件中便不再存在。这个注解的作用我们大家都不陌生，那就是告诉编译器被修饰的方法是重写的父类的中的相同签名的方法，编译器会对此做出检查，若发现父类中不存在这个方法或是存在的方法签名不同，则会报错。
+
+#### 1.1.2 内置注解 - @Deprecated
+
+这个注解的定义如下：
+
+```java
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(value={CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, PARAMETER, TYPE})
+public @interface Deprecated {
+}
+```
+
+从它的定义我们可以知道，它会被文档化，能够保留到运行时，能够修饰构造方法、属性、局部变量、方法、包、参数、类型。这个注解的作用是告诉编译器被修饰的程序元素已被“废弃”，不再建议用户使用。
+
+#### 1.1.3 内置注解 - @SuppressWarnings
+
+这个注解我们也比较常用到，先来看下它的定义：
+
+```java
+@Target({TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE})
+@Retention(RetentionPolicy.SOURCE)
+public @interface SuppressWarnings {
+    String[] value();
+}
+```
+
+它能够修饰的程序元素包括类型、属性、方法、参数、构造器、局部变量，只能存活在源码时，取值为String[]。它的作用是告诉编译器忽略指定的警告信息，它可以取的值如下所示：
+
+| 参数                     | 作用                                               | 原描述                                                       |
+| ------------------------ | -------------------------------------------------- | ------------------------------------------------------------ |
+| all                      | 抑制所有警告                                       | to suppress all warnings                                     |
+| boxing                   | 抑制装箱、拆箱操作时候的警告                       | to suppress warnings relative to boxing/unboxing operations  |
+| cast                     | 抑制映射相关的警告                                 | to suppress warnings relative to cast operations             |
+| dep-ann                  | 抑制启用注释的警告                                 | to suppress warnings relative to deprecated annotation       |
+| deprecation              | 抑制过期方法警告                                   | to suppress warnings relative to deprecation                 |
+| fallthrough              | 抑制确在switch中缺失breaks的警告                   | to suppress warnings relative to missing breaks in switch statements |
+| finally                  | 抑制finally模块没有返回的警告                      | to suppress warnings relative to finally block that don’t return |
+| hiding                   | 抑制与隐藏变数的区域变数相关的警告                 | to suppress warnings relative to locals that hide variable（） |
+| incomplete-switch        | 忽略没有完整的switch语句                           | to suppress warnings relative to missing entries in a switch statement (enum case) |
+| nls                      | 忽略非nls格式的字符                                | to suppress warnings relative to non-nls string literals     |
+| null                     | 忽略对null的操作                                   | to suppress warnings relative to null analysis               |
+| rawtype                  | 使用generics时忽略没有指定相应的类型               | to suppress warnings relative to un-specific types when using |
+| restriction              | 抑制与使用不建议或禁止参照相关的警告               | to suppress warnings relative to usage of discouraged or     |
+| serial                   | 忽略在serializable类中没有声明serialVersionUID变量 | to suppress warnings relative to missing serialVersionUID field for a serializable class |
+| static-access            | 抑制不正确的静态访问方式警告                       | to suppress warnings relative to incorrect static access     |
+| synthetic-access         | 抑制子类没有按最优方法访问内部类的警告             | to suppress warnings relative to unoptimized access from inner classes |
+| unchecked                | 抑制没有进行类型检查操作的警告                     | to suppress warnings relative to unchecked operations        |
+| unqualified-field-access | 抑制没有权限访问的域的警告                         | to suppress warnings relative to field access unqualified    |
+| unused                   | 抑制没被使用过的代码的警告                         | to suppress warnings relative to unused code                 |
+
+### 1.2 元注解
+
+上述内置注解的定义中使用了一些元注解（注解类型进行注解的注解类），在JDK 1.5中提供了4个标准的元注解：`@Target`，`@Retention`，`@Documented`，`@Inherited`, 在JDK 1.8中提供了两个元注解 `@Repeatable`和`@Native`。
+
+#### 1.2.1 元注解 - @Target
+
+> Target注解的作用是：描述注解的使用范围（即：被修饰的注解可以用在什么地方） 。
+
+Target注解用来说明那些被它所注解的注解类可修饰的对象范围：注解可以用于修饰 packages、types（类、接口、枚举、注解类）、类成员（方法、构造方法、成员变量、枚举值）、方法参数和本地变量（如循环变量、catch参数），在定义注解类时使用了@Target 能够更加清晰的知道它能够被用来修饰哪些对象，它的取值范围定义在ElementType 枚举中。
+
+```java
+public enum ElementType {
+ 
+    TYPE, // 类、接口、枚举类
+ 
+    FIELD, // 成员变量（包括：枚举常量）
+ 
+    METHOD, // 成员方法
+ 
+    PARAMETER, // 方法参数
+ 
+    CONSTRUCTOR, // 构造方法
+ 
+    LOCAL_VARIABLE, // 局部变量
+ 
+    ANNOTATION_TYPE, // 注解类
+ 
+    PACKAGE, // 可用于修饰：包
+ 
+    TYPE_PARAMETER, // 类型参数，JDK 1.8 新增
+ 
+    TYPE_USE // 使用类型的任何地方，JDK 1.8 新增
+ 
+}
+```
+
+#### 1.2.2 元注解 - @Retention & @RetentionTarget
+
+> Reteniton注解的作用是：描述注解保留的时间范围（即：被描述的注解在它所修饰的类中可以被保留到何时） 。
+
+Reteniton注解用来限定那些被它所注解的注解类在注解到其他类上以后，可被保留到何时，一共有三种策略，定义在RetentionPolicy枚举中。
+
+```java
+public enum RetentionPolicy {
+ 
+    SOURCE,    // 源文件保留
+    CLASS,       // 编译期保留，默认值
+    RUNTIME   // 运行期保留，可通过反射去获取注解信息
+}
+```
+
+为了验证应用了这三种策略的注解类有何区别，分别使用三种策略各定义一个注解类做测试。
+
+```java
+@Retention(RetentionPolicy.SOURCE)
+public @interface SourcePolicy {
+ 
+}
+@Retention(RetentionPolicy.CLASS)
+public @interface ClassPolicy {
+ 
+}
+@Retention(RetentionPolicy.RUNTIME)
+public @interface RuntimePolicy {
+ 
+}
+```
+
+用定义好的三个注解类分别去注解一个方法。
+
+```java
+public class RetentionTest {
+ 
+	@SourcePolicy
+	public void sourcePolicy() {
+	}
+ 
+	@ClassPolicy
+	public void classPolicy() {
+	}
+ 
+	@RuntimePolicy
+	public void runtimePolicy() {
 	}
 }
 ```
 
-静态内部类不需要有指向外部类的引用。但非静态内部类需要持有对外部类的引用。非静态内部类能够访问外部类的静态和非静态成员。静态内部类不能访问外部类的非静态成员，只能访问外部类的静态成员。
+通过执行 `javap -verbose RetentionTest`命令获取到的RetentionTest 的 class 字节码内容如下。
 
-### 2.45 序列化
+```java
+{
+  public retention.RetentionTest();
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 3: 0
 
-声明为static和transient类型的数据不能被序列化， 反序列化需要一个无参构造函数
+  public void sourcePolicy();
+    flags: ACC_PUBLIC
+    Code:
+      stack=0, locals=1, args_size=1
+         0: return
+      LineNumberTable:
+        line 7: 0
 
-### 2.46 Java移位运算符
+  public void classPolicy();
+    flags: ACC_PUBLIC
+    Code:
+      stack=0, locals=1, args_size=1
+         0: return
+      LineNumberTable:
+        line 11: 0
+    RuntimeInvisibleAnnotations:
+      0: #11()
 
-java中有三种移位运算符
+  public void runtimePolicy();
+    flags: ACC_PUBLIC
+    Code:
+      stack=0, locals=1, args_size=1
+         0: return
+      LineNumberTable:
+        line 15: 0
+    RuntimeVisibleAnnotations:
+      0: #14()
+}
+```
 
-- `<<` :左移运算符,`x << 1`,相当于x乘以2(不溢出的情况下),低位补0
-- `>>` :带符号右移,`x >> 1`,相当于x除以2,正数高位补0,负数高位补1
-- `>>>` :无符号右移,忽略符号位,空位都以0补齐
+从 RetentionTest 的字节码内容我们可以得出以下两点结论：
 
-### 2.47 形参&实参
+- 编译器并没有记录下 sourcePolicy() 方法的注解信息；
+- 编译器分别使用了 `RuntimeInvisibleAnnotations` 和 `RuntimeVisibleAnnotations` 属性去记录了`classPolicy()`方法 和 `runtimePolicy()`方法 的注解信息；
 
-形式参数可被视为local variable.形参和局部变量一样都不能离开方法。只有在方法中使用，不会在方法外可见。 形式参数只能用final修饰符，其它任何修饰符都会引起编译器错误。但是用这个修饰符也有一定的限制，就是在方法中不能对参数做任何修改。不过一般情况下，一个方法的形参不用final修饰。只有在特殊情况下，那就是: 方法内部类。一个方法内的内部类如果使用了这个方法的参数或者局部变量的话，这个参数或局部变量应该是final。 形参的值在调用时根据调用者更改，实参则用自身的值更改形参的值(指针、引用皆在此列)，也就是说真正被传递的是实参。
+#### 1.2.3 元注解 - @Documented
 
-### 2.48 局部变量为什么要初始化
+> Documented注解的作用是：描述在使用 javadoc 工具为类生成帮助文档时是否要保留其注解信息。
 
-局部变量是指类方法中的变量，必须初始化。局部变量运行时被分配在栈中，量大，生命周期短，如果虚拟机给每个局部变量都初始化一下，是一笔很大的开销，但变量不初始化为默认值就使用是不安全的。出于速度和安全性两个方面的综合考虑，解决方案就是虚拟机不初始化，但要求编写者一定要在使用前给变量赋值。
+以下代码在使用Javadoc工具可以生成`@TestDocAnnotation`注解信息。
 
-### 2.49 Java语言的鲁棒性
+```java
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
+ 
+@Documented
+@Target({ElementType.TYPE,ElementType.METHOD})
+public @interface TestDocAnnotation {
+ 
+	public String value() default "default";
+}
+```
 
-Java在编译和运行程序时，都要对可能出现的问题进行检查，以消除错误的产生。它提供自动垃圾收集来进行内存管理，防止程序员在管理内存时容易产生的错误。通过集成的面向对象的例外处理机制，在编译时，Java揭示出可能出现但未被处理的异常，帮助程序员正确地进行选择以防止系统的崩溃。另外，Java在编译时还可捕获类型声明中的许多常见错误，防止动态运行时不匹配问题的出现。
+```java
+@TestDocAnnotation("myMethodDoc")
+public void testDoc() {
+
+}
+
+  
+```
+
+#### 1.2.4 元注解 - @Inherited
+
+> Inherited注解的作用：被它修饰的Annotation将具有继承性。如果某个类使用了被@Inherited修饰的Annotation，则其子类将自动具有该注解。
+
+我们来测试下这个注解：
+
+- 定义`@Inherited`注解：
+
+```java
+@Inherited
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE,ElementType.METHOD})
+public @interface TestInheritedAnnotation {
+    String [] values();
+    int number();
+}
+
+```
+
+- 使用这个注解
+
+```java
+@TestInheritedAnnotation(values = {"value"}, number = 10)
+public class Person {
+}
+
+class Student extends Person{
+	@Test
+    public void test(){
+        Class clazz = Student.class;
+        Annotation[] annotations = clazz.getAnnotations();
+        for (Annotation annotation : annotations) {
+            System.out.println(annotation.toString());
+        }
+    }
+}
+```
+
+- 输出
+
+```java
+xxxxxxx.TestInheritedAnnotation(values=[value], number=10)
+
+```
+
+即使Student类没有显示地被注解`@TestInheritedAnnotation`，但是它的父类Person被注解，而且`@TestInheritedAnnotation`被`@Inherited`注解，因此Student类自动有了该注解。
+
+#### 1.2.5 元注解 - @Repeatable (Java8)
+
+`@Repeatable`请参考[Java 8 - 重复注解]()
+
+#### 1.2.6 元注解 - @Native (Java8)
+
+使用 @Native 注解修饰成员变量，则表示这个变量可以被本地代码引用，常常被代码生成工具使用。对于 @Native 注解不常使用，了解即可
+
+### 1.3 注解与反射接口
+
+> 定义注解后，如何获取注解中的内容呢？反射包java.lang.reflect下的AnnotatedElement接口提供这些方法。这里注意：只有注解被定义为RUNTIME后，该注解才能是运行时可见，当class文件被装载时被保存在class文件中的Annotation才会被虚拟机读取。
+
+AnnotatedElement 接口是所有程序元素（Class、Method和Constructor）的父接口，所以程序通过反射获取了某个类的AnnotatedElement对象之后，程序就可以调用该对象的方法来访问Annotation信息。我们看下具体的先关接口
+
+- `boolean isAnnotationPresent(Class<?extends Annotation> annotationClass)`
+
+判断该程序元素上是否包含指定类型的注解，存在则返回true，否则返回false。注意：此方法会忽略注解对应的注解容器。
+
+- `<T extends Annotation> T getAnnotation(Class<T> annotationClass)`
+
+返回该程序元素上存在的、指定类型的注解，如果该类型注解不存在，则返回null。
+
+- `Annotation[] getAnnotations()`
+
+返回该程序元素上存在的所有注解，若没有注解，返回长度为0的数组。
+
+- `<T extends Annotation> T[] getAnnotationsByType(Class<T> annotationClass)`
+
+返回该程序元素上存在的、指定类型的注解数组。没有注解对应类型的注解时，返回长度为0的数组。该方法的调用者可以随意修改返回的数组，而不会对其他调用者返回的数组产生任何影响。`getAnnotationsByType`方法与 `getAnnotation`的区别在于，`getAnnotationsByType`会检测注解对应的重复注解容器。若程序元素为类，当前类上找不到注解，且该注解为可继承的，则会去父类上检测对应的注解。
+
+- `<T extends Annotation> T getDeclaredAnnotation(Class<T> annotationClass)`
+
+返回直接存在于此元素上的所有注解。与此接口中的其他方法不同，该方法将忽略继承的注释。如果没有注释直接存在于此元素上，则返回null
+
+- `<T extends Annotation> T[] getDeclaredAnnotationsByType(Class<T> annotationClass)`
+
+返回直接存在于此元素上的所有注解。与此接口中的其他方法不同，该方法将忽略继承的注释
+
+- `Annotation[] getDeclaredAnnotations()`
+
+返回直接存在于此元素上的所有注解及注解对应的重复注解容器。与此接口中的其他方法不同，该方法将忽略继承的注解。如果没有注释直接存在于此元素上，则返回长度为零的一个数组。该方法的调用者可以随意修改返回的数组，而不会对其他调用者返回的数组产生任何影响。
+
+### 1.4 自定义注解
+
+> 当我们理解了内置注解, 元注解和获取注解的反射接口后，我们便可以开始自定义注解了。这个例子我把上述的知识点全部融入进来, 代码很简单：
+
+- 定义自己的注解
+
+```java
+package com.pdai.java.annotation;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface MyMethodAnnotation {
+
+    public String title() default "";
+
+    public String description() default "";
+
+}
+
+```
+
+- 使用注解
+
+```java
+package com.pdai.java.annotation;
+
+import java.io.FileNotFoundException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
+public class TestMethodAnnotation {
+
+    @Override
+    @MyMethodAnnotation(title = "toStringMethod", description = "override toString method")
+    public String toString() {
+        return "Override toString method";
+    }
+
+    @Deprecated
+    @MyMethodAnnotation(title = "old static method", description = "deprecated old static method")
+    public static void oldMethod() {
+        System.out.println("old method, don't use it.");
+    }
+
+    @SuppressWarnings({"unchecked", "deprecation"})
+    @MyMethodAnnotation(title = "test method", description = "suppress warning static method")
+    public static void genericsTest() throws FileNotFoundException {
+        List l = new ArrayList();
+        l.add("abc");
+        oldMethod();
+    }
+}
+```
+
+- 用反射接口获取注解信息
+
+在TestMethodAnnotation中添加Main方法进行测试：
+
+```java
+public static void main(String[] args) {
+    try {
+        // 获取所有methods
+        Method[] methods = TestMethodAnnotation.class.getClassLoader()
+                .loadClass(("com.pdai.java.annotation.TestMethodAnnotation"))
+                .getMethods();
+
+        // 遍历
+        for (Method method : methods) {
+            // 方法上是否有MyMethodAnnotation注解
+            if (method.isAnnotationPresent(MyMethodAnnotation.class)) {
+                try {
+                    // 获取并遍历方法上的所有注解
+                    for (Annotation anno : method.getDeclaredAnnotations()) {
+                        System.out.println("Annotation in Method '"
+                                + method + "' : " + anno);
+                    }
+
+                    // 获取MyMethodAnnotation对象信息
+                    MyMethodAnnotation methodAnno = method
+                            .getAnnotation(MyMethodAnnotation.class);
+
+                    System.out.println(methodAnno.title());
+
+                } catch (Throwable ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+    } catch (SecurityException | ClassNotFoundException e) {
+        e.printStackTrace();
+    }
+}
+
+```
+
+- 测试的输出
+
+```java
+Annotation in Method 'public static void com.pdai.java.annotation.TestMethodAnnotation.oldMethod()' : @java.lang.Deprecated()
+Annotation in Method 'public static void com.pdai.java.annotation.TestMethodAnnotation.oldMethod()' : @com.pdai.java.annotation.MyMethodAnnotation(title=old static method, description=deprecated old static method)
+old static method
+Annotation in Method 'public static void com.pdai.java.annotation.TestMethodAnnotation.genericsTest() throws java.io.FileNotFoundException' : @com.pdai.java.annotation.MyMethodAnnotation(title=test method, description=suppress warning static method)
+test method
+Annotation in Method 'public java.lang.String com.pdai.java.annotation.TestMethodAnnotation.toString()' : @com.pdai.java.annotation.MyMethodAnnotation(title=toStringMethod, description=override toString method)
+toStringMethod
+ 
+```
+
+## 2. 深入理解注解
+
+> TIP
+>
+> 接下来，我们从其它角度深入理解注解
+
+### 2.1 Java8提供了哪些新的注解？
+
+- `@Repeatable`
+
+请参考[Java 8 - 重复注解](https://pdai.tech/md/java/java8/java8-anno-repeat.html)
+
+- `ElementType.TYPE_USE`
+
+请参考[Java 8 - 类型注解](https://pdai.tech/md/java/java8/java8-type-anno.html)
+
+- `ElementType.TYPE_PARAMETER`
+
+`ElementType.TYPE_USE`(此类型包括类型声明和类型参数声明，是为了方便设计者进行类型检查)包含了`ElementType.TYPE`(类、接口（包括注解类型）和枚举的声明)和`ElementType.TYPE_PARAMETER`(类型参数声明), 不妨再看个例子
+
+```java
+// 自定义ElementType.TYPE_PARAMETER注解
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE_PARAMETER)
+public @interface MyNotEmpty {
+}
+
+// 自定义ElementType.TYPE_USE注解
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE_USE)
+public @interface MyNotNull {
+}
+
+// 测试类
+public class TypeParameterAndTypeUseAnnotation<@MyNotEmpty T>{
+
+  //使用TYPE_PARAMETER类型，会编译不通过
+//		public @MyNotEmpty T test(@MyNotEmpty T a){
+//			new ArrayList<@MyNotEmpty String>();
+//				return a;
+//		}
+
+  //使用TYPE_USE类型，编译通过
+  public @MyNotNull T test2(@MyNotNull T a){
+    new ArrayList<@MyNotNull String>();
+    return a;
+  }
+} 
+```
+
+### 2.2 注解支持继承吗？
+
+> 注解是不支持继承的
+
+不能使用关键字extends来继承某个@interface，但注解在编译后，编译器会自动继承java.lang.annotation.Annotation接口.
+
+虽然反编译后发现注解继承了Annotation接口，请记住，即使Java的接口可以实现多继承，但定义注解时依然无法使用extends关键字继承@interface。
+
+区别于注解的继承，被注解的子类继承父类注解可以用@Inherited： 如果某个类使用了被@Inherited修饰的Annotation，则其子类将自动具有该注解。
+
+### 2.3 注解实现的原理？
+
+> 网上很多标注解的原理文章根本没有说到点子上。
+
+这里推荐你两篇文章：
+
+- https://blog.csdn.net/qq_20009015/article/details/106038023
+- https://www.race604.com/annotation-processing/
+
+## 3. 注解的应用场景
+
+> TIP
+>
+> 最后我们再看看实际开发中注解的一些应用场景。
+
+### 3.1 配置化到注解化 - 框架的演进
+
+Spring 框架 配置化到注解化的转变。
+
+### 3.2 继承实现到注解实现 - Junit3到Junit4
+
+> 一个模块的封装大多数人都是通过继承和组合等模式来实现的，但是如果结合注解将可以极大程度提高实现的优雅度（降低耦合度）。而Junit3 到Junit4的演化就是最好的一个例子。
+
+- 被测试类
+
+```java
+public class HelloWorld {
+ 	
+ 	public void sayHello(){
+ 		System.out.println("hello....");
+ 		throw new NumberFormatException();
+ 	}
+ 	
+ 	public void sayWorld(){
+ 		System.out.println("world....");
+ 	}
+ 	
+ 	public String say(){
+ 		return "hello world!";
+ 	}
+ 	
+}
+```
+
+- Junit 3 实现UT
+
+通过继承 TestCase来实现，初始化是通过Override父类方法来进行，测试方式通过test的前缀方法获取。
+
+```java
+public class HelloWorldTest extends TestCase{
+ 	private HelloWorld hw;
+ 	
+ 	@Override
+ 	protected void setUp() throws Exception {
+ 		super.setUp();
+ 		hw=new HelloWorld();
+ 	}
+ 	
+ 	//1.测试没有返回值
+ 	public void testHello(){
+ 		try {
+ 			hw.sayHello();
+ 		} catch (Exception e) {
+ 			System.out.println("发生异常.....");
+ 		}
+ 		
+ 	}
+ 	public void testWorld(){
+ 		hw.sayWorld();
+ 	}
+ 	//2.测试有返回值的方法
+ 	// 返回字符串
+ 	public void testSay(){
+ 		assertEquals("测试失败", hw.say(), "hello world!");
+ 	}
+ 	//返回对象
+ 	public void testObj(){
+ 		assertNull("测试对象不为空", null);
+ 		assertNotNull("测试对象为空",new String());
+ 	}
+ 	@Override
+ 	protected void tearDown() throws Exception {
+ 		super.tearDown();
+ 		hw=null;
+ 	}	
+}
+```
+
+- Junit 4 实现UT
+
+通过定义@Before，@Test，@After等等注解来实现。
+
+```java
+public class HelloWorldTest {
+ 	private HelloWorld hw;
+ 
+ 	@Before
+ 	public void setUp() {
+ 		hw = new HelloWorld();
+ 	}
+ 
+ 	@Test(expected=NumberFormatException.class)
+ 	// 1.测试没有返回值,有别于junit3的使用，更加方便
+ 	public void testHello() {
+ 		hw.sayHello();
+ 	}
+ 	@Test
+ 	public void testWorld() {
+ 		hw.sayWorld();
+ 	}
+ 	
+ 	@Test
+ 	// 2.测试有返回值的方法
+ 	// 返回字符串
+ 	public void testSay() {
+ 		assertEquals("测试失败", hw.say(), "hello world!");
+ 	}
+ 	
+ 	@Test
+ 	// 返回对象
+ 	public void testObj() {
+ 		assertNull("测试对象不为空", null);
+ 		assertNotNull("测试对象为空", new String());
+ 	}
+ 
+ 	@After
+ 	public void tearDown() throws Exception {
+ 		hw = null;
+ 	}
+ 
+}
+```
+
+这里我们发现通过注解的方式，我们实现单元测试时将更为优雅。如果你还期望了解Junit4是如何实现运行的呢？可以看这篇文章：[JUnit4源码分析运行原理](https://blog.csdn.net/weixin_34043301/article/details/91799261)。
+
+### 3.3 自定义注解和AOP - 通过切面实现解耦
+
+> 最为常见的就是使用Spring AOP切面实现**统一的操作日志管理**，我这里找了一个开源项目中的例子（只展示主要代码），给你展示下如何通过注解实现解耦的。
+
+- 自定义Log注解
+
+```java
+@Target({ ElementType.PARAMETER, ElementType.METHOD })
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface Log {
+    /**
+     * 模块 
+     */
+    public String title() default "";
+
+    /**
+     * 功能
+     */
+    public BusinessType businessType() default BusinessType.OTHER;
+
+    /**
+     * 操作人类别
+     */
+    public OperatorType operatorType() default OperatorType.MANAGE;
+
+    /**
+     * 是否保存请求的参数
+     */
+    public boolean isSaveRequestData() default true;
+}
+```
+
+- 实现日志的切面, 对自定义注解Log作切点进行拦截
+
+即对注解了@Log的方法进行切点拦截，
+
+```java
+@Aspect
+@Component
+public class LogAspect {
+    private static final Logger log = LoggerFactory.getLogger(LogAspect.class);
+
+    /**
+     * 配置织入点 - 自定义注解的包路径
+     * 
+     */
+    @Pointcut("@annotation(com.xxx.aspectj.lang.annotation.Log)")
+    public void logPointCut() {
+    }
+
+    /**
+     * 处理完请求后执行
+     *
+     * @param joinPoint 切点
+     */
+    @AfterReturning(pointcut = "logPointCut()", returning = "jsonResult")
+    public void doAfterReturning(JoinPoint joinPoint, Object jsonResult) {
+        handleLog(joinPoint, null, jsonResult);
+    }
+
+    /**
+     * 拦截异常操作
+     * 
+     * @param joinPoint 切点
+     * @param e 异常
+     */
+    @AfterThrowing(value = "logPointCut()", throwing = "e")
+    public void doAfterThrowing(JoinPoint joinPoint, Exception e) {
+        handleLog(joinPoint, e, null);
+    }
+
+    protected void handleLog(final JoinPoint joinPoint, final Exception e, Object jsonResult) {
+        try {
+            // 获得注解
+            Log controllerLog = getAnnotationLog(joinPoint);
+            if (controllerLog == null) {
+                return;
+            }
+
+            // 获取当前的用户
+            User currentUser = ShiroUtils.getSysUser();
+
+            // *========数据库日志=========*//
+            OperLog operLog = new OperLog();
+            operLog.setStatus(BusinessStatus.SUCCESS.ordinal());
+            // 请求的地址
+            String ip = ShiroUtils.getIp();
+            operLog.setOperIp(ip);
+            // 返回参数
+            operLog.setJsonResult(JSONObject.toJSONString(jsonResult));
+
+            operLog.setOperUrl(ServletUtils.getRequest().getRequestURI());
+            if (currentUser != null) {
+                operLog.setOperName(currentUser.getLoginName());
+                if (StringUtils.isNotNull(currentUser.getDept())
+                        && StringUtils.isNotEmpty(currentUser.getDept().getDeptName())) {
+                    operLog.setDeptName(currentUser.getDept().getDeptName());
+                }
+            }
+
+            if (e != null) {
+                operLog.setStatus(BusinessStatus.FAIL.ordinal());
+                operLog.setErrorMsg(StringUtils.substring(e.getMessage(), 0, 2000));
+            }
+            // 设置方法名称
+            String className = joinPoint.getTarget().getClass().getName();
+            String methodName = joinPoint.getSignature().getName();
+            operLog.setMethod(className + "." + methodName + "()");
+            // 设置请求方式
+            operLog.setRequestMethod(ServletUtils.getRequest().getMethod());
+            // 处理设置注解上的参数
+            getControllerMethodDescription(controllerLog, operLog);
+            // 保存数据库
+            AsyncManager.me().execute(AsyncFactory.recordOper(operLog));
+        } catch (Exception exp) {
+            // 记录本地异常日志
+            log.error("==前置通知异常==");
+            log.error("异常信息:{}", exp.getMessage());
+            exp.printStackTrace();
+        }
+    }
+
+    /**
+     * 获取注解中对方法的描述信息 用于Controller层注解
+     * 
+     * @param log 日志
+     * @param operLog 操作日志
+     * @throws Exception
+     */
+    public void getControllerMethodDescription(Log log, OperLog operLog) throws Exception {
+        // 设置action动作
+        operLog.setBusinessType(log.businessType().ordinal());
+        // 设置标题
+        operLog.setTitle(log.title());
+        // 设置操作人类别
+        operLog.setOperatorType(log.operatorType().ordinal());
+        // 是否需要保存request，参数和值
+        if (log.isSaveRequestData()) {
+            // 获取参数的信息，传入到数据库中。
+            setRequestValue(operLog);
+        }
+    }
+
+    /**
+     * 获取请求的参数，放到log中
+     * 
+     * @param operLog
+     * @param request
+     */
+    private void setRequestValue(OperLog operLog) {
+        Map<String, String[]> map = ServletUtils.getRequest().getParameterMap();
+        String params = JSONObject.toJSONString(map);
+        operLog.setOperParam(StringUtils.substring(params, 0, 2000));
+    }
+
+    /**
+     * 是否存在注解，如果存在就获取
+     */
+    private Log getAnnotationLog(JoinPoint joinPoint) throws Exception {
+        Signature signature = joinPoint.getSignature();
+        MethodSignature methodSignature = (MethodSignature) signature;
+        Method method = methodSignature.getMethod();
+
+        if (method != null)
+        {
+            return method.getAnnotation(Log.class);
+        }
+        return null;
+    }
+}
+```
+
+- 使用@Log注解
+
+以一个简单的CRUD操作为例, 这里展示部分代码：每对“部门”进行操作就会产生一条操作日志存入数据库。
+
+```java
+@Controller
+@RequestMapping("/system/dept")
+public class DeptController extends BaseController {
+    private String prefix = "system/dept";
+
+    @Autowired
+    private IDeptService deptService;
+    
+    /**
+     * 新增保存部门
+     */
+    @Log(title = "部门管理", businessType = BusinessType.INSERT)
+    @RequiresPermissions("system:dept:add")
+    @PostMapping("/add")
+    @ResponseBody
+    public AjaxResult addSave(@Validated Dept dept) {
+        if (UserConstants.DEPT_NAME_NOT_UNIQUE.equals(deptService.checkDeptNameUnique(dept))) {
+            return error("新增部门'" + dept.getDeptName() + "'失败，部门名称已存在");
+        }
+        return toAjax(deptService.insertDept(dept));
+    }
+
+    /**
+     * 保存
+     */
+    @Log(title = "部门管理", businessType = BusinessType.UPDATE)
+    @RequiresPermissions("system:dept:edit")
+    @PostMapping("/edit")
+    @ResponseBody
+    public AjaxResult editSave(@Validated Dept dept) {
+        if (UserConstants.DEPT_NAME_NOT_UNIQUE.equals(deptService.checkDeptNameUnique(dept))) {
+            return error("修改部门'" + dept.getDeptName() + "'失败，部门名称已存在");
+        } else if(dept.getParentId().equals(dept.getDeptId())) {
+            return error("修改部门'" + dept.getDeptName() + "'失败，上级部门不能是自己");
+        }
+        return toAjax(deptService.updateDept(dept));
+    }
+
+    /**
+     * 删除
+     */
+    @Log(title = "部门管理", businessType = BusinessType.DELETE)
+    @RequiresPermissions("system:dept:remove")
+    @GetMapping("/remove/{deptId}")
+    @ResponseBody
+    public AjaxResult remove(@PathVariable("deptId") Long deptId) {
+        if (deptService.selectDeptCount(deptId) > 0) {
+            return AjaxResult.warn("存在下级部门,不允许删除");
+        }
+        if (deptService.checkDeptExistUser(deptId)) {
+            return AjaxResult.warn("部门存在用户,不允许删除");
+        }
+        return toAjax(deptService.deleteDeptById(deptId));
+    }
+
+  // ...
+}
+```
+
+> 同样的，你也可以看到权限管理也是通过类似的注解（`@RequiresPermissions`）机制来实现的。所以我们可以看到，通过注解+AOP最终的目标是为了实现模块的解耦。
 
 ## 参考文章
 
-[**Java 基础 - 图谱 & Q/A**](https://pdai.tech/md/java/basic/java-basic-lan-sum.html)
+[Java 基础 - 注解机制详解](https://pdai.tech/md/java/basic/java-basic-x-annotation.html)

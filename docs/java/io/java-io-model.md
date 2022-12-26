@@ -1,388 +1,156 @@
 ---
-order: 80
+order: 70
 category:
   - Java
   - IO
 ---
 
-# Java IO - BIO 详解
+# IO 模型 - Unix IO 模型
 
->BIO就是: blocking IO。最容易理解、最容易实现的IO工作方式，应用程序向操作系统请求网络IO操作，这时应用程序会一直等待；另一方面，操作系统收到请求后，也会等待，直到网络上有数据传到监听端口；操作系统在收集数据后，会把数据发送给应用程序；最后应用程序受到数据，并解除等待状态。
+> 本文主要简要介绍 Unix I/O 5种模型，并对5大模型比较，并重点为后续章节解释IO多路复用做铺垫。
 
-## 1. 几个重要概念
+## 1. Unix IO 模型简介
 
-- `阻塞IO` 和 `非阻塞IO`
+一个输入操作通常包括两个阶段:
 
-这两个概念是`程序级别`的。主要描述的是程序请求操作系统IO操作后，如果IO资源没有准备好，那么程序该如何处理的问题: 前者等待；后者继续执行(并且使用线程一直轮询，直到有IO资源准备好了)
+- 等待数据准备好
+- 从内核向进程复制数据
 
-- `同步IO` 和 `非同步IO`
+对于一个套接字上的输入操作，第一步通常涉及等待数据从网络中到达。当所等待分组到达时，它被复制到内核中的某个缓冲区。第二步就是把数据从内核缓冲区复制到应用进程缓冲区。
 
-这两个概念是`操作系统级别`的。主要描述的是操作系统在收到程序请求IO操作后，如果IO资源没有准备好，该如何响应程序的问题: 前者不响应，直到IO资源准备好以后；后者返回一个标记(好让程序和自己知道以后的数据往哪里通知)，当IO资源准备好以后，再用事件机制返回给程序。
+Unix 下有五种 I/O 模型:
 
-## 2. 传统的BIO通信方式简介
+- 阻塞式 I/O
+- 非阻塞式 I/O
+- I/O 复用(select 和 poll)
+- 信号驱动式 I/O(SIGIO)
+- 异步 I/O(AIO)
 
-以前大多数网络通信方式都是阻塞模式的，即:
+### 1.1 阻塞式 I/O
 
-- 客户端向服务器端发出请求后，客户端会一直等待(不会再做其他事情)，直到服务器端返回结果或者网络出现问题。
-- 服务器端同样的，当在处理某个客户端A发来的请求时，另一个客户端B发来的请求会等待，直到服务器端的这个处理线程完成上一个处理。
+应用进程被阻塞，直到数据复制到应用进程缓冲区中才返回。
 
-![image-20220830215211727](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830215211727.png)
+应该注意到，在阻塞的过程中，其它程序还可以执行，因此阻塞不意味着整个操作系统都被阻塞。因为其他程序还可以执行，因此不消耗 CPU 时间，这种模型的执行效率会比较高。
 
-### 2.1 传统的BIO的问题
+下图中，recvfrom 用于接收 Socket 传来的数据，并复制到应用进程的缓冲区 buf 中。这里把 recvfrom() 当成系统调用。
 
-- 同一时间，服务器只能接受来自于客户端A的请求信息；虽然客户端A和客户端B的请求是同时进行的，但客户端B发送的请求信息只能等到服务器接受完A的请求数据后，才能被接受。
-- 由于服务器一次只能处理一个客户端请求，当处理完成并返回后(或者异常时)，才能进行第二次请求的处理。很显然，这样的处理方式在高并发的情况下，是不能采用的。
-
-### 2.2 多线程方式 - 伪异步方式
-
-上面说的情况是服务器只有一个线程的情况，那么读者会直接提出我们可以使用多线程技术来解决这个问题:
-
-- 当服务器收到客户端X的请求后，(读取到所有请求数据后)将这个请求送入一个独立线程进行处理，然后主线程继续接受客户端Y的请求。
-- 客户端一侧，也可以使用一个子线程和服务器端进行通信。这样客户端主线程的其他工作就不受影响了，当服务器端有响应信息的时候再由这个子线程通过 监听模式/观察模式(等其他设计模式)通知主线程。
-
-如下图所示:
-
-![image-20220830215408687](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830215408687.png)
-
-但是使用线程来解决这个问题实际上是有局限性的:
-
-- 虽然在服务器端，请求的处理交给了一个独立线程进行，但是操作系统通知accept()的方式还是单个的。也就是，实际上是服务器接收到数据报文后的“业务处理过程”可以多线程，但是数据报文的接受还是需要一个一个的来(下文的示例代码和debug过程我们可以明确看到这一点)
-- 在linux系统中，可以创建的线程是有限的。我们可以通过cat /proc/sys/kernel/threads-max 命令查看可以创建的最大线程数。当然这个值是可以更改的，但是线程越多，CPU切换所需的时间也就越长，用来处理真正业务的需求也就越少。
-- 创建一个线程是有较大的资源消耗的。JVM创建一个线程的时候，即使这个线程不做任何的工作，JVM都会分配一个堆栈空间。这个空间的大小默认为128K，您可以通过-Xss参数进行调整。当然您还可以使用ThreadPoolExecutor线程池来缓解线程的创建问题，但是又会造成BlockingQueue积压任务的持续增加，同样消耗了大量资源。
-- 另外，如果您的应用程序大量使用长连接的话，线程是不会关闭的。这样系统资源的消耗更容易失控。 那么，如果你真想单纯使用线程解决阻塞的问题，那么您自己都可以算出来您一个服务器节点可以一次接受多大的并发了。看来，单纯使用线程解决这个问题不是最好的办法。
-
-## 3. BIO通信方式深入分析
-
-BIO的问题关键不在于是否使用了多线程(包括线程池)处理这次请求，而在于accept()、read()的操作点都是被阻塞。要测试这个问题，也很简单。我们模拟了20个客户端(用20根线程模拟)，利用JAVA的同步计数器CountDownLatch，保证这20个客户都初始化完成后然后同时向服务器发送请求，然后我们来观察一下Server这边接受信息的情况。
-
-### 3.1 模拟20个客户端并发请求，服务器端使用单线程:
-
-客户端代码(SocketClientDaemon)
-
-```java
-package testBSocket;
-
-import java.util.concurrent.CountDownLatch;
-
-public class SocketClientDaemon {
-    public static void main(String[] args) throws Exception {
-        Integer clientNumber = 20;
-        CountDownLatch countDownLatch = new CountDownLatch(clientNumber);
-
-        //分别开始启动这20个客户端
-        for(int index = 0 ; index < clientNumber ; index++ , countDownLatch.countDown()) {
-            SocketClientRequestThread client = new SocketClientRequestThread(countDownLatch, index);
-            new Thread(client).start();
-        }
-
-        //这个wait不涉及到具体的实验逻辑，只是为了保证守护线程在启动所有线程后，进入等待状态
-        synchronized (SocketClientDaemon.class) {
-            SocketClientDaemon.class.wait();
-        }
-    }
-}
-
+```c
+ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags, struct sockaddr *src_addr, socklen_t *addrlen);
 ```
 
-客户端代码(SocketClientRequestThread模拟请求)
+![image-20220830212837589](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830212837589.png)
 
-```java
-package testBSocket;
+或者网友提供的
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
-import java.util.concurrent.CountDownLatch;
+![image-20220830212901021](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830212901021.png)
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.BasicConfigurator;
+### 1.2 非阻塞式 I/O
 
-/**
- * 一个SocketClientRequestThread线程模拟一个客户端请求。
- * @author yinwenjie
- */
-public class SocketClientRequestThread implements Runnable {
+应用进程执行系统调用之后，内核返回一个错误码。应用进程可以继续执行，但是需要不断的执行系统调用来获知 I/O 是否完成，这种方式称为轮询(polling)。
 
-    static {
-        BasicConfigurator.configure();
-    }
+由于 CPU 要处理更多的系统调用，因此这种模型是比较低效的。
 
-    /**
-     * 日志
-     */
-    private static final Log LOGGER = LogFactory.getLog(SocketClientRequestThread.class);
+![image-20220830213005982](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830213005982.png)
 
-    private CountDownLatch countDownLatch;
+或者网友提供的
 
-    /**
-     * 这个线层的编号
-     * @param countDownLatch
-     */
-    private Integer clientIndex;
+![image-20220830213019907](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830213019907.png)
 
-    /**
-     * countDownLatch是java提供的同步计数器。
-     * 当计数器数值减为0时，所有受其影响而等待的线程将会被激活。这样保证模拟并发请求的真实性
-     * @param countDownLatch
-     */
-    public SocketClientRequestThread(CountDownLatch countDownLatch , Integer clientIndex) {
-        this.countDownLatch = countDownLatch;
-        this.clientIndex = clientIndex;
-    }
+### 1.3 I/O 复用
 
-    @Override
-    public void run() {
-        Socket socket = null;
-        OutputStream clientRequest = null;
-        InputStream clientResponse = null;
+使用 select 或者 poll 等待数据，并且可以等待多个套接字中的任何一个变为可读，这一过程会被阻塞，当某一个套接字可读时返回。之后再使用 recvfrom 把数据从内核复制到进程中。
 
-        try {
-            socket = new Socket("localhost",83);
-            clientRequest = socket.getOutputStream();
-            clientResponse = socket.getInputStream();
+它可以让单个进程具有处理多个 I/O 事件的能力。又被称为 Event Driven I/O，即事件驱动 I/O。
 
-            //等待，直到SocketClientDaemon完成所有线程的启动，然后所有线程一起发送请求
-            this.countDownLatch.await();
+如果一个 Web 服务器没有 I/O 复用，那么每一个 Socket 连接都需要创建一个线程去处理。如果同时有几万个连接，那么就需要创建相同数量的线程。并且相比于多进程和多线程技术，I/O 复用不需要进程线程创建和切换的开销，系统开销更小。
 
-            //发送请求信息
-            clientRequest.write(("这是第" + this.clientIndex + " 个客户端的请求。").getBytes());
-            clientRequest.flush();
+![image-20220830213352173](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830213352173.png)
 
-            //在这里等待，直到服务器返回信息
-            SocketClientRequestThread.LOGGER.info("第" + this.clientIndex + "个客户端的请求发送完成，等待服务器返回信息");
-            int maxLen = 1024;
-            byte[] contextBytes = new byte[maxLen];
-            int realLen;
-            String message = "";
-            //程序执行到这里，会一直等待服务器返回信息(注意，前提是in和out都不能close，如果close了就收不到服务器的反馈了)
-            while((realLen = clientResponse.read(contextBytes, 0, maxLen)) != -1) {
-                message += new String(contextBytes , 0 , realLen);
-            }
-            SocketClientRequestThread.LOGGER.info("接收到来自服务器的信息:" + message);
-        } catch (Exception e) {
-            SocketClientRequestThread.LOGGER.error(e.getMessage(), e);
-        } finally {
-            try {
-                if(clientRequest != null) {
-                    clientRequest.close();
-                }
-                if(clientResponse != null) {
-                    clientResponse.close();
-                }
-            } catch (IOException e) {
-                SocketClientRequestThread.LOGGER.error(e.getMessage(), e);
-            }
-        }
-    }
-}
+或者网友提供的
 
-```
+![image-20220830213407568](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830213407568.png)
 
-服务器端(SocketServer1)单个线程
+### 1.4 信号驱动 I/O
 
-```java
-package testBSocket;
+应用进程使用 sigaction 系统调用，内核立即返回，应用进程可以继续执行，也就是说等待数据阶段应用进程是非阻塞的。内核在数据到达时向应用进程发送 SIGIO 信号，应用进程收到之后在信号处理程序中调用 recvfrom 将数据从内核复制到应用进程中。
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
+相比于非阻塞式 I/O 的轮询方式，信号驱动 I/O 的 CPU 利用率更高。
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.BasicConfigurator;
+![image-20220830213543801](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830213543801.png)
 
-public class SocketServer1 {
+或者网友提供的
 
-    static {
-        BasicConfigurator.configure();
-    }
+![image-20220830213557200](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830213557200.png)
 
-    /**
-     * 日志
-     */
-    private static final Log LOGGER = LogFactory.getLog(SocketServer1.class);
+### 1.5 异步 I/O
 
-    public static void main(String[] args) throws Exception{
-        ServerSocket serverSocket = new ServerSocket(83);
+进行 aio_read 系统调用会立即返回，应用进程继续执行，不会被阻塞，内核会在所有操作完成之后向应用进程发送信号。
 
-        try {
-            while(true) {
-                Socket socket = serverSocket.accept();
+异步 I/O 与信号驱动 I/O 的区别在于，异步 I/O 的信号是通知应用进程 I/O 完成，而信号驱动 I/O 的信号是通知应用进程可以开始 I/O。
 
-                //下面我们收取信息
-                InputStream in = socket.getInputStream();
-                OutputStream out = socket.getOutputStream();
-                Integer sourcePort = socket.getPort();
-                int maxLen = 2048;
-                byte[] contextBytes = new byte[maxLen];
-                //这里也会被阻塞，直到有数据准备好
-                int realLen = in.read(contextBytes, 0, maxLen);
-                //读取信息
-                String message = new String(contextBytes , 0 , realLen);
+![image-20220830213739485](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830213739485.png)
 
-                //下面打印信息
-                SocketServer1.LOGGER.info("服务器收到来自于端口: " + sourcePort + "的信息: " + message);
+或者网友提供的
 
-                //下面开始发送信息
-                out.write("回发响应信息！".getBytes());
+![image-20220830213757293](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830213757293.png)
 
-                //关闭
-                out.close();
-                in.close();
-                socket.close();
-            }
-        } catch(Exception e) {
-            SocketServer1.LOGGER.error(e.getMessage(), e);
-        } finally {
-            if(serverSocket != null) {
-                serverSocket.close();
-            }
-        }
-    }
-}
-```
+## 2. I/O 模型比较
 
-### 3.2 多线程来优化服务器端
+### 2.1 同步 I/O 与异步 I/O
 
-客户端代码和上文一样，最主要是更改服务器端的代码:
+- 同步 I/O: 应用进程在调用 recvfrom 操作时会阻塞。
+- 异步 I/O: 不会阻塞。
 
-```java
-package testBSocket;
+阻塞式 I/O、非阻塞式 I/O、I/O 复用和信号驱动 I/O 都是同步 I/O，虽然非阻塞式 I/O 和信号驱动 I/O 在等待数据阶段不会阻塞，但是在之后的将数据从内核复制到应用进程这个操作会阻塞。
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
+### 2.2 五大 I/O 模型比较
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.BasicConfigurator;
+前四种 I/O 模型的主要区别在于第一个阶段，而第二个阶段是一样的: 将数据从内核复制到应用进程过程中，应用进程会被阻塞。
 
-public class SocketServer2 {
+![image-20220830214003251](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830214003251.png)
 
-    static {
-        BasicConfigurator.configure();
-    }
+## 3. IO多路复用
 
-    private static final Log LOGGER = LogFactory.getLog(SocketServer2.class);
+> IO多路复用最为重要，后面的文章[Java NIO - IO多路复用详解](https://pdai.tech/md/java/io/java-io-nio-select-epoll.html)将对IO多路复用，Ractor模型以及Java NIO对其的支持作详解。
 
-    public static void main(String[] args) throws Exception{
-        ServerSocket serverSocket = new ServerSocket(83);
+这里主要概要性的理解: IO多路复用工作模式和应用。
 
-        try {
-            while(true) {
-                Socket socket = serverSocket.accept();
-                //当然业务处理过程可以交给一个线程(这里可以使用线程池),并且线程的创建是很耗资源的。
-                //最终改变不了.accept()只能一个一个接受socket的情况,并且被阻塞的情况
-                SocketServerThread socketServerThread = new SocketServerThread(socket);
-                new Thread(socketServerThread).start();
-            }
-        } catch(Exception e) {
-            SocketServer2.LOGGER.error(e.getMessage(), e);
-        } finally {
-            if(serverSocket != null) {
-                serverSocket.close();
-            }
-        }
-    }
-}
+### 3.1 IO多路复用工作模式
 
-/**
- * 当然，接收到客户端的socket后，业务的处理过程可以交给一个线程来做。
- * 但还是改变不了socket被一个一个的做accept()的情况。
- * @author yinwenjie
- */
-class SocketServerThread implements Runnable {
+epoll 的描述符事件有两种触发模式: LT(level trigger)和 ET(edge trigger)。
 
-    /**
-     * 日志
-     */
-    private static final Log LOGGER = LogFactory.getLog(SocketServerThread.class);
+#### 3.1.1 LT 模式
 
-    private Socket socket;
+当 epoll_wait() 检测到描述符事件到达时，将此事件通知进程，进程可以不立即处理该事件，下次调用 epoll_wait() 会再次通知进程。是默认的一种模式，并且同时支持 Blocking 和 No-Blocking。
 
-    public SocketServerThread (Socket socket) {
-        this.socket = socket;
-    }
+#### 3.1.2 ET 模式
 
-    @Override
-    public void run() {
-        InputStream in = null;
-        OutputStream out = null;
-        try {
-            //下面我们收取信息
-            in = socket.getInputStream();
-            out = socket.getOutputStream();
-            Integer sourcePort = socket.getPort();
-            int maxLen = 1024;
-            byte[] contextBytes = new byte[maxLen];
-            //使用线程，同样无法解决read方法的阻塞问题，
-            //也就是说read方法处同样会被阻塞，直到操作系统有数据准备好
-            int realLen = in.read(contextBytes, 0, maxLen);
-            //读取信息
-            String message = new String(contextBytes , 0 , realLen);
+和 LT 模式不同的是，通知之后进程必须立即处理事件，下次再调用 epoll_wait() 时不会再得到事件到达的通知。
 
-            //下面打印信息
-            SocketServerThread.LOGGER.info("服务器收到来自于端口: " + sourcePort + "的信息: " + message);
+很大程度上减少了 epoll 事件被重复触发的次数，因此效率要比 LT 模式高。只支持 No-Blocking，以避免由于一个文件句柄的阻塞读/阻塞写操作把处理多个文件描述符的任务饿死。
 
-            //下面开始发送信息
-            out.write("回发响应信息！".getBytes());
-        } catch(Exception e) {
-            SocketServerThread.LOGGER.error(e.getMessage(), e);
-        } finally {
-            //试图关闭
-            try {
-                if(in != null) {
-                    in.close();
-                }
-                if(out != null) {
-                    out.close();
-                }
-                if(this.socket != null) {
-                    this.socket.close();
-                }
-            } catch (IOException e) {
-                SocketServerThread.LOGGER.error(e.getMessage(), e);
-            }
-        }
-    }
-}
+### 3.2 应用场景
 
-  
-```
+很容易产生一种错觉认为只要用 epoll 就可以了，select 和 poll 都已经过时了，其实它们都有各自的使用场景。
 
-### 3.3 看看服务器端的执行效果
+#### 3.2.1. select 应用场景
 
-我们主要看一看服务器使用多线程处理时的情况:
+select 的 timeout 参数精度为 1ns，而 poll 和 epoll 为 1ms，因此 select 更加适用于实时要求更高的场景，比如核反应堆的控制。
 
-![image-20220830220005378](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830220005378.png)
+select 可移植性更好，几乎被所有主流平台所支持。
 
-### 3.4 问题根源
+#### 3.2.2 poll 应用场景
 
-那么重点的问题并不是“是否使用了多线程”，而是为什么accept()、read()方法会被阻塞。即: 异步IO模式 就是为了解决这样的并发性存在的。但是为了说清楚异步IO模式，在介绍IO模式的时候，我们就要首先了解清楚，什么是 阻塞式同步、非阻塞式同步、多路复用同步模式。
+poll 没有最大描述符数量的限制，如果平台支持并且对实时性要求不高，应该使用 poll 而不是 select。
 
-API文档中对于 serverSocket.accept() 方法的使用描述:
+需要同时监控小于 1000 个描述符，就没有必要使用 epoll，因为这个应用场景下并不能体现 epoll 的优势。
 
-> Listens for a connection to be made to this socket and accepts it. The method blocks until a connection is made.
+需要监控的描述符状态变化多，而且都是非常短暂的，也没有必要使用 epoll。因为 epoll 中的所有描述符都存储在内核中，造成每次需要对描述符的状态改变都需要通过 epoll_ctl() 进行系统调用，频繁系统调用降低效率。并且epoll 的描述符存储在内核，不容易调试。
 
-serverSocket.accept()会被阻塞? 这里涉及到阻塞式同步IO的工作原理:
+#### 3.2.3 epoll 应用场景
 
-- 服务器线程发起一个accept动作，询问操作系统 是否有新的socket套接字信息从端口X发送过来。
-
-![image-20220830220127233](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830220127233.png)
-
-- 注意，是询问操作系统。也就是说socket套接字的IO模式支持是基于操作系统的，那么自然同步IO/异步IO的支持就是需要操作系统级别的了。如下图:
-
-![image-20220830220153365](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830220153365.png)
-
-![image-20220830220203544](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220830220203544.png)
-
-如果操作系统没有发现有套接字从指定的端口X来，那么操作系统就会等待。这样serverSocket.accept()方法就会一直等待。这就是为什么accept()方法为什么会阻塞: 它内部的实现是使用的操作系统级别的同步IO。
+只需要运行在 Linux 平台上，并且有非常大量的描述符需要同时轮询，而且这些连接最好是长连接。
 
 ## 参考文章
 
-[**Java IO - BIO 详解**](https://pdai.tech/md/java/io/java-io-bio.html)
+[**IO 模型 - Unix IO 模型**](https://pdai.tech/md/java/io/java-io-model.html)

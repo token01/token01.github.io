@@ -80,6 +80,11 @@ export default hopeTheme({
       CSDN: "https://blog.csdn.net/kongmingdaoshi",
       Github: "https://github.com/token01",
       Gitee: "https://gitee.com/token01",
+      Wechat:"https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/abel/abelsun.jpeg",
+      Twitter:"https://twitter.com/sunzhenya",
+      Youtube:"https://www.youtube.com/channel/UCEP8tOUjGKf6XxlXBvEsL5Q",
+      BiliBili:"https://space.bilibili.com/9280286?spm_id_from=..0.0",
+      Gmail:"abelssun@gmail.com"
     },
   },
 

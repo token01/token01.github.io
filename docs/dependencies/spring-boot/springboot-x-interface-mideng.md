@@ -1,294 +1,175 @@
 ---
-order: 380
+order: 220
 category:
   - Spring
   - SpringBoot
 ---
-# SpringBoot部署 - 配置热部署devtools工具
+# SpringBoot接口 - 如何保证接口幂等
 
->在SpringBoot开发调试中，如果我每行代码的修改都需要重启启动再调试，可能比较费时间；SpringBoot团队针对此问题提供了spring-boot-devtools（简称devtools）插件，它试图提升开发调试的效率。
+>在以SpringBoot开发Restful接口时，如何防止接口的重复提交呢？ 本文主要介绍接口幂等相关的知识点，并实践常见基于Token实现接口幂等
 
 ## 1. 准备知识点
 
-### 1.1 什么是热部署和热加载？
+> 从幂等和防止重复提交，接口幂等和常见的保证幂等的方式等知识点构筑知识体系。
 
-> 热部署和热加载是在应用正在运行的时候，自动更新（重新加载或者替换class等）应用的一种能力。（PS：**spring-boot-devtools提供的方案也是要重启的，只是无需手动重启能实现自动加载而已。**）
+### 1.1 什么是幂等？
 
-严格意义上，我们需要区分下热部署和热加载, 对于Java项目而言：
+> 幂等原先是数学中的一个概念，表示进行1次变换和进行N次变换产生的效果相同。
 
-- **热部署**
-  - 在服务器运行时重新部署项目
-  - 它是直接重新加载整个应用，这种方式会释放内存，比热加载更加干净彻底，但同时也更费时间。
-- **热加载**
-  - 在运行时重新加载class，从而升级应用。
-  - 热加载的实现原理主要**依赖java的类加载机制**，在实现方式可以概括为在容器启动的时候起一条后台线程，定时的检测类文件的时间戳变化，如果类的时间戳变掉了，则将类重新载入。
-  - 对比反射机制，反射是在运行时获取类信息，通过动态的调用来改变程序行为； 热加载则是在运行时通过重新加载改变类信息，直接改变程序行为。
+当我们讨论接口的幂等性时一般是在说：以相同的请求调用这个接口一次和调用这个接口多次，对系统产生的影响是相同的。如果一个接口满足这个特性，那么我们就说这个 接口是一个幂等接口。
 
-### 1.2 什么是LiveLoad？
+#### 1.1.1 **接口幂等和防止重复提交是一回事吗**？
 
-LiveLoad是提供浏览器客户端自动加载更新的工具，分为LiveLoad服务器和Liveload浏览器插件两部分； devtools中已经集成了LiveLoad服务器，所以如果我们开发的是web应用，并且期望浏览器自动刷新， 这时候可以考虑LiveLoad.
+严格来说，并不是。
 
-![image-20220716103314429](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716103314429.png)
+1. **幂等**: 更多的是在重复请求已经发生，或是无法避免的情况下，采取一定的技术手段让这些重复请求不给系统带来副作用。
+2. **防止重复**: 提交更多的是不让用户发起多次一样的请求。比如说用户在线购物下单时点了提交订单按钮，但是由于网络原因响应很慢，此时用户比较心急多次点击了订单提交按钮。 这种情况下就可能会造成多次下单。一般防止重复提交的方案有：将订单按钮置灰，跳转到结果页等。主要还是从客户端的角度来解决这个问题。
 
-同一时间只能运行一个LiveReload服务器。 开始应用程序之前，请确保没有其他LiveReload服务器正在运行。如果从IDE启动多个应用程序，则只有第一个应用程序将支持LiveReload。
+#### 1.1.2 **哪些情况下客户端是防止不了重复提交的**？
 
-## 2. 配置devtools实现热部署
+虽然我们可在客户端做一些防止接口重复提交的事（比如将订单按钮置灰，跳转到结果页等）， 但是如下情况依然客户端是很难控制接口重复提交到后台的，这也进一步表明了**接口幂等和防止重复提交不是一回事**以及**后端接口保证接口幂等的必要性**所在。
 
-> 我们通过如下配置来实现自动重启方式的热部署。
+1. **接口超时重试**：接口可能会因为某些原因而调用失败，出于容错性考虑会加上失败重试的机制。如果接口调用一半，再次调用就会因为脏数据的存在而出现异常。
+2. **消息重复消费**：在使用消息中间件来处理消息队列，且手动ack确认消息被正常消费时。如果消费者突然断开连接，那么已经执行了一半的消息会重新放回队列。被其他消费者重新消费时就会导致结果异常，如数据库重复数据，数据库数据冲突，资源重复等。
+3. **请求重发**：网络抖动引发的nginx重发请求，造成重复调用；
 
-### 2.1 POM配置
+### 1.2 什么是接口幂等？
 
-添加spring-boot-devtools的依赖
+在HTTP/1.1中，对幂等性进行了定义。它描述了一次和多次请求某一个资源对于资源本身应该具有同样的结果（网络超时等问题除外），即第一次请求的时候对资源产生了副作用，但是以后的多次请求都不会再对资源产生副作用。
 
-```xml
-<dependencies>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-devtools</artifactId>
-        <optional>true</optional> <!-- 可以防止将devtools依赖传递到其他模块中 -->
-    </dependency>
-</dependencies>
+这里的副作用是不会对结果产生破坏或者产生不可预料的结果。也就是说，其任意多次执行对资源本身所产生的影响均与一次执行的影响相同。
+
+- **对哪些类型的接口需要保证接口幂等**？
+
+我们看下标准的restful请求，幂等情况是怎么样的：
+
+1. SELECT查询操作
+   1. GET：只是获取资源，对资源本身没有任何副作用，天然的幂等性。
+   2. HEAD：本质上和GET一样，获取头信息，主要是探活的作用，具有幂等性。
+   3. OPTIONS：获取当前URL所支持的方法，因此也是具有幂等性的。
+2. DELETE删除操作
+   1. 删除的操作，如果从删除的一次和删除多次的角度看，数据并不会变化，这个角度看它是幂等的
+   2. 但是如果，从另外一个角度，删除数据一般是返回受影响的行数，删除一次和多次删除返回的受影响行数是不一样的，所以从这个角度它需要保证幂等。（折中而言DELETE操作通常也会被纳入保证接口幂等的要求）
+3. ADD/EDIT操作
+   1. PUT：用于更新资源，有副作用，但是它应该满足幂等性，比如根据id更新数据，调用多次和N次的作用是相同的（根据业务需求而变）。
+   2. POST：用于添加资源，多次提交很可能产生副作用，比如订单提交，多次提交很可能产生多笔订单。
+
+## 2. 常见的保证幂等的方式？
+
+> 我们来看下常见的保证幂等的方式。
+
+### 2.1 数据库层面
+
+#### 2.1.1 悲观锁
+
+> 典型的数据库悲观锁：`for update`
+
+```sql
+select * from t_order where order_id = trade_no for update;
 ```
 
-### 2.2 IDEA配置
+为什么加for update就可以?
 
-> 如果你使用IDEA开发工具，通常有如下两种方式：
+1. 当线程A执行for update，数据会对当前记录加锁，其他线程执行到此行代码的时候，会等待线程A释放锁之后，才可以获取锁，继续后续操作。
+2. 事物提交时，for update获取的锁会自动释放。
 
-#### 2.2.1 方式一： **无任何配置时，手动触发重启更新（Ctrl+F9）**
+PS：这种方式很少被使用，因为如果业务处理比较耗时，并发情况下，后面线程会长期处于等待状态，占用了很多线程，让这些线程处于无效等待状态，我们的web服务中的线程数量一般都是有限的，如果大量线程由于获取for update锁处于等待状态，不利于系统并发操作。
 
-![image-20220716103429362](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716103429362.png)
+##### 2.1.1.1 悲观锁流程
 
-（也可以用`mvn compile`编译触发重启更新）
+ 没有悲观锁的方式是这样的:
 
-#### 2.2.2 方式二： **IDEA需开启运行时编译，自动重启更新**
+<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220716212343063.png" alt="image-20220716212343063"  />
 
-**设置1**：
+有了悲观锁的时候:
 
-File->Setting->Build,Execution,Deployment->Compile
+<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220716212532251.png" alt="image-20220716212532251"  />
 
-勾选：Make project automatically
+#### 2.1.2 唯一ID/索引
 
-![image-20220716103508265](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716103508265.png)
+> 针对的是**插入**操作。
 
-**设置2**：
+数据库唯一主键的实现主要是利用数据库中主键唯一约束的特性，一般来说唯一主键比较适用于“插入”时的幂等性，其能保证一张表中只能存在一条带该唯一主键的记录。
 
-快捷键：ctrl+alt+shift+/
+使用数据库唯一主键完成幂等性时需要注意的是，该主键一般来说并不是使用数据库中自增主键，而是使用分布式 ID 充当主键，这样才能能保证在分布式环境下 ID 的全局唯一性。
 
-选择：Registry
+- **去重表**
 
-勾选：compiler.automake.allow.when.app.running
+去重表本质上也是一种唯一索引方案。
 
-新版本的IDEA可以在File->setting->Advanced Setttings里面的第一个设置：
+这种方法适用于在业务中有唯一标的插入场景中，比如在以上的支付场景中，如果一个订单只会支付一次，所以订单ID可以作为唯一标识。这时，我们就可以建一张去重表，并且把唯一标识作为唯一索引，在我们实现时，把创建支付单据和写入去去重表，放在一个事务中，如果重复创建，数据库会抛出唯一约束异常，操作就会回滚。
 
-![image-20220716103530756](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716103530756.png)
+#### 2.1.3 乐观锁（基于版本号或者时间戳）
 
-### 2.3 application.yml配置
+> 针对**更新**操作。
 
-```yml
-spring:
-  devtools:
-    restart:
-      enabled: true  #设置开启热部署
-      additional-paths: src/main/java #重启目录
-      exclude: WEB-INF/**
-  thymeleaf:
-    cache: false #使用Thymeleaf模板引擎，关闭缓存
+- **使用版本号或者时间戳**
 
-  
-```
-
-### 2.4 使用LiveLoad
-
-spring-boot-devtools模块包含**嵌入式LiveReload服务器**，可以在资源更改时用于触发浏览器刷新。 LiveReload浏览器扩展程序支持Chrome，Firefox和Safari，你可以从livereload.com免费下载。
-
-![image-20220716103640674](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716103640674.png)
-
-或者从浏览器插件中心下载，比如firefox:
-
-![image-20220716103657510](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716103657510.png)
-
-安装完之后，可以通过如下图标管理
-
-<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220716103713325.png" alt="image-20220716103713325"  />
-
-如果你不想在应用程序运行时启动LiveReload服务器，则可以将spring.devtools.livereload.enabled属性设置为false 。
-
-同一时间只能运行一个LiveReload服务器。 开始应用程序之前，请确保没有其他LiveReload服务器正在运行。如果从IDE启动多个应用程序，则只有第一个应用程序将支持LiveReload。
-
-## 3. 进一步理解
-
-> 虽然一些开发者会使用devtool工具，但是很少有能够深入理解的；让我们理解如下几个问题，帮助你进一步理解。
-
-### 3.1 devtool的原理？为何会自动重启？
-
-> 为什么同样是重启应用，为什么不手动重启，而是建议使用spring-boot-devtools进行热部署重启？
-
-spring-boot-devtools使用了两个类加载器ClassLoader，一个ClassLoader加载不会发生更改的类（第三方jar包），另一个ClassLoader（restart ClassLoader）加载会更改的类（自定义的类）。
-
-后台启动一个**文件监听线程（File Watcher）**，**监测的目录中的文件发生变动时， 原来的restart ClassLoader被丢弃，将会重新加载新的restart ClassLoader**。
-
-因为文件变动后，第三方jar包不再重新加载，**只加载自定义的类，加载的类比较少，所以重启比较快。**
-
-这也是为什么，同样是重启应用，为什么不手动重启，建议使用spring-boot-devtools进行热部署重启。
-
-在自动重启中有几点需要注意:
-
-- **自动重启会记录日志的**
-
-（记录在什么情况下重启的日志）
-
-可以通过如下关闭
-
-```yml
-spring:
-  devtools:
-    restart:
-      log-condition-evaluation-delta: false
-```
-
-- **排除一些不需要自动重启的资源**
-
-某些资源在更改时不一定需要触发重新启动。默认情况下，改变资源/META-INF/maven，/META-INF/resources，/resources，/static，/public，或/templates不触发重新启动，但确会触发现场重装。如果要自定义这些排除项，可以使用该spring.devtools.restart.exclude属性。例如，要仅排除/static，/public你将设置以下属性：
-
-```yml
-spring:
-  devtools:
-    restart:
-      exclude: "static/**,public/**"
-
-  
-    
-```
-
-如果要保留这些默认值并添加其他排除项，请改用该spring.devtools.restart.additional-exclude属性。
-
-- **自定义重启类加载器**
-
-重启功能是通过使用两个类加载器来实现的。对于大多数应用程序，这种方法效果很好。但是，它有时会导致类加载问题。
-
-默认情况下，IDE 中的任何打开项目都使用“重启”类加载器加载，任何常规.jar文件都使用“基本”类加载器加载。如果你处理一个多模块项目，并且不是每个模块都导入到你的 IDE 中，你可能需要自定义一些东西。为此，你可以创建一个META-INF/spring-devtools.properties文件。
-
-该spring-devtools.properties文件可以包含以restart.exclude和为前缀的属性restart.include。该include元素是应该被拉高到“重启”的类加载器的项目，以及exclude要素是应该向下推入“Base”类加载器的项目。该属性的值是应用于类路径的正则表达式模式，如以下示例所示：
-
-```yml
-restart:
-  exclude:
-    companycommonlibs: "/mycorp-common-[\\w\\d-\\.]+\\.jar"
-  include:
-    projectcommon: "/mycorp-myproj-[\\w\\d-\\.]+\\.jar"
-
-  
-```
-
-### 3.2 devtool是否会被打包进Jar？
-
-> devtool原则上来说应该是只在开发调试的时候使用，而在生产环境运行jar包时是不需要的，所以Spring打包会不会把它打进JAR吗？
-
-- **默认情况下，不会被打包进JAR**
-
-运行打包的应用程序时，开发人员工具**会自动禁用**。如果你通过 java -jar或者其他特殊的类加载器进行启动时，都会被认为是“生产环境的应用”。
-
-- **如果我们期望远程调试应用**
-
-（*生产环境勿用，只有在受信任的网络上运行或使用 SSL 进行保护时，才应启用它*）
-
-在这种情况下，devtool也具备远程调试的能力：远程客户端应用程序旨在从你的 IDE 中运行。你需要org.springframework.boot.devtools.RemoteSpringApplication使用与你连接的远程项目相同的类路径运行。应用程序的唯一必需参数是它连接到的远程 URL。
-
-例如，如果使用 Eclipse 或 Spring Tools，并且你有一个my-app已部署到 Cloud Foundry 的名为的项目，执行以下操作：
-
-1. 选择Run Configurations…从Run菜单。
-2. 创建一个新的Java Application“启动配置”。
-3. 浏览my-app项目。
-4. 使用org.springframework.boot.devtools.RemoteSpringApplication作为主类。
-5. 添加https://myapp.cfapps.io到Program arguments（或任何你的远程 URL）。
-
-正在运行的远程客户端可能类似于以下列表：
+这种方法适合在更新的场景中，比如我们要更新商品的名字，这时我们就可以在更新的接口中增加一个版本号，来做幂等
 
 ```java
-  .   ____          _                                              __ _ _
- /\\ / ___'_ __ _ _(_)_ __  __ _          ___               _      \ \ \ \
-( ( )\___ | '_ | '_| | '_ \/ _` |        | _ \___ _ __  ___| |_ ___ \ \ \ \
- \\/  ___)| |_)| | | | | || (_| []::::::[]   / -_) '  \/ _ \  _/ -_) ) ) ) )
-  '  |____| .__|_| |_|_| |_\__, |        |_|_\___|_|_|_\___/\__\___|/ / / /
- =========|_|==============|___/===================================/_/_/_/
- :: Spring Boot Remote :: 2.5.4
-
-2015-06-10 18:25:06.632  INFO 14938 --- [           main] o.s.b.devtools.RemoteSpringApplication   : Starting RemoteSpringApplication on pwmbp with PID 14938 (/Users/pwebb/projects/spring-boot/code/spring-boot-project/spring-boot-devtools/target/classes started by pwebb in /Users/pwebb/projects/spring-boot/code)
-2015-06-10 18:25:06.671  INFO 14938 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@2a17b7b6: startup date [Wed Jun 10 18:25:06 PDT 2015]; root of context hierarchy
-2015-06-10 18:25:07.043  WARN 14938 --- [           main] o.s.b.d.r.c.RemoteClientConfiguration    : The connection to http://localhost:8080 is insecure. You should use a URL starting with 'https://'.
-2015-06-10 18:25:07.074  INFO 14938 --- [           main] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2015-06-10 18:25:07.130  INFO 14938 --- [           main] o.s.b.devtools.RemoteSpringApplication   : Started RemoteSpringApplication in 0.74 seconds (JVM running for 1.105)
+boolean updateGoodsName(int id,String newName,int version);
 ```
 
-### 3.3 devtool为何会默认禁用缓存选项？
+在实现时可以如下
 
-> Spring Boot 支持的一些库**使用缓存来提高性能**。例如，模板引擎缓存已编译的模板以避免重复解析模板文件。此外，Spring MVC 可以在提供静态资源时向响应添加 HTTP 缓存标头。
-
-虽然缓存**在生产中非常有益，但在开发过程中可能会适得其反**，使你无法看到刚刚在应用程序中所做的更改。出于这个原因， spring-boot-devtools 默认禁用缓存选项。
-
-比如Thymeleaf 提供了spring.thymeleaf.cache来设置模板引擎的缓存，使用spring-boot-devtools模块时是不需要手动设置这些属性的，因为spring-boot-devtools会自动进行设置。
-
-那么会自动设置哪些配置呢？你可以在DevToolsPropertyDefaultsPostProcessor类找到对应的默认配置。
-
-```java
-public class DevToolsPropertyDefaultsPostProcessor implements EnvironmentPostProcessor {
-
-	static {
-		Map<String, Object> properties = new HashMap<>();
-		properties.put("spring.thymeleaf.cache", "false");
-		properties.put("spring.freemarker.cache", "false");
-		properties.put("spring.groovy.template.cache", "false");
-		properties.put("spring.mustache.cache", "false");
-		properties.put("server.servlet.session.persistent", "true");
-		properties.put("spring.h2.console.enabled", "true");
-		properties.put("spring.web.resources.cache.period", "0");
-		properties.put("spring.web.resources.chain.cache", "false");
-		properties.put("spring.template.provider.cache", "false");
-		properties.put("spring.mvc.log-resolved-exception", "true");
-		properties.put("server.error.include-binding-errors", "ALWAYS");
-		properties.put("server.error.include-message", "ALWAYS");
-		properties.put("server.error.include-stacktrace", "ALWAYS");
-		properties.put("server.servlet.jsp.init-parameters.development", "true");
-		properties.put("spring.reactor.debug", "true");
-		PROPERTIES = Collections.unmodifiableMap(properties);
-	}
+```sql
+update goods set name=#{newName},version=#{version} where id=#{id} and version<${version}
 ```
 
-当然如果你不想被应用属性被spring-boot-devtools默认设置， 可以通过spring.devtools.add-properties到false你application.yml中。
+- **状态机**
 
-### 3.4 devtool是否可以给所有Springboot应用做全局的配置？
+本质上也是乐观锁，这种方法适合在有状态机流转的情况下，比如就会订单的创建和付款，订单的付款肯定是在之前，这时我们可以通过在设计状态字段时，使用int类型，并且通过值类型的大小来做幂等，比如订单的创建为0，付款成功为100。付款失败为99
 
-> 可以通过将spring-boot-devtools.yml文件添加到$HOME/.config/spring-boot目录来**配置全局 devtools 设置**。
+在做状态机更新时，我们就这可以这样控制
 
-添加到这些文件的任何属性都适用于你机器上使用 devtools 的所有Spring Boot 应用程序。例如，要将重新启动配置为始终使用触发器文件，你需要将以下属性添加到你的spring-boot-devtools文件中：
-
-```yml
-spring:
-  devtools:
-    restart:
-      trigger-file: ".reloadtrigger"
-
-  
+```sql
+update `order` set status=#{status} where id=#{id} and status<#{status}
 ```
 
-## 4. 如果我不用devtool，还有什么选择？
+### 2.2 分布式锁
 
-> 如果我不用devtool，还有什么选择？
+分布式锁实现幂等性的逻辑是，在每次执行方法之前判断，是否可以获取到分布式锁，如果可以，则表示为第一次执行方法，否则直接舍弃请求即可。
 
-**在实际的开发过程中，我也不会去使用devtool工具**, 因为：
+需要注意的是分布式锁的key必须为业务的唯一标识，通常用redis分布式锁或者zookeeper来实现分布式锁。
 
-- devtool本身基于重启方式，这种仍然不是真正的热替换方案，JRebel才是（它是收费的）
+分布式锁的实现方法具体请参考：[分布式系统 - 分布式锁及实现方案](https://pdai.tech/md/arch/arch-z-lock.html)
 
-- 开发调试最重要的还是一种权衡
+### 2.3 token机制
 
-  - 自动重启的开销如果和手动重启没有什么太大差别，那么还不如手动重启（按需重启）
+**方案描述：**
 
-  - 多数情况下，如果是**方法内部的修改或者静态资源的修改**，在IDEA中是可以通过Rebuild（Ctrl + Shift + F9）进行热更的
+针对客户端连续点击或者调用方的超时重试等情况，例如提交订单，此种操作就可以用 Token 的机制实现防止重复提交。
 
-    ![image-20220716113243457](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716113243457.png)
+简单的说就是调用方在**调用接口的时候先向后端请求一个全局 ID（Token），请求的时候携带这个全局 ID 一起请求**（Token 最好将其放到 Headers 中），后端需要对这个 Token 作为 Key，用户信息作为 Value 到 Redis 中进行键值内容校验，如果 Key 存在且 Value 匹配就执行删除命令，然后正常执行后面的业务逻辑。如果不存在对应的 Key 或 Value 不匹配就返回重复执行的错误信息，这样来保证幂等操作。
 
-- 此外还有一个工具spring loaded， 可实现修改类文件的热部署，具体可看其[github地址](https://github.com/spring-projects/spring-loaded)上的说明。
+**适用操作：**
+
+- 插入操作
+- 更新操作
+- 删除操作
+
+**使用限制：**
+
+- 需要生成全局唯一 Token 串；
+- 需要使用第三方组件 Redis 进行数据效验；
+
+**主要流程：**
+
+<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220716214002016.png" alt="image-20220716214002016"  />
+
+- ① 服务端提供获取 Token 的接口，该 Token 可以是一个序列号，也可以是一个分布式 ID 或者 UUID 串。
+- ② 客户端调用接口获取 Token，这时候服务端会生成一个 Token 串。
+- ③ 然后将该串存入 Redis 数据库中，以该 Token 作为 Redis 的键（注意设置过期时间）。
+- ④ 将 Token 返回到客户端，客户端拿到后应存到表单隐藏域中。
+- ⑤ 客户端在执行提交表单时，把 Token 存入到 Headers 中，执行业务请求带上该 Headers。
+- ⑥ 服务端接收到请求后从 Headers 中拿到 Token，然后根据 Token 到 Redis 中查找该 key 是否存在。
+- ⑦ 服务端根据 Redis 中是否存该 key 进行判断，如果存在就将该 key 删除，然后正常执行业务逻辑。如果不存在就抛异常，返回重复提交的错误信息。
+
+> 注意，在并发情况下，执行 Redis 查找数据与删除需要保证原子性，否则很可能在并发下无法保证幂等性。其实现方法可以使用分布式锁或者使用 Lua 表达式来注销查询与删除操作。
 
 ## 参考文章
 
-[**SpringBoot入门 - 配置热部署devtools工具**](https://pdai.tech/md/spring/springboot/springboot-x-hello-devtool.html)
+[SpringBoot接口幂等性实现的4种方案！](https://www.jianshu.com/p/c384db3692d2)
+
+[**SpringBoot接口 - 如何保证接口幂等**](https://pdai.tech/md/spring/springboot/springboot-x-interface-mideng.html)

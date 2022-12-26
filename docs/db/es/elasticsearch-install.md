@@ -6,7 +6,7 @@ category:
 
 # ES详解 - Docker安装Elk
 
-![image-20220803230055166](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220803230055166.png)
+![image-20220803230055166](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220803230055166.png)
 
 ## 1. 简介
 
@@ -87,7 +87,7 @@ docker-compose up -d
 
 ### 2.4 访问Kibana
 
-![image-20220803230538798](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220803230538798.png)
+![image-20220803230538798](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220803230538798.png)
 
 ## 参考文章
 

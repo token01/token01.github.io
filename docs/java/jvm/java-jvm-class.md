@@ -18,7 +18,7 @@ category:
 - Java代码间接翻译成字节码，储存字节码的文件再交由运行于不同平台上的JVM虚拟机去读取执行，从而实现一次编写，到处运行的目的。
 - JVM也不再只支持Java，由此衍生出了许多基于JVM的编程语言，如Groovy, Scala, Koltin等等。
 
-![image-20220819221054411](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220819221054411.png)
+![image-20220819221054411](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819221054411.png)
 
 ## 2. Java字节码文件
 
@@ -32,7 +32,7 @@ Class文件采用一种伪结构来存储数据，它有两种类型：无符号
 
 在理解之前先从整体看下java字节码文件包含了哪些类型的数据：
 
-![image-20220819221224234](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220819221224234.png)
+![image-20220819221224234](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819221224234.png)
 
 ### 2.2 从一个例子开始
 

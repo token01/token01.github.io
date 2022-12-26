@@ -114,7 +114,7 @@ public interface FilterChain {
 }
 ```
 
-![image-20221204204745980](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221204204745980.png)
+![image-20221204204745980](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221204204745980.png)
 
 `ApplicationFilterChain`里面能拿到我们自定义的`xxxFilter`类，在其内部回调方法`doFilter()`里调用各个自定义`xxxFilter`过滤器，并执行 `doFilter()` 方法。
 
@@ -153,7 +153,7 @@ public final class ApplicationFilterChain implements FilterChain {
 
 `过滤器` 和 `拦截器`的触发时机也不同，我们看下边这张图。
 
-![image-20221204205032541](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221204205032541.png)
+![image-20221204205032541](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221204205032541.png)
 
 - 过滤器`Filter`是在请求进入容器后，但在进入`servlet`之前进行预处理，请求结束是在`servlet`处理完以后。
 
@@ -179,11 +179,11 @@ public class Test {
 
 项目启动过程中发现，过滤器的`init()`方法，随着容器的启动进行了初始化。
 
-![image-20221204205449938](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221204205449938.png)
+![image-20221204205449938](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221204205449938.png)
 
 此时浏览器发送请求，F12 看到居然有两个请求，一个是我们自定义的 `Controller` 请求，另一个是访问静态图标资源的请求。
 
-![image-20221204205510236](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221204205510236.png)
+![image-20221204205510236](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221204205510236.png)
 
 看到控制台的打印日志如下：
 
@@ -239,7 +239,7 @@ Interceptor 后置
 
 在拦截器中注入`service`，发起请求测试一下 ，竟然TM的报错了，`debug`跟一下发现注入的`service`怎么是`Null`啊？
 
-![image-20221204205747716](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221204205747716.png)
+![image-20221204205747716](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20221204205747716.png)
 
 这是因为加载顺序导致的问题，`拦截器`加载的时间点在`springcontext`之前，而`Bean`又是由`spring`进行管理。
 

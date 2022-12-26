@@ -482,68 +482,6 @@ class Student{
 
 看看阿里巴巴 java 开发手册中推荐的 ThreadLocal 的用法:
 
-#### 5.3.1 必须回收自定义的 ThreadLocal 变量记录的当前线程的值
-
-【强制】必须回收自定义的 ThreadLocal 变量记录的当前线程的值，尤其在线程池场景下，线程经常会
-
-被复用，如果不清理自定义的 ThreadLocal 变量，可能会影响后续业务逻辑和造成内存泄露等问题。
-
-尽量在代码中使用 try-finally 块进行回收。
-
-正例：
-
-```java
-objectThreadLocal.set(userInfo);
-
-try {
-
-// ...
-
-} finally {
-
-objectThreadLocal.remove();
-
-}
-```
-
-#### 5.3.2 ThreadLocal 对象使用 static 修饰
-
-【参考】ThreadLocal 对象使用 static 修饰，ThreadLocal 无法解决共享对象的更新问题。
-
-说明：这个变量是针对一个线程内所有操作共享的，所以设置为静态变量，所有此类实例共享此静态变量，也就是说在
-
-类第一次被使用时装载，只分配一块存储空间，所有此类的对象（只要是这个线程内定义的）都可以操控这个变量。
-
-#### 5.3.3 SimpleDateFormat 是线程不安全的类
-
-【强制】SimpleDateFormat 是线程不安全的类，一般不要定义为 static 变量，如果定义为 static，必须
-
-加锁，或者使用 DateUtils 工具类。
-
-正例：注意线程安全，使用 DateUtils。亦推荐如下处理：
-
-```java
-private static final ThreadLocal<DateFormat> dateStyle = new ThreadLocal<DateFormat>() { 
-
-@Override
-
-protected DateFormat initialValue() {
-
-return new SimpleDateFormat("yyyy-MM-dd");
-
-} 
-
-};
-```
-
-
-
-说明：如果是 JDK8 的应用，可以使用 Instant 代替 Date，LocalDateTime 代替 Calendar，DateTimeFormatter 代替
-
-SimpleDateFormat，官方给出的解释：simple beautiful strong immutable thread-safe。
-
-
-
 ```java
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

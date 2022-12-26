@@ -1,476 +1,161 @@
 ---
-order: 90
+order: 20
 category:
-	- ElasticSearch
+  - ElasticSearch
 ---
 
-# ES详解 - 查询：DSL查询之全文搜索详解
+# ES详解 - 认知：Elastic Stack生态和场景方案
 
->DSL查询极为常用的是对文本进行搜索，我们叫全文搜索，本文主要对全文搜索进行详解。
+> 在了解ElaticSearch之后，我们还要了解Elastic背后的生态即我们常说的ELK；与此同时，还会给你展示ElasticSearch的案例场景，让你在学习ES前对它有个全局的印象。
 
-## 0. 写在前面:谈谈如何从官网学习
+## 1. Elastic Stack生态
 
-> 提示
->
-> 很多读者在看官方文档学习时存在一个误区，以DSL中full text查询为例，其实内容是非常多的， 没有取舍/没重点去阅读， 要么需要花很多时间，要么头脑一片浆糊。所以这里重点谈谈我的理解。
+> Beats + Logstash + ElasticSearch + Kibana
 
-一些理解：
+如下是我从官方博客中找到图，这张图展示了ELK生态以及基于ELK的场景（最上方）
 
-- 第一点：**全局观**，即我们现在学习内容在整个体系的哪个位置？
+![image-20220802220951170](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802220951170.png)
 
-如下图，可以很方便的帮助你构筑这种体系
+由于Elastic X-Pack是面向收费的，所以我们不妨也把X-Pack放进去，看看哪些是由X-Pack带来的，在阅读官网文档时将方便你甄别重点：
 
-![image-20220805205758872](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805205758872.png)
+![image-20220802221330037](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802221330037.png)
 
-- 第二点： **分类别**，从上层理解，而不是本身
+### 1.1 Beats
 
-比如Full text Query中，我们只需要把如下的那么多点分为3大类，你的体系能力会大大提升
+Beats是一个面向**轻量型采集器**的平台，这些采集器可以从边缘机器向Logstash、ElasticSearch发送数据，它是由Go语言进行开发的，运行效率方面比较快。从下图中可以看出，不同Beats的套件是针对不同的数据源。
 
-![image-20220805205926651](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805205926651.png)
+![image-20220802221745257](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802221745257.png)
 
-- 第三点： **知识点还是API**？ API类型的是可以查询的，只需要知道大致有哪些功能就可以了。
+### 1.2 Logstash
 
-![image-20220805210053312](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805210053312.png)
+Logstash是**动态数据收集管道**，拥有可扩展的插件生态系统，支持从不同来源采集数据，转换数据，并将数据发送到不同的存储库中。其能够与ElasticSearch产生强大的协同作用，后被Elastic公司在2013年收购。
 
-## 1. Match类型
+它具有如下特性：
 
-> 第一类：match 类型
+1）实时解析和转换数据；
 
-### 1.1 match 查询的步骤
+2）可扩展，具有200多个插件；
 
-在前文中我们已经介绍了match查询。
+3）可靠性、安全性。Logstash会通过持久化队列来保证至少将运行中的事件送达一次，同时将数据进行传输加密；
 
-- **准备一些数据**
+4）监控；
 
-这里我们准备一些数据，通过实例看match 查询的步骤
+### 1.3 ElasticSearch
 
-```bash
-PUT /test-dsl-match
-{ "settings": { "number_of_shards": 1 }} 
+ElasticSearch对数据进行**搜索、分析和存储**，其是基于JSON的分布式搜索和分析引擎，专门为实现水平可扩展性、高可靠性和管理便捷性而设计的。
 
-POST /test-dsl-match/_bulk
-{ "index": { "_id": 1 }}
-{ "title": "The quick brown fox" }
-{ "index": { "_id": 2 }}
-{ "title": "The quick brown fox jumps over the lazy dog" }
-{ "index": { "_id": 3 }}
-{ "title": "The quick brown fox jumps over the quick dog" }
-{ "index": { "_id": 4 }}
-{ "title": "Brown fox brown dog" }
-  
-```
+它的实现原理主要分为以下几个步骤：
 
-- **查询数据**
+1）首先用户将数据提交到ElasticSearch数据库中；
 
-```bash
-GET /test-dsl-match/_search
-{
-    "query": {
-        "match": {
-            "title": "QUICK!"
-        }
-    }
-}
-```
+2）再通过分词控制器将对应的语句分词；
 
-Elasticsearch 执行上面这个 match 查询的步骤是：
+3）将分词结果及其权重一并存入，以备用户在搜索数据时，根据权重将结果排名和打分，将返回结果呈现给用户；
 
-1. **检查字段类型** 。
+### 1.4 Kibana
 
-标题 title 字段是一个 string 类型（ analyzed ）已分析的全文字段，这意味着查询字符串本身也应该被分析。
+Kibana实现**数据可视化**，其作用就是在ElasticSearch中进行民航。Kibana能够以图表的形式呈现数据，并且具有可扩展的用户界面，可以全方位的配置和管理ElasticSearch。
 
-2. **分析查询字符串** 。
+Kibana最早的时候是基于Logstash创建的工具，后被Elastic公司在2013年收购。
 
-将查询的字符串 QUICK! 传入标准分析器中，输出的结果是单个项 quick 。因为只有一个单词项，所以 match 查询执行的是单个底层 term 查询。
+1）Kibana可以提供各种可视化的图表；
 
-3. **查找匹配文档** 。
+2）可以通过机器学习的技术，对异常情况进行检测，用于提前发现可疑问题；
 
-用 term 查询在倒排索引中查找 quick 然后获取一组包含该项的文档，本例的结果是文档：1、2 和 3 。
+## 2. 从日志收集系统看ES Stack的发展
 
-4. **为每个文档评分** 。
+> 我们看下ELK技术栈的演化，通常体现在日志收集系统中。
 
-用 term 查询计算每个文档相关度评分 _score ，这是种将词频（term frequency，即词 quick 在相关文档的 title 字段中出现的频率）和反向文档频率（inverse document frequency，即词 quick 在所有文档的 title 字段中出现的频率），以及字段的长度（即字段越短相关度越高）相结合的计算方式。
+一个典型的日志系统包括：
 
-- **验证结果**
+（1）收集：能够采集多种来源的日志数据
 
-![image-20220805212030883](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805212030883.png)
+（2）传输：能够稳定的把日志数据解析过滤并传输到存储系统
 
-### 1.2 match多个词深入
+（3）存储：存储日志数据
 
-我们在上文中复合查询中已经使用了match多个词，比如“Quick pets”； 这里我们通过例子带你更深入理解match多个词
+（4）分析：支持 UI 分析
 
-- **match多个词的本质**
+（5）警告：能够提供错误报告，监控机制
 
-查询多个词"BROWN DOG!"
+### 2.1 beats+elasticsearch+kibana
 
-```bash
-GET /test-dsl-match/_search
-{
-    "query": {
-        "match": {
-            "title": "BROWN DOG"
-        }
-    }
-}
-```
-
-![image-20220805212307163](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805212307163.png)
-
-因为 match 查询必须查找两个词（ ["brown","dog"] ），它在内部实际上先执行两次 term 查询，然后将两次查询的结果合并作为最终结果输出。为了做到这点，它将两个 term 查询包入一个 bool 查询中，
-
-所以上述查询的结果，和如下语句查询结果是等同的
-
-```bash
-GET /test-dsl-match/_search
-{
-  "query": {
-    "bool": {
-      "should": [
-        {
-          "term": {
-            "title": "brown"
-          }
-        },
-        {
-          "term": {
-            "title": "dog"
-          }
-        }
-      ]
-    }
-  }
-}
-```
-
-![image-20220805212509990](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805212509990.png)
-
-- **match多个词的逻辑**
-
-上面等同于should（任意一个满足），是因为 match还有一个operator参数，默认是or, 所以对应的是should。
-
-所以上述查询也等同于
-
-```bash
-GET /test-dsl-match/_search
-{
-  "query": {
-    "match": {
-      "title": {
-        "query": "BROWN DOG",
-        "operator": "or"
-      }
-    }
-  }
-}
-
-```
-
-那么我们如果是需要and操作呢，即同时满足呢？
-
-```bash
-GET /test-dsl-match/_search
-{
-  "query": {
-    "match": {
-      "title": {
-        "query": "BROWN DOG",
-        "operator": "and"
-      }
-    }
-  }
-}
-```
-
-等同于
-
-```bash
-GET /test-dsl-match/_search
-{
-  "query": {
-    "bool": {
-      "must": [
-        {
-          "term": {
-            "title": "brown"
-          }
-        },
-        {
-          "term": {
-            "title": "dog"
-          }
-        }
-      ]
-    }
-  }
-}
-```
-
-![image-20220805215139691](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805215139691.png)
-
-### 1.3 控制match的匹配精度
-
-如果用户给定 3 个查询词，想查找至少包含其中 2 个的文档，该如何处理？将 operator 操作符参数设置成 and 或者 or 都是不合适的。
-
-match 查询支持 minimum_should_match 最小匹配参数，这让我们可以指定必须匹配的词项数用来表示一个文档是否相关。我们可以将其设置为某个具体数字，更常用的做法是将其设置为一个百分数，因为我们无法控制用户搜索时输入的单词数量：
-
-```bash
-GET /test-dsl-match/_search
-{
-  "query": {
-    "match": {
-      "title": {
-        "query": "quick brown dog",
-        "minimum_should_match": "75%"
-      }
-    }
-  }
-}
-
-```
-
-当给定百分比的时候， minimum_should_match 会做合适的事情：在之前三词项的示例中， 75% 会自动被截断成 66.6% ，即三个里面两个词。无论这个值设置成什么，至少包含一个词项的文档才会被认为是匹配的。
-
-![image-20220805215456812](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805215456812.png)
-
-当然也等同于
-
-```bash
-GET /test-dsl-match/_search
-{
-  "query": {
-    "bool": {
-      "should": [
-        { "match": { "title": "quick" }},
-        { "match": { "title": "brown"   }},
-        { "match": { "title": "dog"   }}
-      ],
-      "minimum_should_match": 2 
-    }
-  }
-}
-```
-
-![image-20220805220030629](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805220030629.png)
-
-### 1.4 match_phrase 查词组
-
-- **match_phrase**
-
-match_phrase在前文中我们已经有了解，我们再看下另外一个例子。
-
-```bash
-GET /test-dsl-match/_search
-{
-  "query": {
-    "match_phrase": {
-      "title": {
-        "query": "quick brown"
-      }
-    }
-  }
-}
-```
-
-![image-20220805220220108](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805220220108.png)
-
-很多人对它仍然有误解的，比如如下例子：
-
-```bash
-GET /test-dsl-match/_search
-{
-  "query": {
-    "match_phrase": {
-      "title": {
-        "query": "quick brown f"
-      }
-    }
-  }
-}
-```
-
-这样的查询是查不出任何数据的，因为前文中我们知道了match本质上是对term组合，match_phrase本质是连续的term的查询，所以f并不是一个分词，不满足term查询，所以最终查不出任何内容了。
-
-![image-20220805220407000](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805220407000.png)
-
-### 1.5 match_phrase_prefix 查最后一个词项是前缀
-
-- **match_pharse_prefix**
-
-那有没有可以查询出`quick brown f`的方式呢？ELasticSearch在match_phrase基础上提供了一种可以查最后一个词项是前缀的方法，这样就可以查询`quick brown f`了
-
-```bash
-GET /test-dsl-match/_search
-{
-  "query": {
-    "match_phrase_prefix": {
-      "title": {
-        "query": "quick brown f"
-      }
-    }
-  }
-}
-```
-
-![image-20220805220518740](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805220518740.png)
-
-(ps: prefix的意思不是整个text的开始匹配，而是最后一个词项满足term的prefix查询而已)
-
-### 1.6 match_bool_prefix 查无序词组前缀
-
-- **match_bool_prefix**
-
-除了match_phrase_prefix，ElasticSearch还提供了match_bool_prefix查询
-
-```bash
-GET /test-dsl-match/_search
-{
-  "query": {
-    "match_bool_prefix": {
-      "title": {
-        "query": "quick brown f"
-      }
-    }
-  }
-}
-```
-
-![image-20220805220608159](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805220608159.png)
-
-它们两种方式有啥区别呢？match_bool_prefix本质上可以转换为：
-
-```bash
-GET /test-dsl-match/_search
-{
-  "query": {
-    "bool" : {
-      "should": [
-        { "term": { "title": "quick" }},
-        { "term": { "title": "brown" }},
-        { "prefix": { "title": "f"}}
-      ]
-    }
-  }
-}
-```
-
-所以这样你就能理解，match_bool_prefix查询中的quick,brown,f是无序的。
-
-### 1.7 multi_match 一次对多个字段查询
-
-如果我们期望一次对多个字段查询，怎么办呢？ElasticSearch提供了multi_match查询的方式
-
-```bash
-{
-  "query": {
-    "multi_match" : {
-      "query":    "Will Smith",
-      "fields": [ "title", "*_name" ] 
-    }
-  }
-}
-```
-
-`*`表示前缀匹配字段。
-
-## 2. query string类型
-
-> 第二类：query string 类型
-
-### 2.1 query_string
-
-此查询使用语法根据运算符（例如AND或）来解析和拆分提供的查询字符串NOT。然后查询在返回匹配的文档之前独立分析每个拆分的文本。
-
-可以使用该query_string查询创建一个复杂的搜索，其中包括通配符，跨多个字段的搜索等等。尽管用途广泛，但查询是严格的，如果查询字符串包含任何无效语法，则返回错误。
-
-例如：
-
-```bash
-GET /test-dsl-match/_search
-{
-  "query": {
-    "query_string": {
-      "query": "(lazy dog) OR (brown dog)",
-      "default_field": "title"
-    }
-  }
-}
-```
-
-这里查询结果，你需要理解本质上查询这四个分词（term）or的结果而已，所以doc 3和4也在其中
-
-![image-20220805221341140](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805221341140.png)
-
-对构筑知识体系已经够了，但是它其实还有很多参数和用法，更多请参考[官网](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html)
-
-### 2.2 query_string_simple
-
-该查询使用一种简单的语法来解析提供的查询字符串并将其拆分为基于特殊运算符的术语。然后查询在返回匹配的文档之前独立分析每个术语。
-
-尽管其语法比query_string查询更受限制 ，但**simple_query_string 查询不会针对无效语法返回错误。而是，它将忽略查询字符串的任何无效部分**。
-
-举例：
-
-```bash
-GET /test-dsl-match/_search
-{
-  "query": {
-    "simple_query_string" : {
-        "query": "\"over the\" + (lazy | quick) + dog",
-        "fields": ["title"],
-        "default_operator": "and"
-    }
-  }
-}
-```
-
-![image-20220805221504432](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805221504432.png)
-
-更多请参考[官网](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-simple-query-string-query.html)
-
-## 3. Interval类型
-
-> 第三类：interval类型
-
-Intervals是时间间隔的意思，本质上将多个规则按照顺序匹配。
-
-比如：
-
-```bash
-GET /test-dsl-match/_search
-{
-  "query": {
-    "intervals" : {
-      "title" : {
-        "all_of" : {
-          "ordered" : true,
-          "intervals" : [
-            {
-              "match" : {
-                "query" : "quick",
-                "max_gaps" : 0,
-                "ordered" : true
-              }
-            },
-            {
-              "any_of" : {
-                "intervals" : [
-                  { "match" : { "query" : "jump over" } },
-                  { "match" : { "query" : "quick dog" } }
-                ]
-              }
-            }
-          ]
-        }
-      }
-    }
-  }
-}
-```
-
-![image-20220805221621590](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805221621590.png)
-
-因为interval之间是可以组合的，所以它可以表现的很复杂。更多请参考[官网](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-intervals-query.html)
+Beats采集数据后，存储在ES中，有Kibana可视化的展示。
+
+![image-20220802225759473](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802225759473.png)
+
+### 2.2 beats+logstath+elasticsearch+kibana
+
+![image-20220802225849444](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802225849444.png)
+
+该框架是在上面的框架的基础上引入了logstash，引入logstash带来的好处如下：
+
+（1）Logstash具有基于磁盘的自适应缓冲系统，该系统将吸收传入的吞吐量，从而减轻背压。
+
+（2）从其他数据源（例如数据库，S3或消息传递队列）中提取。
+
+（3）将数据发送到多个目的地，例如S3，HDFS或写入文件。
+
+（4）使用条件数据流逻辑组成更复杂的处理管道。
+
+**beats结合logstash带来的优势**：
+
+（1）水平可扩展性，高可用性和可变负载处理：beats和logstash可以实现节点之间的负载均衡，多个logstash可以实现logstash的高可用
+
+（2）消息持久性与至少一次交付保证：使用beats或Winlogbeat进行日志收集时，可以保证至少一次交付。从Filebeat或Winlogbeat到Logstash以及从Logstash到Elasticsearch的两种通信协议都是同步的，并且支持确认。Logstash持久队列提供跨节点故障的保护。对于Logstash中的磁盘级弹性，确保磁盘冗余非常重要。
+
+（3）具有身份验证和有线加密的端到端安全传输：从Beats到Logstash以及从 Logstash到Elasticsearch的传输都可以使用加密方式传递 。与Elasticsearch进行通讯时，有很多安全选项，包括基本身份验证，TLS，PKI，LDAP，AD和其他自定义领域
+
+**增加更多的数据源** 比如：TCP，UDP和HTTP协议是将数据输入Logstash的常用方法
+
+![image-20220802230523930](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802230523930.png)
+
+### 2.3 beats+MQ+logstash+elasticsearch+kibana
+
+![image-20220802230554852](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802230554852.png)
+
+在如上的基础上我们可以在beats和logstash中间添加一些组件redis、kafka、RabbitMQ等，添加中间件将会有如下好处：
+
+（1）降低对日志所在机器的影响，这些机器上一般都部署着反向代理或应用服务，本身负载就很重了，所以尽可能的在这些机器上少做事；
+
+（2）如果有很多台机器需要做日志收集，那么让每台机器都向Elasticsearch持续写入数据，必然会对Elasticsearch造成压力，因此需要对数据进行缓冲，同时，这样的缓冲也可以一定程度的保护数据不丢失；
+
+（3）将日志数据的格式化与处理放到Indexer中统一做，可以在一处修改代码、部署，避免需要到多台机器上去修改配置；
+
+## 3. Elastic Stack最佳实践
+
+> 我们再看下官方开发成员分享的最佳实践。
+
+### 3.1 日志收集系统
+
+（PS：就是我们上面阐述的）
+
+基本的日志系统
+
+![image-20220802230911770](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802230911770.png)
+
+增加数据源，和使用MQ
+
+![image-20220802231002429](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802231002429.png)
+
+### 3.2 Metric收集和APM性能监控
+
+![image-20220802231030438](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802231030438.png)
+
+### 3.3 多数据中心方案
+
+通过冗余实现数据高可用
+
+![image-20220802231118627](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802231118627.png)
+
+两个数据采集中心（比如采集两个工厂的数据），采集数据后的汇聚
+
+![image-20220802231140850](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802231140850.png)
+
+数据分散，跨集群的搜索
+
+![image-20220802231212499](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220802231212499.png)
 
 ## 参考文章
 
-[**ES详解 - 查询：DSL查询之全文搜索详解**](https://pdai.tech/md/db/nosql-es/elasticsearch-x-dsl-full-text.html)
+[**ES详解 - 认知：Elastic Stack生态和场景方案**](https://pdai.tech/md/db/nosql-es/elasticsearch-x-introduce-2.html)

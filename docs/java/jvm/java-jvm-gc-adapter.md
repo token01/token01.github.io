@@ -1,115 +1,60 @@
 ---
-#order: 20
+#order: 80
 category:
   - Java
   - JVM
 
 ---
 
-#  JVM 内存分配与回收
+# Java如何选择合适的垃圾回收器
 
-## 1. JVM 内存分配与回收
+## 1. 简介
 
-Java 的自动内存管理主要是针对象内存的回收和对象的内存的分配。同时，java 自动内存管理最核心的功能是 **堆**内存中的对象分配与回收
+垃圾回收器是内存回收的具体实现，JDK自带的垃圾回收器已经完成集成垃圾回收和清理算法，业务程序可以通过设置参数选择垃圾回收器，虚拟机用到的7种经典的垃圾回收器如下表。根据适用内存区域不同，JDK自带的垃圾回收器可分为新生代回收器和老年代回收器，两者可以配合使用。新生代回收器用于堆空间中新生代区域的垃圾回收，老年代回收器用于堆空间中老年代区域的垃圾回收。G1是一种新型的堆内垃圾收集器，既可以用于新生代也可以用于老年代垃圾回收。
 
-Java 堆是垃圾收集器管理的主要区域，因此也被称作**GC 堆（Garbage Collected Heap）**.从垃圾回收的角度，由于现在收集器基本都采用分代垃圾收集算法，所以 Java 堆还可以细分为：新生代和老年代：再细致一点有：Eden 空间、From Survivor、To Survivor 空间等。**进一步划分的目的是更好地回收内存，或者更快地分配内存。**
+## 2. 7种垃圾回收器
 
-**堆空间的基本结构：**
+| 名称                       | 说明                                               | 收集模式        | 分代适用类型  |
+| -------------------------- | -------------------------------------------------- | --------------- | ------------- |
+| Serial                     | 单线程串行收集器                                   | 串行收集器      | 新生代        |
+| ParNew                     | 多线程并行Serial收集器                             | 并行收集器      | 新生代        |
+| Parallel Scavenge          | 并行吞吐量优先收集器                               | 并行收集器      | 新生代        |
+| Serial Old                 | Serial单线程收集器老年代版本                       | 串行收集器      | 老年代        |
+| CMS(Concurrent Mark Sweep) | 并行最短停顿时间收集器                             | 并发收集器      | 老年代        |
+| Parallel Old               | Parallel Scavenge并行收集器老年代版本              | 并行收集器      | 老年代        |
+| G1                         | 面向局部收集和基于Region内存布局的新型低延时收集器 | 并发/并行收集器 | 新生代/老年代 |
 
-![image-20190924234527212](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190924234527212.png)
+下图展示了新生代GC和老年代GC配合使用方法，有连线的表示可以配合使用。注意ParNew和Parallel Old是不能同时使用的
 
-上图所示的 eden区，s0("From") 区、s1("To") 区都属于新生代，tentired 区属于老年代。大部分情况，
+![image-20220429231123110](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220429231123110.png)
 
-- 对象都会首先在 Eden 区域分配
+## 3. 如何选择合适的垃圾回收器
 
-- 在一次新生代垃圾回收后，如果对象还存活，则会进入 s1("To")，并且对象的年龄还会加 1(Eden 区->Survivor 区后对象的初始年龄变为 1)
+垃圾回收器的选择方法没有通用的准则，要结合项目应用的实际并对GC运行数据的检测来决定。
 
-- 当它的年龄增加到一定程度（默认为 15 岁），就会被晋升到老年代中
+根据收集模式经典垃圾回收器可分为三类：串行收集器、并行收集器、并发收集器。串行收集器只适用于小数据量的情况，选择主要针对并行收集器和并发收集器。默认情况下，JDK1.5以前都是使用串行收集器，如果想使用其他收集器需要在启动时加入相应参数。JDK1.5以后，JVM会根据当前[系统配置](http://java.sun.com/j2se/1.5.0/docs/guide/vm/server-class.html)进行判断。
 
-  对象晋升到老年代的年龄阈值，可以通过参数 `-XX:MaxTenuringThreshold` 来设置
+### 3.1 垃圾回收器选择建议：
 
-- 经过这次GC后，Eden区和"From"区已经被清空。这个时候，"From"和"To"会交换他们的角色，也就是新的"To"就是上次GC前的“From”，新的"From"就是上次GC前的"To"。不管怎样，都会**保证名为To的Survivor区域是空的**
+- 业务应用对吞吐量要求较高，对响应时间没有特别要求的，推荐使用并行收集器。如：科学计算和后台处理程序等等。
+- 对响应时间要求较高的中大型应用程序，推荐使用并发收集器。如：web服务器等。
+- 对应JDK版本1.8以上，多CPU处理器且内存资源不是瓶颈，建议优先考虑使用G1回收器。
+- 单线程应用使用串行收集器。
 
-- Minor GC会一直重复这样的过程，直到“To”区被填满，"To"区被填满之后，会将所有对象移动到年老代中。
+## 4. 修改方式
 
-![image-20190924235155859](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190924235155859.png)
+以下表格汇总了各种回收器的分类、特点和修改参数：
 
-### 1.1 对象优先在eden 区分配
+| 名称              | 修改参数                                           | 特点                                                         |
+| ----------------- | -------------------------------------------------- | ------------------------------------------------------------ |
+| Serial            | -XX:+UseSerialGC                                   | 用于新生代的单线程收集器，采用复制算法进行垃圾收集。Serial 进行垃圾收集时，所有的用户线程必须暂停（Stop The World）。 |
+| ParNew            | -XX:+UseParNewGC                                   | Serial的多线程版本，在单核CPU环境并不会比Serial更优，它默认开启的收集线程数和CPU核数，可以通过-XX:ParallelGCThreads来设置垃圾收集的线程数。 |
+| Parallel Scavenge | -XX:+UseParallelGC jdk1.7、jdk1.8 新生代默认使用   | 用于新生代的多线程收集器，ParNew的目标是尽可能缩短垃圾收集时用户线程的停顿时间，Parallel Scavenge的目标是达到一个可控制的吞吐量。通过-XX:MaxGCPauseMillis来设置收集器尽可能在多长时间内完成内存回收，通过-XX:GCTimeRatio来精确控制吞吐量。 |
+| Serial Old        | -XX:+UseSerialOldGC                                | Serial的老年代版本，采用标记-整理算法单线程收集器。          |
+| CMS               | -XX:+UseConMarkSweepGC                             | 一种以最短回收停顿时间为目标的收集器，尽量做到最短用户线程停顿时间。CMS是基于标记-清除算法，所以垃圾回收后会产生空间碎片，通过-XX:UseCMSCompactAtFullCollection开启碎片整理（默认开启）。用-XX:CMSFullGCsBeforeCompaction设置执行多少次不压缩（不进行碎片整理）的Full GC之后，跟着来一次带压缩（碎片整理）的Full GC。-XX:ParallelCMSThreads：设定CMS的线程数量。 |
+| Parallel Old      | -XX:+UseParallelOldGC jdk1.7、jdk1.8老年代默认使用 | Parallel Scavenge的老年代版本，使用-XX:ParallelGCThreads限制线程数量。 |
+| G1                | -XX:+UseG1GCjdk1.7以后才提供，jdk1.9默认           | 一款全新的收集器，兼顾并行和并发功能，能充分利用多CPU资源，运行期间不会产生内存碎片。通过-XX:ParallelGCThreads设置限制线程数量；-XX:MaxGCPauseMillis设置最大停顿时间。 |
 
-目前主流的垃圾收集器都会采用分代回收算法，因此需要将堆内存分为新生代和老年代，这样我们就可以根据各个年代的特点选择合适的垃圾收集算法。
+## 参考文章
 
-大多数情况下，对象在新生代中 eden 区分配。当 eden 区没有足够空间进行分配时，虚拟机将发起一次 Minor GC.下面我们来进行实际测试以下。
-
-在测试之前我们先来看看 **Minor GC 和 Full GC 有什么不同呢？**
-
-- **新生代 GC（Minor GC）**:指发生新生代的的垃圾收集动作，Minor GC 非常频繁，回收速度一般也比较快。
-- **老年代 GC（Major GC/Full GC）**:指发生在老年代的 GC，出现了 Major GC 经常会伴随至少一次的 Minor GC（并非绝对），Major GC 的速度一般会比 Minor GC 的慢 10 倍以上。
-
-**测试**
-
-```
-public class GCTest {
-
-    public static void main(String[] args) {
-        byte[] allocation1, allocation2;
-        allocation1 = new byte[30900*1024];
-        //allocation2 = new byte[900*1024];
-    }
-}
-```
-
-添加的参数：`-XX:+PrintGCDetails`
-
-![image-20190924235926247](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190924235926247.png)
-
-运行结果（JDK 1.8）
-
-![image-20190925000240877](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190925000240877.png)
-
-从上图我们可以看出 eden 区内存几乎已经被分配完全（即使程序什么也不做，新生代也会使用 2000 多 k 内存）。假如我们再为 allocation2 分配内存会出现什么情况呢？
-
-```
-allocation2 = new byte[900*1024];
-```
-
-![image-20190925000448570](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190925000448570.png)
-
-**简单解释一下为什么会出现这种情况：** 因为给 allocation2 分配内存的时候 eden 区内存几乎已经被分配完了，我们刚刚讲了当 Eden 区没有足够空间进行分配时，虚拟机将发起一次 Minor GC.GC 期间虚拟机又发现 allocation1 无法存入 Survivor 空间，所以只好通过 **分配担保机制** 把新生代的对象提前转移到老年代中去，老年代上的空间足够存放 allocation1，所以不会出现 Full GC。执行 Minor GC 后，后面分配的对象如果能够存在 eden 区的话，还是会在 eden 区分配内存。可以执行如下代码验证：
-
-```
-public class GCTest {
-
-	public static void main(String[] args) {
-		byte[] allocation1, allocation2,allocation3,allocation4,allocation5;
-		allocation1 = new byte[32000*1024];
-		allocation2 = new byte[1000*1024];
-		allocation3 = new byte[1000*1024];
-		allocation4 = new byte[1000*1024];
-		allocation5 = new byte[1000*1024];
-	}
-}
-```
-
-### 1.2 大对象直接进入老年代
-
-大对象就是需要大量连续内存空间的对象（比如：字符串、数组）。
-
-**为什么需要这样呢？**
-
-为了避免为大对象分配内存时由于分配担保机制带来的复制而降低效率
-
-### 1.3 长期存活的对象将进入老年代
-
-既然虚拟机采用了分代收集的思想来管理内存，那么内存回收时就必须能识别哪些对象应放在新生代，哪些对象应放在老年代中。为了做到这一点，虚拟机给每个对象一个对象年龄（Age）计数器。
-
-- 如果对象在 Eden 出生并经过第一次 Minor GC 后仍然能够存活，并且能被Survivor容纳的话，将被移动到Survivor空间中，并将对象年龄设为1。
-
-- 对象在Survivor中没经过一次MinorGC 年龄就增加1岁
-
-- 当它的年龄增加到一定程度（默认为15岁），就会被晋升到老年代中
-
-  对象晋升到老年代的年龄阈值，可以通过参数 `-XX:MaxTenuringThreshold` 来设置。
-
-### 1.4 动态对象年龄判定
-
-为了更好的适应不同程序的内存情况，虚拟机不是永远要求对象年龄必须达到了某个值才能进入老年代，如果 Survivor 空间中相同年龄所有对象大小的总和大于 Survivor 空间的一半，年龄大于或等于该年龄的对象就可以直接进入老年代，无需达到要求的年龄。
+[华为鲲鹏-选择合适的垃圾回收器](https://support.huaweicloud.com/tuningtip-kunpenggrf/kunpengtuning_12_0064.html)

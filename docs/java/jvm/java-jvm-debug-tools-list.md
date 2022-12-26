@@ -1,115 +1,266 @@
 ---
-#order: 20
-category:
+Order: 260
+Category:
   - Java
   - JVM
-
 ---
 
-#  JVM 内存分配与回收
+# 调试排错 - Java 问题排查之工具单
 
-## 1. JVM 内存分配与回收
+> Java 在线问题排查主要分两篇：本文是第二篇，通过java调试/排查工具进行问题定位。
 
-Java 的自动内存管理主要是针对象内存的回收和对象的内存的分配。同时，java 自动内存管理最核心的功能是 **堆**内存中的对象分配与回收
+## 1. Java 调试入门工具
 
-Java 堆是垃圾收集器管理的主要区域，因此也被称作**GC 堆（Garbage Collected Heap）**.从垃圾回收的角度，由于现在收集器基本都采用分代垃圾收集算法，所以 Java 堆还可以细分为：新生代和老年代：再细致一点有：Eden 空间、From Survivor、To Survivor 空间等。**进一步划分的目的是更好地回收内存，或者更快地分配内存。**
+### 1.1 jps
 
-**堆空间的基本结构：**
+> jps是jdk提供的一个查看当前java进程的小工具， 可以看做是JavaVirtual Machine Process Status Tool的缩写。
 
-![image-20190924234527212](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190924234527212.png)
+jps常用命令
 
-上图所示的 eden区，s0("From") 区、s1("To") 区都属于新生代，tentired 区属于老年代。大部分情况，
+```bash
+jps # 显示进程的ID 和 类的名称
+jps –l # 输出输出完全的包名，应用主类名，jar的完全路径名 
+jps –v # 输出jvm参数
+jps –q # 显示java进程号
+jps -m # main 方法
+jps -l xxx.xxx.xx.xx # 远程查看 
+```
 
-- 对象都会首先在 Eden 区域分配
+jps参数
 
-- 在一次新生代垃圾回收后，如果对象还存活，则会进入 s1("To")，并且对象的年龄还会加 1(Eden 区->Survivor 区后对象的初始年龄变为 1)
+```bash
+-q：仅输出VM标识符，不包括classname,jar name,arguments in main method 
+-m：输出main method的参数 
+-l：输出完全的包名，应用主类名，jar的完全路径名 
+-v：输出jvm参数 
+-V：输出通过flag文件传递到JVM中的参数(.hotspotrc文件或-XX:Flags=所指定的文件 
+-Joption：传递参数到vm,例如:-J-Xms512m
+```
 
-- 当它的年龄增加到一定程度（默认为 15 岁），就会被晋升到老年代中
+jps原理
 
-  对象晋升到老年代的年龄阈值，可以通过参数 `-XX:MaxTenuringThreshold` 来设置
+> java程序在启动以后，会在java.io.tmpdir指定的目录下，就是临时文件夹里，生成一个类似于hsperfdata_User的文件夹，这个文件夹里（在Linux中为/tmp/hsperfdata_{userName}/），有几个文件，名字就是java进程的pid，因此列出当前运行的java进程，只是把这个目录里的文件名列一下而已。 至于系统的参数什么，就可以解析这几个文件获得。
 
-- 经过这次GC后，Eden区和"From"区已经被清空。这个时候，"From"和"To"会交换他们的角色，也就是新的"To"就是上次GC前的“From”，新的"From"就是上次GC前的"To"。不管怎样，都会**保证名为To的Survivor区域是空的**
+更多请参考 [jps - Java Virtual Machine Process Status Tool](https://docs.oracle.com/javase/1.5.0/docs/tooldocs/share/jps.html)
 
-- Minor GC会一直重复这样的过程，直到“To”区被填满，"To"区被填满之后，会将所有对象移动到年老代中。
+### 1.2 jstack
 
-![image-20190924235155859](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190924235155859.png)
+> jstack是jdk自带的线程堆栈分析工具，使用该命令可以查看或导出 Java 应用程序中线程堆栈信息。
 
-### 1.1 对象优先在eden 区分配
+jstack常用命令:
 
-目前主流的垃圾收集器都会采用分代回收算法，因此需要将堆内存分为新生代和老年代，这样我们就可以根据各个年代的特点选择合适的垃圾收集算法。
+```bash
+# 基本
+jstack 2815
 
-大多数情况下，对象在新生代中 eden 区分配。当 eden 区没有足够空间进行分配时，虚拟机将发起一次 Minor GC.下面我们来进行实际测试以下。
+# java和native c/c++框架的所有栈信息
+jstack -m 2815
 
-在测试之前我们先来看看 **Minor GC 和 Full GC 有什么不同呢？**
+# 额外的锁信息列表，查看是否死锁
+jstack -l 2815
+```
 
-- **新生代 GC（Minor GC）**:指发生新生代的的垃圾收集动作，Minor GC 非常频繁，回收速度一般也比较快。
-- **老年代 GC（Major GC/Full GC）**:指发生在老年代的 GC，出现了 Major GC 经常会伴随至少一次的 Minor GC（并非绝对），Major GC 的速度一般会比 Minor GC 的慢 10 倍以上。
+jstack参数：
 
-**测试**
+```bash
+-l 长列表. 打印关于锁的附加信息,例如属于java.util.concurrent 的 ownable synchronizers列表.
+
+-F 当’jstack [-l] pid’没有相应的时候强制打印栈信息
+
+-m 打印java和native c/c++框架的所有栈信息.
+
+-h | -help 打印帮助信息
+```
+
+更多请参考: [jvm 性能调优工具之 jstack](https://www.jianshu.com/p/025cb069cb69)
+
+### 1.3 jinfo
+
+> jinfo 是 JDK 自带的命令，可以用来查看正在运行的 java 应用程序的扩展参数，包括Java System属性和JVM命令行参数；也可以动态的修改正在运行的 JVM 一些参数。当系统崩溃时，jinfo可以从core文件里面知道崩溃的Java应用程序的配置信息
+
+jinfo常用命令:
+
+```bash
+# 输出当前 jvm 进程的全部参数和系统属性
+jinfo 2815
+
+# 输出所有的参数
+jinfo -flags 2815
+
+# 查看指定的 jvm 参数的值
+jinfo -flag PrintGC 2815
+
+# 开启/关闭指定的JVM参数
+jinfo -flag +PrintGC 2815
+
+# 设置flag的参数
+jinfo -flag name=value 2815
+
+# 输出当前 jvm 进行的全部的系统属性
+jinfo -sysprops 2815
+```
+
+jinfo参数：
+
+```bash
+no option 输出全部的参数和系统属性
+-flag name 输出对应名称的参数
+-flag [+|-]name 开启或者关闭对应名称的参数
+-flag name=value 设定对应名称的参数
+-flags 输出全部的参数
+-sysprops 输出系统属性
+```
+
+更多请参考：[jvm 性能调优工具之 jinfo](https://www.jianshu.com/p/8d8aef212b25)
+
+### 1.4 jmap
+
+> 命令jmap是一个多功能的命令。它可以生成 java 程序的 dump 文件， 也可以查看堆内对象示例的统计信息、查看 ClassLoader 的信息以及 finalizer 队列。
+
+两个用途
+
+```bash
+# 查看堆的情况
+jmap -heap 2815
+
+# dump
+jmap -dump:live,format=b,file=/tmp/heap2.bin 2815
+jmap -dump:format=b,file=/tmp/heap3.bin 2815
+
+# 查看堆的占用
+jmap -histo 2815 | head -10
+```
+
+jmap参数
+
+```bash
+no option： 查看进程的内存映像信息,类似 Solaris pmap 命令。
+heap： 显示Java堆详细信息
+histo[:live]： 显示堆中对象的统计信息
+clstats：打印类加载器信息
+finalizerinfo： 显示在F-Queue队列等待Finalizer线程执行finalizer方法的对象
+dump:<dump-options>：生成堆转储快照
+F： 当-dump没有响应时，使用-dump或者-histo参数. 在这个模式下,live子参数无效.
+help：打印帮助信息
+J<flag>：指定传递给运行jmap的JVM的参数
+```
+
+更多请参考：[jvm 性能调优工具之 jmap](https://www.jianshu.com/p/a4ad53179df3) 和 [jmap - Memory Map](https://docs.oracle.com/javase/1.5.0/docs/tooldocs/share/jmap.html)
+
+### 1.5 jdb
+
+jdb可以用来预发debug,假设你预发的java_home是/opt/java/，远程调试端口是8000.那么
+
+```bash
+jdb -attach 8000
+```
+
+出现以上代表jdb启动成功。后续可以进行设置断点进行调试。
+
+具体参数可见oracle官方说明[jdb - The Java Debugger](http://docs.oracle.com/javase/7/docs/technotes/tools/windows/jdb.html)
+
+### 1.6 CHLSDB
+
+CHLSDB感觉很多情况下可以看到更好玩的东西，不详细叙述了。 查询资料听说jstack和jmap等工具就是基于它的。
+
+```bash
+java -classpath /opt/taobao/java/lib/sa-jdi.jar sun.jvm.hotspot.CLHSDB
 
 ```
-public class GCTest {
 
-    public static void main(String[] args) {
-        byte[] allocation1, allocation2;
-        allocation1 = new byte[30900*1024];
-        //allocation2 = new byte[900*1024];
+更详细的可见R大此贴 http://rednaxelafx.iteye.com/blog/1847971
+
+## 2. Java 调试进阶工具
+
+### 2.1 btrace
+
+首当其冲的要说的是btrace。真是生产环境&预发的排查问题大杀器。 简介什么的就不说了。直接上代码干
+
+- 查看当前谁调用了ArrayList的add方法，同时只打印当前ArrayList的size大于500的线程调用栈
+
+```java
+@OnMethod(clazz = "java.util.ArrayList", method="add", location = @Location(value = Kind.CALL, clazz = "/./", method = "/./"))
+public static void m(@ProbeClassName String probeClass, @ProbeMethodName String probeMethod, @TargetInstance Object instance, @TargetMethodOrField String method) {
+
+    if(getInt(field("java.util.ArrayList", "size"), instance) > 479){
+        println("check who ArrayList.add method:" + probeClass + "#" + probeMethod  + ", method:" + method + ", size:" + getInt(field("java.util.ArrayList", "size"), instance));
+        jstack();
+        println();
+        println("===========================");
+        println();
     }
 }
 ```
 
-添加的参数：`-XX:+PrintGCDetails`
+- 监控当前服务方法被调用时返回的值以及请求的参数
 
-![image-20190924235926247](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190924235926247.png)
+```java
+@OnMethod(clazz = "com.taobao.sellerhome.transfer.biz.impl.C2CApplyerServiceImpl", method="nav", location = @Location(value = Kind.RETURN))
+public static void mt(long userId, int current, int relation, String check, String redirectUrl, @Return AnyType result) {
 
-运行结果（JDK 1.8）
-
-![image-20190925000240877](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190925000240877.png)
-
-从上图我们可以看出 eden 区内存几乎已经被分配完全（即使程序什么也不做，新生代也会使用 2000 多 k 内存）。假如我们再为 allocation2 分配内存会出现什么情况呢？
-
-```
-allocation2 = new byte[900*1024];
-```
-
-![image-20190925000448570](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190925000448570.png)
-
-**简单解释一下为什么会出现这种情况：** 因为给 allocation2 分配内存的时候 eden 区内存几乎已经被分配完了，我们刚刚讲了当 Eden 区没有足够空间进行分配时，虚拟机将发起一次 Minor GC.GC 期间虚拟机又发现 allocation1 无法存入 Survivor 空间，所以只好通过 **分配担保机制** 把新生代的对象提前转移到老年代中去，老年代上的空间足够存放 allocation1，所以不会出现 Full GC。执行 Minor GC 后，后面分配的对象如果能够存在 eden 区的话，还是会在 eden 区分配内存。可以执行如下代码验证：
-
-```
-public class GCTest {
-
-	public static void main(String[] args) {
-		byte[] allocation1, allocation2,allocation3,allocation4,allocation5;
-		allocation1 = new byte[32000*1024];
-		allocation2 = new byte[1000*1024];
-		allocation3 = new byte[1000*1024];
-		allocation4 = new byte[1000*1024];
-		allocation5 = new byte[1000*1024];
-	}
+    println("parameter# userId:" + userId + ", current:" + current + ", relation:" + relation + ", check:" + check + ", redirectUrl:" + redirectUrl + ", result:" + result);
 }
 ```
 
-### 1.2 大对象直接进入老年代
+btrace 具体可以参考这里：https://github.com/btraceio/btrace
 
-大对象就是需要大量连续内存空间的对象（比如：字符串、数组）。
+注意:
 
-**为什么需要这样呢？**
+- 经过观察，1.3.9的release输出不稳定，要多触发几次才能看到正确的结果
+- 正则表达式匹配trace类时范围一定要控制，否则极有可能出现跑满CPU导致应用卡死的情况
+- 由于是字节码注入的原理，想要应用恢复到正常情况，需要重启应用。
 
-为了避免为大对象分配内存时由于分配担保机制带来的复制而降低效率
+### 2.2 Greys
 
-### 1.3 长期存活的对象将进入老年代
+Greys是@杜琨的大作吧。说几个挺棒的功能(部分功能和btrace重合):
 
-既然虚拟机采用了分代收集的思想来管理内存，那么内存回收时就必须能识别哪些对象应放在新生代，哪些对象应放在老年代中。为了做到这一点，虚拟机给每个对象一个对象年龄（Age）计数器。
+- `sc -df xxx`: 输出当前类的详情,包括源码位置和classloader结构
+- `trace class method`: 打印出当前方法调用的耗时情况，细分到每个方法, 对排查方法性能时很有帮助。
 
-- 如果对象在 Eden 出生并经过第一次 Minor GC 后仍然能够存活，并且能被Survivor容纳的话，将被移动到Survivor空间中，并将对象年龄设为1。
+### 2.3 Arthas
 
-- 对象在Survivor中没经过一次MinorGC 年龄就增加1岁
+> Arthas是基于Greys。
 
-- 当它的年龄增加到一定程度（默认为15岁），就会被晋升到老年代中
+具体请参考：[调试排错 - Java应用在线调试Arthas](https://pdai.tech/md/java/jvm/java-jvm-agent-arthas.html)
 
-  对象晋升到老年代的年龄阈值，可以通过参数 `-XX:MaxTenuringThreshold` 来设置。
+### 2.4 javOSize
 
-### 1.4 动态对象年龄判定
+就说一个功能:
 
-为了更好的适应不同程序的内存情况，虚拟机不是永远要求对象年龄必须达到了某个值才能进入老年代，如果 Survivor 空间中相同年龄所有对象大小的总和大于 Survivor 空间的一半，年龄大于或等于该年龄的对象就可以直接进入老年代，无需达到要求的年龄。
+- `classes`：通过修改了字节码，改变了类的内容，即时生效。 所以可以做到快速的在某个地方打个日志看看输出，缺点是对代码的侵入性太大。但是如果自己知道自己在干嘛，的确是不错的玩意儿。
+
+其他功能Greys和btrace都能很轻易做的到，不说了。
+
+更多请参考：[官网](http://www.javosize.com/)
+
+### 2.5 JProfiler
+
+之前判断许多问题要通过JProfiler，但是现在Greys和btrace基本都能搞定了。再加上出问题的基本上都是生产环境(网络隔离)，所以基本不怎么使用了，但是还是要标记一下。
+
+更多请参考：[官网  (opens new window)](https://www.ej-technologies.com/products/jprofiler/overview.html)
+
+## 3. 其它工具
+
+### 3.1 dmesg
+
+如果发现自己的java进程悄无声息的消失了，几乎没有留下任何线索，那么dmesg一发，很有可能有你想要的。
+
+sudo dmesg|grep -i kill|less 去找关键字oom_killer。找到的结果类似如下:
+
+```bash
+[6710782.021013] java invoked oom-killer: gfp_mask=0xd0, order=0, oom_adj=0, oom_scoe_adj=0
+[6710782.070639] [<ffffffff81118898>] ? oom_kill_process+0x68/0x140 
+[6710782.257588] Task in /LXC011175068174 killed as a result of limit of /LXC011175068174 
+[6710784.698347] Memory cgroup out of memory: Kill process 215701 (java) score 854 or sacrifice child 
+[6710784.707978] Killed process 215701, UID 679, (java) total-vm:11017300kB, anon-rss:7152432kB, file-rss:1232kB
+```
+
+以上表明，对应的java进程被系统的OOM Killer给干掉了，得分为854. 解释一下OOM killer（Out-Of-Memory killer），该机制会监控机器的内存资源消耗。当机器内存耗尽前，该机制会扫描所有的进程（按照一定规则计算，内存占用，时间等），挑选出得分最高的进程，然后杀死，从而保护机器。
+
+dmesg日志时间转换公式: log实际时间=格林威治1970-01-01+(当前时间秒数-系统启动至今的秒数+dmesg打印的log时间)秒数：
+
+date -d "1970-01-01 UTC `echo "$(date +%s)-$(cat /proc/uptime|cut -f 1 -d' ')+12288812.926194"|bc` seconds" 剩下的，就是看看为什么内存这么大，触发了OOM-Killer了。
+
+## 参考文章
+
+[**调试排错 - Java 问题排查之工具单**](https://pdai.tech/md/java/jvm/java-jvm-debug-tools-list.html)

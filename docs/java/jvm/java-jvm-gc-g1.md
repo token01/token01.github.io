@@ -1,401 +1,296 @@
 ---
-order: 121
+order: 120
 category:
   - Java
   - JVM
-
 ---
 
-# GC - Java 垃圾回收器之G1（补充）
+# GC - Java 垃圾回收器之G1详解
 
-## 1. 前言
+## 1. 概述
 
->G1:满足高吞吐量的同时满足GC停顿的时间尽可能短
+G1垃圾回收器是在Java7 update 4之后引入的一个新的垃圾回收器。G1是一个分代的，增量的，并行与并发的标记-复制垃圾回收器。它的设计目标是为了适应现在不断扩大的内存和不断增加的处理器数量，进一步降低暂停时间（pause time），同时兼顾良好的吞吐量。G1回收器和CMS比起来，有以下不同：
 
-G1收集器是一款在server端运行的垃圾收集器，专门针对于拥有多核处理器和大内存的机器，在JDK 7u4版本发行时被正式推出，在JDK9中更被指定为官方GC收集器。**它满足高吞吐量的同时满足GC停顿的时间尽可能短**。
+- G1垃圾回收器是**compacting**的，因此其回收得到的空间是连续的。这避免了CMS回收器因为不连续空间所造成的问题。如需要更大的堆空间，更多的floating garbage。连续空间意味着G1垃圾回收器可以不必采用空闲链表的内存分配方式，而可以直接采用bump-the-pointer的方式；
+- G1回收器的内存与CMS回收器要求的内存模型有极大的不同。G1将内存划分一个个固定大小的region，每个region可以是年轻代、老年代的一个。**内存的回收是以region作为基本单位的**；
+- G1还有一个及其重要的特性：**软实时**（soft real-time）。所谓的实时垃圾回收，是指在要求的时间内完成垃圾回收。“软实时”则是指，用户可以指定垃圾回收时间的限时，G1会努力在这个时限内完成垃圾回收，但是G1并不担保每次都能在这个时限内完成垃圾回收。通过设定一个合理的目标，可以让达到90%以上的垃圾回收时间都在这个时限内。
 
-### 1.1. G1 优势
+## 2. G1的内存模型
 
- G1收集器专门针对以下应用场景设计
+### 2.1 分区概念
 
-- 可以像CMS收集器一样可以和应用并发运行
-- 压缩空闲的内存碎片，却不需要冗长的GC停顿
-- 对GC停顿可以做更好的预测
-- 不想牺牲大量的吞吐量性能
-- 不需要更大的Java Heap
+G1分区示意图
 
-> Can operate concurrently with applications threads like the CMS collector.
-> Compact free space without lengthy GC induced pause times.
-> Need more predictable GC pause durations.
-> Do not want to sacrifice a lot of throughput performance.
-> Do not require a much larger Java heap.
+![image-20220823204433162](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220823204433162.png)
 
-### 1.2 与CMS不同点
+#### 2.1.1 分区Region
 
-G1从长期计划来看是以取代CMS为目标。与CMS相比有几个不同点使得G1成为GC的更好解决方案。
+G1采用了分区(Region)的思路，将整个堆空间分成若干个大小相等的内存区域，每次分配对象空间将逐段地使用内存。因此，在堆的使用上，G1并不要求对象的存储一定是物理上连续的，只要逻辑上连续即可；每个分区也不会确定地为某个代服务，可以按需在年轻代和老年代之间切换。启动时可以通过参数-XX:G1HeapRegionSize=n可指定分区大小(1MB~32MB，且必须是2的幂)，默认将整堆划分为2048个分区。
 
-- 第一点：G1会压缩空闲内存使之足够紧凑，做法**是用regions代替细粒度的空闲列表进行分配**，减少内存碎片的产生。
-- 第二点：G1的STW更可控，G1在停顿时间上添加了**预测机制**，用户可以指定期望停顿时间。
+#### 2.1.2 卡片Card
 
-> G1 is planned as the long term replacement for the Concurrent Mark-Sweep Collector (CMS). Comparing G1 with CMS, there are differences that make G1 a better solution. One difference is that G1 is a compacting collector. G1 compacts sufficiently to completely avoid the use of fine-grained free lists for allocation, and instead relies on regions. This considerably simplifies parts of the collector, and mostly eliminates potential fragmentation issues. Also, G1 offers more predictable garbage collection pauses than the CMS collector, and allows users to specify desired pause targets.
+在每个分区内部又被分成了若干个大小为512 Byte卡片(Card)，标识堆内存最小可用粒度所有分区的卡片将会记录在全局卡片表(Global Card Table)中，分配的对象会占用物理上连续的若干个卡片，当查找对分区内对象的引用时便可通过记录卡片来查找该引用对象(见RSet)。每次对内存的回收，都是对指定分区的卡片进行处理。
 
-## 2. 概览
+#### 2.1.3 堆Heap
 
-在传统的GC收集器(serial,parallel,CMS)无一不例外都把heap分成固定大小连续的三个空间：young generation, old generation, and permanent generation
+G1同样可以通过-Xms/-Xmx来指定堆空间大小。当发生年轻代收集或混合收集时，通过计算GC与应用的耗费时间比，自动调整堆空间大小。如果GC频率太高，则通过增加堆尺寸，来减少GC频率，相应地GC占用的时间也随之降低；目标参数-XX:GCTimeRatio即为GC与应用的耗费时间比，G1默认为9，而CMS默认为99，因为CMS的设计原则是耗费在GC上的时间尽可能的少。另外，当空间不足，如对象空间分配或转移失败时，G1会首先尝试增加堆空间，如果扩容失败，则发起担保的Full GC。Full GC后，堆尺寸计算结果也会调整堆空间。
 
-![image-20221209111945943](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221209111945943.png)
+### 2.2 分代模型
 
-但G1却独辟蹊径，采用了一种全新的内存布局
+![image-20220823205453245](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220823205453245.png)
 
-![image-20221209112005861](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221209112005861.png)
+#### 2.2.1 分代垃圾收集
 
-在G1中堆被分成一块块大小相等的heap region，一般有2000多块，这些region在逻辑上是连续的。每块region都会被打唯一的分代标志(eden,survivor,old)。在逻辑上，eden regions构成Eden空间，survivor regions构成Survivor空间，old regions构成了old 空间。
+分代垃圾收集可以将关注点集中在最近被分配的对象上，而无需整堆扫描，避免长命对象的拷贝，同时独立收集有助于降低响应时间。虽然分区使得内存分配不再要求紧凑的内存空间，但G1依然使用了分代的思想。与其他垃圾收集器类似，G1将内存在逻辑上划分为年轻代和老年代，其中年轻代又划分为Eden空间和Survivor空间。但年轻代空间并不是固定不变的，当现有年轻代分区占满时，JVM会分配新的空闲分区加入到年轻代空间。
 
-### 2.1 分区region 各区比例
+整个年轻代内存会在初始空间`-XX:G1NewSizePercent`(默认整堆5%)与最大空间(默认60%)之间动态变化，且由参数目标暂停时间`-XX:MaxGCPauseMillis`(默认200ms)、需要扩缩容的大小以`-XX:G1MaxNewSizePercent`及分区的已记忆集合(RSet)计算得到。当然，G1依然可以设置固定的年轻代大小(参数-XX:NewRatio、-Xmn)，但同时暂停目标将失去意义。
 
-通过命令行参数
+#### 2.2.2 本地分配缓冲 Local allocation buffer (Lab)
 
-- `-XX:NewRatio=n`来配置新生代与老年代的比例，默认为2，即比例为2:1；
-- `XX:SurvivorRatio=n`则可以配置Eden与Survivor的比例，默认为8。
+值得注意的是，由于分区的思想，每个线程均可以"认领"某个分区用于线程本地的内存分配，而不需要顾及分区是否连续。因此，每个应用线程和GC线程都会独立的使用分区，进而减少同步时间，提升GC效率，这个分区称为本地分配缓冲区(Lab)。
 
-### 2.2 为什么叫G1（全局并发标记->优先回收）
+其中，应用线程可以独占一个本地缓冲区(TLAB)来创建的对象，而大部分都会落入Eden区域(巨型对象或分配失败除外)，因此TLAB的分区属于Eden空间；而每次垃圾收集时，每个GC线程同样可以独占一个本地缓冲区(GCLAB)用来转移对象，每次回收会将对象复制到Suvivor空间或老年代空间；对于从Eden/Survivor空间晋升(Promotion)到Survivor/老年代空间的对象，同样有GC独占的本地缓冲区进行操作，该部分称为晋升本地缓冲区(PLAB)。
 
-> 全局并发标记->可回收对象多->优先回收
+### 2.3 分区模型
 
-GC时G1的运行方式与CMS方式类似，会有一个全局并发标记(concurrent global marking phase)的过程，去确定堆里对象的的存活情况。并发标记完成之后，G1知道哪些regions空闲空间多(可回收对象多),优先回收这些空的regions，释放出大量的空闲空间。这是为什么这种垃圾回收方式叫G1的原因(Garbage-First)。
+![image-20220823210244539](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220823210244539.png)
 
-### 2.3 暂停预测模型
+G1对内存的使用以分区(Region)为单位，而对对象的分配则以卡片(Card)为单位。
 
-G1将其收集和压缩活动集中在堆中可能充满可回收对象(即垃圾)的区域，使用暂停预测模型来满足用户定义的暂停时间目标，并根据指定的暂停时间目标选择要收集的区域数量。
+#### 2.3.1 巨型对象Humongous Region
 
-需要注意的是，G1不是实时收集器。它能够以较高的概率满足设定的暂停时间目标，但不是绝对确定的。根据以前收集的数据，G1估算出在用户指定的目标时间内可以收集多少个区域。因此，收集器对于收集区域的成本有一个相当准确的模型，它使用这个模型来确定在暂停时间目标内收集哪些区域和收集多少区域。
+一个大小达到甚至超过分区大小一半的对象称为巨型对象(Humongous Object)。当线程为巨型分配空间时，不能简单在TLAB进行分配，因为巨型对象的移动成本很高，而且有可能一个分区不能容纳巨型对象。因此，巨型对象会直接在老年代分配，所占用的连续空间称为巨型分区(Humongous Region)。G1内部做了一个优化，一旦发现没有引用指向巨型对象，则可直接在年轻代收集周期中被回收。
 
-> It is important to note that G1 is not a real-time collector. It meets the set pause time target with high probability but not absolute certainty. Based on data from previous collections, G1 does an estimate of how many regions can be collected within the user specified target time. Thus, the collector has a reasonably accurate model of the cost of collecting the regions, and it uses this model to determine which and how many regions to collect while staying within the pause time target.
+巨型对象会独占一个、或多个连续分区，其中第一个分区被标记为开始巨型(StartsHumongous)，相邻连续分区被标记为连续巨型(ContinuesHumongous)。由于无法享受Lab带来的优化，并且确定一片连续的内存空间需要扫描整堆，因此确定巨型对象开始位置的成本非常高，如果可以，应用程序应避免生成巨型对象。
 
-## 3. G1中的Region
+#### 2.3.2 已记忆集合Remember Set (RSet)
 
-G1中每个Region大小是固定相等的，Region的大小可以通过参数-XX:G1HeapRegionSize设定，取值范围从1M到32M，且是2的指数。如果不设定，那么G1会根据Heap大小自动决定。
+在串行和并行收集器中，GC通过整堆扫描，来确定对象是否处于可达路径中。然而G1为了避免STW式的整堆扫描，在每个分区记录了一个已记忆集合(RSet)，内部类似一个反向指针，记录引用分区内对象的卡片索引。当要回收该分区时，通过扫描分区的RSet，来确定引用本分区内的对象是否存活，进而确定本分区内的对象存活情况。
 
-决定逻辑:
+事实上，并非所有的引用都需要记录在RSet中，如果一个分区确定需要扫描，那么无需RSet也可以无遗漏的得到引用关系。那么引用源自本分区的对象，当然不用落入RSet中；同时，G1 GC每次都会对年轻代进行整体收集，因此引用源自年轻代的对象，也不需要在RSet中记录。最后只有老年代的分区可能会有RSet记录，这些分区称为拥有RSet分区(an RSet’s owning region)。
 
-`size =（堆最小值+堆最大值）/ TARGET_REGION_NUMBER(2048)` ，然后size取最靠近2的幂次数值， 并将size控制在[1M,32M]之间。具体代码如下
+#### 2.3.3 Per Region Table (PRT)
 
-```cpp
-// share/vm/gc_implementation/g1/heapRegion.cpp
-// Minimum region size; we won't go lower than that.
-// We might want to decrease this in the future, to deal with small
-// heaps a bit more efficiently.
-#define MIN_REGION_SIZE  (      1024 * 1024 )
-// Maximum region size; we don't go higher than that. There's a good
-// reason for having an upper bound. We don't want regions to get too
-// large, otherwise cleanup's effectiveness would decrease as there
-// will be fewer opportunities to find totally empty regions after
-// marking.
-#define MAX_REGION_SIZE  ( 32 * 1024 * 1024 )
-// The automatic region size calculation will try to have around this
-// many regions in the heap (based on the min heap size).
-#define TARGET_REGION_NUMBER          2048
-void HeapRegion::setup_heap_region_size(size_t initial_heap_size, size_t max_heap_size) {
-  uintx region_size = G1HeapRegionSize;
-  if (FLAG_IS_DEFAULT(G1HeapRegionSize)) {
-    size_t average_heap_size = (initial_heap_size + max_heap_size) / 2;
-    region_size = MAX2(average_heap_size / TARGET_REGION_NUMBER,
-                       (uintx) MIN_REGION_SIZE);
-  }
-  int region_size_log = log2_long((jlong) region_size);
-  // Recalculate the region size to make sure it's a power of
-  // 2. This means that region_size is the largest power of 2 that's
-  // <= what we've calculated so far.
-  region_size = ((uintx)1 << region_size_log);
-  // Now make sure that we don't go over or under our limits.
-  if (region_size < MIN_REGION_SIZE) {
-    region_size = MIN_REGION_SIZE;
-  } else if (region_size > MAX_REGION_SIZE) {
-    region_size = MAX_REGION_SIZE;
-  }
-}
-```
+RSet在内部使用Per Region Table(PRT)记录分区的引用情况。由于RSet的记录要占用分区的空间，如果一个分区非常"受欢迎"，那么RSet占用的空间会上升，从而降低分区的可用空间。G1应对这个问题采用了改变RSet的密度的方式，在PRT中将会以三种模式记录引用：
 
-## 4. G1中的GC收集
+- 稀少：直接记录引用对象的卡片索引
+- 细粒度：记录引用对象的分区索引
+- 粗粒度：只记录引用情况，每个分区对应一个比特位
 
-**G1保留了YGC并加上了一种全新的MIXGC用于收集老年代。G1中没有Full GC，G1中的Full GC是采用serial old Full GC。**
+由上可知，粗粒度的PRT只是记录了引用数量，需要通过整堆扫描才能找出所有引用，因此扫描速度也是最慢的。
 
-> Q:理解不了“G1中没有Full GC，G1中的Full GC是采用serial old Full GC。“这句话，不是说没有Full GC吗
->
-> A1: G1中实际是有full gc的只是非常慢，所以g1的优化目标是尽量避免full gc，因此才有如上说法
->
-> A2:如果mixed GC实在无法跟上程序分配内存的速度，导致old gen填满无法继续进行mixed GC，就会切换到"G1之外的serial old GC"来收集整个GC heap（注意，包括young、old、perm）。这才是真正的full GC。Full GC之所以叫full就是要收集整个堆，只选择old gen的部分region算不上full GC。进入这种状态的G1就跟-XX:+UseSerialGC的full GC一样
+### 2.4 收集集合 (CSet)
 
-## 5.YGC
+CSet收集示意图
 
-当Eden空间被占满之后，就会触发YGC。在G1中YGC依然采用复制存活对象到survivor空间的方式，当对象的存活年龄满足晋升条件时，把对象提升到old generation regions(老年代)。
+![image-20220823211503784](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220823211503784.png)
 
-G1控制YGC开销的手段是动态改变young region的个数，YGC的过程中依然会STW(stop the world 应用停顿)，并采用多线程并发复制对象，减少GC停顿时间。
+收集集合(CSet)代表每次GC暂停时回收的一系列目标分区。在任意一次收集暂停中，CSet所有分区都会被释放，内部存活的对象都会被转移到分配的空闲分区中。因此无论是年轻代收集，还是混合收集，工作的机制都是一致的。年轻代收集CSet只容纳年轻代分区，而混合收集会通过启发式算法，在老年代候选回收分区中，筛选出回收收益最高的分区添加到CSet中。
 
-### 5.1 YGC开始
+候选老年代分区的CSet准入条件，可以通过活跃度阈值-XX:G1MixedGCLiveThresholdPercent(默认85%)进行设置，从而拦截那些回收开销巨大的对象；同时，每次混合收集可以包含候选老年代分区，可根据CSet对堆的总大小占比-XX:G1OldCSetRegionThresholdPercent(默认10%)设置数量上限。
 
-![image-20221209113334611](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221209113334611.png)
+由上述可知，G1的收集都是根据CSet进行操作的，年轻代收集与混合收集没有明显的不同，最大的区别在于两种收集的触发条件。
 
-### 5.2 YGC结束
+#### 2.4.1 年轻代收集集合 CSet of Young Collection
 
-![image-20221209113401283](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221209113401283.png)
+应用线程不断活动后，年轻代空间会被逐渐填满。当JVM分配对象到Eden区域失败(Eden区已满)时，便会触发一次STW式的年轻代收集。在年轻代收集中，Eden分区存活的对象将被拷贝到Survivor分区；原有Survivor分区存活的对象，将根据任期阈值(tenuring threshold)分别晋升到PLAB中，新的survivor分区和老年代分区。而原有的年轻代分区将被整体回收掉。
 
-我们从图中看到Eden区中存活对象被复制到新的Survior区。
+同时，年轻代收集还负责维护对象的年龄(存活次数)，辅助判断老化(tenuring)对象晋升的时候是到Survivor分区还是到老年代分区。年轻代收集首先先将晋升对象尺寸总和、对象年龄信息维护到年龄表中，再根据年龄表、Survivor尺寸、Survivor填充容量-XX:TargetSurvivorRatio(默认50%)、最大任期阈值-XX:MaxTenuringThreshold(默认15)，计算出一个恰当的任期阈值，凡是超过任期阈值的对象都会被晋升到老年代。
 
-### 5.3 YGC是否需要扫描整个老年代？Rset
+#### 2.4.2 混合收集集合 CSet of Mixed Collection
 
-我们知道判断对象是否存活需要从GC ROOTS结点出发，从GC ROOTS结点可达的对象就是存活的。在YGC时，老年代中的对象是不回收的，也就意味着GC ROOTS里面应包含了老年代中的对象。**但扫描整个老年代会很耗费时间，势必影响整个GC的性能！**。所以在CMS中使用了Card Table的结构，里面记录了老年代对象到新生代引用。**Card Table的结构是一个连续的byte[]数组，扫描Card Table的时间比扫描整个老年代的代价要小很多！G1也参照了这个思路，不过采用了一种新的数据结构 Remembered Set 简称Rset。**RSet记录了其他Region中的对象引用本Region中对象的关系，属于points-into结构（谁引用了我的对象）。而Card Table则是一种points-out（我引用了谁的对象）的结构，每个Card 覆盖一定范围的Heap（一般为512Bytes）。G1的RSet是在Card Table的基础上实现的：每个Region会记录下别的Region有指向自己的指针，并标记这些指针分别在哪些Card的范围内。 这个RSet其实是一个Hash Table，Key是别的Region的起始地址，Value是一个集合，里面的元素是Card Table的Index。**每个Region都有一个对应的Rset**。
+年轻代收集不断活动后，老年代的空间也会被逐渐填充。当老年代占用空间超过整堆比IHOP阈值-XX:InitiatingHeapOccupancyPercent(默认45%)时，G1就会启动一次混合垃圾收集周期。为了满足暂停目标，G1可能不能一口气将所有的候选分区收集掉，因此G1可能会产生连续多次的混合收集与应用线程交替执行，每次STW的混合收集与年轻代收集过程相类似。
 
-![image-20221209140929589](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20221209140929589.png)
+为了确定包含到年轻代收集集合CSet的老年代分区，JVM通过参数混合周期的最大总次数-XX:G1MixedGCCountTarget(默认8)、堆废物百分比-XX:G1HeapWastePercent(默认5%)。通过候选老年代分区总数与混合周期最大总次数，确定每次包含到CSet的最小分区数量；根据堆废物百分比，当收集达到参数时，不再启动新的混合收集。而每次添加到CSet的分区，则通过计算得到的GC效率进行安排。
 
-RSet究竟是怎么辅助GC的呢？在做YGC的时候，只需要选定young generation region的RSet作为根集，这些RSet记录了`old->young`的跨代引用，避免了扫描整个old generation。 而mixed gc的时候，old generation中记录了`old->old`的RSet，`young->old`的引用由扫描全部young generation region得到，这样也不用扫描全部old generation region。所以RSet的引入大大减少了GC的工作量。
+#### 2.4.3 并发标记算法（三色标记法）
 
-**所以G1中YGC不需要扫描整个老年代，只需要扫描Rset就可以知道老年代引用了哪些新生代中的对象。**
+CMS和G1在并发标记时使用的是同一个算法：三色标记法，使用白灰黑三种颜色标记对象。白色是未标记；灰色自身被标记，引用的对象未标记；黑色自身与引用对象都已标记。
 
-## 6. MIXGC
+![image-20220823212433809](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220823212433809.png)
 
-G1中的MIXGC选定所有新生代里的Region，外加根据global concurrent marking统计得出收集收益高的若干老年代Region，在用户指定的开销目标范围内尽可能选择收益高的老年代Region进行回收。所以MIXGC回收的内存区域是新生代+老年代。
+GC 开始前所有对象都是白色，GC 一开始所有根能够直达的对象被压到栈中，待搜索，此时颜色是灰色。然后灰色对象依次从栈中取出搜索子对象，子对象也会被涂为灰色，入栈。当其所有的子对象都涂为灰色之后该对象被涂为黑色。当 GC 结束之后灰色对象将全部没了，剩下黑色的为存活对象，白色的为垃圾。![java-jvm-gc-g1-5-1](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/java-jvm-gc-g1-5-1.gif)
 
-在介绍MIXGC之前我们需要先了解global concurrent marking，全局并发标记。因为老年代回收要依赖该过程。
+#### 2.4.4 漏标问题
 
-### 6.1 全局并发标记
+在remark过程中，黑色指向了白色，如果不对黑色重新扫描，则会漏标。会把白色D对象当作没有新引用指向从而回收掉。
 
-全局并发标记过程分为五个阶段
+![image-20220823213142683](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220823213142683.png)
 
-(1) Initial Mark初始标记 STW
+并发标记过程中，Mutator删除了所有从灰色到白色的引用，会产生漏标。此时白色对象应该被回收
 
-Initial Mark初始标记是一个STW事件，其完成工作是标记GC ROOTS 直接可达的对象。并将它们的字段压入扫描栈（marking stack）中等到后续扫描。G1使用外部的bitmap来记录mark信息，而不使用对象头的mark word里的mark bit。因为 STW，所以通常YGC的时候借用YGC的STW顺便启动Initial Mark，也就是启动全局并发标记，全局并发标记与YGC在逻辑上独立。
+产生漏标问题的条件有两个：
 
-> (1) Initial Mark
-> *(Stop the World Event)*This is a stop the world event. With G1, it is piggybacked on a normal young GC. Mark survivor regions (root regions) which may have references to objects in old generation.
+- 黑色对象指向了白色对象
+- 灰色对象指向白色对象的引用消失
 
-(2)Root Region Scanning 根区域扫描
+所以要解决漏标问题，打破两个条件之一即可：
 
-根区域扫描是从Survior区的对象出发，标记被引用到老年代中的对象，并把它们的字段在压入扫描栈（marking stack）中等到后续扫描。与Initial Mark不一样的是，Root Region Scanning不需要STW与应用程序是并发运行。Root Region Scanning必须在YGC开始前完成。
+- **跟踪黑指向白的增加** incremental update：增量更新，关注引用的增加，把黑色重新标记为灰色，下次重新扫描属性。CMS采用该方法。
+- **记录灰指向白的消失** SATB snapshot at the beginning：关注引用的删除，当灰–>白消失时，要把这个 引用 推到GC的堆栈，保证白还能被GC扫描到。G1采用该方法。
 
-> (2) Root Region Scanning
-> Scan survivor regions for references into the old generation. This happens while the application continues to run. The phase must be completed before a young GC can occur.
+**为什么G1采用SATB而不用incremental update**？
 
-(3)Concurrent Marking 并发标记
+因为采用incremental update把黑色重新标记为灰色后，之前扫描过的还要再扫描一遍，效率太低。G1有RSet与SATB相配合。Card Table里记录了RSet，RSet里记录了其他对象指向自己的引用，这样就不需要再扫描其他区域，只要扫描RSet就可以了。
 
-不需要STW。不断从扫描栈取出引用递归扫描整个堆里的对象。每扫描到一个对象就会对其标记，并将其字段压入扫描栈。重复扫描过程直到扫描栈清空。过程中还会扫描SATB write barrier所记录下的引用。Concurrent Marking 可以被YGC中断
+也就是说 灰色–>白色 引用消失时，如果没有 黑色–>白色，引用会被push到堆栈，下次扫描时拿到这个引用，由于有RSet的存在，不需要扫描整个堆去查找指向白色的引用，效率比较高。SATB配合RSet浑然天成。
 
-> (3) Concurrent Marking
-> Find live objects over the entire heap. This happens while the application is running. This phase can be interrupted by young generation garbage collections.
+## 3. G1的活动周期
 
-(4)Remark 最终标记 STW
+### 3.1 G1垃圾收集活动汇总
 
-STW操作。在完成并发标记后，每个Java线程还会有一些剩下的SATB write barrier记录的引用尚未处理。这个阶段就负责把剩下的引用处理完。同时这个阶段也进行弱引用处理（reference processing）。注意这个暂停与CMS的remark有一个本质上的区别，那就是这个暂停只需要扫描SATB buffer，而CMS的remark需要重新扫描mod-union table里的dirty card外加整个根集合，而此时整个young gen（不管对象死活）都会被当作根集合的一部分，因而CMS remark有可能会非常慢。
+G1垃圾收集活动周期图
 
-> (4) Remark
-> Completes the marking of live object in the heap. Uses an algorithm called snapshot-at-the-beginning (SATB) which is much faster than what was used in the CMS collector.
+![image-20220823213416933](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220823213416933.png)
 
-(5)Cleanup 清除 STW AND *Concurrent*
+### 3.2 RSet的维护
 
-STW操作，清点出有存活对象的Region和没有存活对象的Region(Empty Region)
+由于不能整堆扫描，又需要计算分区确切的活跃度，因此，G1需要一个增量式的完全标记并发算法，通过维护RSet，得到准确的分区引用信息。在G1中，RSet的维护主要来源两个方面：写栅栏(Write Barrier)和并发优化线程(Concurrence Refinement Threads)
 
-STW操作，更新Rset
+#### 3.2.1 栅栏Barrier
 
-Concurrent操作，把Empty Region收集起来到可分配Region队列。
+栅栏代码示意
 
-> (5) Cleanup
-> Performs accounting on live objects and completely free regions. (Stop the world)
-> Scrubs the Remembered Sets. (Stop the world)
-> Reset the empty regions and return them to the free list. (Concurrent)
+![image-20220823213535491](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220823213535491.png)
 
-### 6.2 全局并发标记总结
+我们首先介绍一下栅栏(Barrier)的概念。栅栏是指在原生代码片段中，当某些语句被执行时，栅栏代码也会被执行。而G1主要在赋值语句中，使用写前栅栏(Pre-Write Barrrier)和写后栅栏(Post-Write Barrrier)。事实上，写栅栏的指令序列开销非常昂贵，应用吞吐量也会根据栅栏复杂度而降低。
 
-**经过global concurrent marking，collector就知道哪些Region有存活的对象。并将那些完全可回收的Region(没有存活对象)收集起来加入到可分配Region队列，实现对该部分内存的回收。对于有存活对象的Region，G1会根据统计模型找处收益最高、开销不超过用户指定的上限的若干Region进行对象回收。这些选中被回收的Region组成的集合就叫做collection set 简称Cset！**
+**写前栅栏 Pre-Write Barrrier**
 
-**在MIXGC中的Cset是选定所有young gen里的region，外加根据global concurrent marking统计得出收集收益高的若干old gen region。**
+即将执行一段赋值语句时，等式左侧对象将修改引用到另一个对象，那么等式左侧对象原先引用的对象所在分区将因此丧失一个引用，那么JVM就需要在赋值语句生效之前，记录丧失引用的对象。JVM并不会立即维护RSet，而是通过批量处理，在将来RSet更新(见SATB)。
 
-**在YGC中的Cset是选定所有young gen里的region。通过控制young gen的region个数来控制young GC的开销。**
+**写后栅栏 Post-Write Barrrier**
 
-**YGC与MIXGC都是采用多线程复制清除，整个过程会STW。 G1的低延迟原理在于其回收的区域变得精确并且范围变小了。**
+当执行一段赋值语句后，等式右侧对象获取了左侧对象的引用，那么等式右侧对象所在分区的RSet也应该得到更新。同样为了降低开销，写后栅栏发生后，RSet也不会立即更新，同样只是记录此次更新日志，在将来批量处理(见Concurrence Refinement Threads)。
 
-### 6.3 STAB（维持并发GC的正确性）
+#### 3.2.2 起始快照算法Snapshot at the beginning (SATB)
 
-上面global concurrent marking提到了STAB算法，那这个STAB到底为何物？STAB全称为snapshot-at-the-beginning，其目的是了维持并发GC的正确性。**GC的正确性是保证存活的对象不被回收，换句话来说就是保证回收的都是垃圾**。如果标记过程是STW的话，那GC的正确性是一定能保证的。但如果一边标记，一边应用在变更堆里面对象的引用，那么标记的正确性就不一定能保证了。
+Taiichi Tuasa贡献的增量式完全并发标记算法起始快照算法(SATB)，主要针对标记-清除垃圾收集器的并发标记阶段，非常适合G1的分区块的堆结构，同时解决了CMS的主要烦恼：重新标记暂停时间长带来的潜在风险。
 
-**为了解决这个问题，STAB的做法在GC开始时对内存进行一个对象图的逻辑快照(snapshot)，通过GC Roots tracing 参照并发标记的过程，只要被快照到对象是活的，那在整个GC的过程中对象就被认定的是活的，即使该对象的引用稍后被修改或者删除。同时新分配的对象也会被认为是活的，除此之外其它不可达的对象就被认为是死掉了。这样STAB就保证了真正存活的对象不会被GC误回收，但同时也造成了某些可以被回收的对象逃过了GC，导致了内存里面存在浮动的垃圾(float garbage)。**
+SATB会创建一个对象图，相当于堆的逻辑快照，从而确保并发标记阶段所有的垃圾对象都能通过快照被鉴别出来。当赋值语句发生时，应用将会改变了它的对象图，那么JVM需要记录被覆盖的对象。因此写前栅栏会在引用变更前，将值记录在SATB日志或缓冲区中。每个线程都会独占一个SATB缓冲区，初始有256条记录空间。当空间用尽时，线程会分配新的SATB缓冲区继续使用，而原有的缓冲去则加入全局列表中。最终在并发标记阶段，并发标记线程(Concurrent Marking Threads)在标记的同时，还会定期检查和处理全局缓冲区列表的记录，然后根据标记位图分片的标记位，扫描引用字段来更新RSet。此过程又称为并发标记/SATB写前栅栏。
 
-### 6.4 STAB具体细节
+#### 3.2.3 并发优化线程Concurrence Refinement Threads
 
-每个Region中都有那么几个指针
+G1中使用基于Urs Hölzle的快速写栅栏，将栅栏开销缩减到2个额外的指令。栅栏将会更新一个card table type的结构来跟踪代间引用。
 
-`|<-- (1) -->|<-- (2) -->|<-- (3) -->|<-- (4) -->|`
-bottom prevTAMS nextTAMS top end
+当赋值语句发生后，写后栅栏会先通过G1的过滤技术判断是否是跨分区的引用更新，并将跨分区更新对象的卡片加入缓冲区序列，即更新日志缓冲区或脏卡片队列。与SATB类似，一旦日志缓冲区用尽，则分配一个新的日志缓冲区，并将原来的缓冲区加入全局列表中。
 
-其中top是该region的当前分配指针，[bottom, top)是当前该region已用（used）的部分，[top, end)是尚未使用的可分配空间（unused）。
+并发优化线程(Concurrence Refinement Threads)，只专注扫描日志缓冲区记录的卡片来维护更新RSet，线程最大数目可通过`-XX:G1ConcRefinementThreads`(默认等于`-XX:ParellelGCThreads`)设置。并发优化线程永远是活跃的，一旦发现全局列表有记录存在，就开始并发处理。如果记录增长很快或者来不及处理，那么通过阈值`-X:G1ConcRefinementGreenZone/-XX:G1ConcRefinementYellowZone/-XX:G1ConcRefinementRedZone`，G1会用分层的方式调度，使更多的线程处理全局列表。如果并发优化线程也不能跟上缓冲区数量，则Mutator线程(Java应用线程)会挂起应用并被加进来帮助处理，直到全部处理完。因此，必须避免此类场景出现。
 
-(1): [bottom, prevTAMS): 这部分里的对象存活信息可以通过prevBitmap来得知
+### 3.3 并发标记周期 Concurrent Marking Cycle
 
-(2): [prevTAMS, nextTAMS): 这部分里的对象在第n-1轮concurrent marking是隐式存活的
+并发标记周期是G1中非常重要的阶段，这个阶段将会为混合收集周期识别垃圾最多的老年代分区。整个周期完成根标记、识别所有(可能)存活对象，并计算每个分区的活跃度，从而确定GC效率等级。
 
-(3): [nextTAMS, top): 这部分里的对象在第n轮concurrent marking是隐式存活的
+当达到IHOP阈值`-XX:InitiatingHeapOccupancyPercent`(老年代占整堆比，默认45%)时，便会触发并发标记周期。整个并发标记周期将由初始标记(Initial Mark)、根分区扫描(Root Region Scanning)、并发标记(Concurrent Marking)、重新标记(Remark)、清除(Cleanup)几个阶段组成。其中，初始标记(随年轻代收集一起活动)、重新标记、清除是STW的，而并发标记如果来不及标记存活对象，则可能在并发标记过程中，G1又触发了几次年轻代收集。
 
-为什么会用prevTAMS和nextTAMS两个指针？
+#### 3.3.1 并发标记线程 Concurrent Marking Threads
 
-因为G1的并发标记的过程用了两个bitmap：
+并发标记位图过程
 
-一个prevBitmap记录第n-1轮concurrent mark所得的对象存活状态。由于第n－1轮concurrent marking已经完成，这个bitmap的信息可以直接使用。
+![image-20220823214154560](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220823214154560.png)
 
-一个nextBitmap记录第n轮concurrent mark的结果。这个bitmap是当前将要或正在进行的concurrent mark的结果，尚未完成，所以还不能使用。
+要标记存活的对象，每个分区都需要创建位图(Bitmap)信息来存储标记数据，来确定标记周期内被分配的对象。G1采用了两个位图Previous Bitmap、Next Bitmap，来存储标记数据，Previous位图存储上次的标记数据，Next位图在标记周期内不断变化更新，同时Previous位图的标记数据也越来越过时，当标记周期结束后Next位图便替换Previous位图，成为上次标记的位图。同时，每个分区通过顶部开始标记(TAMS)，来记录已标记过的内存范围。同样的，G1使用了两个顶部开始标记Previous TAMS(PTAMS)、Next TAMS(NTAMS)，记录已标记的范围。
 
-所以Region会同时存在prevTAMS和nextTAMS两个指针，这两个指针是在 Initial Mark阶段就会设置好。
+在并发标记阶段，G1会根据参数`-XX:ConcGCThreads`(默认GC线程数的1/4，即`-XX:ParallelGCThreads/4`)，分配并发标记线程(Concurrent Marking Threads)，进行标记活动。每个并发线程一次只扫描一个分区，并通过"手指"指针的方式优化获取分区。并发标记线程是爆发式的，在给定的时间段拼命干活，然后休息一段时间，再拼命干活。
 
-所以我们很容易知道哪些对象在一次GC开始之后新分配的：在TAMS以上的对象就是新分配的，因而被视为隐式marked，标记为存活。
+每个并发标记周期，在初始标记STW的最后，G1会分配一个空的Next位图和一个指向分区顶部(Top)的NTAMS标记。Previous位图记录的上次标记数据，上次的标记位置，即PTAMS，在PTAMS与分区底部(Bottom)的范围内，所有的存活对象都已被标记。那么，在PTAMS与Top之间的对象都将是隐式存活(Implicitly Live)对象。在并发标记阶段，Next位图吸收了Previous位图的标记数据，同时每个分区都会有新的对象分配，则Top与NTAMS分离，前往更高的地址空间。在并发标记的一次标记中，并发标记线程将找出NTAMS与PTAMS之间的所有存活对象，将标记数据存储在Next位图中。同时，在NTAMS与Top之间的对象即成为已标记对象。如此不断地更新Next位图信息，并在清除阶段与Previous位图交换角色。
 
-切换到另外一个场景：如果在标记的过程中mark了某个对象但对象中某些引用这字段还没有被mark到,此时应用并发修改引用字段的值，那collecotr就拿不到完整的快照了，这不符合STAB的设想。
+#### 3.3.2 初始标记 Initial Mark
 
-为了解决这个问题就有了SATB write barrier。G1 GC具体使用的是Yuasa式的SATB write barrier的变种。它的相关论文是：
+初始标记(Initial Mark)负责标记所有能被直接可达的根对象(原生栈对象、全局对象、JNI对象)，根是对象图的起点，因此初始标记需要将Mutator线程(Java应用线程)暂停掉，也就是需要一个STW的时间段。事实上，当达到IHOP阈值时，G1并不会立即发起并发标记周期，而是等待下一次年轻代收集，利用年轻代收集的STW时间段，完成初始标记，这种方式称为借道(Piggybacking)。在初始标记暂停中，分区的NTAMS都被设置到分区顶部Top，初始标记是并发执行，直到所有的分区处理完。
 
-- [Real-time garbage collection on general-purpose](https://link.zhihu.com/?target=http%3A//dl.acm.org/citation.cfm%3Fid%3D82237)
+#### 3.3.3 根分区扫描 Root Region Scanning
 
-Write barrier是对“对引用类型字段赋值”这个动作的环切，也就是说赋值的前后都在barrier覆盖的范畴内。在赋值前的部分的write barrier叫做pre-write barrier，在赋值后的则叫做post-write barrier。
+在初始标记暂停结束后，年轻代收集也完成的对象复制到Survivor的工作，应用线程开始活跃起来。此时为了保证标记算法的正确性，所有新复制到Survivor分区的对象，都需要被扫描并标记成根，这个过程称为根分区扫描(Root Region Scanning)，同时扫描的Suvivor分区也被称为根分区(Root Region)。根分区扫描必须在下一次年轻代垃圾收集启动前完成(并发标记的过程中，可能会被若干次年轻代垃圾收集打断)，因为每次GC会产生新的存活对象集合。
 
-在HotSpot VM里，在引入G1 GC之前，其它GC都只用了post-write barrier，所以它在源码里没有特别的前后缀；而G1 GC特有的pre-write barrier则在源码里有_pre的后缀，可以留意一下。
+#### 3.3.4 并发标记 Concurrent Marking
 
-```cpp
-void oop_field_store(oop* field, oop value) {
-  pre_write_barrier(field);
-  *field = value; // the actual store
-  post_write_barrier(field, value);
-}
-```
+和应用线程并发执行，并发标记线程在并发标记阶段启动，由参数`-XX:ConcGCThreads`(默认GC线程数的1/4，即`-XX:ParallelGCThreads/4`)控制启动数量，每个线程每次只扫描一个分区，从而标记出存活对象图。在这一阶段会处理Previous/Next标记位图，扫描标记对象的引用字段。同时，并发标记线程还会定期检查和处理STAB全局缓冲区列表的记录，更新对象引用信息。参数`-XX:+ClassUnloadingWithConcurrentMark`会开启一个优化，如果一个类不可达(不是对象不可达)，则在重新标记阶段，这个类就会被直接卸载。所有的标记任务必须在堆满前就完成扫描，如果并发标记耗时很长，那么有可能在并发标记过程中，又经历了几次年轻代收集。如果堆满前没有完成标记任务，则会触发担保机制，经历一次长时间的串行Full GC。
 
-#### 6.4.1 Pre/Post-write barrier与SATB的关系
+#### 3.3.5 存活数据计算 Live Data Accounting
 
-前面提到SATB要维持“在GC开始时活的对象”的状态这个逻辑snapshot。除了从root出发把整个对象图mark下来之外，其实只需要用pre-write barrier把每次引用关系变化时旧的引用值记下来就好了。这样，等concurrent marker到达某个对象时，这个对象的所有引用类型字段的变化全都有记录在案，就不会漏掉任何在snapshot里活的对象。当然，很可能有对象在snapshot中是活的，但随着并发GC的进行它可能本来已经死了，但SATB还是会让它活过这次GC。
+存活数据计算(Live Data Accounting)是标记操作的附加产物，只要一个对象被标记，同时会被计算字节数，并计入分区空间。只有NTAMS以下的对象会被标记和计算，在标记周期的最后，Next位图将被清空，等待下次标记周期。
 
-所以在G1 GC里，整个write barrier+oop_field_store是这样的：
+#### 3.3.6 重新标记 Remark
 
-```cpp
-void oop_field_store(oop* field, oop new_value) {
-  pre_write_barrier(field);             // pre-write barrier: for maintaining SATB invariant
-  *field = new_value;                   // the actual store
-  post_write_barrier(field, new_value); // post-write barrier: for tracking cross-region reference
-}
-```
+重新标记(Remark)是最后一个标记阶段。在该阶段中，G1需要一个暂停的时间，去处理剩下的SATB日志缓冲区和所有更新，找出所有未被访问的存活对象，同时安全完成存活数据计算。这个阶段也是并行执行的，通过参数-XX:ParallelGCThread可设置GC暂停时可用的GC线程数。同时，引用处理也是重新标记阶段的一部分，所有重度使用引用对象(弱引用、软引用、虚引用、最终引用)的应用都会在引用处理上产生开销。
 
-按照Yuasa式SATB barrier的设计，pre-write barrier里面的抽象逻辑应当如下：
+#### 3.3.7 清除 Cleanup
 
-```cpp
-void pre_write_barrier(oop* field) {
-  if ($gc_phase == GC_CONCURRENT_MARK) { // SATB invariant only maintained during concurrent marking
-    oop old_value = *field;
-    if (old_value != null && !is_marked(old_value)) {
-      mark_object(old_value);
-      $mark_stack->push(old_value); // scan all of old_value's fields later
-    }
-  }
-}
-```
+紧挨着重新标记阶段的清除(Clean)阶段也是STW的。Previous/Next标记位图、以及PTAMS/NTAMS，都会在清除阶段交换角色。清除阶段主要执行以下操作：
 
-这比原本的Yuasa式设计少了些东西：没有检查目标对象是否已经mark，也不去对目标对象做mark和扫描它的字段。实际上该做的事情还是得做，只是不在这里做而已。那放在那里做呢放到了后面的logging barrier，这个后面讲到。
+- **RSet梳理**，启发式算法会根据活跃度和RSet尺寸对分区定义不同等级，同时RSet数理也有助于发现无用的引用。参数`-XX:+PrintAdaptiveSizePolicy`可以开启打印启发式算法决策细节；
+- **整理堆分区**，为混合收集周期识别回收收益高(基于释放空间和暂停目标)的老年代分区集合；
+- **识别所有空闲分区**，即发现无存活对象的分区。该分区可在清除阶段直接回收，无需等待下次收集周期。
 
-Pre-write barrier的实际代码有好几个版本，其中最简单明白的版本是：
+### 3.4 年轻代收集/混合收集周期
 
-```cpp
-  // This notes that we don't need to access any BarrierSet data
-  // structures, so this can be called from a static context.
-  template <class T> static void write_ref_field_pre_static(T* field, oop newVal) {
-    T heap_oop = oopDesc::load_heap_oop(field);
-    if (!oopDesc::is_null(heap_oop)) {
-      enqueue(oopDesc::decode_heap_oop(heap_oop));
-    }
-  }
-```
+年轻代收集和混合收集周期，是G1回收空间的主要活动。当应用运行开始时，堆内存可用空间还比较大，只会在年轻代满时，触发年轻代收集；随着老年代内存增长，当到达IHOP阈值`-XX:InitiatingHeapOccupancyPercent`(老年代占整堆比，默认45%)时，G1开始着手准备收集老年代空间。首先经历并发标记周期，识别出高收益的老年代分区，前文已述。但随后G1并不会马上开始一次混合收集，而是让应用线程先运行一段时间，等待触发一次年轻代收集。在这次STW中，G1将保准整理混合收集周期。接着再次让应用线程运行，当接下来的几次年轻代收集时，将会有老年代分区加入到CSet中，即触发混合收集，这些连续多次的混合收集称为混合收集周期(Mixed Collection Cycle)。
 
-enqueue动作的实际代码则在G1SATBCardTableModRefBS::enqueue(oop pre_val)。
+#### 3.4.1 GC工作线程数
 
-它判断当前是否在concurrent marking phase用的是：
+GC工作线程数 `-XX:ParallelGCThreads`
 
-```cpp
-JavaThread::satb_mark_queue_set().is_active()  
-```
+JVM可以通过参数`-XX:ParallelGCThreads`进行指定GC工作的线程数量。参数`-XX:ParallelGCThreads`默认值并不是固定的，而是根据当前的CPU资源进行计算。如果用户没有指定，且CPU小于等于8，则默认与CPU核数相等；若CPU大于8，则默认JVM会经过计算得到一个小于CPU核数的线程数；当然也可以人工指定与CPU核数相等。
 
-#### 6.4.2 logging write barrier
+#### 3.4.2 年轻代收集 Young Collection
 
-为了尽量减少write barrier对应用mutator性能的影响，G1将一部分原本要在barrier里做的事情挪到别的线程上并发执行。
-实现这种分离的方式就是通过logging形式的write barrier：mutator只在barrier里把要做的事情的信息记（log）到一个队列里，然后另外的线程从队列里取出信息批量完成剩余的动作。
+每次收集过程中，既有并行执行的活动，也有串行执行的活动，但都可以是多线程的。在并行执行的任务中，如果某个任务过重，会导致其他线程在等待某项任务的处理，需要对这些地方进行优化。
 
-以SATB write barrier为例，每个Java线程有一个独立的、定长的SATBMarkQueue，mutator在barrier里只把old_value压入该队列中。一个队列满了之后，它就会被加到全局的SATB队列集合SATBMarkQueueSet里等待处理，然后给对应的Java线程换一个新的、干净的队列继续执行下去。
+**并行活动**
 
-并发标记（concurrent marker）会定期检查全局SATB队列集合的大小。当全局集合中队列数量超过一定阈值后，concurrent marker就会处理集合里的所有队列：把队列里记录的每个oop都标记上，并将其引用字段压到标记栈（marking stack）上等后面做进一步标记。
+- `外部根分区扫描 Ext Root Scanning`：此活动对堆外的根(JVM系统目录、VM数据结构、JNI线程句柄、硬件寄存器、全局变量、线程对栈根)进行扫描，发现那些没有加入到暂停收集集合CSet中的对象。如果系统目录(单根)拥有大量加载的类，最终可能其他并行活动结束后，该活动依然没有结束而带来的等待时间。
+- `更新已记忆集合 Update RS`：并发优化线程会对脏卡片的分区进行扫描更新日志缓冲区来更新RSet，但只会处理全局缓冲列表。作为补充，所有被记录但是还没有被优化线程处理的剩余缓冲区，会在该阶段处理，变成已处理缓冲区(Processed Buffers)。为了限制花在更新RSet的时间，可以设置暂停占用百分比-XX:G1RSetUpdatingPauseTimePercent(默认10%，即-XX:MaxGCPauseMills/10)。值得注意的是，如果更新日志缓冲区更新的任务不降低，单纯地减少RSet的更新时间，会导致暂停中被处理的缓冲区减少，将日志缓冲区更新工作推到并发优化线程上，从而增加对Java应用线程资源的争夺。
+- `RSet扫描 Scan RS`：在收集当前CSet之前，考虑到分区外的引用，必须扫描CSet分区的RSet。如果RSet发生粗化，则会增加RSet的扫描时间。开启诊断模式-XX:UnlockDiagnosticVMOptions后，通过参数-XX:+G1SummarizeRSetStats可以确定并发优化线程是否能够及时处理更新日志缓冲区，并提供更多的信息，来帮助为RSet粗化总数提供窗口。参数-XX：G1SummarizeRSetStatsPeriod=n可设置RSet的统计周期，即经历多少此GC后进行一次统计
+- `代码根扫描 Code Root Scanning`：对代码根集合进行扫描，扫描JVM编译后代码Native Method的引用信息(nmethod扫描)，进行RSet扫描。事实上，只有CSet分区中的RSet有强代码根时，才会做nmethod扫描，查找对CSet的引用。
+- `转移和回收 Object Copy`：通过选定的CSet以及CSet分区完整的引用集，将执行暂停时间的主要部分：CSet分区存活对象的转移、CSet分区空间的回收。通过工作窃取机制来负载均衡地选定复制对象的线程，并且复制和扫描对象被转移的存活对象将拷贝到每个GC线程分配缓冲区GCLAB。G1会通过计算，预测分区复制所花费的时间，从而调整年轻代的尺寸。
+- `终止 Termination`：完成上述任务后，如果任务队列已空，则工作线程会发起终止要求。如果还有其他线程继续工作，空闲的线程会通过工作窃取机制尝试帮助其他线程处理。而单独执行根分区扫描的线程，如果任务过重，最终会晚于终止。
+- `GC外部的并行活动 GC Worker Other`：该部分并非GC的活动，而是JVM的活动导致占用了GC暂停时间(例如JNI编译)。
 
-所以整个STAB过程讲完。
+**串行活动**
 
-## 7. G1命令行选项与最佳实践
+- `代码根更新 Code Root Fixup`：根据转移对象更新代码根。
+- `代码根清理 Code Root Purge`：清理代码根集合表。
+- `清除全局卡片标记 Clear CT`：在任意收集周期会扫描CSet与RSet记录的PRT，扫描时会在全局卡片表中进行标记，防止重复扫描。在收集周期的最后将会清除全局卡片表中的已扫描标志。
+- `选择下次收集集合 Choose CSet`：该部分主要用于并发标记周期后的年轻代收集、以及混合收集中，在这些收集过程中，由于有老年代候选分区的加入，往往需要对下次收集的范围做出界定；但单纯的年轻代收集中，所有收集的分区都会被收集，不存在选择。
+- `引用处理 Ref Proc`：主要针对软引用、弱引用、虚引用、final引用、JNI引用。当Ref Proc占用时间过多时，可选择使用参数`-XX:ParallelRefProcEnabled`激活多线程引用处理。G1希望应用能小心使用软引用，因为软引用会一直占据内存空间直到空间耗尽时被Full GC回收掉；即使未发生Full GC，软引用对内存的占用，也会导致GC次数的增加。
+- `引用排队 Ref Enq`：此项活动可能会导致RSet的更新，此时会通过记录日志，将关联的卡片标记为脏卡片。
+- `卡片重新脏化 Redirty Cards`：重新脏化卡片。
+- `回收空闲巨型分区 Humongous Reclaim`：G1做了一个优化：通过查看所有根对象以及年轻代分区的RSet，如果确定RSet中巨型对象没有任何引用，则说明G1发现了一个不可达的巨型对象，该对象分区会被回收。
+- `释放分区 Free CSet`：回收CSet分区的所有空间，并加入到空闲分区中。
+- `其他活动 Other`：GC中可能还会经历其他耗时很小的活动，如修复JNI句柄等。
 
-### 7.1 命令行选项
+### 3.5 并发标记周期后的年轻代收集 Young Collection Following Concurrent Marking Cycle
 
-- **`-XX:+UseG1GC`** 告诉JVM使用G1收集器
+当G1发起并发标记周期之后，并不会马上开始混合收集。G1会先等待下一次年轻代收集，然后在该收集阶段中，确定下次混合收集的CSet(Choose CSet)。
 
-- **-XX:MaxGCPauseMillis=200** 设置最大GC目标最大停顿时间为200ms，这是一个软指标。JVM会最大努力去达到它，因此有时停顿时间会达不到设置目标。G1配置是200ms
+#### 3.5.1 混合收集周期 Mixed Collection Cycle
 
-- **-XX:InitiatingHeapOccupancyPercent=45** 启动并发标记标记百分比，当整堆内存使用量达到百分比时，G1使用它来触发一个基于整个堆的并发标记循环，而不仅仅是一个代。默念值是45%
+单次的混合收集与年轻代收集并无二致。根据暂停目标，老年代的分区可能不能一次暂停收集中被处理完，G1会发起连续多次的混合收集，称为混合收集周期(Mixed Collection Cycle)。G1会计算每次加入到CSet中的分区数量、混合收集进行次数，并且在上次的年轻代收集、以及接下来的混合收集中，G1会确定下次加入CSet的分区集(Choose CSet)，并且确定是否结束混合收集周期。
 
-### 7.2 最佳实践
+#### 3.5.2 转移失败的担保机制 Full GC
 
-下面有几个关于使用G1的最佳实践
+转移失败(Evacuation Failure)是指当G1无法在堆空间中申请新的分区时，G1便会触发担保机制，执行一次STW式的、单线程的Full GC。Full GC会对整堆做标记清除和压缩，最后将只包含纯粹的存活对象。参数-XX:G1ReservePercent(默认10%)可以保留空间，来应对晋升模式下的异常情况，最大占用整堆50%，更大也无意义。
 
-#### 7.2.1 **不要设置Young Generation大小**
+G1在以下场景中会触发Full GC，同时会在日志中记录to-space-exhausted以及Evacuation Failure：
 
-因为显式通过-Xmn设置young generation大小将会干预G1收集器的默认行为
+- 从年轻代分区拷贝存活对象时，无法找到可用的空闲分区
+- 从老年代分区转移存活对象时，无法找到可用的空闲分区
+- 分配巨型对象时在老年代无法找到足够的连续分区
 
-- G1将不再尊重设定的pause time,本质来说是因为设置young generation大小使得设定的pause time目标失效。
-- G1不再能够根据需要扩展和收缩young generation的空间。由于大小是固定的，所以不能更改大小。
+由于G1的应用场合往往堆内存都比较大，所以Full GC的收集代价非常昂贵，应该避免Full GC的发生。
 
-#### 7.2.2 **响应时间指标**
+## 4. 总结
 
-不要使用平均响应时间(ART)作为指标来设置`XX:MaxGCPauseMillis=<N>`，而要考虑设置90%以上时间都能达到目标的值。这意味着90%发出请求的用户不会经历高于目标的响应时间。记住，暂停时间是一个目标，并不能保证总能达到。
+G1是一款非常优秀的垃圾收集器，不仅适合堆内存大的应用，同时也简化了调优的工作。通过主要的参数初始和最大堆空间、以及最大容忍的GC暂停目标，就能得到不错的性能；同时，我们也看到G1对内存空间的浪费较高，但通过**首先收集尽可能多的垃圾**(Garbage First)的设计原则，可以及时发现过期对象，从而让内存占用处于合理的水平。
 
-#### 7.2.3 **什么是Evacuation Failure**
+虽然G1也有类似CMS的收集动作：初始标记、并发标记、重新标记、清除、转移回收，并且也以一个串行收集器做担保机制，但单纯地以类似前三种的过程描述显得并不是很妥当。
 
-当JVM在GC期间复制对象到Survior区或或者提升对象时，堆空间被耗尽，堆区域升级失败。堆无法扩展，因为它已经处于最大值。这种情况在-XX:+PrintGCDetails将会以TO空间溢出**(`to-space overflow`)**的形式表示。代价是十分昂贵的，因为
-
-- GC仍然需要继续，所以必须释放空间
-- 未成功复制的对象必须在适当的位置保留
-- 对CSet中区域的rset的任何更新都必须重新生成
-- 所有这些步骤都很昂贵。
-
-#### 7.2.4 **如何避免Evacuation Failure**
-
-为了避免Evacuation Failure，考虑以下选项。
-
-- 增大堆（内存)大小
-
-- - 增大**`-XX:G1ReservePercent=n`**，默认是10
-  - G1会预留一部分内存，制造一个假天花板，当真正Evacuation Failure时还有内存可用。
-
-- 早点启动标记周期
-
-- 增大并行标记的线程数，使用**`-XX:ConcGCThreads=n`**选项。
-
-### 7.3 完整的G1 GC开关列表
-
-- -XX:+UseG1GC 使用G1 GC。
-- -XX:MaxGCPauseMillis=n 设置最大GC停顿时间，这是一个软目标，JVM会尽最大努力去达到它。
-- -XX:InitiatingHeapOccupancyPercent=n 启动并发标记循环的堆占用率的百分比，当整个堆的占用达到比例时，启动一个全局并发标记循环，0代表并发标记一直运行。默认值是45%。
-- -XX:NewRatio=n 新生代和老年代大小的比例，默认是2。
-- -XX:SurvivorRatio=n eden和survivor区域空间大小的比例，默认是8。
-- -XX:MaxTenuringThreshold=n 晋升的阈值，默认是15（一个存活对象经历多少次GC周期之后晋升到老年代)。
-- -XX:ParallelGCThreads=n 设置GC并发阶段的线程数，默认值与JVM运行平台相关。
-- -XX:ConcGCThreads=n 设置并发标记的线程数，默认值与JVM运行平台相关。
-- -XX:G1ReservePercent=n 设置保留java堆大小比例，用于防止晋升失败/Evacuation Failure,默认值是10%。
-- -XX:G1HeapRegionSize=n 设置Region的大小，默认是根据堆的大小动态决定，大小范围是[1M,32M]
-
-## 8. 总结
-
-- G1把内存分成一块块的Region，每块的Region的大小都是一样的。
-- G1保留了YGC并加上了一种全新的MIXGC用于收集老年代。G1中没有Full GC，G1中的Full GC是采用serial old Full GC。在MIXGC中的Cset是选定所有young gen里的region，外加根据global concurrent marking统计得出收集收益高的若干old gen region。在YGC中的Cset是选定所有young gen里的region。通过控制young gen的region个数来控制young GC的开销。YGC与MIXGC都是采用多线程复制清除，整个过程会STW。
-- G1的低延迟原理在于其回收的区域变得精确并且范围变小了。
-- 全局并发标记分的五个阶段。
-- 用STAB来维持并发GC的准确性。
-- 使用G1的最佳实践
-- G1 GC日志打印
+- G1的设计原则是"**首先收集尽可能多的垃圾**(Garbage First)"。因此，G1并不会等内存耗尽(串行、并行)或者快耗尽(CMS)的时候开始垃圾收集，而是在内部采用了启发式算法，在老年代找出具有高收集收益的分区进行收集。同时G1可以根据用户设置的暂停时间目标自动调整年轻代和总堆大小，暂停目标越短年轻代空间越小、总空间就越大；
+- G1采用内存分区(Region)的思路，将内存划分为一个个相等大小的内存分区，回收时则以分区为单位进行回收，存活的对象复制到另一个空闲分区中。由于都是以相等大小的分区为单位进行操作，因此G1天然就是一种压缩方案(局部压缩)；
+- G1虽然也是分代收集器，但整个内存分区不存在物理上的年轻代与老年代的区别，也不需要完全独立的survivor(to space)堆做复制准备。G1只有逻辑上的分代概念，或者说每个分区都可能随G1的运行在不同代之间前后切换；
+- G1的收集都是STW的，但年轻代和老年代的收集界限比较模糊，采用了混合(mixed)收集的方式。即每次收集既可能只收集年轻代分区(年轻代收集)，也可能在收集年轻代的同时，包含部分老年代分区(混合收集)，这样即使堆内存很大时，也可以限制收集范围，从而降低停顿。
 
 ## 参考文章
 
-[G1 收集器原理理解与分析](https://zhuanlan.zhihu.com/p/52841787)
+[**GC - Java 垃圾回收器之G1详解**](https://pdai.tech/md/java/jvm/java-jvm-gc-g1.html)

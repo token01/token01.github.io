@@ -1,473 +1,317 @@
 ---
-order: 20
+order: 30
 category:
   - Java
   - JVM
 ---
 
-#  JVM 基础 - 类字节码详解
+# JVM 基础 - 字节码的增强技术
 
->源代码通过编译器编译为字节码，再通过类加载子系统进行加载到JVM中运行。
+>在上文中，着重介绍了字节码的结构，这为我们了解字节码增强技术的实现打下了基础。字节码增强技术就是一类对现有字节码进行修改或者动态生成全新字节码文件的技术。接下来，我们将从最直接操纵字节码的实现方式开始深入进行剖析。
 
-## 1. 多语言编译为字节码在JVM运行
+## 1. 字节码增强技术
 
-计算机是不能直接运行java代码的，必须要先运行java虚拟机，再由java虚拟机运行编译后的java代码。这个编译后的java代码，就是本文要介绍的java字节码。
+在上文中，着重介绍了字节码的结构，这为我们了解字节码增强技术的实现打下了基础。字节码增强技术就是一类对现有字节码进行修改或者动态生成全新字节码文件的技术。接下来，我们将从最直接操纵字节码的实现方式开始深入进行剖析
 
-为什么jvm不能直接运行java代码呢，这是因为在cpu层面看来计算机中所有的操作都是一个个指令的运行汇集而成的，java是高级语言，只有人类才能理解其逻辑，计算机是无法识别的，所以java代码必须要先编译成字节码文件，jvm才能正确识别代码转换后的指令并将其运行。
+![image-20220819224238892](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819224238892.png)
 
-- Java代码间接翻译成字节码，储存字节码的文件再交由运行于不同平台上的JVM虚拟机去读取执行，从而实现一次编写，到处运行的目的。
-- JVM也不再只支持Java，由此衍生出了许多基于JVM的编程语言，如Groovy, Scala, Koltin等等。
+### 1.1 ASM
 
-![image-20220819221054411](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220819221054411.png)
+对于需要手动操纵字节码的需求，可以使用ASM，它可以直接生产 .class字节码文件，也可以在类被加载入JVM之前动态修改类行为（如下图所示）。ASM的应用场景有AOP（Cglib就是基于ASM）、热部署、修改其他jar包中的类等。当然，涉及到如此底层的步骤，实现起来也比较麻烦。接下来，本文将介绍ASM的两种API，并用ASM来实现一个比较粗糙的AOP。但在此之前，为了让大家更快地理解ASM的处理流程，强烈建议读者先对访问者模式进行了解。简单来说，访问者模式主要用于修改或操作一些数据结构比较稳定的数据，而通过第一章，我们知道字节码文件的结构是由JVM固定的，所以很适合利用访问者模式对字节码文件进行修改。
 
-## 2. Java字节码文件
+![image-20220819224504859](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819224504859.png)
 
-class文件本质上是一个以8位字节为基础单位的二进制流，各个数据项目严格按照顺序紧凑的排列在class文件中。jvm根据其特定的规则解析该二进制数据，从而得到相关信息。
+#### 1.1.1 ASM API
 
-Class文件采用一种伪结构来存储数据，它有两种类型：无符号数和表。这里暂不详细的讲。
+##### 1.1.1.1 核心API
 
-本文将通过简单的java例子编译后的文件来理解。
+ASM Core API可以类比解析XML文件中的SAX方式，不需要把这个类的整个结构读取进来，就可以用流式的方法来处理字节码文件。好处是非常节约内存，但是编程难度较大。然而出于性能考虑，一般情况下编程都使用Core API。在Core API中有以下几个关键类：
 
-### 2.1 Class文件的结构属性
+- ClassReader：用于读取已经编译好的.class文件。
+- ClassWriter：用于重新构建编译后的类，如修改类名、属性以及方法，也可以生成新的类的字节码文件。
+- 各种Visitor类：如上所述，CoreAPI根据字节码从上到下依次处理，对于字节码文件中不同的区域有不同的Visitor，比如用于访问方法的MethodVisitor、用于访问类变量的FieldVisitor、用于访问注解的AnnotationVisitor等。为了实现AOP，重点要使用的是MethodVisitor。
 
-在理解之前先从整体看下java字节码文件包含了哪些类型的数据：
+##### 1.1.1.2 树形API
 
-![image-20220819221224234](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220819221224234.png)
+ASM Tree API可以类比解析XML文件中的DOM方式，把整个类的结构读取到内存中，缺点是消耗内存多，但是编程比较简单。TreeApi不同于CoreAPI，TreeAPI通过各种Node类来映射字节码的各个区域，类比DOM节点，就可以很好地理解这种编程方式。
 
-### 2.2 从一个例子开始
+#### 1.1.2 直接利用ASM实现AOP
 
-下面以一个简单的例子来逐步讲解字节码。
+利用ASM的CoreAPI来增强类。这里不纠结于AOP的专业名词如切片、通知，只实现在方法调用前、后增加逻辑，通俗易懂且方便理解。首先定义需要被增强的Base类：其中只包含一个process()方法，方法内输出一行“process”。增强后，我们期望的是，方法执行前输出“start”，之后输出”end”。
 
 ```java
-//Main.java
-public class Main {
-    
-    private int m;
-    
-    public int inc() {
-        return m + 1;
+public class Base {
+    public void process(){
+        System.out.println("process");
     }
 }
 ```
 
-通过以下命令, 可以在当前所在路径下生成一个Main.class文件。
-
-```bash
-javac Main.java
-```
-
-以文本的形式打开生成的class文件，内容如下:
-
-```bash
-cafe babe 0000 0034 0013 0a00 0400 0f09
-0003 0010 0700 1107 0012 0100 016d 0100
-0149 0100 063c 696e 6974 3e01 0003 2829
-5601 0004 436f 6465 0100 0f4c 696e 654e
-756d 6265 7254 6162 6c65 0100 0369 6e63
-0100 0328 2949 0100 0a53 6f75 7263 6546
-696c 6501 0009 4d61 696e 2e6a 6176 610c
-0007 0008 0c00 0500 0601 0010 636f 6d2f
-7268 7974 686d 372f 4d61 696e 0100 106a
-6176 612f 6c61 6e67 2f4f 626a 6563 7400
-2100 0300 0400 0000 0100 0200 0500 0600
-0000 0200 0100 0700 0800 0100 0900 0000
-1d00 0100 0100 0000 052a b700 01b1 0000
-0001 000a 0000 0006 0001 0000 0003 0001
-000b 000c 0001 0009 0000 001f 0002 0001
-0000 0007 2ab4 0002 0460 ac00 0000 0100
-0a00 0000 0600 0100 0000 0800 0100 0d00
-0000 0200 0e
-```
-
-- 文件开头的4个字节("cafe babe")称之为 `魔数`，唯有以"cafe babe"开头的class文件方可被虚拟机所接受，这4个字节就是字节码文件的身份识别。
-- 0000是编译器jdk版本的次版本号0，0034转化为十进制是52,是主版本号，java的版本号从45开始，除1.0和1.1都是使用45.x外,以后每升一个大版本，版本号加一。也就是说，编译生成该class文件的jdk版本为1.8.0。
-
-通过java -version命令稍加验证, 可得结果。
+为了利用ASM实现AOP，需要定义两个类：一个是MyClassVisitor类，用于对字节码的visit以及修改；另一个是Generator类，在这个类中定义ClassReader和ClassWriter，其中的逻辑是，classReader读取字节码，然后交给MyClassVisitor类处理，处理完成后由ClassWriter写字节码并将旧的字节码替换掉。Generator类较简单，我们先看一下它的实现，如下所示，然后重点解释MyClassVisitor类。
 
 ```java
-Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
-```
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.ClassWriter;
 
-继续往下是常量池... 知道是这么分析的就可以了，然后我们通过工具反编译字节码文件继续去看。
-
-### 2.3 反编译字节码文件
-
-> 使用到java内置的一个反编译工具javap可以反编译字节码文件, 用法: `javap <options> <classes>`
-
-其中`<options>`选项包括:
-
-```bash
-  -help  --help  -?        输出此用法消息
-  -version                 版本信息
-  -v  -verbose             输出附加信息
-  -l                       输出行号和本地变量表
-  -public                  仅显示公共类和成员
-  -protected               显示受保护的/公共类和成员
-  -package                 显示程序包/受保护的/公共类
-                           和成员 (默认)
-  -p  -private             显示所有类和成员
-  -c                       对代码进行反汇编
-  -s                       输出内部类型签名
-  -sysinfo                 显示正在处理的类的
-                           系统信息 (路径, 大小, 日期, MD5 散列)
-  -constants               显示最终常量
-  -classpath <path>        指定查找用户类文件的位置
-  -cp <path>               指定查找用户类文件的位置
-  -bootclasspath <path>    覆盖引导类文件的位置
-```
-
-输入命令`javap -verbose -p Main.class`查看输出内容:
-
-```java
-Classfile /E:/JavaCode/TestProj/out/production/TestProj/com/rhythm7/Main.class
-  Last modified 2018-4-7; size 362 bytes
-  MD5 checksum 4aed8540b098992663b7ba08c65312de
-  Compiled from "Main.java"
-public class com.rhythm7.Main
-  minor version: 0
-  major version: 52
-  flags: ACC_PUBLIC, ACC_SUPER
-Constant pool:
-   #1 = Methodref          #4.#18         // java/lang/Object."<init>":()V
-   #2 = Fieldref           #3.#19         // com/rhythm7/Main.m:I
-   #3 = Class              #20            // com/rhythm7/Main
-   #4 = Class              #21            // java/lang/Object
-   #5 = Utf8               m
-   #6 = Utf8               I
-   #7 = Utf8               <init>
-   #8 = Utf8               ()V
-   #9 = Utf8               Code
-  #10 = Utf8               LineNumberTable
-  #11 = Utf8               LocalVariableTable
-  #12 = Utf8               this
-  #13 = Utf8               Lcom/rhythm7/Main;
-  #14 = Utf8               inc
-  #15 = Utf8               ()I
-  #16 = Utf8               SourceFile
-  #17 = Utf8               Main.java
-  #18 = NameAndType        #7:#8          // "<init>":()V
-  #19 = NameAndType        #5:#6          // m:I
-  #20 = Utf8               com/rhythm7/Main
-  #21 = Utf8               java/lang/Object
-{
-  private int m;
-    descriptor: I
-    flags: ACC_PRIVATE
-
-  public com.rhythm7.Main();
-    descriptor: ()V
-    flags: ACC_PUBLIC
-    Code:
-      stack=1, locals=1, args_size=1
-         0: aload_0
-         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
-         4: return
-      LineNumberTable:
-        line 3: 0
-      LocalVariableTable:
-        Start  Length  Slot  Name   Signature
-            0       5     0  this   Lcom/rhythm7/Main;
-
-  public int inc();
-    descriptor: ()I
-    flags: ACC_PUBLIC
-    Code:
-      stack=2, locals=1, args_size=1
-         0: aload_0
-         1: getfield      #2                  // Field m:I
-         4: iconst_1
-         5: iadd
-         6: ireturn
-      LineNumberTable:
-        line 8: 0
-      LocalVariableTable:
-        Start  Length  Slot  Name   Signature
-            0       7     0  this   Lcom/rhythm7/Main;
+public class Generator {
+    public static void main(String[] args) throws Exception {
+		//读取
+        ClassReader classReader = new ClassReader("meituan/bytecode/asm/Base");
+        ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS);
+        //处理
+        ClassVisitor classVisitor = new MyClassVisitor(classWriter);
+        classReader.accept(classVisitor, ClassReader.SKIP_DEBUG);
+        byte[] data = classWriter.toByteArray();
+        //输出
+        File f = new File("operation-server/target/classes/meituan/bytecode/asm/Base.class");
+        FileOutputStream fout = new FileOutputStream(f);
+        fout.write(data);
+        fout.close();
+        System.out.println("now generator cc success!!!!!");
+    }
 }
-SourceFile: "Main.java"
 ```
 
-### 2.4 字节码文件信息
-
-开头的7行信息包括:Class文件当前所在位置，最后修改时间，文件大小，MD5值，编译自哪个文件，类的全限定名，jdk次版本号，主版本号。
-
-然后紧接着的是该类的访问标志：ACC_PUBLIC, ACC_SUPER，访问标志的含义如下:
-
-| 标志名称       | 标志值 | 含义                                                         |
-| -------------- | ------ | ------------------------------------------------------------ |
-| ACC_PUBLIC     | 0x0001 | 是否为Public类型                                             |
-| ACC_FINAL      | 0x0010 | 是否被声明为final，只有类可以设置                            |
-| ACC_SUPER      | 0x0020 | 是否允许使用invokespecial字节码指令的新语义．                |
-| ACC_INTERFACE  | 0x0200 | 标志这是一个接口                                             |
-| ACC_ABSTRACT   | 0x0400 | 是否为abstract类型，对于接口或者抽象类来说，次标志值为真，其他类型为假 |
-| ACC_SYNTHETIC  | 0x1000 | 标志这个类并非由用户代码产生                                 |
-| ACC_ANNOTATION | 0x2000 | 标志这是一个注解                                             |
-| ACC_ENUM       | 0x4000 | 标志这是一个枚举                                             |
-
-### 2.5 常量池
-
-`Constant pool`意为常量池。
-
-常量池可以理解成Class文件中的资源仓库。主要存放的是两大类常量：字面量(Literal)和符号引用(Symbolic References)。字面量类似于java中的常量概念，如文本字符串，final常量等，而符号引用则属于编译原理方面的概念，包括以下三种:
-
-- 类和接口的全限定名(Fully Qualified Name)
-- 字段的名称和描述符号(Descriptor)
-- 方法的名称和描述符
-
-不同于C/C++, JVM是在加载Class文件的时候才进行的动态链接，也就是说这些字段和方法符号引用只有在运行期转换后才能获得真正的内存入口地址。当虚拟机运行时，需要从常量池获得对应的符号引用，再在类创建或运行时解析并翻译到具体的内存地址中。 直接通过反编译文件来查看字节码内容：
+MyClassVisitor继承自ClassVisitor，用于对字节码的观察。它还包含一个内部类MyMethodVisitor，继承自MethodVisitor用于对类内方法的观察，它的整体代码如下：
 
 ```java
-#1 = Methodref          #4.#18         // java/lang/Object."<init>":()V
-#4 = Class              #21            // java/lang/Object
-#7 = Utf8               <init>
-#8 = Utf8               ()V
-#18 = NameAndType        #7:#8          // "<init>":()V
-#21 = Utf8               java/lang/Object
-```
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
-**第一个常量**是一个方法定义，指向了第4和第18个常量。以此类推查看第4和第18个常量。最后可以拼接成第一个常量右侧的注释内容:
+public class MyClassVisitor extends ClassVisitor implements Opcodes {
+    public MyClassVisitor(ClassVisitor cv) {
+        super(ASM5, cv);
+    }
+    @Override
+    public void visit(int version, int access, String name, String signature,
+                      String superName, String[] interfaces) {
+        cv.visit(version, access, name, signature, superName, interfaces);
+    }
+    @Override
+    public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
+        MethodVisitor mv = cv.visitMethod(access, name, desc, signature,
+                exceptions);
+        //Base类中有两个方法：无参构造以及process方法，这里不增强构造方法
+        if (!name.equals("<init>") && mv != null) {
+            mv = new MyMethodVisitor(mv);
+        }
+        return mv;
+    }
+    class MyMethodVisitor extends MethodVisitor implements Opcodes {
+        public MyMethodVisitor(MethodVisitor mv) {
+            super(Opcodes.ASM5, mv);
+        }
 
-```java
-java/lang/Object."<init>":()V
-```
-
-这段可以理解为该类的实例构造器的声明，由于Main类没有重写构造方法，所以调用的是父类的构造方法。此处也说明了Main类的直接父类是Object。 该方法默认返回值是V, 也就是void，无返回值。
-
-**第二个常量**同理可得:
-
-```java
-#2 = Fieldref           #3.#19         // com/rhythm7/Main.m:I
-#3 = Class              #20            // com/rhythm7/Main
-#5 = Utf8               m
-#6 = Utf8               I
-#19 = NameAndType        #5:#6          // m:I
-#20 = Utf8               com/rhythm7/Main
-```
-
-复制代码此处声明了一个字段m，类型为I, I即是int类型。关于字节码的类型对应如下：
-
-| 标识字符 | 含义                                       |
-| -------- | ------------------------------------------ |
-| B        | 基本类型byte                               |
-| C        | 基本类型char                               |
-| D        | 基本类型double                             |
-| F        | 基本类型float                              |
-| I        | 基本类型int                                |
-| J        | 基本类型long                               |
-| S        | 基本类型short                              |
-| Z        | 基本类型boolean                            |
-| V        | 特殊类型void                               |
-| L        | 对象类型，以分号结尾，如Ljava/lang/Object; |
-
-对于数组类型，每一位使用一个前置的`[`字符来描述，如定义一个`java.lang.String[][]`类型的维数组，将被记录为`[[Ljava/lang/String;`
-
-### 2.6 方法表集合
-
-在常量池之后的是对类内部的方法描述，在字节码中以表的集合形式表现，暂且不管字节码文件的16进制文件内容如何，我们直接看反编译后的内容。
-
-```java
-private int m;
-  descriptor: I
-  flags: ACC_PRIVATE
-```
-
-此处声明了一个私有变量m，类型为int，返回值为int
-
-```java
-public com.rhythm7.Main();
-   descriptor: ()V
-   flags: ACC_PUBLIC
-   Code:
-     stack=1, locals=1, args_size=1
-        0: aload_0
-        1: invokespecial #1                  // Method java/lang/Object."<init>":()V
-        4: return
-     LineNumberTable:
-       line 3: 0
-     LocalVariableTable:
-       Start  Length  Slot  Name   Signature
-           0       5     0  this   Lcom/rhythm7/Main;
-```
-
-这里是构造方法：Main()，返回值为void, 公开方法。
-
-code内的主要属性为:
-
-- **stack**: 最大操作数栈，JVM运行时会根据这个值来分配栈帧(Frame)中的操作栈深度,此处为1
-- **locals**: 局部变量所需的存储空间，单位为Slot, Slot是虚拟机为局部变量分配内存时所使用的最小单位，为4个字节大小。方法参数(包括实例方法中的隐藏参数this)，显示异常处理器的参数(try catch中的catch块所定义的异常)，方法体中定义的局部变量都需要使用局部变量表来存放。值得一提的是，locals的大小并不一定等于所有局部变量所占的Slot之和，因为局部变量中的Slot是可以重用的。
-- **args_size**: 方法参数的个数，这里是1，因为每个实例方法都会有一个隐藏参数this
-- **attribute_info**: 方法体内容，0,1,4为字节码"行号"，该段代码的意思是将第一个引用类型本地变量推送至栈顶，然后执行该类型的实例方法，也就是常量池存放的第一个变量，也就是注释里的`java/lang/Object."":()V`, 然后执行返回语句，结束方法。
-- **LineNumberTable**: 该属性的作用是描述源码行号与字节码行号(字节码偏移量)之间的对应关系。可以使用 -g:none 或-g:lines选项来取消或要求生成这项信息，如果选择不生成LineNumberTable，当程序运行异常时将无法获取到发生异常的源码行号，也无法按照源码的行数来调试程序。
-- **LocalVariableTable**: 该属性的作用是描述帧栈中局部变量与源码中定义的变量之间的关系。可以使用 -g:none 或 -g:vars来取消或生成这项信息，如果没有生成这项信息，那么当别人引用这个方法时，将无法获取到参数名称，取而代之的是arg0, arg1这样的占位符。 start 表示该局部变量在哪一行开始可见，length表示可见行数，Slot代表所在帧栈位置，Name是变量名称，然后是类型签名。
-
-同理可以分析Main类中的另一个方法"inc()":
-
-方法体内的内容是：将this入栈，获取字段#2并置于栈顶, 将int类型的1入栈，将栈内顶部的两个数值相加，返回一个int类型的值。
-
-### 2.7 类名
-
-最后很显然是源码文件：
-
-```java
-SourceFile: "Main.java"
-```
-
-## 3. 再看两个示例
-
-### 3.1 分析try-catch-finally
-
-通过以上一个最简单的例子，可以大致了解源码被编译成字节码后是什么样子的。 下面利用所学的知识点来分析一些Java问题:
-
-```java
-public class TestCode {
-    public int foo() {
-        int x;
-        try {
-            x = 1;
-            return x;
-        } catch (Exception e) {
-            x = 2;
-            return x;
-        } finally {
-            x = 3;
+        @Override
+        public void visitCode() {
+            super.visitCode();
+            mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
+            mv.visitLdcInsn("start");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
+        }
+        @Override
+        public void visitInsn(int opcode) {
+            if ((opcode >= Opcodes.IRETURN && opcode <= Opcodes.RETURN)
+                    || opcode == Opcodes.ATHROW) {
+                //方法在返回之前，打印"end"
+                mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
+                mv.visitLdcInsn("end");
+                mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
+            }
+            mv.visitInsn(opcode);
         }
     }
 }
-
 ```
 
-试问当不发生异常和发生异常的情况下，foo()的返回值分别是多少。
+利用这个类就可以实现对字节码的修改。详细解读其中的代码，对字节码做修改的步骤是：
+
+- 首先通过MyClassVisitor类中的visitMethod方法，判断当前字节码读到哪一个方法了。跳过构造方法 `<init>` 后，将需要被增强的方法交给内部类MyMethodVisitor来进行处理。
+- 接下来，进入内部类MyMethodVisitor中的visitCode方法，它会在ASM开始访问某一个方法的Code区时被调用，重写visitCode方法，将AOP中的前置逻辑就放在这里。 MyMethodVisitor继续读取字节码指令，每当ASM访问到无参数指令时，都会调用MyMethodVisitor中的visitInsn方法。我们判断了当前指令是否为无参数的“return”指令，如果是就在它的前面添加一些指令，也就是将AOP的后置逻辑放在该方法中。
+- 综上，重写MyMethodVisitor中的两个方法，就可以实现AOP了，而重写方法时就需要用ASM的写法，手动写入或者修改字节码。通过调用methodVisitor的visitXXXXInsn()方法就可以实现字节码的插入，XXXX对应相应的操作码助记符类型，比如mv.visitLdcInsn(“end”)对应的操作码就是ldc “end”，即将字符串“end”压入栈。 完成这两个visitor类后，运行Generator中的main方法完成对Base类的字节码增强，增强后的结果可以在编译后的target文件夹中找到Base.class文件进行查看，可以看到反编译后的代码已经改变了。然后写一个测试类MyTest，在其中new Base()，并调用base.process()方法，可以看到下图右侧所示的AOP实现效果：
+
+![image-20220819225057879](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819225057879.png)
+
+#### 1.1.3 ASM工具
+
+利用ASM手写字节码时，需要利用一系列visitXXXXInsn()方法来写对应的助记符，所以需要先将每一行源代码转化为一个个的助记符，然后通过ASM的语法转换为visitXXXXInsn()这种写法。第一步将源码转化为助记符就已经够麻烦了，不熟悉字节码操作集合的话，需要我们将代码编译后再反编译，才能得到源代码对应的助记符。第二步利用ASM写字节码时，如何传参也很令人头疼。ASM社区也知道这两个问题，所以提供了工具[ASM ByteCode Outline](https://plugins.jetbrains.com/plugin/5918-asm-bytecode-outline)。
+
+安装后，右键选择“Show Bytecode Outline”，在新标签页中选择“ASMified”这个tab，如下图所示，就可以看到这个类中的代码对应的ASM写法了。图中上下两个红框分别对应AOP中的前置逻辑于后置逻辑，将这两块直接复制到visitor中的visitMethod()以及visitInsn()方法中，就可以了。
+
+![image-20220819225228005](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819225228005.png)
+
+### 1.2 Javassist
+
+ASM是在指令层次上操作字节码的，阅读上文后，我们的直观感受是在指令层次上操作字节码的框架实现起来比较晦涩。故除此之外，我们再简单介绍另外一类框架：强调源代码层次操作字节码的框架Javassist。
+
+利用Javassist实现字节码增强时，可以无须关注字节码刻板的结构，其优点就在于编程简单。直接使用java编码的形式，而不需要了解虚拟机指令，就能动态改变类的结构或者动态生成类。其中最重要的是ClassPool、CtClass、CtMethod、CtField这四个类：
+
+- CtClass（compile-time class）：编译时类信息，它是一个class文件在代码中的抽象表现形式，可以通过一个类的全限定名来获取一个CtClass对象，用来表示这个类文件。
+- ClassPool：从开发视角来看，ClassPool是一张保存CtClass信息的HashTable，key为类名，value为类名对应的CtClass对象。当我们需要对某个类进行修改时，就是通过pool.getCtClass(“className”)方法从pool中获取到相应的CtClass。
+- CtMethod、CtField：这两个比较好理解，对应的是类中的方法和属性。
+
+了解这四个类后，我们可以写一个小Demo来展示Javassist简单、快速的特点。我们依然是对Base中的process()方法做增强，在方法调用前后分别输出”start”和”end”，实现代码如下。我们需要做的就是从pool中获取到相应的CtClass对象和其中的方法，然后执行method.insertBefore和insertAfter方法，参数为要插入的Java代码，再以字符串的形式传入即可，实现起来也极为简单。
 
 ```java
-javac TestCode.java
-javap -verbose TestCode.class
-```
+import com.meituan.mtrace.agent.javassist.*;
 
-查看字节码的foo方法内容:
-
-```java
-public int foo();
-    descriptor: ()I
-    flags: ACC_PUBLIC
-    Code:
-      stack=1, locals=5, args_size=1
-         0: iconst_1 //int型1入栈 ->栈顶=1
-         1: istore_1 //将栈顶的int型数值存入第二个局部变量 ->局部2=1
-         2: iload_1 //将第二个int型局部变量推送至栈顶 ->栈顶=1
-         3: istore_2 //!!将栈顶int型数值存入第三个局部变量 ->局部3=1
-         
-         4: iconst_3 //int型3入栈 ->栈顶=3
-         5: istore_1 //将栈顶的int型数值存入第二个局部变量 ->局部2=3
-         6: iload_2 //!!将第三个int型局部变量推送至栈顶 ->栈顶=1
-         7: ireturn //从当前方法返回栈顶int数值 ->1
-         
-         8: astore_2 // ->局部3=Exception
-         9: iconst_2 // ->栈顶=2
-        10: istore_1 // ->局部2=2
-        11: iload_1 //->栈顶=2
-        12: istore_3 //!! ->局部4=2
-        
-        13: iconst_3 // ->栈顶=3
-        14: istore_1 // ->局部1=3
-        15: iload_3 //!! ->栈顶=2
-        16: ireturn // -> 2
-        
-        17: astore        4 //将栈顶引用型数值存入第五个局部变量=any
-        19: iconst_3 //将int型数值3入栈 -> 栈顶3
-        20: istore_1 //将栈顶第一个int数值存入第二个局部变量 -> 局部2=3
-        21: aload         4 //将局部第五个局部变量(引用型)推送至栈顶
-        23: athrow //将栈顶的异常抛出
-      Exception table:
-         from    to  target type
-             0     4     8   Class java/lang/Exception //0到4行对应的异常，对应#8中储存的异常
-             0     4    17   any //Exeption之外的其他异常
-             8    13    17   any
-            17    19    17   any
-```
-
-在字节码的4,5，以及13,14中执行的是同一个操作，就是将int型的3入操作数栈顶，并存入第二个局部变量。这正是我们源码在finally语句块中内容。也就是说，JVM在处理异常时，会在每个可能的分支都将finally语句重复执行一遍。
-
-通过一步步分析字节码，可以得出最后的运行结果是：
-
-- 不发生异常时: return 1
-- 发生异常时: return 2
-- 发生非Exception及其子类的异常，抛出异常，不返回值
-
-> 以上例子来自于《深入理解Java虚拟机 JVM高级特性与最佳实践》, 关于虚拟机字节码指令表，也可以在《深入理解Java虚拟机 JVM高级特性与最佳实践-附录B》中获取。
-
-### 3.2 kotlin 函数扩展的实现
-
-kotlin提供了扩展函数的语言特性，借助这个特性，我们可以给任意对象添加自定义方法。
-
-以下示例为Object添加"sayHello"方法
-
-```java
-//SayHello.kt
-package com.rhythm7
-
-fun Any.sayHello() {
-    println("Hello")
+public class JavassistTest {
+    public static void main(String[] args) throws NotFoundException, CannotCompileException, IllegalAccessException, InstantiationException, IOException {
+        ClassPool cp = ClassPool.getDefault();
+        CtClass cc = cp.get("meituan.bytecode.javassist.Base");
+        CtMethod m = cc.getDeclaredMethod("process");
+        m.insertBefore("{ System.out.println(\"start\"); }");
+        m.insertAfter("{ System.out.println(\"end\"); }");
+        Class c = cc.toClass();
+        cc.writeFile("/Users/zen/projects");
+        Base h = (Base)c.newInstance();
+        h.process();
+    }
 }
 
+  
 ```
 
-编译后，使用javap查看生成SayHelloKt.class文件的字节码。
+## 2. 运行时类的重载
+
+### 2.1 问题引出
+
+上一章重点介绍了两种不同类型的字节码操作框架，且都利用它们实现了较为粗糙的AOP。其实，为了方便大家理解字节码增强技术，在上文中我们避重就轻将ASM实现AOP的过程分为了两个main方法：第一个是利用MyClassVisitor对已编译好的class文件进行修改，第二个是new对象并调用。这期间并不涉及到JVM运行时对类的重加载，而是在第一个main方法中，通过ASM对已编译类的字节码进行替换，在第二个main方法中，直接使用已替换好的新类信息。另外在Javassist的实现中，我们也只加载了一次Base类，也不涉及到运行时重加载类。
+
+如果我们在一个JVM中，先加载了一个类，然后又对其进行字节码增强并重新加载会发生什么呢？模拟这种情况，只需要我们在上文中Javassist的Demo中main()方法的第一行添加Base b=new Base()，即在增强前就先让JVM加载Base类，然后在执行到c.toClass()方法时会抛出错误，如下图20所示。跟进c.toClass()方法中，我们会发现它是在最后调用了ClassLoader的native方法defineClass()时报错。也就是说，JVM是不允许在运行时动态重载一个类的。
+
+![image-20220819225744118](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819225744118.png)
+
+显然，如果只能在类加载前对类进行强化，那字节码增强技术的使用场景就变得很窄了。我们期望的效果是：在一个持续运行并已经加载了所有类的JVM中，还能利用字节码增强技术对其中的类行为做替换并重新加载。为了模拟这种情况，我们将Base类做改写，在其中编写main方法，每五秒调用一次process()方法，在process()方法中输出一行“process”。
+
+我们的目的就是，在JVM运行中的时候，将process()方法做替换，在其前后分别打印“start”和“end”。也就是在运行中时，每五秒打印的内容由”process”变为打印”start process end”。那如何解决JVM不允许运行时重加载类信息的问题呢？为了达到这个目的，我们接下来一一来介绍需要借助的Java类库。
 
 ```java
-Classfile /E:/JavaCode/TestProj/out/production/TestProj/com/rhythm7/SayHelloKt.class
-Last modified 2018-4-8; size 958 bytes
- MD5 checksum 780a04b75a91be7605cac4655b499f19
- Compiled from "SayHello.kt"
-public final class com.rhythm7.SayHelloKt
- minor version: 0
- major version: 52
- flags: ACC_PUBLIC, ACC_FINAL, ACC_SUPER
-Constant pool:
-    //省略常量池部分字节码
-{
- public static final void sayHello(java.lang.Object);
-   descriptor: (Ljava/lang/Object;)V
-   flags: ACC_PUBLIC, ACC_STATIC, ACC_FINAL
-   Code:
-     stack=2, locals=2, args_size=1
-        0: aload_0
-        1: ldc           #9                  // String $receiver
-        3: invokestatic  #15                 // Method kotlin/jvm/internal/Intrinsics.checkParameterIsNotNull:(Ljava/lang/Object;Ljava/lang/String;)V
-        6: ldc           #17                 // String Hello
-        8: astore_1
-        9: getstatic     #23                 // Field java/lang/System.out:Ljava/io/PrintStream;
-       12: aload_1
-       13: invokevirtual #28                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
-       16: return
-     LocalVariableTable:
-       Start  Length  Slot  Name   Signature
-           0      17     0 $receiver   Ljava/lang/Object;
-     LineNumberTable:
-       line 4: 6
-       line 5: 16
-   RuntimeInvisibleParameterAnnotations:
-     0:
-       0: #7()
+import java.lang.management.ManagementFactory;
+
+public class Base {
+    public static void main(String[] args) {
+        String name = ManagementFactory.getRuntimeMXBean().getName();
+        String s = name.split("@")[0];
+        //打印当前Pid
+        System.out.println("pid:"+s);
+        while (true) {
+            try {
+                Thread.sleep(5000L);
+            } catch (Exception e) {
+                break;
+            }
+            process();
+        }
+    }
+
+    public static void process() {
+        System.out.println("process");
+    }
 }
-SourceFile: "SayHello.kt"
-
 ```
 
-观察头部发现,koltin为文件SayHello生成了一个类，类名"com.rhythm7.SayHelloKt".
+### 2.2 Instrument
 
-由于我们一开始编写SayHello.kt时并不希望SayHello是一个可实例化的对象类，所以，SayHelloKt是无法被实例化的，SayHelloKt并没有任何一个构造器。
+instrument是JVM提供的一个可以修改已加载类的类库，专门为Java语言编写的插桩服务提供支持。它需要依赖JVMTI的Attach API机制实现，JVMTI这一部分，我们将在下一小节进行介绍。在JDK 1.6以前，instrument只能在JVM刚启动开始加载类时生效，而在JDK 1.6之后，instrument支持了在运行时对类定义的修改。要使用instrument的类修改功能，我们需要实现它提供的ClassFileTransformer接口，定义一个类文件转换器。接口中的transform()方法会在类文件被加载时调用，而在transform方法里，我们可以利用上文中的ASM或Javassist对传入的字节码进行改写或替换，生成新的字节码数组后返回。
 
-再观察唯一的一个方法：发现Any.sayHello()的具体实现是静态不可变方法的形式:
+我们定义一个实现了ClassFileTransformer接口的类TestTransformer，依然在其中利用Javassist对Base类中的process()方法进行增强，在前后分别打印“start”和“end”，代码如下：
 
 ```java
-public static final void sayHello(java.lang.Object);
+import java.lang.instrument.ClassFileTransformer;
+
+public class TestTransformer implements ClassFileTransformer {
+    @Override
+    public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) {
+        System.out.println("Transforming " + className);
+        try {
+            ClassPool cp = ClassPool.getDefault();
+            CtClass cc = cp.get("meituan.bytecode.jvmti.Base");
+            CtMethod m = cc.getDeclaredMethod("process");
+            m.insertBefore("{ System.out.println(\"start\"); }");
+            m.insertAfter("{ System.out.println(\"end\"); }");
+            return cc.toBytecode();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}
 ```
 
-所以当我们在其他地方使用Any.sayHello()时，事实上等同于调用java的SayHelloKt.sayHello(Object)方法。
+现在有了Transformer，那么它要如何注入到正在运行的JVM呢？还需要定义一个Agent，借助Agent的能力将Instrument注入到JVM中。我们将在下一小节介绍Agent，现在要介绍的是Agent中用到的另一个类Instrumentation。在JDK 1.6之后，Instrumentation可以做启动后的Instrument、本地代码（Native Code）的Instrument，以及动态改变Classpath等等。我们可以向Instrumentation中添加上文中定义的Transformer，并指定要被重加载的类，代码如下所示。这样，当Agent被Attach到一个JVM中时，就会执行类字节码替换并重载入JVM的操作。
 
-顺便一提的是，当扩展的方法为Any时，意味着Any是non-null的，这时，编译器会在方法体的开头检查参数的非空，即调用 `kotlin.jvm.internal.Intrinsics.checkParameterIsNotNull(Object value, String paramName)` 方法来检查传入的Any类型对象是否为空。如果我们扩展的函数为`Any?.sayHello()`，那么在编译后的文件中则不会有这段字节码的出现。
+```java
+import java.lang.instrument.Instrumentation;
+
+public class TestAgent {
+    public static void agentmain(String args, Instrumentation inst) {
+        //指定我们自己定义的Transformer，在其中利用Javassist做字节码替换
+        inst.addTransformer(new TestTransformer(), true);
+        try {
+            //重定义类并载入新的字节码
+            inst.retransformClasses(Base.class);
+            System.out.println("Agent Load Done.");
+        } catch (Exception e) {
+            System.out.println("agent load failed!");
+        }
+    }
+}
+```
+
+### 2.3 JVMTI & Agent & Attach API
+
+上一小节中，我们给出了Agent类的代码，追根溯源需要先介绍JPDA（Java Platform Debugger Architecture）。如果JVM启动时开启了JPDA，那么类是允许被重新加载的。在这种情况下，已被加载的旧版本类信息可以被卸载，然后重新加载新版本的类。正如JDPA名称中的Debugger，JDPA其实是一套用于调试Java程序的标准，任何JDK都必须实现该标准。
+
+JPDA定义了一整套完整的体系，它将调试体系分为三部分，并规定了三者之间的通信接口。三部分由低到高分别是Java 虚拟机工具接口（JVMTI），Java 调试协议（JDWP）以及 Java 调试接口（JDI），三者之间的关系如下图所示：
+
+![image-20220819230223688](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819230223688.png)
+
+现在回到正题，我们可以借助JVMTI的一部分能力，帮助动态重载类信息。JVM TI（JVM TOOL INTERFACE，JVM工具接口）是JVM提供的一套对JVM进行操作的工具接口。通过JVMTI，可以实现对JVM的多种操作，它通过接口注册各种事件勾子，在JVM事件触发时，同时触发预定义的勾子，以实现对各个JVM事件的响应，事件包括类文件加载、异常产生与捕获、线程启动和结束、进入和退出临界区、成员变量修改、GC开始和结束、方法调用进入和退出、临界区竞争与等待、VM启动与退出等等。
+
+而Agent就是JVMTI的一种实现，Agent有两种启动方式，一是随Java进程启动而启动，经常见到的java -agentlib就是这种方式；二是运行时载入，通过attach API，将模块（jar包）动态地Attach到指定进程id的Java进程内。
+
+Attach API 的作用是提供JVM进程间通信的能力，比如说我们为了让另外一个JVM进程把线上服务的线程Dump出来，会运行jstack或jmap的进程，并传递pid的参数，告诉它要对哪个进程进行线程Dump，这就是Attach API做的事情。在下面，我们将通过Attach API的loadAgent()方法，将打包好的Agent jar包动态Attach到目标JVM上。具体实现起来的步骤如下：
+
+- 定义Agent，并在其中实现AgentMain方法，如上一小节中定义的代码块7中的TestAgent类；
+- 然后将TestAgent类打成一个包含MANIFEST.MF的jar包，其中MANIFEST.MF文件中将Agent-Class属性指定为TestAgent的全限定名，如下图所示；
+
+![image-20220819230410722](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819230410722.png)
+
+- 最后利用Attach API，将我们打包好的jar包Attach到指定的JVM pid上，代码如下：
+
+```java
+import com.sun.tools.attach.VirtualMachine;
+
+public class Attacher {
+    public static void main(String[] args) throws AttachNotSupportedException, IOException, AgentLoadException, AgentInitializationException {
+        // 传入目标 JVM pid
+        VirtualMachine vm = VirtualMachine.attach("39333");
+        vm.loadAgent("/Users/zen/operation_server_jar/operation-server.jar");
+    }
+}
+```
+
+- 由于在MANIFEST.MF中指定了Agent-Class，所以在Attach后，目标JVM在运行时会走到TestAgent类中定义的agentmain()方法，而在这个方法中，我们利用Instrumentation，将指定类的字节码通过定义的类转化器TestTransformer做了Base类的字节码替换（通过javassist），并完成了类的重新加载。由此，我们达成了“在JVM运行时，改变类的字节码并重新载入类信息”的目的。
+
+以下为运行时重新载入类的效果：先运行Base中的main()方法，启动一个JVM，可以在控制台看到每隔五秒输出一次”process”。接着执行Attacher中的main()方法，并将上一个JVM的pid传入。此时回到上一个main()方法的控制台，可以看到现在每隔五秒输出”process”前后会分别输出”start”和”end”，也就是说完成了运行时的字节码增强，并重新载入了这个类。
+
+![image-20220819230447802](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220819230447802.png)
+
+### 2.4 使用场景
+
+至此，字节码增强技术的可使用范围就不再局限于JVM加载类前了。通过上述几个类库，我们可以在运行时对JVM中的类进行修改并重载了。通过这种手段，可以做的事情就变得很多了：
+
+- 热部署：不部署服务而对线上服务做修改，可以做打点、增加日志等操作。
+- Mock：测试时候对某些服务做Mock。
+- 性能诊断工具：比如bTrace就是利用Instrument，实现无侵入地跟踪一个正在运行的JVM，监控到类和方法级别的状态信息。
+
+## 3. 总结
+
+字节码增强技术相当于是一把打开运行时JVM的钥匙，利用它可以动态地对运行中的程序做修改，也可以跟踪JVM运行中程序的状态。此外，我们平时使用的动态代理、AOP也与字节码增强密切相关，它们实质上还是利用各种手段生成符合规范的字节码文件。综上所述，掌握字节码增强后可以高效地定位并快速修复一些棘手的问题（如线上性能问题、方法出现不可控的出入参需要紧急加日志等问题），也可以在开发中减少冗余代码，大大提高开发效率。
 
 ## 参考文章
 
-[**JVM 基础 - 类字节码详解**](https://pdai.tech/md/java/jvm/java-jvm-class.html)
+[**JVM 基础 - 字节码的增强技术**](https://pdai.tech/md/java/jvm/java-jvm-class-enhancer.html)

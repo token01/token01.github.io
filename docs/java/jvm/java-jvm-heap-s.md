@@ -1,194 +1,172 @@
 ---
-order: 230
+order: 51
 category:
   - Java
   - JVM
 ---
 
-# 调试排错 - Java 内存分析之堆外内存
+# JVM 基础 - Java内存结构(精简版)
 
-> Java 堆外内存分析相对来说是复杂的，美团技术团队的[Spring Boot引起的“堆外内存泄漏”排查及经验总结](https://tech.meituan.com/2019/01/03/spring-boot-native-memory-leak.html)可以为很多Native Code内存泄漏/占用提供方向性指引。
+## 1. 概述
 
-## 1. 背景
+对于java程序员来说，在虚拟机自动内存管理机制下，不再需要像C/C++程序开发程序员这样为每一个new 操作去屑对应的delete/free操作，不容易出现内存泄漏和内存溢出问题。正是因为Java程序员把内存控制权交给Java虚拟机，一旦出现内存泄漏和溢出方面的问题。如果不了解虚拟机是怎样使用内存的，那么排查错误将会是一个非常艰巨的任务
 
-为了更好地实现对项目的管理，我们将组内一个项目迁移到MDP框架（基于Spring Boot），随后我们就发现系统会频繁报出Swap区域使用量过高的异常。笔者被叫去帮忙查看原因，发现配置了4G堆内内存，但是实际使用的物理内存竟然高达7G，确实不正常。JVM参数配置是“-XX:MetaspaceSize=256M -XX:MaxMetaspaceSize=256M -XX:+AlwaysPreTouch -XX:ReservedCodeCacheSize=128m -XX:InitialCodeCacheSize=128m, -Xss512k -Xmx4g -Xms4g,-XX:+UseG1GC -XX:G1HeapRegionSize=4M”，实际使用的物理内存如下图所示：
+## 2. 运行时数据区域
 
-![image-20220825215559298](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220825215559298.png)
+Java虚拟机在执行 java 程序的过程中会把它管理的内存划分成若干个不同的数据区域。JDK 1.8和之前的版本略有不同，下面会介绍
 
-## 2. 排查过程
+JDK 1.8 之前
 
-### 2.1 使用Java层面的工具定位内存区域
+![image-20190923234434594](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20190923234434594.png)
 
-> 使用Java层面的工具可以定位出堆内内存、Code区域或者使用unsafe.allocateMemory和DirectByteBuffer申请的堆外内存
+在JDK 1.8 
 
-笔者在项目中添加`-XX:NativeMemoryTracking=detailJVM`参数重启项目，使用命令`jcmd pid VM.native_memory detail`查看到的内存分布如下：
+![image-20190923235103550](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20190923235103550.png)
 
-![image-20220825215747039](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220825215747039.png)
+**线程私有的：**
 
-发现命令显示的committed的内存小于物理内存，因为jcmd命令显示的内存包含堆内内存、Code区域、通过unsafe.allocateMemory和DirectByteBuffer申请的内存，**但是不包含其他Native Code（C代码）申请的堆外内存。所以猜测是使用Native Code申请内存所导致的问题**。
+- 程序计数器
 
-为了防止误判，笔者使用了pmap查看内存分布，发现大量的64M的地址；而这些地址空间不在jcmd命令所给出的地址空间里面，基本上就断定就是这些64M的内存所导致。
+- 虚拟机栈
 
-![image-20220825215847183](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220825215847183.png)
+- 本地方法栈
 
-### 2.2 使用系统层面的工具定位堆外内存
+**线程共享的**
 
-因为笔者已经基本上确定是Native Code所引起，而Java层面的工具不便于排查此类问题，只能使用系统层面的工具去定位问题。
+- 堆
+- 方法区
+- 直接内存（非运行时数据区的一部分）
 
-#### 2.2.1 首先，使用了gperftools去定位问题
+### 2.1 程序计数器
 
-gperftools的使用方法可以参考gperftools，gperftools的监控如下：
+- **依次读取指令**，从而**实现代码的流程控制**
+- 在**多线程**的情况下，程序计数器用于**记录当前线程执行的位置**
 
-![image-20220825215952863](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220825215952863.png)
+> 程序计数器是一块较小的内存空间，可以看作是当前线程所执行的字节码的行号指示器。**字节码解释器工作时通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等功能都需要依赖这个计数器来完成。**
+>
+> 另外，**为了线程切换后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器，各线程之间计数器互不影响，独立存储，我们称这类内存区域为“线程私有”的内存。**
+>
+> **从上面的介绍中我们知道程序计数器主要有两个作用：**
+>
+> 1. 字节码解释器通过改变程序计数器来依次读取指令，从而实现代码的流程控制，如：顺序执行、选择、循环、异常处理。
+> 2. 在多线程的情况下，程序计数器用于记录当前线程执行的位置，从而当线程被切换回来的时候能够知道该线程上次运行到哪儿了。
+>
+> **注意：程序计数器是唯一一个不会出现 OutOfMemoryError 的内存区域，它的生命周期随着线程的创建而创建，随着线程的结束而死亡。**
 
-从上图可以看出：使用malloc申请的的内存最高到3G之后就释放了，之后始终维持在700M-800M。笔者第一反应是：难道Native Code中没有使用malloc申请，直接使用mmap/brk申请的？（gperftools原理就使用动态链接的方式替换了操作系统默认的内存分配器（glibc）。）
+### 2.2 Java 虚拟机栈
 
-#### 2.2.2 然后，使用strace去追踪系统调用
+**与程序计数器一样，Java 虚拟机栈也是线程私有的，它的生命周期和线程相同，描述的是 Java 方法执行的内存模型，每次方法调用的数据都是通过栈传递的。**
 
-因为使用gperftools没有追踪到这些内存，于是直接使用命令“strace -f -e”brk,mmap,munmap” -p pid”追踪向OS申请内存请求，但是并没有发现有可疑内存申请。strace监控如下图所示:
+**Java 内存可以粗糙的区分为堆内存（Heap）和栈内存 (Stack),其中栈就是现在说的虚拟机栈，或者说是虚拟机栈中局部变量表部分。** （实际上，Java 虚拟机栈是由一个个栈帧组成，而每个栈帧中都拥有：局部变量表、操作数栈、动态链接、方法出口信息。）
 
-![image-20220825220050258](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220825220050258.png)
+**局部变量表主要存放了编译器可知的各种数据类型**（boolean、byte、char、short、int、float、long、double）、**对象引用**（reference 类型，它不同于对象本身，可能是一个指
 
-#### 2.2.3 接着，使用GDB去dump可疑内存
+**Java 虚拟机栈会出现两种异常：StackOverFlowError 和 OutOfMemoryError。**
 
-因为使用strace没有追踪到可疑内存申请；于是想着看看内存中的情况。就是直接使用命令gdp -pid pid进入GDB之后，然后使用命令dump memory mem.bin startAddress endAddressdump内存，其中startAddress和endAddress可以从/proc/pid/smaps中查找。然后使用strings mem.bin查看dump的内容，如下：
+- **StackOverFlowError：** 若 Java 虚拟机栈的内存大小不允许动态扩展，那么当线程请求栈的深度超过当前 Java 虚拟机栈的最大深度的时候，就抛出 StackOverFlowError 异常。
+- **OutOfMemoryError：** 若 Java 虚拟机栈的内存大小允许动态扩展，且当线程请求栈时内存用完了，无法再动态扩展了，此时抛出 OutOfMemoryError 异常。
 
-![image-20220825220135272](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220825220135272.png)
+Java 虚拟机栈也是线程私有的，每个线程都有各自的 Java 虚拟机栈，而且随着线程的创建而创建，随着线程的死亡而死亡。
 
-从内容上来看，像是解压后的JAR包信息。读取JAR包信息应该是在项目启动的时候，那么在项目启动之后使用strace作用就不是很大了。所以应该在项目启动的时候使用strace，而不是启动完成之后。
+#### 2.2.1 那么方法/函数如何调用
 
-#### 2.2.4 再次，项目启动时使用strace去追踪系统调用
+java 栈可以类比数据结构中的栈，java 栈中保存的内容主要是栈帧，每一次函数调用都会有一个对应的栈帧被压入 Java 栈。每一个函数调用结束后，都会有一个栈帧被弹出
 
-项目启动使用strace追踪系统调用，发现确实申请了很多64M的内存空间，截图如下：
+#### 2.2.2  Java 方法的两种返回
 
-![image-20220825220221582](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220825220221582.png)
+1. return 语句
+2. 抛出异常
 
-使用该mmap申请的地址空间在pmap对应如下：
+不管哪种返回方式都会导致栈帧被弹出
 
-![image-20220825220237025](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220825220237025.png)
+### 2.3  本地方法栈
 
-#### 2.2.5 最后，使用jstack去查看对应的线程
+和虚拟机栈所发挥的作用非常相似，区别是： **虚拟机栈为虚拟机执行 Java 方法 （也就是字节码）服务，而本地方法栈则为虚拟机使用到的 Native 方法服务。** 在 HotSpot 虚拟机中和 Java 虚拟机栈合二为一。
 
-因为strace命令中已经显示申请内存的线程ID。直接使用命令jstack pid去查看线程栈，找到对应的线程栈（注意10进制和16进制转换）如下：
+本地方法被执行的时候，在本地方法栈也会创建一个栈帧，用于存放该本地方法的局部变量表、操作数栈、动态链接、出口信息。
 
-![image-20220825220300342](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220825220300342.png)
+方法执行完毕后相应的栈帧也会出栈并释放内存空间，也会出现 StackOverFlowError 和 OutOfMemoryError 两种异常。
 
-这里基本上就可以看出问题来了：MCC（美团统一配置中心）使用了Reflections进行扫包，底层使用了Spring Boot去加载JAR。因为解压JAR使用Inflater类，需要用到堆外内存，然后使用Btrace去追踪这个类，栈如下：
+### 2.4 堆
 
-![image-20220825220334012](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220825220334012.png)
+Java 虚拟机中所管理的内存中最大的一块，java 堆是所有线程共享的一块内存区域，在虚拟机启动时创建。**此内存区域的唯一目的就是存放对象实例，几乎所有的对象实例以及数组都在这里分配内存**
 
-然后查看使用MCC的地方，发现没有配置扫包路径，默认是扫描所有的包。于是修改代码，配置扫包路径，发布上线后内存问题解决。
+java堆是垃圾收集器管理的主要区域，因此也被称作**GC 堆（Garbage Collected Heap）**.从垃圾回收的角度，由于现在收集器基本都采用分代垃圾收集算法，所以 Java 堆还可以细分为：新生代和老年代：再细致一点有：Eden 空间、From Survivor、To Survivor 空间等。**进一步划分的目的是更好的回收内存，更快的分配内存**
 
-### 2.3 为什么堆外内存没有释放掉呢？
+![image-20190924001743226](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20190924001743226.png)
 
-虽然问题已经解决了，但是有几个疑问：
+上图所示的eden 区，s0 区，s1区都是属于新生代，tentired区属于老年代，大部分情况
 
-- 为什么使用旧的框架没有问题？
-- 为什么堆外内存没有释放？
-- 为什么内存大小都是64M，JAR大小不可能这么大，而且都是一样大？
-- 为什么gperftools最终显示使用的的内存大小是700M左右，解压包真的没有使用malloc申请内存吗？
+- 对象都会首先在Eden 区域分配
 
-带着疑问，笔者直接看了一下[Spring Boot Loader](https://github.com/spring-projects/spring-boot/tree/master/spring-boot-project/spring-boot-tools/spring-boot-loader/src/main/java/org/springframework/boot/loader)那一块的源码。发现Spring Boot对Java JDK的InflaterInputStream进行了包装并且使用了Inflater，而Inflater本身用于解压JAR包的需要用到堆外内存。而包装之后的类ZipInflaterInputStream没有释放Inflater持有的堆外内存。于是笔者以为找到了原因，立马向Spring Boot社区反馈了[这个bug ](https://github.com/spring-projects/spring-boot/issues/13935)。但是反馈之后，笔者就发现Inflater这个对象本身实现了finalize方法，在这个方法中有调用释放堆外内存的逻辑。也就是说Spring Boot依赖于GC释放堆外内存。
+- 在一次新生代垃圾回收后，如果对象还存活，则会进入s0或者s1,并且对象的年龄还会加1（Eden区->Survivor 区后对象的初始年龄变为1）
 
-笔者使用jmap查看堆内对象时，发现已经基本上没有Inflater这个对象了。于是就怀疑GC的时候，没有调用finalize。带着这样的怀疑，笔者把Inflater进行包装在Spring Boot Loader里面替换成自己包装的Inflater，在finalize进行打点监控，结果finalize方法确实被调用了。于是笔者又去看了Inflater对应的C代码，发现初始化的使用了malloc申请内存，end的时候也调用了free去释放内存。
+- 当它的年龄增加到一定程度（默认为15岁），就会被晋升到老年代
 
-此刻，笔者只能怀疑free的时候没有真正释放内存，便把Spring Boot包装的InflaterInputStream替换成Java JDK自带的，发现替换之后，内存问题也得以解决了。
+  对象晋升到老年代的年龄阈值，可以通过参数 `-XX:MaxTenuringThreshold` 来设置。
 
-这时，再返过来看gperftools的内存分布情况，发现使用Spring Boot时，内存使用一直在增加，突然某个点内存使用下降了好多（使用量直接由3G降为700M左右）。这个点应该就是GC引起的，内存应该释放了，但是在操作系统层面并没有看到内存变化，那是不是没有释放到操作系统，被内存分配器持有了呢？
 
-继续探究，发现系统默认的内存分配器（glibc 2.12版本）和使用gperftools内存地址分布差别很明显，2.5G地址使用smaps发现它是属于Native Stack。内存地址分布如下
 
-![image-20220825220540538](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220825220540538.png)
+>问：什么时候触发新生代垃圾回收？
+>
+>答：当Eden没有足够空间的时候就会 触发jvm发起一次Minor GC
+>
+>问：什么时候触发老年代垃圾回收
+>
+>触发MinorGC的条件：
+> 1 在进行MajorGC之前，一般都先进行了一次MinorGC，使得有新生代的对象进入老年代，当老年代空间不足时就会触发MajorGC。
+> 2 当无法找到足够大的连续空间分配给新创建的较大对象时，也会触发MajorGC进行垃圾回收腾出空间。
 
-到此，基本上可以确定是内存分配器在捣鬼；搜索了一下glibc 64M，发现glibc从2.11开始对每个线程引入内存池（64位机器大小就是64M内存），原文如下：
+### 2.5 方法区
 
-![image-20220825220614752](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220825220614752.png)
+方法区与 Java 堆一样，是各个线程共享的内存区域，它用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。虽然 Java 虚拟机规范把方法区描述为堆的一个逻辑部分，但是它却有一个别名叫做 **Non-Heap（非堆）**，目的应该是与 Java 堆区分开来。
 
-按照文中所说去修改MALLOC_ARENA_MAX环境变量，发现没什么效果。查看tcmalloc（gperftools使用的内存分配器）也使用了内存池方式。
+方法区也被称为永久代。很多人都会分不清方法区和永久代的关系，为此我也查阅了文献。
 
-为了验证是内存池搞的鬼，笔者就简单写个不带内存池的内存分配器。使用命令`gcc zjbmalloc.c -fPIC -shared -o zjbmalloc.so`生成动态库，然后使用`export LD_PRELOAD=zjbmalloc.so`替换掉glibc的内存分配器。其中代码Demo如下：
+#### 2.5.1 方法区和永久代的关系
 
-```c
-#include<sys/mman.h>
-#include<stdlib.h>
-#include<string.h>
-#include<stdio.h>
-//作者使用的64位机器，sizeof(size_t)也就是sizeof(long) 
-void* malloc ( size_t size )
-{
-   long* ptr = mmap( 0, size + sizeof(long), PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, 0, 0 );
-   if (ptr == MAP_FAILED) {
-  	return NULL;
-   }
-   *ptr = size;                     // First 8 bytes contain length.
-   return (void*)(&ptr[1]);        // Memory that is after length variable
-}
+> 《Java 虚拟机规范》只是规定了有方法区这么个概念和它的作用，并没有规定如何去实现它。那么，在不同的 JVM 上方法区的实现肯定是不同的了。 **方法区和永久代的关系很像 Java 中接口和类的关系，类实现了接口，而永久代就是 HotSpot 虚拟机对虚拟机规范中方法区的一种实现方式。** 也就是说，永久代是 HotSpot 的概念，方法区是 Java 虚拟机规范中的定义，是一种规范，而永久代是一种实现，一个是标准一个是实现，其他的虚拟机实现并没有永久代这一说法。
 
-void *calloc(size_t n, size_t size) {
- void* ptr = malloc(n * size);
- if (ptr == NULL) {
-	return NULL;
- }
- memset(ptr, 0, n * size);
- return ptr;
-}
-void *realloc(void *ptr, size_t size)
-{
- if (size == 0) {
-	free(ptr);
-	return NULL;
- }
- if (ptr == NULL) {
-	return malloc(size);
- }
- long *plen = (long*)ptr;
- plen--;                          // Reach top of memory
- long len = *plen;
- if (size <= len) {
-	return ptr;
- }
- void* rptr = malloc(size);
- if (rptr == NULL) {
-	free(ptr);
-	return NULL;
- }
- rptr = memcpy(rptr, ptr, len);
- free(ptr);
- return rptr;
-}
+#### 2.5.2 常用参数
 
-void free (void* ptr )
-{
-   if (ptr == NULL) {
-	 return;
-   }
-   long *plen = (long*)ptr;
-   plen--;                          // Reach top of memory
-   long len = *plen;               // Read length
-   munmap((void*)plen, len + sizeof(long));
-}
+JDK 1.8 之前永久代还没被彻底移除的时候通常通过下面这些参数来调节方法区大小
+
+```
+-XX:PermSize=N //方法区 (永久代) 初始大小
+-XX:MaxPermSize=N //方法区 (永久代) 最大大小,超过这个值将会抛出 OutOfMemoryError 异常:java.lang.OutOfMemoryError: PermGen
 ```
 
-通过在自定义分配器当中埋点可以发现其实程序启动之后应用实际申请的堆外内存始终在700M-800M之间，gperftools监控显示内存使用量也是在700M-800M左右。但是从操作系统角度来看进程占用的内存差别很大（这里只是监控堆外内存）。
+相对而言，垃圾收集行为在这个区域是比较少出现的，但并非数据进入方法区后就“永久存在”了。
 
-笔者做了一下测试，使用不同分配器进行不同程度的扫包，占用的内存如下：
+JDK 1.8 的时候，方法区（HotSpot 的永久代）被彻底移除了（JDK1.7 就已经开始了），取而代之是元空间，元空间使用的是直接内存。
 
-![image-20220825220652536](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220825220652536.png)
+下面是一些常用参数：
 
-**为什么自定义的malloc申请800M，最终占用的物理内存在1.7G呢**？
+```
+-XX:MetaspaceSize=N //设置 Metaspace 的初始（和最小大小）
+-XX:MaxMetaspaceSize=N //设置 Metaspace 的最大大小
+```
 
-因为自定义内存分配器采用的是mmap分配内存，mmap分配内存按需向上取整到整数个页，所以存在着巨大的空间浪费。通过监控发现最终申请的页面数目在536k个左右，那实际上向系统申请的内存等于512k * 4k（pagesize） = 2G。
+与永久代很大的不同就是，如果不指定大小的话，随着更多类的创建，虚拟机会耗尽所有可用的系统内存。
 
-**为什么这个数据大于1.7G呢**？
+#### 2.5.3 为什么要将永久代 (PermGen) 替换为元空间 (MetaSpace) 呢?
 
-因为操作系统采取的是延迟分配的方式，通过mmap向系统申请内存的时候，系统仅仅返回内存地址并没有分配真实的物理内存。只有在真正使用的时候，系统产生一个缺页中断，然后再分配实际的物理Page。
+**整个永久代有一个 JVM 本身设置固定大小上线，无法调整，而元空间使用直接内存，受本机可用内存的限制**，并且永远不会得到 java.lang.OutOfMemoryError。你可以使用 `-XX：MaxMetaspaceSize` 标志设置最大元空间大小，默认值为 unlimited，这意味着它只受系统内存的限制。`-XX：MetaspaceSize` 调整标志定义元空间的初始大小如果未指定此标志，则 Metaspace 将根据运行时的应用程序需求动态地重新调整大小。
 
-## 3. 总结
+### 2.6 运行时常量池
 
-![image-20220825220804117](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220825220804117.png)
+运行时常量池是方法区的一部分。Class 文件中除了有类的版本、字段、方法、接口等描述信息外，还有常量池信息（用于存放编译期生成的各种字面量和符号引用）
 
-整个内存分配的流程如上图所示。MCC扫包的默认配置是扫描所有的JAR包。在扫描包的时候，Spring Boot不会主动去释放堆外内存，导致在扫描阶段，堆外内存占用量一直持续飙升。当发生GC的时候，Spring Boot依赖于finalize机制去释放了堆外内存；但是glibc为了性能考虑，并没有真正把内存归返到操作系统，而是留下来放入内存池了，导致应用层以为发生了“内存泄漏”。所以修改MCC的配置路径为特定的JAR包，问题解决。笔者在发表这篇文章时，发现**Spring Boot的最新版本（2.0.5.RELEASE）已经做了修改，在ZipInflaterInputStream主动释放了堆外内存不再依赖GC**；所以Spring Boot升级到最新版本，这个问题也可以得到解决。
+既然运行时常量池是方法区的一部分，自然受到方法区内存的限制，当常量池无法再申请到内存时会抛出 OutOfMemoryError 异常。
 
-## 参考文章
+**JDK1.7 及之后版本的 JVM 已经将运行时常量池从方法区中移了出来，在 Java 堆（Heap）中开辟了一块区域存放运行时常量池。**
 
-[**调试排错 - Java 内存分析之堆外内存**](https://pdai.tech/md/java/jvm/java-jvm-oom-offheap.html)
+![image-20190924003048984](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20190924003048984.png)
+
+### 2.7 直接内存
+
+**直接内存并不是虚拟机运行时数据区的一部分，也不是虚拟机规范中定义的内存区域，但是这部分内存也被频繁地使用。而且也可能导致 OutOfMemoryError 异常出现。**
+
+JDK1.4 中新加入的 **NIO(New Input/Output) 类**，引入了一种基于**通道（Channel）** 与**缓存区（Buffer）** 的 I/O 方式，它可以直接使用 Native 函数库直接分配堆外内存，然后通过一个存储在 Java 堆中的 DirectByteBuffer 对象作为这块内存的引用进行操作。这样就能在一些场景中显著提高性能，因为**避免了在 Java 堆和 Native 堆之间来回复制数据**。
+
+本机直接内存的分配不会受到 Java 堆的限制，但是，既然是内存就会受到本机总内存大小以及处理器寻址空间的限制。

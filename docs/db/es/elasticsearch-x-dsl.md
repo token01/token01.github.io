@@ -8,7 +8,7 @@ category:
 
 >在查询中会有多种条件组合的查询，在ElasticSearch中叫复合查询。它提供了5种复合查询方式：**bool query(布尔查询)**、**boosting query(提高查询)**、**constant_score（固定分数查询）**、**dis_max(最佳匹配查询）**、**function_score(函数查询）**。
 
-## 0. 复合查询引入
+## 1. 复合查询引入
 
 在前文中，我们使用`bool`查询来组合多个查询条件。
 
@@ -32,11 +32,11 @@ GET /bank/_search
 
 这种查询就是本文要介绍的**复合查询**，并且bool查询只是复合查询一种。
 
-## 1. bool query(布尔查询)
+## 2. bool query(布尔查询)
 
 > 通过布尔逻辑将较小的查询组合成较大的查询。
 
-### 1.1 概念
+### 2.1 概念
 
 Bool查询语法有以下特点
 
@@ -51,7 +51,7 @@ bool查询包含四种操作符，分别是must,should,must_not,filter。他们�
 - `should`：  选择性匹配，至少满足一条。贡献算分
 - `filter`：  过滤子句，必须匹配，但不贡献算分
 
-### 1.2 一些例子
+### 2.2 一些例子
 
 看下官方举例
 
@@ -151,15 +151,15 @@ GET /_search
 
 每个query条件都可以有一个`_name`属性，用来追踪搜索出的数据到底match了哪个条件。
 
-## 2. boosting query(提高查询)
+## 3. boosting query(提高查询)
 
 > 不同于bool查询，bool查询中只要一个子查询条件不匹配那么搜索的数据就不会出现。而boosting query则是降低显示的权重/优先级（即score)。
 
-### 2.1 概念
+### 3.1 概念
 
 比如搜索逻辑是 name = 'apple' and type ='fruit'，对于只满足部分条件的数据，不是不显示，而是降低显示的优先级（即score)
 
-### 2.2 例子
+### 3.2 例子
 
 首先创建数据
 
@@ -199,13 +199,13 @@ GET /test-dsl-boosting/_search
 
 执行结果如下
 
-![image-20220805032904414](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805032904414.png)
+![image-20220805032904414](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805032904414.png)
 
-## 3. constant_score（固定分数查询）
+## 4. constant_score（固定分数查询）
 
 > 查询某个条件时，固定的返回指定的score；显然当不需要计算score时，只需要filter条件即可，因为filter context忽略score。
 
-### 3.1 例子
+### 4.1 例子
 
 首先创建数据
 
@@ -235,13 +235,13 @@ GET /test-dsl-constant/_search
 
 执行结果如下
 
-![image-20220805033131958](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805033131958.png)
+![image-20220805033131958](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805033131958.png)
 
-## 4. dis_max(最佳匹配查询）
+## 5. dis_max(最佳匹配查询）
 
 > 分离最大化查询（Disjunction Max Query）指的是： 将任何与任一查询匹配的文档作为结果返回，但只将最佳匹配的评分作为查询的评分结果返回 。
 
-### 4.1 例子
+### 5.1 例子
 
 假设有个网站允许用户搜索博客的内容，以下面两篇博客内容文档为例：
 
@@ -271,7 +271,7 @@ GET /test-dsl-dis-max/_search
 }
 ```
 
-![image-20220805033531766](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805033531766.png)
+![image-20220805033531766](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805033531766.png)
 
 为了理解导致这样的原因，需要看下如何计算评分的
 
@@ -299,13 +299,13 @@ GET /test-dsl-dis-max/_search
 
 doc 1 分数 = 0.6931471
 
-![image-20220805033748897](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805033748897.png)
+![image-20220805033748897](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805033748897.png)
 
 2. title中没有fox，所以第一个match 中 `brown fox 的分数 = brown分数 + 0 = 0.6931471`
 
 doc 1 分数 = 0.6931471 + 0 = 0.6931471
 
-![image-20220805033933397](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805033933397.png)
+![image-20220805033933397](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805033933397.png)
 
 3. 第二个 match 中 `brown分数`
 
@@ -313,7 +313,7 @@ doc 1 分数 = 0.21110919
 
 doc 2 分数 = 0.160443
 
-![image-20220805034020096](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805034020096.png)
+![image-20220805034020096](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805034020096.png)
 
 4. 第二个 match 中 `fox分数`
 
@@ -321,7 +321,7 @@ doc 1 分数 = 0
 
 doc 2 分数 = 0.60996956
 
-![image-20220805034053756](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805034053756.png)
+![image-20220805034053756](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805034053756.png)
 
 5. 所以第二个 match 中 `brown fox分数 = brown分数 + fox分数`
 
@@ -329,7 +329,7 @@ doc 1 分数 = 0.21110919 + 0 = 0.21110919
 
 doc 2 分数 = 0.160443 + 0.60996956 = 0.77041256
 
-![image-20220805034224993](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805034224993.png)
+![image-20220805034224993](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805034224993.png)
 
 6. 所以整个语句分数， `should分数 = 第一个match + 第二个match分数`
 
@@ -337,7 +337,7 @@ doc 1 分数 = 0.6931471 + 0.21110919 = 0.90425634
 
 doc 2 分数 = 0 + 0.77041256 = 0.77041256
 
-![image-20220805034325939](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805034325939.png)
+![image-20220805034325939](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805034325939.png)
 
 - **引入了dis_max**
 
@@ -360,7 +360,7 @@ GET /test-dsl-dis-max/_search
   
 ```
 
-![image-20220805034447664](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805034447664.png)
+![image-20220805034447664](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805034447664.png)
 
 0.77041256怎么来的呢？ 下文给你解释它如何计算出来的。
 
@@ -387,11 +387,11 @@ doc 1 分数 = 0.6931471 + 0.21110919 * 0  = 0.6931471
 
 doc 2 分数 = 0.77041256 = 0.77041256
 
-![image-20220805034624954](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805034624954.png)
+![image-20220805034624954](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220805034624954.png)
 
 这样你就能理解通过dis_max将doc 2 置前了， 当然这里如果缺省`tie_breaker`字段的话默认就是0，你还可以设置它的比例（在0到1之间）来控制排名。（显然值为1时和should查询是一致的）
 
-## 5. function_score(函数查询）
+## 6. function_score(函数查询）
 
 > 简而言之就是用自定义function的方式来计算_score。
 
@@ -403,7 +403,7 @@ doc 2 分数 = 0.77041256 = 0.77041256
 - `field_value_factor` 使用文档中某个字段的值来改变_score，比如将受欢迎程度或者投票数量考虑在内。
 - `衰减函数(Decay Function)` - `linear`，`exp`，`gauss`
 
-### 5.1 例子
+### 6.1 例子
 
 以最简单的random_score 为例
 

@@ -9,7 +9,7 @@ REST（REpresentational State Transfer） 直译就是：抽象状态转移。
 - 看Url就知道要什么
 - 看http method就知道干什么
 - 看http status code就知道结果如何
-π
+
 ## 2. 资源是什么
 
 资源是指数据在 REST 架构中如何显示的。将实体作为资源公开，他允许客户端通过HTTP 方法如：GET、POST、PUT、DELETE 等读、写、修改和创建资源

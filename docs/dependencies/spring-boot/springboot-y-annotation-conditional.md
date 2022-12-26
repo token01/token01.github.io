@@ -101,7 +101,7 @@ public class ConditionalTest {
 
 运行，输出结果：两个Bean实例都被注入进容器。
 
-![image-20220510105819119](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220510105819119.png)
+![image-20220510105819119](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220510105819119.png)
 
 现在问题来了，如果我想根据当前操作系统来注入`System`实例，window下注入Windows实例，Linux下注入Linux实例，怎么实现呢？
 
@@ -180,7 +180,7 @@ public class ConditionalTest {
 
 
 
-![image-20220510110444045](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220510110444045.png)
+![image-20220510110444045](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220510110444045.png)
 
 **一个方法只能注入一个bean实例，所以@Conditional标注在方法上只能控制一个bean实例是否注入。**
 
@@ -209,7 +209,7 @@ public class BeanConfig {
 
 测试结果：
 
-![image-20220510110852635](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220510110852635.png)
+![image-20220510110852635](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220510110852635.png)
 
 结果表明，当condition条件成立，`BeanConfig`类中存在`@Bean`注解的实例都注入到容器。
 
@@ -252,7 +252,7 @@ public class BeanConfig {
 
 #### 2.4.3 结果：
 
-![image-20220510111135640](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220510111135640.png)
+![image-20220510111135640](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220510111135640.png)
 
 结论：
 

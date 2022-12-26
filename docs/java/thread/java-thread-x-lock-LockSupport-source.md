@@ -1,11 +1,3 @@
----
-order: 525
-category:
-  - Java
-  - 并发
-
----
-
 # JUC锁: LockSupport源码分析
 
 ## 1. 类的属性

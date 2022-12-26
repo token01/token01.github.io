@@ -503,7 +503,7 @@ private byte[] generateClassFile() {
 
 从上述sun.misc.ProxyGenerator类中可以看到，这个类里面有一个配置参数`sun.misc.ProxyGenerator.saveGeneratedFiles`，可以通过这个参数将生成的Proxy类保存在本地，比如设置为true 执行后，生成的文件如下：
 
-![image-20220713213708555](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220713213708555.png)
+![image-20220713213708555](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220713213708555.png)
 
 我们看下生成后的代码：
 

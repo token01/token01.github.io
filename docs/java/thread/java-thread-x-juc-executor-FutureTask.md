@@ -1,11 +1,11 @@
 ---
-order: 720
+order: 310
 category:
   - Java
   - 并发
 ---
 
-# JUC工具类: FutureTask详解
+# JUC线程池: FutureTask详解
 
 ## 0. 面试题
 

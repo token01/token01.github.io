@@ -1,636 +1,367 @@
-# ReentrantLock源码分析(二)-获取锁细节
+---
+order: 20
+category:
+  - Java
+  - 并发
+---
 
-## 1. ReentrantLock 中线程加入等待队列
+# Java 并发 - 理论基础
 
-### 1.1 加入队列的时机
+## 0. 面试题
 
-**当执行Acquire(1)时，会通过tryAcquire获取锁。在这种情况下，如果获取锁失败，就会调用 addWaiter加入到等待队列中去。**
+>- 多线程的出现是要解决什么问题的?
+>- 线程不安全是指什么? 举例说明
+>- 并发出现线程不安全的本质什么? 可见性，原子性和有序性。
+>- Java是怎么解决并发问题的? 3个关键字，JMM和8个Happens-Before
+>- 线程安全是不是非真即假? 不是
+>- 线程安全有哪些实现思路?
+>- 如何理解并发和并行的区别?
 
-在AQS 中
+## 1. 为什么需要多线程
 
-```java
- public final void acquire(int arg) {
-        // 当执行Acquire(1)时，会通过tryAcquire获取锁。在这种情况下，如果获取锁失败，就会调用 addWaiter加入到等待队列中去。
-        if (!tryAcquire(arg) &&
-            acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
-            selfInterrupt();
-    }
-```
+众所周知，CPU、内存、I/O 设备的速度是有极大差异的，为了合理利用 CPU 的高性能，平衡这三者的速度差异，计算机体系结构、操作系统、编译程序都做出了贡献，主要体现为:
 
-在 ReentrantLock
+- CPU 增加了缓存，以均衡与内存的速度差异；
 
-```java
-/**
-     * 非公平锁
-     * Sync object for non-fair locks
-     */
-    static final class NonfairSync extends Sync {
+  导致 `可见性`问题
 
-        /**
-         * 获得锁
-         */
-        final void lock() {
-            /**
-             * 若通过CAS设置变量State（同步状态）成功，也就是获取锁成功，则将当前线程设置为独占线程。
-             * 若通过CAS设置变量State（同步状态）失败，也就是获取锁失败，则进入Acquire方法进行后续处理。
-             */
-            if (compareAndSetState(0, 1))
-                // 把当前线程设置独占了锁
-                setExclusiveOwnerThread(Thread.currentThread());
-            else// 锁已经被占用，或者set失败
-                // 以独占模式获取对象，忽略中断
-                acquire(1);
-        }
+- 操作系统增加了进程、线程，以分时复用 CPU，进而均衡 CPU 与 I/O 设备的速度差异；
 
-        protected final boolean tryAcquire(int acquires) {
-            return nonfairTryAcquire(acquires);
-        }
-    }
+   导致 `原子性`问题
 
-		 /**
-     * 公平锁
-     * Sync object for fair locks
-     */
-    static final class FairSync extends Sync {
-        private static final long serialVersionUID = -3000897897090466540L;
+- 编译程序优化指令执行次序，使得缓存能够得到更加合理地利用。
 
-        final void lock() {
-            // 以独占模式获取对象，忽略中断
-            // aqs 的 acquire 方法
-            acquire(1);
-        }
-    }
-```
+   导致 `有序性`问题
 
-### 1.2 如何加入队列
+## 2. 线程不安全示例
 
-获取锁失败后，会执行 addWaiter(Node.EXCLUSIVE)加入等待队列，具体实现方法如下：
+如果多个线程对同一个共享数据进行访问而不采取同步操作的话，那么操作的结果是不一致的。
+
+以下代码演示了 1000 个线程同时对 cnt 执行自增操作，操作结束之后它的值有可能小于 1000。
 
 ```java
- /**
-     * 获取锁失败后，会执行 addWaiter(Node.EXCLUSIVE)加入等待队列，具体实现方法如下：
-     * Creates and enqueues node for current thread and given mode.
-     *
-     * @param mode Node.EXCLUSIVE for exclusive, Node.SHARED for shared
-     * @return the new node
-     */
-    private Node addWaiter(Node mode) {
-        // 1. 通过当前的线程和锁模式新建一个节点。
-        Node node = new Node(Thread.currentThread(), mode);
-        // Try the fast path of enq; backup to full enq on failure
-        // 2. Pred指针指向尾节点Tail。
-        Node pred = tail;
-        if (pred != null) {
-            // 3. 将New中Node的Prev指针指向Pred。
-            node.prev = pred;
-            // 4. 通过compareAndSetTail方法，完成尾节点的设置。这个方法主要是对 tailOffset和 Expect进行比较，
-            // 如果 tailOffset的 Node和 Expect的 Node地址是相同的，那么设置 Tail的值为 Update的值。
-            if (compareAndSetTail(pred, node)) {
-                pred.next = node;
-                return node;
-            }
-        }
-        enq(node);
-        return node;
+public class ThreadUnsafeExample {
+
+    private int cnt = 0;
+
+    public void add() {
+        cnt++;
     }
 
-private final boolean compareAndSetTail(Node expect, Node update) {
-    return unsafe.compareAndSwapObject(this, tailOffset, expect, update);
+    public int get() {
+        return cnt;
+    }
 }
 
 ```
 
-主要的流程如下：
-
-1. 通过当前的线程和锁模式新建一个节点。
-
-2. Pred指针指向尾节点Tail。
-
-3. 将New中Node的Prev指针指向Pred。
-
-4. 通过compareAndSetTail方法，完成尾节点的设置。这个方法主要是对 tailOffset和 Expect进行比较，如果 tailOffset的 Node和 Expect的 Node地址是相同的，那么设置 Tail的值为 Update的值。
-
-   ```java
-    // java.util.concurrent.locks.AbstractQueuedSynchronizer
-    static {
-        try {
-            stateOffset = unsafe.objectFieldOffset(AbstractQueuedSynchronizer.class.getDeclaredField("state"));
-            headOffset = unsafe.objectFieldOffset(AbstractQueuedSynchronizer.class.getDeclaredField("head"));
-            tailOffset = unsafe.objectFieldOffset(AbstractQueuedSynchronizer.class.getDeclaredField("tail"));
-            waitStatusOffset = unsafe.objectFieldOffset(Node.class.getDeclaredField("waitStatus"));
-            nextOffset = unsafe.objectFieldOffset(Node.class.getDeclaredField("next"));
-       } catch (Exception ex) { 
-       throw new Error(ex); 
-     }
-   }
-   ```
-
-   从AQS的静态代码块可以看出，都是获取一个对象的属性相对于该对象在内存当中的偏移量，这样我们就可以根据这个偏移量在对象内存当中找到这个属性。tailOffset指的是 tail对应的偏移量，所以这个时候会将 new出来的 Node置为当前队列的尾节点。同时，由于是双向链表，也需要将前一个节点指向尾节点。
-
-5. 如果 Pred指针是 Null（说明等待队列中没有元素），或者当前 Pred指针和 Tail指向的位置不同（说明被别的线程已经修改），就需要看一下 Enq的方法。
-
-   ```java
-     // java.util.concurrent.locks.AbstractQueuedSynchronizer
-     
-     private Node enq(final Node node) {
-         for (;;) {
-             Node t = tail;
-             if (t == null) { // Must initialize
-                 if (compareAndSetHead(new Node()))
-                     tail = head;
-             } else {
-                node.prev = t;
-                if (compareAndSetTail(t, node)) {
-                    t.next = node;
-                    return t;
-                }
-            }
-        }
+```java
+public static void main(String[] args) throws InterruptedException {
+    final int threadSize = 1000;
+    ThreadUnsafeExample example = new ThreadUnsafeExample();
+    final CountDownLatch countDownLatch = new CountDownLatch(threadSize);
+    ExecutorService executorService = Executors.newCachedThreadPool();
+    for (int i = 0; i < threadSize; i++) {
+        executorService.execute(() -> {
+            example.add();
+            countDownLatch.countDown();
+        });
     }
-   
-   ```
+    countDownLatch.await();
+    executorService.shutdown();
+    System.out.println(example.get());
+}
 
-   如果没有被初始化，需要进行初始化一个头结点出来。但请注意，初始化的头结点并不是当前线程节点，而是调用了无参构造函数的节点。如果经历了初始化或者并发导致队列中有元素，则与之前的方法相同。其实，addWaiter就是一个在双端链表添加尾节点的操作，需要注意的是，双端链表的头结点是一个无参构造函数的头结点
+```
 
-### 1.3 线程获取锁 过程总结
+输出结果总是小于1000
 
-1. 当没有线程获取到锁时，线程1获取锁成功。
-2. 线程2申请锁，但是锁被线程1占有。
+```
+992 // 结果总是小于1000
+```
 
-![image-20220521202652797](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220521202652797.png)
+## 3. 并发出现问题的根源: 并发三要素
 
-3. 如果再有线程要获取锁，依次在队列中往后排队即可。
+上述代码输出为什么不是1000? 并发出现问题的根源是什么?
 
-### 1.4 公平锁加锁时判断等待队列中是否存在有效节点
+### 3.1 可见性: CPU缓存引起
 
-回到上边的代码，hasQueuedPredecessors是公平锁加锁时判断等待队列中是否存在有效节点的方法。如果返回False，说明当前线程可以争取共享资源；如果返回True，说明队列中存在有效节点，当前线程必须加入到等待队列中。
+可见性：一个线程对共享变量的修改，另外一个线程能够立刻看到。
+
+举个简单的例子，看下面这段代码：
 
 ```java
+//线程1执行的代码
+int i = 0;
+i = 10;
  
- public final boolean hasQueuedPredecessors() {
-     // The correctness of this depends on head being initialized
-     // before tail and on head.next being accurate if the current
-     // thread is first in queue.
-     Node t = tail; // Read fields in reverse initialization order
-     Node h = head;
-     Node s;
-     return h != t && ((s = h.next) == null || s.thread != Thread.currentThread());
- }
+//线程2执行的代码
+j = i;
 ```
 
-看到这里，我们理解一下h != t && ((s = h.next) == null || s.thread != Thread.currentThread());为什么要判断的头结点的下一个节点？第一个节点储存的数据是什么？
+假若执行线程1的是CPU1，执行线程2的是CPU2。由上面的分析可知，当线程1执行 i =10这句时，会先把i的初始值加载到CPU1的高速缓存中，然后赋值为10，那么在CPU1的高速缓存当中i的值变为10了，却没有立即写入到主存当中。
 
->双向链表中，第一个节点为虚节点，其实并不存储任何信息，只是占位。真正的第一个有数据的节点，是在第二个节点开始的。当h != t时： 如果(s = h.next) == null，等待队列正在有线程进行初始化，但只是进行到了Tail指向Head，没有将Head指向Tail，此时队列中有元素，需要返回True（这块具体见下边代码分析）。 如果(s = h.next) != null，说明此时队列中至少有一个有效节点。如果此时s.thread == Thread.currentThread()，说明等待队列的第一个有效节点中的线程与当前线程相同，那么当前线程是可以获取资源的；如果s.thread != Thread.currentThread()，说明等待队列的第一个有效节点线程与当前线程不同，当前线程必须加入进等待队列。
+此时线程2执行 j = i，它会先去主存读取i的值并加载到CPU2的缓存当中，注意此时内存当中i的值还是0，那么就会使得j的值为0，而不是10.
+
+这就是可见性问题，线程1对变量i修改了之后，线程2没有立即看到线程1修改的值。
+
+### 3.2 原子性: 分时复用引起
+
+原子性：即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行。
+
+经典的**转账问题**：比如从账户A向账户B转1000元，那么必然包括2个操作：从账户A减去1000元，往账户B加上1000元。
+
+试想一下，如果这2个操作不具备原子性，会造成什么样的后果。假如从账户A减去1000元之后，操作突然中止。然后又从B取出了500元，取出500元之后，再执行 往账户B加上1000元 的操作。这样就会导致账户A虽然减去了1000元，但是账户B没有收到这个转过来的1000元。
+
+所以这2个操作必须要具备原子性才能保证不出现一些意外的问题
+
+### 3.3 有序性: 重排序引起
+
+有序性：即程序执行的顺序按照代码的先后顺序执行。举个简单的例子，看下面这段代码：
 
 ```java
- // java.util.concurrent.locks.AbstractQueuedSynchronizer#enq
- 
- if (t == null) { // Must initialize
-     if (compareAndSetHead(new Node()))
-         tail = head;
- } else {
-     node.prev = t;
-     if (compareAndSetTail(t, node)) {
-         t.next = node;
-         return t;
-     }
- }
+int i = 0;              
+boolean flag = false;
+i = 1;                //语句1  
+flag = true;          //语句2
+
 ```
 
-节点入队不是原子操作，所以会出现短暂的head != tail，此时Tail指向最后一个节点，而且Tail指向Head。如果Head没有指向Tail（可见5、6、7行），这种情况下也需要将相关线程加入队列中。所以这块代码是为了解决极端情况下的并发问题。
+上面代码定义了一个int型变量，定义了一个boolean类型变量，然后分别对两个变量进行赋值操作。从代码顺序上看，语句1是在语句2前面的，那么JVM在真正执行这段代码的时候会保证语句1一定会在语句2前面执行吗? 不一定，为什么呢? 这里可能会发生指令重排序（Instruction Reorder）。
 
-### 1.5 等待队列中线程出队列时机
+在执行程序时为了提高性能，编译器和处理器常常会对指令做重排序。重排序分三种类型：
 
-回到最初的源码：
+- 编译器优化的重排序。编译器在不改变单线程程序语义的前提下，可以重新安排语句的执行顺序。
+- 指令级并行的重排序。现代处理器采用了指令级并行技术（Instruction-Level Parallelism， ILP）来将多条指令重叠执行。如果不存在数据依赖性，处理器可以改变语句对应机器指令的执行顺序。
+- 内存系统的重排序。由于处理器使用缓存和读 / 写缓冲区，这使得加载和存储操作看上去可能是在乱序执行。
+
+从 java 源代码到最终实际执行的指令序列，会分别经历下面三种重排序：
+
+![image-20220524230504414](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220524230504414.png)
+
+上述的 1 属于编译器重排序，2 和 3 属于处理器重排序。这些重排序都可能会导致多线程程序出现内存可见性问题。对于编译器，JMM 的编译器重排序规则会禁止特定类型的编译器重排序（不是所有的编译器重排序都要禁止）。对于处理器重排序，JMM 的处理器重排序规则会要求 java 编译器在生成指令序列时，插入特定类型的内存屏障（memory barriers，intel 称之为 memory fence）指令，通过内存屏障指令来禁止特定类型的处理器重排序（不是所有的处理器重排序都要禁止）。
+
+## 4. 线程安全的实现方法
+
+### 4.1 互斥同步
+
+synchronized 和 ReentrantLock。
+
+### 4.2 非阻塞同步
+
+互斥同步最主要的问题就是线程阻塞和唤醒所带来的性能问题，因此这种同步也称为阻塞同步。
+
+互斥同步属于一种悲观的并发策略，总是认为只要不去做正确的同步措施，那就肯定会出现问题。无论共享数据是否真的会出现竞争，它都要进行加锁(这里讨论的是概念模型，实际上虚拟机会优化掉很大一部分不必要的加锁)、用户态核心态转换、维护锁计数器和检查是否有被阻塞的线程需要唤醒等操作。
+
+#### 4.2.1 **CAS**
+
+随着硬件指令集的发展，我们可以使用基于冲突检测的乐观并发策略: 先进行操作，如果没有其它线程争用共享数据，那操作就成功了，否则采取补偿措施(不断地重试，直到成功为止)。这种乐观的并发策略的许多实现都不需要将线程阻塞，因此这种同步操作称为非阻塞同步。
+
+乐观锁需要操作和冲突检测这两个步骤具备原子性，这里就不能再使用互斥同步来保证了，只能靠硬件来完成。硬件支持的原子性操作最典型的是: 比较并交换(Compare-and-Swap，CAS)。CAS 指令需要有 3 个操作数，分别是内存地址 V、旧的预期值 A 和新值 B。当执行操作时，只有当 V 的值等于 A，才将 V 的值更新为 B。
+
+#### 4.2.2 **AtomicInteger**
+
+J.U.C 包里面的整数原子类 AtomicInteger，其中的 compareAndSet() 和 getAndIncrement() 等方法都使用了 Unsafe 类的 CAS 操作。
+
+以下代码使用了 AtomicInteger 执行了自增的操作。
 
 ```java
-// java.util.concurrent.locks.AbstractQueuedSynchronizer
-public final void acquire(int arg) {
-    if (!tryAcquire(arg) && acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
-        selfInterrupt();
+
+private AtomicInteger cnt = new AtomicInteger();
+
+public void add() {
+    cnt.incrementAndGet();
 }
-```
-
-上文解释了addWaiter方法，这个方法其实就是把对应的线程以 Node的数据结构形式加入到双端队列里，返回的是一个包含该线程的Node。而这个 Node会作为参数，进入到 acquireQueued方法中。**acquireQueued方法可以对排队中的线程进行“获锁”操作**。总的来说，一个线程获取锁失败了，被放入等待队列，acquireQueued会把放入队列中的线程不断去获取锁，直到获取成功或者不再需要获取（中断）。
-
-下面我们从“何时出队列？”和“如何出队列？”两个方向来分析一下acquireQueued源码：
-
-```java
-// java.util.concurrent.locks.AbstractQueuedSynchronizer
-
-final boolean acquireQueued(final Node node, int arg) {
-    // 标记是否成功拿到资源
-    boolean failed = true;
-    try {
-        // 标记等待过程中是否中断过
-        boolean interrupted = false;
-        // 开始自旋，要么获取锁，要么中断
-        for (;;) {
-            // 获取当前节点的前驱节点
-            final Node p = node.predecessor();
-            // 如果p是头结点，说明当前节点在真实数据队列的首部，就尝试获取锁（别忘了头结点是虚节点）
-            if (p == head && tryAcquire(arg)) {
-                // 获取锁成功，头指针移动到当前node
-                setHead(node);
-                p.next = null; // help GC
-                failed = false;
-                return interrupted;
-            }
-            // 说明p为头节点且当前没有获取到锁（可能是非公平锁被抢占了）或者是p不为头结点，这个时候就要判断当前node是否要被阻塞（被阻塞条件：前驱节点的waitStatus为-1），防止无限循环浪费资源。具体两个方法下面细细分析
-            if (shouldParkAfterFailedAcquire(p, node) && parkAndCheckInterrupt())
-                interrupted = true;
-        }
-    } finally {
-        if (failed)
-            cancelAcquire(node);
-    }
-}
-
-```
-
-注：setHead方法是把当前节点置为虚节点，但并没有修改waitStatus，因为它是一直需要用的数据。
-
-```java
-// java.util.concurrent.locks.AbstractQueuedSynchronizer
-
-private void setHead(Node node) {
-    head = node;
-    node.thread = null;
-    node.prev = null;
-}
-
-// java.util.concurrent.locks.AbstractQueuedSynchronizer
-
-// 靠前驱节点判断当前线程是否应该被阻塞
-private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
-    // 获取头结点的节点状态
-    int ws = pred.waitStatus;
-    // 说明头结点处于唤醒状态
-    if (ws == Node.SIGNAL)
-        return true; 
-    // 通过枚举值我们知道waitStatus>0是取消状态
-    if (ws > 0) {
-        do {
-            // 循环向前查找取消节点，把取消节点从队列中剔除
-            node.prev = pred = pred.prev;
-        } while (pred.waitStatus > 0);
-        pred.next = node;
-    } else {
-        // 设置前任节点等待状态为SIGNAL
-        compareAndSetWaitStatus(pred, ws, Node.SIGNAL);
-    }
-    return false;
-}
-
-```
-
-parkAndCheckInterrupt主要用于挂起当前线程，阻塞调用栈，返回当前线程的中断状态。
-
-```java
-// java.util.concurrent.locks.AbstractQueuedSynchronizer
-
-private final boolean parkAndCheckInterrupt() {
-    LockSupport.park(this);
-    return Thread.interrupted();
-}
-```
-
-上述方法的流程图如下：
-
-![image-20220521205100169](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220521205100169.png)
-
-从上图可以看出，跳出当前循环的条件是当“前置节点是头结点，且当前线程获取锁成功”。为了防止因死循环导致CPU资源被浪费，我们会判断前置节点的状态来决定是否要将当前线程挂起，具体挂起流程用流程图表示如下（shouldParkAfterFailedAcquire流程）：
-
-![image-20220521205119638](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220521205119638.png)
-
-从队列中释放节点的疑虑打消了，那么又有新问题了：
-
-- shouldParkAfterFailedAcquire中取消节点是怎么生成的呢？什么时候会把一个节点的waitStatus设置为-1？
-- 是在什么时间释放节点通知到被挂起的线程呢？
-
-## 2. CANCELLED状态节点生成
-
-acquireQueued方法中的 Finally代码：
-
-```java
-// java.util.concurrent.locks.AbstractQueuedSynchronizer
-
-final boolean acquireQueued(final Node node, int arg) {
-    boolean failed = true;
-    try {
-    ...
-        for (;;) {
-            final Node p = node.predecessor();
-            if (p == head && tryAcquire(arg)) {
-                ...
-                failed = false;
-        ...
-            }
-            ...
-    } finally {
-        if (failed)
-            cancelAcquire(node);
-        }
-}
-
-```
-
-通过cancelAcquire方法，将Node的状态标记为CANCELLED。接下来，我们逐行来分析这个方法的原理：
-
-```java
-// java.util.concurrent.locks.AbstractQueuedSynchronizer
-
-private void cancelAcquire(Node node) {
-  // 将无效节点过滤
-    if (node == null)
-        return;
-  // 设置该节点不关联任何线程，也就是虚节点
-    node.thread = null;
-    Node pred = node.prev;
-  // 通过前驱节点，跳过取消状态的node
-    while (pred.waitStatus > 0)
-        node.prev = pred = pred.prev;
-  // 获取过滤后的前驱节点的后继节点
-    Node predNext = pred.next;
-  // 把当前node的状态设置为CANCELLED
-    node.waitStatus = Node.CANCELLED;
-  // 如果当前节点是尾节点，将从后往前的第一个非取消状态的节点设置为尾节点
-  // 更新失败的话，则进入else，如果更新成功，将tail的后继节点设置为null
-    if (node == tail && compareAndSetTail(node, pred)) {
-        compareAndSetNext(pred, predNext, null);
-    } else {
-        int ws;
-    // 如果当前节点不是head的后继节点，1:判断当前节点前驱节点的是否为SIGNAL，2:如果不是，则把前驱节点设置为SINGAL看是否成功
-    // 如果1和2中有一个为true，再判断当前节点的线程是否为null
-    // 如果上述条件都满足，把当前节点的前驱节点的后继指针指向当前节点的后继节点
-        if (pred != head && ((ws = pred.waitStatus) == Node.SIGNAL || (ws <= 0 && compareAndSetWaitStatus(pred, ws, Node.SIGNAL))) && pred.thread != null) {
-            Node next = node.next;
-            if (next != null && next.waitStatus <= 0)
-                compareAndSetNext(pred, predNext, next);
-        } else {
-      // 如果当前节点是head的后继节点，或者上述条件不满足，那就唤醒当前节点的后继节点
-            unparkSuccessor(node);
-        }
-        node.next = node; // help GC
-    }
-}
-
-```
-
-当前的流程：
-
-- 获取当前节点的前驱节点，如果前驱节点的状态是CANCELLED，那就一直往前遍历，找到第一个waitStatus <= 0的节点，将找到的Pred节点和当前Node关联，将当前Node设置为CANCELLED。
-- 根据当前节点的位置，考虑以下三种情况：
-
-(1) 当前节点是尾节点。
-
-(2) 当前节点是Head的后继节点。
-
-(3) 当前节点不是Head的后继节点，也不是尾节点。
-
-根据上述第二条，我们来分析每一种情况的流程。
-
-当前节点是尾节点。
-
-![image-20220521205416054](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220521205416054.png)
-
-当前节点是Head的后继节点。
-
-![image-20220521205431385](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220521205431385.png)
-
-当前节点不是Head的后继节点，也不是尾节点。
-
-![image-20220521205446769](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220521205446769.png)
-
-通过上面的流程，我们对于CANCELLED节点状态的产生和变化已经有了大致的了解，但是为什么所有的变化都是对Next指针进行了操作，而没有对Prev指针进行操作呢？什么情况下会对Prev指针进行操作？
-
->执行cancelAcquire的时候，当前节点的前置节点可能已经从队列中出去了（已经执行过Try代码块中的shouldParkAfterFailedAcquire方法了），如果此时修改Prev指针，有可能会导致Prev指向另一个已经移除队列的Node，因此这块变化Prev指针不安全。 shouldParkAfterFailedAcquire方法中，会执行下面的代码，其实就是在处理Prev指针。shouldParkAfterFailedAcquire是获取锁失败的情况下才会执行，进入该方法后，说明共享资源已被获取，当前节点之前的节点都不会出现变化，因此这个时候变更Prev指针比较安全。
-
-```java
-do {
-    node.prev = pred = pred.prev;
-} while (pred.waitStatus > 0);
-```
-
-## 3. 如何解锁
-
-我们已经剖析了加锁过程中的基本流程，接下来再对解锁的基本流程进行分析。由于 ReentrantLock在解锁的时候，并不区分公平锁和非公平锁，所以我们直接看解锁的源码：
-
-```java
-// java.util.concurrent.locks.ReentrantLock
-
-public void unlock() {
-    sync.release(1);
-}
-
-```
-
-可以看到，本质释放锁的地方，是通过框架来完成的。
-
-```java
-// java.util.concurrent.locks.AbstractQueuedSynchronizer
-
-public final boolean release(int arg) {
-    if (tryRelease(arg)) {
-        Node h = head;
-        if (h != null && h.waitStatus != 0)
-            unparkSuccessor(h);
-        return true;
-    }
-    return false;
-}
-
-```
-
-在ReentrantLock里面的公平锁和非公平锁的父类Sync定义了可重入锁的释放锁机制。
-
-```java
-// java.util.concurrent.locks.ReentrantLock.Sync
-
-// 方法返回当前锁是不是没有被线程持有
-protected final boolean tryRelease(int releases) {
-    // 减少可重入次数
-    int c = getState() - releases;
-    // 当前线程不是持有锁的线程，抛出异常
-    if (Thread.currentThread() != getExclusiveOwnerThread())
-        throw new IllegalMonitorStateException();
-    boolean free = false;
-    // 如果持有线程全部释放，将当前独占锁所有线程设置为null，并更新state
-    if (c == 0) {
-        free = true;
-        setExclusiveOwnerThread(null);
-    }
-    setState(c);
-    return free;
-}
-
-```
-
-我们来解释下述源码：
-
-```java
-// java.util.concurrent.locks.AbstractQueuedSynchronizer
-
-public final boolean release(int arg) {
-    // 上边自定义的tryRelease如果返回true，说明该锁没有被任何线程持有
-    if (tryRelease(arg)) {
-        // 获取头结点
-        Node h = head;
-        // 头结点不为空并且头结点的waitStatus不是初始化节点情况，解除线程挂起状态
-        if (h != null && h.waitStatus != 0)
-            unparkSuccessor(h);
-        return true;
-    }
-    return false;
-}
-
-```
-
-这里的判断条件为什么是h != null && h.waitStatus != 0？
-
->h == null Head还没初始化。初始情况下，head == null，第一个节点入队，Head会被初始化一个虚拟节点。所以说，这里如果还没来得及入队，就会出现head == null 的情况。
->
->h != null && waitStatus == 0 表明后继节点对应的线程仍在运行中，不需要唤醒。
->
->h != null && waitStatus < 0 表明后继节点可能被阻塞了，需要唤醒。
-
-再看一下 unparkSuccessor方法：
-
-```java
-// java.util.concurrent.locks.AbstractQueuedSynchronizer
-
-private void unparkSuccessor(Node node) {
-    // 获取头结点waitStatus
-    int ws = node.waitStatus;
-    if (ws < 0)
-        compareAndSetWaitStatus(node, ws, 0);
-    // 获取当前节点的下一个节点
-    Node s = node.next;
-    // 如果下个节点是null或者下个节点被cancelled，就找到队列最开始的非cancelled的节点
-    if (s == null || s.waitStatus > 0) {
-        s = null;
-        // 就从尾部节点开始找，到队首，找到队列第一个waitStatus<0的节点。
-        for (Node t = tail; t != null && t != node; t = t.prev)
-            if (t.waitStatus <= 0)
-                s = t;
-    }
-    // 如果当前节点的下个节点不为空，而且状态<=0，就把当前节点unpark
-    if (s != null)
-        LockSupport.unpark(s.thread);
-}
-
-```
-
-为什么要从后往前找第一个非Cancelled的节点呢？原因如下。
-
-之前的 addWaiter方法：
-
-```java
-// java.util.concurrent.locks.AbstractQueuedSynchronizer
-
-private Node addWaiter(Node mode) {
-    Node node = new Node(Thread.currentThread(), mode);
-    // Try the fast path of enq; backup to full enq on failure
-    Node pred = tail;
-    if (pred != null) {
-        node.prev = pred;
-        if (compareAndSetTail(pred, node)) {
-            pred.next = node;
-            return node;
-        }
-    }
-    enq(node);
-    return node;
-}
-
-```
-
-我们从这里可以看到，节点入队并不是原子操作，也就是说，node.prev = pred; compareAndSetTail(pred, node) 这两个地方可以看作Tail入队的原子操作，但是此时pred.next = node;还没执行，如果这个时候执行了unparkSuccessor方法，就没办法从前往后找了，所以需要从后往前找。还有一点原因，在产生CANCELLED状态节点的时候，先断开的是Next指针，Prev指针并未断开，因此也是必须要从后往前遍历才能够遍历完全部的Node。
-
-综上所述，如果是从前往后找，由于极端情况下入队的非原子操作和CANCELLED节点产生过程中断开Next指针的操作，可能会导致无法遍历所有的节点。所以，唤醒对应的线程后，对应的线程就会继续往下执行。继续执行acquireQueued方法以后，中断如何处理？
-
-## 4. 中断恢复后的执行流程
-
-唤醒后，会执行 return Thread.interrupted();，这个函数返回的是当前执行线程的中断状态，并清除。
-
-```java
-// java.util.concurrent.locks.AbstractQueuedSynchronizer
-
-private final boolean parkAndCheckInterrupt() {
-    LockSupport.park(this);
-    return Thread.interrupted();
-}
-```
-
-再回到 acquireQueued代码，当 parkAndCheckInterrupt返回True或者False的时候，interrupted的值不同，但都会执行下次循环。如果这个时候获取锁成功，就会把当前 interrupted返回。
-
-```java
-// java.util.concurrent.locks.AbstractQueuedSynchronizer
-
-final boolean acquireQueued(final Node node, int arg) {
-    boolean failed = true;
-    try {
-        boolean interrupted = false;
-        for (;;) {
-            final Node p = node.predecessor();
-            if (p == head && tryAcquire(arg)) {
-                setHead(node);
-                p.next = null; // help GC
-                failed = false;
-                return interrupted;
-            }
-            if (shouldParkAfterFailedAcquire(p, node) && parkAndCheckInterrupt())
-                interrupted = true;
-            }
-    } finally {
-        if (failed)
-            cancelAcquire(node);
-    }
-}
-
-```
-
-如果acquireQueued为True，就会执行selfInterrupt方法。
-
-```java
-// java.util.concurrent.locks.AbstractQueuedSynchronizer
-
-static void selfInterrupt() {
-    Thread.currentThread().interrupt();
-}
-```
-
-该方法其实是为了中断线程。但为什么获取了锁以后还要中断线程呢？这部分属于Java提供的协作式中断知识内容，感兴趣同学可以查阅一下。这里简单介绍一下：
-
-1. 当中断线程被唤醒时，并不知道被唤醒的原因，可能是当前线程在等待中被中断，也可能是释放了锁以后被唤醒。因此我们通过Thread.interrupted()方法检查中断标记（该方法返回了当前线程的中断状态，并将当前线程的中断标识设置为False），并记录下来，如果发现该线程被中断过，就再中断一次。
-2. 线程在等待资源的过程中被唤醒，唤醒后还是会不断地去尝试获取锁，直到抢到锁为止。也就是说，在整个流程中，并不响应中断，只是记录中断记录。最后抢到锁返回了，那么如果被中断过的话，就需要补充一次中断。
-
-这里的处理方式主要是运用线程池中基本运作单元Worder中的runWorker，通过Thread.interrupted()进行额外的判断处理，感兴趣的同学可以看下ThreadPoolExecutor源码。
-
-
-## 5. 小结
-
-- Q：某个线程获取锁失败的后续流程是什么呢？
-
-  A：存在某种排队等候机制，线程继续等待，仍然保留获取锁的可能，获取锁流程仍在继续。
-
-- Q：既然说到了排队等候机制，那么就一定会有某种队列形成，这样的队列是什么数据结构呢？
-
-  A：是CLH变体的FIFO双端队列。
-
-- Q：处于排队等候机制中的线程，什么时候可以有机会获取锁呢？
-
-  A：可以详细看下前面章节
-
-- Q：如果处于排队等候机制中的线程一直无法获取锁，需要一直等待么？还是有别的策略来解决这一问题？
-
-  A：线程所在节点的状态会变成取消状态，取消状态的节点会从队列中释放，具体可见2.3.2小节。
-
-- Q：Lock函数通过Acquire方法进行加锁，但是具体是如何加锁的呢？
-
-  A：AQS的Acquire会调用tryAcquire方法，tryAcquire由各个自定义同步器实现，通过tryAcquire完成加锁过程。
   
+```
+
+以下代码是 incrementAndGet() 的源码，它调用了 unsafe 的 getAndAddInt() 。
+
+```java
+public final int incrementAndGet() {
+    return unsafe.getAndAddInt(this, valueOffset, 1) + 1;
+}
+```
+
+以下代码是 getAndAddInt() 源码，var1 指示对象内存地址，var2 指示该字段相对对象内存地址的偏移，var4 指示操作需要加的数值，这里为 1。通过 getIntVolatile(var1, var2) 得到旧的预期值，通过调用 compareAndSwapInt() 来进行 CAS 比较，如果该字段内存地址中的值等于 var5，那么就更新内存地址为 var1+var2 的变量为 var5+var4。
+
+可以看到 getAndAddInt() 在一个循环中进行，发生冲突的做法是不断的进行重试。
+
+```java
+public final int getAndAddInt(Object var1, long var2, int var4) {
+    int var5;
+    do {
+        var5 = this.getIntVolatile(var1, var2);
+    } while(!this.compareAndSwapInt(var1, var2, var5, var5 + var4));
+
+    return var5;
+}
+
+```
+
+#### 4.2.3 **ABA**问题
+
+如果一个变量初次读取的时候是 A 值，它的值被改成了 B，后来又被改回为 A，那 CAS 操作就会误认为它从来没有被改变过。
+
+J.U.C 包提供了一个带有标记的原子引用类 AtomicStampedReference 来解决这个问题，它可以通过控制变量值的版本来保证 CAS 的正确性。大部分情况下 ABA 问题不会影响程序并发的正确性，如果需要解决 ABA 问题，改用传统的互斥同步可能会比原子类更高效。
+
+### 4.3 无同步方案
+
+要保证线程安全，并不是一定就要进行同步。如果一个方法本来就不涉及共享数据，那它自然就无须任何同步措施去保证正确性。
+
+#### 4.3.1 **栈封闭**
+
+多个线程访问同一个方法的局部变量时，不会出现线程安全问题，因为局部变量存储在虚拟机栈中，属于线程私有的。
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class StackClosedExample {
+    public void add100() {
+        int cnt = 0;
+        for (int i = 0; i < 100; i++) {
+            cnt++;
+        }
+        System.out.println(cnt);
+    }
+}
+
+```
+
+```java
+public static void main(String[] args) {
+    StackClosedExample example = new StackClosedExample();
+    ExecutorService executorService = Executors.newCachedThreadPool();
+    executorService.execute(() -> example.add100());
+    executorService.execute(() -> example.add100());
+    executorService.shutdown();
+}
+
+```
+
+#### 4.3.2 **线程本地存储(Thread Local Storage)**
+
+如果一段代码中所需要的数据必须与其他代码共享，那就看看这些共享数据的代码是否能保证在同一个线程中执行。如果能保证，我们就可以把共享数据的可见范围限制在同一个线程之内，这样，无须同步也能保证线程之间不出现数据争用的问题。
+
+符合这种特点的应用并不少见，大部分使用消费队列的架构模式(如“生产者-消费者”模式)都会将产品的消费过程尽量在一个线程中消费完。其中最重要的一个应用实例就是经典 Web 交互模型中的“一个请求对应一个服务器线程”(Thread-per-Request)的处理方式，这种处理方式的广泛应用使得很多 Web 服务端应用都可以使用线程本地存储来解决线程安全问题。
+
+可以使用 java.lang.ThreadLocal 类来实现线程本地存储功能。
+
+对于以下代码，thread1 中设置 threadLocal 为 1，而 thread2 设置 threadLocal 为 2。过了一段时间之后，thread1 读取 threadLocal 依然是 1，不受 thread2 的影响。
+
+```java
+public class ThreadLocalExample {
+    public static void main(String[] args) {
+        ThreadLocal threadLocal = new ThreadLocal();
+        Thread thread1 = new Thread(() -> {
+            threadLocal.set(1);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(threadLocal.get());
+            threadLocal.remove();
+        });
+        Thread thread2 = new Thread(() -> {
+            threadLocal.set(2);
+            threadLocal.remove();
+        });
+        thread1.start();
+        thread2.start();
+    }
+}
+
+```
+
+输出结果
+
+```html
+1
+```
+
+为了理解 ThreadLocal，先看以下代码:
+
+```java
+public class ThreadLocalExample1 {
+    public static void main(String[] args) {
+        ThreadLocal threadLocal1 = new ThreadLocal();
+        ThreadLocal threadLocal2 = new ThreadLocal();
+        Thread thread1 = new Thread(() -> {
+            threadLocal1.set(1);
+            threadLocal2.set(1);
+        });
+        Thread thread2 = new Thread(() -> {
+            threadLocal1.set(2);
+            threadLocal2.set(2);
+        });
+        thread1.start();
+        thread2.start();
+    }
+}
+    
+```
+
+它所对应的底层结构图为:
+
+![image-20220525183252974](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525183252974.png)
+
+每个 Thread 都有一个 ThreadLocal.ThreadLocalMap 对象，Thread 类中就定义了 ThreadLocal.ThreadLocalMap 成员。
+
+```
+/* ThreadLocal values pertaining to this thread. This map is maintained
+ * by the ThreadLocal class. */
+ThreadLocal.ThreadLocalMap threadLocals = null;
+
+```
+
+当调用一个 ThreadLocal 的 set(T value) 方法时，先得到当前线程的 ThreadLocalMap 对象，然后将 ThreadLocal->value 键值对插入到该 Map 中。
+
+```java
+public void set(T value) {
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    if (map != null)
+        map.set(this, value);
+    else
+        createMap(t, value);
+}
+    
+```
+
+
+
+get() 方法类似。
+
+```java
+public T get() {
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    if (map != null) {
+        ThreadLocalMap.Entry e = map.getEntry(this);
+        if (e != null) {
+            @SuppressWarnings("unchecked")
+            T result = (T)e.value;
+            return result;
+        }
+    }
+    return setInitialValue();
+}
+
+  
+```
+
+ThreadLocal 从理论上讲并不是用来解决多线程并发问题的，因为根本不存在多线程竞争。
+
+在一些场景 (尤其是使用线程池) 下，由于 ThreadLocal.ThreadLocalMap 的底层数据结构导致 ThreadLocal 有内存泄漏的情况，应该尽可能在每次使用 ThreadLocal 后手动调用 remove()，以避免出现 ThreadLocal 经典的内存泄漏甚至是造成自身业务混乱的风险。
+
+#### 4.3.3 **可重入代码(Reentrant Code)**
+
+这种代码也叫做纯代码(Pure Code)，可以在代码执行的任何时刻中断它，转而去执行另外一段代码(包括递归调用它本身)，而在控制权返回后，原来的程序不会出现任何错误。
+
+可重入代码有一些共同的特征，例如不依赖存储在堆上的数据和公用的系统资源、用到的状态量都由参数中传入、不调用非可重入的方法等。
 
 ## 参考文章
 
-[ReentrantLock 锁详解](https://blog.csdn.net/zhengzhaoyang122/article/details/110847701)
+[Java 并发 - 理论基础](https://pdai.tech/md/java/thread/java-thread-x-theorty.html)

@@ -1,252 +1,281 @@
 ---
-order: 100
+order: 70
 category:
 	- ElasticSearch
 ---
 
-# ES详解 - 查询：DSL查询之Term详解
+# ES详解 - 索引：索引模板(Index Template)详解
 
->DSL查询另一种极为常用的是对词项进行搜索，官方文档中叫”term level“查询，本文主要对term level搜索进行详解。
+>前文介绍了索引的一些操作，特别是手动创建索引，但是批量和脚本化必然需要提供一种模板方式快速构建和管理索引，这就是本文要介绍的索引模板(Index Template)，它是一种告诉Elasticsearch在创建索引时如何配置索引的方法。为了更好的复用性，在7.8中还引入了组件模板。
 
-## 1. Term查询引入
+## 1.1. 索引模板
 
-如前文所述，查询分基于文本查询和基于词项的查询:
+> 索引模板是一种告诉Elasticsearch在创建索引时如何配置索引的方法。
 
-![image-20220805222938003](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805222938003.png)
+- **使用方式**
 
-本文主要讲基于词项的查询。
+在创建索引之前可以先配置模板，这样在创建索引（手动创建索引或通过对文档建立索引）时，模板设置将用作创建索引的基础。
 
-![image-20220805223752733](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805223752733.png)
+### 1.2. 模板类型
 
-## 2. Term查询
+模板有两种类型：**索引模板**和**组件模板**。
 
-> 很多比较常用，也不难，就是需要结合实例理解。这里综合官方文档的内容，我设计一个测试场景的数据，以覆盖所有例子。
+1. **组件模板**是可重用的构建块，用于配置映射，设置和别名；它们不会直接应用于一组索引。
+2. **索引模板**可以包含组件模板的集合，也可以直接指定设置，映射和别名。
 
-准备数据
+### 1.3. 索引模板中的优先级
+
+1. 可组合模板优先于旧模板。如果没有可组合模板匹配给定索引，则旧版模板可能仍匹配并被应用。
+2. 如果使用显式设置创建索引并且该索引也与索引模板匹配，则创建索引请求中的设置将优先于索引模板及其组件模板中指定的设置。
+3. 如果新数据流或索引与多个索引模板匹配，则使用优先级最高的索引模板。
+
+### 1.4. 内置索引模板
+
+Elasticsearch具有内置索引模板，每个索引模板的优先级为100，适用于以下索引模式：
+
+1. `logs-*-*`
+2. `metrics-*-*`
+3. `synthetics-*-*`
+
+所以在涉及内建索引模板时，要避免索引模式冲突。更多可以参考[这里](https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html)
+
+
+### 1.5 案例
+
+- 首先**创建两个索引组件模板**：
 
 ```bash
-PUT /test-dsl-term-level
+PUT _component_template/component_template1
 {
-  "mappings": {
-    "properties": {
-      "name": {
-        "type": "keyword"
-      },
-      "programming_languages": {
-        "type": "keyword"
-      },
-      "required_matches": {
-        "type": "long"
+  "template": {
+    "mappings": {
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        }
       }
     }
   }
 }
 
-POST /test-dsl-term-level/_bulk
-{ "index": { "_id": 1 }}
-{"name": "Jane Smith", "programming_languages": [ "c++", "java" ], "required_matches": 2}
-{ "index": { "_id": 2 }}
-{"name": "Jason Response", "programming_languages": [ "java", "php" ], "required_matches": 2}
-{ "index": { "_id": 3 }}
-{"name": "Dave Pdai", "programming_languages": [ "java", "c++", "php" ], "required_matches": 3, "remarks": "hello world"}
+PUT _component_template/runtime_component_template
+{
+  "template": {
+    "mappings": {
+      "runtime": { 
+        "day_of_week": {
+          "type": "keyword",
+          "script": {
+            "source": "emit(doc['@timestamp'].value.dayOfWeekEnum.getDisplayName(TextStyle.FULL, Locale.ROOT))"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+执行结果如下
+
+![image-20220804225958359](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804225958359.png)
+
+- **创建使用组件模板的索引模板**
+
+```bash
+PUT _index_template/template_1
+{
+  "index_patterns": ["bar*"],
+  "template": {
+    "settings": {
+      "number_of_shards": 1
+    },
+    "mappings": {
+      "_source": {
+        "enabled": true
+      },
+      "properties": {
+        "host_name": {
+          "type": "keyword"
+        },
+        "created_at": {
+          "type": "date",
+          "format": "EEE MMM dd HH:mm:ss Z yyyy"
+        }
+      }
+    },
+    "aliases": {
+      "mydata": { }
+    }
+  },
+  "priority": 500,
+  "composed_of": ["component_template1", "runtime_component_template"], 
+  "version": 3,
+  "_meta": {
+    "description": "my custom"
+  }
+}
+```
+
+执行结果如下
+
+![image-20220804230128229](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804230128229.png)
+
+- 创建一个匹配`bar*`的索引`bar-test`
+
+```bash
+PUT /bar-test 
+```
+
+然后获取mapping
+
+```bash
+GET /bar-test/_mapping
+```
+
+执行结果如下
+
+![image-20220804230207857](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804230207857.png)
+
+## 2. 模拟多组件模板
+
+> 由于模板不仅可以由多个组件模板组成，还可以由索引模板自身组成；那么最终的索引设置将是什么呢？ElasticSearch设计者考虑到这个，提供了API进行模拟组合后的模板的配置。
+
+### 2.1 模拟某个索引结果
+
+比如上面的template_1, 我们不用创建bar*的索引(这里模拟bar-pdai-test)，也可以模拟计算出索引的配置：
+
+```bash
+POST /_index_template/_simulate_index/bar-pdai-test
+```
+
+执行结果如下
+
+![image-20220804230349682](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804230349682.png)
+
+### 2.2 模拟组件模板结果
+
+当然，由于template_1模板是由两个组件模板组合的，我们也可以模拟出template_1被组合后的索引配置：
+
+```bash
+POST /_index_template/_simulate/template_1
+```
+
+执行结果如下：
+
+```json
+{
+  "template" : {
+    "settings" : {
+      "index" : {
+        "number_of_shards" : "1"
+      }
+    },
+    "mappings" : {
+      "runtime" : {
+        "day_of_week" : {
+          "type" : "keyword",
+          "script" : {
+            "source" : "emit(doc['@timestamp'].value.dayOfWeekEnum.getDisplayName(TextStyle.FULL, Locale.ROOT))",
+            "lang" : "painless"
+          }
+        }
+      },
+      "properties" : {
+        "@timestamp" : {
+          "type" : "date"
+        },
+        "created_at" : {
+          "type" : "date",
+          "format" : "EEE MMM dd HH:mm:ss Z yyyy"
+        },
+        "host_name" : {
+          "type" : "keyword"
+        }
+      }
+    },
+    "aliases" : {
+      "mydata" : { }
+    }
+  },
+  "overlapping" : [ ]
+}
+```
+
+### 2.3 模拟组件模板和自身模板结合后的结果
+
+- 新建两个模板
+
+```bash
+PUT /_component_template/ct1
+{
+  "template": {
+    "settings": {
+      "index.number_of_shards": 2
+    }
+  }
+}
+
+PUT /_component_template/ct2
+{
+  "template": {
+    "settings": {
+      "index.number_of_replicas": 0
+    },
+    "mappings": {
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}
+```
+
+模拟在两个组件模板的基础上，添加自身模板的配置
+
+```bash
+POST /_index_template/_simulate
+{
+  "index_patterns": ["my*"],
+  "template": {
+    "settings" : {
+        "index.number_of_shards" : 3
+    }
+  },
+  "composed_of": ["ct1", "ct2"]
+}
+
+```
+
+执行的结果如下
+
+```json
+{
+  "template" : {
+    "settings" : {
+      "index" : {
+        "number_of_shards" : "3",
+        "number_of_replicas" : "0"
+      }
+    },
+    "mappings" : {
+      "properties" : {
+        "@timestamp" : {
+          "type" : "date"
+        }
+      }
+    },
+    "aliases" : { }
+  },
+  "overlapping" : [ ]
+}
 
   
 ```
 
-### 2.1 字段是否存在:exist
-
-由于多种原因，文档字段的索引值可能不存在：
-
-- 源JSON中的字段是null或[]
-- 该字段已"index" : false在映射中设置
-- 字段值的长度超出ignore_above了映射中的设置
-- 字段值格式错误，并且ignore_malformed已在映射中定义
-
-所以exist表示查找是否存在字段。
-
-![image-20220805224415435](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805224415435.png)
-
-### 2.2 id查询:ids
-
-ids 即对id查找
-
-```bash
-GET /test-dsl-term-level/_search
-{
-  "query": {
-    "ids": {
-      "values": [3, 1]
-    }
-  }
-}
-```
-
-![image-20220805224652643](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805224652643.png)
-
-### 2.3 前缀:prefix
-
-通过前缀查找某个字段
-
-```bash
-GET /test-dsl-term-level/_search
-{
-  "query": {
-    "prefix": {
-      "name": {
-        "value": "Jan"
-      }
-    }
-  }
-}
-```
-
-![image-20220805224755113](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805224755113.png)
-
-### 2.4 分词匹配:term
-
-前文最常见的根据分词查询
-
-```bash
-GET /test-dsl-term-level/_search
-{
-  "query": {
-    "term": {
-      "programming_languages": "php"
-    }
-  }
-}
-
-```
-
-![image-20220805224847374](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805224847374.png)
-
-### 2.5 多个分词匹配:terms
-
-按照读个分词term匹配，它们是or的关系
-
-```bash
-GET /test-dsl-term-level/_search
-{
-  "query": {
-    "terms": {
-      "programming_languages": ["php","c++"]
-    }
-  }
-}
-```
-
-![image-20220805224923467](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805224923467.png)
-
-### 2.6 按某个数字字段分词匹配:term set
-
-设计这种方式查询的初衷是用文档中的数字字段动态匹配查询满足term的个数
-
-```bash
-GET /test-dsl-term-level/_search
-{
-  "query": {
-    "terms_set": {
-      "programming_languages": {
-        "terms": [ "java", "php" ],
-        "minimum_should_match_field": "required_matches"
-      }
-    }
-  }
-}
-```
-
-![image-20220805225032650](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805225032650.png)
-
-### 2.7 通配符:wildcard
-
-通配符匹配，比如`*`
-
-```bash
-GET /test-dsl-term-level/_search
-{
-  "query": {
-    "wildcard": {
-      "name": {
-        "value": "D*ai",
-        "boost": 1.0,
-        "rewrite": "constant_score"
-      }
-    }
-  }
-}
-```
-
-![image-20220805225153592](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805225153592.png)
-
-### 2.8 范围:range
-
-常常被用在数字或者日期范围的查询
-
-```bash
-GET /test-dsl-term-level/_search
-{
-  "query": {
-    "range": {
-      "required_matches": {
-        "gte": 3,
-        "lte": 4
-      }
-    }
-  }
-}
-```
-
-![image-20220805225640451](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805225640451.png)
-
-### 2.9 正则:regexp
-
-通过[正则表达式](https://pdai.tech/md/develop/regex/dev-regex-all.html)查询
-
-以"Jan"开头的name字段
-
-```bash
-GET /test-dsl-term-level/_search
-{
-  "query": {
-    "regexp": {
-      "name": {
-        "value": "Ja.*",
-        "case_insensitive": true
-      }
-    }
-  }
-}
-
-  
-```
-
-![image-20220805225727650](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805225727650.png)
-
-### 2.10 模糊匹配:fuzzy
-
-官方文档对模糊匹配：编辑距离是将一个术语转换为另一个术语所需的一个字符更改的次数。这些更改可以包括：
-
-- 更改字符（box→ fox）
-- 删除字符（black→ lack）
-- 插入字符（sic→ sick）
-- 转置两个相邻字符（act→ cat）
-
-```bash
-GET /test-dsl-term-level/_search
-{
-  "query": {
-    "fuzzy": {
-      "remarks": {
-        "value": "hell"
-      }
-    }
-  }
-}
-
-```
-
-![image-20220805225807567](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220805225807567.png)
+![image-20220804230703815](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220804230703815.png)
 
 ## 参考文章
 
-[**ES详解 - 查询：DSL查询之Term详解**](https://pdai.tech/md/db/nosql-es/elasticsearch-x-dsl-term.html)
+[**ES详解 - 索引：索引模板(Index Template)详解**](https://pdai.tech/md/db/nosql-es/elasticsearch-x-index-template.html)

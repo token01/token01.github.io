@@ -8,15 +8,15 @@
 public class ReentrantLock implements Lock, java.io.Serializable {
 ```
 
-![image-20220520160834560](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220520160834560.png)
+![image-20220520160834560](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220520160834560.png)
 
 ## 2. 类的内部类
 
 **ReentrantLock** 总共有三个内部类，并且三个内部类是紧密相关的，下面先看三个类的关系。
 
-![image-20220520161909794](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220520161909794.png)
+![image-20220520161909794](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220520161909794.png)
 
-![image-20220520161943656](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220520161943656.png)
+![image-20220520161943656](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220520161943656.png)
 
 >**说明：ReentrantLock** 类内部总共存在**Sync**、**NonfairSync**、**FairSync**三个类，**NonfairSync**与 **FairSync**类继承自 **Sync**类，**Sync**类继承自 **AbstractQueuedSynchronizer**抽象类。下面逐个进行分析。
 
@@ -35,7 +35,7 @@ AQS提供了大量用于自定义同步器实现的 Protected方法。自定义�
 | protected boolean tryReleaseShared(int arg) | 共享方式。arg为释放锁的次数，尝试释放资源，如果释放后允许唤醒后续等待结点返回True，否则返回False。 |
 
 一般来说，自定义同步器要么是独占方式，要么是共享方式，它们也只需实现tryAcquire-tryRelease、tryAcquireShared-tryReleaseShared中的一种即可。AQS也支持自定义同步器同时实现独占和共享两种方式，如ReentrantReadWriteLock。ReentrantLock是独占锁，所以实现了tryAcquire-tryRelease。以非公平锁为例，这里主要阐述一下非公平锁与AQS之间方法的关联之处，具体每一处核心方法的作用会在文章后面详细进行阐述。
-![image-20220520162627423](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220520162627423.png)
+![image-20220520162627423](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220520162627423.png)
 
 ### 3.2 **Sync 类的源码**
 
@@ -200,7 +200,7 @@ NonfairSync 类继承了 Sync类，表示采用非公平策略获取锁，其实
 ```
 
 跟踪 lock方法的源码可知，当资源空闲时，它总是会先判断 sync队列(AbstractQueuedSynchronizer中的数据结构)是否有等待时间更长的线程，如果存在，则将该线程加入到等待队列的尾部，实现了公平获取原则。其中，FairSync 类的 lock的方法调用如下，只给出了主要的方法。
-![image-20220520164554009](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220520164554009.png)
+![image-20220520164554009](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220520164554009.png)
 
 >可以看出只要资源被其他线程占用，该线程就会添加到 **sync queue**中的尾部，而不会先尝试获取资源。这也是和 Nonfair最大的区别，Nonfair每一次都会尝试去获取资源，如果此时该资源恰好被释放，则会被当前线程获取，这就造成了不公平的现象，当获取不成功，再加入队列尾部。
 
@@ -208,7 +208,7 @@ NonfairSync 类继承了 Sync类，表示采用非公平策略获取锁，其实
 
 为了帮助大家理解 ReentrantLock和 AQS之间方法的交互过程，以非公平锁为例，我们将加锁和解锁的交互流程单独拎出来强调一下，以便于对后续内容的理解。
 
-![image-20220520164654656](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220520164654656.png)
+![image-20220520164654656](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220520164654656.png)
 
 #### 3.5.1 加锁：
 
@@ -229,7 +229,7 @@ NonfairSync 类继承了 Sync类，表示采用非公平策略获取锁，其实
 
 通过上面的描述，大概可以总结出 ReentrantLock加锁解锁时 API层核心方法的映射关系。
 
-![image-20220520164936659](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220520164936659.png)
+![image-20220520164936659](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220520164936659.png)
 
 ## 4. 类的属性
 

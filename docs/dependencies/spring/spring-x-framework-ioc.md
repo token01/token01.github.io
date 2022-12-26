@@ -1,169 +1,119 @@
 ---
-order: 20
+order: 30
 category:
   - Spring
 
 ---
 
-# Spring基础 - Spring简单例子引入Spring要点
+# Spring基础 - Spring核心之控制反转(IOC)
 
-> [上文](https://pdai.tech/md/spring/spring-x-framework-introduce.html)中我们简单介绍了Spring和Spring Framework的组件，那么这些Spring Framework组件是如何配合工作的呢？本文主要承接上文，向你展示Spring Framework组件的典型应用场景和基于这个场景设计出的简单案例，并以此引出Spring的核心要点，比如IOC和AOP等；在此基础上还引入了不同的配置方式， 如XML，Java配置和注解方式的差异。
+>在[Spring基础 - Spring简单例子引入Spring的核心](https://pdai.tech/md/spring/spring-x-framework-helloworld.html)中向你展示了IoC的基础含义，同时以此发散了一些IoC相关知识点; 本节将在此基础上进一步解读IOC的含义以及IOC的使用方式。
 
-## 1. Spring框架如何应用
+## 1. 引入
 
-> [上文](https://pdai.tech/md/spring/spring-x-framework-introduce.html)中，我们展示了Spring和Spring Framework的组件, 这里对于开发者来说有几个问题：
->
-> 1. 首先，对于Spring进阶，直接去看IOC和AOP，存在一个断层，所以需要整体上构建对Spring框架认知上进一步深入，这样才能构建知识体系。
-> 2. 其次，很多开发者入门都是从Spring Boot开始的，他对Spring整体框架底层，以及发展历史不是很了解； 特别是对于一些老旧项目维护和底层bug分析没有全局观。
-> 3. 再者，Spring代表的是一种框架设计理念，需要全局上理解Spring Framework组件是如何配合工作的，需要理解它设计的初衷和未来趋势。
+> 我们在[Spring基础 - Spring简单例子引入Spring的核心](https://pdai.tech/md/spring/spring-x-framework-helloworld.html)中向你展示了IoC的基础含义，同时以此发散了一些IoC相关知识点。
 
-如下是官方在解释Spring框架的常用场景的图
+1. Spring框架管理这些Bean的创建工作，即由用户管理Bean转变为框架管理Bean，这个就叫**控制反转 - Inversion of Control (IoC)**
+2. Spring 框架托管创建的Bean放在哪里呢？ 这便是**IoC Container**;
+3. Spring 框架为了更好让用户配置Bean，必然会引入**不同方式来配置Bean？ 这便是xml配置，Java配置，注解配置**等支持
+4. Spring 框架既然接管了Bean的生成，必然需要**管理整个Bean的生命周期**等；
+5. 应用程序代码从Ioc Container中获取依赖的Bean，注入到应用程序中，这个过程叫 **依赖注入(Dependency Injection，DI)** ； 所以说控制反转是通过依赖注入实现的，其实它们是同一个概念的不同角度描述。通俗来说就是**IoC是设计思想，DI是实现方式**
+6. 在依赖注入时，有哪些方式呢？这就是构造器方式，@Autowired, @Resource, @Qualifier... 同时Bean之间存在依赖（可能存在先后顺序问题，以及**循环依赖问题**等）
 
-![image-20220709125203199](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709125203199.png)
+本节将在此基础上进一步解读IOC的含义以及IOC的使用方式；后续的文章还将深入IOC的实现原理：
 
-我加上一些注释后，是比较好理解的；引入这个图，重要的原因是为后面设计一个案例帮助你构建认知。
+- [Spring进阶- Spring IOC实现原理详解之IOC体系结构设计](https://pdai.tech/md/spring/spring-x-framework-ioc-source-1.html)
+- [Spring进阶- Spring IOC实现原理详解之IOC初始化流程](https://pdai.tech/md/spring/spring-x-framework-ioc-source-2.html)
+- [Spring进阶- Spring IOC实现原理详解之Bean的注入和生命周期](https://pdai.tech/md/spring/spring-x-framework-ioc-source-3.html)
 
-## 2. 设计一个Spring的Hello World
+## 2. 如何理解IoC
 
-> 结合上面的使用场景，**设计一个查询用户的案例的两个需求**，来看Spring框架帮我们简化了什么开发工作:
->
-> 1. **查询用户数据** - 来看DAO+POJO-> Service 的初始化和装载。
-> 2. **给所有Service的查询方法记录日志**
+如果你有精力看英文，首推 Martin Fowler大师的 [Inversion of Control Containers and the Dependency Injection pattern](https://www.martinfowler.com/articles/injection.html)；其次IoC作为一种设计思想，不要过度解读，而是应该简化理解，所以我这里也整合了 张开涛早前的博客[IoC基础 ](https://www.iteye.com/blog/jinnianshilongnian-1413846)并加入了自己的理解。
 
-- **创建一个Maven的Java项目**
+### 2.1 Spring Bean是什么
 
-<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709125359654.png" alt="image-20220709125359654"  />
+> IoC Container管理的是Spring Bean， 那么Spring Bean是什么呢？
 
-- **引入Spring框架的POM依赖，以及查看这些依赖之间的关系**
+Spring里面的bean就类似是定义的一个组件，而这个组件的作用就是实现某个功能的，这里所定义的bean就相当于给了你一个更为简便的方法来调用这个组件去实现你要完成的功能。
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+### 2.2 IoC是什么
 
-    <groupId>tech.pdai</groupId>
-    <artifactId>001-spring-framework-demo-helloworld-xml</artifactId>
-    <version>1.0-SNAPSHOT</version>
+> Ioc—Inversion of Control，即“控制反转”，**不是什么技术，而是一种设计思想**。在Java开发中，Ioc意味着将你设计好的对象交给容器控制，而不是传统的在你的对象内部直接控制。
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <spring.version>5.3.9</spring.version>
-        <aspectjweaver.version>1.9.6</aspectjweaver.version>
-    </properties>
+我们来深入分析一下：
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>${aspectjweaver.version}</version>
-        </dependency>
-    </dependencies>
+- **谁控制谁，控制什么**？
 
-</project>
-```
+传统Java SE程序设计，我们直接在对象内部通过new进行创建对象，是程序主动去创建依赖对象；而IoC是有专门一个容器来创建这些对象，即由Ioc容器来控制对 象的创建；谁控制谁？当然是IoC 容器控制了对象；控制什么？那就是主要控制了外部资源获取（不只是对象包括比如文件等）。
 
-![image-20220709125439070](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709125439070.png)
+- **为何是反转，哪些方面反转了**?
 
-- **POJO - User**
+有反转就有正转，传统应用程序是由我们自己在对象中主动控制去直接获取依赖对象，也就是正转；而反转则是由容器来帮忙创建及注入依赖对象；为何是反转？因为由容器帮我们查找及注入依赖对象，对象只是被动的接受依赖对象，所以是反转；哪些方面反转了？**依赖对象的获取被反转**了。
 
-```java
-package tech.pdai.springframework.entity;
+- **用图例说明一下**?
 
-/**
- * @author pdai
- */
-public class User {
+传统程序设计下，都是主动去创建相关对象然后再组合起来：
 
-    /**
-     * user's name.
-     */
-    private String name;
+![image-20220709202804834](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709202804834.png)
 
-    /**
-     * user's age.
-     */
-    private int age;
+当有了IoC/DI的容器后，在客户端类中不再主动去创建这些对象了，如图
 
-    /**
-     * init.
-     *
-     * @param name name
-     * @param age  age
-     */
-    public User(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
+![image-20220709202845187](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709202845187.png)
 
-    public String getName() {
-        return name;
-    }
+### 2.3 IoC能做什么
 
-    public void setName(String name) {
-        this.name = name;
-    }
+> IoC **不是一种技术，只是一种思想**，一个重要的面向对象编程的法则，它能指导我们如何设计出松耦合、更优良的程序。
 
-    public int getAge() {
-        return age;
-    }
+传统应用程序都是由我们在类内部主动创建依赖对象，从而导致类与类之间高耦合，难于测试；有了IoC容器后，**把创建和查找依赖对象的控制权交给了容器，由容器进行注入组合对象，所以对象与对象之间是 松散耦合，这样也方便测试，利于功能复用，更重要的是使得程序的整个体系结构变得非常灵活**。
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-}
-```
+其实IoC对编程带来的最大改变不是从代码上，而是从思想上，发生了“主从换位”的变化。应用程序原本是老大，要获取什么资源都是主动出击，但是在IoC/DI思想中，应用程序就变成被动的了，被动的等待IoC容器来创建并注入它所需要的资源了。
 
-- **DAO 获取 POJO， UserDaoServiceImpl (mock 数据)**
+IoC很好的体现了面向对象设计法则之一—— **好莱坞法则：“别找我们，我们找你”**；即由IoC容器帮对象找相应的依赖对象并注入，而不是由对象主动去找。
 
-```java
-package tech.pdai.springframework.dao;
 
-import java.util.Collections;
-import java.util.List;
+###  2.4 IoC和DI是什么关系
 
-import tech.pdai.springframework.entity.User;
+> 控制反转是通过依赖注入实现的，其实它们是同一个概念的不同角度描述。通俗来说就是**IoC是设计思想，DI是实现方式**。
 
-/**
- * @author pdai
- */
-public class UserDaoImpl {
+DI—Dependency Injection，即依赖注入：组件之间依赖关系由容器在运行期决定，形象的说，即由容器动态的将某个依赖关系注入到组件之中。依赖注入的目的并非为软件系统带来更多功能，而是为了提升组件重用的频率，并为系统搭建一个灵活、可扩展的平台。通过依赖注入机制，我们只需要通过简单的配置，而无需任何代码就可指定目标需要的资源，完成自身的业务逻辑，而不需要关心具体的资源来自何处，由谁实现。
 
-    /**
-     * init.
-     */
-    public UserDaoImpl() {
-    }
+我们来深入分析一下：
 
-    /**
-     * mocked to find user list.
-     *
-     * @return user list
-     */
-    public List<User> findUserList() {
-        return Collections.singletonList(new User("pdai", 18));
-    }
-}
-```
+- **谁依赖于谁**？
 
-并增加daos.xml
+当然是应用程序依赖于IoC容器；
+
+- **为什么需要依赖**？
+
+应用程序需要IoC容器来提供对象需要的外部资源；
+
+- **谁注入谁**？
+
+很明显是IoC容器注入应用程序某个对象，应用程序依赖的对象；
+
+- **注入了什么**？
+
+就是注入某个对象所需要的外部资源（包括对象、资源、常量数据）。
+
+- **IoC和DI有什么关系呢**？
+
+其实它们是同一个概念的不同角度描述，由于控制反转概念比较含糊（可能只是理解为容器控制对象这一个层面，很难让人想到谁来维护对象关系），所以2004年大师级人物Martin Fowler又给出了一个新的名字：“依赖注入”，相对IoC 而言，“依赖注入”明确描述了“被注入对象依赖IoC容器配置依赖对象”。通俗来说就是**IoC是设计思想，DI是实现方式**。
+
+## 3. Ioc 配置的三种方式
+
+> 在[Spring基础 - Spring简单例子引入Spring的核心](https://pdai.tech/md/spring/spring-x-framework-helloworld.html)已经给出了三种配置方式，这里再总结下；总体上目前的主流方式是 **注解 + Java 配置**。
+
+### 3.1 xml 配置
+
+顾名思义，就是将bean的信息配置.xml文件里，通过Spring加载文件为我们创建bean。这种方式出现很多早前的SSM项目中，将第三方类库或者一些配置工具类都以这种方式进行配置，主要原因是由于第三方类不支持Spring注解。
+
+- **优点**： 可以使用于任何场景，结构清晰，通俗易懂
+- **缺点**： 配置繁琐，不易维护，枯燥无味，扩展性差
+
+**举例**：
+
+1. 配置xx.xml文件
+2. 声明命名空间和配置bean
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -171,23 +121,123 @@ public class UserDaoImpl {
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
  http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean id="userDao" class="tech.pdai.springframework.dao.UserDaoImpl">
+    <!-- services -->
+    <bean id="userService" class="tech.pdai.springframework.service.UserServiceImpl">
+        <property name="userDao" ref="userDao"/>
         <!-- additional collaborators and configuration for this bean go here -->
     </bean>
-    <!-- more bean definitions for data access objects go here -->
+    <!-- more bean definitions for services go here -->
 </beans>
 ```
 
-- **业务层 UserServiceImpl（调用DAO层）**
+### 3.2 Java 配置
+
+将类的创建交给我们配置的JavaConfig类来完成，Spring只负责维护和管理，采用纯Java创建方式。其本质上就是把在XML上的配置声明转移到Java配置类中
+
+- **优点**：适用于任何场景，配置方便，因为是纯Java代码，扩展性高，十分灵活
+- **缺点**：由于是采用Java类的方式，声明不明显，如果大量配置，可读性比较差
+
+**举例**：
+
+1. 创建一个配置类， 添加@Configuration注解声明为配置类
+2. 创建方法，方法上加上@bean，该方法用于创建实例并返回，该实例创建后会交给spring管理，方法名建议与实例名相同（首字母小写）。注：实例类不需要加任何注解
 
 ```java
-package tech.pdai.springframework.service;
+/**
+ * @author pdai
+ */
+@Configuration
+public class BeansConfig {
 
-import java.util.List;
+    /**
+     * @return user dao
+     */
+    @Bean("userDao")
+    public UserDaoImpl userDao() {
+        return new UserDaoImpl();
+    }
 
-import tech.pdai.springframework.dao.UserDaoImpl;
-import tech.pdai.springframework.entity.User;
+    /**
+     * @return user service
+     */
+    @Bean("userService")
+    public UserServiceImpl userService() {
+        UserServiceImpl userService = new UserServiceImpl();
+        userService.setUserDao(userDao());
+        return userService;
+    }
+}
+```
 
+### 3.3 注解配置
+
+通过在类上加注解的方式，来声明一个类交给Spring管理，Spring会自动扫描带有@Component，@Controller，@Service，@Repository这四个注解的类，然后帮我们创建并管理，前提是需要先配置Spring的注解扫描器。
+
+- **优点**：开发便捷，通俗易懂，方便维护。
+- **缺点**：具有局限性，对于一些第三方资源，无法添加注解。只能采用XML或JavaConfig的方式配置
+
+**举例**：
+
+1. 对类添加@Component相关的注解，比如@Controller，@Service，@Repository
+2. 设置ComponentScan的basePackage, 比如`<context:component-scan base-package='tech.pdai.springframework'>`, 或者`@ComponentScan("tech.pdai.springframework")`注解，或者 `new AnnotationConfigApplicationContext("tech.pdai.springframework")`指定扫描的basePackage.
+
+```java
+
+/**
+ * @author pdai
+ */
+@Service
+public class UserServiceImpl {
+
+    /**
+     * user dao impl.
+     */
+    @Autowired
+    private UserDaoImpl userDao;
+
+    /**
+     * find user list.
+     *
+     * @return user list
+     */
+    public List<User> findUserList() {
+        return userDao.findUserList();
+    }
+
+}
+```
+
+## 4. 依赖注入的三种方式
+
+> 常用的注入方式主要有三种：构造方法注入（Construct注入），setter注入，成员变量/ 接口注入
+
+### 4.1 setter方式
+
+- **在XML配置方式中**，property都是setter方式注入，比如下面的xml:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- services -->
+    <bean id="userService" class="tech.pdai.springframework.service.UserServiceImpl">
+        <property name="userDao" ref="userDao"/>
+        <!-- additional collaborators and configuration for this bean go here -->
+    </bean>
+    <!-- more bean definitions for services go here -->
+</beans>
+```
+
+本质上包含两步：
+
+1. 第一步，需要new UserServiceImpl()创建对象, 所以需要默认构造函数
+2. 第二步，调用setUserDao()函数注入userDao的值, 所以需要setUserDao()函数
+
+所以对应的service类是这样的：
+
+```java
 /**
  * @author pdai
  */
@@ -224,7 +274,47 @@ public class UserServiceImpl {
 }
 ```
 
-并增加services.xml
+
+
+- **在注解和Java配置方式下**
+
+```java
+/**
+ * @author pdai
+ */
+public class UserServiceImpl {
+
+    /**
+     * user dao impl.
+     */
+    private UserDaoImpl userDao;
+
+    /**
+     * find user list.
+     *
+     * @return user list
+     */
+    public List<User> findUserList() {
+        return this.userDao.findUserList();
+    }
+
+    /**
+     * set dao.
+     *
+     * @param userDao user dao
+     */
+    @Autowired
+    public void setUserDao(UserDaoImpl userDao) {
+        this.userDao = userDao;
+    }
+}
+```
+
+在Spring3.x刚推出的时候，推荐使用注入的就是这种, 但是这种方式比较麻烦，所以在Spring4.x版本中推荐构造函数注入。
+
+### 4.2 构造函数
+
+- **在XML配置方式中**，`<constructor-arg>`是通过构造函数参数注入，比如下面的xml:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -234,360 +324,94 @@ public class UserServiceImpl {
  http://www.springframework.org/schema/beans/spring-beans.xsd">
     <!-- services -->
     <bean id="userService" class="tech.pdai.springframework.service.UserServiceImpl">
-        <property name="userDao" ref="userDao"/>
+        <constructor-arg name="userDao" ref="userDao"/>
         <!-- additional collaborators and configuration for this bean go here -->
     </bean>
     <!-- more bean definitions for services go here -->
 </beans>
 ```
 
-- **拦截所有service中的方法，并输出记录**
-
-```java
-package tech.pdai.springframework.aspect;
-
-import java.lang.reflect.Method;
-
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-
-/**
- * @author pdai
- */
-@Aspect
-public class LogAspect {
-
-    /**
-     * aspect for every methods under service package.
-     */
-    @Around("execution(* tech.pdai.springframework.service.*.*(..))")
-    public Object businessService(ProceedingJoinPoint pjp) throws Throwable {
-        // get attribute through annotation
-        Method method = ((MethodSignature) pjp.getSignature()).getMethod();
-        System.out.println("execute method: " + method.getName());
-
-        // continue to process
-        return pjp.proceed();
-    }
-
-}
-```
-
-并增加aspects.xml
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
- http://www.springframework.org/schema/beans/spring-beans.xsd
- http://www.springframework.org/schema/aop
- http://www.springframework.org/schema/aop/spring-aop.xsd
- http://www.springframework.org/schema/context
- http://www.springframework.org/schema/context/spring-context.xsd
-">
-
-    <context:component-scan base-package="tech.pdai.springframework" />
-
-    <aop:aspectj-autoproxy/>
-
-    <bean id="logAspect" class="tech.pdai.springframework.aspect.LogAspect">
-        <!-- configure properties of aspect here as normal -->
-    </bean>
-    <!-- more bean definitions for data access objects go here -->
-</beans>
-```
-
-
-
-- **组装App**
-
-```java
-package tech.pdai.springframework;
-
-import java.util.List;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import tech.pdai.springframework.entity.User;
-import tech.pdai.springframework.service.UserServiceImpl;
-
-/**
- * @author pdai
- */
-public class App {
-
-    /**
-     * main interfaces.
-     *
-     * @param args args
-     */
-    public static void main(String[] args) {
-        // create and configure beans
-        ApplicationContext context =
-                new ClassPathXmlApplicationContext("aspects.xml", "daos.xml", "services.xml");
-
-        // retrieve configured instance
-        UserServiceImpl service = context.getBean("userService", UserServiceImpl.class);
-
-        // use configured instance
-        List<User> userList = service.findUserList();
-
-        // print info from beans
-        userList.forEach(a -> System.out.println(a.getName() + "," + a.getAge()));
-    }
-}
-```
-
-- **整体结构和运行app**
-
-![image-20220709125714067](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709125714067.png)
-
-## 2. 这个例子体现了Spring的哪些核心要点
-
-> 那么Spring框架帮助我们做什么，它体现了什么哪些要点呢?
-
-### 2.1 控制反转 - IOC
-
-> 来看第一个需求：**查询用户**（service通过调用dao查询pojo)，本质上如何创建User/Dao/Service等；
-
-- **如果没有Spring框架，我们需要自己创建User/Dao/Service等**，比如：
-
-  ```java
-  UserDaoImpl userDao = new UserDaoImpl();
-  UserSericeImpl userService = new UserServiceImpl();
-  userService.setUserDao(userDao);
-  List<User> userList = userService.findUserList();
-  ```
-
-- **有了Spring框架，可以将原有Bean的创建工作转给框架, 需要用时从Bean的容器中获取即可，这样便简化了开发工作**
-
-  Bean的创建和使用分离了。
-
-  ```java
-  // create and configure beans
-  ApplicationContext context =
-          new ClassPathXmlApplicationContext("aspects.xml", "daos.xml", "services.xml");
-  
-  // retrieve configured instance
-  UserServiceImpl service = context.getBean("userService", UserServiceImpl.class);
-  
-  // use configured instance
-  List<User> userList = service.findUserList();
-    
-  ```
-
-  ![image-20220709132850453](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709132850453.png)
-
-  
-
-更进一步，**你便能理解为何会有如下的知识点了**：
-
-1. Spring框架管理这些Bean的创建工作，即由用户管理Bean转变为框架管理Bean，这个就叫**控制反转 - Inversion of Control (IoC)**
-2. Spring 框架托管创建的Bean放在哪里呢？ 这便是**IoC Container**;
-3. Spring 框架为了更好让用户配置Bean，必然会引入**不同方式来配置Bean？ 这便是xml配置，Java配置，注解配置**等支持
-4. Spring 框架既然接管了Bean的生成，必然需要**管理整个Bean的生命周期**等；
-5. 应用程序代码从Ioc Container中获取依赖的Bean，注入到应用程序中，这个过程叫 **依赖注入(Dependency Injection，DI)** ； 所以说控制反转是通过依赖注入实现的，其实它们是同一个概念的不同角度描述。通俗来说就是**IoC是设计思想，DI是实现方式**
-6. 在依赖注入时，有哪些方式呢？这就是构造器方式，@Autowired, @Resource, @Qualifier... 同时Bean之间存在依赖（可能存在先后顺序问题，以及**循环依赖问题**等）
-
-这边引入我们后续的相关文章：[Spring基础 - Spring之控制反转(IOC)](https://pdai.tech/md/spring/spring-x-framework-ioc.html)
-
-### 2.2 面向切面 - AOP
-
-> 来看第二个需求：**给Service所有方法调用添加日志**（调用方法时)，本质上是解耦问题；
-
-- **如果没有Spring框架，我们需要在每个service的方法中都添加记录日志的方法**，比如：
-
-```java
-/**
-* find user list.
-*
-* @return user list
-*/
-public List<User> findUserList() {
-    System.out.println("execute method findUserList");
-    return this.userDao.findUserList();
-}
-```
-
-- **有了Spring框架，通过@Aspect注解 定义了切面，这个切面中定义了拦截所有service中的方法，并记录日志； 可以明显看到，框架将日志记录和业务需求的代码解耦了，不再是侵入式的了**
-
-```java
-/**
-* aspect for every methods under service package.
-*/
-@Around("execution(* tech.pdai.springframework.service.*.*(..))")
-public Object businessService(ProceedingJoinPoint pjp) throws Throwable {
-    // get attribute through annotation
-    Method method = ((MethodSignature) pjp.getSignature()).getMethod();
-    System.out.println("execute method: " + method.getName());
-
-    // continue to process
-    return pjp.proceed();
-}
-```
-
-更进一步，**你便能理解为何会有如下的知识点了**：
-
-1. Spring 框架通过定义切面, 通过拦截切点实现了不同业务模块的解耦，这个就叫**面向切面编程 - Aspect Oriented Programming (AOP)**
-2. 为什么@Aspect注解使用的是aspectj的jar包呢？这就引出了**Aspect4J和Spring AOP的历史渊源**，只有理解了Aspect4J和Spring的渊源才能理解有些注解上的兼容设计
-3. 如何支持**更多拦截方式**来实现解耦， 以满足更多场景需求呢？ 这就是@Around, @Pointcut... 等的设计
-4. 那么Spring框架又是如何实现AOP的呢？ 这就引入**代理技术，分静态代理和动态代理**，动态代理又包含JDK代理和CGLIB代理等
-
-这边引入我们后续的相关文章：[Spring基础 - Spring之面向切面编程(AOP)](https://pdai.tech/md/spring/spring-x-framework-aop.html)
-
-## 3. Spring框架设计如何逐步简化开发的
-
-> 通过上述的框架介绍和例子，已经初步知道了Spring设计的两个大的要点：IOC和AOP；从框架的设计角度而言，更为重要的是简化开发，比如提供更为便捷的配置Bean的方式，直至0配置（即约定大于配置）。这里我将通过Spring历史版本的发展，和SpringBoot的推出等，来帮你理解Spring框架是如何逐步简化开发的。
-
-### 3.1  Java 配置方式改造
-
-在前文的例子中， 通过xml配置方式实现的，这种方式实际上比较麻烦； 我通过Java配置进行改造：
-
-- User，UserDaoImpl, UserServiceImpl，LogAspect不用改
-- 将原通过.xml配置转换为Java配置
-
-```java
-package tech.pdai.springframework.config;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import tech.pdai.springframework.aspect.LogAspect;
-import tech.pdai.springframework.dao.UserDaoImpl;
-import tech.pdai.springframework.service.UserServiceImpl;
-
-/**
- * @author pdai
- */
-@EnableAspectJAutoProxy
-@Configuration
-public class BeansConfig {
-
-    /**
-     * @return user dao
-     */
-    @Bean("userDao")
-    public UserDaoImpl userDao() {
-        return new UserDaoImpl();
-    }
-
-    /**
-     * @return user service
-     */
-    @Bean("userService")
-    public UserServiceImpl userService() {
-        UserServiceImpl userService = new UserServiceImpl();
-        userService.setUserDao(userDao());
-        return userService;
-    }
-
-    /**
-     * @return log aspect
-     */
-    @Bean("logAspect")
-    public LogAspect logAspect() {
-        return new LogAspect();
-    }
-}
-
-  
-```
-
-- **在App中加载BeansConfig的配置**
-
-```java
-package tech.pdai.springframework;
-
-import java.util.List;
-
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import tech.pdai.springframework.config.BeansConfig;
-import tech.pdai.springframework.entity.User;
-import tech.pdai.springframework.service.UserServiceImpl;
-
-/**
- * @author pdai
- */
-public class App {
-
-    /**
-     * main interfaces.
-     *
-     * @param args args
-     */
-    public static void main(String[] args) {
-        // create and configure beans
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(BeansConfig.class);
-
-        // retrieve configured instance
-        UserServiceImpl service = context.getBean("userService", UserServiceImpl.class);
-
-        // use configured instance
-        List<User> userList = service.findUserList();
-
-        // print info from beans
-        userList.forEach(a -> System.out.println(a.getName() + "," + a.getAge()));
-    }
-}
-```
-
-- **整体结构和运行app**
-
-![image-20220709133837520](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709133837520.png)
-
-### 3.2 注解配置方式改造
-
-更进一步，Java 5开始提供注解支持，Spring 2.5 开始完全支持基于注解的配置并且也支持JSR250 注解。在Spring后续的版本发展倾向于通过注解和Java配置结合使用.
-
-- **BeanConfig 不再需要Java配置**
-
-```java
-package tech.pdai.springframework.config;
-
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-
-/**
- * @author pdai
- */
-@Configuration
-@EnableAspectJAutoProxy
-public class BeansConfig {
-
-}
-
-  
-```
-
-- **UserDaoImpl 增加了 @Repository注解**
+本质上是new UserServiceImpl(userDao)创建对象, 所以对应的service类是这样的：
 
 ```java
 /**
  * @author pdai
  */
-@Repository
-public class UserDaoImpl {
+public class UserServiceImpl {
 
     /**
-     * mocked to find user list.
+     * user dao impl.
+     */
+    private final UserDaoImpl userDao;
+
+    /**
+     * init.
+     * @param userDaoImpl user dao impl
+     */
+    public UserServiceImpl(UserDaoImpl userDaoImpl) {
+        this.userDao = userDaoImpl;
+    }
+
+    /**
+     * find user list.
      *
      * @return user list
      */
     public List<User> findUserList() {
-        return Collections.singletonList(new User("pdai", 18));
+        return this.userDao.findUserList();
     }
+
 }
 ```
 
-- **UserServiceImpl 增加了@Service 注解，并通过@Autowired注入userDao**.
+
+
+- **在注解和Java配置方式下**
+
+```java
+/**
+ * @author pdai
+ */
+ @Service
+public class UserServiceImpl {
+
+    /**
+     * user dao impl.
+     */
+    private final UserDaoImpl userDao;
+
+    /**
+     * init.
+     * @param userDaoImpl user dao impl
+     */
+    @Autowired // 这里@Autowired也可以省略
+    public UserServiceImpl(final UserDaoImpl userDaoImpl) {
+        this.userDao = userDaoImpl;
+    }
+
+    /**
+     * find user list.
+     *
+     * @return user list
+     */
+    public List<User> findUserList() {
+        return this.userDao.findUserList();
+    }
+
+}
+```
+
+在Spring4.x版本中推荐的注入方式就是这种， 具体原因看后续章节。
+
+### 4.3 成员变量/ 接口注入
+
+以@Autowired（自动注入）注解注入为例，修饰符有三个属性：Constructor，byType，byName。默认按照byType注入。
+
+- **constructor**：通过构造方法进行自动注入，spring会匹配与构造方法参数类型一致的bean进行注入，如果有一个多参数的构造方法，一个只有一个参数的构造方法，在容器中查找到多个匹配多参数构造方法的bean，那么spring会优先将bean注入到多参数的构造方法中。
+- **byName**：被注入bean的id名必须与set方法后半截匹配，并且id名称的第一个单词首字母必须小写，这一点与手动set注入有点不同。
+- **byType**：查找所有的set方法，将符合符合参数类型的bean注入。
+
+比如：
 
 ```java
 /**
@@ -614,62 +438,311 @@ public class UserServiceImpl {
 }
 ```
 
-- **在App中扫描tech.pdai.springframework包**
+## 5. IoC和DI使用问题小结
+
+> 这里总结下实际开发中会遇到的一些问题：
+
+### 5.1 为什么推荐构造器注入方式？
+
+先来看看Spring在文档里怎么说：
+
+> The Spring team generally advocates constructor injection as it enables one to implement application components as immutable objects and to ensure that required dependencies are not null. Furthermore constructor-injected components are always returned to client (calling) code in a fully initialized state.
+
+简单的翻译一下：这个构造器注入的方式**能够保证注入的组件不可变，并且确保需要的依赖不为空**。此外，构造器注入的依赖总是能够在返回客户端（组件）代码的时候保证完全初始化的状态。
+
+下面来简单的解释一下：
+
+- **依赖不可变**：其实说的就是final关键字。
+- **依赖不为空**（省去了我们对其检查）：当要实例化UserServiceImpl的时候，由于自己实现了有参数的构造函数，所以不会调用默认构造函数，那么就需要Spring容器传入所需要的参数，所以就两种情况：1、有该类型的参数->传入，OK 。2：无该类型的参数->报错。
+- **完全初始化的状态**：这个可以跟上面的依赖不为空结合起来，向构造器传参之前，要确保注入的内容不为空，那么肯定要调用依赖组件的构造方法完成实例化。而在Java类加载实例化的过程中，构造方法是最后一步（之前如果有父类先初始化父类，然后自己的成员变量，最后才是构造方法），所以返回来的都是初始化之后的状态。
+
+所以通常是这样的
 
 ```java
-package tech.pdai.springframework;
-
-import java.util.List;
-
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import tech.pdai.springframework.entity.User;
-import tech.pdai.springframework.service.UserServiceImpl;
-
 /**
  * @author pdai
  */
-public class App {
+ @Service
+public class UserServiceImpl {
 
     /**
-     * main interfaces.
-     *
-     * @param args args
+     * user dao impl.
      */
-    public static void main(String[] args) {
-        // create and configure beans
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
-                "tech.pdai.springframework");
+    private final UserDaoImpl userDao;
 
-        // retrieve configured instance
-        UserServiceImpl service = context.getBean(UserServiceImpl.class);
-
-        // use configured instance
-        List<User> userList = service.findUserList();
-
-        // print info from beans
-        userList.forEach(a -> System.out.println(a.getName() + "," + a.getAge()));
+    /**
+     * init.
+     * @param userDaoImpl user dao impl
+     */
+    public UserServiceImpl(final UserDaoImpl userDaoImpl) {
+        this.userDao = userDaoImpl;
     }
+
 }
 ```
 
-- **整体结构和运行app**
+如果使用setter注入，缺点显而易见，对于IOC容器以外的环境，除了使用反射来提供它需要的依赖之外，**无法复用该实现类**。而且将一直是个潜在的隐患，因为你不调用将一直无法发现NPE的存在。
 
-![image-20220709134144143](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709134144143.png)
+```java
+// 这里只是模拟一下，正常来说我们只会暴露接口给客户端，不会暴露实现。
+UserServiceImpl userService = new UserServiceImpl();
+userService.findUserList(); // -> NullPointerException, 潜在的隐患
+```
 
-### 3.3 SpringBoot托管配置
+**循环依赖的问题**：使用field注入可能会导致循环依赖，即A里面注入B，B里面又注入A：
 
-Springboot实际上通过约定大于配置的方式，使用xx-starter统一的对Bean进行默认初始化，用户只需要很少的配置就可以进行开发了。
+```java
+public class A {
+    @Autowired
+    private B b;
+}
 
-这个因为很多开发者都是从SpringBoot开始着手开发的，所以这个比较好理解。我们需要的是将知识点都串联起来，构筑认知体系。
+public class B {
+    @Autowired
+    private A a;
+}
+```
 
-### 3.4 结合Spring历史版本和SpringBoot看发展
+如果使用构造器注入，在spring项目启动的时候，就会抛出：BeanCurrentlyInCreationException：Requested bean is currently in creation: Is there an unresolvable circular reference？从而提醒你避免循环依赖，如果是field注入的话，启动的时候不会报错，在使用那个bean的时候才会报错。
 
-最后结合Spring历史版本总结下它的发展：
+### 5.2 我在使用构造器注入方式时注入了太多的类导致Bad Smell怎么办？
 
-（这样是不是能够帮助你在整体上构建了知识体系的认知了呢？）
+比如当你一个Controller中注入了太多的Service类，Sonar会给你提示相关告警
 
-![image-20220709134254882](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220709134254882.png)
+![image-20220709205214414](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220709205214414.png)
+
+对于这个问题，说明你的类当中有太多的责任，那么你要好好想一想是不是自己违反了类的[单一性职责原则](https://pdai.tech/md/dev-spec/spec/dev-th-solid.html#s单一职责srp)，从而导致有这么多的依赖要注入。
+
+（pdai： 想起来一句话：**所有困难问题的解决方式，都在另外一个层次**）
+
+
+### 5.3 @Autowired和@Resource以及@Inject等注解注入有何区别？
+
+> @Autowired和@Resource以及@Inject等注解注入有何区别？ 这时平时在开发中，或者常见的面试题。
+
+#### 5.3.1 @Autowired
+
+- **Autowired注解源码**
+
+在Spring 2.5 引入了 @Autowired 注解
+
+```java
+@Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface Autowired {
+  boolean required() default true;
+}
+```
+
+从Autowired注解源码上看，可以使用在下面这些地方：
+
+```java
+@Target(ElementType.CONSTRUCTOR) #构造函数
+@Target(ElementType.METHOD) #方法
+@Target(ElementType.PARAMETER) #方法参数
+@Target(ElementType.FIELD) #字段、枚举的常量
+@Target(ElementType.ANNOTATION_TYPE) #注解
+
+```
+
+还有一个value属性，默认是true。
+
+- **简单总结**：
+
+1. @Autowired是Spring自带的注解，通过AutowiredAnnotationBeanPostProcessor 类实现的依赖注入
+
+2. @Autowired可以作用在CONSTRUCTOR、METHOD、PARAMETER、FIELD、ANNOTATION_TYPE
+
+3. @Autowired默认是根据类型（byType ）进行自动装配的
+
+4. 如果有多个类型一样的Bean候选者，需要指定按照名称（byName ）进行装配，则需要配合@Qualifier。
+
+指定名称后，如果Spring IOC容器中没有对应的组件bean抛出NoSuchBeanDefinitionException。也可以将@Autowired中required配置为false，如果配置为false之后，当没有找到相应bean的时候，系统不会抛异常
+
+- **简单使用代码**：
+
+在字段属性上。
+
+```java
+@Autowired
+private HelloDao helloDao;
+```
+
+或者
+
+```java
+private HelloDao helloDao;
+public HelloDao getHelloDao() {
+ return helloDao;
+}
+@Autowired
+public void setHelloDao(HelloDao helloDao) {
+ this.helloDao = helloDao;
+}
+```
+
+或者
+
+```java
+private HelloDao helloDao;
+//@Autowired
+public HelloServiceImpl(@Autowired HelloDao helloDao) {
+ this.helloDao = helloDao;
+}
+// 构造器注入也可不写@Autowired，也可以注入成功。
+
+```
+
+将@Autowired写在被注入的成员变量上，setter或者构造器上，就不用再xml文件中配置了。
+
+如果有多个类型一样的Bean候选者，则默认根据设定的属性名称进行获取。如 HelloDao 在Spring中有 helloWorldDao 和 helloDao 两个Bean候选者。
+
+```java
+@Autowired
+private HelloDao helloDao;
+```
+
+首先根据类型获取，发现多个HelloDao，然后根据helloDao进行获取，如果要获取限定的其中一个候选者，结合@Qualifier进行注入。
+
+```java
+@Autowired
+@Qualifier("helloWorldDao")
+private HelloDao helloDao;
+```
+
+注入名称为helloWorldDao 的Bean组件。@Qualifier("XXX") 中的 XX是 Bean 的名称，所以 @Autowired 和 @Qualifier 结合使用时，自动注入的策略就从 byType 转变成 byName 了。
+
+多个类型一样的Bean候选者，也可以@Primary进行使用，设置首选的组件，也就是默认优先使用哪一个。
+
+注意：使用@Qualifier 时候，如何设置的指定名称的Bean不存在，则会抛出异常，如果防止抛出异常，可以使用：
+
+```java
+@Qualifier("xxxxyyyy")
+@Autowired(required = false)
+private HelloDao helloDao;
+```
+
+在SpringBoot中也可以使用@Bean+@Autowired进行组件注入，将@Autowired加到参数上，其实也可以省略。
+
+```java
+@Bean
+public Person getPerson(@Autowired Car car){
+ return new Person();
+}
+// @Autowired 其实也可以省略
+```
+
+#### 5.3.2 @Resource
+
+- **Resource注解源码**
+
+```java
+@Target({TYPE, FIELD, METHOD})
+@Retention(RUNTIME)
+public @interface Resource {
+    String name() default "";
+    // 其他省略
+}
+```
+
+从Resource注解源码上看，可以使用在下面这些地方：
+
+```java
+@Target(ElementType.TYPE) #接口、类、枚举、注解
+@Target(ElementType.FIELD) #字段、枚举的常量
+@Target(ElementType.METHOD) #方法
+```
+
+name 指定注入指定名称的组件。
+
+- **简单总结**：
+
+1、@Resource是JSR250规范的实现，在javax.annotation包下
+
+2、@Resource可以作用TYPE、FIELD、METHOD上
+
+3、@Resource是默认根据属性名称进行自动装配的，如果有多个类型一样的Bean候选者，则可以通过name进行指定进行注入
+
+- **简单使用代码**：
+
+```java
+@Component
+public class SuperMan {
+    @Resource
+    private Car car;
+} 
+```
+
+按照属性名称 car 注入容器中的组件。如果容器中BMW还有BYD两种类型组件。指定加入BMW。如下代码：
+
+```java
+@Component
+public class SuperMan {
+    @Resource(name = "BMW")
+    private Car car;
+}
+```
+
+name 的作用类似 @Qualifier
+
+#### 5.3.3 @Inject
+
+- **Inject注解源码**
+
+```java
+@Target({ METHOD, CONSTRUCTOR, FIELD })
+@Retention(RUNTIME)
+@Documented
+public @interface Inject {}
+```
+
+从Inject注解源码上看，可以使用在下面这些地方：
+
+```java
+@Target(ElementType.CONSTRUCTOR) #构造函数
+@Target(ElementType.METHOD) #方法
+@Target(ElementType.FIELD) #字段、枚举的常量
+```
+
+- **简单总结**：
+
+1. @Inject是JSR330 (Dependency Injection for Java)中的规范，需要导入javax.inject.Inject jar包 ，才能实现注入
+
+2. @Inject可以作用CONSTRUCTOR、METHOD、FIELD上
+
+3. @Inject是根据类型进行自动装配的，如果需要按名称进行装配，则需要配合@Named；
+
+- **简单使用代码**：
+
+```java
+@Inject
+private Car car;
+
+```
+
+指定加入BMW组件。
+
+```java
+@Inject
+@Named("BMW")
+private Car car;
+```
+
+@Named 的作用类似 @Qualifier！
+
+#### 5.3.4 总结
+
+1. @Autowired是Spring自带的，@Resource是JSR250规范实现的，@Inject是JSR330规范实现的
+
+2. @Autowired、@Inject用法基本一样，不同的是@Inject没有required属性
+
+3. @Autowired、@Inject是默认按照类型匹配的，@Resource是按照名称匹配的
+
+4. @Autowired如果需要按照名称匹配需要和@Qualifier一起使用，@Inject和@Named一起使用，@Resource则通过name进行指定
+
+如果你还期望源码层理解，我给你找了一篇文章[Spring源码分析@Autowired、@Resource注解的区别](https://blog.csdn.net/qq_35634181/article/details/104802906)
 
 ## 参考文章
 
-[**Spring基础 - Spring简单例子引入Spring要点**](https://pdai.tech/md/spring/spring-x-framework-helloworld.html)
+[Spring基础 - Spring核心之控制反转(IOC)](https://pdai.tech/md/spring/spring-x-framework-ioc.html)

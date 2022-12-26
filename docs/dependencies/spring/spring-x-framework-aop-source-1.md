@@ -15,7 +15,7 @@ category:
 
 1. 前文中我们写了AOP的Demo，根据其XML配置我们不难发现**AOP是基于IOC的Bean加载来实现的**；这便使我们的主要入口
 
-![image-20220712204834728](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220712204834728.png)
+![image-20220712204834728](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220712204834728.png)
 
 所以理解Spring AOP的初始化必须要先理解[Spring IOC的初始化](https://pdai.tech/md/spring/spring-x-framework-ioc-source-2.html)。
 
@@ -23,7 +23,7 @@ category:
 
 即parseCustomElement方法找到parse `aop:aspectj-autoproxy`的handler(org.springframework.aop.config.AopNamespaceHandler)
 
-![image-20220712205008435](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220712205008435.png)
+![image-20220712205008435](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220712205008435.png)
 
 >（PS：其实你会发现，最重要的是知识点的关联关系，而不是知识点本身，就后续代码而言不就是打个断点慢慢看的事了么。）
 
@@ -93,7 +93,7 @@ public BeanDefinition parse(Element element, ParserContext parserContext) {
 
 打个断点看下
 
-![image-20220712205423117](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220712205423117.png)
+![image-20220712205423117](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220712205423117.png)
 
 parseAspect的方法如下, 处理方法不难，我这里就不展开了
 
@@ -201,7 +201,7 @@ public static BeanDefinition registerAspectJAnnotationAutoProxyCreatorIfNecessar
 
 如下是类结构关系
 
-![image-20220712205720168](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220712205720168.png)
+![image-20220712205720168](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220712205720168.png)
 
 
 
@@ -212,7 +212,7 @@ public static BeanDefinition registerAspectJAnnotationAutoProxyCreatorIfNecessar
 
 结合前文Spring Bean生命周期的流程
 
-![image-20220712205919464](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220712205919464.png)
+![image-20220712205919464](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220712205919464.png)
 
 我们就可以定位到核心的初始化方法肯定在postProcessBeforeInstantiation和postProcessAfterInitialization中。
 
@@ -220,7 +220,7 @@ public static BeanDefinition registerAspectJAnnotationAutoProxyCreatorIfNecessar
 
 如下是上述类结构中postProcessBeforeInstantiation的方法，读者在自己看代码的时候建议打个断点看，可以方便理解
 
-![image-20220712210030356](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220712210030356.png)
+![image-20220712210030356](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220712210030356.png)
 
 ```java
 
@@ -303,7 +303,7 @@ protected boolean isInfrastructureClass(Class<?> beanClass) {
 
 通过断点辅助，candidateAdvisors是就是xml配置的通知是对应的
 
-![image-20220712210248262](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220712210248262.png)
+![image-20220712210248262](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220712210248262.png)
 
 ```java
 

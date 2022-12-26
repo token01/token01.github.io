@@ -14,7 +14,7 @@ category:
 
 如果你直接去看官方文档，大概也有十几种：
 
-![image-20220806215514422](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220806215514422.png)
+![image-20220806215514422](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220806215514422.png)
 
 > 那么metric聚合又如何理解呢？我认为从两个角度：
 

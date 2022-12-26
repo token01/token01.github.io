@@ -28,7 +28,7 @@ category:
 
 LiveLoad是提供浏览器客户端自动加载更新的工具，分为LiveLoad服务器和Liveload浏览器插件两部分； devtools中已经集成了LiveLoad服务器，所以如果我们开发的是web应用，并且期望浏览器自动刷新， 这时候可以考虑LiveLoad.
 
-![image-20220716103314429](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716103314429.png)
+![image-20220716103314429](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220716103314429.png)
 
 同一时间只能运行一个LiveReload服务器。 开始应用程序之前，请确保没有其他LiveReload服务器正在运行。如果从IDE启动多个应用程序，则只有第一个应用程序将支持LiveReload。
 
@@ -56,7 +56,7 @@ LiveLoad是提供浏览器客户端自动加载更新的工具，分为LiveLoad�
 
 #### 2.2.1 方式一： **无任何配置时，手动触发重启更新（Ctrl+F9）**
 
-![image-20220716103429362](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716103429362.png)
+![image-20220716103429362](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220716103429362.png)
 
 （也可以用`mvn compile`编译触发重启更新）
 
@@ -68,7 +68,7 @@ File->Setting->Build,Execution,Deployment->Compile
 
 勾选：Make project automatically
 
-![image-20220716103508265](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716103508265.png)
+![image-20220716103508265](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220716103508265.png)
 
 **设置2**：
 
@@ -80,7 +80,7 @@ File->Setting->Build,Execution,Deployment->Compile
 
 新版本的IDEA可以在File->setting->Advanced Setttings里面的第一个设置：
 
-![image-20220716103530756](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716103530756.png)
+![image-20220716103530756](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220716103530756.png)
 
 ### 2.3 application.yml配置
 
@@ -101,11 +101,11 @@ spring:
 
 spring-boot-devtools模块包含**嵌入式LiveReload服务器**，可以在资源更改时用于触发浏览器刷新。 LiveReload浏览器扩展程序支持Chrome，Firefox和Safari，你可以从livereload.com免费下载。
 
-![image-20220716103640674](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716103640674.png)
+![image-20220716103640674](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220716103640674.png)
 
 或者从浏览器插件中心下载，比如firefox:
 
-![image-20220716103657510](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716103657510.png)
+![image-20220716103657510](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220716103657510.png)
 
 安装完之后，可以通过如下图标管理
 
@@ -285,7 +285,7 @@ spring:
 
   - 多数情况下，如果是**方法内部的修改或者静态资源的修改**，在IDEA中是可以通过Rebuild（Ctrl + Shift + F9）进行热更的
 
-    ![image-20220716113243457](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716113243457.png)
+    ![image-20220716113243457](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220716113243457.png)
 
 - 此外还有一个工具spring loaded， 可实现修改类文件的热部署，具体可看其[github地址](https://github.com/spring-projects/spring-loaded)上的说明。
 

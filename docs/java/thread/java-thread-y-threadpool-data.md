@@ -1,46 +1,376 @@
-# 线程池
+# 在接口中使用线程池，处理数据
 
-## 1. 为什么要使用线程池
+## 1. 实例步骤
 
-- **降低资源消耗**：通过重复利用已创建的线程降低线程创建和销毁造成的消耗。
-- **提高响应速度**：当任务到达时，任务可以不需要的等到线程创建就能立即执行。
-- **提高线程的可管理行性**：线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。
+1. 定义线程池
 
-##  2. 实现Runnable接口和Callable接口的区别
+   ```java
+   package com.zszdevelop.threadpooldemo.config;
+   
+   
+   import org.springframework.context.annotation.Bean;
+   import org.springframework.context.annotation.Configuration;
+   import org.springframework.scheduling.annotation.EnableAsync;
+   import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+   
+   import java.util.concurrent.ThreadPoolExecutor;
+   
+   @Configuration
+   public class ThreadPoolConfigure {
+   
+       @Bean
+       public ThreadPoolTaskExecutor asyncThreadPoolTaskExecutor() {
+           ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+           executor.setCorePoolSize(5);
+           executor.setMaxPoolSize(10);
+           executor.setQueueCapacity(50);
+           executor.setKeepAliveSeconds(30);
+           executor.setThreadNamePrefix("MY-Thread");
+           executor.setWaitForTasksToCompleteOnShutdown(true);
+           executor.setAwaitTerminationSeconds(60);
+           executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+           executor.initialize();
+           return executor;
+       }
+   
+   }
+   
+   ```
 
-两者的区别在于 Runnable 接口不会返回结果但是 Callable 接口可以返回结果。
+2. 定义接口
 
->**备注：** 工具类`Executors`可以实现`Runnable`对象和`Callable`对象之间的相互转换。（`Executors.callable（Runnable task）`或`Executors.callable（Runnable task，Object resule）`）
+   ```java
+   package com.zszdevelop.threadpooldemo.controller;
+   
+   import com.zszdevelop.threadpooldemo.service.AsyncService;
+   import org.springframework.beans.factory.annotation.Autowired;
+   import org.springframework.web.bind.annotation.GetMapping;
+   import org.springframework.web.bind.annotation.RestController;
+   
+   @RestController
+   public class AsyncController {
+   
+       @Autowired
+       AsyncService asyncService;
+   
+   
+       @GetMapping("/testAsync")
+       public String testAsync()
+       {
+           System.out.println(Thread.currentThread().getName());
+           asyncService.useAsyncThreadWork();
+           return "testAsync方法执行成功...";
+       }
+   }
+   
+   
+   ```
 
-## 3. 执行execute()方法和submit()方法的区别是什么呢？
+3. 定义service
 
-1)**execute() 方法用于提交不需要返回值的任务，所以无法判断任务是否被线程池执行成功与否；**
+   ```java
+   public interface AsyncService {
+   
+       /**
+        * 测试使用异步线程池来执行工作
+        */
+       public void useAsyncThreadWork();
+   
+   }
+   
+   ```
 
-2)**submit() 方法用于提交需要返回值的任务。线程池会返回一个Future类型的对象，通过这个Future对象可以判断任务是否执行成功**，并且可以通过future的get()方法来获取返回值，get()方法会阻塞当前线程直到任务完成，而使用 `get（long timeout，TimeUnit unit）`方法则会阻塞当前线程一段时间后立即返回，这时候有可能任务没有执行完。
+4. 定义接口实现类
 
-## 4. 如何创建线程池
+   ```java
+   package com.zszdevelop.threadpooldemo.service.impl;
+   
+   import com.zszdevelop.threadpooldemo.service.AsyncService;
+   import org.slf4j.Logger;
+   import org.slf4j.LoggerFactory;
+   import org.springframework.beans.factory.annotation.Autowired;
+   import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+   import org.springframework.stereotype.Service;
+   import org.springframework.util.concurrent.FailureCallback;
+   import org.springframework.util.concurrent.ListenableFuture;
+   import org.springframework.util.concurrent.SuccessCallback;
+   
+   import java.util.concurrent.Callable;
+   import java.util.concurrent.ExecutionException;
+   import java.util.concurrent.Future;
+   import java.util.concurrent.TimeUnit;
+   
+   /**
+    * @author 作者: zhangshengzhong
+    * @文件名: AsyncServiceImpl
+    * @版本号:1.0
+    * @创建日期: 2020/12/8 16:28
+    * @描述:
+    */
+   @Service
+   public class AsyncServiceImpl implements AsyncService {
+       Logger logger = LoggerFactory.getLogger(this.getClass());
+   
+       @Autowired
+       ThreadPoolTaskExecutor threadPoolTaskExecutor;
+   
+       @Override
+       public void useAsyncThreadWork() {
+   
+   
+   //            方式一：通过 Runnable 使用线程池
+           testRunnable();
+           // 方式二： 使用Callable 可以监听到回调。会阻塞。后面的语句要等直接完成后
+   //            testCallable();
+   
+           // 方式三： threadPoolTaskExecutor.submitListenable 返回ListenableFuture 无阻塞的形式 参数：Runnable
+   //           testSubmitListenableRunnable();
+   
+           // 方式四： threadPoolTaskExecutor.submitListenable 返回ListenableFuture 无阻塞的形式 参数：Callable
+   //           testSubmitListenableCallable();
+   
+       }
+   
+   
+       /**
+        * 方式一：通过 Runnable 使用线程池
+        * 无阻塞表现在：线程还没有执行完，就打印了 “总结耗时：”
+        */
+       private void testRunnable() {
+           long start = System.currentTimeMillis();
+           for (int i = 0; i < 1000; i++) {
+               MyRunnable myRunnable = new MyRunnable();
+               threadPoolTaskExecutor.submit(myRunnable);
+           }
+           logger.info(String.format("总结耗时：%s", System.currentTimeMillis() - start));
+       }
+   
+       /**
+        * 方式二： 使用Callable 可以监听到回调。
+        * 阻塞表现在：总在最后打印 “总结耗时：”
+        * Callable的Future 能接受到具体结果，也就是线程的生成的随机数
+        */
+       private void testCallable() {
+           long start = System.currentTimeMillis();
+           for (int i = 0; i < 1000; i++) {
+               MyCallable myCallable = new MyCallable();
+               Future<Double> future = threadPoolTaskExecutor.submit(myCallable);
+               try {
+                   Double result = future.get();
+                   logger.error("Callable返回的结果为：" + result);
+               } catch (Exception e) {
+                   e.printStackTrace();
+               }
+           }
+           logger.info(String.format("总结耗时：%s", System.currentTimeMillis() - start));
+       }
+   
+   
+       /**
+        * 方式三： threadPoolTaskExecutor.submitListenable 返回ListenableFuture 参数：Runnable
+        * 无阻塞表现在：线程还没有执行完，就打印了 “总结耗时：”
+        * Runnable监听ListenableFuture 只能知道线程是否执行完毕，线程生成的结果（随机数无法得知）
+        */
+       private void testSubmitListenableRunnable() {
+           long start = System.currentTimeMillis();
+           for (int i = 0; i < 1000; i++) {
+               MyRunnable myRunnable = new MyRunnable();
+               ListenableFuture listenableFuture = threadPoolTaskExecutor.submitListenable(myRunnable);
+               listenableFuture.addCallback(new SuccessCallback() {
+                   @Override
+                   public void onSuccess(Object o) {
+                       logger.info("请求成功：" + Thread.currentThread().getName() + "返回的object:" + o);
+                   }
+               }, new FailureCallback() {
+                   @Override
+                   public void onFailure(Throwable throwable) {
+                       logger.info("请求失败：" + throwable.getMessage());
+                   }
+               });
+           }
+           logger.info(String.format("总结耗时：%s", System.currentTimeMillis() - start));
+       }
+   
+       /**
+        * 方式四： threadPoolTaskExecutor.submitListenable 返回ListenableFuture 参数：Callable
+        * 无阻塞表现在：线程还没有执行完，就打印了 “总结耗时：”
+        * Callable监听ListenableFuture 能接受到具体结果，也就是线程的生成的随机数
+        */
+       private void testSubmitListenableCallable() {
+           long start = System.currentTimeMillis();
+           for (int i = 0; i < 1000; i++) {
+   
+               MyCallable myCallable = new MyCallable();
+               ListenableFuture<Double> listenableFuture = threadPoolTaskExecutor.submitListenable(myCallable);
+               listenableFuture.addCallback(new SuccessCallback<Double>() {
+                   @Override
+                   public void onSuccess(Double result) {
+                       logger.info("请求成功：" + Thread.currentThread().getName() + "具体的执行结果:" + result);
+                   }
+               }, new FailureCallback() {
+                   @Override
+                   public void onFailure(Throwable throwable) {
+                       logger.info("请求失败：" + throwable.getMessage());
+                   }
+               });
+           }
+           logger.info(String.format("总结耗时：%s", System.currentTimeMillis() - start));
+       }
+   
+   
+       class MyRunnable implements Runnable {
+   
+   
+           MyRunnable() {
+   
+           }
+   
+           @Override
+           public void run() {
+               double random = Math.random();
+               // 执行你要的操作
+               logger.info("当前线程：" + Thread.currentThread().getName() + "  生成的随机数：" + random);
+   
+           }
+   
+       }
+   
+       class MyCallable implements Callable<Double> {
+   
+   
+           MyCallable() {
+   
+           }
+   
+           @Override
+           public Double call() throws Exception {
+               double random = Math.random();
+               // 执行你要的操作
+               logger.info("当前线程：" + Thread.currentThread().getName() + "  生成的随机数：" + random);
+               return random;
+           }
+       }
+   }
+   
+   
+   ```
 
-《阿里巴巴Java开发手册》中强制线程池不允许使用 Executors 去创建，而是通过 ThreadPoolExecutor 的方式，这样的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险
+## 2. 测试
 
-> Executors 返回线程池对象的弊端如下：
->
-> - **FixedThreadPool 和 SingleThreadExecutor** ： 允许**请求的队列**长度为 Integer.MAX_VALUE ，可能堆积大量的请求，从而导致OOM。
->   - 请求队列（LinkedBlockingQueue）不是指默认是 Integer.MAX_VALUE
-> - **CachedThreadPool 和 ScheduledThreadPool** ： 允许创建的线程数量为 Integer.MAX_VALUE ，可能会创建大量线程，从而导致OOM。
->   - 他们默认最大线程都是MAX
+访问：http://localhost:8080/testAsync
 
-**方式一：通过构造方法实现** 
+![image-20201111163433543](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20201111163433543.png)
 
-![image-20190915224722981](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190915224722981.png)
+## 3. 线程池四种创建线程的方法
 
-**方式二：通过Executor 框架的工具类Executors来实现** 我们可以创建三种类型的ThreadPoolExecutor：
+### 3.1  方式一：通过 Runnable 使用线程池
 
-- **FixedThreadPool** ： 该方法返回一个固定线程数量的线程池。该线程池中的线程数量始终不变。当有一个新的任务提交时，线程池中若有空闲线程，则立即执行。若没有，则新的任务会被暂存在一个任务队列中，待有线程空闲时，便处理在任务队列中的任务。
-- **SingleThreadExecutor：** 方法返回一个只有一个线程的线程池。若多余一个任务被提交到该线程池，任务会被保存在一个任务队列中，待线程空闲，按先入先出的顺序执行队列中的任务。
-- **CachedThreadPool：** 该方法返回一个可根据实际情况调整线程数量的线程池。线程池的线程数量不确定，但若有空闲线程可以复用，则会优先使用可复用的线程。若所有线程均在工作，又有新的任务提交，则会创建新的线程处理任务。所有线程在当前任务执行完毕后，将返回线程池进行复用。
+最基础的使用方式：无法知道执行结果
 
-对应Executors工具类中的方法如图所示：
+```java
+ /**
+     * 方式一：通过 Runnable 使用线程池
+     * 无阻塞表现在：线程还没有执行完，就打印了 “总结耗时：”
+     */
+    private void testRunnable() {
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 1000; i++) {
+            MyRunnable myRunnable = new MyRunnable();
+            threadPoolTaskExecutor.submit(myRunnable);
+        }
+        logger.info(String.format("总结耗时：%s", System.currentTimeMillis() - start));
+    }
+```
 
-![image-20190915224747235](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190915224747235.png)
+### 3.2  方式二： 通过 Callable 使用线程池
 
-## 
+使用Callable 可以监听到回调。会阻塞。后面的语句要等直接完成后
+
+```java
+
+    /**
+     * 方式二： 使用Callable 可以监听到回调。
+     * 阻塞表现在：总在最后打印 “总结耗时：”
+     * Callable的Future 能接受到具体结果，也就是线程的生成的随机数
+     */
+    private void testCallable() {
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 1000; i++) {
+            MyCallable myCallable = new MyCallable();
+            Future<Double> future = threadPoolTaskExecutor.submit(myCallable);
+            try {
+                Double result = future.get();
+                logger.error("Callable返回的结果为：" + result);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        logger.info(String.format("总结耗时：%s", System.currentTimeMillis() - start));
+    }
+```
+
+### 3.3 方式三：threadPoolTaskExecutor.submitListenable 返回ListenableFuture 参数：Runnable
+
+- 无阻塞表现在：线程还没有执行完，就打印了 “总结耗时：”
+-  Runnable监听ListenableFuture 只能知道线程是否执行完毕，线程生成的结果（随机数无法得知）
+
+```java
+/**
+     * 方式三： threadPoolTaskExecutor.submitListenable 返回ListenableFuture 参数：Runnable
+     * 无阻塞表现在：线程还没有执行完，就打印了 “总结耗时：”
+     * Runnable监听ListenableFuture 只能知道线程是否执行完毕，线程生成的结果（随机数无法得知）
+     */
+    private void testSubmitListenableRunnable() {
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 1000; i++) {
+            MyRunnable myRunnable = new MyRunnable();
+            ListenableFuture listenableFuture = threadPoolTaskExecutor.submitListenable(myRunnable);
+            listenableFuture.addCallback(new SuccessCallback() {
+                @Override
+                public void onSuccess(Object o) {
+                    logger.info("请求成功：" + Thread.currentThread().getName() + "返回的object:" + o);
+                }
+            }, new FailureCallback() {
+                @Override
+                public void onFailure(Throwable throwable) {
+                    logger.info("请求失败：" + throwable.getMessage());
+                }
+            });
+        }
+        logger.info(String.format("总结耗时：%s", System.currentTimeMillis() - start));
+    }
+```
+
+### 方式四： threadPoolTaskExecutor.submitListenable 返回ListenableFuture 参数：Callable
+
+```java
+/**
+ * 方式四： threadPoolTaskExecutor.submitListenable 返回ListenableFuture 参数：Callable
+ * 无阻塞表现在：线程还没有执行完，就打印了 “总结耗时：”
+ * Callable监听ListenableFuture 能接受到具体结果，也就是线程的生成的随机数
+ */
+private void testSubmitListenableCallable() {
+    long start = System.currentTimeMillis();
+    for (int i = 0; i < 1000; i++) {
+
+        MyCallable myCallable = new MyCallable();
+        ListenableFuture<Double> listenableFuture = threadPoolTaskExecutor.submitListenable(myCallable);
+        listenableFuture.addCallback(new SuccessCallback<Double>() {
+            @Override
+            public void onSuccess(Double result) {
+                logger.info("请求成功：" + Thread.currentThread().getName() + "具体的执行结果:" + result);
+            }
+        }, new FailureCallback() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                logger.info("请求失败：" + throwable.getMessage());
+            }
+        });
+    }
+    logger.info(String.format("总结耗时：%s", System.currentTimeMillis() - start));
+}
+```
+
+## 参考文章
+
+[深入理解 Spring 中的 ThreadPoolTaskExecutor 与 ListenableFuture 对象](http://ckjava.com/2019/08/22/understand-Spring-ThreadPoolTaskExecutor-ListenableFuture/)

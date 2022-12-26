@@ -1,177 +1,260 @@
----
-order: 60
-category:
-  - Java
-  - JVM
----
+# JDK监控和故障处理工具汇总
 
-# JVM 基础 - Java 内存模型引入
+## 1.  JDK命令行工具
 
-> 很多人都无法区分Java内存模型和JVM内存结构，以及Java内存模型与物理内存之间的关系。本文从堆栈角度引入JMM，然后介绍JMM和物理内存之间的关系, 为后面`JMM详解`, `JVM 内存结构详解`, `Java 对象模型详解`等铺垫。
+这些命令在JDK 安装目录下的bin目录下
 
-## 0. Java内存模型是什么
+- **jps** (JVM Process Status）: 类似 UNIX 的 `ps` 命令。用户查看所有 Java 进程的启动类、传入参数和 Java 虚拟机参数等信息；
+- **jstat**（ JVM Statistics Monitoring Tool）: 用于收集 HotSpot 虚拟机各方面的运行数据;
+- **jinfo** (Configuration Info for Java) : Configuration Info forJava,显示虚拟机配置信息;
+- **jmap** (Memory Map for Java) :生成堆转储快照;
+- **jhat** (JVM Heap Dump Browser ) : 用于分析 heapdump 文件，它会建立一个 HTTP/HTML 服务器，让用户可以在浏览器上查看分析结果;
+- **jstack** (Stack Trace for Java):生成虚拟机当前时刻的线程快照，线程快照就是当前虚拟机内每一条线程正在执行的方法堆栈的集合。
 
-Java内存模型规定了**所有的变量都存储在主内存**中，**每条线程还有自己的工作内存**，线程的**工作内存中保存了该线程中是用到的变量的主内存副本拷贝**，线程对变量的所有操作都必须在工作内存中进行，而不能直接读写主内存。不同的线程之间也无法直接访问对方工作内存中的变量，**线程间变量的传递均需要自己的工作内存和主存之间进行数据同步进行**。所以，就**可能出现线程1改了某个变量的值，但是线程2不可见的情况**。
+### 1.1 `jps`:查看所有 Java 进程
 
-## 1. JMM引入
+`jps`(JVM Process Status) 命令类似 UNIX 的 `ps` 命令。
 
-### 1.1 从堆栈说起
-
-JVM内部使用的Java内存模型在线程栈和堆之间划分内存。 此图从逻辑角度说明了Java内存模型：
-
-![image-20220821094940201](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220821094940201.png)
-
-### 1.2 堆栈里面放了什么?
-
-线程堆栈还包含正在执行的每个方法的所有局部变量(调用堆栈上的所有方法)。 线程只能访问它自己的线程堆栈。 由线程创建的局部变量对于创建它的线程以外的所有其他线程是不可见的。 即使两个线程正在执行完全相同的代码，两个线程仍将在每个自己的线程堆栈中创建该代码的局部变量。 因此，每个线程都有自己的每个局部变量的版本。
-
-基本类型的所有局部变量(boolean，byte，short，char，int，long，float，double)完全存储在线程堆栈中，因此对其他线程不可见。 一个线程可以将一个基本类型变量的副本传递给另一个线程，但它不能共享原始局部变量本身。
-
-堆包含了在Java应用程序中创建的所有对象，无论创建该对象的线程是什么。 这包括基本类型的包装类(例如Byte，Integer，Long等)。 无论是创建对象并将其分配给局部变量，还是创建为另一个对象的成员变量，该对象仍然存储在堆上。
-
-![image-20220821095216100](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220821095216100.png)
-
-局部变量可以是基本类型，在这种情况下，它完全保留在线程堆栈上。
-
-局部变量也可以是对象的引用。 在这种情况下，引用(局部变量)存储在线程堆栈中，但是对象本身存储在堆(Heap)上。
-
-对象的成员变量与对象本身一起存储在堆上。 当成员变量是基本类型时，以及它是对象的引用时都是如此。
-
-静态类变量也与类定义一起存储在堆上。
-
-### 1.3 线程栈如何访问堆上对象?
-
-所有具有对象引用的线程都可以访问堆上的对象。 当一个线程有权访问一个对象时，它也可以访问该对象的成员变量。 **如果两个线程同时在同一个对象上调用一个方法，它们都可以访问该对象的成员变量，但每个线程都有自己的局部变量副本。**
-
-![image-20220821095443653](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220821095443653.png)
-
-两个线程有一组局部变量。 其中一个局部变量(局部变量2)指向堆上的共享对象(对象3)。 两个线程各自对同一对象具有不同的引用。 它们的引用是局部变量，因此存储在每个线程的线程堆栈中(在每个线程堆栈上)。 但是，这两个不同的引用指向堆上的同一个对象。
-
-注意共享对象(对象3)如何将对象2和对象4作为成员变量引用(由对象3到对象2和对象4的箭头所示)。 通过对象3中的这些成员变量引用，两个线程可以访问对象2和对象4.
-
-该图还显示了一个局部变量，该变量指向堆上的两个不同对象。 在这种情况下，引用指向两个不同的对象(对象1和对象5)，而不是同一个对象。 理论上，如果两个线程都引用了两个对象，则两个线程都可以访问对象1和对象5。 但是在上图中，每个线程只引用了两个对象中的一个。
-
-### 1.4 线程栈访问堆示例
-
-那么，什么样的Java代码可以导致上面的内存图?  好吧，代码就像下面的代码一样简单：
-
-```java
-public class MyRunnable implements Runnable() {
-
-    public void run() {
-        methodOne();
-    }
-
-    public void methodOne() {
-        int localVariable1 = 45;
-
-        MySharedObject localVariable2 =
-            MySharedObject.sharedInstance;
-
-        //... do more with local variables.
-
-        methodTwo();
-    }
-
-    public void methodTwo() {
-        Integer localVariable1 = new Integer(99);
-
-        //... do more with local variable.
-    }
-}
-
-public class MySharedObject {
-
-    //static variable pointing to instance of MySharedObject
-
-    public static final MySharedObject sharedInstance =
-        new MySharedObject();
-
-
-    //member variables pointing to two objects on the heap
-
-    public Integer object2 = new Integer(22);
-    public Integer object4 = new Integer(44);
-
-    public long member1 = 12345;
-    public long member1 = 67890;
-}
+`jps`：显示虚拟机执行主类名称以及这些进程的本地虚拟机唯一 ID（Local Virtual Machine Identifier,LVMID）。`jps -q` ：只输出进程的本地虚拟机唯一 ID。
 
 ```
+C:\Users\SnailClimb>jps
+7360 NettyClient2
+17396
+7972 Launcher
+16504 Jps
+17340 NettyServer
+```
 
-如果两个线程正在执行run()方法，则前面显示的图表将是结果。 run()方法调用methodOne()，methodOne()调用methodTwo()。
+`jps -l`:输出主类的全名，如果进程执行的是 Jar 包，输出 Jar 路径。
 
-methodOne()声明一个局部基本类型变量(类型为int的localVariable1)和一个局部变量，它是一个对象引用(localVariable2)。
+```
+C:\Users\SnailClimb>jps -l
+7360 firstNettyDemo.NettyClient2
+17396
+7972 org.jetbrains.jps.cmdline.Launcher
+16492 sun.tools.jps.Jps
+17340 firstNettyDemo.NettyServer
+5541 mywebsocket.jar
+```
 
-执行methodOne()的每个线程将在各自的线程堆栈上创建自己的localVariable1和localVariable2副本。 localVariable1变量将完全相互分离，只存在于每个线程的线程堆栈中。 一个线程无法看到另一个线程对其localVariable1副本所做的更改。
+`jps -v`：输出虚拟机进程启动时 JVM 参数。
 
-执行methodOne()的每个线程也将创建自己的localVariable2副本。 但是，localVariable2的两个不同副本最终都指向堆上的同一个对象。 代码将localVariable2设置为指向静态变量引用的对象。 静态变量只有一个副本，此副本存储在堆上。 因此，localVariable2的两个副本最终都指向静态变量指向的MySharedObject的同一个实例。 MySharedObject实例也存储在堆上。 它对应于上图中的对象3。
+`jps -m`：输出传递给 Java 进程 main() 函数的参数。
 
-注意MySharedObject类还包含两个成员变量。 成员变量本身与对象一起存储在堆上。 两个成员变量指向另外两个Integer对象。 这些Integer对象对应于上图中的Object 2和Object 4。
+### 1.2 `jstat`: 监视虚拟机各种运行状态信息
 
-另请注意methodTwo()如何创建名为localVariable1的局部变量。 此局部变量是对Integer对象的对象引用。 该方法将localVariable1引用设置为指向新的Integer实例。 localVariable1引用将存储在执行methodTwo()的每个线程的一个副本中。 实例化的两个Integer对象将存储在堆上，但由于该方法每次执行该方法时都会创建一个新的Integer对象，因此执行此方法的两个线程将创建单独的Integer实例。 在methodTwo()中创建的Integer对象对应于上图中的Object 1和Object 5。
+jstat（JVM Statistics Monitoring Tool） 使用于监视虚拟机各种运行状态信息的命令行工具。 它可以显示本地或者远程（需要远程主机提供 RMI 支持）虚拟机进程中的类信息、内存、垃圾收集、JIT 编译等运行数据，在没有 GUI，只提供了纯文本控制台环境的服务器上，它将是运行期间定位虚拟机性能问题的首选工具。
 
-另请注意类型为long的MySharedObject类中的两个成员变量，它们是基本类型。 由于这些变量是成员变量，因此它们仍与对象一起存储在堆上。 只有局部变量存储在线程堆栈中。
+**jstat 命令使用格式：**
 
-## 2. JMM与硬件内存结构关系
+```
+jstat -<option> [-t] [-h<lines>] <vmid> [<interval> [<count>]]
+```
 
-### 2.1 硬件内存结构简介
+比如 `jstat -gc -h3 31736 1000 10`表示分析进程 id 为 31736 的 gc 情况，每隔 1000ms 打印一次记录，打印 10 次停止，每 3 行后打印指标头部
 
-现代硬件内存架构与内部Java内存模型略有不同。 了解硬件内存架构也很重要，以了解Java内存模型如何与其一起工作。 本节介绍了常见的硬件内存架构，后面的部分将介绍Java内存模型如何与其配合使用。
+**常见的 option 如下：**
 
-这是现代计算机硬件架构的简化图：
+- `jstat -class vmid` ：显示 ClassLoader 的相关信息；
+- `jstat -compiler vmid` ：显示 JIT 编译的相关信息；
+- `jstat -gc vmid` ：显示与 GC 相关的堆信息；
+- `jstat -gccapacity vmid` ：显示各个代的容量及使用情况；
+- `jstat -gcnew vmid` ：显示新生代信息；
+- `jstat -gcnewcapcacity vmid` ：显示新生代大小与使用情况；
+- `jstat -gcold vmid` ：显示老年代和永久代的信息；
+- `jstat -gcoldcapacity vmid` ：显示老年代的大小；
+- `jstat -gcpermcapacity vmid` ：显示永久代大小；
+- `jstat -gcutil vmid` ：显示垃圾收集信息；
 
-![image-20220821100042636](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220821100042636.png)
+另外，加上 `-t`参数可以在输出信息上加一个 Timestamp 列，显示程序的运行时间。
 
-现代计算机通常有2个或更多CPU。 其中一些CPU也可能有多个内核。 关键是，在具有2个或更多CPU的现代计算机上，可以同时运行多个线程。 每个CPU都能够在任何给定时间运行一个线程。 这意味着如果您的Java应用程序是多线程的，线程真的在可能同时运行.
+### 1.3 `jinfo`: 实时地查看和调整虚拟机各项参数
 
-每个CPU基本上都包含一组在CPU内存中的寄存器。 CPU可以在这些寄存器上执行的操作比在主存储器中对变量执行的操作快得多。 这是因为CPU可以比访问主存储器更快地访问这些寄存器。
+`jinfo vmid` :输出当前 jvm 进程的全部参数和系统属性 (第一部分是系统的属性，第二部分是 JVM 的参数)。
 
-每个CPU还可以具有CPU高速缓存存储器层。 事实上，大多数现代CPU都有一些大小的缓存存储层。 CPU可以比主存储器更快地访问其高速缓存存储器，但通常不会像访问其内部寄存器那样快。 因此，CPU高速缓存存储器介于内部寄存器和主存储器的速度之间。 某些CPU可能有多个缓存层(级别1和级别2)，但要了解Java内存模型如何与内存交互，这一点并不重要。 重要的是要知道CPU可以有某种缓存存储层。
+`jinfo -flag name vmid` :输出对应名称的参数的具体值。比如输出 MaxHeapSize、查看当前 jvm 进程是否开启打印 GC 日志 ( `-XX:PrintGCDetails` :详细 GC 日志模式，这两个都是默认关闭的)。
 
-计算机还包含主存储区(RAM)。 所有CPU都可以访问主内存。 主存储区通常比CPU的高速缓存存储器大得多。同时访问速度也就较慢.
+```
+C:\Users\SnailClimb>jinfo  -flag MaxHeapSize 17340
+-XX:MaxHeapSize=2124414976
+C:\Users\SnailClimb>jinfo  -flag PrintGC 17340
+-XX:-PrintGC
+```
 
-通常，当CPU需要访问主存储器时，它会将部分主存储器读入其CPU缓存。 它甚至可以将部分缓存读入其内部寄存器，然后对其执行操作。 当CPU需要将结果写回主存储器时，它会将值从其内部寄存器刷新到高速缓冲存储器，并在某些时候将值刷新回主存储器。
+使用 jinfo 可以在不重启虚拟机的情况下，可以动态的修改 jvm 的参数。尤其在线上的环境特别有用,请看下面的例子：
 
-### 2.2 JMM与硬件内存连接 - 引入
+`jinfo -flag [+|-]name vmid` 开启或者关闭对应名称的参数。
 
-如前所述，Java内存模型和硬件内存架构是不同的。 硬件内存架构不区分线程堆栈和堆。 在硬件上，线程堆栈和堆都位于主存储器中。 线程堆栈和堆的一部分有时可能存在于CPU高速缓存和内部CPU寄存器中。 这在图中说明：
+```
+C:\Users\SnailClimb>jinfo  -flag  PrintGC 17340
+-XX:-PrintGC
 
-![image-20220821100529578](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220821100529578.png)
+C:\Users\SnailClimb>jinfo  -flag  +PrintGC 17340
 
-当对象和变量可以存储在计算机的各种不同存储区域中时，可能会出现某些问题。 两个主要问题是：
+C:\Users\SnailClimb>jinfo  -flag  PrintGC 17340
+-XX:+PrintGC
+```
 
-- Visibility of thread updates (writes) to shared variables.
-- Race conditions when reading, checking and writing shared variables. 以下各节将解释这两个问题。
+### 1.4 `jmap`:生成堆转储快照
 
-### 2.3 JMM与硬件内存连接 - 对象共享后的可见性
+`jmap`（Memory Map for Java）命令用于生成堆转储快照。 如果不使用 `jmap` 命令，要想获取 Java 堆转储，可以使用 `“-XX:+HeapDumpOnOutOfMemoryError”` 参数，可以让虚拟机在 OOM 异常出现之后自动生成 dump 文件，Linux 命令下可以通过 `kill -3` 发送进程退出信号也能拿到 dump 文件。
 
-如果两个或多个线程共享一个对象，而没有正确使用volatile声明或同步，则一个线程对共享对象的更新可能对其他线程不可见。
+`jmap` 的作用并不仅仅是为了获取 dump 文件，它还可以查询 finalizer 执行队列、Java 堆和永久代的详细信息，如空间使用率、当前使用的是哪种收集器等。和`jinfo`一样，`jmap`有不少功能在 Windows 平台下也是受限制的。
 
-想象一下，共享对象最初存储在主存储器中。 然后，在CPU上运行的线程将共享对象读入其CPU缓存中。 它在那里对共享对象进行了更改。 只要CPU缓存尚未刷新回主内存，共享对象的更改版本对于在其他CPU上运行的线程是不可见的。 这样，每个线程最终都可能拥有自己的共享对象副本，每个副本都位于不同的CPU缓存中。
+示例：将指定应用程序的堆快照输出到桌面。后面，可以通过 jhat、Visual VM 等工具分析该堆文件。
 
-下图描绘了该情况。 在左CPU上运行的一个线程将共享对象复制到其CPU缓存中，并将其count变量更改为2.对于在右边的CPU上运行的其他线程，此更改不可见，因为计数更新尚未刷新回主内存中.
+```
+jmap -dump:format=b,file=./heap.hprof 19012
+Dumping heap to /home/ftpuser/services/mywebsocket/heap.hprof ...
+Heap dump file created
+```
 
-![image-20220821100739376](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220821100739376.png)
+### 1.5 **jhat**: 分析 heapdump 文件
 
-要解决此问题，您可以使用Java的volatile关键字。 volatile关键字可以确保直接从主内存读取给定变量，并在更新时始终写回主内存。
+**jhat** 用于分析 heapdump 文件，它会建立一个 HTTP/HTML 服务器，让用户可以在浏览器上查看分析结果。
 
-### 2.4 JMM与硬件内存连接 - 竞态条件
+```
+C:\Users\SnailClimb>jhat C:\Users\SnailClimb\Desktop\heap.hprof
+Reading from C:\Users\SnailClimb\Desktop\heap.hprof...
+Dump file created Sat May 04 12:30:31 CST 2019
+Snapshot read, resolving...
+Resolving 131419 objects...
+Chasing references, expect 26 dots..........................
+Eliminating duplicate references..........................
+Snapshot resolved.
+Started HTTP server on port 7000
+Server is ready.
+```
 
-如果两个或多个线程共享一个对象，并且多个线程更新该共享对象中的变量，则可能会出现竞态。
+访问 <http://localhost:7000/>
 
-想象一下，如果线程A将共享对象的变量计数读入其CPU缓存中。 想象一下，线程B也做同样的事情，但是进入不同的CPU缓存。 现在，线程A将一个添加到count，而线程B执行相同的操作。 现在var1已经增加了两次，每个CPU缓存一次。
+### 1.6 **jstack** :生成虚拟机当前时刻的线程快照
 
-如果这些增量是按先后顺序执行的，则变量计数将增加两次并将原始值+ 2写回主存储器。
+`jstack`（Stack Trace for Java）命令用于生成虚拟机当前时刻的线程快照。线程快照就是当前虚拟机内每一条线程正在执行的方法堆栈的集合.
 
-但是，两个增量同时执行而没有适当的同步。 无论线程A和B中哪一个将其更新后的计数版本写回主存储器，更新的值将仅比原始值高1，尽管有两个增量。
+生成线程快照的目的主要是定位线程长时间出现停顿的原因，如线程间死锁、死循环、请求外部资源导致的长时间等待等都是导致线程长时间停顿的原因。线程出现停顿的时候通过`jstack`来查看各个线程的调用堆栈，就可以知道没有响应的线程到底在后台做些什么事情，或者在等待些什么资源。
 
-该图说明了如上所述的竞争条件问题的发生：
+**下面是一个线程死锁的代码。我们下面会通过 jstack 命令进行死锁检查，输出死锁信息，找到发生死锁的线程**
 
-![image-20220825210029757](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220825210029757.png)
+```java
+public class DeadLockDemo {
+    private static Object resource1 = new Object();//资源 1
+    private static Object resource2 = new Object();//资源 2
 
-要解决此问题，您可以使用Java synchronized块。 同步块保证在任何给定时间只有一个线程可以进入代码的给定关键部分。 同步块还保证在同步块内访问的所有变量都将从主存储器中读入，当线程退出同步块时，所有更新的变量将再次刷新回主存储器，无论变量是不是声明为volatile
+    public static void main(String[] args) {
+        new Thread(() -> {
+            synchronized (resource1) {
+                System.out.println(Thread.currentThread() + "get resource1");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(Thread.currentThread() + "waiting get resource2");
+                synchronized (resource2) {
+                    System.out.println(Thread.currentThread() + "get resource2");
+                }
+            }
+        }, "线程 1").start();
 
-## 参考文章
+        new Thread(() -> {
+            synchronized (resource2) {
+                System.out.println(Thread.currentThread() + "get resource2");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(Thread.currentThread() + "waiting get resource1");
+                synchronized (resource1) {
+                    System.out.println(Thread.currentThread() + "get resource1");
+                }
+            }
+        }, "线程 2").start();
+    }
+}
+```
 
-[**JVM 基础 - Java 内存模型引入**](https://pdai.tech/md/java/jvm/java-jvm-x-introduce.html)
+Output
+
+```
+Thread[线程 1,5,main]get resource1
+Thread[线程 2,5,main]get resource2
+Thread[线程 1,5,main]waiting get resource2
+Thread[线程 2,5,main]waiting get resource1
+```
+
+线程 A 通过 synchronized (resource1) 获得 resource1 的监视器锁，然后通过` Thread.sleep(1000);`让线程 A 休眠 1s 为的是让线程 B 得到执行然后获取到 resource2 的监视器锁。线程 A 和线程 B 休眠结束了都开始企图请求获取对方的资源，然后这两个线程就会陷入互相等待的状态，这也就产生了死锁。
+
+**通过 jstack 命令分析：**
+
+```
+C:\Users\SnailClimb>jps
+13792 KotlinCompileDaemon
+7360 NettyClient2
+17396
+7972 Launcher
+8932 Launcher
+9256 DeadLockDemo
+10764 Jps
+17340 NettyServer
+
+C:\Users\SnailClimb>jstack 9256
+```
+
+输出的部分内容如下：
+
+```
+Found one Java-level deadlock:
+=============================
+"线程 2":
+  waiting to lock monitor 0x000000000333e668 (object 0x00000000d5efe1c0, a java.lang.Object),
+  which is held by "线程 1"
+"线程 1":
+  waiting to lock monitor 0x000000000333be88 (object 0x00000000d5efe1d0, a java.lang.Object),
+  which is held by "线程 2"
+
+Java stack information for the threads listed above:
+===================================================
+"线程 2":
+        at DeadLockDemo.lambda$main$1(DeadLockDemo.java:31)
+        - waiting to lock <0x00000000d5efe1c0> (a java.lang.Object)
+        - locked <0x00000000d5efe1d0> (a java.lang.Object)
+        at DeadLockDemo$$Lambda$2/1078694789.run(Unknown Source)
+        at java.lang.Thread.run(Thread.java:748)
+"线程 1":
+        at DeadLockDemo.lambda$main$0(DeadLockDemo.java:16)
+        - waiting to lock <0x00000000d5efe1d0> (a java.lang.Object)
+        - locked <0x00000000d5efe1c0> (a java.lang.Object)
+        at DeadLockDemo$$Lambda$1/1324119927.run(Unknown Source)
+        at java.lang.Thread.run(Thread.java:748)
+
+Found 1 deadlock.
+```
+
+可以看到 `jstack` 命令已经帮我们找到发生死锁的线程的具体信息。
+
+## 2. JDK 可视化分析工具
+
+### 2.1 Visual VM:多合一故障处理工具
+
+VisualVM 提供在 Java 虚拟机 (Java Virutal Machine, JVM) 上运行的 Java 应用程序的详细信息。在 VisualVM 的图形用户界面中，您可以方便、快捷地查看多个 Java 应用程序的相关信息。Visual VM 官网：<https://visualvm.github.io/> 。Visual VM 中文文档:<https://visualvm.github.io/documentation.html>。
+
+下面这段话摘自《深入理解 Java 虚拟机》。
+
+> VisualVM（All-in-One Java Troubleshooting Tool）是到目前为止随 JDK 发布的功能最强大的运行监视和故障处理程序，官方在 VisualVM 的软件说明中写上了“All-in-One”的描述字样，预示着他除了运行监视、故障处理外，还提供了很多其他方面的功能，如性能分析（Profiling）。VisualVM 的性能分析功能甚至比起 JProfiler、YourKit 等专业且收费的 Profiling 工具都不会逊色多少，而且 VisualVM 还有一个很大的优点：不需要被监视的程序基于特殊 Agent 运行，因此他对应用程序的实际性能的影响很小，使得他可以直接应用在生产环境中。这个优点是 JProfiler、YourKit 等工具无法与之媲美的。
+
+VisualVM 基于 NetBeans 平台开发，因此他一开始就具备了插件扩展功能的特性，通过插件扩展支持，VisualVM 可以做到：
+
+- **显示虚拟机进程以及进程的配置、环境信息（jps、jinfo）。**
+- **监视应用程序的 CPU、GC、堆、方法区以及线程的信息（jstat、jstack）。**
+- **dump 以及分析堆转储快照（jmap、jhat）。**
+- **方法级的程序运行性能分析，找到被调用最多、运行时间最长的方法。**
+- **离线程序快照：收集程序的运行时配置、线程 dump、内存 dump 等信息建立一个快照，可以将快照发送开发者处进行 Bug 反馈。**
+- **其他 plugins 的无限的可能性......**
+
+这里就不具体介绍 VisualVM 的使用，如果想了解的话可以看:
+
+- <https://visualvm.github.io/documentation.html>
+- <https://www.ibm.com/developerworks/cn/java/j-lo-visualvm/index.html>

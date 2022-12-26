@@ -28,7 +28,7 @@ category:
 
 - **比如Spring Security框架中**
 
-![image-20220806222013752](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220806222013752.png)
+![image-20220806222013752](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220806222013752.png)
 
 - **比如HttpServletRequest处理的过滤器中**
 
@@ -36,7 +36,7 @@ category:
 
 网上找了图，这里我们后文将通过Tomcat请求处理向你阐述。
 
-![image-20220806222120276](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220806222120276.png)
+![image-20220806222120276](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220806222120276.png)
 
 ### 1.2 ElasticSearch设计管道机制
 
@@ -44,7 +44,7 @@ category:
 
 接下来，无非就是对不同类型的聚合有接口的支撑，比如：
 
-![image-20220806222204594](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220806222204594.png)
+![image-20220806222204594](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220806222204594.png)
 
 > 第一个维度：管道聚合有很多不同**类型**，每种类型都与其他聚合计算不同的信息，但是可以将这些类型分为两类：
 

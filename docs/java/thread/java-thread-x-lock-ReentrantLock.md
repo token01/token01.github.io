@@ -1,5 +1,5 @@
 ---
-order: 550
+order: 150
 category:
   - Java
   - 并发
@@ -31,9 +31,9 @@ public class ReentrantLock implements Lock, java.io.Serializable
 
 **ReentrantLock** 总共有三个内部类，并且三个内部类是紧密相关的，下面先看三个类的关系。
 
-![image-20220520161909794](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220520161909794.png)
+![image-20220520161909794](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220520161909794.png)
 
-![image-20220520161943656](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220520161943656.png)
+![image-20220520161943656](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220520161943656.png)
 
 >**说明：ReentrantLock** 类内部总共存在**Sync**、**NonfairSync**、**FairSync**三个类，**NonfairSync**与 **FairSync**类继承自 **Sync**类，**Sync**类继承自 **AbstractQueuedSynchronizer**抽象类。下面逐个进行分析。
 
@@ -134,7 +134,7 @@ abstract static class Sync extends AbstractQueuedSynchronizer {
 
 Sync类存在如下方法和作用如下。
 
-![image-20220916214434623](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220916214434623.png)
+![image-20220916214434623](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220916214434623.png)
 
 - NonfairSync类
 
@@ -314,7 +314,7 @@ Thread[t3,5,main] running
 
 说明: 该示例使用的是公平策略，由结果可知，可能会存在如下一种时序。
 
-![image-20220916214704264](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220916214704264.png)
+![image-20220916214704264](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220916214704264.png)
 
 说明: 首先，t1线程的lock操作 -> t2线程的lock操作 -> t3线程的lock操作 -> t1线程的unlock操作 -> t2线程的unlock操作 -> t3线程的unlock操作。根据这个时序图来进一步分析源码的工作流程。
 
@@ -326,43 +326,43 @@ Thread[t3,5,main] running
 
 - t2线程执行lock.lock，下图给出了方法调用中的主要方法。
 
-![image-20220916214753399](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220916214753399.png)
+![image-20220916214753399](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220916214753399.png)
 
 说明: 由上图可知，最后的结果是t2线程会被禁止，因为调用了LockSupport.park。
 
 - t3线程执行lock.lock，下图给出了方法调用中的主要方法。
 
-![image-20220916214810133](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220916214810133.png)
+![image-20220916214810133](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220916214810133.png)
 
 说明: 由上图可知，最后的结果是t3线程会被禁止，因为调用了LockSupport.park。
 
 - t1线程调用了lock.unlock，下图给出了方法调用中的主要方法。
 
-![image-20220916214823518](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220916214823518.png)
+![image-20220916214823518](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220916214823518.png)
 
 说明: 如上图所示，最后，head的状态会变为0，t2线程会被unpark，即t2线程可以继续运行。此时t3线程还是被禁止。
 
 - t2获得cpu资源，继续运行，由于t2之前被park了，现在需要恢复之前的状态，下图给出了方法调用中的主要方法。
 
-![image-20220916214840548](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220916214840548.png)
+![image-20220916214840548](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220916214840548.png)
 
 说明: 在setHead函数中会将head设置为之前head的下一个结点，并且将pre域与thread域都设置为null，在acquireQueued返回之前，sync queue就只有两个结点了。
 
 - t2执行lock.unlock，下图给出了方法调用中的主要方法。
 
-![image-20220916214858271](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220916214858271.png)
+![image-20220916214858271](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220916214858271.png)
 
 说明: 由上图可知，最终unpark t3线程，让t3线程可以继续运行。
 
 - t3线程获取cpu资源，恢复之前的状态，继续运行。
 
-![image-20220916214911379](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220916214911379.png)
+![image-20220916214911379](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220916214911379.png)
 
 说明: 最终达到的状态是sync queue中只剩下了一个结点，并且该节点除了状态为0外，其余均为null。
 
 - t3执行lock.unlock，下图给出了方法调用中的主要方法。
 
-![image-20220916214924181](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220916214924181.png)
+![image-20220916214924181](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220916214924181.png)
 
 说明: 最后的状态和之前的状态是一样的，队列中有一个空节点，头节点为尾节点均指向它。
 

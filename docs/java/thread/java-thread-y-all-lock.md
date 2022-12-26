@@ -1,373 +1,168 @@
 ---
-order: 550
+order: 40
 category:
   - Java
   - 并发
 ---
+# Java并发 - Java中所有的锁
 
-# JUC锁: ReentrantLock详解
+## 0. 简介
 
-## 0. 带着BAT大厂的面试问题去理解
+Java提供了种类丰富的锁，每种锁因其特性的不同，在适当的场景下能够展现出非常高的效率。本文旨在对锁相关源码（本文中的源码来自JDK 8和Netty 3.10.6）、使用场景进行举例，为读者介绍主流锁的知识点，以及不同的锁的适用场景。
 
-- 什么是可重入，什么是可重入锁? 它用来解决什么问题?
-- ReentrantLock的核心是AQS，那么它怎么来实现的，继承吗? 说说其类内部结构关系。
-- ReentrantLock是如何实现公平锁的?
-- ReentrantLock是如何实现非公平锁的?
-- ReentrantLock默认实现的是公平还是非公平锁?
-- 使用ReentrantLock实现公平和非公平锁的示例?
-- ReentrantLock和Synchronized的对比?
+Java中往往是按照是否含有某一特性来定义锁，我们通过特性将锁进行分组归类，再使用对比的方式进行介绍，帮助大家更快捷的理解相关知识。下面给出本文内容的总体分类目录：
 
-## 1. ReentrantLock源码分析
+![image-20220525212721156](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525212721156.png)
 
-### 1.1 类的继承关系
+## 1. 乐观锁 VS 悲观锁
 
-**ReentrantLock** 实现了 **Lock**接口，**Lock**接口中定义了 **lock**与 **unlock**相关操作，并且还存在 **newCondition**方法，表示生成一个条件。
+> 乐观锁与悲观锁是一种广义上的概念，体现了看待线程同步的不同角度。在Java和数据库中都有此概念对应的实际应用。
 
-```java
-public class ReentrantLock implements Lock, java.io.Serializable 
-```
+先说概念。对于同一个数据的并发操作，悲观锁认为自己在使用数据的时候一定有别的线程来修改数据，因此在获取数据的时候会先加锁，确保数据不会被别的线程修改。Java中，synchronized关键字和Lock的实现类都是悲观锁。
 
-### 1.2 类的内部类
+而乐观锁认为自己在使用数据时不会有别的线程修改数据，所以不会添加锁，只是在更新数据的时候去判断之前有没有别的线程更新了这个数据。如果这个数据没有被更新，当前线程将自己修改的数据成功写入。如果数据已经被其他线程更新，则根据不同的实现方式执行不同的操作（例如报错或者自动重试）。
 
-**ReentrantLock** 总共有三个内部类，并且三个内部类是紧密相关的，下面先看三个类的关系。
+乐观锁在Java中是通过使用无锁编程来实现，最常采用的是CAS算法，Java原子类中的递增操作就通过CAS自旋实现的。
 
-![image-20220520161909794](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220520161909794.png)
+![image-20220525212947017](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525212947017.png)
 
-![image-20220520161943656](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220520161943656.png)
+根据从上面的概念描述我们可以发现：
 
->**说明：ReentrantLock** 类内部总共存在**Sync**、**NonfairSync**、**FairSync**三个类，**NonfairSync**与 **FairSync**类继承自 **Sync**类，**Sync**类继承自 **AbstractQueuedSynchronizer**抽象类。下面逐个进行分析。
+- **悲观锁适合写操作多的场景**，先加锁可以保证写操作时数据正确。
+- **乐观锁适合读操作多的场景**，不加锁的特点能够使其读操作的性能大幅提升。
 
-- Sync类
-
-Sync类的源码如下:
+光说概念有些抽象，我们来看下乐观锁和悲观锁的调用方式示例：
 
 ```java
-abstract static class Sync extends AbstractQueuedSynchronizer {
-    // 序列号
-    private static final long serialVersionUID = -5179523762034025860L;
-    
-    // 获取锁
-    abstract void lock();
-    
-    // 非公平方式获取
-    final boolean nonfairTryAcquire(int acquires) {
-        // 当前线程
-        final Thread current = Thread.currentThread();
-        // 获取状态
-        int c = getState();
-        if (c == 0) { // 表示没有线程正在竞争该锁
-            if (compareAndSetState(0, acquires)) { // 比较并设置状态成功，状态0表示锁没有被占用
-                // 设置当前线程独占
-                setExclusiveOwnerThread(current); 
-                return true; // 成功
-            }
-        }
-        else if (current == getExclusiveOwnerThread()) { // 当前线程拥有该锁
-            int nextc = c + acquires; // 增加重入次数
-            if (nextc < 0) // overflow
-                throw new Error("Maximum lock count exceeded");
-            // 设置状态
-            setState(nextc); 
-            // 成功
-            return true; 
-        }
-        // 失败
-        return false;
-    }
-    
-    // 试图在共享模式下获取对象状态，此方法应该查询是否允许它在共享模式下获取对象状态，如果允许，则获取它
-    protected final boolean tryRelease(int releases) {
-        int c = getState() - releases;
-        if (Thread.currentThread() != getExclusiveOwnerThread()) // 当前线程不为独占线程
-            throw new IllegalMonitorStateException(); // 抛出异常
-        // 释放标识
-        boolean free = false; 
-        if (c == 0) {
-            free = true;
-            // 已经释放，清空独占
-            setExclusiveOwnerThread(null); 
-        }
-        // 设置标识
-        setState(c); 
-        return free; 
-    }
-    
-    // 判断资源是否被当前线程占有
-    protected final boolean isHeldExclusively() {
-        // While we must in general read state before owner,
-        // we don't need to do so to check if current thread is owner
-        return getExclusiveOwnerThread() == Thread.currentThread();
-    }
-
-    // 新生一个条件
-    final ConditionObject newCondition() {
-        return new ConditionObject();
-    }
-
-    // Methods relayed from outer class
-    // 返回资源的占用线程
-    final Thread getOwner() {        
-        return getState() == 0 ? null : getExclusiveOwnerThread();
-    }
-    // 返回状态
-    final int getHoldCount() {            
-        return isHeldExclusively() ? getState() : 0;
-    }
-
-    // 资源是否被占用
-    final boolean isLocked() {        
-        return getState() != 0;
-    }
-
-    /**
-        * Reconstitutes the instance from a stream (that is, deserializes it).
-        */
-    // 自定义反序列化逻辑
-    private void readObject(java.io.ObjectInputStream s)
-        throws java.io.IOException, ClassNotFoundException {
-        s.defaultReadObject();
-        setState(0); // reset to unlocked state
-    }
-}　　
-
-```
-
-Sync类存在如下方法和作用如下。
-
-![image-20220916214434623](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220916214434623.png)
-
-- NonfairSync类
-
-NonfairSync类继承了Sync类，表示采用非公平策略获取锁，其实现了Sync类中抽象的lock方法，源码如下:
-
-```java
-// 非公平锁
-static final class NonfairSync extends Sync {
-    // 版本号
-    private static final long serialVersionUID = 7316153563782823691L;
-
-    // 获得锁
-    final void lock() {
-        if (compareAndSetState(0, 1)) // 比较并设置状态成功，状态0表示锁没有被占用
-            // 把当前线程设置独占了锁
-            setExclusiveOwnerThread(Thread.currentThread());
-        else // 锁已经被占用，或者set失败
-            // 以独占模式获取对象，忽略中断
-            acquire(1); 
-    }
-
-    protected final boolean tryAcquire(int acquires) {
-        return nonfairTryAcquire(acquires);
-    }
+// ------------------------- 悲观锁的调用方式 -------------------------
+// synchronized
+public synchronized void testMethod() {
+	// 操作同步资源
 }
+// ReentrantLock
+private ReentrantLock lock = new ReentrantLock(); // 需要保证多个线程使用的是同一个锁
+public void modifyPublicResources() {
+	lock.lock();
+	// 操作同步资源
+	lock.unlock();
+}
+
+// ------------------------- 乐观锁的调用方式 -------------------------
+private AtomicInteger atomicInteger = new AtomicInteger();  // 需要保证多个线程使用的是同一个AtomicInteger
+atomicInteger.incrementAndGet(); //执行自增1
+
 ```
 
-说明: 从lock方法的源码可知，每一次都尝试获取锁，而并不会按照公平等待的原则进行等待，让等待时间最久的线程获得锁。
+通过调用方式示例，我们可以发现悲观锁基本都是在显式的锁定之后再操作同步资源，而乐观锁则直接去操作同步资源。
 
-- FairSyn类
+## 2. 自旋锁 VS 适应性自旋锁
 
-FairSync类也继承了Sync类，表示采用公平策略获取锁，其实现了Sync类中的抽象lock方法，源码如下:
+> 在介绍自旋锁前，我们需要介绍一些前提知识来帮助大家明白自旋锁的概念。
+
+**阻塞或唤醒一个Java线程需要操作系统切换CPU状态来完成**，这种状态转换需要耗费处理器时间。如果同步代码块中的内容过于简单，状态转换消耗的时间有可能比用户代码执行的时间还要长。
+
+在许多场景中，同步资源的锁定时间很短，为了这一小段时间去切换线程，线程挂起和恢复现场的花费可能会让系统得不偿失。如果物理机器有多个处理器，能够让两个或以上的线程同时并行执行，我们就可以让后面那个请求锁的线程不放弃CPU的执行时间，看看持有锁的线程是否很快就会释放锁。
+
+而为了让当前线程“稍等一下”，我们需让当前线程进行自旋，如果在自旋完成后前面锁定同步资源的线程已经释放了锁，那么当前线程就可以不必阻塞而是直接获取同步资源，从而避免切换线程的开销。这就是自旋锁。
+
+![image-20220525213859276](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525213859276.png)
+
+自旋锁本身是有缺点的，它不能代替阻塞。自旋等待虽然避免了线程切换的开销，但它要占用处理器时间。如果锁被占用的时间很短，自旋等待的效果就会非常好。反之，如果锁被占用的时间很长，那么自旋的线程只会白浪费处理器资源。所以，自旋等待的时间必须要有一定的限度，如果自旋超过了限定次数（默认是10次，可以使用-XX:PreBlockSpin来更改）没有成功获得锁，就应当挂起线程。
+
+自旋锁的实现原理同样也是CAS，AtomicInteger中调用unsafe进行自增操作的源码中的do-while循环就是一个自旋操作，如果修改数值失败则通过循环来执行自旋，直至修改成功。
+
+## 3. 无锁 VS 偏向锁 VS 轻量级锁 VS 重量级锁
+
+> 这四种锁是指锁的状态，专门针对synchronized的。在介绍这四种锁状态之前还需要介绍一些额外的知识。
+
+总结而言： 偏向锁通过对比Mark Word解决加锁问题，避免执行CAS操作。而轻量级锁是通过用CAS操作和自旋来解决加锁问题，避免线程阻塞和唤醒而影响性能。重量级锁是将除了拥有锁的线程以外的线程都阻塞。
+
+![image-20220525214145459](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525214145459.png)
+
+## 4. 公平锁 VS 非公平锁
+
+公平锁是指多个线程按照申请锁的顺序来获取锁，线程直接进入队列中排队，队列中的第一个线程才能获得锁。公平锁的优点是等待锁的线程不会饿死。缺点是整体吞吐效率相对非公平锁要低，等待队列中除第一个线程以外的所有线程都会阻塞，CPU唤醒阻塞线程的开销比非公平锁大。
+
+非公平锁是多个线程加锁时直接尝试获取锁，获取不到才会到等待队列的队尾等待。但如果此时锁刚好可用，那么这个线程可以无需阻塞直接获取到锁，所以非公平锁有可能出现后申请锁的线程先获取锁的场景。非公平锁的优点是可以减少唤起线程的开销，整体的吞吐效率高，因为线程有几率不阻塞直接获得锁，CPU不必唤醒所有线程。缺点是处于等待队列中的线程可能会饿死，或者等很久才会获得锁。
+
+直接用语言描述可能有点抽象，这里作者用从别处看到的一个例子来讲述一下公平锁和非公平锁。
+
+![image-20220525214407781](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525214407781.png)
+
+如上图所示，假设有一口水井，有管理员看守，管理员有一把锁，只有拿到锁的人才能够打水，打完水要把锁还给管理员。每个过来打水的人都要管理员的允许并拿到锁之后才能去打水，如果前面有人正在打水，那么这个想要打水的人就必须排队。管理员会查看下一个要去打水的人是不是队伍里排最前面的人，如果是的话，才会给你锁让你去打水；如果你不是排第一的人，就必须去队尾排队，这就是公平锁。
+
+但是对于非公平锁，管理员对打水的人没有要求。即使等待队伍里有排队等待的人，但如果在上一个人刚打完水把锁还给管理员而且管理员还没有允许等待队伍里下一个人去打水时，刚好来了一个插队的人，这个插队的人是可以直接从管理员那里拿到锁去打水，不需要排队，原本排队等待的人只能继续等待。如下图所示：
+
+![image-20220525214702064](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525214702064.png)
+
+
+
+## 5. 可重入锁 VS 非可重入锁
+
+可重入锁又名递归锁，是指在同一个线程在外层方法获取锁的时候，再进入该线程的内层方法会自动获取锁（前提锁对象得是同一个对象或者class），不会因为之前已经获取过还没释放而阻塞。Java中ReentrantLock和synchronized都是可重入锁，可重入锁的一个优点是可一定程度避免死锁。下面用示例代码来进行分析：
 
 ```java
-// 公平锁
-static final class FairSync extends Sync {
-    // 版本序列化
-    private static final long serialVersionUID = -3000897897090466540L;
-
-    final void lock() {
-        // 以独占模式获取对象，忽略中断
-        acquire(1);
+public class Widget {
+    public synchronized void doSomething() {
+        System.out.println("方法1执行...");
+        doOthers();
     }
 
-    /**
-        * Fair version of tryAcquire.  Don't grant access unless
-        * recursive call or no waiters or is first.
-        */
-    // 尝试公平获取锁
-    protected final boolean tryAcquire(int acquires) {
-        // 获取当前线程
-        final Thread current = Thread.currentThread();
-        // 获取状态
-        int c = getState();
-        if (c == 0) { // 状态为0
-            if (!hasQueuedPredecessors() &&
-                compareAndSetState(0, acquires)) { // 不存在已经等待更久的线程并且比较并且设置状态成功
-                // 设置当前线程独占
-                setExclusiveOwnerThread(current);
-                return true;
-            }
-        }
-        else if (current == getExclusiveOwnerThread()) { // 状态不为0，即资源已经被线程占据
-            // 下一个状态
-            int nextc = c + acquires;
-            if (nextc < 0) // 超过了int的表示范围
-                throw new Error("Maximum lock count exceeded");
-            // 设置状态
-            setState(nextc);
-            return true;
-        }
-        return false;
-    }
-}
-```
-
-说明: 跟踪lock方法的源码可知，当资源空闲时，它总是会先判断sync队列(AbstractQueuedSynchronizer中的数据结构)是否有等待时间更长的线程，如果存在，则将该线程加入到等待队列的尾部，实现了公平获取原则。其中，FairSync类的lock的方法调用如下，只给出了主要的方法。
-
-<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220916214515917.png" alt="image-20220916214515917"  />
-
-说明: 可以看出只要资源被其他线程占用，该线程就会添加到sync queue中的尾部，而不会先尝试获取资源。这也是和Nonfair最大的区别，Nonfair每一次都会尝试去获取资源，如果此时该资源恰好被释放，则会被当前线程获取，这就造成了不公平的现象，当获取不成功，再加入队列尾部。
-
-### 1.3 类的属性
-
-ReentrantLock类的sync非常重要，对ReentrantLock类的操作大部分都直接转化为对Sync和AbstractQueuedSynchronizer类的操作。
-
-```java
-public class ReentrantLock implements Lock, java.io.Serializable {
-    // 序列号
-    private static final long serialVersionUID = 7373984872572414699L;    
-    // 同步队列
-    private final Sync sync;
-}
-```
-
-### 1.4 类的构造函数
-
-- ReentrantLock()型构造函数
-
-默认是采用的非公平策略获取锁
-
-```java
-public ReentrantLock() {
-    // 默认非公平策略
-    sync = new NonfairSync();
-}
-```
-
-- ReentrantLock(boolean)型构造函数
-
-可以传递参数确定采用公平策略或者是非公平策略，参数为true表示公平策略，否则，采用非公平策略:
-
-```java
-public ReentrantLock(boolean fair) {
-    sync = fair ? new FairSync() : new NonfairSync();
-}
-```
-
-### 1.5 核心函数分析
-
-通过分析ReentrantLock的源码，可知对其操作都转化为对Sync对象的操作，由于Sync继承了AQS，所以基本上都可以转化为对AQS的操作。如将ReentrantLock的lock函数转化为对Sync的lock函数的调用，而具体会根据采用的策略(如公平策略或者非公平策略)的不同而调用到Sync的不同子类。
-
-所以可知，在ReentrantLock的背后，是AQS对其服务提供了支持，由于之前我们分析AQS的核心源码，遂不再累赘。下面还是通过例子来更进一步分析源码。
-
-## 2. 示例分析
-
-### 2.1 公平锁
-
-```java
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-class MyThread extends Thread {
-    private Lock lock;
-    public MyThread(String name, Lock lock) {
-        super(name);
-        this.lock = lock;
-    }
-    
-    public void run () {
-        lock.lock();
-        try {
-            System.out.println(Thread.currentThread() + " running");
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        } finally {
-            lock.unlock();
-        }
+    public synchronized void doOthers() {
+        System.out.println("方法2执行...");
     }
 }
 
-public class AbstractQueuedSynchonizerDemo {
-    public static void main(String[] args) throws InterruptedException {
-        Lock lock = new ReentrantLock(true);
-        
-        MyThread t1 = new MyThread("t1", lock);        
-        MyThread t2 = new MyThread("t2", lock);
-        MyThread t3 = new MyThread("t3", lock);
-        t1.start();
-        t2.start();    
-        t3.start();
-    }
-}
 ```
 
-运行结果(某一次):
+在上面的代码中，类中的两个方法都是被内置锁synchronized修饰的，doSomething()方法中调用doOthers()方法。因为内置锁是可重入的，所以同一个线程在调用doOthers()时可以直接获得当前对象的锁，进入doOthers()进行操作。
 
-```html
-Thread[t1,5,main] running
-Thread[t2,5,main] running
-Thread[t3,5,main] running
+如果是一个不可重入锁，那么当前线程在调用doOthers()之前需要将执行doSomething()时获取当前对象的锁释放掉，实际上该对象锁已被当前线程所持有，且无法释放。所以此时会出现死锁。
 
-```
+而为什么可重入锁就可以在嵌套调用时可以自动获得锁呢？我们通过图示和源码来分别解析一下。
 
-说明: 该示例使用的是公平策略，由结果可知，可能会存在如下一种时序。
+还是打水的例子，有多个人在排队打水，此时管理员允许锁和同一个人的多个水桶绑定。这个人用多个水桶打水时，第一个水桶和锁绑定并打完水之后，第二个水桶也可以直接和锁绑定并开始打水，所有的水桶都打完水之后打水人才会将锁还给管理员。这个人的所有打水流程都能够成功执行，后续等待的人也能够打到水。这就是可重入锁。
 
-![image-20220916214704264](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220916214704264.png)
+![image-20220525214920016](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525214920016.png)
 
-说明: 首先，t1线程的lock操作 -> t2线程的lock操作 -> t3线程的lock操作 -> t1线程的unlock操作 -> t2线程的unlock操作 -> t3线程的unlock操作。根据这个时序图来进一步分析源码的工作流程。
 
-- t1线程执行lock.lock，下图给出了方法调用中的主要方法。
 
-<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220916214728531.png" alt="image-20220916214728531"  />
+但如果是非可重入锁的话，此时管理员只允许锁和同一个人的一个水桶绑定。第一个水桶和锁绑定打完水之后并不会释放锁，导致第二个水桶不能和锁绑定也无法打水。当前线程出现死锁，整个等待队列中的所有线程都无法被唤醒。
 
-说明: 由调用流程可知，t1线程成功获取了资源，可以继续执行。
+![image-20220525215010238](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525215010238.png)
 
-- t2线程执行lock.lock，下图给出了方法调用中的主要方法。
 
-![image-20220916214753399](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220916214753399.png)
 
-说明: 由上图可知，最后的结果是t2线程会被禁止，因为调用了LockSupport.park。
+之前我们说过ReentrantLock和synchronized都是重入锁，那么我们通过重入锁ReentrantLock以及非可重入锁NonReentrantLock的源码来对比分析一下为什么非可重入锁在重复调用同步资源时会出现死锁。
 
-- t3线程执行lock.lock，下图给出了方法调用中的主要方法。
+首先ReentrantLock和NonReentrantLock都继承父类AQS，其父类AQS中维护了一个同步状态status来计数重入次数，status初始值为0。
 
-![image-20220916214810133](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220916214810133.png)
 
-说明: 由上图可知，最后的结果是t3线程会被禁止，因为调用了LockSupport.park。
 
-- t1线程调用了lock.unlock，下图给出了方法调用中的主要方法。
+当线程尝试获取锁时，可重入锁先尝试获取并更新status值，如果status == 0表示没有其他线程在执行同步代码，则把status置为1，当前线程开始执行。如果status != 0，则判断当前线程是否是获取到这个锁的线程，如果是的话执行status+1，且当前线程可以再次获取锁。而非可重入锁是直接去获取并尝试更新当前status的值，如果status != 0的话会导致其获取锁失败，当前线程阻塞。
 
-![image-20220916214823518](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220916214823518.png)
+释放锁时，可重入锁同样先获取当前status的值，在当前线程是持有锁的线程的前提下。如果status-1 == 0，则表示当前线程所有重复获取锁的操作都已经执行完毕，然后该线程才会真正释放锁。而非可重入锁则是在确定当前线程是持有锁的线程之后，直接将status置为0，将锁释放。
 
-说明: 如上图所示，最后，head的状态会变为0，t2线程会被unpark，即t2线程可以继续运行。此时t3线程还是被禁止。
+![image-20220525215154882](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525215154882.png)
 
-- t2获得cpu资源，继续运行，由于t2之前被park了，现在需要恢复之前的状态，下图给出了方法调用中的主要方法。
+## 6. 独享锁(排他锁) VS 共享锁
 
-![image-20220916214840548](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220916214840548.png)
+> 独享锁和共享锁同样是一种概念。我们先介绍一下具体的概念，然后通过ReentrantLock和ReentrantReadWriteLock的源码来介绍独享锁和共享锁。
 
-说明: 在setHead函数中会将head设置为之前head的下一个结点，并且将pre域与thread域都设置为null，在acquireQueued返回之前，sync queue就只有两个结点了。
+**独享锁也叫排他锁**，是指该锁一次只能被一个线程所持有。如果线程T对数据A加上排它锁后，则其他线程不能再对A加任何类型的锁。获得排它锁的线程即能读数据又能修改数据。JDK中的synchronized和JUC中Lock的实现类就是互斥锁。
 
-- t2执行lock.unlock，下图给出了方法调用中的主要方法。
+**共享锁**是指该锁可被多个线程所持有。如果线程T对数据A加上共享锁后，则其他线程只能对A再加共享锁，不能加排它锁。获得共享锁的线程只能读数据，不能修改数据。
 
-![image-20220916214858271](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220916214858271.png)
+独享锁与共享锁也是通过AQS来实现的，通过实现不同的方法，来实现独享或者共享。
 
-说明: 由上图可知，最终unpark t3线程，让t3线程可以继续运行。
+下图为ReentrantReadWriteLock的部分源码：
 
-- t3线程获取cpu资源，恢复之前的状态，继续运行。
+![image-20220525215327629](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525215327629.png)
 
-![image-20220916214911379](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220916214911379.png)
+我们看到ReentrantReadWriteLock有两把锁：ReadLock和WriteLock，由词知意，一个读锁一个写锁，合称“读写锁”。再进一步观察可以发现ReadLock和WriteLock是靠内部类Sync实现的锁。Sync是AQS的一个子类，这种结构在CountDownLatch、ReentrantLock、Semaphore里面也都存在。
 
-说明: 最终达到的状态是sync queue中只剩下了一个结点，并且该节点除了状态为0外，其余均为null。
-
-- t3执行lock.unlock，下图给出了方法调用中的主要方法。
-
-![image-20220916214924181](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220916214924181.png)
-
-说明: 最后的状态和之前的状态是一样的，队列中有一个空节点，头节点为尾节点均指向它。
-
-使用公平策略和Condition的情况可以参考上一篇关于AQS的源码示例分析部分，不再累赘。
+在ReentrantReadWriteLock里面，读锁和写锁的锁主体都是Sync，但读锁和写锁的加锁方式不一样。读锁是共享锁，写锁是独享锁。读锁的共享锁可保证并发读非常高效，而读写、写读、写写的过程互斥，因为读锁和写锁是分离的。所以ReentrantReadWriteLock的并发性相比一般的互斥锁有了很大提升。
 
 ## 参考文章
 
-[**JUC锁: ReentrantLock详解**](https://pdai.tech/md/java/thread/java-thread-x-lock-ReentrantLock.html)
+[Java并发 - Java中所有的锁](https://pdai.tech/md/java/thread/java-thread-x-lock-all.html)

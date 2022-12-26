@@ -1,281 +1,173 @@
 ---
-order: 70
+order: 220
 category:
 	- ElasticSearch
 ---
 
-# ES详解 - 索引：索引模板(Index Template)详解
+# ES详解 - 原理：ES原理知识点补充和整体结构
 
->前文介绍了索引的一些操作，特别是手动创建索引，但是批量和脚本化必然需要提供一种模板方式快速构建和管理索引，这就是本文要介绍的索引模板(Index Template)，它是一种告诉Elasticsearch在创建索引时如何配置索引的方法。为了更好的复用性，在7.8中还引入了组件模板。
+> 通过上文图解了解了ES整体的原理后，我们便可以基于此知识体系下梳理下ES的整体结构以及相关的知识点，这将帮助你更好的理解ElasticSearch索引文档和搜索文档的原理。
 
-## 1.1. 索引模板
+## 1. ElasticSearch整体结构
 
-> 索引模板是一种告诉Elasticsearch在创建索引时如何配置索引的方法。
+> 通过上文，在通过图解了解了ES整体的原理后，我们梳理下ES的整体结构
 
-- **使用方式**
+![image-20220807223012609](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220807223012609.png)
 
-在创建索引之前可以先配置模板，这样在创建索引（手动创建索引或通过对文档建立索引）时，模板设置将用作创建索引的基础。
+- 一个 ES Index 在集群模式下，有多个 Node （节点）组成。每个节点就是 ES 的Instance (实例)。
 
-### 1.2. 模板类型
+- 每个节点上会有多个 shard （分片）， P1 P2 是主分片, R1 R2 是副本分片
 
-模板有两种类型：**索引模板**和**组件模板**。
+- 每个分片上对应着就是一个 Lucene Index（底层索引文件）
 
-1. **组件模板**是可重用的构建块，用于配置映射，设置和别名；它们不会直接应用于一组索引。
-2. **索引模板**可以包含组件模板的集合，也可以直接指定设置，映射和别名。
+- Lucene Index 是一个统称
 
-### 1.3. 索引模板中的优先级
+  - 由多个 Segment （段文件，就是倒排索引）组成。每个段文件存储着就是 Doc 文档。
 
-1. 可组合模板优先于旧模板。如果没有可组合模板匹配给定索引，则旧版模板可能仍匹配并被应用。
-2. 如果使用显式设置创建索引并且该索引也与索引模板匹配，则创建索引请求中的设置将优先于索引模板及其组件模板中指定的设置。
-3. 如果新数据流或索引与多个索引模板匹配，则使用优先级最高的索引模板。
+  - commit point记录了所有 segments 的信息
 
-### 1.4. 内置索引模板
+## 2. 补充:Lucene索引结构
 
-Elasticsearch具有内置索引模板，每个索引模板的优先级为100，适用于以下索引模式：
+> 上图中Lucene的索引结构中有哪些文件呢？
 
-1. `logs-*-*`
-2. `metrics-*-*`
-3. `synthetics-*-*`
+![image-20220807223432842](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220807223432842.png)
 
-所以在涉及内建索引模板时，要避免索引模式冲突。更多可以参考[这里](https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html)
+（更多文件类型可参考[这里 (opens new window)](http://lucene.apache.org/core/7_2_1/core/org/apache/lucene/codecs/lucene70/package-summary.html#package.description)）
 
+![image-20220807223542331](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220807223542331.png)
 
-### 1.5 案例
+文件的关系如下：
 
-- 首先**创建两个索引组件模板**：
+![image-20220807223558097](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220807223558097.png)
 
-```bash
-PUT _component_template/component_template1
-{
-  "template": {
-    "mappings": {
-      "properties": {
-        "@timestamp": {
-          "type": "date"
-        }
-      }
-    }
-  }
-}
+## 3. 补充:Lucene处理流程
 
-PUT _component_template/runtime_component_template
-{
-  "template": {
-    "mappings": {
-      "runtime": { 
-        "day_of_week": {
-          "type": "keyword",
-          "script": {
-            "source": "emit(doc['@timestamp'].value.dayOfWeekEnum.getDisplayName(TextStyle.FULL, Locale.ROOT))"
-          }
-        }
-      }
-    }
-  }
-}
-```
+> 上文图解过程，还需要理解Lucene处理流程, 这将帮助你更好的索引文档和搜索文档。
 
-执行结果如下
+![image-20220807223722391](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220807223722391.png)
 
-![image-20220804225958359](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804225958359.png)
+创建索引的过程：
 
-- **创建使用组件模板的索引模板**
+- 准备待索引的原文档，数据来源可能是文件、数据库或网络
+- 对文档的内容进行分词组件处理，形成一系列的Term
+- 索引组件对文档和Term处理，形成字典和倒排表
+
+搜索索引的过程：
+
+- 对查询语句进行分词处理，形成一系列Term
+- 根据倒排索引表查找出包含Term的文档，并进行合并形成符合结果的文档集
+- 比对查询语句与各个文档相关性得分，并按照得分高低返回
+
+## 4. 补充:ElasticSearch分析器
+
+> 上图中很重要的一项是**语法分析/语言处理**, 所以我们还需要补充ElasticSearch分析器知识点。
+
+分析 包含下面的过程：
+
+- 首先，将一块文本分成适合于倒排索引的独立的 词条 ，
+- 之后，将这些词条统一化为标准格式以提高它们的“可搜索性”，或者 recall
+
+分析器执行上面的工作。 分析器 实际上是将三个功能封装到了一个包里：
+
+- **字符过滤器** 首先，字符串按顺序通过每个 字符过滤器 。他们的任务是在分词前整理字符串。一个字符过滤器可以用来去掉HTML，或者将 & 转化成 and。
+- **分词器** 其次，字符串被 分词器 分为单个的词条。一个简单的分词器遇到空格和标点的时候，可能会将文本拆分成词条。
+- **Token 过滤器** 最后，词条按顺序通过每个 token 过滤器 。这个过程可能会改变词条（例如，小写化 Quick ），删除词条（例如， 像 a， and， the 等无用词），或者增加词条（例如，像 jump 和 leap 这种同义词）。
+
+Elasticsearch提供了开箱即用的字符过滤器、分词器和token 过滤器。 这些可以组合起来形成自定义的分析器以用于不同的目的。
+
+### 4.1 内置分析器
+
+Elasticsearch还附带了可以直接使用的预包装的分析器。接下来我们会列出最重要的分析器。为了证明它们的差异，我们看看每个分析器会从下面的字符串得到哪些词条：
 
 ```bash
-PUT _index_template/template_1
-{
-  "index_patterns": ["bar*"],
-  "template": {
-    "settings": {
-      "number_of_shards": 1
-    },
-    "mappings": {
-      "_source": {
-        "enabled": true
-      },
-      "properties": {
-        "host_name": {
-          "type": "keyword"
-        },
-        "created_at": {
-          "type": "date",
-          "format": "EEE MMM dd HH:mm:ss Z yyyy"
-        }
-      }
-    },
-    "aliases": {
-      "mydata": { }
-    }
-  },
-  "priority": 500,
-  "composed_of": ["component_template1", "runtime_component_template"], 
-  "version": 3,
-  "_meta": {
-    "description": "my custom"
-  }
-}
+"Set the shape to semi-transparent by calling set_trans(5)"
 ```
 
-执行结果如下
+- **标准分析器**
 
-![image-20220804230128229](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804230128229.png)
-
-- 创建一个匹配`bar*`的索引`bar-test`
+标准分析器是Elasticsearch默认使用的分析器。它是分析各种语言文本最常用的选择。它根据 Unicode 联盟 定义的 **单词边界** 划分文本。删除绝大部分标点。最后，将词条小写。它会产生
 
 ```bash
-PUT /bar-test 
+set, the, shape, to, semi, transparent, by, calling, set_trans, 5
 ```
 
-然后获取mapping
+- **简单分析器**
+
+简单分析器在任何不是字母的地方分隔文本，将词条小写。它会产生
 
 ```bash
-GET /bar-test/_mapping
+set, the, shape, to, semi, transparent, by, calling, set, trans
 ```
 
-执行结果如下
+- **空格分析器**
 
-![image-20220804230207857](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804230207857.png)
-
-## 2. 模拟多组件模板
-
-> 由于模板不仅可以由多个组件模板组成，还可以由索引模板自身组成；那么最终的索引设置将是什么呢？ElasticSearch设计者考虑到这个，提供了API进行模拟组合后的模板的配置。
-
-### 2.1 模拟某个索引结果
-
-比如上面的template_1, 我们不用创建bar*的索引(这里模拟bar-pdai-test)，也可以模拟计算出索引的配置：
+空格分析器在空格的地方划分文本。它会产生
 
 ```bash
-POST /_index_template/_simulate_index/bar-pdai-test
+Set, the, shape, to, semi-transparent, by, calling, set_trans(5)
 ```
 
-执行结果如下
+- **语言分析器**
 
-![image-20220804230349682](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804230349682.png)
+特定语言分析器可用于 很多语言。它们可以考虑指定语言的特点。例如， 英语 分析器附带了一组英语无用词（常用单词，例如 and 或者 the ，它们对相关性没有多少影响），它们会被删除。 由于理解英语语法的规则，这个分词器可以提取英语单词的 词干 。
 
-### 2.2 模拟组件模板结果
-
-当然，由于template_1模板是由两个组件模板组合的，我们也可以模拟出template_1被组合后的索引配置：
+英语 分词器会产生下面的词条：
 
 ```bash
-POST /_index_template/_simulate/template_1
+set, shape, semi, transpar, call, set_tran, 5
 ```
 
-执行结果如下：
+注意看 transparent、 calling 和 set_trans 已经变为词根格式。
 
-```json
-{
-  "template" : {
-    "settings" : {
-      "index" : {
-        "number_of_shards" : "1"
-      }
-    },
-    "mappings" : {
-      "runtime" : {
-        "day_of_week" : {
-          "type" : "keyword",
-          "script" : {
-            "source" : "emit(doc['@timestamp'].value.dayOfWeekEnum.getDisplayName(TextStyle.FULL, Locale.ROOT))",
-            "lang" : "painless"
-          }
-        }
-      },
-      "properties" : {
-        "@timestamp" : {
-          "type" : "date"
-        },
-        "created_at" : {
-          "type" : "date",
-          "format" : "EEE MMM dd HH:mm:ss Z yyyy"
-        },
-        "host_name" : {
-          "type" : "keyword"
-        }
-      }
-    },
-    "aliases" : {
-      "mydata" : { }
-    }
-  },
-  "overlapping" : [ ]
-}
-```
+### 4.2 什么时候使用分析器
 
-### 2.3 模拟组件模板和自身模板结合后的结果
+当我们 索引 一个文档，它的全文域被分析成词条以用来创建倒排索引。 但是，当我们在全文域 搜索 的时候，我们需要将查询字符串通过 相同的分析过程 ，以保证我们搜索的词条格式与索引中的词条格式一致。
 
-- 新建两个模板
+全文查询，理解每个域是如何定义的，因此它们可以做正确的事：
+
+- 当你查询一个 全文 域时， 会对查询字符串应用相同的分析器，以产生正确的搜索词条列表。
+- 当你查询一个 精确值 域时，不会分析查询字符串，而是搜索你指定的精确值。
+
+> 举个例子
+
+ES中每天一条数据， 按照如下方式查询：
 
 ```bash
-PUT /_component_template/ct1
-{
-  "template": {
-    "settings": {
-      "index.number_of_shards": 2
-    }
-  }
-}
-
-PUT /_component_template/ct2
-{
-  "template": {
-    "settings": {
-      "index.number_of_replicas": 0
-    },
-    "mappings": {
-      "properties": {
-        "@timestamp": {
-          "type": "date"
-        }
-      }
-    }
-  }
-}
+GET /_search?q=2014              # 12 results
+GET /_search?q=2014-09-15        # 12 results !
+GET /_search?q=date:2014-09-15   # 1  result
+GET /_search?q=date:2014         # 0  results !
 ```
 
-模拟在两个组件模板的基础上，添加自身模板的配置
+为什么返回那样的结果？
+
+- date 域包含一个精确值：单独的词条 2014-09-15。
+- _all 域是一个全文域，所以分词进程将日期转化为三个词条： 2014， 09， 和 15。
+
+当我们在 _all 域查询 2014，它匹配所有的12条推文，因为它们都含有 2014 ：
 
 ```bash
-POST /_index_template/_simulate
-{
-  "index_patterns": ["my*"],
-  "template": {
-    "settings" : {
-        "index.number_of_shards" : 3
-    }
-  },
-  "composed_of": ["ct1", "ct2"]
-}
-
+GET /_search?q=2014              # 12 results
 ```
 
-执行的结果如下
+当我们在 _all 域查询 2014-09-15，它首先分析查询字符串，产生匹配 2014， 09， 或 15 中 任意 词条的查询。这也会匹配所有12条推文，因为它们都含有 2014 ：
 
-```json
-{
-  "template" : {
-    "settings" : {
-      "index" : {
-        "number_of_shards" : "3",
-        "number_of_replicas" : "0"
-      }
-    },
-    "mappings" : {
-      "properties" : {
-        "@timestamp" : {
-          "type" : "date"
-        }
-      }
-    },
-    "aliases" : { }
-  },
-  "overlapping" : [ ]
-}
-
-  
+```bash
+GET /_search?q=2014-09-15        # 12 results !
 ```
 
-![image-20220804230703815](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220804230703815.png)
+当我们在 date 域查询 2014-09-15，它寻找 精确 日期，只找到一个推文：
+
+```bash
+GET /_search?q=date:2014-09-15   # 1  result
+```
+
+当我们在 date 域查询 2014，它找不到任何文档，因为没有文档含有这个精确日志：
+
+```bash
+GET /_search?q=date:2014         # 0  results !
+```
 
 ## 参考文章
 
-[**ES详解 - 索引：索引模板(Index Template)详解**](https://pdai.tech/md/db/nosql-es/elasticsearch-x-index-template.html)
+[**ES详解 - 原理：ES原理知识点补充和整体结构**](https://pdai.tech/md/db/nosql-es/elasticsearch-y-th-2.html)

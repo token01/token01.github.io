@@ -157,7 +157,7 @@ private final boolean compareAndSetTail(Node expect, Node update) {
 1. 当没有线程获取到锁时，线程1获取锁成功。
 2. 线程2申请锁，但是锁被线程1占有。
 
-![image-20220521202652797](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220521202652797.png)
+![image-20220521202652797](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220521202652797.png)
 
 3. 如果再有线程要获取锁，依次在队列中往后排队即可。
 
@@ -297,11 +297,11 @@ private final boolean parkAndCheckInterrupt() {
 
 上述方法的流程图如下：
 
-![image-20220521205100169](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220521205100169.png)
+![image-20220521205100169](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220521205100169.png)
 
 从上图可以看出，跳出当前循环的条件是当“前置节点是头结点，且当前线程获取锁成功”。为了防止因死循环导致CPU资源被浪费，我们会判断前置节点的状态来决定是否要将当前线程挂起，具体挂起流程用流程图表示如下（shouldParkAfterFailedAcquire流程）：
 
-![image-20220521205119638](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220521205119638.png)
+![image-20220521205119638](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220521205119638.png)
 
 从队列中释放节点的疑虑打消了，那么又有新问题了：
 
@@ -392,15 +392,15 @@ private void cancelAcquire(Node node) {
 
 当前节点是尾节点。
 
-![image-20220521205416054](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220521205416054.png)
+![image-20220521205416054](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220521205416054.png)
 
 当前节点是Head的后继节点。
 
-![image-20220521205431385](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220521205431385.png)
+![image-20220521205431385](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220521205431385.png)
 
 当前节点不是Head的后继节点，也不是尾节点。
 
-![image-20220521205446769](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220521205446769.png)
+![image-20220521205446769](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220521205446769.png)
 
 通过上面的流程，我们对于CANCELLED节点状态的产生和变化已经有了大致的了解，但是为什么所有的变化都是对Next指针进行了操作，而没有对Prev指针进行操作呢？什么情况下会对Prev指针进行操作？
 

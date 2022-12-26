@@ -43,7 +43,7 @@ category:
 
 以阿里云相关产品为例
 
-![image-20220716220503018](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716220503018.png)
+![image-20220716220503018](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220716220503018.png)
 
 ### 2.2 认证和授权
 
@@ -94,7 +94,7 @@ HTTPs 并不是新协议，而是让 HTTP 先和 SSL(Secure Sockets Layer)通信
 
 通过使用 SSL，HTTPs 具有了加密(防窃听)、认证(防伪装)和完整性保护(防篡改)。
 
-![image-20220716221336226](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716221336226.png)
+![image-20220716221336226](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220716221336226.png)
 
 ### 2.4 接口签名（加密）
 
@@ -380,19 +380,19 @@ public class SignTestController {
 
 body参数
 
-![image-20220716225515949](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716225515949.png)
+![image-20220716225515949](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220716225515949.png)
 
 如果不带X-SIGN
 
-![image-20220716225534900](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716225534900.png)
+![image-20220716225534900](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220716225534900.png)
 
 如果X-SIGN错误
 
-![image-20220716225553472](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716225553472.png)
+![image-20220716225553472](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220716225553472.png)
 
 如果X-SIGN正确
 
-![image-20220716225610038](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220716225610038.png)
+![image-20220716225610038](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220716225610038.png)
 
 ## 参考文章
 

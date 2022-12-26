@@ -1,115 +1,124 @@
 ---
-#order: 20
+#order: 30
 category:
   - Java
   - JVM
 
 ---
 
-#  JVM 内存分配与回收
+# 类加载器
 
-## 1. JVM 内存分配与回收
+## 1. 回顾类加载过程
 
-Java 的自动内存管理主要是针对象内存的回收和对象的内存的分配。同时，java 自动内存管理最核心的功能是 **堆**内存中的对象分配与回收
+类加载过程：**加载->连接->初始化**。连接过程由可以分成三步：**验证->准备->解析**
 
-Java 堆是垃圾收集器管理的主要区域，因此也被称作**GC 堆（Garbage Collected Heap）**.从垃圾回收的角度，由于现在收集器基本都采用分代垃圾收集算法，所以 Java 堆还可以细分为：新生代和老年代：再细致一点有：Eden 空间、From Survivor、To Survivor 空间等。**进一步划分的目的是更好地回收内存，或者更快地分配内存。**
+![image-20190929170059337](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20190929170059337.png)
 
-**堆空间的基本结构：**
+一个非数组类的加载阶段（加载阶段获取类的二进制字节流的动作）是可控最强的阶段，这一步我们可以去完成还可以自定义类加载器去控制字节流的获取方式（重写一个类加载器的 `loadClass()` 方法）。数组类型不通过类加载器创建，他由Java虚拟机直接创建
 
-![image-20190924234527212](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190924234527212.png)
+所有的类都是由类加载器加载，加载的作用就是将.class文件加载到内存
 
-上图所示的 eden区，s0("From") 区、s1("To") 区都属于新生代，tentired 区属于老年代。大部分情况，
+## 2. 类加载器总结
 
-- 对象都会首先在 Eden 区域分配
+JVM中内置了三个重要的ClassLoader，除了BootstrapClassLoader 其他类加载器均有 Java 实现且全部继承自`java.lang.ClassLoader`：
 
-- 在一次新生代垃圾回收后，如果对象还存活，则会进入 s1("To")，并且对象的年龄还会加 1(Eden 区->Survivor 区后对象的初始年龄变为 1)
+- **BootstrapClassLoader(启动类加载器)**：最顶层的加载类，由C++实现。负责加载`%JAVA_HOME%/lib`目录下的jar包和类或者或被 `-Xbootclasspath`参数指定的路径中的所有类。
+- **ExtClassLoader（扩展类加载器）**：主要负责加载目录 `%JRE_HOME%/lib/ext` 目录下的jar包和类，或被 `java.ext.dirs` 系统变量所指定的路径下的jar包。
+- **AppClassLoader(应用程序类加载器)** ：面向我们用户的加载器，负责加载当前应用classpath下的所有jar包和类
 
-- 当它的年龄增加到一定程度（默认为 15 岁），就会被晋升到老年代中
+## 3. 双亲委派模型
 
-  对象晋升到老年代的年龄阈值，可以通过参数 `-XX:MaxTenuringThreshold` 来设置
+### 3.1 介绍
 
-- 经过这次GC后，Eden区和"From"区已经被清空。这个时候，"From"和"To"会交换他们的角色，也就是新的"To"就是上次GC前的“From”，新的"From"就是上次GC前的"To"。不管怎样，都会**保证名为To的Survivor区域是空的**
+每一个类都有一个对应他的类加载器。系统中的ClassLoader 在协同工作的时候会默认使用 **双亲委派模型**。既在类加载的时候，系统会首先判断当前类是否被加载过。已经被加载的类会直接返回，否则才会尝试加载。加载的时候，首先会把该请求委派该父类加载器的 `loadClass()` 处理，因此所有的请求最终都应该传送到顶层的启动类加载器 `BootstrapClassLoader` 中。当父类加载器无法处理时，才由自己来处理。当父类加载器为null时，会使用启动类加载器 `BootstrapClassLoader` 作为父类加载器。
 
-- Minor GC会一直重复这样的过程，直到“To”区被填满，"To"区被填满之后，会将所有对象移动到年老代中。
+![image-20190929215241442](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20190929215241442.png)
 
-![image-20190924235155859](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190924235155859.png)
+每个类加载都有一个父类加载器，我们通过下面的程序来验证。
 
-### 1.1 对象优先在eden 区分配
-
-目前主流的垃圾收集器都会采用分代回收算法，因此需要将堆内存分为新生代和老年代，这样我们就可以根据各个年代的特点选择合适的垃圾收集算法。
-
-大多数情况下，对象在新生代中 eden 区分配。当 eden 区没有足够空间进行分配时，虚拟机将发起一次 Minor GC.下面我们来进行实际测试以下。
-
-在测试之前我们先来看看 **Minor GC 和 Full GC 有什么不同呢？**
-
-- **新生代 GC（Minor GC）**:指发生新生代的的垃圾收集动作，Minor GC 非常频繁，回收速度一般也比较快。
-- **老年代 GC（Major GC/Full GC）**:指发生在老年代的 GC，出现了 Major GC 经常会伴随至少一次的 Minor GC（并非绝对），Major GC 的速度一般会比 Minor GC 的慢 10 倍以上。
-
-**测试**
-
-```
-public class GCTest {
-
+```java
+public class ClassLoaderDemo {
     public static void main(String[] args) {
-        byte[] allocation1, allocation2;
-        allocation1 = new byte[30900*1024];
-        //allocation2 = new byte[900*1024];
+        System.out.println("ClassLodarDemo's ClassLoader is " + ClassLoaderDemo.class.getClassLoader());
+        System.out.println("The Parent of ClassLodarDemo's ClassLoader is " + ClassLoaderDemo.class.getClassLoader().getParent());
+        System.out.println("The GrandParent of ClassLodarDemo's ClassLoader is " + ClassLoaderDemo.class.getClassLoader().getParent().getParent());
     }
 }
 ```
 
-添加的参数：`-XX:+PrintGCDetails`
-
-![image-20190924235926247](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190924235926247.png)
-
-运行结果（JDK 1.8）
-
-![image-20190925000240877](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190925000240877.png)
-
-从上图我们可以看出 eden 区内存几乎已经被分配完全（即使程序什么也不做，新生代也会使用 2000 多 k 内存）。假如我们再为 allocation2 分配内存会出现什么情况呢？
+输出
 
 ```
-allocation2 = new byte[900*1024];
+ClassLodarDemo's ClassLoader is sun.misc.Launcher$AppClassLoader@18b4aac2
+The Parent of ClassLodarDemo's ClassLoader is sun.misc.Launcher$ExtClassLoader@1b6d3586
+The GrandParent of ClassLodarDemo's ClassLoader is null
 ```
 
-![image-20190925000448570](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20190925000448570.png)
+`AppClassLoader`的父类加载器为`ExtClassLoader` `ExtClassLoader`的父类加载器为null，**null并不代表ExtClassLoader没有父类加载器，而是 BootstrapClassLoader** 。
 
-**简单解释一下为什么会出现这种情况：** 因为给 allocation2 分配内存的时候 eden 区内存几乎已经被分配完了，我们刚刚讲了当 Eden 区没有足够空间进行分配时，虚拟机将发起一次 Minor GC.GC 期间虚拟机又发现 allocation1 无法存入 Survivor 空间，所以只好通过 **分配担保机制** 把新生代的对象提前转移到老年代中去，老年代上的空间足够存放 allocation1，所以不会出现 Full GC。执行 Minor GC 后，后面分配的对象如果能够存在 eden 区的话，还是会在 eden 区分配内存。可以执行如下代码验证：
+其实这个双亲翻译的容易让别人误解，我们一般理解的双亲都是父母，这里的双亲更多地表达的是“父母这一辈”的人而已，并不是说真的有一个 Mother ClassLoader 和一个 Father ClassLoader 。另外，类加载器之间的“父子”关系也不是通过继承来体现的，是由“优先级”来决定。官方API文档对这部分的描述如下:
 
+> The Java platform uses a delegation model for loading classes. **The basic idea is that every class loader has a "parent" class loader.** When loading a class, a class loader first "delegates" the search for the class to its parent class loader before attempting to find the class itself.
+
+### 3.2 双亲委派模型源码分析
+
+双亲委派模型的实现代码非常简单，逻辑非常清晰，都集中在 `java.lang.ClassLoader` 的 `loadClass()` 中，相关代码如下所示。
+
+```java
+private final ClassLoader parent; 
+protected Class<?> loadClass(String name, boolean resolve)
+        throws ClassNotFoundException
+    {
+        synchronized (getClassLoadingLock(name)) {
+            // 首先，检查请求的类是否已经被加载过
+            Class<?> c = findLoadedClass(name);
+            if (c == null) {
+                long t0 = System.nanoTime();
+                try {
+                    if (parent != null) {//父加载器不为空，调用父加载器loadClass()方法处理
+                        c = parent.loadClass(name, false);
+                    } else {//父加载器为空，使用启动类加载器 BootstrapClassLoader 加载
+                        c = findBootstrapClassOrNull(name);
+                    }
+                } catch (ClassNotFoundException e) {
+                   //抛出异常说明父类加载器无法完成加载请求
+                }
+                
+                if (c == null) {
+                    long t1 = System.nanoTime();
+                    //自己尝试加载
+                    c = findClass(name);
+
+                    // this is the defining class loader; record the stats
+                    sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);
+                    sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);
+                    sun.misc.PerfCounter.getFindClasses().increment();
+                }
+            }
+            if (resolve) {
+                resolveClass(c);
+            }
+            return c;
+        }
+    }
 ```
-public class GCTest {
 
-	public static void main(String[] args) {
-		byte[] allocation1, allocation2,allocation3,allocation4,allocation5;
-		allocation1 = new byte[32000*1024];
-		allocation2 = new byte[1000*1024];
-		allocation3 = new byte[1000*1024];
-		allocation4 = new byte[1000*1024];
-		allocation5 = new byte[1000*1024];
-	}
-}
-```
+### 3.3 双亲委派模型的好处
 
-### 1.2 大对象直接进入老年代
+- 双亲委派模型保证了Java程序的稳定运行，可以避免类的重复加载
 
-大对象就是需要大量连续内存空间的对象（比如：字符串、数组）。
+  （JVM 区分不同类的方式不仅仅根据类名，相同的类文件被不同的类加载器加载产生的是两个不同的类）
 
-**为什么需要这样呢？**
+- 保证了 Java 的核心 API 不被篡改
 
-为了避免为大对象分配内存时由于分配担保机制带来的复制而降低效率
+  如果没有使用双亲委派模型，而是每个类加载器加载自己的话就会出现一些问题，比如我们编写一个称为 `java.lang.Object` 类的话，那么程序运行的时候，系统就会出现多个不同的 `Object` 类。
 
-### 1.3 长期存活的对象将进入老年代
+## 4. 不使用双亲委派模型
 
-既然虚拟机采用了分代收集的思想来管理内存，那么内存回收时就必须能识别哪些对象应放在新生代，哪些对象应放在老年代中。为了做到这一点，虚拟机给每个对象一个对象年龄（Age）计数器。
+### 如果我们不想用双亲委派模型怎么办？
 
-- 如果对象在 Eden 出生并经过第一次 Minor GC 后仍然能够存活，并且能被Survivor容纳的话，将被移动到Survivor空间中，并将对象年龄设为1。
+为了避免双亲委托机制，我们可以自己定义一个类加载器，然后重载 `loadClass()` 即可。
 
-- 对象在Survivor中没经过一次MinorGC 年龄就增加1岁
+## 5. 自定义类加载器
 
-- 当它的年龄增加到一定程度（默认为15岁），就会被晋升到老年代中
-
-  对象晋升到老年代的年龄阈值，可以通过参数 `-XX:MaxTenuringThreshold` 来设置。
-
-### 1.4 动态对象年龄判定
-
-为了更好的适应不同程序的内存情况，虚拟机不是永远要求对象年龄必须达到了某个值才能进入老年代，如果 Survivor 空间中相同年龄所有对象大小的总和大于 Survivor 空间的一半，年龄大于或等于该年龄的对象就可以直接进入老年代，无需达到要求的年龄。
+除了 `BootstrapClassLoader` 其他类加载器均由 Java 实现且全部继承自`java.lang.ClassLoader`。如果我们要自定义自己的类加载器，很明显需要继承 `ClassLoader`。

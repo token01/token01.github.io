@@ -38,13 +38,13 @@ ElasticSearch中**桶**在概念上类似于 SQL 的分组（`GROUP BY`），而
 
 > 如果你直接去看文档，大概有几十种：
 
-![image-20220806210958989](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220806210958989.png)
+![image-20220806210958989](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220806210958989.png)
 
 要么你需要花大量时间学习，要么你已经迷失或者即将迷失在知识点中...
 
 所以你需要稍微**站在设计者的角度思考**下，不难发现设计上大概分为三类（当然有些是第二和第三类的融合）
 
-![image-20220806211042963](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220806211042963.png)
+![image-20220806211042963](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220806211042963.png)
 
 （图中并没有全部列出内容，因为图要表达的意图我觉得还是比较清楚的，这就够了；有了这种思虑和认知，会大大提升你的认知效率。）
 
@@ -103,7 +103,7 @@ GET /test-agg-cars/_search
 
 结果如下：
 
-![image-20220806212249049](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220806212249049.png)
+![image-20220806212249049](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220806212249049.png)
 
 1. 因为我们设置了 size 参数，所以不会有 hits 搜索结果返回。
 2. popular_colors 聚合是作为 aggregations 字段的一部分被返回的。
@@ -135,7 +135,7 @@ GET /test-agg-cars/_search
 
 结果如下：
 
-![image-20220806212508399](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220806212508399.png)
+![image-20220806212508399](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220806212508399.png)
 
 ### 3.4 聚合的嵌套
 
@@ -164,7 +164,7 @@ GET /test-agg-cars/_search
 
 结果如下：
 
-![image-20220806212634681](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220806212634681.png)
+![image-20220806212634681](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220806212634681.png)
 
 正如 颜色 的例子，我们需要给度量起一个名字（ avg_price ）这样可以稍后根据名字获取它的值。最后，我们指定度量本身（ avg ）以及我们想要计算平均值的字段（ price ）
 
@@ -195,7 +195,7 @@ GET /test-agg-cars/_search
 
 结果如下：
 
-![image-20220806212851263](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220806212851263.png)
+![image-20220806212851263](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220806212851263.png)
 
 histogram可以参考后文内容。
 
@@ -225,7 +225,7 @@ GET /test-agg-cars/_search
 
 结果如下：
 
-![image-20220806213145993](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220806213145993.png)
+![image-20220806213145993](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220806213145993.png)
 
 ### 4.2 对filter进行分组聚合：filters
 
@@ -265,7 +265,7 @@ GET /test-agg-logs/_search
 
 结果如下：
 
-![image-20220806213455024](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220806213455024.png)
+![image-20220806213455024](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220806213455024.png)
 
 ### 4.3 对number类型聚合：Range
 
@@ -292,7 +292,7 @@ GET /test-agg-cars/_search
 
 结果如下：
 
-![image-20220806214158026](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220806214158026.png)
+![image-20220806214158026](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220806214158026.png)
 
 ### 4.4 对IP类型聚合：IP Range
 
@@ -503,7 +503,7 @@ GET /test-agg-cars/_search
 
 结果如下：
 
-![image-20220806214446795](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220806214446795.png)
+![image-20220806214446795](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220806214446795.png)
 
 此聚合与Range聚合之间的主要区别在于 from和to值可以在[Date Math表达式](https://www.elastic.co/guide/en/elasticsearch/reference/7.12/search-aggregations-bucket-daterange-aggregation.html#date-format-pattern)中表示，并且还可以指定日期格式，通过该日期格式将返回from and to响应字段。请注意，此聚合包括from值，但**不包括to每个范围的值**。
 
@@ -548,11 +548,11 @@ GET /test-agg-cars/_search
 
 响应结果如下：
 
-![image-20220806214757439](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220806214757439.png)
+![image-20220806214757439](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220806214757439.png)
 
 结果很容易理解，不过应该注意到直方图的键值是区间的下限。键 0 代表区间 0-19，999 ，键 20000 代表区间 20，000-39，999 ，等等。
 
-![image-20220806214835882](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220806214835882.png)
+![image-20220806214835882](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220806214835882.png)
 
 当然，我们可以为任何聚合输出的分类和统计结果创建条形图，而不只是 直方图 桶。让我们以最受欢迎 10 种汽车以及它们的平均售价、标准差这些信息创建一个条形图。 我们会用到 terms 桶和 extended_stats 度量：
 
@@ -585,11 +585,11 @@ GET /test-agg-cars/_search
 std_err = std_deviation / count
 ```
 
-![image-20220806214924884](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220806214924884.png)
+![image-20220806214924884](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220806214924884.png)
 
 对应报表：
 
-![image-20220806214945987](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220806214945987.png)
+![image-20220806214945987](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220806214945987.png)
 
 ## 参考文章
 

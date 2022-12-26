@@ -45,17 +45,17 @@ head:
 
 ### 🙅‍♀️白皮书
 
-- [区块链-比特币白皮书（建议收藏🔥）](Basic_logic/The_white_paper_the_currency.md)
-- [区块链-以太坊白皮书（建议收藏🔥）](Basic_logic/White_paper_the_etheric_lane.md)
+- [区块链-比特币白皮书（建议收藏🔥）](basic-logic/The_white_paper_the_currency.md)
+- [区块链-以太坊白皮书（建议收藏🔥）](basic-logic/White_paper_the_etheric_lane.md)
 
 ### 🐲基础概念
 
-- [区块链基本概念（建议收藏🔥）](Basic_logic/Block_chain_concept.md)
-- [区块链与随机数（建议收藏🔥）](Basic_logic/Block_chain_and_random_Numbers.md)
-- [区块链-P2P网络（建议收藏🔥）](Basic_logic/Chain_block_design.md)
-- [区块链-Solidity（建议收藏🔥）](Basic_logic/Intelligent_contract_solidity.md)
-- [区块链-联盟链（建议收藏🔥）](Basic_logic/League_chain.md)
-- [区块链-设计模式（建议收藏🔥）](Basic_logic/Smart_contracts_design_pattern.md)
+- [区块链基本概念（建议收藏🔥）](basic-logic/Block_chain_concept.md)
+- [区块链与随机数（建议收藏🔥）](basic-logic/Block_chain_and_random_Numbers.md)
+- [区块链-P2P网络（建议收藏🔥）](basic-logic/Chain_block_design.md)
+- [区块链-Solidity（建议收藏🔥）](basic-logic/Intelligent_contract_solidity.md)
+- [区块链-联盟链（建议收藏🔥）](basic-logic/League_chain.md)
+- [区块链-设计模式（建议收藏🔥）](basic-logic/Smart_contracts_design_pattern.md)
 
 ### 🏃浅谈libp2p网络
 
@@ -69,23 +69,23 @@ head:
 
 ### 🌉主流区块链研究
 
-- [cosmos-框架学习（建议收藏🔥）](Male_chain_research/cosmos/Cosmos_source.md)
-- [以太坊-钱包知识系列（建议收藏🔥）](Male_chain_research/ethereum/0.Rounding.md)
-- [以太坊-什么是以太坊（建议收藏🔥）](Male_chain_research/ethereum/1.What_is_the_etheric_lane.md)
-- [以太坊-以太坊相关术语（建议收藏🔥）](Male_chain_research/ethereum/2.The_etheric_lanes_and_related_terms.md)
-- [以太坊-以太坊启动参数相关详解（建议收藏🔥）](Male_chain_research/ethereum/3.The_etheric_fang_launch_parameters_explanation.md)
-- [以太坊-源码分析-P2P-浅谈以太坊源码分析之p2p网络启动（建议收藏🔥）](Male_chain_research/ethereum/1.Etheric_fang_source_analysis_of_p2p_network_boot.md)
-- [以太坊-源码分析-P2P-浅谈以太坊源码分析之Kademlia算法（建议收藏🔥）](Male_chain_research/ethereum/2.Etheric_fang_Kademlia_algorithm_of_the_source_code_analysis.md)
-- [以太坊-源码分析-P2P-浅谈以太坊源码分析之p2p节点发现（建议收藏🔥）](Male_chain_research/ethereum/3.Etheric_fang_source_analysis_of_p2p_nodes_found)
-- [以太坊-源码分析-P2P-浅谈以太坊源码分析之rlpx协议（建议收藏🔥）](Male_chain_research/ethereum/4.Etheric_fang_RLPX_agreement.md)
-- [以太坊-源码分析-P2P-浅谈以太坊源码分析之区块和交易广播（建议收藏🔥）](Male_chain_research/ethereum/5.Etheric_fang_source_analysis_of_block_and_radio.md)
-- [以太坊-源码分析-P2P-浅谈以太坊源码分析之Fetcher同步（建议收藏🔥）](Male_chain_research/ethereum/6.Etheric_fang_Fetcher_synchronization_of_the_source_code_analysis.md)
+- [cosmos-框架学习（建议收藏🔥）](male-chain-research/cosmos/Cosmos_source.md)
+- [以太坊-钱包知识系列（建议收藏🔥）](male-chain-research/ethereum/0.Rounding.md)
+- [以太坊-什么是以太坊（建议收藏🔥）](male-chain-research/ethereum/1.What_is_the_etheric_lane.md)
+- [以太坊-以太坊相关术语（建议收藏🔥）](male-chain-research/ethereum/2.The_etheric_lanes_and_related_terms.md)
+- [以太坊-以太坊启动参数相关详解（建议收藏🔥）](male-chain-research/ethereum/3.The_etheric_fang_launch_parameters_explanation.md)
+- [以太坊-源码分析-P2P-浅谈以太坊源码分析之p2p网络启动（建议收藏🔥）](male-chain-research/ethereum/1.Etheric_fang_source_analysis_of_p2p_network_boot.md)
+- [以太坊-源码分析-P2P-浅谈以太坊源码分析之Kademlia算法（建议收藏🔥）](male-chain-research/ethereum/2.Etheric_fang_Kademlia_algorithm_of_the_source_code_analysis.md)
+- [以太坊-源码分析-P2P-浅谈以太坊源码分析之p2p节点发现（建议收藏🔥）](male-chain-research/ethereum/3.Etheric_fang_source_analysis_of_p2p_nodes_found)
+- [以太坊-源码分析-P2P-浅谈以太坊源码分析之rlpx协议（建议收藏🔥）](male-chain-research/ethereum/4.Etheric_fang_RLPX_agreement.md)
+- [以太坊-源码分析-P2P-浅谈以太坊源码分析之区块和交易广播（建议收藏🔥）](male-chain-research/ethereum/5.Etheric_fang_source_analysis_of_block_and_radio.md)
+- [以太坊-源码分析-P2P-浅谈以太坊源码分析之Fetcher同步（建议收藏🔥）](male-chain-research/ethereum/6.Etheric_fang_Fetcher_synchronization_of_the_source_code_analysis.md)
 
-- [（建议收藏🔥）](Male_chain_research/ethereum/)
-- [（建议收藏🔥）](Male_chain_research/ethereum/)
-- [（建议收藏🔥）](Male_chain_research/ethereum/)
-- [（建议收藏🔥）](Male_chain_research/ethereum/)
-- [（建议收藏🔥）](Male_chain_research/ethereum/)
-- [（建议收藏🔥）](Male_chain_research/ethereum/)
-- [（建议收藏🔥）](Male_chain_research/ethereum/)
+- [（建议收藏🔥）](male-chain-research/ethereum/)
+- [（建议收藏🔥）](male-chain-research/ethereum/)
+- [（建议收藏🔥）](male-chain-research/ethereum/)
+- [（建议收藏🔥）](male-chain-research/ethereum/)
+- [（建议收藏🔥）](male-chain-research/ethereum/)
+- [（建议收藏🔥）](male-chain-research/ethereum/)
+- [（建议收藏🔥）](male-chain-research/ethereum/)
   

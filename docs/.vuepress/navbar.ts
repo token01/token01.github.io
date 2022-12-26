@@ -3,11 +3,33 @@ import { navbar } from "vuepress-theme-hope";
 export default navbar([
   // "/",
   // "/home",
-  { 
+     {
          text: "博客",
          icon: "gaishu",
          link: "/blog.md" 
      },
+     {
+      text: "语言|平台",
+      icon: "creative",
+      prefix: "/language/",
+      children:[
+        {
+          text: "Android",
+          icon: "creative",
+          link: "android/android-call-js"
+        },
+        {
+          text: "python",
+          icon: "creative",
+          link: "python/python-advantage"
+        },
+        {
+          text: "微信",
+          icon: "creative",
+          link: "weixin/wx-package-Optimization"
+        },
+      ]
+    },
   {
     text: "Java",
     icon: "creative",
@@ -41,7 +63,7 @@ export default navbar([
       },
     ]
   },
-  
+
   {
     text: "数据库",
     icon: "creative",
@@ -214,28 +236,7 @@ export default navbar([
     ]
 
   },
-  {
-    text: "语言|平台",
-    icon: "creative",
-    prefix: "/language/",
-    children:[
-      {
-        text: "Android",
-        icon: "creative",
-        link: "android/android-call-js"
-      },
-      {
-        text: "python",
-        icon: "creative",
-        link: "python/python-advantage"
-      },
-      {
-        text: "微信",
-        icon: "creative",
-        link: "weixin/wx-package-Optimization"
-      },
-    ]
-  },
+  
   {
     text: "杂项|思考",
     icon: "creative",

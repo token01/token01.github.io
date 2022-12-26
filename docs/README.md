@@ -7,7 +7,7 @@ heroText: 凤凰涅槃进阶之路
 tagline: 😏汇聚知识 🤖 开源工具 ,😂效率方法、探索认知的自我提升笔记😄
 actions:
   - text: 立马上路→
-    link: /java/base/java-command-javac
+    link: /java/base/Java-basis-oop
     type: primary
   - text: 博客入口
     link: /blog.md
@@ -87,7 +87,9 @@ copyright: false
 - [Java学习+面试指南](<https://github.com/Snailclimb/JavaGuide>)
 - [阮一峰的网络日志](http://www.ruanyifeng.com/blog/)
 - [mrbird博客与开源项目](https://github.com/wuyouzhuguli)
+- [安琪拉的博客](https://blog.csdn.net/zhengwangzw?type=blog)
 - [芋道源码](http://www.iocoder.cn/?qun)
+- [张开涛博客](<https://www.iteye.com/blog/user/jinnianshilongnian>)
 - [纯洁的微笑](http://www.ityouknow.com/)
 - 等等优秀的博客会在具体文章后列出
 

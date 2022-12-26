@@ -12,7 +12,7 @@
 | active      | volatile boolean | DruidConnectionHolder | FALSE  | 活动状态,默认值为false,getConnectionInternal之后设置为true,discardConnection设置为false,recycle如果物理连接被关闭或者测试连接不通，以及回收成功，都修改为false。这是连接被用户线程调用的持有状态。标识连接被用户线程持有。 |
 | discard     | volatile boolean | DruidConnectionHolder | FALSE  | 关闭状态，默认为false,调用discardConnection方法 或者recycle出现异常的时候改为true,之后关闭连接， |
 
-![image-20220525225828469](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220525225828469.png)
+![image-20220525225828469](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220525225828469.png)
 
 
 
@@ -28,7 +28,7 @@
 
 各状态关系：
 
-![6cbb8cdd3d29cf99c3e4f012a37640a2](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/6cbb8cdd3d29cf99c3e4f012a37640a2.png)
+![6cbb8cdd3d29cf99c3e4f012a37640a2](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/6cbb8cdd3d29cf99c3e4f012a37640a2.png)
 
 ## 参考文章
 

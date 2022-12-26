@@ -11,7 +11,7 @@ category:
 
 对数据库的事务而言，应该具有以下几点：创建（create）、提交（commit）、回滚（rollback）、关闭（close）。对应地，MyBatis将事务抽象成了Transaction接口：
 
-![image-20220730215527746](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730215527746.png)
+![image-20220730215527746](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730215527746.png)
 
 MyBatis的事务管理分为两种形式：
 
@@ -20,7 +20,7 @@ MyBatis的事务管理分为两种形式：
 
 这两者的类图如下所示：
 
-![image-20220730215640739](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730215640739.png)
+![image-20220730215640739](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730215640739.png)
 
 ## 2. 官网关于事务配置的内容
 
@@ -72,7 +72,7 @@ public interface Transaction {
 
 我们在使用MyBatis时，一般会在MyBatisXML配置文件中定义类似如下的信息：
 
-![image-20220730215916114](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730215916114.png)
+![image-20220730215916114](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730215916114.png)
 
 `<environment>`节点定义了连接某个数据库的信息，其子节点`<transactionManager>` 的type 会决定我们用什么类型的事务管理机制。
 
@@ -137,7 +137,7 @@ private void environmentsElement(XNode context) throws Exception {
 
 Environment表示着一个数据库的连接，生成后的Environment对象会被设置到Configuration实例中，以供后续的使用。
 
-![image-20220730220158707](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730220158707.png)
+![image-20220730220158707](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730220158707.png)
 
 上述一直在讲事务工厂TransactionFactory来创建的Transaction，现在让我们看一下MyBatis中的TransactionFactory的定义吧。
 
@@ -145,7 +145,7 @@ Environment表示着一个数据库的连接，生成后的Environment对象会�
 
 事务工厂Transaction定义了创建Transaction的两个方法：一个是通过指定的Connection对象创建Transaction，另外是通过数据源DataSource来创建Transaction。与JDBC 和MANAGED两种Transaction相对应，TransactionFactory有两个对应的实现的子类：
 
-![image-20220730220241620](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730220241620.png)
+![image-20220730220241620](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730220241620.png)
 
 ### 3.4 事务Transaction的创建
 

@@ -98,7 +98,7 @@ DruidPooledConnection的数据结构如下表：
 
 ## 5. 类关系图
 
-![image-20220517224826098](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220517224826098.png)
+![image-20220517224826098](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220517224826098.png)
 
 DruidConnectionHolder与DruidPooledConnection，实际上是对连接进行了分层。将频繁变更的内容抽象到了DruidConnectionHolder类。
 而DruidPooledConnection则存放了Statement的的缓存pool。

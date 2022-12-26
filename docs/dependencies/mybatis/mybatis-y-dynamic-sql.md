@@ -1,620 +1,570 @@
 ---
-order: 110
+order: 80
 category:
   - MyBatis
 ---
-# MyBatis详解 - 数据源与连接池
+# MyBatis详解 - 动态SQL使用与原理
 
->本文主要介绍MyBatis数据源和连接池相关的内容。
+>动态 SQL 是 MyBatis 的强大特性之一。如果你使用过 JDBC 或其它类似的框架，你应该能理解根据不同条件拼接 SQL 语句有多痛苦，例如拼接时要确保不能忘记添加必要的空格，还要注意去掉列表最后一个列名的逗号。利用动态 SQL，可以彻底摆脱这种痛苦。
 
-## 1. MyBatis数据源DataSource分类
+## 1. 动态SQL官方使用参考
 
-MyBatis把数据源DataSource分为三种：
+动态 SQL 是 MyBatis 的强大特性之一。如果你使用过 JDBC 或其它类似的框架，你应该能理解根据不同条件拼接 SQL 语句有多痛苦，例如拼接时要确保不能忘记添加必要的空格，还要注意去掉列表最后一个列名的逗号。利用动态 SQL，可以彻底摆脱这种痛苦。
 
-- UNPOOLED 不使用连接池的数据源
-- POOLED 使用连接池的数据源
-- JNDI 使用JNDI实现的数据源
+使用动态 SQL 并非一件易事，但借助可用于任何 SQL 映射语句中的强大的动态 SQL 语言，MyBatis 显著地提升了这一特性的易用性。
 
-相应地，MyBatis内部分别定义了实现了java.sql.DataSource接口的UnpooledDataSource，PooledDataSource类来表示UNPOOLED、POOLED类型的数据源。
+如果你之前用过 JSTL 或任何基于类 XML 语言的文本处理器，你对动态 SQL 元素可能会感觉似曾相识。在 MyBatis 之前的版本中，需要花时间了解大量的元素。借助功能强大的基于 OGNL 的表达式，MyBatis 3 替换了之前的大部分元素，大大精简了元素种类，现在要学习的元素种类比原来的一半还要少。
 
-![image-20220730202017360](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730202017360.png)
+- if
+- choose (when, otherwise)
+- trim (where, set)
+- foreach
 
-对于JNDI类型的数据源DataSource，则是通过JNDI上下文中取值。
+### 1.1 if
 
-## 2. 官网DataSource配置内容清单
-
-dataSource 元素使用标准的 JDBC 数据源接口来配置 JDBC 连接对象的资源。
-
-大多数 MyBatis 应用程序会按示例中的例子来配置数据源。虽然数据源配置是可选的，但如果要启用延迟加载特性，就必须配置数据源。 有三种内建的数据源类型（也就是 `type="[UNPOOLED|POOLED|JNDI]"`）：
-
-### 2.1 UNPOOLED
-
-这个数据源的实现会每次请求时打开和关闭连接。虽然有点慢，但对那些数据库连接可用性要求不高的简单应用程序来说，是一个很好的选择。 性能表现则依赖于使用的数据库，对某些数据库来说，使用连接池并不重要，这个配置就很适合这种情形。UNPOOLED 类型的数据源仅仅需要配置以下 5 种属性：
-
-- driver – 这是 JDBC 驱动的 Java 类全限定名（并不是 JDBC 驱动中可能包含的数据源类）。
-- url – 这是数据库的 JDBC URL 地址。
-- username – 登录数据库的用户名。
-- password – 登录数据库的密码。
-- defaultTransactionIsolationLevel – 默认的连接事务隔离级别。
-- defaultNetworkTimeout – 等待数据库操作完成的默认网络超时时间（单位：毫秒）。查看 java.sql.Connection#setNetworkTimeout() 的 API 文档以获取更多信息。
-
-作为可选项，你也可以传递属性给数据库驱动。只需在属性名加上“driver.”前缀即可，例如：
-
-- driver.encoding=UTF8
-
-这将通过 DriverManager.getConnection(url, driverProperties) 方法传递值为 UTF8 的 encoding 属性给数据库驱动。
-
-### 2.2 POOLED
-
-这种数据源的实现利用“池”的概念将 JDBC 连接对象组织起来，避免了创建新的连接实例时所必需的初始化和认证时间。 这种处理方式很流行，能使并发 Web 应用快速响应请求。
-
-除了上述提到 UNPOOLED 下的属性外，还有更多属性用来配置 POOLED 的数据源：
-
-- poolMaximumActiveConnections – 在任意时间可存在的活动（正在使用）连接数量，默认值：10
-- poolMaximumIdleConnections – 任意时间可能存在的空闲连接数。
-- poolMaximumCheckoutTime – 在被强制返回之前，池中连接被检出（checked out）时间，默认值：20000 毫秒（即 20 秒）
-- poolTimeToWait – 这是一个底层设置，如果获取连接花费了相当长的时间，连接池会打印状态日志并重新尝试获取一个连接（避免在误配置的情况下一直失败且不打印日志），默认值：20000 毫秒（即 20 秒）。
-- poolMaximumLocalBadConnectionTolerance – 这是一个关于坏连接容忍度的底层设置， 作用于每一个尝试从缓存池获取连接的线程。 如果这个线程获取到的是一个坏的连接，那么这个数据源允许这个线程尝试重新获取一个新的连接，但是这个重新尝试的次数不应该超过 poolMaximumIdleConnections 与 poolMaximumLocalBadConnectionTolerance 之和。 默认值：3（新增于 3.4.5）
-- poolPingQuery – 发送到数据库的侦测查询，用来检验连接是否正常工作并准备接受请求。默认是“NO PING QUERY SET”，这会导致多数数据库驱动出错时返回恰当的错误消息。
-- poolPingEnabled – 是否启用侦测查询。若开启，需要设置 poolPingQuery 属性为一个可执行的 SQL 语句（最好是一个速度非常快的 SQL 语句），默认值：false。
-- poolPingConnectionsNotUsedFor – 配置 poolPingQuery 的频率。可以被设置为和数据库连接超时时间一样，来避免不必要的侦测，默认值：0（即所有连接每一时刻都被侦测 — 当然仅当 poolPingEnabled 为 true 时适用）。
-
-### 2.3 JNDI
-
-这个数据源实现是为了能在如 EJB 或应用服务器这类容器中使用，容器可以集中或在外部配置数据源，然后放置一个 JNDI 上下文的数据源引用。这种数据源配置只需要两个属性：
-
-- initial_context – 这个属性用来在 InitialContext 中寻找上下文（即，initialContext.lookup(initial_context)）。这是个可选属性，如果忽略，那么将会直接从 InitialContext 中寻找 data_source 属性。
-- data_source – 这是引用数据源实例位置的上下文路径。提供了 initial_context 配置时会在其返回的上下文中进行查找，没有提供时则直接在 InitialContext 中查找。
-
-和其他数据源配置类似，可以通过添加前缀“env.”直接把属性传递给 InitialContext。比如：
-
-- env.encoding=UTF8
-
-这就会在 InitialContext 实例化时往它的构造方法传递值为 UTF8 的 encoding 属性。
-
-你可以通过实现接口 org.apache.ibatis.datasource.DataSourceFactory 来使用第三方数据源实现：
-
-```java
-public interface DataSourceFactory {
-  void setProperties(Properties props);
-  DataSource getDataSource();
-}
-```
-
-org.apache.ibatis.datasource.unpooled.UnpooledDataSourceFactory 可被用作父类来构建新的数据源适配器，比如下面这段插入 C3P0 数据源所必需的代码：
-
-```java
-import org.apache.ibatis.datasource.unpooled.UnpooledDataSourceFactory;
-import com.mchange.v2.c3p0.ComboPooledDataSource;
-
-public class C3P0DataSourceFactory extends UnpooledDataSourceFactory {
-
-  public C3P0DataSourceFactory() {
-    this.dataSource = new ComboPooledDataSource();
-  }
-}
-```
-
-为了令其工作，记得在配置文件中为每个希望 MyBatis 调用的 setter 方法增加对应的属性。 下面是一个可以连接至 PostgreSQL 数据库的例子：
+使用动态 SQL 最常见情景是根据条件包含 where 子句的一部分。比如：
 
 ```xml
-<dataSource type="org.myproject.C3P0DataSourceFactory">
-  <property name="driver" value="org.postgresql.Driver"/>
-  <property name="url" value="jdbc:postgresql:mydb"/>
-  <property name="username" value="postgres"/>
-  <property name="password" value="root"/>
-</dataSource>  
+<select id="findActiveBlogWithTitleLike"
+     resultType="Blog">
+  SELECT * FROM BLOG
+  WHERE state = ‘ACTIVE’
+  <if test="title != null">
+    AND title like #{title}
+  </if>
+</select>
 ```
 
-## 3. 数据源DataSource的创建过程
+这条语句提供了可选的查找文本功能。如果不传入 “title”，那么所有处于 “ACTIVE” 状态的 BLOG 都会返回；如果传入了 “title” 参数，那么就会对 “title” 一列进行模糊查找并返回对应的 BLOG 结果（细心的读者可能会发现，“title” 的参数值需要包含查找掩码或通配符字符）。
 
-MyBatis数据源DataSource对象的创建发生在MyBatis初始化的过程中。下面让我们一步步地了解MyBatis是如何创建数据源DataSource的。
-
-在mybatis的XML配置文件中，使用`<dataSource>`元素来配置数据源：
+如果希望通过 “title” 和 “author” 两个参数进行可选搜索该怎么办呢？首先，我想先将语句名称修改成更名副其实的名称；接下来，只需要加入另一个条件即可。
 
 ```xml
-<dataSource type="org.myproject.C3P0DataSourceFactory">
-  <property name="driver" value="org.postgresql.Driver"/>
-  <property name="url" value="jdbc:postgresql:mydb"/>
-  <property name="username" value="postgres"/>
-  <property name="password" value="root"/>
-</dataSource>
+<select id="findActiveBlogLike"
+     resultType="Blog">
+  SELECT * FROM BLOG WHERE state = ‘ACTIVE’
+  <if test="title != null">
+    AND title like #{title}
+  </if>
+  <if test="author != null and author.name != null">
+    AND author_name like #{author.name}
+  </if>
+</select>
 ```
 
-MyBatis在初始化时，解析此文件，根据`<dataSource>`的type属性来创建相应类型的的数据源DataSource，即：
+### 1.2  choose、when、otherwise
 
-- type=”POOLED” ：MyBatis会创建PooledDataSource实例
-- type=”UNPOOLED” ：MyBatis会创建UnpooledDataSource实例
-- type=”JNDI” ：MyBatis会从JNDI服务上查找DataSource实例，然后返回使用
+有时候，我们不想使用所有的条件，而只是想从多个条件中选择一个使用。针对这种情况，MyBatis 提供了 choose 元素，它有点像 Java 中的 switch 语句。
 
-顺便说一下，MyBatis是通过工厂模式来创建数据源DataSource对象的，MyBatis定义了抽象的工厂接口:org.apache.ibatis.datasource.DataSourceFactory,通过其getDataSource()方法返回数据源DataSource：
+还是上面的例子，但是策略变为：传入了 “title” 就按 “title” 查找，传入了 “author” 就按 “author” 查找的情形。若两者都没有传入，就返回标记为 featured 的 BLOG（这可能是管理员认为，与其返回大量的无意义随机 Blog，还不如返回一些由管理员挑选的 Blog）。
+
+```xml
+<select id="findActiveBlogLike"
+     resultType="Blog">
+  SELECT * FROM BLOG WHERE state = ‘ACTIVE’
+  <choose>
+    <when test="title != null">
+      AND title like #{title}
+    </when>
+    <when test="author != null and author.name != null">
+      AND author_name like #{author.name}
+    </when>
+    <otherwise>
+      AND featured = 1
+    </otherwise>
+  </choose>
+</select>
+```
+
+### 1.3 trim、where、set
+
+前面几个例子已经合宜地解决了一个臭名昭著的动态 SQL 问题。现在回到之前的 “if” 示例，这次我们将 “state = ‘ACTIVE’” 设置成动态条件，看看会发生什么。
+
+```xml
+<select id="findActiveBlogLike"
+     resultType="Blog">
+  SELECT * FROM BLOG
+  WHERE
+  <if test="state != null">
+    state = #{state}
+  </if>
+  <if test="title != null">
+    AND title like #{title}
+  </if>
+  <if test="author != null and author.name != null">
+    AND author_name like #{author.name}
+  </if>
+</select>
+```
+
+如果没有匹配的条件会怎么样？最终这条 SQL 会变成这样：
 
 ```java
-public interface DataSourceFactory { 
-    void setProperties(Properties props);  
-    // 生产DataSource  
-    DataSource getDataSource();  
+SELECT * FROM BLOG
+WHERE
+```
+
+这会导致查询失败。如果匹配的只是第二个条件又会怎样？这条 SQL 会是这样:
+
+```java
+SELECT * FROM BLOG
+WHERE
+AND title like ‘someTitle’
+```
+
+这个查询也会失败。这个问题不能简单地用条件元素来解决。这个问题是如此的难以解决，以至于解决过的人不会再想碰到这种问题。
+
+MyBatis 有一个简单且适合大多数场景的解决办法。而在其他场景中，可以对其进行自定义以符合需求。而这，只需要一处简单的改动：
+
+```xml
+<select id="findActiveBlogLike"
+     resultType="Blog">
+  SELECT * FROM BLOG
+  <where>
+    <if test="state != null">
+         state = #{state}
+    </if>
+    <if test="title != null">
+        AND title like #{title}
+    </if>
+    <if test="author != null and author.name != null">
+        AND author_name like #{author.name}
+    </if>
+  </where>
+</select>
+```
+
+where 元素只会在子元素返回任何内容的情况下才插入 “WHERE” 子句。而且，若子句的开头为 “AND” 或 “OR”，where 元素也会将它们去除。
+
+如果 where 元素与你期望的不太一样，你也可以通过自定义 trim 元素来定制 where 元素的功能。比如，和 where 元素等价的自定义 trim 元素为：
+
+```xml
+<trim prefix="WHERE" prefixOverrides="AND |OR ">
+  ...
+</trim>
+```
+
+prefixOverrides 属性会忽略通过管道符分隔的文本序列（注意此例中的空格是必要的）。上述例子会移除所有 prefixOverrides 属性中指定的内容，并且插入 prefix 属性中指定的内容。
+
+用于动态更新语句的类似解决方案叫做 set。set 元素可以用于动态包含需要更新的列，忽略其它不更新的列。比如：
+
+```xml
+<update id="updateAuthorIfNecessary">
+  update Author
+    <set>
+      <if test="username != null">username=#{username},</if>
+      <if test="password != null">password=#{password},</if>
+      <if test="email != null">email=#{email},</if>
+      <if test="bio != null">bio=#{bio}</if>
+    </set>
+  where id=#{id}
+</update>
+```
+
+这个例子中，set 元素会动态地在行首插入 SET 关键字，并会删掉额外的逗号（这些逗号是在使用条件语句给列赋值时引入的）。
+
+来看看与 set 元素等价的自定义 trim 元素吧：
+
+```xml
+<trim prefix="SET" suffixOverrides=",">
+  ...
+</trim>
+```
+
+注意，我们覆盖了后缀值设置，并且自定义了前缀值。
+
+### 1.4 foreach
+
+动态 SQL 的另一个常见使用场景是对集合进行遍历（尤其是在构建 IN 条件语句的时候）。比如：
+
+```xml
+<select id="selectPostIn" resultType="domain.blog.Post">
+  SELECT *
+  FROM POST P
+  WHERE ID in
+  <foreach item="item" index="index" collection="list"
+      open="(" separator="," close=")">
+        #{item}
+  </foreach>
+</select>
+```
+
+foreach 元素的功能非常强大，它允许你指定一个集合，声明可以在元素体内使用的集合项（item）和索引（index）变量。它也允许你指定开头与结尾的字符串以及集合项迭代之间的分隔符。这个元素也不会错误地添加多余的分隔符，看它多智能！
+
+> 提示 你可以将任何可迭代对象（如 List、Set 等）、Map 对象或者数组对象作为集合参数传递给 foreach。当使用可迭代对象或者数组时，index 是当前迭代的序号，item 的值是本次迭代获取到的元素。当使用 Map 对象（或者 Map.Entry 对象的集合）时，index 是键，item 是值。
+
+至此，我们已经完成了与 XML 配置及映射文件相关的讨论。下一章将详细探讨 Java API，以便你能充分利用已经创建的映射配置。
+
+### 1.5 script
+
+要在带注解的映射器接口类中使用动态 SQL，可以使用 script 元素。比如:
+
+```java
+    @Update({"<script>",
+      "update Author",
+      "  <set>",
+      "    <if test='username != null'>username=#{username},</if>",
+      "    <if test='password != null'>password=#{password},</if>",
+      "    <if test='email != null'>email=#{email},</if>",
+      "    <if test='bio != null'>bio=#{bio}</if>",
+      "  </set>",
+      "where id=#{id}",
+      "</script>"})
+    void updateAuthorValues(Author author);
+```
+
+### 1.6 bind
+
+bind 元素允许你在 OGNL 表达式以外创建一个变量，并将其绑定到当前的上下文。比如：
+
+```xml
+<select id="selectBlogsLike" resultType="Blog">
+  <bind name="pattern" value="'%' + _parameter.getTitle() + '%'" />
+  SELECT * FROM BLOG
+  WHERE title LIKE #{pattern}
+</select>
+```
+
+### 1.7 多数据库支持
+
+如果配置了 databaseIdProvider，你就可以在动态代码中使用名为 “_databaseId” 的变量来为不同的数据库构建特定的语句。比如下面的例子：
+
+```xml
+<insert id="insert">
+  <selectKey keyProperty="id" resultType="int" order="BEFORE">
+    <if test="_databaseId == 'oracle'">
+      select seq_users.nextval from dual
+    </if>
+    <if test="_databaseId == 'db2'">
+      select nextval for seq_users from sysibm.sysdummy1"
+    </if>
+  </selectKey>
+  insert into users values (#{id}, #{name})
+</insert>
+```
+
+### 1.8 动态 SQL 中的插入脚本语言
+
+MyBatis 从 3.2 版本开始支持插入脚本语言，这允许你插入一种语言驱动，并基于这种语言来编写动态 SQL 查询语句。
+
+可以通过实现以下接口来插入一种语言：
+
+```java
+public interface LanguageDriver {
+  ParameterHandler createParameterHandler(MappedStatement mappedStatement, Object parameterObject, BoundSql boundSql);
+  SqlSource createSqlSource(Configuration configuration, XNode script, Class<?> parameterType);
+  SqlSource createSqlSource(Configuration configuration, String script, Class<?> parameterType);
 }
 ```
 
-上述三种不同类型的type，则有对应的以下dataSource工厂：
+实现自定义语言驱动后，你就可以在 mybatis-config.xml 文件中将它设置为默认语言：
 
-- POOLED PooledDataSourceFactory
-- UNPOOLED UnpooledDataSourceFactory
-- JNDI JndiDataSourceFactory
-
-其类图如下所示：
-
-![image-20220730204145183](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730204145183.png)
-
-MyBatis创建了DataSource实例后，会将其放到Configuration对象内的Environment对象中，供以后使用。
-
-## 4. DataSource什么时候创建Connection对象
-
-当我们需要创建SqlSession对象并需要执行SQL语句时，这时候MyBatis才会去调用dataSource对象来创建java.sql.Connection对象。也就是说，java.sql.Connection对象的创建一直延迟到执行SQL语句的时候。
-
-比如，我们有如下方法执行一个简单的SQL语句：
-
-```java
-String resource = "mybatis-config.xml";  
-InputStream inputStream = Resources.getResourceAsStream(resource);  
-SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);  
-SqlSession sqlSession = sqlSessionFactory.openSession();  
-sqlSession.selectList("SELECT * FROM STUDENTS");
+```xml
+<typeAliases>
+  <typeAlias type="org.sample.MyLanguageDriver" alias="myLanguage"/>
+</typeAliases>
+<settings>
+  <setting name="defaultScriptingLanguage" value="myLanguage"/>
+</settings>
 ```
 
-前4句都不会导致java.sql.Connection对象的创建，只有当第5句sqlSession.selectList("SELECT * FROM STUDENTS")，才会触发MyBatis在底层执行下面这个方法来创建java.sql.Connection对象：
+或者，你也可以使用 lang 属性为特定的语句指定语言：
 
-```java
-protected void openConnection() throws SQLException {  
-    if (log.isDebugEnabled()) {  
-        log.debug("Opening JDBC Connection");  
-    }  
-    connection = dataSource.getConnection();  
-    if (level != null) {  
-        connection.setTransactionIsolation(level.getLevel());  
-    }  
-    setDesiredAutoCommit(autoCommmit);  
-}  
-
+```xml
+<select id="selectBlog" lang="myLanguage">
+  SELECT * FROM BLOG
+</select>
 ```
 
-## 5. 不使用连接池的UnpooledDataSource
-
-当 `<dataSource>`的type属性被配置成了”UNPOOLED”，MyBatis首先会实例化一个UnpooledDataSourceFactory工厂实例，然后通过.getDataSource()方法返回一个UnpooledDataSource实例对象引用，我们假定为dataSource。
-
-使用UnpooledDataSource的getConnection(),每调用一次就会产生一个新的Connection实例对象。
-
-UnPooledDataSource的getConnection()方法实现如下：
+或者，在你的 mapper 接口上添加 @Lang 注解：
 
 ```java
-/* 
- * UnpooledDataSource的getConnection()实现 
- */  
-public Connection getConnection() throws SQLException  
-{  
-    return doGetConnection(username, password);  
-}  
-  
-private Connection doGetConnection(String username, String password) throws SQLException  
-{  
-    //封装username和password成properties  
-    Properties props = new Properties();  
-    if (driverProperties != null)  
-    {  
-        props.putAll(driverProperties);  
-    }  
-    if (username != null)  
-    {  
-        props.setProperty("user", username);  
-    }  
-    if (password != null)  
-    {  
-        props.setProperty("password", password);  
-    }  
-    return doGetConnection(props);  
-}  
-  
-/* 
- *  获取数据连接 
- */  
-private Connection doGetConnection(Properties properties) throws SQLException  
-{  
-    //1.初始化驱动  
-    initializeDriver();  
-    //2.从DriverManager中获取连接，获取新的Connection对象  
-    Connection connection = DriverManager.getConnection(url, properties);  
-    //3.配置connection属性  
-    configureConnection(connection);  
-    return connection;  
+public interface Mapper {
+  @Lang(MyLanguageDriver.class)
+  @Select("SELECT * FROM BLOG")
+  List<Blog> selectBlog();
 }
 ```
 
-如上代码所示，UnpooledDataSource会做以下事情：
+> 提示 可以使用 Apache Velocity 作为动态语言，更多细节请参考 MyBatis-Velocity 项目。
 
-- **初始化驱动**：判断driver驱动是否已经加载到内存中，如果还没有加载，则会动态地加载driver类，并实例化一个Driver对象，使用DriverManager.registerDriver()方法将其注册到内存中，以供后续使用。
-- **创建Connection对象**：使用DriverManager.getConnection()方法创建连接。
-- **配置Connection对象**：设置是否自动提交autoCommit和隔离级别isolationLevel。
-- **返回Connection对象**。
+你前面看到的所有 xml 标签都由默认 MyBatis 语言提供，而它由语言驱动 org.apache.ibatis.scripting.xmltags.XmlLanguageDriver（别名为 xml）所提供。
 
-上述的序列图如下所示：
+## 2. 动态SQL解析原理
 
-![image-20220730204543578](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730204543578.png)
+我们在使用mybatis的时候，会在xml中编写sql语句。比如这段动态sql代码：
 
-总结：从上述的代码中可以看到，我们每调用一次getConnection()方法，都会通过DriverManager.getConnection()返回新的java.sql.Connection实例。
-
-## 6. 为什么要使用连接池
-
-- **创建一个java.sql.Connection实例对象的代价**
-
-首先让我们来看一下创建一个java.sql.Connection对象的资源消耗。我们通过连接Oracle数据库，创建创建Connection对象，来看创建一个Connection对象、执行SQL语句各消耗多长时间。代码如下：
-
-```java
-public static void main(String[] args) throws Exception  
-{  
- 
-   String sql = "select * from hr.employees where employee_id < ? and employee_id >= ?";  
-   PreparedStatement st = null;  
-   ResultSet rs = null;  
- 
-   long beforeTimeOffset = -1L; //创建Connection对象前时间  
-   long afterTimeOffset = -1L; //创建Connection对象后时间  
-   long executeTimeOffset = -1L; //创建Connection对象后时间  
- 
-   Connection con = null;  
-   Class.forName("oracle.jdbc.driver.OracleDriver");  
- 
-   beforeTimeOffset = new Date().getTime();  
-   System.out.println("before:\t" + beforeTimeOffset);  
- 
-   con = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe", "louluan", "123456");  
- 
-   afterTimeOffset = new Date().getTime();  
-   System.out.println("after:\t\t" + afterTimeOffset);  
-   System.out.println("Create Costs:\t\t" + (afterTimeOffset - beforeTimeOffset) + " ms");  
- 
-   st = con.prepareStatement(sql);  
-   //设置参数  
-   st.setInt(1, 101);  
-   st.setInt(2, 0);  
-   //查询，得出结果集  
-   rs = st.executeQuery();  
-   executeTimeOffset = new Date().getTime();  
-   System.out.println("Exec Costs:\t\t" + (executeTimeOffset - afterTimeOffset) + " ms");  
- 
-}  
+```xml
+<update id="update" parameterType="org.format.dynamicproxy.mybatis.bean.User">
+    UPDATE users
+    <trim prefix="SET" prefixOverrides=",">
+        <if test="name != null and name != ''">
+            name = #{name}
+        </if>
+        <if test="age != null and age != ''">
+            , age = #{age}
+        </if>
+        <if test="birthday != null and birthday != ''">
+            , birthday = #{birthday}
+        </if>
+    </trim>
+    where id = ${id}
+</update>
 ```
 
-上述程序的执行结果为：
+mybatis底层是如何构造这段sql的？下面带着这个疑问，我们一步一步分析。
 
-![image-20220730204747727](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730204747727.png)
+### 2.1 关于动态SQL的接口和类
 
-从此结果可以清楚地看出，创建一个Connection对象，用了250 毫秒；而执行SQL的时间用了170毫秒。
-
-创建一个Connection对象用了250毫秒！这个时间对计算机来说可以说是一个非常奢侈的！
-
-这仅仅是一个Connection对象就有这么大的代价，设想一下另外一种情况：如果我们在Web应用程序中，为用户的每一个请求就操作一次数据库，当有10000个在线用户并发操作的话，对计算机而言，仅仅创建Connection对象不包括做业务的时间就要损耗10000×250ms= 250 0000 ms = 2500 s = 41.6667 min,竟然要41分钟！！！如果对高用户群体使用这样的系统，简直就是开玩笑！
-
-- **问题分析**：
-
-创建一个java.sql.Connection对象的代价是如此巨大，是因为创建一个Connection对象的过程，在底层就相当于和数据库建立的通信连接，在建立通信连接的过程，消耗了这么多的时间，而往往我们建立连接后（即创建Connection对象后），就执行一个简单的SQL语句，然后就要抛弃掉，这是一个非常大的资源浪费！
-
-- **解决方案**：
-
-对于需要频繁地跟数据库交互的应用程序，可以在创建了Connection对象，并操作完数据库后，可以不释放掉资源，而是将它放到内存中，当下次需要操作数据库时，可以直接从内存中取出Connection对象，不需要再创建了，这样就极大地节省了创建Connection对象的资源消耗。由于内存也是有限和宝贵的，这又对我们对内存中的Connection对象怎么有效地维护提出了很高的要求。我们将在内存中存放Connection对象的容器称之为连接池（Connection Pool）。下面让我们来看一下MyBatis的线程池是怎样实现的。
-
-## 7. 使用了连接池的PooledDataSource
-
-同样地，我们也是使用PooledDataSource的getConnection()方法来返回Connection对象。现在让我们看一下它的基本原理：
-
-PooledDataSource将java.sql.Connection对象包裹成PooledConnection对象放到了PoolState类型的容器中维护。 MyBatis将连接池中的PooledConnection分为两种状态：空闲状态（idle）和活动状态(active)，这两种状态的PooledConnection对象分别被存储到PoolState容器内的idleConnections和activeConnections两个List集合中：
-
-- **idleConnections**: 空闲(idle)状态PooledConnection对象被放置到此集合中，表示当前闲置的没有被使用的PooledConnection集合，调用PooledDataSource的getConnection()方法时，会优先从此集合中取PooledConnection对象。当用完一个java.sql.Connection对象时，MyBatis会将其包裹成PooledConnection对象放到此集合中。
-- **activeConnections**: 活动(active)状态的PooledConnection对象被放置到名为activeConnections的ArrayList中，表示当前正在被使用的PooledConnection集合，调用PooledDataSource的getConnection()方法时，会优先从idleConnections集合中取PooledConnection对象,如果没有，则看此集合是否已满，如果未满，PooledDataSource会创建出一个PooledConnection，添加到此集合中，并返回。
-
-**PoolState连接池的大致结构**如下所示：
-
-![image-20220730205444847](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730205444847.png)
-
-- **获取java.sql.Connection对象的过程**
-
-下面让我们看一下PooledDataSource 的getConnection()方法获取Connection对象的实现：
+SqlNode接口，简单理解就是xml中的每个标签，比如上述sql的update,trim,if标签：
 
 ```java
-public Connection getConnection() throws SQLException {  
-    return popConnection(dataSource.getUsername(), dataSource.getPassword()).getProxyConnection();  
-}  
- 
-public Connection getConnection(String username, String password) throws SQLException {  
-    return popConnection(username, password).getProxyConnection();  
+public interface SqlNode {
+    boolean apply(DynamicContext context);
 }
 ```
 
-上述的popConnection()方法，会从连接池中返回一个可用的PooledConnection对象，然后再调用getProxyConnection()方法最终返回Conection对象。（至于为什么会有getProxyConnection(),请关注下一节）。
+![image-20220729203622877](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729203622877.png)
 
-现在让我们看一下popConnection()方法到底做了什么：
-
-- 先看是否有空闲(idle)状态下的PooledConnection对象，如果有，就直接返回一个可用的PooledConnection对象；否则进行第2步。
-- 查看活动状态的PooledConnection池activeConnections是否已满；如果没有满，则创建一个新的PooledConnection对象，然后放到activeConnections池中，然后返回此PooledConnection对象；否则进行第三步；
-- 看最先进入activeConnections池中的PooledConnection对象是否已经过期：如果已经过期，从activeConnections池中移除此对象，然后创建一个新的PooledConnection对象，添加到activeConnections中，然后将此对象返回；否则进行第4步。
-- 线程等待，循环2步
+SqlSource Sql源接口，代表从xml文件或注解映射的sql内容，主要就是用于创建BoundSql，有实现类DynamicSqlSource(动态Sql源)，StaticSqlSource(静态Sql源)等：
 
 ```java
-/* 
- * 传递一个用户名和密码，从连接池中返回可用的PooledConnection 
- */  
-private PooledConnection popConnection(String username, String password) throws SQLException  
-{  
-   boolean countedWait = false;  
-   PooledConnection conn = null;  
-   long t = System.currentTimeMillis();  
-   int localBadConnectionCount = 0;  
- 
-   while (conn == null)  
-   {  
-       synchronized (state)  
-       {  
-           if (state.idleConnections.size() > 0)  
-           {  
-               // 连接池中有空闲连接，取出第一个  
-               conn = state.idleConnections.remove(0);  
-               if (log.isDebugEnabled())  
-               {  
-                   log.debug("Checked out connection " + conn.getRealHashCode() + " from pool.");  
-               }  
-           }  
-           else  
-           {  
-               // 连接池中没有空闲连接，则取当前正在使用的连接数小于最大限定值，  
-               if (state.activeConnections.size() < poolMaximumActiveConnections)  
-               {  
-                   // 创建一个新的connection对象  
-                   conn = new PooledConnection(dataSource.getConnection(), this);  
-                   @SuppressWarnings("unused")  
-                   //used in logging, if enabled  
-                   Connection realConn = conn.getRealConnection();  
-                   if (log.isDebugEnabled())  
-                   {  
-                       log.debug("Created connection " + conn.getRealHashCode() + ".");  
-                   }  
-               }  
-               else  
-               {  
-                   // Cannot create new connection 当活动连接池已满，不能创建时，取出活动连接池的第一个，即最先进入连接池的PooledConnection对象  
-                   // 计算它的校验时间，如果校验时间大于连接池规定的最大校验时间，则认为它已经过期了，利用这个PoolConnection内部的realConnection重新生成一个PooledConnection  
-                   //  
-                   PooledConnection oldestActiveConnection = state.activeConnections.get(0);  
-                   long longestCheckoutTime = oldestActiveConnection.getCheckoutTime();  
-                   if (longestCheckoutTime > poolMaximumCheckoutTime)  
-                   {  
-                       // Can claim overdue connection  
-                       state.claimedOverdueConnectionCount++;  
-                       state.accumulatedCheckoutTimeOfOverdueConnections += longestCheckoutTime;  
-                       state.accumulatedCheckoutTime += longestCheckoutTime;  
-                       state.activeConnections.remove(oldestActiveConnection);  
-                       if (!oldestActiveConnection.getRealConnection().getAutoCommit())  
-                       {  
-                           oldestActiveConnection.getRealConnection().rollback();  
-                       }  
-                       conn = new PooledConnection(oldestActiveConnection.getRealConnection(), this);  
-                       oldestActiveConnection.invalidate();  
-                       if (log.isDebugEnabled())  
-                       {  
-                           log.debug("Claimed overdue connection " + conn.getRealHashCode() + ".");  
-                       }  
-                   }  
-                   else  
-                   {  
- 
-                       //如果不能释放，则必须等待有  
-                       // Must wait  
-                       try  
-                       {  
-                           if (!countedWait)  
-                           {  
-                               state.hadToWaitCount++;  
-                               countedWait = true;  
-                           }  
-                           if (log.isDebugEnabled())  
-                           {  
-                               log.debug("Waiting as long as " + poolTimeToWait + " milliseconds for connection.");  
-                           }  
-                           long wt = System.currentTimeMillis();  
-                           state.wait(poolTimeToWait);  
-                           state.accumulatedWaitTime += System.currentTimeMillis() - wt;  
-                       }  
-                       catch (InterruptedException e)  
-                       {  
-                           break;  
-                       }  
-                   }  
-               }  
-           }  
- 
-           //如果获取PooledConnection成功，则更新其信息  
- 
-           if (conn != null)  
-           {  
-               if (conn.isValid())  
-               {  
-                   if (!conn.getRealConnection().getAutoCommit())  
-                   {  
-                       conn.getRealConnection().rollback();  
-                   }  
-                   conn.setConnectionTypeCode(assembleConnectionTypeCode(dataSource.getUrl(), username, password));  
-                   conn.setCheckoutTimestamp(System.currentTimeMillis());  
-                   conn.setLastUsedTimestamp(System.currentTimeMillis());  
-                   state.activeConnections.add(conn);  
-                   state.requestCount++;  
-                   state.accumulatedRequestTime += System.currentTimeMillis() - t;  
-               }  
-               else  
-               {  
-                   if (log.isDebugEnabled())  
-                   {  
-                       log.debug("A bad connection (" + conn.getRealHashCode() + ") was returned from the pool, getting another connection.");  
-                   }  
-                   state.badConnectionCount++;  
-                   localBadConnectionCount++;  
-                   conn = null;  
-                   if (localBadConnectionCount > (poolMaximumIdleConnections + 3))  
-                   {  
-                       if (log.isDebugEnabled())  
-                       {  
-                           log.debug("PooledDataSource: Could not get a good connection to the database.");  
-                       }  
-                       throw new SQLException("PooledDataSource: Could not get a good connection to the database.");  
-                   }  
-               }  
-           }  
-       }  
- 
-   }  
- 
-   if (conn == null)  
-   {  
-       if (log.isDebugEnabled())  
-       {  
-           log.debug("PooledDataSource: Unknown severe error condition.  The connection pool returned a null connection.");  
-       }  
-       throw new SQLException("PooledDataSource: Unknown severe error condition.  The connection pool returned a null connection.");  
-   }  
- 
-   return conn;  
-} 
+public interface SqlSource {
+    BoundSql getBoundSql(Object parameterObject);
+}
 ```
 
-对应的处理流程图如下所示：
+![image-20220729203745109](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729203745109.png)
 
-![image-20220730212129374](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220730212129374.png)
+BoundSql类，封装mybatis最终产生sql的类，包括sql语句，参数，参数源数据等参数：
 
-如上所示,对于PooledDataSource的getConnection()方法内，先是调用类PooledDataSource的popConnection()方法返回了一个PooledConnection对象，然后调用了PooledConnection的getProxyConnection()来返回Connection对象。
+![image-20220729203818827](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729203818827.png)
 
-- **java.sql.Connection对象的回收**
+XNode，一个Dom API中的Node接口的扩展类：
 
-当我们的程序中使用完Connection对象时，如果不使用数据库连接池，我们一般会调用 connection.close()方法，关闭connection连接，释放资源。如下所示：
+![image-20220729203850391](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729203850391.png)
 
-```java
-private void test() throws ClassNotFoundException, SQLException  
-{  
-   String sql = "select * from hr.employees where employee_id < ? and employee_id >= ?";  
-   PreparedStatement st = null;  
-   ResultSet rs = null;  
- 
-   Connection con = null;  
-   Class.forName("oracle.jdbc.driver.OracleDriver");  
-   try  
-   {  
-       con = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe", "louluan", "123456");  
-       st = con.prepareStatement(sql);  
-       //设置参数  
-       st.setInt(1, 101);  
-       st.setInt(2, 0);  
-       //查询，得出结果集  
-       rs = st.executeQuery();  
-       //取数据，省略  
-       //关闭，释放资源  
-       con.close();  
-   }  
-   catch (SQLException e)  
-   {  
-       con.close();  
-       e.printStackTrace();  
-   }  
-}  
+BaseBuilder接口及其实现类(属性，方法省略了，大家有兴趣的自己看),这些Builder的作用就是用于构造sql：
+
+![image-20220729203950526](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729203950526.png)
+
+下面我们简单分析下其中4个Builder：
+
+- **XMLConfigBuilder**：解析mybatis中configLocation属性中的全局xml文件，内部会使用XMLMapperBuilder解析各个xml文件。
+- **XMLMapperBuilder**：遍历mybatis中mapperLocations属性中的xml文件中每个节点的Builder，比如user.xml，内部会使用XMLStatementBuilder处理xml中的每个节点。
+- **XMLStatementBuilder**：解析xml文件中各个节点，比如select,insert,update,delete节点，内部会使用XMLScriptBuilder处理节点的sql部分，遍历产生的数据会丢到Configuration的mappedStatements中。
+- **XMLScriptBuilder**：解析xml中各个节点sql部分的Builder。
+
+LanguageDriver接口及其实现类(属性，方法省略了，大家有兴趣的自己看)，该接口主要的作用就是构造sql:
+
+![image-20220729204118825](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729204118825.png)
+
+简单分析下XMLLanguageDriver(处理xml中的sql，RawLanguageDriver处理静态sql)：XMLLanguageDriver内部会使用XMLScriptBuilder解析xml中的sql部分。
+
+### 2.2 源码分析走起
+
+Spring与Mybatis整合的时候需要配置SqlSessionFactoryBean，该配置会加入数据源和mybatis xml配置文件路径等信息：
+
+```xml
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="configLocation" value="classpath:mybatisConfig.xml"/>
+    <property name="mapperLocations" value="classpath*:org/format/dao/*.xml"/>
+</bean>
 ```
 
-调用过close()方法的Connection对象所持有的资源会被全部释放掉，Connection对象也就不能再使用。
+我们就分析这一段配置背后的细节：
 
-**那么，如果我们使用了连接池，我们在用完了Connection对象时，需要将它放在连接池中，该怎样做呢**？
+SqlSessionFactoryBean实现了Spring的InitializingBean接口，InitializingBean接口的afterPropertiesSet方法中会调用buildSqlSessionFactory方法 该方法内部会使用XMLConfigBuilder解析属性configLocation中配置的路径，还会使用XMLMapperBuilder属性解析mapperLocations属性中的各个xml文件。部分源码如下：
 
-为了和一般的使用Conneciton对象的方式保持一致，我们希望当Connection使用完后，调用.close()方法，而实际上Connection资源并没有被释放，而实际上被添加到了连接池中。这样可以做到吗？答案是可以。上述的要求从另外一个角度来描述就是：能否提供一种机制，让我们知道Connection对象调用了什么方法，从而根据不同的方法自定义相应的处理机制。恰好代理机制就可以完成上述要求.
+![image-20220729204316213](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729204316213.png)
 
-**怎样实现Connection对象调用了close()方法，而实际是将其添加到连接池中**：
+由于XMLConfigBuilder内部也是使用XMLMapperBuilder，我们就看看XMLMapperBuilder的解析细节：
 
-这是要使用代理模式，为真正的Connection对象创建一个代理对象，代理对象所有的方法都是调用相应的真正Connection对象的方法实现。当代理对象执行close()方法时，要特殊处理，不调用真正Connection对象的close()方法，而是将Connection对象添加到连接池中。
+![image-20220729204341385](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729204341385.png)
 
-MyBatis的PooledDataSource的PoolState内部维护的对象是PooledConnection类型的对象，而PooledConnection则是对真正的数据库连接java.sql.Connection实例对象的包裹器。
+![image-20220729204415735](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729204415735.png)
 
-PooledConnection对象内持有一个真正的数据库连接java.sql.Connection实例对象和一个java.sql.Connection的代理，其部分定义如下：
+我们关注一下，增删改查节点的解析：
 
-```java
-class PooledConnection implements InvocationHandler {  
-   
-    //......  
-    //所创建它的datasource引用  
-    private PooledDataSource dataSource;  
-    //真正的Connection对象  
-    private Connection realConnection;  
-    //代理自己的代理Connection  
-    private Connection proxyConnection;  
-   
-    //......  
-} 
+![image-20220729204453691](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729204453691.png)
 
+XMLStatementBuilder的解析：
+
+![image-20220729204514730](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729204514730.png)
+
+默认会使用XMLLanguageDriver创建SqlSource（Configuration构造函数中设置）。
+
+XMLLanguageDriver创建SqlSource：
+
+![image-20220729204620410](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729204620410.png)
+
+XMLScriptBuilder解析sql：
+
+![image-20220729204640347](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729204640347.png)
+
+得到SqlSource之后，会放到Configuration中，有了SqlSource，就能拿BoundSql了，BoundSql可以得到最终的sql。
+
+### 2.3 实例分析
+
+以下面的xml解析大概说下parseDynamicTags的解析过程：
+
+```xml
+<update id="update" parameterType="org.format.dynamicproxy.mybatis.bean.User">
+    UPDATE users
+    <trim prefix="SET" prefixOverrides=",">
+        <if test="name != null and name != ''">
+            name = #{name}
+        </if>
+        <if test="age != null and age != ''">
+            , age = #{age}
+        </if>
+        <if test="birthday != null and birthday != ''">
+            , birthday = #{birthday}
+        </if>
+    </trim>
+    where id = ${id}
+</update>
 ```
 
-PooledConenction实现了InvocationHandler接口，并且，proxyConnection对象也是根据这个它来生成的代理对象：
+parseDynamicTags方法的返回值是一个List，也就是一个Sql节点集合。SqlNode本文一开始已经介绍，分析完解析过程之后会说一下各个SqlNode类型的作用。
+
+首先根据update节点(Node)得到所有的子节点，分别是3个子节点：
+
+- 文本节点 `UPDATE users`
+- trim子节点 ...
+- 文本节点 `where id = #{id}`
+
+遍历各个子节点：
+
+- 如果节点类型是文本或者CDATA，构造一个TextSqlNode或StaticTextSqlNode；
+- 如果节点类型是元素，说明该update节点是个动态sql，然后会使用NodeHandler处理各个类型的子节点。这里的NodeHandler是XMLScriptBuilder的一个内部接口，其实现类包括TrimHandler、WhereHandler、SetHandler、IfHandler、ChooseHandler等。看类名也就明白了这个Handler的作用，比如我们分析的trim节点，对应的是TrimHandler；if节点，对应的是IfHandler...这里子节点trim被TrimHandler处理，TrimHandler内部也使用parseDynamicTags方法解析节点。
+
+遇到子节点是元素的话，重复以上步骤：
+
+trim子节点内部有7个子节点，分别是文本节点、if节点、xxxx节点。文本节点跟之前一样处理，if节点使用IfHandler处理。遍历步骤如上所示，下面我们看下几个Handler的实现细节。
+
+IfHandler处理方法也是使用parseDynamicTags方法，然后加上if标签必要的属性：
 
 ```java
-public PooledConnection(Connection connection, PooledDataSource dataSource) {  
-   this.hashCode = connection.hashCode();  
-   this.realConnection = connection;  
-   this.dataSource = dataSource;  
-   this.createdTimestamp = System.currentTimeMillis();  
-   this.lastUsedTimestamp = System.currentTimeMillis();  
-   this.valid = true;  
-   this.proxyConnection = (Connection) Proxy.newProxyInstance(Connection.class.getClassLoader(), IFACES, this);  
-} 
-
+private class IfHandler implements NodeHandler {
+    public void handleNode(XNode nodeToHandle, List<SqlNode> targetContents) {
+      List<SqlNode> contents = parseDynamicTags(nodeToHandle);
+      MixedSqlNode mixedSqlNode = new MixedSqlNode(contents);
+      String test = nodeToHandle.getStringAttribute("test");
+      IfSqlNode ifSqlNode = new IfSqlNode(mixedSqlNode, test);
+      targetContents.add(ifSqlNode);
+    }
+}
 ```
 
-实际上，我们调用PooledDataSource的getConnection()方法返回的就是这个proxyConnection对象。当我们调用此proxyConnection对象上的任何方法时，都会调用PooledConnection对象内invoke()方法。
-
-让我们看一下PooledConnection类中的invoke()方法定义：
+TrimHandler处理方法也是使用parseDynamicTags方法，然后加上trim标签必要的属性：
 
 ```java
-public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {  
-    String methodName = method.getName();  
-    //当调用关闭的时候，回收此Connection到PooledDataSource中  
-    if (CLOSE.hashCode() == methodName.hashCode() && CLOSE.equals(methodName)) {  
-        dataSource.pushConnection(this);  
-        return null;  
-    } else {  
-        try {  
-            if (!Object.class.equals(method.getDeclaringClass())) {  
-                checkConnection();  
-            }  
-            return method.invoke(realConnection, args);  
-        } catch (Throwable t) {  
-            throw ExceptionUtil.unwrapThrowable(t);  
-        }  
-    }  
-}  
+private class TrimHandler implements NodeHandler {
+    public void handleNode(XNode nodeToHandle, List<SqlNode> targetContents) {
+      List<SqlNode> contents = parseDynamicTags(nodeToHandle);
+      MixedSqlNode mixedSqlNode = new MixedSqlNode(contents);
+      String prefix = nodeToHandle.getStringAttribute("prefix");
+      String prefixOverrides = nodeToHandle.getStringAttribute("prefixOverrides");
+      String suffix = nodeToHandle.getStringAttribute("suffix");
+      String suffixOverrides = nodeToHandle.getStringAttribute("suffixOverrides");
+      TrimSqlNode trim = new TrimSqlNode(configuration, mixedSqlNode, prefix, prefixOverrides, suffix, suffixOverrides);
+      targetContents.add(trim);
+    }
+}
 ```
 
-从上述代码可以看到，当我们使用了pooledDataSource.getConnection()返回的Connection对象的close()方法时，不会调用真正Connection的close()方法，而是将此Connection对象放到连接池中。
+以上update方法最终通过parseDynamicTags方法得到的SqlNode集合如下：
 
-## 8. JNDI类型的数据源DataSource
+![image-20220729205509165](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729205509165.png)
 
-对于JNDI类型的数据源DataSource的获取就比较简单，MyBatis定义了一个JndiDataSourceFactory工厂来创建通过JNDI形式生成的DataSource。下面让我们看一下JndiDataSourceFactory的关键代码：
+trim节点：
+
+![image-20220729205555040](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729205555040.png)
+
+由于这个update方法是个动态节点，因此构造出了DynamicSqlSource。DynamicSqlSource内部就可以构造sql了:
+
+![image-20220729205618798](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220729205618798.png)
+
+DynamicSqlSource内部的SqlNode属性是一个MixedSqlNode。然后我们看看各个SqlNode实现类的apply方法。下面分析一下各个SqlNode实现类的apply方法实现：
+
+MixedSqlNode：MixedSqlNode会遍历调用内部各个sqlNode的apply方法。
 
 ```java
-if (properties.containsKey(INITIAL_CONTEXT) && properties.containsKey(DATA_SOURCE))  
-{  
-    //从JNDI上下文中找到DataSource并返回  
-    Context ctx = (Context) initCtx.lookup(properties.getProperty(INITIAL_CONTEXT));  
-    dataSource = (DataSource) ctx.lookup(properties.getProperty(DATA_SOURCE));  
-}  
-else if (properties.containsKey(DATA_SOURCE))  
-{  
-    //从JNDI上下文中找到DataSource并返回  
-    dataSource = (DataSource) initCtx.lookup(properties.getProperty(DATA_SOURCE));  
-} 
-
+public boolean apply(DynamicContext context) {
+   for (SqlNode sqlNode : contents) {
+     sqlNode.apply(context);
+   }
+   return true;
+}
   
 ```
+
+StaticTextSqlNode：直接append sql文本。
+
+```java
+public boolean apply(DynamicContext context) {
+   context.appendSql(text);
+   return true;
+}
+```
+
+IfSqlNode：这里的evaluator是一个ExpressionEvaluator类型的实例，内部使用了OGNL处理表达式逻辑。
+
+```java
+public boolean apply(DynamicContext context) {
+   if (evaluator.evaluateBoolean(test, context.getBindings())) {
+     contents.apply(context);
+     return true;
+   }
+   return false;
+}
+
+```
+
+TrimSqlNode：
+
+```java
+public boolean apply(DynamicContext context) {
+    FilteredDynamicContext filteredDynamicContext = new FilteredDynamicContext(context);
+    boolean result = contents.apply(filteredDynamicContext);
+    filteredDynamicContext.applyAll();
+    return result;
+}
+
+public void applyAll() {
+    sqlBuffer = new StringBuilder(sqlBuffer.toString().trim());
+    String trimmedUppercaseSql = sqlBuffer.toString().toUpperCase(Locale.ENGLISH);
+    if (trimmedUppercaseSql.length() > 0) {
+        applyPrefix(sqlBuffer, trimmedUppercaseSql);
+        applySuffix(sqlBuffer, trimmedUppercaseSql);
+    }
+    delegate.appendSql(sqlBuffer.toString());
+}
+
+private void applyPrefix(StringBuilder sql, String trimmedUppercaseSql) {
+    if (!prefixApplied) {
+        prefixApplied = true;
+        if (prefixesToOverride != null) {
+            for (String toRemove : prefixesToOverride) {
+                if (trimmedUppercaseSql.startsWith(toRemove)) {
+                    sql.delete(0, toRemove.trim().length());
+                    break;
+                }
+            }
+        }
+        if (prefix != null) {
+            sql.insert(0, " ");
+            sql.insert(0, prefix);
+        }
+   }
+}
+
+```
+
+TrimSqlNode的apply方法也是调用属性contents(一般都是MixedSqlNode)的apply方法，按照实例也就是7个SqlNode，都是StaticTextSqlNode和IfSqlNode。 最后会使用FilteredDynamicContext过滤掉prefix和suffix。
 
 ## 参考文章
 
-[**MyBatis详解 - 数据源与连接池**](https://pdai.tech/md/framework/orm-mybatis/mybatis-y-datasource.html)
+[MyBatis详解 - 动态SQL使用与原理](https://pdai.tech/md/framework/orm-mybatis/mybatis-y-dynamic-sql.html)

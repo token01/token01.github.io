@@ -15,7 +15,7 @@ category:
 
 那么咱们就先看看是怎么获取SqlSession的吧：
 
-![image-20220728224212338](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220728224212338.png)
+![image-20220728224212338](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220728224212338.png)
 
 首先，SqlSessionFactoryBuilder去读取mybatis的配置文件，然后build一个DefaultSqlSessionFactory。源码如下：
 
@@ -158,7 +158,7 @@ SqlSession咱们也拿到了，咱们可以调用SqlSession中一系列的`selec
 
 ## 2. 利器之MapperProxy
 
-![image-20220728225108050](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220728225108050.png)
+![image-20220728225108050](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220728225108050.png)
 
 在mybatis中，通过MapperProxy动态代理咱们的dao， 也就是说， 当咱们执行自己写的dao里面的方法的时候，其实是对应的mapperProxy在代理。那么，咱们就看看怎么获取MapperProxy对象吧：
 
@@ -238,7 +238,7 @@ User insertUser = new User();
 
 Executor与Sqlsession的关系就像市长与书记，Sqlsession只是个门面，真正干事的是Executor，Sqlsession对数据库的操作都是通过Executor来完成的。与Sqlsession一样，Executor也是动态创建的：
 
-![image-20220728225511260](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220728225511260.png)
+![image-20220728225511260](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220728225511260.png)
 
 - **Executor创建的源代码**：
 

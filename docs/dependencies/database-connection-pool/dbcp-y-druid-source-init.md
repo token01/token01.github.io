@@ -1,375 +1,319 @@
-# Druid源码学习（四）-DruidDataSource的getConnection过程
+# Druid源码学习2DruidDataSource的init过程
 
 ## 1. 简介
 
-### 1.1 DruidDataSource 实现 javax.sql.DataSource
+DruidDataSource的使用都是创建DruidDataSource对象，set配置参数之后，调用init方法。
 
-DruidDataSource连接池实现了javaX.sql包中，DataSource接口的全部方法。getConnection也来自于javax.sql.DataSource接口。
-
-![image-20220522090249593](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220522090249593.png)
-
-![image-20220522090308435](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220522090308435.png)
-
-### 1.2 DruidPooledConnection实现接口java.sql.Connection。
-
-而DruidPooledConnection也实现了接口java.sql.Connection。
-这样就能在各种场景中通过这个接口来获取数据库连接。
-
-![image-20220522090459058](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220522090459058.png)
-
-![image-20220522090744812](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220522090744812.png)
-
-这样就能在各种场景中通过这个接口来获取数据库连接。
-
-## 2. fileter处理–责任链模式
-
-### 2.1 getConnection方法 调用责任链
-
-在执行getConnection方法的过程中，首先确认DataSource是否完成了初始化。由于 init方法采用了Double Check机制，如果初始化完成则不会再次执行，因此这里不会造成系统多次初始化。
-
-```java
-public DruidPooledConnection getConnection(long maxWaitMillis) throws SQLException {
-    //调用初始化，以避免在获取连接的时候DruidDataSource的初始化工作还没完成。
-    init();
-	
-	//这里有两个分支，判断filters是否存在过滤器，如果存在则先执行过滤器中的内容，这采用责任链模式实现。
-    if (filters.size() > 0) {
-        //责任链执行过程
-        FilterChainImpl filterChain = new FilterChainImpl(this);
-        return filterChain.dataSource_connect(this, maxWaitMillis);
-    } else {
-        //直接创建连接
-        return getConnectionDirect(maxWaitMillis);
-    }
-}
+通过mock测试实例化DruidDataSource：
 
 ```
-
-这个filter的处理过程是一个经典的责任链模式。
-
-### 2.2 FilterChainImpl 责任连之
-
-#### 2.2.1 DataSourceProxy 
-
-new了一个FilterChainImpl对象，而这个对象的构造函数 this 。
-
-![image-20220522091641489](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220522091641489.png)
-
-查看了一下，DruidDataSource的父类DruidAbstractDataSource正好实现了DataSourceProxy接口，也就是说，DruidDataSource本身就是一个DataSourceProxy。
-
-![image-20220522091502064](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220522091502064.png)
-
- 这样做的好处是，FilterChainImpl本身不用维护任何存放filters的数组，这个数组可以直接复用DruidDataSource中的数据结构。
-
-#### 2.2.2 FilterChainImpl 实现
-
-在FilterChainImpl中：
-
-```java
-
-public FilterChainImpl(DataSourceProxy dataSource){
-    this.dataSource = dataSource;
-    this.filterSize = getFilters().size();
-}
-
-public FilterChainImpl(DataSourceProxy dataSource, int pos){
-    this.dataSource = dataSource;
-    this.pos = pos;
-    this.filterSize = getFilters().size();
-}
-
-public List<Filter> getFilters() {
-    return dataSource.getProxyFilters();
-}
-
-private Filter nextFilter() {
-    return getFilters()
-            .get(pos++);
-}
-
+DruidDataSource ds = new DruidDataSource();
+ds.setUrl("jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC");
+ds.setUsername("test");
+ds.setPassword("123456");
+ds.setFilters("stat");
+ds.init();
 ```
 
-在DruidAbstractDataSource中，这个filters的数据结构：
+init方法是使用 DruidDataSource的入口。
+
+## 2. init 过程
+
+### 2.1 double check
+
+1. 判断inited状态，这样确保init方法在同一个DataSource对象中只会被执行一次。（后面有加锁）。
+2. 之后内部开启要给ReentrantLock。这个lock调用lockInterruptibly。 如果获取不到lock,则会将当前的线程休眠。
+3. 再次检测inited状态。如果为true,则返回。这里做了一个DoubleCheck。
+4. 定义initStackTrace ，为后续需要getInitStackTrace方法使用。
+
+5. 生成DruidDataSource的id。这是一个AtomicInteger，从1开始递增，每个DataSource都会加1。
 
 ```java
-// com.alibaba.druid.pool.DruidAbstractDataSource#filters
-protected List<Filter>  filters = new CopyOnWriteArrayList<Filter>();
-```
-
-这样所有的filters都将存放到责任list中。
-
-#### 2.2.3 dataSource_connect 方法
-
-再查看 FilterChainImpl的dataSource_connect方法：
-
-```java
-   @Override
-    public DruidPooledConnection dataSource_connect(DruidDataSource dataSource, long maxWaitMillis) throws SQLException {
-        //判断当前filter的指针是否小于filterSize的大小，如果小于，则执行filter的dataSource_getConnection
-        if (this.pos < filterSize) {
-            DruidPooledConnection conn = nextFilter().dataSource_getConnection(this, dataSource, maxWaitMillis);
-            return conn;
-        }
-        //反之 调用getConnectionDirect 创建数据库连接。
-        return dataSource.getConnectionDirect(maxWaitMillis);
-    }
-```
-
-这样看上去将调用filter的dataSource_getConnection方法。
-但是这个地方实际上涉及比较巧妙，采用了一个父类FilterAdapter，所有的Filter都集成这个父类FilterAdapter,而父类本身又实现了Filter接口，本身是一个Filter.
-StartFilter等Filter的实现类，没有实现dataSource_getConnection方法。
-因此这个方法实际上执行的逻辑就是FilterAdapter类的dataSource_getConnection方法。
-
-```java
-@Override
-public DruidPooledConnection dataSource_getConnection(FilterChain chain, DruidDataSource dataSource,
-                                                      long maxWaitMillis) throws SQLException {
-    return chain.dataSource_connect(dataSource, maxWaitMillis);
-}
-
-```
-
-此时调用dataSource_connect之后，又回到了FilterChainImpl的dataSource_connect方法中。
-不过此时pos会增加，if判断中的逻辑不会执行。那么就会执行 dataSource.getConnectionDirect(maxWaitMillis);直接创建一个连接之后返回。
-这就是getConnection过程中处理filter的责任链模式，这也是我们在编码的过程中值得借鉴的地方。
-在getConnection中，无论是否存在filter,那么最终将通过getConnectionDirect来创建连接。getConnectionDirect才是连接被创建的最终方法。
-
-### 2.3 getConnectionDirect
-
-getConnectionDirect方法也不是最终创建数据库连接的方法。
-这个方法会通过一个for循环自旋，确保连接的创建。
-在GetConnectionTimeoutException异常处理中，这个地方有一个重试次数notFullTimeoutRetryCount，每次重试的时间为maxWaitMillis。
-
-```java
-// com.alibaba.druid.pool.DruidDataSource#getConnectionDirect
-int notFullTimeoutRetryCnt = 0;
-//自旋
-for (;;) {
-    // handle notFullTimeoutRetry
-    DruidPooledConnection poolableConnection;
-    try {
-    //调用getConnectionInternal 获取连接
-        poolableConnection = getConnectionInternal(maxWaitMillis);
-    } catch (GetConnectionTimeoutException ex) {
-    //超时异常处理，判断是否达到最大重试次数 且连接池是否已满
-        if (notFullTimeoutRetryCnt <= this.notFullTimeoutRetryCount && !isFull()) {
-            notFullTimeoutRetryCnt++;
-            //日志打印
-            if (LOG.isWarnEnabled()) {
-                LOG.warn("get connection timeout retry : " + notFullTimeoutRetryCnt);
-            }
-            continue;
-        }
-        throw ex;
-    }
-    //后续代码略
-    ... ...
-}
-
-```
-
-通过自旋的方式确保获取到连接。之后对获取到的连接进行检测，主要的检测参数有：
-
-| 参数            | 说明                                                         |
-| --------------- | ------------------------------------------------------------ |
-| testOnBorrow    | 默认值通常为false,用在获取连接的时候执行validationQuery检测连接是否有效。这个配置会降低性能。 |
-| testOnReturn    | 默认值通常为false,用在归还连接的时候执行validationQuery检测连接是否有效，这个配置会降低性能。 |
-| testWhileIdle   | 这个值通常建议为true,连接空闲时间大于timeBetweenEvictionRunsMillis指定的毫秒，就会执行参数validationQuery指定的SQL来检测连接是否有效。这个参数会定期执行。 |
-| validationQuery | 用来检测连接是否有效的sql，如果validationQuery为空，那么testOnBorrow、testOnReturn、testWhileIdle这三个参数都不会起作用，配置参考：validationQuery=SELECT 1 |
-
-在getConnection中，将会发生的检测过程伪代码：
-
-```java
-if (testOnBorrow){
-  //获取连接时检测
-}else {
-    if (poolableConnection.conn.isClosed()) {
-      //检测连接是否关闭
-    }
-    
-     if (testWhileIdle) {
-       //空闲检测 
-     }
-
-}
-
-
-```
-
-上述检测过程都会调用testConnectionInternal(poolableConnection.holder, poolableConnection.conn);进行检测。
-
-此外还有一个很重要的参数removeAbandoned。这个参数相关的配置参数有:
-
-| 参数                         | 说明                                                 |
-| ---------------------------- | ---------------------------------------------------- |
-| removeAbandoned              | 如果连接泄露，是否需要回收泄露的连接，默认false；    |
-| logAbandoned                 | 如果回收了泄露的连接，是否要打印一条log，默认false； |
-| removeAbandonedTimeoutMillis | 连接回收的超时时间，默认5分钟；                      |
-
-参数removeAbandoned的作用在于，如果有线程从Druid中获取到了连接并没有及时归还，那么Druid就会定期检测该连接是否会处于运行状态，如果不处于运行状态，则被获取时间超过removeAbandonedTimeoutMillis就会强制回收该连接。
-这个检测的过程是在回收线程中完成的，在getConnection的过程中，只是判断该参数是否被设置，然后加上对应的标识。
-
-```java
-if (removeAbandoned) {
-    StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-    //设置 stackTrace
-    poolableConnection.connectStackTrace = stackTrace;
-    //设置setConnectedTimeNano
-    poolableConnection.setConnectedTimeNano();
-    //打开traceEnable
-    poolableConnection.traceEnable = true;
-
-    activeConnectionLock.lock();
-    try {
-        activeConnections.put(poolableConnection, PRESENT);
-    } finally {
-        activeConnectionLock.unlock();
-    }
-}
-
-```
-
-最后还需要对defaultAutoCommit参数进行处理：
-
-```java
-if (!this.defaultAutoCommit) {
-    poolableConnection.setAutoCommit(false);
-}
-```
-
-至此，一个getConnetion方法创建完毕。
-
-### 2.4 getConnectionInternal
-
-getConnectionInternal方法中创建连接：
-首先判断连接池状态 closed 和enable状态是否正确，如果不正确则抛出异常退出。
-
-之后的逻辑:
-
-```java
- /**
-     * 获取内部连接
-     * @param maxWait
-     * @return
+   /**
+     * init方法是使用 DruidDataSource的入口。
      * @throws SQLException
      */
-    private DruidPooledConnection getConnectionInternal(long maxWait) throws SQLException {
-        // 首先判断连接池状态 closed 和enable状态是否正确，如果不正确则抛出异常退出。
-        if (closed) {
-            connectErrorCountUpdater.incrementAndGet(this);
-            throw new DataSourceClosedException("dataSource already closed at " + new Date(closeTimeMillis));
+    public void init() throws SQLException {
+
+        // 1. 双层校验
+        // 1.1 判断inited状态，这样确保init方法在同一个DataSource对象中只会被执行一次。（后面有加锁）。
+        if (inited) {
+            return;
         }
 
-        if (!enable) {
-            connectErrorCountUpdater.incrementAndGet(this);
+        // bug fixed for dead lock, for issue #2980
+        DruidDriver.getInstance();
 
-            if (disableException != null) {
-                throw disableException;
+        //1.2  之后内部开启要给ReentrantLock。这个lock调用lockInterruptibly。 如果获取不到lock,则会将当前的线程休眠
+        final ReentrantLock lock = this.lock;
+        try {
+            lock.lockInterruptibly();
+        } catch (InterruptedException e) {
+            throw new SQLException("interrupt", e);
+        }
+
+        //1.3 再次检测inited状态。如果为true,则返回。这里做了一个DoubleCheck。
+        boolean init = false;
+        try {
+            if (inited) {
+                return;
             }
 
-            throw new DataSourceDisableException();
-        }
-```
+            // 1.4 定义initStackTrace ，为后续需要getInitStackTrace方法使用。
+            initStackTrace = Utils.toString(Thread.currentThread().getStackTrace());
 
-之后的逻辑:
-
-```java
- for (boolean createDirect = false;;){
-    if(createDirect){
-        //直接创建连接的逻辑
-    }
-    
-    if (maxWaitThreadCount > 0
-        && notEmptyWaitThreadCount >= maxWaitThreadCount) {
-        // 判断最大等待线程数如果大于0且notEmpty上的等待线程超过了这个值 那么抛出异常
-        
-        }
-
-    //其他相关参数检测 抛出异常
-    
-    //判断如果createScheduler存在，且executor.getQueue().size()大于0 那么将启用createDirect逻辑，退出本持循环
-    if (createScheduler != null
-        && poolingCount == 0
-        && activeCount < maxActive
-        && creatingCountUpdater.get(this) == 0
-        && createScheduler instanceof ScheduledThreadPoolExecutor) {
-    ScheduledThreadPoolExecutor executor = (ScheduledThreadPoolExecutor) createScheduler;
-    if (executor.getQueue().size() > 0) {
-        createDirect = true;
-        continue;
-    }
-    }
-	
-    //如果maxWait大于0，调用 pollLast(nanos)，反之则调用takeLast()
-    //获取连接的核心逻辑
-    if (maxWait > 0) {
-        holder = pollLast(nanos);
-    } else {
-        holder = takeLast();
-    }
-
-}
-
-```
-
-getConnectionInternal 方法内部存在一大堆参数检测功能，根据一系列参数判断，是否需要直接创建一个连接。
-反之，则调用pollLast 或 takeLast 方法。这两个方法如果获取不到连接，将会wait,之后通知生产者线程创建连接。
-这个地方有一个风险就是，如果仅仅采用单线程的方式创建连接，一旦生产者线程由于其他原因阻塞，那么getConnection将会产被长时间阻塞。
-
-之后获得holder之后，通过holder产生连接。
-
-```
-holder.incrementUseCount();
-DruidPooledConnection poolalbeConnection = new DruidPooledConnection(holder);
-```
-
-### 2.5 pollLast 与 takeLast
-
-#### 2.5.1 pollLast(如果maxWait大于0)
-
-polllast的方法核心逻辑是自旋，判断是否有可用连接，然后发送empty消息，通知生产者线程可以创建连接。之后阻塞wait。只不过这个方法需要设置超时时间。
-
-```java
-// com.alibaba.druid.pool.DruidDataSource#pollLast
-for (;;) {
-        //如果没有可用的连接
-        if (poolingCount == 0) {
-         emptySignal(); // send signal to CreateThread create connection
-
-           estimate = notEmpty.awaitNanos(estimate); // signal by
-           
+            // 1.5 生成DruidDataSource的id。这是一个AtomicInteger，从1开始递增，每个DataSource都会加1。
+            this.id = DruidDriver.createDataSourceId();
+            
+            ....
          }
-         //之后获取最后一个连接
-           DruidConnectionHolder last = connections[poolingCount];
-}       
-
 ```
 
-#### 2.5.2 takeLast(如果maxWait等于0)
+### 2.2 初始化 
 
-而takeLast方法与pollLast方法类似，只是等待的过程中，不增加超时时间，一直等到生产者的通知为止。
+#### 2.2.1 初始化1
+
+1. 初始化jdbcUrl。trim处理。
+2. 初始化的Filter处理，默认会增加要给StatFilter。
+3. 根据dbType,进行cacheServerConfiguration的特殊处理。部分数据库需要将这个参数设置为false。
+
+4. 对maxActive、minIdle、timeBetweenLogStatsMillis、maxEvictableIdleTimeMillis、keepAlive、keepAliveBetweenTimeMillis等参数进行校验。
 
 ```java
-//com.alibaba.druid.pool.DruidDataSource#takeLast
+ // 2. 初始化
+            // 2.1 初始化jdbcUrl。trim处理。
+            if (this.jdbcUrl != null) {
+                this.jdbcUrl = this.jdbcUrl.trim();
+                initFromWrapDriverUrl();
+            }
 
- while (poolingCount == 0) {
- 
-    emptySignal(); // send signal to CreateThread create connection
-     
-    try {
-        notEmpty.await(); // signal by recycle or creator
-    } finally {
-        notEmptyWaitThreadCount--;
-    }
-    
- }
-decrementPoolingCount();
-//最后获取数组中的最后一个连接。
-DruidConnectionHolder last = connections[poolingCount];
-connections[poolingCount] = null;
+            // 2.2 初始化的Filter处理，默认会增加要给StatFilter。
+            for (Filter filter : filters) {
+                filter.init(this);
+            }
 
+            // 2.3 根据dbType,进行cacheServerConfiguration的特殊处理。部分数据库需要将这个参数设置为false。
+            if (this.dbTypeName == null || this.dbTypeName.length() == 0) {
+                this.dbTypeName = JdbcUtils.getDbType(jdbcUrl, null);
+            }
+
+            DbType dbType = DbType.of(this.dbTypeName);
+            if (dbType == DbType.mysql
+                    || dbType == DbType.mariadb
+                    || dbType == DbType.oceanbase
+                    || dbType == DbType.ads) {
+                boolean cacheServerConfigurationSet = false;
+                if (this.connectProperties.containsKey("cacheServerConfiguration")) {
+                    cacheServerConfigurationSet = true;
+                } else if (this.jdbcUrl.indexOf("cacheServerConfiguration") != -1) {
+                    cacheServerConfigurationSet = true;
+                }
+                if (cacheServerConfigurationSet) {
+                    this.connectProperties.put("cacheServerConfiguration", "true");
+                }
+            }
+
+            // 2.4 对maxActive、minIdle、timeBetweenLogStatsMillis、maxEvictableIdleTimeMillis、keepAlive、keepAliveBetweenTimeMillis等参数进行校验。
+            if (maxActive <= 0) {
+                throw new IllegalArgumentException("illegal maxActive " + maxActive);
+            }
+
+            if (maxActive < minIdle) {
+                throw new IllegalArgumentException("illegal maxActive " + maxActive);
+            }
 ```
+
+#### 2.2.2 初始化2
+
+5. 初始化SPI
+6. 解决驱动相关的配置
+7. 初始化校验
+8. 初始化异常存储
+9. 初始化validConnectionChecker 不同的数据库的对象不同
+10. 校验连接查询的sql
+11. 初始化holder的数组：
+12. 之后，dataSourceStat是否采用了Global。对dataSourceStat进行set。
+
+```java
+// 2.5 初始化SPI
+initFromSPIServiceLoader();
+
+// 2.6 解决驱动相关的配置
+resolveDriver();
+
+// 2.7 初始化校验
+initCheck();
+
+// 2.8 初始化异常存储
+initExceptionSorter();
+// 2.9 初始化validConnectionChecker 不同的数据库的对象不同
+initValidConnectionChecker();
+// 2.10 校验连接查询的sql
+validationQueryCheck();
+
+// 2.11 之后，dataSourceStat是否采用了Global。对dataSourceStat进行set。
+//
+if (isUseGlobalDataSourceStat()) {
+    dataSourceStat = JdbcDataSourceStat.getGlobal();
+    if (dataSourceStat == null) {
+        dataSourceStat = new JdbcDataSourceStat("Global", "Global", this.dbTypeName);
+        JdbcDataSourceStat.setGlobal(dataSourceStat);
+    }
+    if (dataSourceStat.getDbType() == null) {
+        dataSourceStat.setDbType(this.dbTypeName);
+    }
+} else {
+    dataSourceStat = new JdbcDataSourceStat(this.name, this.jdbcUrl, this.dbTypeName, this.connectProperties);
+}
+dataSourceStat.setResetStatEnable(this.resetStatEnable);
+
+// 2.12 初始化holder的数组：
+connections = new DruidConnectionHolder[maxActive];
+evictConnections = new DruidConnectionHolder[maxActive];
+keepAliveConnections = new DruidConnectionHolder[maxActive];
+```
+
+### 2.3 创建连接
+
+1. 判断是否进行异步初始化： if (createScheduler != null && asyncInit) 。
+2. 如果异步初始化，调用通过submitCreateTask进行。
+3. 如果poolingCount < initialSize，则创建物理连接。
+   1. 如果initialSize不配置为0，在初始化过程中，这个条件不会被触发，这样只有真正需要Connection的时候，才会去创建物理的连接。
+   2. 如果指定了initialSize，则在初始化的过程中，初始化线程就创建了initialSize的连接的holder并放置到connections中。
+
+```java
+  // 3. 创建连接
+            // 3.1 判断是否进行异步初始化
+            if (createScheduler != null && asyncInit) {
+                // 3.2 如果异步初始化，调用通过submitCreateTask进行。
+                for (int i = 0; i < initialSize; ++i) {
+                    submitCreateTask(true);
+                }
+            } else if (!asyncInit) {
+                // init connections
+                // 3.3 如果poolingCount < initialSize，则创建物理连接。
+                // 3.3.1 如果initialSize不配置为0，在初始化过程中，这个条件不会被触发，这样只有真正需要Connection的时候，才会去创建物理的连接。
+                //  3.3.2 如果指定了initialSize，则在初始化的过程中，初始化线程就创建了initialSize的连接的holder并放置到connections中。
+                while (poolingCount < initialSize) {
+                    try {
+//                        在同步初始化的条件下，初始化操作将通过init线程进行。而后续由于连接池使用过程中动态的收缩和扩展，则是由其他单独的线程来完成。
+//                        反之，如果需要进行异步初始化，则会调用submitCreateTask方法来异步进行。
+                        PhysicalConnectionInfo pyConnectInfo = createPhysicalConnection();
+                        DruidConnectionHolder holder = new DruidConnectionHolder(this, pyConnectInfo);
+                        connections[poolingCount++] = holder;
+                    } catch (SQLException ex) {
+                       ...
+                }
+
+               
+            }
+```
+
+- 在同步初始化的条件下，初始化操作将通过init线程进行。而后续由于连接池使用过程中动态的收缩和扩展，则是由其他单独的线程来完成。
+- 反之，如果需要进行异步初始化，则会调用submitCreateTask方法来异步进行。
+
+### 2.4 创建线程
+
+创建如下线程：
+
+```java
+// 4. 创建线程
+// 4.1 创建日志线程  但是这个线程的条件timeBetweenLogStatsMillis大于0，如果这个参数没有配置，日志线程不会创建。
+createAndLogThread();
+// 4.2 创建一个CreateConnectionThread对象，并启动。初始化变量createConnectionThread。
+createAndStartCreatorThread();
+// 4.3 创建 DestroyTask对象。同时创建DestroyConnectionThread线程，并start,初始化destroyConnectionThread。
+createAndStartDestroyThread();
+```
+
+之后，在initedLatch处等待线程任务全部完成。
+
+initedLatch会在createAndStartCreatorThread与createAndStartDestroyThread都执行完之后，countdown结束。
+这个地方是用来确保上述两个方法都执行完毕，再进行后续的操作。
+
+```java
+// 4.4 在initedLatch处等待。
+// initedLatch会在createAndStartCreatorThread与createAndStartDestroyThread都执行完之后，countdown结束。
+//这个地方是用来确保上述两个方法都执行完毕，再进行后续的操作。
+initedLatch.await();
+```
+
+initedLatch会在createAndStartCreatorThread与createAndStartDestroyThread都执行完之后，countdown结束。
+这个地方是用来确保上述两个方法都执行完毕，再进行后续的操作。
+
+```java
+ // 4.5 之后 init 状态为true,并初始化initedTime时间为当前的Date时间。注册registerMbean。
+init = true;
+
+initedTime = new Date();
+registerMbean();
+```
+
+
+
+之后 init 状态为true,并初始化initedTime时间为当前的Date时间。注册registerMbean。
+如果keepAlive为true,还需调用submitCreateTask方法，将连接填充到minIdle。确保空闲的连接可用。
+
+```java
+
+// 4.6 如果keepAlive为true,还需调用submitCreateTask方法，将连接填充到minIdle。确保空闲的连接可用。
+if (keepAlive) {
+// async fill to minIdle
+   if (createScheduler != null) {
+         for (int i = 0; i < minIdle; ++i) {
+               submitCreateTask(true);
+         }
+   } else {
+          this.emptySignal();
+   }
+}
+```
+
+### 2.5 finally处理
+
+finally处理逻辑：
+修改inited为true,并解锁。
+
+```java
+ finally {
+            // 5 finally处理
+            // 5.1 修改inited为true,并解锁。
+            inited = true;
+            lock.unlock();
+
+            // 5.2 判断init和日志的INFO状态，打印一条init完成的日志。
+            if (init && LOG.isInfoEnabled()) {
+                String msg = "{dataSource-" + this.getID();
+
+                if (this.name != null && !this.name.isEmpty()) {
+                    msg += ",";
+                    msg += this.name;
+                }
+
+                msg += "} inited";
+
+                LOG.info(msg);
+            }
+        }
+```
+
+
+
+判断init和日志的INFO状态，打印一条init完成的日志。
+格式如下：
+
+```java
+2022-05-18 16:14:00.690 [restartedMain] INFO  c.a.d.p.DruidDataSource - [init,998] - {dataSource-1} inited
+```
+
+## 3. 总结
+
+
+init过程，对DruidDataSource进行了初始化操作，为了防止多线程并发场景下进行init操作，采用了Double Check的方式，配合ReentrentLock两次判断来实现。
+对于真实连接的创建，如果需要同步创建，则init线程会逐个创建连接的holder,反之，如果需要异步创建，则提交到异步执行的线程池submitCreateTask。
+详细流程如下图：
+![56f612af420ddc34f1c0811a5a08f451](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/56f612af420ddc34f1c0811a5a08f451.png)
 
 ## 参考文章
 
-[Druid源码阅读4-DruidDataSource的getConnection过程](https://blog.csdn.net/dhaibo1986/article/details/121267489?spm=1001.2014.3001.5502)
+[Druid源码阅读2-DruidDataSource的init过程](https://blog.csdn.net/dhaibo1986/article/details/121233998?spm=1001.2014.3001.5502)

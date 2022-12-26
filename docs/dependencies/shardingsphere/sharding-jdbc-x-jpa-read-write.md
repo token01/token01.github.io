@@ -16,13 +16,13 @@
 
 与将数据根据分片键打散至各个数据节点的水平分片不同，读写分离则是根据SQL语义的分析，将读操作和写操作分别路由至主库与从库。
 
-![image-20220717202842879](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717202842879.png)
+![image-20220717202842879](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717202842879.png)
 
 读写分离的数据节点中的数据内容是一致的，而水平分片的每个数据节点的数据内容却并不相同。将水平分片和读写分离联合使用，能够更加有效的提升系统性能。
 
 读写分离虽然可以提升系统的吞吐量和可用性，但同时也带来了数据不一致的问题。 这包括多个主库之间的数据一致性，以及主库与从库之间的数据一致性的问题。 并且，读写分离也带来了与数据分片同样的问题，它同样会使得应用开发和运维人员对数据库的操作和运维变得更加复杂。 下图展现了将分库分表与读写分离一同使用时，应用程序与数据库集群之间的复杂拓扑关系。
 
-![image-20220717203003516](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717203003516.png)
+![image-20220717203003516](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717203003516.png)
 
 ### 1.2 核心功能
 
@@ -814,17 +814,17 @@ http://localhost:8080/doc.html
 
 (注意：主库和从库的数据同步不是shardingJDBC做的，需要自行同步)
 
-![image-20220717203844042](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717203844042.png)
+![image-20220717203844042](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717203844042.png)
 
 **查询数据，从slave中查询**
 
 slave db中的数据
 
-![image-20220717203904680](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717203904680.png)
+![image-20220717203904680](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717203904680.png)
 
 查询结果
 
-![image-20220717203922565](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220717203922565.png)
+![image-20220717203922565](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220717203922565.png)
 
 相关查询console打印出的日志：
 

@@ -1,375 +1,237 @@
-# Druid源码学习（四）-DruidDataSource的getConnection过程
+# Druid源码学习（六）-PreparedStatementPool源码及使用场景分析
 
 ## 1. 简介
 
-### 1.1 DruidDataSource 实现 javax.sql.DataSource
-
-DruidDataSource连接池实现了javaX.sql包中，DataSource接口的全部方法。getConnection也来自于javax.sql.DataSource接口。
-
-![image-20220522090249593](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220522090249593.png)
-
-![image-20220522090308435](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220522090308435.png)
-
-### 1.2 DruidPooledConnection实现接口java.sql.Connection。
-
-而DruidPooledConnection也实现了接口java.sql.Connection。
-这样就能在各种场景中通过这个接口来获取数据库连接。
-
-![image-20220522090459058](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220522090459058.png)
-
-![image-20220522090744812](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220522090744812.png)
-
-这样就能在各种场景中通过这个接口来获取数据库连接。
-
-## 2. fileter处理–责任链模式
-
-### 2.1 getConnection方法 调用责任链
-
-在执行getConnection方法的过程中，首先确认DataSource是否完成了初始化。由于 init方法采用了Double Check机制，如果初始化完成则不会再次执行，因此这里不会造成系统多次初始化。
-
-```java
-public DruidPooledConnection getConnection(long maxWaitMillis) throws SQLException {
-    //调用初始化，以避免在获取连接的时候DruidDataSource的初始化工作还没完成。
-    init();
-	
-	//这里有两个分支，判断filters是否存在过滤器，如果存在则先执行过滤器中的内容，这采用责任链模式实现。
-    if (filters.size() > 0) {
-        //责任链执行过程
-        FilterChainImpl filterChain = new FilterChainImpl(this);
-        return filterChain.dataSource_connect(this, maxWaitMillis);
-    } else {
-        //直接创建连接
-        return getConnectionDirect(maxWaitMillis);
-    }
-}
+在阅读DruidDataSource源码的过程中，发现DruidConnectionHolder有个特别的属性
 
 ```
-
-这个filter的处理过程是一个经典的责任链模式。
-
-### 2.2 FilterChainImpl 责任连之
-
-#### 2.2.1 DataSourceProxy 
-
-new了一个FilterChainImpl对象，而这个对象的构造函数 this 。
-
-![image-20220522091641489](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220522091641489.png)
-
-查看了一下，DruidDataSource的父类DruidAbstractDataSource正好实现了DataSourceProxy接口，也就是说，DruidDataSource本身就是一个DataSourceProxy。
-
-![image-20220522091502064](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220522091502064.png)
-
- 这样做的好处是，FilterChainImpl本身不用维护任何存放filters的数组，这个数组可以直接复用DruidDataSource中的数据结构。
-
-#### 2.2.2 FilterChainImpl 实现
-
-在FilterChainImpl中：
-
-```java
-
-public FilterChainImpl(DataSourceProxy dataSource){
-    this.dataSource = dataSource;
-    this.filterSize = getFilters().size();
-}
-
-public FilterChainImpl(DataSourceProxy dataSource, int pos){
-    this.dataSource = dataSource;
-    this.pos = pos;
-    this.filterSize = getFilters().size();
-}
-
-public List<Filter> getFilters() {
-    return dataSource.getProxyFilters();
-}
-
-private Filter nextFilter() {
-    return getFilters()
-            .get(pos++);
-}
-
+PreparedStatementPool statementPool。
 ```
 
-在DruidAbstractDataSource中，这个filters的数据结构：
+根据经验可知，这是DruidPreparedStatement进行缓存的cache。我们在使用PreparedStatement的过程中，由于PreparedStatement对sql语句的解析和参数的注入是分开的，
+因此，加入cache之后，可以在同一个连接上，对相同sql,不同参数的请求进行复用。
+
+## 2. 开启参数
+
+如果要使用psCache，那么需要配置druid.maxPoolPreparedStatementPerConnectionSize大于0。
+在DruidDataSource源码的configFromPropety方法中：
 
 ```java
-// com.alibaba.druid.pool.DruidAbstractDataSource#filters
-protected List<Filter>  filters = new CopyOnWriteArrayList<Filter>();
-```
-
-这样所有的filters都将存放到责任list中。
-
-#### 2.2.3 dataSource_connect 方法
-
-再查看 FilterChainImpl的dataSource_connect方法：
-
-```java
-   @Override
-    public DruidPooledConnection dataSource_connect(DruidDataSource dataSource, long maxWaitMillis) throws SQLException {
-        //判断当前filter的指针是否小于filterSize的大小，如果小于，则执行filter的dataSource_getConnection
-        if (this.pos < filterSize) {
-            DruidPooledConnection conn = nextFilter().dataSource_getConnection(this, dataSource, maxWaitMillis);
-            return conn;
-        }
-        //反之 调用getConnectionDirect 创建数据库连接。
-        return dataSource.getConnectionDirect(maxWaitMillis);
-    }
-```
-
-这样看上去将调用filter的dataSource_getConnection方法。
-但是这个地方实际上涉及比较巧妙，采用了一个父类FilterAdapter，所有的Filter都集成这个父类FilterAdapter,而父类本身又实现了Filter接口，本身是一个Filter.
-StartFilter等Filter的实现类，没有实现dataSource_getConnection方法。
-因此这个方法实际上执行的逻辑就是FilterAdapter类的dataSource_getConnection方法。
-
-```java
-@Override
-public DruidPooledConnection dataSource_getConnection(FilterChain chain, DruidDataSource dataSource,
-                                                      long maxWaitMillis) throws SQLException {
-    return chain.dataSource_connect(dataSource, maxWaitMillis);
-}
-
-```
-
-此时调用dataSource_connect之后，又回到了FilterChainImpl的dataSource_connect方法中。
-不过此时pos会增加，if判断中的逻辑不会执行。那么就会执行 dataSource.getConnectionDirect(maxWaitMillis);直接创建一个连接之后返回。
-这就是getConnection过程中处理filter的责任链模式，这也是我们在编码的过程中值得借鉴的地方。
-在getConnection中，无论是否存在filter,那么最终将通过getConnectionDirect来创建连接。getConnectionDirect才是连接被创建的最终方法。
-
-### 2.3 getConnectionDirect
-
-getConnectionDirect方法也不是最终创建数据库连接的方法。
-这个方法会通过一个for循环自旋，确保连接的创建。
-在GetConnectionTimeoutException异常处理中，这个地方有一个重试次数notFullTimeoutRetryCount，每次重试的时间为maxWaitMillis。
-
-```java
-// com.alibaba.druid.pool.DruidDataSource#getConnectionDirect
-int notFullTimeoutRetryCnt = 0;
-//自旋
-for (;;) {
-    // handle notFullTimeoutRetry
-    DruidPooledConnection poolableConnection;
+String property = properties.getProperty("druid.maxPoolPreparedStatementPerConnectionSize");
+if (property != null && property.length() > 0) {
     try {
-    //调用getConnectionInternal 获取连接
-        poolableConnection = getConnectionInternal(maxWaitMillis);
-    } catch (GetConnectionTimeoutException ex) {
-    //超时异常处理，判断是否达到最大重试次数 且连接池是否已满
-        if (notFullTimeoutRetryCnt <= this.notFullTimeoutRetryCount && !isFull()) {
-            notFullTimeoutRetryCnt++;
-            //日志打印
-            if (LOG.isWarnEnabled()) {
-                LOG.warn("get connection timeout retry : " + notFullTimeoutRetryCnt);
-            }
-            continue;
-        }
-        throw ex;
+        int value = Integer.parseInt(property);
+        //set 配置的参数
+        this.setMaxPoolPreparedStatementPerConnectionSize(value);
+    } catch (NumberFormatException e) {
+        LOG.error("illegal property 'druid.maxPoolPreparedStatementPerConnectionSize'", e);
     }
-    //后续代码略
+}
+```
+
+通过setMaxPoolPreparedStatementPerConnectionSize方法，当配置的参数大于0的时候，修改poolPreparedStatements为true。
+
+```java
+public void setMaxPoolPreparedStatementPerConnectionSize(int maxPoolPreparedStatementPerConnectionSize) {
+//maxPoolPreparedStatementPerConnectionSize 大于0，则设置poolPreparedStatements为true
+    if (maxPoolPreparedStatementPerConnectionSize > 0) {
+        this.poolPreparedStatements = true;
+    } else {
+        this.poolPreparedStatements = false;
+    }
+
+    this.maxPoolPreparedStatementPerConnectionSize = maxPoolPreparedStatementPerConnectionSize;
+}
+
+```
+
+之后通过判断这个变量的状态来确定是否创建缓存。
+
+```java
+   public boolean isPoolPreparedStatements() {
+        return poolPreparedStatements;
+    }
+```
+
+## 3. cache创建
+
+在开启参数打开之后，使用prepareStatement的过程中，创建cache。
+在DruidPooledConnection的prepareStatement方法中有如下代码：
+
+```java
+boolean poolPreparedStatements = holder.isPoolPreparedStatements();
+//如果开启了psCache
+if (poolPreparedStatements) {
+    stmtHolder = holder.getStatementPool().get(key);
+}
+
+```
+
+而getStatementPool方法如下：
+
+```java
+public PreparedStatementPool getStatementPool() {
+    if (statementPool == null) {
+        statementPool = new PreparedStatementPool(this);
+    }
+    return statementPool;
+}
+```
+
+调用getStatementPool方法的时候，如果开启了statementPool，此时就会对这个cache进行初始化。
+初始化方法如下：
+
+```java
+   public PreparedStatementPool(DruidConnectionHolder holder){
+        this.dataSource = holder.getDataSource();
+        int initCapacity = holder.getDataSource().getMaxPoolPreparedStatementPerConnectionSize();
+        if (initCapacity <= 0) {
+            initCapacity = 16;
+        }
+        map = new LRUCache(initCapacity);
+    }
+```
+
+此时可以发现，maxPoolPreparedStatementPerConnectionSize的配置就是LRUCache初始的initCapacity。
+如果该参数不配置，默认的值为10:
+
+```
+protected volatile int  maxPoolPreparedStatementPerConnectionSize = 10;
+```
+
+也就是说，如果不配置druid.maxPoolPreparedStatementPerConnectionSize，那么系统将默认开启psCache。默认的长度为10。
+
+## 4. psCache结构
+
+psCache的构成非常简单，其内部就一个LRUCache的map。
+
+```java
+public class PreparedStatementPool {
+	private final static Log LOG = LogFactory.getLog(PreparedStatementPool.class);
+	//cache结构
+	private final LRUCache map;
+	//指向dataSource的指针
+	private final DruidAbstractDataSource dataSource;
+}
+
+```
+
+LRUCache的结构：
+LRUCache本质上是一个LinkedHashMap，学习过LinkedHashMap源码就会知道，实际上这是一个非常适合LRU缓存的数据结构。
+
+```java
+public class LRUCache extends LinkedHashMap<PreparedStatementKey, PreparedStatementHolder> {
+
+    private static final long serialVersionUID = 1L;
+
+    public LRUCache(int maxSize){
+        super(maxSize, 0.75f, true);
+    }
+    //重写了removeEldestEntry方法
+    protected boolean removeEldestEntry(Entry<PreparedStatementKey, PreparedStatementHolder> eldest) {
+        //确认remove状态
+        boolean remove = (size() > dataSource.getMaxPoolPreparedStatementPerConnectionSize());
+        //关闭statement
+        if (remove) {
+            closeRemovedStatement(eldest.getValue());
+        }
+
+        return remove;
+    }
+}
+
+```
+
+重写removeEldestEntry方法的目的是在LinkedHashMap中调用remove移除Entry的时候，对缓存的statement进行关闭。这样就能完成对statement的回收。
+需要注意的是，在使用LRUCache的时候，并没有加锁，也就意味着LRUCache是非线程安全的。实际上由于cache对连接生效，一个connection就会创建一个LRUCache。
+而连接又是单线程操作，因此不会存在线程安全问题。
+当然，对于CRUCache中PreparedStatement的回收还存在于多个场景中。
+
+## 5. Entry中的PreparedStatementKey
+
+在Entry中，key的类型PreparedStatementKey,value的类型为PreparedStatementHolder。
+
+```java
+public static class PreparedStatementKey {
+   //sql语句
+    protected final String     sql;
+    //catlog name
+    protected final String     catalog;
+    //method  参见MethodType枚举类
+    protected final MethodType methodType;
+    //返回值类型
+    public final int           resultSetType;
+    public final int           resultSetConcurrency;
+    public final int           resultSetHoldability;
+    public final int           autoGeneratedKeys;
+    private final int[]        columnIndexes;
+    private final String[]     columnNames;
     ... ...
+    }
+
+```
+
+需要注意的是，PreparedStatementKey主要是来标识两个要执行的sql语句是否为同一个PreparedStatement。
+这个生成hashcode的方法也非常特别：
+
+```java
+public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+
+    result = prime * result + ((sql == null) ? 0 : sql.hashCode());
+    result = prime * result + ((catalog == null) ? 0 : catalog.hashCode());
+    result = prime * result + ((methodType == null) ? 0 : methodType.hashCode());
+
+    result = prime * result + resultSetConcurrency;
+    result = prime * result + resultSetHoldability;
+    result = prime * result + resultSetType;
+
+    result = prime * result + autoGeneratedKeys;
+
+    result = prime * result + Arrays.hashCode(columnIndexes);
+    result = prime * result + Arrays.hashCode(columnNames);
+
+    return result;
 }
 
 ```
 
-通过自旋的方式确保获取到连接。之后对获取到的连接进行检测，主要的检测参数有：
+如果要确认两个语句是否可以为同一个statement,那么需要PreparedStatementKey中的全部字段都相同。
 
-| 参数            | 说明                                                         |
-| --------------- | ------------------------------------------------------------ |
-| testOnBorrow    | 默认值通常为false,用在获取连接的时候执行validationQuery检测连接是否有效。这个配置会降低性能。 |
-| testOnReturn    | 默认值通常为false,用在归还连接的时候执行validationQuery检测连接是否有效，这个配置会降低性能。 |
-| testWhileIdle   | 这个值通常建议为true,连接空闲时间大于timeBetweenEvictionRunsMillis指定的毫秒，就会执行参数validationQuery指定的SQL来检测连接是否有效。这个参数会定期执行。 |
-| validationQuery | 用来检测连接是否有效的sql，如果validationQuery为空，那么testOnBorrow、testOnReturn、testWhileIdle这三个参数都不会起作用，配置参考：validationQuery=SELECT 1 |
+## 6.Entry中的PreparedStatementHolder
 
-在getConnection中，将会发生的检测过程伪代码：
+PreparedStatementHolder是一个对PreparedStatement的扩展类。
+其属性如下：
 
-```java
-if (testOnBorrow){
-  //获取连接时检测
-}else {
-    if (poolableConnection.conn.isClosed()) {
-      //检测连接是否关闭
-    }
-    
-     if (testWhileIdle) {
-       //空闲检测 
-     }
+```
+public final PreparedStatementKey key;
+public final PreparedStatement    statement;
+private int                       hitCount                 = 0;
 
-}
+//fetch峰值
+private int                       fetchRowPeak             = -1;
 
+private int                       defaultRowPrefetch       = -1;
+private int                       rowPrefetch              = -1;
+
+private boolean                   enterOracleImplicitCache = false;
+
+private int                       inUseCount               = 0;
+private boolean                   pooling                  = false;
 
 ```
 
-上述检测过程都会调用testConnectionInternal(poolableConnection.holder, poolableConnection.conn);进行检测。
+这个类主要扩展了部分统计参数。当调用PreparedStatement的时候，会调用这些参数对应的统计方法。
+通过源码可以发现，作者特别喜欢通过Holder来对java sql包提供的对象进行扩展。当然这也与druid连接池的定位是分不开的，druid最大的有点就是其监控功能非常完善。这些监控中统计的数据就是通过这些Holder来实现的。
+如果我们在业务系统的开发过程中需要增加一些监控的参数，也可以参考Druid的实现。
 
-此外还有一个很重要的参数removeAbandoned。这个参数相关的配置参数有:
+## 7. 总结
 
-| 参数                         | 说明                                                 |
-| ---------------------------- | ---------------------------------------------------- |
-| removeAbandoned              | 如果连接泄露，是否需要回收泄露的连接，默认false；    |
-| logAbandoned                 | 如果回收了泄露的连接，是否要打印一条log，默认false； |
-| removeAbandonedTimeoutMillis | 连接回收的超时时间，默认5分钟；                      |
-
-参数removeAbandoned的作用在于，如果有线程从Druid中获取到了连接并没有及时归还，那么Druid就会定期检测该连接是否会处于运行状态，如果不处于运行状态，则被获取时间超过removeAbandonedTimeoutMillis就会强制回收该连接。
-这个检测的过程是在回收线程中完成的，在getConnection的过程中，只是判断该参数是否被设置，然后加上对应的标识。
-
-```java
-if (removeAbandoned) {
-    StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-    //设置 stackTrace
-    poolableConnection.connectStackTrace = stackTrace;
-    //设置setConnectedTimeNano
-    poolableConnection.setConnectedTimeNano();
-    //打开traceEnable
-    poolableConnection.traceEnable = true;
-
-    activeConnectionLock.lock();
-    try {
-        activeConnections.put(poolableConnection, PRESENT);
-    } finally {
-        activeConnectionLock.unlock();
-    }
-}
-
-```
-
-最后还需要对defaultAutoCommit参数进行处理：
-
-```java
-if (!this.defaultAutoCommit) {
-    poolableConnection.setAutoCommit(false);
-}
-```
-
-至此，一个getConnetion方法创建完毕。
-
-### 2.4 getConnectionInternal
-
-getConnectionInternal方法中创建连接：
-首先判断连接池状态 closed 和enable状态是否正确，如果不正确则抛出异常退出。
-
-之后的逻辑:
-
-```java
- /**
-     * 获取内部连接
-     * @param maxWait
-     * @return
-     * @throws SQLException
-     */
-    private DruidPooledConnection getConnectionInternal(long maxWait) throws SQLException {
-        // 首先判断连接池状态 closed 和enable状态是否正确，如果不正确则抛出异常退出。
-        if (closed) {
-            connectErrorCountUpdater.incrementAndGet(this);
-            throw new DataSourceClosedException("dataSource already closed at " + new Date(closeTimeMillis));
-        }
-
-        if (!enable) {
-            connectErrorCountUpdater.incrementAndGet(this);
-
-            if (disableException != null) {
-                throw disableException;
-            }
-
-            throw new DataSourceDisableException();
-        }
-```
-
-之后的逻辑:
-
-```java
- for (boolean createDirect = false;;){
-    if(createDirect){
-        //直接创建连接的逻辑
-    }
-    
-    if (maxWaitThreadCount > 0
-        && notEmptyWaitThreadCount >= maxWaitThreadCount) {
-        // 判断最大等待线程数如果大于0且notEmpty上的等待线程超过了这个值 那么抛出异常
-        
-        }
-
-    //其他相关参数检测 抛出异常
-    
-    //判断如果createScheduler存在，且executor.getQueue().size()大于0 那么将启用createDirect逻辑，退出本持循环
-    if (createScheduler != null
-        && poolingCount == 0
-        && activeCount < maxActive
-        && creatingCountUpdater.get(this) == 0
-        && createScheduler instanceof ScheduledThreadPoolExecutor) {
-    ScheduledThreadPoolExecutor executor = (ScheduledThreadPoolExecutor) createScheduler;
-    if (executor.getQueue().size() > 0) {
-        createDirect = true;
-        continue;
-    }
-    }
-	
-    //如果maxWait大于0，调用 pollLast(nanos)，反之则调用takeLast()
-    //获取连接的核心逻辑
-    if (maxWait > 0) {
-        holder = pollLast(nanos);
-    } else {
-        holder = takeLast();
-    }
-
-}
-
-```
-
-getConnectionInternal 方法内部存在一大堆参数检测功能，根据一系列参数判断，是否需要直接创建一个连接。
-反之，则调用pollLast 或 takeLast 方法。这两个方法如果获取不到连接，将会wait,之后通知生产者线程创建连接。
-这个地方有一个风险就是，如果仅仅采用单线程的方式创建连接，一旦生产者线程由于其他原因阻塞，那么getConnection将会产被长时间阻塞。
-
-之后获得holder之后，通过holder产生连接。
-
-```
-holder.incrementUseCount();
-DruidPooledConnection poolalbeConnection = new DruidPooledConnection(holder);
-```
-
-### 2.5 pollLast 与 takeLast
-
-#### 2.5.1 pollLast(如果maxWait大于0)
-
-polllast的方法核心逻辑是自旋，判断是否有可用连接，然后发送empty消息，通知生产者线程可以创建连接。之后阻塞wait。只不过这个方法需要设置超时时间。
-
-```java
-// com.alibaba.druid.pool.DruidDataSource#pollLast
-for (;;) {
-        //如果没有可用的连接
-        if (poolingCount == 0) {
-         emptySignal(); // send signal to CreateThread create connection
-
-           estimate = notEmpty.awaitNanos(estimate); // signal by
-           
-         }
-         //之后获取最后一个连接
-           DruidConnectionHolder last = connections[poolingCount];
-}       
-
-```
-
-#### 2.5.2 takeLast(如果maxWait等于0)
-
-而takeLast方法与pollLast方法类似，只是等待的过程中，不增加超时时间，一直等到生产者的通知为止。
-
-```java
-//com.alibaba.druid.pool.DruidDataSource#takeLast
-
- while (poolingCount == 0) {
- 
-    emptySignal(); // send signal to CreateThread create connection
-     
-    try {
-        notEmpty.await(); // signal by recycle or creator
-    } finally {
-        notEmptyWaitThreadCount--;
-    }
-    
- }
-decrementPoolingCount();
-//最后获取数组中的最后一个连接。
-DruidConnectionHolder last = connections[poolingCount];
-connections[poolingCount] = null;
-
-```
+关于PreparedStatementCache的使用，在Druid中实际上cache是Connection级的。每个连接一个Cache。
+一般在mysql中不建议使用这个Cache。mysql不支持游标。
+在分库分表的场景下，会导致大量的内存占用，也不建议使用。
 
 ## 参考文章
 
-[Druid源码阅读4-DruidDataSource的getConnection过程](https://blog.csdn.net/dhaibo1986/article/details/121267489?spm=1001.2014.3001.5502)
+[Druid源码阅读6-PreparedStatementPool源码及使用场景分析](https://blog.csdn.net/dhaibo1986/article/details/121342475?spm=1001.2014.3001.5502)

@@ -1,101 +1,142 @@
 ---
-order: 20
+order: 130
 category:
   - MyBatis
 ---
-# MyBatis详解 - 总体框架设计
+# MyBatis详解 - 二级缓存实现机制
 
->MyBatis整体架构包含哪些层呢？这些层次是如何设计的呢？
+>MyBatis的二级缓存是Application级别的缓存，它可以提高对数据库查询的效率，以提高应用的性能。
 
-## 1. MyBatis架构概览
+## 1. MyBatis二级缓存实现
 
-MyBatis框架整体设计如下:
+MyBatis的二级缓存是Application级别的缓存，它可以提高对数据库查询的效率，以提高应用的性能。
 
-![image-20220727202556295](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220727202556295.png)
+### 1.1 MyBatis的缓存机制整体设计以及二级缓存的工作模式
 
-### 1.1 接口层-和数据库交互的方式
+![image-20220730223727802](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730223727802.png)
 
-MyBatis和数据库的交互有两种方式：
+如图所示，当开一个会话时，一个SqlSession对象会使用一个Executor对象来完成会话操作，MyBatis的二级缓存机制的关键就是对这个Executor对象做文章。如果用户配置了"cacheEnabled=true"，那么MyBatis在为SqlSession对象创建Executor对象时，会对Executor对象加上一个装饰者：CachingExecutor，这时SqlSession使用CachingExecutor对象来完成操作请求。CachingExecutor对于查询请求，会先判断该查询请求在Application级别的二级缓存中是否有缓存结果，如果有查询结果，则直接返回缓存结果；如果缓存中没有，再交给真正的Executor对象来完成查询操作，之后CachingExecutor会将真正Executor返回的查询结果放置到缓存中，然后在返回给用户。
 
-- 使用传统的MyBatis提供的API；
-- 使用Mapper接口；
+![image-20220730223946842](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730223946842.png)
 
-#### 1.1.1 使用传统的MyBatis提供的API
+CachingExecutor是Executor的装饰者，以增强Executor的功能，使其具有缓存查询的功能，这里用到了设计模式中的装饰者模式，CachingExecutor和Executor的接口的关系如下类图所示：
 
-这是传统的传递Statement Id 和查询参数给 SqlSession 对象，使用 SqlSession对象完成和数据库的交互；MyBatis 提供了非常方便和简单的API，供用户实现对数据库的增删改查数据操作，以及对数据库连接信息和MyBatis 自身配置信息的维护操作。
+![image-20220730224029324](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730224029324.png)
 
-![image-20220727202754413](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220727202754413.png)
+### 1.2 MyBatis二级缓存的划分
 
-上述使用MyBatis 的方法，是创建一个和数据库打交道的SqlSession对象，然后根据Statement Id 和参数来操作数据库，这种方式固然很简单和实用，但是它不符合面向对象语言的概念和面向接口编程的编程习惯。由于面向接口的编程是面向对象的大趋势，MyBatis 为了适应这一趋势，增加了第二种使用MyBatis 支持接口（Interface）调用方式。
+MyBatis并不是简单地对整个Application就只有一个Cache缓存对象，它将缓存划分的更细，即是Mapper级别的，即每一个Mapper都可以拥有一个Cache对象，具体如下：
 
-#### 1.1.2 使用Mapper接口
+- **为每一个Mapper分配一个Cache缓存对象**（使用`<cache>`节点配置）
 
-MyBatis 将配置文件中的每一个`<mapper>` 节点抽象为一个 Mapper 接口，而这个接口中声明的方法和跟`<mapper>` 节点中的`<select|update|delete|insert>` 节点项对应，即`<select|update|delete|insert>` 节点的id值为Mapper 接口中的方法名称，parameterType 值表示Mapper 对应方法的入参类型，而resultMap 值则对应了Mapper 接口表示的返回值类型或者返回结果集的元素类型。
+MyBatis将Application级别的二级缓存细分到Mapper级别，即对于每一个Mapper.xml,如果在其中使用了`<cache>` 节点，则MyBatis会为这个Mapper创建一个Cache缓存对象，如下图所示：
 
-![image-20220727203127027](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220727203127027.png)
+![image-20220730224120468](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730224120468.png)
 
-根据MyBatis 的配置规范配置好后，通过SqlSession.getMapper(XXXMapper.class)方法，MyBatis 会根据相应的接口声明的方法信息，通过动态代理机制生成一个Mapper 实例，我们使用Mapper 接口的某一个方法时，MyBatis 会根据这个方法的方法名和参数类型，确定Statement Id，底层还是通过SqlSession.select("statementId",parameterObject);或者SqlSession.update("statementId",parameterObject); 等等来实现对数据库的操作， MyBatis 引用Mapper 接口这种调用方式，纯粹是为了满足面向接口编程的需要。（其实还有一个原因是在于，面向接口的编程，使得用户在接口上可以使用注解来配置SQL语句，这样就可以脱离XML配置文件，实现“0配置”）。
+注：上述的每一个Cache对象，都会有一个自己所属的namespace命名空间，并且会将Mapper的 namespace作为它们的ID；
 
-### 1.2 数据处理层
+- **多个Mapper共用一个Cache缓存对象**（使用`<cache-ref>`节点配置）
 
-数据处理层可以说是MyBatis 的核心，从大的方面上讲，它要完成两个功能：
+如果你想让多个Mapper公用一个Cache的话，你可以使用`<cache-ref namespace="">`节点，来指定你的这个Mapper使用到了哪一个Mapper的Cache缓存。
 
-- 通过传入参数构建动态SQL语句；
-- SQL语句的执行以及封装查询结果集成`List<E>`
+![image-20220730224223709](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730224223709.png)
 
-#### 1.2.1 参数映射和动态SQL语句生成
+### 1.3 使用二级缓存，必须要具备的条件
 
-动态语句生成可以说是MyBatis框架非常优雅的一个设计，MyBatis 通过传入的参数值，使用 Ognl 来动态地构造SQL语句，使得MyBatis 有很强的灵活性和扩展性。
+MyBatis对二级缓存的支持粒度很细，它会指定某一条查询语句是否使用二级缓存。
 
-参数映射指的是对于java 数据类型和jdbc数据类型之间的转换：这里有包括两个过程：查询阶段，我们要将java类型的数据，转换成jdbc类型的数据，通过 preparedStatement.setXXX() 来设值；另一个就是对resultset查询结果集的jdbcType 数据转换成java 数据类型。
+虽然在Mapper中配置了`<cache>`,并且为此Mapper分配了Cache对象，这并不表示我们使用Mapper中定义的查询语句查到的结果都会放置到Cache对象之中，我们必须指定Mapper中的某条选择语句是否支持缓存，即如下所示，在`<select>` 节点中配置useCache="true"，Mapper才会对此Select的查询支持缓存特性，否则，不会对此Select查询，不会经过Cache缓存。如下所示，Select语句配置了useCache="true"，则表明这条Select语句的查询会使用二级缓存。
 
-#### 1.2.2 SQL语句的执行以及封装查询结果集成List
+```xml
+<select id="selectByMinSalary" resultMap="BaseResultMap" parameterType="java.util.Map" useCache="true">
+```
 
-动态SQL语句生成之后，MyBatis 将执行SQL语句，并将可能返回的结果集转换成`List<E>` 列表。MyBatis 在对结果集的处理中，支持结果集关系一对多和多对一的转换，并且有两种支持方式，一种为嵌套查询语句的查询，还有一种是嵌套结果集的查询。
+总之，要想使某条Select查询支持二级缓存，你需要保证：
 
-### 1.3 框架支撑层
+- MyBatis支持二级缓存的总开关：全局配置变量参数 cacheEnabled=true
+- 该select语句所在的Mapper，配置了`<cache>` 或`<cached-ref>`节点，并且有效
+- 该select语句的参数 useCache=true
 
-- 事务管理机制
+### 1.4 一级缓存和二级缓存的使用顺序
 
-事务管理机制对于ORM框架而言是不可缺少的一部分，事务管理机制的质量也是考量一个ORM框架是否优秀的一个标准。
+请注意，如果你的MyBatis使用了二级缓存，并且你的Mapper和select语句也配置使用了二级缓存，那么在执行select查询的时候，MyBatis会先从二级缓存中取输入，其次才是一级缓存，即**MyBatis查询数据的顺序是：二级缓存 ———> 一级缓存 ——> 数据库**。
 
-- 连接池管理机制
+### 1.5 二级缓存实现的选择
 
-由于创建一个数据库连接所占用的资源比较大， 对于数据吞吐量大和访问量非常大的应用而言，连接池的设计就显得非常重要。
+MyBatis对二级缓存的设计非常灵活，它自己内部实现了一系列的Cache缓存实现类，并提供了各种缓存刷新策略如LRU，FIFO等等；另外，MyBatis还允许用户自定义Cache接口实现，用户是需要实现org.apache.ibatis.cache.Cache接口，然后将Cache实现类配置在`<cache type="">`节点的type属性上即可；除此之外，MyBatis还支持跟第三方内存缓存库如Memecached的集成，总之，使用MyBatis的二级缓存有三个选择:
 
-- 缓存机制
+- MyBatis自身提供的缓存实现；
+- 用户自定义的Cache接口实现；
+- 跟第三方内存缓存库的集成；
 
-为了提高数据利用率和减小服务器和数据库的压力，MyBatis 会对于一些查询提供会话级别的数据缓存，会将对某一次查询，放置到SqlSession 中，在允许的时间间隔内，对于完全相同的查询，MyBatis 会直接将缓存结果返回给用户，而不用再到数据库中查找。
+### 1.6 MyBatis自身提供的二级缓存的实现
 
-- SQL语句的配置方式
+> MyBatis自身提供了丰富的，并且功能强大的二级缓存的实现，它拥有一系列的Cache接口装饰者，可以满足各种对缓存操作和更新的策略。
 
-传统的MyBatis 配置SQL 语句方式就是使用XML文件进行配置的，但是这种方式不能很好地支持面向接口编程的理念，为了支持面向接口的编程，MyBatis 引入了Mapper接口的概念，面向接口的引入，对使用注解来配置SQL 语句成为可能，用户只需要在接口上添加必要的注解即可，不用再去配置XML文件了，但是，目前的MyBatis 只是对注解配置SQL 语句提供了有限的支持，某些高级功能还是要依赖XML配置文件配置SQL 语句。
+MyBatis定义了大量的Cache的装饰器来增强Cache缓存的功能，如下类图所示。
 
-### 1.4 引导层
+![image-20220730224548219](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730224548219.png)
 
-引导层是配置和启动MyBatis配置信息的方式。MyBatis 提供两种方式来引导MyBatis ：基于XML配置文件的方式和基于Java API 的方式。
+对于每个Cache而言，都有一个容量限制，MyBatis各供了各种策略来对Cache缓存的容量进行控制，以及对Cache中的数据进行刷新和置换。MyBatis主要提供了以下几个刷新和置换策略：
 
-## 2. 主要构件及其相互关系
+- LRU：（Least Recently Used）,最近最少使用算法，即如果缓存中容量已经满了，会将缓存中最近最少被使用的缓存记录清除掉，然后添加新的记录；
+- FIFO：（First in first out）,先进先出算法，如果缓存中的容量已经满了，那么会将最先进入缓存中的数据清除掉；
+- Scheduled：指定时间间隔清空算法，该算法会以指定的某一个时间间隔将Cache缓存中的数据清空；
 
-从MyBatis代码实现的角度来看，主体构件和关系如下：
+## 2. 如何细粒度地控制你的MyBatis二级缓存
 
-![image-20220727204256217](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220727204256217.png)
+### 2.1 一个关于MyBatis的二级缓存的实际问题
 
+现有AMapper.xml中定义了对数据库表 ATable 的CRUD操作，BMapper定义了对数据库表BTable的CRUD操作；
 
+假设 MyBatis 的二级缓存开启，并且 AMapper 中使用了二级缓存，AMapper对应的二级缓存为ACache；
 
-主要的核心部件解释如下：
+除此之外，AMapper 中还定义了一个跟BTable有关的查询语句，类似如下所述：
 
-- `SqlSession` 作为MyBatis工作的主要顶层API，表示和数据库交互的会话，完成必要数据库增删改查功能
-- `Executor` MyBatis执行器，是MyBatis 调度的核心，负责SQL语句的生成和查询缓存的维护
-- `StatementHandler` 封装了JDBC Statement操作，负责对JDBC statement 的操作，如设置参数、将Statement结果集转换成List集合。
-- `ParameterHandler` 负责对用户传递的参数转换成JDBC Statement 所需要的参数，
-- `ResultSetHandler` 负责将JDBC返回的ResultSet结果集对象转换成List类型的集合；
-- `TypeHandler` 负责java数据类型和jdbc数据类型之间的映射和转换
-- `MappedStatement` MappedStatement维护了一条`<select|update|delete|insert>`节点的封装，
-- `SqlSource` 负责根据用户传递的parameterObject，动态地生成SQL语句，将信息封装到BoundSql对象中，并返回
-- `BoundSql` 表示动态生成的SQL语句以及相应的参数信息
-- `Configuration` MyBatis所有的配置信息都维持在Configuration对象之中。
+```xml
+<select id="selectATableWithJoin" resultMap="BaseResultMap" useCache="true">  
+      select * from ATable left join BTable on ....  
+</select>
+```
+
+执行以下操作：
+
+- 执行AMapper中的"selectATableWithJoin" 操作，此时会将查询到的结果放置到AMapper对应的二级缓存ACache中；
+- 执行BMapper中对BTable的更新操作(update、delete、insert)后，BTable的数据更新；
+- 再执行1完全相同的查询，这时候会直接从AMapper二级缓存ACache中取值，将ACache中的值直接返回；
+
+好，**问题就出现在第3步**上：
+
+由于AMapper的“selectATableWithJoin” 对应的SQL语句需要和BTable进行join查找，而在第 2 步BTable的数据已经更新了，但是第 3 步查询的值是第 1 步的缓存值，已经极有可能跟真实数据库结果不一样，即ACache中缓存数据过期了！
+
+总结来看，就是：
+
+对于某些使用了 join连接的查询，如果其关联的表数据发生了更新，join连接的查询由于先前缓存的原因，导致查询结果和真实数据不同步；
+
+从MyBatis的角度来看，这个问题可以这样表述：
+
+**对于某些表执行了更新(update、delete、insert)操作后，如何去清空跟这些表有关联的查询语句所造成的缓存**
+
+### 2.2 当前MyBatis二级缓存的工作机制
+
+> MyBatis二级缓存的一个重要特点：即松散的Cache缓存管理和维护
+
+![image-20220730224933178](https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220730224933178.png)
+
+一个Mapper中定义的增删改查操作只能影响到自己关联的Cache对象。如上图所示的Mapper namespace1中定义的若干CRUD语句，产生的缓存只会被放置到相应关联的Cache1中，即Mapper namespace2,namespace3,namespace4 中的CRUD的语句不会影响到Cache1。
+
+可以看出，**Mapper之间的缓存关系比较松散，相互关联的程度比较弱**。
+
+现在再回到上面描述的问题，如果我们将AMapper和BMapper共用一个Cache对象，那么，当BMapper执行更新操作时，可以清空对应Cache中的所有的缓存数据，这样的话，数据不是也可以保持最新吗？
+
+确实这个也是一种解决方案，不过，它会使缓存的使用效率变的很低！AMapper和BMapper的任意的更新操作都会将共用的Cache清空，会频繁地清空Cache，导致Cache实际的命中率和使用率就变得很低了，所以这种策略实际情况下是不可取的。
+
+最理想的解决方案就是：
+
+**对于某些表执行了更新(update、delete、insert)操作后，去清空跟这些指定的表有关联的查询语句所造成的缓存**; 这样，就是以很细的粒度管理MyBatis内部的缓存，使得缓存的使用率和准确率都能大大地提升。
+
+>这也太累了吧，难怪这么多人不用二级缓存
 
 ## 参考文章
 
-[MyBatis详解 - 总体框架设计](https://pdai.tech/md/framework/orm-mybatis/mybatis-y-arch.html)
+[**MyBatis详解 - 二级缓存实现机制**](https://pdai.tech/md/framework/orm-mybatis/mybatis-y-cache-level2.html)

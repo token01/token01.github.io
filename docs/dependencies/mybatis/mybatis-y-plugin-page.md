@@ -1,252 +1,257 @@
 ---
-order: 30
+order: 100
 category:
   - MyBatis
 ---
-# MyBatis详解 - 初始化基本过程
+# MyBatis详解 - 插件之分页机制
 
->从上文我们知道MyBatis和数据库的交互有两种方式有Java API和Mapper接口两种，所以MyBatis的初始化必然也有两种；那么MyBatis是如何初始化的呢？
+>Mybatis的分页功能很弱，它是基于内存的分页（查出所有记录再按偏移量和limit取结果），在大数据量的情况下这样的分页基本上是没有用的。本文基于插件，通过拦截StatementHandler重写sql语句，实现数据库的物理分页。
 
-## 1. MyBatis初始化的方式及引入
+## 1. 准备
 
-MyBatis的初始化可以有两种方式：
+### 1.1 为什么在StatementHandler拦截
 
-- **基于XML配置文件**：基于XML配置文件的方式是将MyBatis的所有配置信息放在XML文件中，MyBatis通过加载并XML配置文件，将配置文信息组装成内部的Configuration对象。
-- **基于Java API**：这种方式不使用XML配置文件，需要MyBatis使用者在Java代码中，手动创建Configuration对象，然后将配置参数set 进入Configuration对象中。
+在前面章节介绍了一次sqlsession的完整执行过程，从中可以知道sql的解析是在StatementHandler里完成的，所以为了重写sql需要拦截StatementHandler。
 
-## 2. 初始化方式 - XML配置
+### 1.2 MetaObject简介
 
-> 接下来我们将通过 基于XML配置文件方式的MyBatis初始化，深入探讨MyBatis是如何通过配置文件构建Configuration对象，并使用它。
+在实现里大量使用了MetaObject这个对象，因此有必要先介绍下它。MetaObject是Mybatis提供的一个的工具类，通过它包装一个对象后可以获取或设置该对象的原本不可访问的属性（比如那些私有属性）。它有个三个重要方法经常用到：
 
-现在就从使用MyBatis的简单例子入手，深入分析一下MyBatis是怎样完成初始化的，都初始化了什么。看以下代码：
+- MetaObject forObject(Object object,ObjectFactory objectFactory, ObjectWrapperFactory objectWrapperFactory) 用于包装对象；
+- Object getValue(String name) 用于获取属性的值（支持OGNL的方法）；
+- void setValue(String name, Object value) 用于设置属性的值（支持OGNL的方法）；
+
+## 2. 拦截器签名
 
 ```java
-// mybatis初始化
-String resource = "mybatis-config.xml";  
-InputStream inputStream = Resources.getResourceAsStream(resource);  
-SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+@Intercepts({@Signature(type =StatementHandler.class, method = "prepare", args ={Connection.class})})  
+public class PageInterceptor implements Interceptor {  
+    ...  
+} 
+```
 
-// 创建SqlSession
-SqlSession sqlSession = sqlSessionFactory.openSession();  
+从签名里可以看出，要拦截的目标类型是StatementHandler（注意：type只能配置成接口类型），拦截的方法是名称为prepare参数为Connection类型的方法。
 
-// 执行SQL语句
-List list = sqlSession.selectList("com.foo.bean.BlogMapper.queryAllBlogInfo");
+## 3. intercept实现
+
+```java
+public Object intercept(Invocation invocation) throws Throwable {  
+     StatementHandler statementHandler = (StatementHandler) invocation.getTarget();  
+     MetaObject metaStatementHandler = MetaObject.forObject(statementHandler,  
+     DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY);  
+     // 分离代理对象链(由于目标类可能被多个拦截器拦截，从而形成多次代理，通过下面的两次循环  
+     // 可以分离出最原始的的目标类)  
+     while (metaStatementHandler.hasGetter("h")) {  
+         Object object = metaStatementHandler.getValue("h");  
+         metaStatementHandler = MetaObject.forObject(object, DEFAULT_OBJECT_FACTORY,   
+         DEFAULT_OBJECT_WRAPPER_FACTORY);  
+     }  
+     // 分离最后一个代理对象的目标类  
+     while (metaStatementHandler.hasGetter("target")) {  
+         Object object = metaStatementHandler.getValue("target");  
+         metaStatementHandler = MetaObject.forObject(object, DEFAULT_OBJECT_FACTORY,   
+         DEFAULT_OBJECT_WRAPPER_FACTORY);  
+     }  
+     Configuration configuration = (Configuration) metaStatementHandler.  
+     getValue("delegate.configuration");  
+     dialect = configuration.getVariables().getProperty("dialect");  
+     if (null == dialect || "".equals(dialect)) {  
+         logger.warn("Property dialect is not setted,use default 'mysql' ");  
+         dialect = defaultDialect;  
+     }  
+     pageSqlId = configuration.getVariables().getProperty("pageSqlId");  
+     if (null == pageSqlId || "".equals(pageSqlId)) {  
+         logger.warn("Property pageSqlId is not setted,use default '.*Page$' ");  
+         pageSqlId = defaultPageSqlId;  
+     }  
+     MappedStatement mappedStatement = (MappedStatement)   
+     metaStatementHandler.getValue("delegate.mappedStatement");  
+     // 只重写需要分页的sql语句。通过MappedStatement的ID匹配，默认重写以Page结尾的  
+     //  MappedStatement的sql  
+     if (mappedStatement.getId().matches(pageSqlId)) {  
+         BoundSql boundSql = (BoundSql) metaStatementHandler.getValue("delegate.boundSql");  
+         Object parameterObject = boundSql.getParameterObject();  
+         if (parameterObject == null) {  
+             throw new NullPointerException("parameterObject is null!");  
+         } else {  
+             // 分页参数作为参数对象parameterObject的一个属性  
+             PageParameter page = (PageParameter) metaStatementHandler  
+                     .getValue("delegate.boundSql.parameterObject.page");  
+             String sql = boundSql.getSql();  
+             // 重写sql  
+             String pageSql = buildPageSql(sql, page);  
+             metaStatementHandler.setValue("delegate.boundSql.sql", pageSql);  
+             // 采用物理分页后，就不需要mybatis的内存分页了，所以重置下面的两个参数  
+             metaStatementHandler.setValue("delegate.rowBounds.offset",   
+             RowBounds.NO_ROW_OFFSET);  
+             metaStatementHandler.setValue("delegate.rowBounds.limit", RowBounds.NO_ROW_LIMIT);  
+             Connection connection = (Connection) invocation.getArgs()[0];  
+             // 重设分页参数里的总页数等  
+             setPageParameter(sql, connection, mappedStatement, boundSql, page);  
+         }  
+     }  
+     // 将执行权交给下一个拦截器  
+     return invocation.proceed();  
+}
+```
+
+StatementHandler的默认实现类是RoutingStatementHandler，因此拦截的实际对象是它。RoutingStatementHandler的主要功能是分发，它根据配置Statement类型创建真正执行数据库操作的StatementHandler，并将其保存到delegate属性里。由于delegate是一个私有属性并且没有提供访问它的方法，因此需要借助MetaObject的帮忙。通过MetaObject的封装后我们可以轻易的获得想要的属性。
+
+在上面的方法里有个两个循环，通过他们可以分离出原始的RoutingStatementHandler（而不是代理对象）。
+
+前面提到，签名里配置的要拦截的目标类型是StatementHandler拦截的方法是名称为prepare参数为Connection类型的方法，而这个方法是每次数据库访问都要执行的。因为我是通过重写sql的方式实现分页，为了不影响其他sql（update或不需要分页的query），我采用了通过ID匹配的方式过滤。默认的过滤方式只对id以Page结尾的进行拦截（注意区分大小写），如下：
+
+```xml
+<select id="queryUserByPage" parameterType="UserDto" resultType="UserDto">  
+    <![CDATA[ 
+    select * from t_user t where t.username = #{username} 
+    ]]>  
+</select>
 
   
 ```
 
-有过MyBatis使用经验的读者会知道，上述语句的作用是执行`com.foo.bean.BlogMapper.queryAllBlogInfo` 定义的SQL语句，返回一个List结果集。总的来说，上述代码经历了三个阶段(本系列也对应三篇文章分别讲解)：
+当然，也可以自定义拦截模式，在mybatis的配置文件里加入以下配置项：
 
-- `mybatis初始化` 本文
-- `创建SqlSession` - 详解后文
-- `执行SQL语句` - 详解后文
-
-上述代码的功能是根据配置文件mybatis-config.xml 配置文件，创建SqlSessionFactory对象，然后产生SqlSession，执行SQL语句。而mybatis的初始化就发生在第三句：SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream); 现在就让我们看看第三句到底发生了什么。
-
-### 2.1 MyBatis初始化基本过程：
-
-SqlSessionFactoryBuilder根据传入的数据流生成Configuration对象，然后根据Configuration对象创建默认的SqlSessionFactory实例。
-
-初始化的基本过程如下序列图所示：
-
-![image-20220727210742812](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220727210742812.png)
-
-由上图所示，mybatis初始化要经过简单的以下几步：
-
-- 调用SqlSessionFactoryBuilder对象的build(inputStream)方法；
-- SqlSessionFactoryBuilder会根据输入流inputStream等信息创建XMLConfigBuilder对象;
-- SqlSessionFactoryBuilder调用XMLConfigBuilder对象的parse()方法；
-- XMLConfigBuilder对象返回Configuration对象；
-- SqlSessionFactoryBuilder根据Configuration对象创建一个DefaultSessionFactory对象；
-- SqlSessionFactoryBuilder返回 DefaultSessionFactory对象给Client，供Client使用。
-
-SqlSessionFactoryBuilder相关的代码如下所示：
-
-```java
-public SqlSessionFactory build(InputStream inputStream)  {  
-    return build(inputStream, null, null);  
-}  
-
-public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties)  {  
-    try  {  
-        //2. 创建XMLConfigBuilder对象用来解析XML配置文件，生成Configuration对象  
-        XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);  
-        //3. 将XML配置文件内的信息解析成Java对象Configuration对象  
-        Configuration config = parser.parse();  
-        //4. 根据Configuration对象创建出SqlSessionFactory对象  
-        return build(config);  
-    } catch (Exception e) {  
-        throw ExceptionFactory.wrapException("Error building SqlSession.", e);  
-    } finally {  
-        ErrorContext.instance().reset();  
-        try {  
-            inputStream.close();  
-        } catch (IOException e) {  
-            // Intentionally ignore. Prefer previous error.  
-        }  
-    }
-}
-
-// 从此处可以看出，MyBatis内部通过Configuration对象来创建SqlSessionFactory,用户也可以自己通过API构造好Configuration对象，调用此方法创SqlSessionFactory  
-public SqlSessionFactory build(Configuration config) {  
-    return new DefaultSqlSessionFactory(config);  
-}  
-
+```xml
+<properties>  
+    <property name="dialect" value="mysql" />  
+    <property name="pageSqlId" value=".*Page$" />  
+</properties>
 ```
 
-上述的初始化过程中，涉及到了以下几个对象：
+其中，属性dialect指示数据库类型，目前只支持mysql和oracle两种数据库。其中，属性pageSqlId指示拦截的规则，以正则方式匹配。
 
-- SqlSessionFactoryBuilder ： SqlSessionFactory的构造器，用于创建SqlSessionFactory，采用了Builder设计模式
-- Configuration ：该对象是mybatis-config.xml文件中所有mybatis配置信息
-- SqlSessionFactory：SqlSession工厂类，以工厂形式创建SqlSession对象，采用了Factory工厂设计模式
-- XmlConfigParser ：负责将mybatis-config.xml配置文件解析成Configuration对象，供SqlSessonFactoryBuilder使用，创建SqlSessionFactory
+## 4. sql重写
 
-### 2.2 创建Configuration对象的过程
-
-> 接着上述的 MyBatis初始化基本过程讨论，当SqlSessionFactoryBuilder执行build()方法，调用了XMLConfigBuilder的parse()方法，然后返回了Configuration对象。那么parse()方法是如何处理XML文件，生成Configuration对象的呢？
-
-- **XMLConfigBuilder会将XML配置文件的信息转换为Document对象**
-
-而XML配置定义文件DTD转换成XMLMapperEntityResolver对象，然后将二者封装到XpathParser对象中，XpathParser的作用是提供根据Xpath表达式获取基本的DOM节点Node信息的操作。如下图所示：
-
-![image-20220727211258017](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220727211258017.png)
-
-![image-20220727211314772](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220727211314772.png)
-
-- **之后XMLConfigBuilder调用parse()方法**
-
-会从XPathParser中取出`<configuration>`节点对应的Node对象，然后解析此Node节点的子Node：properties, settings, typeAliases,typeHandlers, objectFactory, objectWrapperFactory, plugins, environments,databaseIdProvider, mappers：
+sql重写其实在原始的sql语句上加入分页的参数，目前支持mysql和oracle两种数据库的分页。
 
 ```java
-public Configuration parse() {  
-    if (parsed) {  
-        throw new BuilderException("Each XMLConfigBuilder can only be used once.");  
+private String buildPageSql(String sql, PageParameter page) {  
+    if (page != null) {  
+        StringBuilder pageSql = new StringBuilder();  
+        if ("mysql".equals(dialect)) {  
+            pageSql = buildPageSqlForMysql(sql, page);  
+        } else if ("oracle".equals(dialect)) {  
+            pageSql = buildPageSqlForOracle(sql, page);  
+        } else {  
+            return sql;  
+        }  
+        return pageSql.toString();  
+    } else {  
+        return sql;  
     }  
-    parsed = true;  
-    //源码中没有这一句，只有 parseConfiguration(parser.evalNode("/configuration"));  
-    //为了让读者看得更明晰，源码拆分为以下两句  
-    XNode configurationNode = parser.evalNode("/configuration");  
-    parseConfiguration(configurationNode);  
-    return configuration;  
 }  
+```
+
+**mysql的分页实现**：
+
+```java
+public StringBuilder buildPageSqlForMysql(String sql, PageParameter page) {  
+    StringBuilder pageSql = new StringBuilder(100);  
+    String beginrow = String.valueOf((page.getCurrentPage() - 1) * page.getPageSize());  
+    pageSql.append(sql);  
+    pageSql.append(" limit " + beginrow + "," + page.getPageSize());  
+    return pageSql;  
+}  
+```
+
+**oracle的分页实现**：
+
+```java
+public StringBuilder buildPageSqlForOracle(String sql, PageParameter page) {  
+    StringBuilder pageSql = new StringBuilder(100);  
+    String beginrow = String.valueOf((page.getCurrentPage() - 1) * page.getPageSize());  
+    String endrow = String.valueOf(page.getCurrentPage() * page.getPageSize());  
+    pageSql.append("select * from ( select temp.*, rownum row_id from ( ");  
+    pageSql.append(sql);  
+    pageSql.append(" ) temp where rownum <= ").append(endrow);  
+    pageSql.append(") where row_id > ").append(beginrow);  
+    return pageSql;  
+}  
+```
+
+## 5. 分页参数重写
+
+有时候会有这种需求，就是不但要查出指定页的结果，还需要知道总的记录数和页数。我通过重写分页参数的方式提供了一种解决方案：
+
+```java
 /** 
- * 解析 "/configuration"节点下的子节点信息，然后将解析的结果设置到Configuration对象中 
+ * 从数据库里查询总的记录数并计算总页数，回写进分页参数<code>PageParameter</code>,这样调用  
+ * 者就可用通过 分页参数<code>PageParameter</code>获得相关信息。 
+ *  
+ * @param sql 
+ * @param connection 
+ * @param mappedStatement 
+ * @param boundSql 
+ * @param page 
  */  
-private void parseConfiguration(XNode root) {  
+private void setPageParameter(String sql, Connection connection, MappedStatement mappedStatement,  
+        BoundSql boundSql, PageParameter page) {  
+    // 记录总记录数  
+    String countSql = "select count(0) from (" + sql + ") as total";  
+    PreparedStatement countStmt = null;  
+    ResultSet rs = null;  
     try {  
-        //1.首先处理properties 节点     
-        propertiesElement(root.evalNode("properties")); //issue #117 read properties first  
-        //2.处理typeAliases  
-        typeAliasesElement(root.evalNode("typeAliases"));  
-        //3.处理插件  
-        pluginElement(root.evalNode("plugins"));  
-        //4.处理objectFactory  
-        objectFactoryElement(root.evalNode("objectFactory"));  
-        //5.objectWrapperFactory  
-        objectWrapperFactoryElement(root.evalNode("objectWrapperFactory"));  
-        //6.settings  
-        settingsElement(root.evalNode("settings"));  
-        //7.处理environments  
-        environmentsElement(root.evalNode("environments")); // read it after objectFactory and objectWrapperFactory issue #631  
-        //8.database  
-        databaseIdProviderElement(root.evalNode("databaseIdProvider"));  
-        //9.typeHandlers  
-        typeHandlerElement(root.evalNode("typeHandlers"));  
-        //10.mappers  
-        mapperElement(root.evalNode("mappers"));  
-    } catch (Exception e) {  
-        throw new BuilderException("Error parsing SQL Mapper Configuration. Cause: " + e, e);  
+        countStmt = connection.prepareStatement(countSql);  
+        BoundSql countBS = new BoundSql(mappedStatement.getConfiguration(), countSql,  
+                boundSql.getParameterMappings(), boundSql.getParameterObject());  
+        setParameters(countStmt, mappedStatement, countBS, boundSql.getParameterObject());  
+        rs = countStmt.executeQuery();  
+        int totalCount = 0;  
+        if (rs.next()) {  
+            totalCount = rs.getInt(1);  
+        }  
+        page.setTotalCount(totalCount);  
+        int totalPage = totalCount / page.getPageSize() + ((totalCount % page.getPageSize() == 0) ? 0 : 1);  
+        page.setTotalPage(totalPage);  
+    } catch (SQLException e) {  
+        logger.error("Ignore this exception", e);  
+    } finally {  
+        try {  
+            rs.close();  
+        } catch (SQLException e) {  
+            logger.error("Ignore this exception", e);  
+        }  
+        try {  
+            countStmt.close();  
+        } catch (SQLException e) {  
+            logger.error("Ignore this exception", e);  
+        }  
     }  
+}  
+  
+/** 
+ * 对SQL参数(?)设值 
+ *  
+ * @param ps 
+ * @param mappedStatement 
+ * @param boundSql 
+ * @param parameterObject 
+ * @throws SQLException 
+ */  
+private void setParameters(PreparedStatement ps, MappedStatement mappedStatement, BoundSql boundSql,  
+        Object parameterObject) throws SQLException {  
+    ParameterHandler parameterHandler = new DefaultParameterHandler(mappedStatement, parameterObject, boundSql);  
+    parameterHandler.setParameters(ps);  
 } 
 ```
 
-注意：在上述代码中，还有一个非常重要的地方，就是解析XML配置文件子节点`<mappers>`的方法mapperElements(root.evalNode("mappers")), 它将解析我们配置的Mapper.xml配置文件，Mapper配置文件可以说是MyBatis的核心，MyBatis的特性和理念都体现在此Mapper的配置和设计上。
-
-- **然后将这些值解析出来设置到Configuration对象中**
-
-解析子节点的过程这里就不一一介绍了，用户可以参照MyBatis源码仔细揣摩，我们就看上述的environmentsElement(root.evalNode("environments")); 方法是如何将environments的信息解析出来，设置到Configuration对象中的：
+## 6. plugin实现
 
 ```java
-/** 
- * 解析environments节点，并将结果设置到Configuration对象中 
- * 注意：创建envronment时，如果SqlSessionFactoryBuilder指定了特定的环境（即数据源）； 
- *      则返回指定环境（数据源）的Environment对象，否则返回默认的Environment对象； 
- *      这种方式实现了MyBatis可以连接多数据源 
- */  
-private void environmentsElement(XNode context) throws Exception {  
-    if (context != null)  
-    {  
-        if (environment == null)  
-        {  
-            environment = context.getStringAttribute("default");  
-        }  
-        for (XNode child : context.getChildren())  
-        {  
-            String id = child.getStringAttribute("id");  
-            if (isSpecifiedEnvironment(id))  
-            {  
-                //1.创建事务工厂 TransactionFactory  
-                TransactionFactory txFactory = transactionManagerElement(child.evalNode("transactionManager"));  
-                DataSourceFactory dsFactory = dataSourceElement(child.evalNode("dataSource"));  
-                //2.创建数据源DataSource  
-                DataSource dataSource = dsFactory.getDataSource();  
-                //3. 构造Environment对象  
-                Environment.Builder environmentBuilder = new Environment.Builder(id)  
-                .transactionFactory(txFactory)  
-                .dataSource(dataSource);  
-                //4. 将创建的Envronment对象设置到configuration 对象中  
-                configuration.setEnvironment(environmentBuilder.build());  
-            }  
-        }  
+public Object plugin(Object target) {  
+    // 当目标类是StatementHandler类型时，才包装目标类，否者直接返回目标本身,减少目标被代理的  
+    // 次数  
+    if (target instanceof StatementHandler) {  
+        return Plugin.wrap(target, this);  
+    } else {  
+        return target;  
     }  
 }
-
-private boolean isSpecifiedEnvironment(String id)  
-{  
-    if (environment == null)  
-    {  
-        throw new BuilderException("No environment specified.");  
-    }  
-    else if (id == null)  
-    {  
-        throw new BuilderException("Environment requires an id attribute.");  
-    }  
-    else if (environment.equals(id))  
-    {  
-        return true;  
-    }  
-    return false;  
-} 
-
-```
-
-- **返回Configuration对象**
-
-将上述的MyBatis初始化基本过程的序列图细化：
-
-![image-20220727211928263](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220727211928263.png)
-
-## 3. 初始化方式 - 基于Java API
-
->这块有点奇怪,还需深入了解
-
-当然我们可以使用XMLConfigBuilder手动解析XML配置文件来创建Configuration对象，代码如下：
-
-```java
-String resource = "mybatis-config.xml";  
-InputStream inputStream = Resources.getResourceAsStream(resource);  
-// 手动创建XMLConfigBuilder，并解析创建Configuration对象  
-XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, null,null); // 看这里 
-Configuration configuration = parser.parse();  
-// 使用Configuration对象创建SqlSessionFactory  
-SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);  
-// 使用MyBatis  
-SqlSession sqlSession = sqlSessionFactory.openSession();  
-List list = sqlSession.selectList("com.foo.bean.BlogMapper.queryAllBlogInfo");  
-
   
 ```
 
 ## 参考文章
 
-[**MyBatis详解 - 初始化基本过程**](https://pdai.tech/md/framework/orm-mybatis/mybatis-y-init.html)
+[**MyBatis详解 - 插件之分页机制**](https://pdai.tech/md/framework/orm-mybatis/mybatis-y-plugin-page.html)

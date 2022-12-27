@@ -38,9 +38,6 @@ head:
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/itmind-ideajhmideajhmideapxideajhmideazcmideayjjhm-e6c4c1fd-679f-465b-b855-01e2deaad1ab.png)
 
-> **为了防止被和谐，需要的小伙伴，扫描下方公众号二维码，或者关注公众号： `musk`，回复关键字：`idea`, 即可免费获取上述激活码，持续更新中~~~**
-
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/itmind-ideapxideajhideayjjhmideazxjhzcmpjjcyjjhqcyx-fc5a32f3-04ed-4bbf-9df8-a13a409a275f.png)
 
 > 激活后如果显示 key is invalid，这是因为你破解过软件的原因，请按如下操作
 >

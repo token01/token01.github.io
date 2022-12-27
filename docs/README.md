@@ -10,7 +10,7 @@ actions:
     link: /java/base/Java-basis-oop
     type: primary
   - text: 博客入口
-    link: /blog/blog.md
+    link: /blog.md
     type: default
 features:
 

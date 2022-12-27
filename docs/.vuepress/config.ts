@@ -129,5 +129,6 @@ export default defineUserConfig({
     googleAnalyticsPlugin({
       id: "G-RWKZTY2P9R",
     }),
+   
   ],
 });

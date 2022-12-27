@@ -5,7 +5,6 @@
 而Scrapy的爬虫通常是在命令行中启动的，我们怎么去调试呢？
 
 ## 2. 调试部署
-
 1. 首先在setting.py同级目录下创建run.py文件。
 
    ![image-20210311105958418](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210311105958418.png)

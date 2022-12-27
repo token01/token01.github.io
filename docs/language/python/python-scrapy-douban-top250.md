@@ -1,147 +1,303 @@
-# Scrapy入门（四）-抓取AJAX异步加载网页
+# Scrapy入门（二）-爬取豆瓣电影TOP250
 
-## 1. 什么是AJAX?
+## 1. 简介
 
-> AJAX即“Asynchronous Javascript And XML”（异步JavaScript和XML），是指一种创建交互式网页应用的网页开发技术。
->
-> AJAX = 异步 JavaScript和XML（标准通用标记语言的子集）。
->
-> AJAX 是一种用于创建快速动态网页的技术。
->
-> 通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。
+上一篇我们已经大致了解了Scrapy的基本情况，并写了一个简单的小demo。这次我会以爬取豆瓣电影TOP250为例进一步为大家讲解一个完整爬虫的流程。
 
-## 2. 两个Chrome插件
+## 2. 观察页面结构
 
-- Toggle JavaScript
+[豆瓣电影 Top250](https://movie.douban.com/top250)
 
-  这个插件可以帮助我们快速直观地检测网页里哪些信息是通过AJAX异步加载而来的
+![image-20210311085829131](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210311085829131.png)
 
-  chrome商店下载地址：[https://chrome.google.com/webstore/detail/toggle-javascript/cidlcjdalomndpeagkjpnefhljffbnlo?utm_source=chrome-app-launcher-info-dialog](https://link.zhihu.com/?target=https%3A//chrome.google.com/webstore/detail/toggle-javascript/cidlcjdalomndpeagkjpnefhljffbnlo%3Futm_source%3Dchrome-app-launcher-info-dialog)
+观察页面我们决定让爬虫获取每一部电影的排名
 
-- JSON-handle
+、电影名称、评分和评分的人数。
 
-  这个插件可以帮我们格式化Json串,从而让我们以一个更友好的方式查看Json内的信息。 chrome商店下载地址：[https://chrome.google.com/webstore/detail/json-handle/iahnhfdhidomcpggpaimmmahffihkfnj](https://link.zhihu.com/?target=https%3A//chrome.google.com/webstore/detail/json-handle/iahnhfdhidomcpggpaimmmahffihkfnj)
+## 3. 声明Item
 
-## 3. 分析过程（分析页面是否采用AJAX）
+什么是Items？[官方文档Items定义](https://link.zhihu.com/?target=http%3A//scrapy-chs.readthedocs.io/zh_CN/1.0/topics/items.html)如下：
 
-首先我们打[开豆瓣电影分类排行榜 - 动作片](https://link.zhihu.com/?target=https%3A//movie.douban.com/typerank%3Ftype_name%3D%E5%8A%A8%E4%BD%9C%26type%3D5%26interval_id%3D100%3A90%26action%3D)栏目。
+> Items
+> 爬取的主要目标就是从非结构性的数据源提取结构性数据，例如网页。 Scrapy spider可以以python的dict来返回提取的数据.虽然dict很方便，并且用起来也熟悉，但是其缺少结构性，容易打错字段的名字或者返回不一致的数据，尤其在具有多个spider的大项目中。
+> 为了定义常用的输出数据，Scrapy提供了 Item 类。 Item 对象是种简单的容器，保存了爬取到得数据。 其提供了 类似于词典(dictionary-like) 的API以及用于声明可用字段的简单语法。
+> 许多Scrapy组件使用了Item提供的额外信息: exporter根据Item声明的字段来导出数据、 序列化可以通过Item字段的元数据(metadata)来定义、 trackref 追踪Item实例来帮助寻找内存泄露 (see 使用 trackref 调试内存泄露) 等等。
 
-![image-20210311151244551](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210311151244551.png)
-
-- 方案1：
-
-  如果网络慢，会看到影片列表在别的页面显示后才慢慢展示出来，试着把界面往下滑会不断有新的电影信息更新出来。 遇到这种情况初步就可以认定这个页面是采用AJAX异步加载的
-
-- 方案2：
-
-  右键查看网页源码来鉴别。比如说你右键查看源码ctrl+f搜索这个杀手不太冷这几个字，你会发现源码里没有。
-
-  ![image-20210311152003444](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210311152003444.png)
-
-
- 
-
-- 方案3：
-
-  方案1和2，虽然能用，但是都不太方便，还记得上面推荐的那个chrome插件Toggle JavaScript吗？
-
-  ![image-20210311152349107](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210311152349107.png)
-
-  
-
-  安好这个插件它就会出现在chrome浏览器的右边，试着轻轻点一下。
-
-  ![image-20210311152426689](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210311152426689.png)
-
-  刚才的电影信息都不见了！还记得AJAX的介绍吗？AJAX = 异步 JavaScript和XML。当我们点击了插件就代表这个我们封禁了JavaScript,这个页面里的JavaScript代码无法执行，那么通过AJAX异步加载而来的信息当然就无法出现了。通过这种方法我们能快速精确地知道哪些信息是异步加载而来的。
-
-## 4. 如何抓取AJAX异步加载页面
-
-对于这种网页我们一般会采用两种方法：
-
-1. 通过抓包找到AJAX异步加载的请求地址；
-2. 通过使用PhantomJS等无头浏览器执行JS代码后再对网页进行抓取。
-
-通常情况下我会采用第一种方法，因为使用无头浏览器会大大降低抓取效率，而且第一种方法得到的数据格式往往以Json为主，非常干净。在这里我只讲解第一种方法，第二种方法作为爬虫的终极武器我会在后续的教程中进行讲解。
-回到我们需要抓取的页面，还记得我说过页面的一个细节吗，下拉更新。进入页面后我们按F12打开chrome浏览器的开发者工具选择Network，然后实现一次下拉更新。
-
-![image-20210311152726896](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210311152726896.png)
-
-你会在Network里发现一个Response为Json格式的请求，仔细看看Json里的内容你会明白这些都是网页上显示的电影信息。右键该请求地址选择Open Link in New Tab,如果你装了JSON-handle插件你会以下面这种更友好的方式查看这个Json串。
-
-![image-20210311152753926](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210311152753926.png)
-
-接着再让我们看一该请求的Header信息
-
-![image-20210311152818193](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210311152818193.png)
-
-
-
-首先我们可以看出这是一个get请求，多看几个下拉请求的地址后你会发现地中的start=xxx在不断变化，每次增加20。所以我们只用更改这个参数就可以实现翻页不断获取新数据
+Item使用简单的class定义语法以及Field对象来声明。我们打开scrapyspider目录下的items.py文件写入下列代码声明Item：
 
 ```python
-# -*- coding: utf-8 -*-
-# @Time     : 2017/4/9 14:32
-# @Author   : woodenrobot
+import scrapy
 
 
-import re
-import json
+class DoubanMovieItem(scrapy.Item):
+    # 排名
+    ranking = scrapy.Field()
+    # 电影名称
+    movie_name = scrapy.Field()
+    # 评分
+    score = scrapy.Field()
+    # 评论人数
+    score_num = scrapy.Field()
+```
+
+## 4. 爬虫程序
+
+在scrapyspider/spiders目录下创建douban_spider.py文件，并写入初步的代码：
+
+```python
+from scrapy.spiders import Spider
+from scrapyspider.items import DoubanMovieItem
 
 
+class DoubanMovieTop250Spider(Spider):
+    name = 'douban_movie_top250'
+    start_urls = ['https://movie.douban.com/top250']
+    
+    def parse(self, response):
+        item = DoubanMovieItem()
+```
+
+
+
+
+这个一个基本的scrapy的spider的model，首先我们要导入Scrapy.spiders中的Spider类，以及scrapyspider.items中我们刚刚定义好的DoubanMovieItem。 接着创建我们自己的爬虫类DoubanMovieTop250Spider并继承Spider类，scrapy.spiders中有很多不同的爬虫类可供我们继承，一般情况下使用Spider类就可以满足要求。（其他爬虫类的使用可以去参考[官方文档](https://link.zhihu.com/?target=http%3A//scrapy-chs.readthedocs.io/zh_CN/1.0/topics/spiders.html)）。
+
+> Spider
+> class scrapy.spider.Spider
+> Spider是最简单的spider。每个其他的spider必须继承自该类(包括Scrapy自带的其他spider以及您自己编写的spider)。 Spider并没有提供什么特殊的功能。 其仅仅请求给定的 start_urls/start_requests ，并根据返回的结果(resulting responses)调用spider的 parse 方法。
+> name 定义spider名字的字符串(string)。spider的名字定义了Scrapy如何定位(并初始化)spider，所以其必须是唯一的。 不过您可以生成多个相同的spider实例(instance)，这没有任何限制。 name是spider最重要的属性，而且是必须的。
+> 如果该spider爬取单个网站(single domain)，一个常见的做法是以该网站(domain)(加或不加 后缀 )来命名spider。 例如，如果spider爬取 [mywebsite.com](https://link.zhihu.com/?target=http%3A//mywebsite.com/) ，该spider通常会被命名为 mywebsite 。
+> allowed_domains 可选。包含了spider允许爬取的域名(domain)列表(list)。 当 OffsiteMiddleware 启用时， 域名不在列表中的URL不会被跟进。
+> start_urls URL列表。当没有制定特定的URL时，spider将从该列表中开始进行爬取。 因此，第一个被获取到的页面的URL将是该列表之一。 后续的URL将会从获取到的数据中提取。
+> start_requests() 该方法必须返回一个可迭代对象(iterable)。该对象包含了spider用于爬取的第一个Request。
+> 当spider启动爬取并且未制定URL时，该方法被调用。 当指定了URL时，make_requests_from_url() 将被调用来创建Request对象。 该方法仅仅会被Scrapy调用一次，因此您可以将其实现为生成器。
+> 该方法的默认实现是使用 start_urls 的url生成Request。
+> 如果您想要修改最初爬取某个网站的Request对象，您可以重写(override)该方法。 例如，如果您需要在启动时以POST登录某个网站，你可以这么写:
+
+```python
+def start_requests(self):
+    return [scrapy.FormRequest("http://www.example.com/login",
+                               formdata={'user': 'john', 'pass': 'secret'},
+                               callback=self.logged_in)]
+
+def logged_in(self, response):
+    # here you would extract links to follow and return Requests for
+    # each of them, with another callback
+    pass
+
+```
+
+> make_requests_from_url(url) 该方法接受一个URL并返回用于爬取的 Request 对象。 该方法在初始化request时被 start_requests() 调用，也被用于转化url为request。
+> 默认未被复写(overridden)的情况下，该方法返回的Request对象中， parse() 作为回调函数，dont_filter参数也被设置为开启。 (详情参见 Request).
+> parse(response) 当response没有指定回调函数时，该方法是Scrapy处理下载的response的默认方法。
+> parse 负责处理response并返回处理的数据以及(/或)跟进的URL。 Spider 对其他的Request的回调函数也有相同的要求。
+> 该方法及其他的Request回调函数必须返回一个包含 Request 及(或) Item 的可迭代的对象。
+> 参数:	response (Response) – 用于分析的response
+> log(message[, level, component]) 使用 scrapy.log.msg() 方法记录(log)message。 log中自动带上该spider的 name 属性。 更多数据请参见 Logging 。
+> closed(reason) 当spider关闭时，该函数被调用。 该方法提供了一个替代调用signals.connect()来监听 spider_closed 信号的快捷方式。
+
+提取网页信息
+
+我们使用xpath语法来提取我们所需的信息。 
+
+1. 首先我们在chrome浏览器里进入豆瓣电影TOP250页面并按F12打开开发者工具。
+
+   ![image-20210311101541138](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210311101541138.png)
+
+点击工具栏左上角的类鼠标符号图标或者Ctrl + Shift + c在页面中点击我们想要的元素即可在工具栏中看到它在网页HTML源码中所处的位置。 一般抓取时会以先抓大再抓小的原则来抓取。通过观察我们看到该页面所有影片的信息都位于一个class属性为grid_view的ol标签内的li标签内。
+
+```html
+
+<ol class="grid_view">
+        <li>
+            <div class="item">
+                <div class="pic">
+                    <em class="">1</em>
+                    <a href="https://movie.douban.com/subject/1292052/">
+                        <img alt="肖申克的救赎" src="https://img3.doubanio.com/view/movie_poster_cover/ipst/public/p480747492.jpg" class="">
+                    </a>
+                </div>
+                <div class="info">
+                    <div class="hd">
+                        <a href="https://movie.douban.com/subject/1292052/" class="">
+                            <span class="title">肖申克的救赎</span>
+                                    <span class="title">&nbsp;/&nbsp;The Shawshank Redemption</span>
+                                <span class="other">&nbsp;/&nbsp;月黑高飞(港)  /  刺激1995(台)</span>
+                        </a>
+
+
+                            <span class="playable">[可播放]</span>
+                    </div>
+                    <div class="bd">
+                        <p class="">
+                            导演: 弗兰克·德拉邦特 Frank Darabont&nbsp;&nbsp;&nbsp;主演: 蒂姆·罗宾斯 Tim Robbins /...<br>
+                            1994&nbsp;/&nbsp;美国&nbsp;/&nbsp;犯罪 剧情
+                        </p>
+
+                        
+                        <div class="star">
+                                <span class="rating5-t"></span>
+                                <span class="rating_num" property="v:average">9.6</span>
+                                <span property="v:best" content="10.0"></span>
+                                <span>766719人评价</span>
+                        </div>
+
+                            <p class="quote">
+                                <span class="inq">希望让人自由。</span>
+                            </p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        ...
+        ...
+        ...
+</ol>
+```
+
+因此我们根据以上原则对所需信息进行抓取
+
+```python
+
+from scrapy.spiders import Spider
+from scrapyspider.items import DoubanMovieItem
+
+
+class DoubanMovieTop250Spider(Spider):
+    name = 'douban_movie_top250'
+    start_urls = ['https://movie.douban.com/top250']
+    
+    def parse(self, response):
+        item = DoubanMovieItem()
+        movies = response.xpath('//ol[@class="grid_view"]/li')
+        for movie in movies:
+            item['ranking'] = movie.xpath(
+                './/div[@class="pic"]/em/text()').extract()[0]
+            item['movie_name'] = movie.xpath(
+                './/div[@class="hd"]/a/span[1]/text()').extract()[0]
+            item['score'] = movie.xpath(
+                './/div[@class="star"]/span[@class="rating_num"]/text()'
+            ).extract()[0]
+            item['score_num'] = movie.xpath(
+                './/div[@class="star"]/span/text()').re(ur'(\d+)人评价')[0]
+            yield item
+```
+
+## 5. 运行爬虫
+
+在项目文件夹内打开cmd运行下列命令：
+
+```text
+scrapy crawl douban_movie_top250 -o douban.csv
+```
+
+注意此处的douban_movie_top250即为我们刚刚写的爬虫的name, 而-o douban.csv是scrapy提供的将item输出为csv格式的快捷方式
+
+试着运行一下爬虫怎么什么也没输出呢？！！！
+
+![image-20210311102306053](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210311102306053.png)
+
+
+
+
+
+辛辛苦苦到了这里难道要失败了吗？！！！ 不要急我们看下一控制台输出的信息，原来是403错误了。这是因为豆瓣对爬虫设了一个小小的门槛，我们只需要更改一下发送请求时的请求头user-agent即可。
+
+```python
 from scrapy import Request
 from scrapy.spiders import Spider
 from scrapyspider.items import DoubanMovieItem
 
 
-class DoubanAJAXSpider(Spider):
-    name = 'douban_ajax'
+class DoubanMovieTop250Spider(Spider):
+    name = 'douban_movie_top250'
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36',
     }
 
     def start_requests(self):
-        url = 'https://movie.douban.com/j/chart/top_list?type=5&interval_id=100%3A90&action=&start=0&limit=20'
+        url = 'https://movie.douban.com/top250'
         yield Request(url, headers=self.headers)
 
     def parse(self, response):
-        datas = json.loads(response.body)
         item = DoubanMovieItem()
-        if datas:
-            for data in datas:
-                item['ranking'] = data['rank']
-                item['movie_name'] = data['title']
-                item['score'] = data['score']
-                item['score_num'] = data['vote_count']
-                yield item
+        movies = response.xpath('//ol[@class="grid_view"]/li')
+        for movie in movies:
+            item['ranking'] = movie.xpath(
+                './/div[@class="pic"]/em/text()').extract()[0]
+            item['movie_name'] = movie.xpath(
+                './/div[@class="hd"]/a/span[1]/text()').extract()[0]
+            item['score'] = movie.xpath(
+                './/div[@class="star"]/span[@class="rating_num"]/text()'
+            ).extract()[0]
+            item['score_num'] = movie.xpath(
+                './/div[@class="star"]/span/text()').re(ur'(\d+)人评价')[0]
+            yield item
+```
 
-            # 如果datas存在数据则对下一页进行采集
-            page_num = re.search(r'start=(\d+)', response.url).group(1)
-            page_num = 'start=' + str(int(page_num)+20)
-            next_url = re.sub(r'start=\d+', page_num, response.url)
+更改后的代码是不是觉得有些地方不太一样了？start_urls怎么不见了？start_requests函数又是干什么的？还记得刚才对Spider类的介绍吗？先回过头复习一下上面关于start_urls和start_requests函数的介绍。简单的说就是使用start_requests函数我们对初始URL的处理就有了更多的权利，比如这次给初始URL增加请求头user_agent。
+
+再次运行爬虫，我们想要的信息都被下载到douban.scv文件夹里了。直接用WPS打开即可查看信息。
+
+![image-20210311102347247](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210311102347247.png)
+
+## 6. 自动翻页
+
+先别急着高兴，你难道没有发现一个问题吗?这样的话我们还是只能爬到当前页的25个电影的内容。怎么样才能把剩下的也一起爬下来呢？ 实现自动翻页一般有两种方法：
+
+1. 在页面中找到下一页的地址；
+2. 自己根据URL的变化规律构造所有页面地址。
+
+一般情况下我们使用第一种方法，第二种方法适用于页面的下一页地址为JS加载的情况。今天我们只说第一种方法。 首先利用Chrome浏览器的开发者工具找到下一页的地址 
+
+![image-20210311102449642](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210311102449642.png)
+
+然后在解析该页面时获取下一页的地址并将地址交给调度器(Scheduler)
+
+```python
+from scrapy import Request
+from scrapy.spiders import Spider
+from scrapyspider.items import DoubanMovieItem
+
+
+class DoubanMovieTop250Spider(Spider):
+    name = 'douban_movie_top250'
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36',
+    }
+
+    def start_requests(self):
+        url = 'https://movie.douban.com/top250'
+        yield Request(url, headers=self.headers)
+
+    def parse(self, response):
+        item = DoubanMovieItem()
+        movies = response.xpath('//ol[@class="grid_view"]/li')
+        for movie in movies:
+            item['ranking'] = movie.xpath(
+                './/div[@class="pic"]/em/text()').extract()[0]
+            item['movie_name'] = movie.xpath(
+                './/div[@class="hd"]/a/span[1]/text()').extract()[0]
+            item['score'] = movie.xpath(
+                './/div[@class="star"]/span[@class="rating_num"]/text()'
+            ).extract()[0]
+            item['score_num'] = movie.xpath(
+                './/div[@class="star"]/span/text()').re(ur'(\d+)人评价')[0]
+            yield item
+
+        next_url = response.xpath('//span[@class="next"]/a/@href').extract()
+        if next_url:
+            next_url = 'https://movie.douban.com/top250' + next_url[0]
             yield Request(next_url, headers=self.headers)
 ```
 
-在Scrapy工程文件的spiders里写好爬虫文件后在settings.py所在的目录下打开终端运行以下代码就能输出相应的电影数据。
+最后再运行一下爬虫，打开douban.csv。是不是发现所有的影片信息都获取到了，250个一个不多一个不少。
 
-```python
-scrapy crawl douban_ajax -o douban_movie.csv
-```
+![image-20210311102831664](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210311102831664.png)
 
-## 5. 更好的查看json
-
-1. 点击JSON-handle 查看
-
-   ![image-20210311153418508](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210311153418508.png)
-
-2. 将JSON文本复制进来，点击确定
-
-   ![image-20210311153308124](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210311153308124.png)
-
-3. 查看结果
-
-   ![image-20210311153405800](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210311153405800.png)
+最后，利用WPS的筛选功能你可以筛选任意符合你要求的影片。
 
 ## 参考文章
 
-[Scrapy爬虫框架教程（四）-- 抓取AJAX异步加载网页](https://zhuanlan.zhihu.com/p/26257790)
+[Scrapy爬虫框架教程（二）-- 爬取豆瓣电影TOP250](https://zhuanlan.zhihu.com/p/24769534)
+

@@ -10,7 +10,8 @@ export default sidebar({
   "/language/": "structure",
   "/think/": "structure",
   "/blockchain/": "structure",
-  "/learning-path/": "structure"
+  "/learning-path/": "structure",
+  "/nice-article/": "structure"
 
 }
 );

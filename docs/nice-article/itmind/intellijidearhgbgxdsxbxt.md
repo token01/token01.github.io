@@ -35,11 +35,7 @@ head:
 
 **关注公众号，回复关键字：IDEA**
 
-**
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/itmind-ideapxideajhideayjjhmideazxjhzcmpjjcyjjhqcyx-fc5a32f3-04ed-4bbf-9df8-a13a409a275f.png)
-
-**
 
 **即可获得最新永久补丁**
 

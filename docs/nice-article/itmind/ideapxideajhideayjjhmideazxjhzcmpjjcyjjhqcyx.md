@@ -223,11 +223,9 @@ PS: 破解补丁页面提取人数过多，导致分享的百度网盘链接容�
 
 ![IDEA 2022.1破解补丁分享失败](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/itmind-ideapxideajhideayjjhmideazxjhzcmpjjcyjjhqcyx-8a941a9c-2e70-4350-8cb6-17f9dafbc3d0.jpg) 
 
-蛋疼 ing，为限制人数，目前暂不提供页面直接提取，**改为从笔者公众号提取**。
 
-需要的小伙伴，扫描下方公众号二维码，或者关注公众号： **musk**，回复关键字：**idea**, 即可免费无套路获取激活码、破解补丁，持续更新中。
 
-![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/itmind-ideapxideajhideayjjhmideazxjhzcmpjjcyjjhqcyx-fc5a32f3-04ed-4bbf-9df8-a13a409a275f.png)
+
 
 ## 声明
 

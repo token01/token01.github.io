@@ -50,8 +50,6 @@ Xshell7-Xftp7免费版下载 （亲测可用）
 
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/itmind-xshellazpjbjcxshellpxffxbxt-6c219f24-d6fe-401f-8306-3674f77c7f53.png)
 
-  
-
 ![](http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/itmind-xshellazpjbjcxshellpxffxbxt-3e96e9fa-abbc-46dd-b3f6-57d7ceab96a4.png)
 
 获取方式
@@ -68,5 +66,3 @@ xftp7破解，xftp7破解教程，xftp7破解版，xftp7破解版下载，xftp7�
 Xshell7+Xftp7
 >下载地址：[https://pan.baidu.com/s/1UJeE9CqFrtTkaXLoA5boSA](https://pan.baidu.com/s/1UJeE9CqFrtTkaXLoA5boSA)
 提取码：juaf
-
-  

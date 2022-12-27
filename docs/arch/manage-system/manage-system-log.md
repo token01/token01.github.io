@@ -8,7 +8,7 @@
 
 ## 2. 需求
 
-我们在之前的学习中，也使用 [spring-y-aop-log](spring-y-aop-log.md) ，那么我们现在设计的系统日志与之前的有什么区别呢？
+我们在之前的学习中，也使用 [spring-y-aop-log](/dependencies/spring/spring-y-aop-log.md) ，那么我们现在设计的系统日志与之前的有什么区别呢？
 
 无论是新老版本日志都是通过AOP 来实现拦截与处理。
 

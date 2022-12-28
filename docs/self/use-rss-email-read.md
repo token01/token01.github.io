@@ -1,14 +1,20 @@
 ---
-title: "构建自己的信息简报"
-date: 2022-12-24
-draft: false
-tags: ["Email", "RSS", "信息输入", "如何阅读"]
-description: "使用RSS与Email打造自己的信息简报。"
-isCJKLanguage: true
+title: 构建自己的信息简报
+shortTitle: 构建自己的信息简报
+category:
+  - 信息简报
+tag:
+  - RSS
+description: 使用RSS与Email打造自己的信息简报。
+head:
+- - meta
+  - name: keywords
+    content: 使用RSS与Email打造自己的信息简报。
 ---
-![FcpHuTrWIAEcdmz.jpeg](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/FcpHuTrWIAEcdmz.jpeg)
 
 # 构建自己的信息简报
+
+![FcpHuTrWIAEcdmz.jpeg](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/FcpHuTrWIAEcdmz.jpeg)
 
 喜欢阅读，除了看书这种传统的获取知识的途径外，获取信息的渠道或方式还有：公众号、邮件列表、社交媒体、垂直社区（如知乎、V2EX、微信热搜）、搜索与聊天群组。如此多途径，怎么管理？
 

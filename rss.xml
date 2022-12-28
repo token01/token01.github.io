@@ -6,11 +6,74 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Tue, 27 Dec 2022 09:21:13 GMT</pubDate>
-    <lastBuildDate>Tue, 27 Dec 2022 09:21:13 GMT</lastBuildDate>
+    <pubDate>Wed, 28 Dec 2022 04:20:01 GMT</pubDate>
+    <lastBuildDate>Wed, 28 Dec 2022 04:20:01 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>学习路线</category>
+    <item>
+      <title>目录</title>
+      <link>https://bytecodes.tech/self/</link>
+      <guid>https://bytecodes.tech/self/</guid>
+      <source url="https://bytecodes.tech/rss.xml">目录</source>
+      <pubDate>Wed, 28 Dec 2022 03:20:51 GMT</pubDate>
+      <content:encoded><![CDATA[<p>title: 自我记录
+index: false</p>
+<p>dir:
+order: 100
+category:</p>
+<ul>
+<li>自我记录</li>
+</ul>
+<hr>
+<h1 id="目录" tabindex="-1"> 目录</h1>
+<p>TODO</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>构建自己的信息简报</title>
+      <link>https://bytecodes.tech/self/use-rss-email-read.html</link>
+      <guid>https://bytecodes.tech/self/use-rss-email-read.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">构建自己的信息简报</source>
+      <description>使用RSS与Email打造自己的信息简报。</description>
+      <pubDate>Sat, 24 Dec 2022 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/FcpHuTrWIAEcdmz.jpeg" alt="FcpHuTrWIAEcdmz.jpeg"></p>
+<h1 id="构建自己的信息简报" tabindex="-1"> 构建自己的信息简报</h1>
+<p>喜欢阅读，除了看书这种传统的获取知识的途径外，获取信息的渠道或方式还有：公众号、邮件列表、社交媒体、垂直社区（如知乎、V2EX、微信热搜）、搜索与聊天群组。如此多途径，怎么管理？</p>
+<blockquote>
+<p>信息与知识的差异在于，信息必须经过特定的处理，才能转化成人能理解与应用的知识。</p>
+</blockquote>
+<p>仔细看这些渠道和方式，可以分为三个大的类别：</p>
+<ul>
+<li>信息展示：大量的信息以这种方式去公开发表，需要人们通过主动或被动的方式去获取；</li>
+<li>主动方式：如社交媒体与垂直社区，就需要我们主动刷新的方式获取最新的信息；</li>
+<li>被动方式：如公众号与邮件列表，需要我们去订阅后被动接受更新后的信息；</li>
+<li>搜索：带有目的性的，通过特定关键词去获取与关键词相关的公开信息集合的方式；</li>
+<li>沟通交流：主动获取信息的方式，可以获取到非公开发布的信息；</li>
+</ul>
+<p>本文主要研究如何高效处理第一种获取信息的方式：信息展示。信息展示的主动与被动方式可以通过特定的途径转化。比如可以通过自动化的手段把主动方式变为被动方式，典型的如我们可以利用古老的RSS来订阅社交媒体与垂直社区的信息。当然也可以主动去阅读公众号的历史文章，去查看邮件列表背后网站的历史信息。</p>
+<p>主动刷信息是非常低效的行为，所以我希望有一种方式能实现以下的需求：</p>
+<ol>
+<li>能被动的推送信息；</li>
+<li>能方便的查看历史归档信息；</li>
+<li>能将不同来源的信息定期汇总阅读；</li>
+<li>能订阅全球的信息；</li>
+<li>能利用常用的工具自动化的实现此需求；</li>
+<li>能高效的获取有用的最新信息；</li>
+<li>能更好的查看信息资料；</li>
+</ol>
+<p>微信公众号只能实现前两条，社区类网站也无法实现第三和四条。上文曾提到的RSS可能会满足我们的要求，很多古老的网站都提供RSS订阅信息的更新，但社交媒体或Feed类的网站一般都不支持RSS。经过一番搜索后，找到了这个工具：<a href="https://github.com/DIYgod/RSSHub" target="_blank" rel="noopener noreferrer">RSSHub</a>，关于rssHub 可是很古老的网站并且能够完成所有的订阅的网站，可以通过RSS订阅一切网站！</p>
+<p>有了这个神器后，我们就可以实现上述的除三之前的所有需求。如何才能实现用RSS把不同来源的信息组合到一个页面中？经过一番搜索，我又找到了<a href="https://app.mailbrew.com/" target="_blank" rel="noopener noreferrer">Mailbrew</a>这个网站，它可以把多个来源的信息组装到一个页面，定期投送该页面到邮箱，这就实现了我们所有的需求了，仅仅只需要一个邮箱来订阅与阅读！</p>
+<p><a href="https://wuyagege.substack.com/p/771?sd=pf" target="_blank" rel="noopener noreferrer">用邮箱来阅读</a>有以下好处：不增加工具复杂度、能方便的检索历史信息、能被动接受信息、能设定自动化的规则去分类信息（如Gmail可以通过设置Filter规则来自动分类邮件）。所以最终解决方案就是：RSS + Email。</p>
+<p>我用Mailbrew制作了以下两个邮件列表：</p>
+<ul>
+<li><a href="https://app.mailbrew.com/sunzhenya/dev-weekly-AjBpQ6RT0UDT" target="_blank" rel="noopener noreferrer">Dev Weekly</a></li>
+<li><a href="https://app.mailbrew.com/sunzhenya/news-weekly-OEdpygnZfSa5" target="_blank" rel="noopener noreferrer">News Weekly</a></li>
+</ul>
+<p>Mailbrew每周会自动给我汇总一份信息简报投递至邮箱，我不需要主动去很多分散的网站来获取信息，只需要定期查看邮件即可。</p>
+]]></content:encoded>
+      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/FcpHuTrWIAEcdmz.jpeg" type="image/jpeg"/>
+    </item>
     <item>
       <title>数据结构与算法学习路线（建议收藏🔥）</title>
       <link>https://bytecodes.tech/learning-path/algorithm.html</link>
@@ -1219,198 +1282,6 @@ int main()
 <hr>
 ]]></content:encoded>
       <enclosure url="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/xuexiluxian/mysql-370c309d-b3f6-4d68-917a-4069ebc7a600.png" type="image/png"/>
-    </item>
-    <item>
-      <title>2022最新超详细的操作系统学习路线（建议收藏🔥）</title>
-      <link>https://bytecodes.tech/learning-path/os.html</link>
-      <guid>https://bytecodes.tech/learning-path/os.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">2022最新超详细的操作系统学习路线（建议收藏🔥）</source>
-      <description>操作系统是管理计算机硬件和软件资源的程序，是计算机的基石，这里整理一份 操作系统的超详细学习路线，附学习资源，可下载</description>
-      <category>学习路线</category>
-      <pubDate>Mon, 26 Dec 2022 09:47:33 GMT</pubDate>
-      <content:encoded><![CDATA[<p>操作系统是管理计算机硬件和软件资源的程序，是计算机的基石。</p>
-<p>举个例子来讲，像 Java 中的并发编程这块，如果连进程调度的相关原理、同步和互斥都搞不懂，那多半会有两种结果：</p>
-<ul>
-<li>写出来的多线程程序出现了各种奇奇怪怪的问题；</li>
-<li>不知道为什么出现这些问题。</li>
-</ul>
-<p>喜欢视频版的话，可以到 B 站看musk的操作系统学习路线版：</p>
-<blockquote>
-<p><a href="https://www.bilibili.com/video/BV1th411b7in" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV1th411b7in</a></p>
-</blockquote>
-<p><strong>操作系统该怎么学呢？入门推荐两门视频课程</strong>。</p>
-<p>先看一门国内的，再看一门国外的，中西合璧，药效持久。</p>
-<h2 id="一、哈工大的《操作系统》实验课" tabindex="-1"> 一、哈工大的《操作系统》实验课</h2>
-<p>国内的推荐哈工大的《操作系统》实验课，以下四部分最为重要。</p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-1.png" alt=""></p>
-<p>1）操作系统基础篇</p>
-<blockquote>
-<p><a href="https://mooc.study.163.com/course/1000002004" target="_blank" rel="noopener noreferrer">https://mooc.study.163.com/course/1000002004</a></p>
-</blockquote>
-<p>2）操作系统之进程与线程</p>
-<blockquote>
-<p><a href="https://mooc.study.163.com/course/1000002008" target="_blank" rel="noopener noreferrer">https://mooc.study.163.com/course/1000002008</a></p>
-</blockquote>
-<p>3）操作系统之内存管理</p>
-<blockquote>
-<p><a href="https://mooc.study.163.com/course/1000003007" target="_blank" rel="noopener noreferrer">https://mooc.study.163.com/course/1000003007</a></p>
-</blockquote>
-<p>4）操作系统之外设与文件系统</p>
-<blockquote>
-<p><a href="https://mooc.study.163.com/course/1000002009" target="_blank" rel="noopener noreferrer">https://mooc.study.163.com/course/1000002009</a></p>
-</blockquote>
-<p>哈工大的操作系统课是该校 CS 课程中含金量最高的，尤其是实验课。八个实验涉及到了操作系统的核心部分，虽然 lab 不是在哈工大自创的 HITOS 上，但 linux-0.11 确实是一个非常好的选择。</p>
-<p>Linux-0.11 这个版本能让学生更加专注于实验，而不是纠结于各种奇奇怪怪的问题，作为 OS 入门算是足够了。</p>
-<p>Linux 发展到现在，内核源码与 0.11 相比，几乎是翻天覆地的变化，但这不代表研究 linux-0.11 就没有意义，毕竟内核这东西，你懂的。。。</p>
-<p>多的不说，学完 linux-0.11 后，你至少能明白，原来一个最简单的完整的操作系统，是这个样子的：它是这样一步步从 BIOS 开始加载程序加载数据的，它是这样实现单 CPU 多任务多进程调度和切换的。</p>
-<p>Linux 内核主要由 5 个模块构成，分别是：</p>
-<ul>
-<li>进程调度模块，负责控制进程对 CPU 资源的使用。</li>
-<li>内存管理模块，用于确保所有进程能够安全地共享主机内存，同时，内存管理模块还支持虚拟内存管理方式，使得进程所使用的内存比实际的内存更多。</li>
-<li>文件系统模块，用于支持对外部设备的驱动和存储。linux-0.95 版本又逐步实现了虚拟文件系统，该模块通过向所有的外部存储设备提供一个通用的文件接口，隐藏了各种硬件设备的不同细节，从而兼容其他操作系统。</li>
-<li>进程间通信模块，用于支持多种进程间的信息交换方式。</li>
-<li>网络接口模块（linux-0.96 版本才有），提供对多种网络通信标准的访问并支持网络硬件。</li>
-</ul>
-<p>它们之间的依赖关系见下图所示。其实连线代表它们之间的依赖关系，虚线代表 linux-0.11 中还未实现的部分。</p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-2.png" alt=""></p>
-<p>由上图可以看得出，所有模块都与进程调度模块存在依赖关系，因为它们都需要进程调度程序来挂起或重新运行它们的进程。</p>
-<p>linux-0.11 的学习推荐《Linux 内核完全注释》，该书对 linux-0.11 的全部代码文件进行了详细全面的注释和说明，能够让大家在尽量短的时间内对 Linux 的工作机制有一个全面而深刻的理解，为进一步学习 Linux 系统打下坚实的基础。</p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-3.jpg" alt=""></p>
-<p>高清 PDF 版在 GitHub 上的一个开源仓库（JavaBooks）里可以找得到（附 linux-0.11 内核的源码）：</p>
-<blockquote>
-<p><a href="https://github.com/itwanger/JavaBooks#Linux%E5%86%85%E6%A0%B8" target="_blank" rel="noopener noreferrer">https://github.com/itwanger/JavaBooks#Linux%E5%86%85%E6%A0%B8</a></p>
-</blockquote>
-<p>我在逛 GitHub 的时候发现了这样一个仓库：</p>
-<blockquote>
-<p><a href="https://github.com/hoverwinter/HIT-OSLab" target="_blank" rel="noopener noreferrer">https://github.com/hoverwinter/HIT-OSLab</a></p>
-</blockquote>
-<p>作者大四，他的这门操作系统实验课满分，打算自己写一个 OS，就顺带把之前的代码给开源了出来，希望对学习操作系统，以及对哈工大这门实验课感兴趣的同学一些参考。</p>
-<p>其中 lab1-lab7 给出了修改的部分，lab 8 给出了完整的修改后的 linux-0.11 的代码。虽然这个仓库已经有好多年没有更新了，但仍然有参考的价值。</p>
-<p>作者的那句：“Just coding system，it’s fantastic！”我觉得也蛮给力的。</p>
-<h2 id="二、mit-6-268-和-6-s081" tabindex="-1"> 二、MIT 6.268 和 6.S081</h2>
-<p>国外的强烈推荐 MIT 6.268 这门课（主要研究生级别），是一门公认的硬核课程，一直以来都有很高的知名度，广受好评，是理论与实践相结合的经典。</p>
-<blockquote>
-<p><a href="https://pdos.csail.mit.edu/6.828/2018/schedule.html" target="_blank" rel="noopener noreferrer">https://pdos.csail.mit.edu/6.828/2018/schedule.html</a></p>
-</blockquote>
-<p>不过，在学习这门课之前，最好之前有过一些操作系统的基础，比如说上过本校的 OS 课，比如说阅读过《操作系统导论》这本书，比如说熟悉 C语言和汇编，对计算机组成原理也有一定的了解。</p>
-<p>这门课有多牛逼呢？</p>
-<blockquote>
-<p>举个例子，以陈波老师为首的上海交通大学的 IPADS 实验室可以说是国内最强的操作系统相关实验室之一了，而陈波老师等人在读博阶段就完成了 6.828 课程的学习，并且在此基础上开发了 corey 操作系统，并发表了一篇被广泛引用的论文：Corey——An operating system for many cores。</p>
-</blockquote>
-<p>如果觉得这门课的难度有点大，可以选择 MIT 的 6.S081（Introduction to Operating System，操作系统导论）这门课，主要针对本科生级别。</p>
-<blockquote>
-<p><a href="https://pdos.csail.mit.edu/6.S081/2020/schedule.html" target="_blank" rel="noopener noreferrer">https://pdos.csail.mit.edu/6.S081/2020/schedule.html</a></p>
-</blockquote>
-<p>6.S081 这门课是基于一个类似于 Unix，但比 Unix 简单得多的一个教学操作系统 XV6 来讲解的，虽然不是原汁原味的 Linux，但对于理解 Linux 的工作方式和结构是足够了。</p>
-<p>这门课是全英文的形式，video 链接里甚至没有英文字幕，对于国内的同学来说，如果英文功底一般的话，很难较好的理解这门课程。</p>
-<p>下图是课程表，里面有 PDF 和 video 链接🔗。</p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-4.png" alt=""></p>
-<p>为了减轻大家的学习压力，我在哔哩哔哩上找到了这门课的克隆版，但中英文字幕的那种。</p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-5.png" alt=""></p>
-<p>哇，有了中英文字幕，学起来就舒服多了。课程地址我贴一下：</p>
-<blockquote>
-<p><a href="https://www.bilibili.com/video/BV19k4y1C7kA" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV19k4y1C7kA</a></p>
-</blockquote>
-<p>除了这个，我还找到了一份中文版的在线阅读文档，总共有 35 万字左右，据作者说，他大概花费了 200 个小时，辛苦劳作的结果是不仅作者自己的知识盲区补全了，也为后来者留下了一笔不可多得的学习资料。害，除了能蹦出“牛逼”两个字外，我想不到更惊艳的词汇了！</p>
-<blockquote>
-<p><a href="https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081/" target="_blank" rel="noopener noreferrer">https://mit-public-courses-cn-translatio.gitbook.io/mit6-s081/</a></p>
-</blockquote>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-6.png" alt=""></p>
-<p>这门课的一部分会讲操作系统的基本概念，一部分是 lab，几乎每周都会有一些编程实验。</p>
-<p>我们都知道，操作系统很重要，那操作系统的学习单靠看和听肯定是不行的，必须配合实战来。做实验的意义就在于能帮我们获得一些使用和实现操作系统的实际动手经验。</p>
-<p>还有xiaofan 的学习笔记也是非常值得参考的：</p>
-<blockquote>
-<p><a href="https://fanxiao.tech/posts/MIT-6S081-notes/#11-processes-and-memory" target="_blank" rel="noopener noreferrer">https://fanxiao.tech/posts/MIT-6S081-notes/#11-processes-and-memory</a></p>
-</blockquote>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-7.png" alt=""></p>
-<p>学习 6.S081 这门课的目的有三个：</p>
-<ul>
-<li>理解操作系统的设计和实现</li>
-<li>能动手扩展一个小型 OS</li>
-<li>能动手实现系统应用</li>
-</ul>
-<h2 id="三、硬核-os-pdf" tabindex="-1"> 三、硬核 OS PDF</h2>
-<p>这里给大家推荐两门超级硬核的操作系统学习资料，我都已经整理成 PDF 了。</p>
-<p><strong>第一份，给操作系统捋条线</strong>，看图感受一下吧。</p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-8.png" alt=""></p>
-
-<p><strong>第二份，操作系统核心知识点</strong>，同样看图感受一下吧。</p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-9.png" alt=""></p>
-<p>需要的小伙伴同样可以通过上面的方式获取到。</p>
-<p>有一说一，操作系统确实难刷，大家在刷的过程中一定要记得多喝水，因为这门课实在是太干了。说实话，光是整理这两门课的过程，我就又 get 到了不少新鲜的知识点。希望我推荐的这两门课算是抛砖引玉吧，大家一起冲！</p>
-<p>记住一点，<strong>动手很重要，动手做 lab 很重要</strong>。</p>
-<hr>
-]]></content:encoded>
-      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/os-1.png" type="image/png"/>
-    </item>
-    <item>
-      <title>非 Python 职业选手的Python学习路线（建议收藏🔥）</title>
-      <link>https://bytecodes.tech/learning-path/python.html</link>
-      <guid>https://bytecodes.tech/learning-path/python.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">非 Python 职业选手的Python学习路线（建议收藏🔥）</source>
-      <description>非 Python职业选手，但工作中学过一段时间，这篇分享给对 Python 感兴趣的爱好者，文中有大量 Python 的学习资源可供下载。</description>
-      <category>学习路线</category>
-      <pubDate>Mon, 26 Dec 2022 09:47:33 GMT</pubDate>
-      <content:encoded><![CDATA[<blockquote>
-<p>非 Python职业选手，但工作中学过一段时间，这篇分享给对 Python 感兴趣的爱好者，文中有大量 Python 的学习资源可供下载。</p>
-</blockquote>
-<p>先上一张 Python 知识图谱，直观的了解一下 Python 的基本构成与实际应用。</p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/python-1.png" alt=""></p>
-<h2 id="_1-视频篇" tabindex="-1"> <strong>1）视频篇</strong></h2>
-<p>B 站也就是哔哩哔哩，是国内最大的二次元视频网站之一。作为一个半吊子 up 主，我虽然看视频不多，但现在基本想看视频就直接去 B 站了。</p>
-<p>上面也有非常多的 Python 视频可供学习。</p>
-<p>01、小甲鱼零基础入门学习Python，1669.8万播放。画面虽然有点儿童风，但配合 up 幽默的教学风格到也显得非常有意思。</p>
-<blockquote>
-<p><a href="https://www.bilibili.com/video/av4050443" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/av4050443</a></p>
-</blockquote>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/python-2.png" alt=""></p>
-<p>02、Python从入门到精通教程，1165.8万播放。虽然是培训机构出品的，但视频质量还过得去，也比较像大学老师的授课风格，况且还可以白票。前 100 集在讲 Linux 基础，没兴趣的可以直接跳过。</p>
-<blockquote>
-<p><a href="https://www.bilibili.com/video/av14184325" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/av14184325</a></p>
-</blockquote>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/python-3.png" alt=""></p>
-<p>03、Python编程从入门到实践，84.4万播放。虽然播放量一般，内容也一般，但如果想听萝莉小姐姐的声音的话，可以尝试下，听完整个人都治愈了。</p>
-<blockquote>
-<p><a href="https://www.bilibili.com/video/av35698354" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/av35698354</a></p>
-</blockquote>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/python-4.png" alt=""></p>
-<h2 id="_2-教程篇" tabindex="-1"> <strong>2）教程篇</strong></h2>
-<p>01、Python 3.10.0 文档，官方文档，毫无疑问是需要学习的。</p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/python-5.png" alt=""></p>
-<blockquote>
-<p><a href="https://docs.python.org/zh-cn/3/" target="_blank" rel="noopener noreferrer">https://docs.python.org/zh-cn/3/</a></p>
-</blockquote>
-<p>02、Python - 100天从新手到大师，112k star，足见受到的关注程度。</p>
-<blockquote>
-<p><a href="https://github.com/jackfrued/Python-100-Days" target="_blank" rel="noopener noreferrer">https://github.com/jackfrued/Python-100-Days</a></p>
-</blockquote>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/python-6.png" alt=""></p>
-<p>03、Python Cookbook，比较适合那些想深入理解 Python 语言机制和现代编程风格的有经验的 Python 程序员。</p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/python-7.png" alt=""></p>
-<blockquote>
-<p><a href="https://python3-cookbook.readthedocs.io/zh_CN/latest/index.html" target="_blank" rel="noopener noreferrer">https://python3-cookbook.readthedocs.io/zh_CN/latest/index.html</a></p>
-</blockquote>
-<p>更多 Python 的学习资料，可以直接戳我整理的这个 GitHub/码云仓库——📚程序员必读书单整理，附下载地址，里面有大量的 Python 学习资料。</p>
-<ul>
-<li>GitHub 地址：<a href="https://github.com/itwanger/JavaBooks#python" target="_blank" rel="noopener noreferrer">https://github.com/itwanger/JavaBooks</a></li>
-<li>码云地址：<a href="https://gitee.com/itwanger/JavaBooks#python" target="_blank" rel="noopener noreferrer">https://gitee.com/itwanger/JavaBooks</a></li>
-</ul>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/python-books.jpg" alt=""></p>
-<p>简单罗列一下：</p>
-<ul>
-<li>《Python+Cookbook》第三版中文</li>
-<li>编程小白的第一本Python入门书</li>
-<li>可爱的Python_中文版</li>
-<li>利用Python进行数据分析</li>
-<li>流畅的python</li>
-<li>深入浅出：使用Python编程</li>
-<li>用Python进行自然语言处理</li>
-<li>Python编程：从入门到实践</li>
-<li>PYTHON自然语言处理【中文版】</li>
-</ul>
-<hr>
-]]></content:encoded>
-      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/python-1.png" type="image/png"/>
     </item>
   </channel>
 </rss>

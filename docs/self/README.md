@@ -1,12 +1,12 @@
 ---
 ---
-title: 日常思考
+title: 自我记录
 index: false
 
 dir:
   order: 100
 category:
-  - 日常思考
+  - 自我记录
 ---
 
 # 目录

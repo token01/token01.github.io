@@ -6,27 +6,21 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 28 Dec 2022 04:20:01 GMT</pubDate>
-    <lastBuildDate>Wed, 28 Dec 2022 04:20:01 GMT</lastBuildDate>
+    <pubDate>Wed, 28 Dec 2022 08:14:25 GMT</pubDate>
+    <lastBuildDate>Wed, 28 Dec 2022 08:14:25 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+    <category>自我记录</category>
+    <category>信息简报</category>
     <category>学习路线</category>
     <item>
-      <title>目录</title>
+      <title>自我记录</title>
       <link>https://bytecodes.tech/self/</link>
       <guid>https://bytecodes.tech/self/</guid>
-      <source url="https://bytecodes.tech/rss.xml">目录</source>
+      <source url="https://bytecodes.tech/rss.xml">自我记录</source>
+      <category>自我记录</category>
       <pubDate>Wed, 28 Dec 2022 03:20:51 GMT</pubDate>
-      <content:encoded><![CDATA[<p>title: 自我记录
-index: false</p>
-<p>dir:
-order: 100
-category:</p>
-<ul>
-<li>自我记录</li>
-</ul>
-<hr>
-<h1 id="目录" tabindex="-1"> 目录</h1>
+      <content:encoded><![CDATA[<h1 id="目录" tabindex="-1"> 目录</h1>
 <p>TODO</p>
 ]]></content:encoded>
     </item>
@@ -36,9 +30,10 @@ category:</p>
       <guid>https://bytecodes.tech/self/use-rss-email-read.html</guid>
       <source url="https://bytecodes.tech/rss.xml">构建自己的信息简报</source>
       <description>使用RSS与Email打造自己的信息简报。</description>
-      <pubDate>Sat, 24 Dec 2022 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/FcpHuTrWIAEcdmz.jpeg" alt="FcpHuTrWIAEcdmz.jpeg"></p>
-<h1 id="构建自己的信息简报" tabindex="-1"> 构建自己的信息简报</h1>
+      <category>信息简报</category>
+      <pubDate>Wed, 28 Dec 2022 03:20:51 GMT</pubDate>
+      <content:encoded><![CDATA[<h1 id="构建自己的信息简报" tabindex="-1"> 构建自己的信息简报</h1>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/FcpHuTrWIAEcdmz.jpeg" alt="FcpHuTrWIAEcdmz.jpeg"></p>
 <p>喜欢阅读，除了看书这种传统的获取知识的途径外，获取信息的渠道或方式还有：公众号、邮件列表、社交媒体、垂直社区（如知乎、V2EX、微信热搜）、搜索与聊天群组。如此多途径，怎么管理？</p>
 <blockquote>
 <p>信息与知识的差异在于，信息必须经过特定的处理，才能转化成人能理解与应用的知识。</p>

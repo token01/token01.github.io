@@ -5,9 +5,66 @@
 
 
 ### 具体执行步骤
+**1.**  添加IBC发送数据包和确认数据包的结构。添加具体执行修改内容
+
+```
+ignite scaffold packet updatePost postID title content --ack postID --module blog
+
+```
+
+```
+
+→ ignite scaffold packet updatePost postID title content --ack postID --module blog
+Your saved project changes have not been committed.
+To enable reverting to your current state, commit your saved changes.
+Do you want to proceed without committing your saved changes: y
+
+modify proto/planet/blog/packet.proto
+modify proto/planet/blog/tx.proto
+modify x/blog/client/cli/tx.go
+create x/blog/client/cli/tx_update_post.go
+create x/blog/keeper/msg_server_update_post.go
+create x/blog/keeper/update_post.go
+modify x/blog/module_ibc.go
+modify x/blog/types/codec.go
+modify x/blog/types/events_ibc.go
+create x/blog/types/messages_update_post.go
+create x/blog/types/messages_update_post_test.go
+create x/blog/types/packet_update_post.go
+
+🎉 Created a packet `updatePost`.
+```
 
 
+**2.** 在proto/blog/packet.proto目录下修改`IbcPostPacketData`，添加创建人string `Creator`=3， 并重新编译proto文件。
 
+执行编译器
+```
+→ ignite chain build
+Cosmos SDK's version is: v0.46.6
+
+🗃  Installed. Use with: planetd
+```
+
+**3.** 修改keeper方法中的`OnRecvIbcPostPacket `。
+
+```
+id := k.AppendPost(
+        ctx,
+        types.Post{
+            Creator: packet.SourcePort + "-" + packet.SourceChannel + "-" + data.Creator,
+            Title:   data.Title,
+            Content: data.Content,
+        },
+    )
+
+    packetAck.PostID = strconv.FormatUint(id, 10)
+
+```
+
+
+------------------------------------
+#### 参考标准
 ------------------------------------
 
 ### 本地执行步骤
@@ -50,15 +107,7 @@ ignite scaffold list timedoutPost title chain creator --no-message --module blog
 ignite scaffold packet ibcPost title content --ack postID --module blog
 
 ```
-具体执行修改内容
 
-```
-ignite scaffold packet updatePost postID title content --ack postID --module blog
-
-```
-
-
-  
 **7.** 在proto/blog/packet.proto目录下修改`IbcPostPacketData`，添加创建人`Creator`， 并重新编译proto文件。在x/blog/keeper/msg_server_ibc_post.go。编译完成后在x/blog/keeper/msg_server_ibc_post.go中发送数据包前更新`Creator`。
 
 ```

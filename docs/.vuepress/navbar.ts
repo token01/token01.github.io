@@ -255,7 +255,7 @@ export default navbar([
       {
         text: "主流区块链研究",
         icon: "creative",
-        link: "male-chain-research/0.Rounding"
+        link: "male-chain-research/ethereum/0.Rounding"
       },
       
     ]
@@ -266,7 +266,7 @@ export default navbar([
     prefix: "/think/",
     children:[
       {
-        text: "印象深刻bug",
+        text: "Bug记录",
         icon: "creative",
         link: "deepImpression/redis-bigdata-slow-problem"
       },
@@ -280,57 +280,28 @@ export default navbar([
         icon: "creative",
         link: "misc/misc-x-middleware"
       },
-      
+    ]
+  },
+  {
+    text: "日常文章",
+    icon: "anonymous",
+    prefix: "/think/",
+    children:[
+      {
+        text: "Bug记录",
+        icon: "creative",
+        link: "deepImpression/redis-bigdata-slow-problem"
+      },
+      {
+        text: "优化",
+        icon: "creative",
+        link: "optimization/optimization-x-frequent-operation-db"
+      },
+      {
+        text: "杂项",
+        icon: "creative",
+        link: "misc/misc-x-middleware"
+      },
     ]
   }
 ]);
-
-// import { navbar } from "vuepress-theme-hope";
-// export default navbar([
-//   { 
-//     text: "博客",
-//     icon: "gaishu",
-//     link: "/blog.md" 
-//   },
-//   { 
-//     text: "Web2.0进阶之路", 
-//     icon: "lujing", 
-//     link: "/home.md" 
-//   },
-//   { 
-//     text: "Web3.0进阶之路", 
-//     icon: "lujing", 
-//     link: "/blockchain/" 
-//   },
-//   // { 
-//   //   text: "知识星球", 
-//   //   icon: "Artboard", 
-//   //   link: "/zhishixingqiu/" 
-//   // },
-//   {
-//     text: "学习路线",
-//     icon: "luxian",
-//     link: "/learningPath/"
-//   },
-//   {
-//     text: "珍藏资源",
-//     icon: "youzhi",
-//     children: [
-//       { 
-//         text: "面试逆袭", 
-//         icon: "zhunbei", 
-//         link: "/sidebar/sanfene/README.md" 
-//       },
-//       // { 
-//       //   text: "破解合集",
-//       //   icon: "zhongyaotishi",
-//       //   link: "/nice-article/itmind/" 
-//       // },
-//     ],
-//   },
-//   // {
-//   //   text: "B站视频",
-//   //   icon: "bzhan", 
-//   //   link: "https://space.bilibili.com/513340480"
-//   // },
-// ]);

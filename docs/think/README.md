@@ -1,5 +1,4 @@
 ---
----
 title: 日常思考
 index: false
 

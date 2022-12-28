@@ -283,25 +283,26 @@ export default navbar([
     ]
   },
   {
-    text: "日常文章",
+    text: "自我记录",
     icon: "anonymous",
-    prefix: "/think/",
-    children:[
-      {
-        text: "Bug记录",
-        icon: "creative",
-        link: "deepImpression/redis-bigdata-slow-problem"
-      },
-      {
-        text: "优化",
-        icon: "creative",
-        link: "optimization/optimization-x-frequent-operation-db"
-      },
-      {
-        text: "杂项",
-        icon: "creative",
-        link: "misc/misc-x-middleware"
-      },
-    ]
+    prefix: "/self/",
+    children: []
+    // children:[
+    //   {
+    //     text: "Bug记录",
+    //     icon: "creative",
+    //     link: "deepImpression/redis-bigdata-slow-problem"
+    //   },
+    //   {
+    //     text: "优化",
+    //     icon: "creative",
+    //     link: "optimization/optimization-x-frequent-operation-db"
+    //   },
+    //   {
+    //     text: "杂项",
+    //     icon: "creative",
+    //     link: "misc/misc-x-middleware"
+    //   },
+    // ]
   }
 ]);

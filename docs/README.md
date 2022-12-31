@@ -6,7 +6,7 @@ heroImage: logo.png
 heroText: 凤凰涅槃进阶之路
 tagline: 😏汇聚知识 🤖 开源工具 ,😂效率方法、探索认知的自我提升笔记😄
 actions:
-  - text: 立马上路→
+  - text: 开始学习→
     link: /java/base/Java-basis-oop
     type: primary
   - text: 博客入口

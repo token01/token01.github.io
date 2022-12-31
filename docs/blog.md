@@ -6,7 +6,7 @@ title: 博客
 heroText: 野生架构师
 bgImage:  "/assets/icon/images.jpeg"
 heroFullScreen: false
-tagline: 技术文通俗易懂，吹水文风趣幽默。
+tagline: 
 projects:
   - icon: project
     name: 进阶之路

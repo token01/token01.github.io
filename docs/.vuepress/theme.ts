@@ -70,11 +70,11 @@ export default hopeTheme({
     intro: "/about-the-author/",
     sidebarDisplay: "mobile",
     // 博主头像
-    avatar: "/assets/icon/itwanger-282.png",
+    avatar: "/assets/icon/282.png",
     // 圆角
     roundAvatar: true,
     // 座右铭
-    description:"没有什么使我停留——除了目的，纵然岸旁有玫瑰、有绿荫、有宁静的港湾，我是不系之舟。",
+    description:"敏而好学，不耻下问",
     medias: {
       Zhihu: "https://www.zhihu.com/people/abel-48",
       CSDN: "https://blog.csdn.net/kongmingdaoshi",
@@ -101,18 +101,6 @@ export default hopeTheme({
       // 部署 Waline：https://waline.js.org/guide/get-started.html
       // pageview: true, // 浏览量统计
       // Waline 等级标签
-      walineLocales: {
-        "/": {
-          admin: "盛年不重来，一日难再晨",
-          level0: "锻体",
-          level1: "炼气",
-          level2: "筑基",
-          level3: "金丹",
-          level4: "元婴",
-          level5: "化神",
-        },
-      },
-
       // Giscus 备用配置
       /*
       provider: "Giscus",

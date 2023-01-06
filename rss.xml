@@ -6,713 +6,933 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Fri, 06 Jan 2023 11:53:25 GMT</pubDate>
-    <lastBuildDate>Fri, 06 Jan 2023 11:53:25 GMT</lastBuildDate>
+    <pubDate>Fri, 06 Jan 2023 22:46:09 GMT</pubDate>
+    <lastBuildDate>Fri, 06 Jan 2023 22:46:09 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
-    <category>好文章</category>
-    <category>信息简报</category>
-    <category>自我记录</category>
-    <category>前端</category>
+    <category>go</category>
     <item>
-      <title>面向软件工程师的 3 个简单的 ChatGPT 技巧：立即提高您的工作效率</title>
-      <link>https://bytecodes.tech/self/good-article/chat_gpt_efficiency.html</link>
-      <guid>https://bytecodes.tech/self/good-article/chat_gpt_efficiency.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">面向软件工程师的 3 个简单的 ChatGPT 技巧：立即提高您的工作效率</source>
-      <pubDate>Fri, 06 Jan 2023 05:12:47 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="面向软件工程师的-3-个简单的-chatgpt-技巧-立即提高您的工作效率" tabindex="-1"> 面向软件工程师的 3 个简单的 ChatGPT 技巧：立即提高您的工作效率</h1>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/202301061314590.png" alt=""></p>
-<p>AI 增强您的写作和工作效率</p>
-<p>准备好将您的工作流程从爬行转变为冲刺了吗？ChatGPT 具有您所需的功能，可让您自动执行日常任务、促进与同事的协作并访问丰富的知识。在本文中，我们将向您介绍 ChatGPT 的变革性功能 - 提高效率提高生产力，使更智能地工作成为第二天性。</p>
-<p>在 <a href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer">https://chat.openai.com/</a> 亲自尝试一下。</p>
-<h2 id="_1-简化重复性任务" tabindex="-1"> 1. 简化重复性任务</h2>
-<p>通过使用 ChatGPT，软件工程师可以通过自动化单调的任务来节省宝贵的时间和精力。通过该应用程序，可以轻松处理繁琐的工作，例如生成样板代码，运行测试等，因此可以优先处理更关键的问题。</p>
-<p>下面是 ChatGPT 如何使用样式组件（包括主页、关于页面和联系我们页面）为 Next.js 应用创建样板代码的示例：</p>
-<p>要为主页创建样板代码，您可以这样说：“嘿 ChatGPT，你能为具有样式组件的 Next.js 应用生成样板代码吗？我想创建一个带有页眉、主节和页脚的主页。您能否包含指向“关于”和“联系我们”页面的链接？</p>
-<p>ChatGPT 可能会使用类似于以下内容的代码进行响应：</p>
-<div><pre><code>import React from 'react'  
-import Link from 'next/link'  
-import styled from 'styled-components'  
-  
-const Header = styled.header`  
-display: flex;  
-align-items: center;  
-justify-content: space-between;  
-height: 50px;  
-background-color: #333;  
-color: #fff;  
-padding: 0 20px;  
-`  
-  
-const Main = styled.main`  
-display: flex;  
-flex-direction: column;  
-align-items: center;  
-justify-content: center;  
-height: calc(100vh - 100px);  
-`  
-  
-const Footer = styled.footer`  
-display: flex;  
-align-items: center;  
-justify-content: space-between;  
-height: 50px;  
-background-color: #333;  
-color: #fff;  
-padding: 0 20px;  
-`  
-  
-const Home = () => (  
-&lt;>  
-&lt;Header>  
-&lt;Link href="/">  
-&lt;a>Home&lt;/a>  
-&lt;/Link>  
-&lt;Link href="/about">  
-&lt;a>About&lt;/a>  
-&lt;/Link>  
-&lt;Link href="/contact">  
-&lt;a>Contact Us&lt;/a>  
-&lt;/Link>  
-&lt;/Header>  
-&lt;Main>  
-&lt;h1>Welcome to the Home Page!&lt;/h1>  
-&lt;/Main>  
-&lt;Footer>  
-&lt;p>Copyright 2021&lt;/p>  
-&lt;Link href="/privacy-policy">  
-&lt;a>Privacy Policy&lt;/a>  
-&lt;/Link>  
-&lt;/Footer>  
-&lt;/>  
-)  
-  
-export default Home
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>此代码创建一个主页，其中包含页眉、主节和页脚，所有这些都使用样式化组件设置样式。页眉和页脚分别包含指向“关于”和“联系我们”页面的链接。您可以交换单词“home”或“about”，并继续让它为这些页面生成可用的样板代码。</p>
-<p>此外，您可以通过说“chatgpt 请更新上面的示例以使用......”来继续迭代这些示例。或“请将主组件的标头重构为独立组件”。</p>
-<p>然而，仍然缺少的是引用特定行的能力，但我相信开发人员正在研究这个问题，以便您可以更好地将上下文馈送到模型中，类似于种子的工作方式。</p>
-<h2 id="_2-获取反馈" tabindex="-1"> 2. 获取反馈</h2>
-<p>使用 ChatGPT，您可以获得有关编码的有用反馈，并在任何问题或错误变得太大之前快速识别它们。</p>
-<p>在这个例子中，我们使用一个函数来计算数组中元素的总和：</p>
-<div><pre><code>func sum（arr []int） int  { result ：= 0 for i ：= 0  
-; i &lt; len（arr）; i++ { result += arr[i]  
- }  
- return  
-  
- result  
-}
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>你可以要求chatGPT使这段代码更有效率，比如说：“嘿ChatGPT，你能建议一些方法让这段代码更有效率吗？我正在尝试计算数组中元素的总和。</p>
-<p>ChatGPT 可能会使用建议进行响应，例如使用不同的循环结构，例如 for range 循环，这通常比使用上面显示的索引循环更有效。或者，ChatGPT 可能会建议使用内置函数，如“math”包中的“sum”，这比编写自己的循环更有效。</p>
-<h3 id="bug-猎手" tabindex="-1"> BUG 猎手</h3>
-<p>您还可以使用它来查找应用程序中的潜在错误。您将需要提供更多上下文。您可以将包之间的函数分解为小块，然后将它们提供给chatgpt，如下所示：</p>
-<div><pre><code>package pkgA  
-  
-func Add（a int， b int） int  {  
- return a + b  
-}
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div></div></div><p>然后，您需要将包的名称指定为“<a href="http://github.com/user/pkgA%E2%80%9D%E3%80%82%E6%82%A8%E8%BF%98%E5%8F%AF%E4%BB%A5%E5%9C%A8" target="_blank" rel="noopener noreferrer">github.com/user/pkgA”。您还可以在</a> github 上为实际包提供该上下文和关联。</p>
-<p>现在假设你想使用 ChatGPT 来帮助你在另一个包中编写一个函数，该函数从“pkgA”调用“Add”函数。下面是 ChatGPT 如何帮助您查找包之间的错误的示例，包括代码中的实际错误：</p>
-<div><pre><code>package pkgB  
-  
-import “github.com/user/pkgA”  
-  
-func Sum（arr []int） int  { result ：= 0 for i ：= 0  
-; i &lt; len（arr）; i++ { result = pkgA.Add（result， arr[i]）  
- }  
- return  
-  
- result  
-}
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>此示例中的错误是对“pkgA.Add”的函数调用使用了错误的运算符（= 而不是 +=）。此错误将导致函数始终返回 0，即使输入数组不同也是如此。</p>
-<p>要要求 ChatGPT 查看此代码并查找错误，您可以这样说：“嘿 ChatGPT，你能检查此代码是否存在错误吗？我正在尝试编写一个使用 pkgA.Add 函数将数组的结果相加的函数”</p>
-<p>ChatGPT可以检测并快速解决您遇到的任何技术问题。例如，它可能建议确认导入包的正确命名和定位，或者使用正确数量和类型的参数调用函数。它甚至可以识别代码中的错误，然后提供有关如何使用正确的运算符进行补救的答案！</p>
-<p>例如，ChatGPT 可能会建议：</p>
-<blockquote>
-<p>代码中似乎存在错误。调用 'pkgA.Add' 的函数使用的是赋值运算符 — '=' 而不是加法运算符 - '+=' 。因此，无论输入什么数组，这将始终确保返回 0。若要解决此问题，您可能需要考虑使用正确的运算符。</p>
-</blockquote>
-<p>ChatGPT 可以成为救星，在代码中发现和修复错误之前将其视为问题。此外，ChatGPT 可帮助您创建可靠且强大的代码，这些代码将持</p>
-<h2 id="_3-获取帮助" tabindex="-1"> 3. 获取帮助</h2>
-<p>如果您在项目时遇到问题，可以使用 ChatGPT 获取帮助。例如，如果您在文件验证和错误处理方面遇到问题，您可以说：“嘿 ChatGPT，我正在尝试实现一项允许用户上传和下载文件的功能。我在处理文件验证和验证错误时遇到问题。你能帮我集思广益一些方法或建议一些可以用来解决这个问题的资源吗？</p>
-<p>你最终会得到这样的东西：</p>
-<blockquote>
-<p>当然，这里有一些建议，您可以使用这些方法和资源来解决文件验证和验证错误处理问题：</p>
-<ol>
-<li>
-<p>验证文件类型和大小是否在可接受的范围内。您可以使用 Go 中内置的“mimetype”库来检查文件类型，并使用 “os” 库来检查文件大小。</p>
-</li>
-<li>
-<p>检查应拒绝的常见文件类型，例如可执行文件。您可以使用“mimetype”库或正则表达式来标识这些类型的文件。</p>
-</li>
-<li>
-<p>如果文件无效，则向用户显示相应的错误消息。可以使用客户端和服务器端验证的组合来确保用户了解其文件的任何问题。</p>
-</li>
-<li>
-<p>使用提供文件验证和错误处理功能的库或框架。可以考虑的一些选项包括 Go 的“验证器”库或 Node.js 的“multer”中间件。</p>
-</li>
-</ol>
-</blockquote>
-<p>您可以通过说“请提供 1 的示例。并集思广益其他变化”</p>
-<p>如果您面临挑战，可以使用 ChatGPT 寻求帮助。在他们的帮助下，头脑风暴解决方案变得更加容易——他们可以指导您找到解决问题并达到新高度的方法。这不仅可以节省时间，还可以减少工作量。</p>
-<h2 id="_4-亲自尝试并增强您的工作流程" tabindex="-1"> 4.亲自尝试并增强您的工作流程！</h2>
-<p>最终，ChatGPT是软件工程师的必备品。它不仅可以通过自动化繁琐的任务来节省时间和精力，还可以提供对丰富知识的访问，这些知识可以帮助您克服项目中的任何障碍或挑战。它的实用性并不止于此——ChatGPT 提供了有关如何简化工作流程、优化代码和比以往更快地学习新技术技能的有用见解。</p>
-<p>但是，我确实想警告您最后几件事......</p>
-<h3 id="一些最后的警告" tabindex="-1"> 一些最后的警告</h3>
-<p>虽然功能强大，但这个工具并不能完全取代人类的想法，你会发现它仍然需要调整，你需要修改代码，而不是把这个机器人吐出的所有东西都看在眼里。即使错误或不准确，ChatGPT 也可以作为一个强大的工具（甚至可能是盟友？）来帮助集思广益并查看代码中的其他观点。只是不要盲目相信它。</p>
-]]></content:encoded>
-      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/202301061314590.png" type="image/png"/>
-    </item>
-    <item>
-      <title>好文章</title>
-      <link>https://bytecodes.tech/self/good-article/</link>
-      <guid>https://bytecodes.tech/self/good-article/</guid>
-      <source url="https://bytecodes.tech/rss.xml">好文章</source>
-      <category>好文章</category>
-      <pubDate>Fri, 06 Jan 2023 04:11:48 GMT</pubDate>
+      <title>go语言-基础知识</title>
+      <link>https://bytecodes.tech/language/go/01.base/</link>
+      <guid>https://bytecodes.tech/language/go/01.base/</guid>
+      <source url="https://bytecodes.tech/rss.xml">go语言-基础知识</source>
+      <category>go</category>
+      <pubDate>Fri, 06 Jan 2023 14:36:39 GMT</pubDate>
       <content:encoded><![CDATA[<h1 id="目录" tabindex="-1"> 目录</h1>
 <p>TODO</p>
 ]]></content:encoded>
     </item>
     <item>
-      <title>构建自己的信息简报</title>
-      <link>https://bytecodes.tech/self/good-article/use-rss-email-read.html</link>
-      <guid>https://bytecodes.tech/self/good-article/use-rss-email-read.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">构建自己的信息简报</source>
-      <description>使用RSS与Email打造自己的信息简报。</description>
-      <category>信息简报</category>
-      <pubDate>Fri, 06 Jan 2023 04:11:48 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="构建自己的信息简报" tabindex="-1"> 构建自己的信息简报</h1>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/FcpHuTrWIAEcdmz.jpeg" alt="FcpHuTrWIAEcdmz.jpeg"></p>
-<p>喜欢阅读，除了看书这种传统的获取知识的途径外，获取信息的渠道或方式还有：公众号、邮件列表、社交媒体、垂直社区（如知乎、V2EX、微信热搜）、搜索与聊天群组。如此多途径，怎么管理？</p>
-<blockquote>
-<p>信息与知识的差异在于，信息必须经过特定的处理，才能转化成人能理解与应用的知识。</p>
-</blockquote>
-<p>仔细看这些渠道和方式，可以分为三个大的类别：</p>
-<ul>
-<li>信息展示：大量的信息以这种方式去公开发表，需要人们通过主动或被动的方式去获取；</li>
-<li>主动方式：如社交媒体与垂直社区，就需要我们主动刷新的方式获取最新的信息；</li>
-<li>被动方式：如公众号与邮件列表，需要我们去订阅后被动接受更新后的信息；</li>
-<li>搜索：带有目的性的，通过特定关键词去获取与关键词相关的公开信息集合的方式；</li>
-<li>沟通交流：主动获取信息的方式，可以获取到非公开发布的信息；</li>
-</ul>
-<p>本文主要研究如何高效处理第一种获取信息的方式：信息展示。信息展示的主动与被动方式可以通过特定的途径转化。比如可以通过自动化的手段把主动方式变为被动方式，典型的如我们可以利用古老的RSS来订阅社交媒体与垂直社区的信息。当然也可以主动去阅读公众号的历史文章，去查看邮件列表背后网站的历史信息。</p>
-<p>主动刷信息是非常低效的行为，所以我希望有一种方式能实现以下的需求：</p>
-<ol>
-<li>能被动的推送信息；</li>
-<li>能方便的查看历史归档信息；</li>
-<li>能将不同来源的信息定期汇总阅读；</li>
-<li>能订阅全球的信息；</li>
-<li>能利用常用的工具自动化的实现此需求；</li>
-<li>能高效的获取有用的最新信息；</li>
-<li>能更好的查看信息资料；</li>
-</ol>
-<p>微信公众号只能实现前两条，社区类网站也无法实现第三和四条。上文曾提到的RSS可能会满足我们的要求，很多古老的网站都提供RSS订阅信息的更新，但社交媒体或Feed类的网站一般都不支持RSS。经过一番搜索后，找到了这个工具：<a href="https://github.com/DIYgod/RSSHub" target="_blank" rel="noopener noreferrer">RSSHub</a>，关于rssHub 可是很古老的网站并且能够完成所有的订阅的网站，可以通过RSS订阅一切网站！</p>
-<p>有了这个神器后，我们就可以实现上述的除三之前的所有需求。如何才能实现用RSS把不同来源的信息组合到一个页面中？经过一番搜索，我又找到了<a href="https://app.mailbrew.com/" target="_blank" rel="noopener noreferrer">Mailbrew</a>这个网站，它可以把多个来源的信息组装到一个页面，定期投送该页面到邮箱，这就实现了我们所有的需求了，仅仅只需要一个邮箱来订阅与阅读！</p>
-<p><a href="https://wuyagege.substack.com/p/771?sd=pf" target="_blank" rel="noopener noreferrer">用邮箱来阅读</a>有以下好处：不增加工具复杂度、能方便的检索历史信息、能被动接受信息、能设定自动化的规则去分类信息（如Gmail可以通过设置Filter规则来自动分类邮件）。所以最终解决方案就是：RSS + Email。</p>
-<p>我用Mailbrew制作了以下两个邮件列表：</p>
-<ul>
-<li><a href="https://app.mailbrew.com/sunzhenya/dev-weekly-AjBpQ6RT0UDT" target="_blank" rel="noopener noreferrer">Dev Weekly</a></li>
-<li><a href="https://app.mailbrew.com/sunzhenya/news-weekly-OEdpygnZfSa5" target="_blank" rel="noopener noreferrer">News Weekly</a></li>
-</ul>
-<p>Mailbrew每周会自动给我汇总一份信息简报投递至邮箱，我不需要主动去很多分散的网站来获取信息，只需要定期查看邮件即可。</p>
-]]></content:encoded>
-      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/FcpHuTrWIAEcdmz.jpeg" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>自我记录</title>
-      <link>https://bytecodes.tech/self/</link>
-      <guid>https://bytecodes.tech/self/</guid>
-      <source url="https://bytecodes.tech/rss.xml">自我记录</source>
-      <category>自我记录</category>
-      <pubDate>Wed, 28 Dec 2022 03:20:51 GMT</pubDate>
+      <title>go语言-web</title>
+      <link>https://bytecodes.tech/language/go/02.web/</link>
+      <guid>https://bytecodes.tech/language/go/02.web/</guid>
+      <source url="https://bytecodes.tech/rss.xml">go语言-web</source>
+      <category>go</category>
+      <pubDate>Fri, 06 Jan 2023 14:36:39 GMT</pubDate>
       <content:encoded><![CDATA[<h1 id="目录" tabindex="-1"> 目录</h1>
 <p>TODO</p>
 ]]></content:encoded>
     </item>
     <item>
-      <title>前端-基础</title>
-      <link>https://bytecodes.tech/language/frontend-base/</link>
-      <guid>https://bytecodes.tech/language/frontend-base/</guid>
-      <source url="https://bytecodes.tech/rss.xml">前端-基础</source>
-      <category>前端</category>
-      <pubDate>Mon, 26 Dec 2022 09:08:14 GMT</pubDate>
+      <title>go语言-orm</title>
+      <link>https://bytecodes.tech/language/go/03.orm/</link>
+      <guid>https://bytecodes.tech/language/go/03.orm/</guid>
+      <source url="https://bytecodes.tech/rss.xml">go语言-orm</source>
+      <category>go</category>
+      <pubDate>Fri, 06 Jan 2023 14:36:39 GMT</pubDate>
       <content:encoded><![CDATA[<h1 id="目录" tabindex="-1"> 目录</h1>
 <p>TODO</p>
 ]]></content:encoded>
     </item>
     <item>
-      <title>前端js/vue下载后台传过来的流文件</title>
-      <link>https://bytecodes.tech/language/frontend-base/fe-download.html</link>
-      <guid>https://bytecodes.tech/language/frontend-base/fe-download.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">前端js/vue下载后台传过来的流文件</source>
-      <pubDate>Mon, 26 Dec 2022 09:08:14 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="前端js-vue下载后台传过来的流文件" tabindex="-1"> 前端js/vue下载后台传过来的流文件</h1>
-<h2 id="_1-简介" tabindex="-1"> 1. 简介</h2>
-<p>项目中经常需要用到下载文件，如导出用户信息，下载一些文件等。我们在vue中如何实现呢？主要有如下两种方案</p>
-<ul>
-<li>使用Blob对象，构造a标签</li>
-<li>使用封装好的<strong>js-file-download</strong></li>
-</ul>
-<blockquote>
-<p>这两种方法下载的文件都<strong>不会乱码</strong>，但是 <strong>不管使用哪种方法，发送请求时都要设置 responseType</strong></p>
-</blockquote>
-<h2 id="_2-方案一-使用blob对象-构造a标签" tabindex="-1"> 2. 方案一：使用Blob对象，构造a标签</h2>
-<h3 id="_2-1-blob-简介" tabindex="-1"> 2.1 Blob 简介</h3>
-<p>Blob对象表示一个不可变、原始数据的类文件对象。Blob 表示的不一定是JavaScript原生格式的数据。File接口基于Blob，继承了blob的功能并将其扩展使其支持用户系统上的文件。</p>
-<h3 id="_2-2-blob-构造函数" tabindex="-1"> 2.2 Blob()构造函数</h3>
-<p>语法</p>
-<div><pre><code><span>var</span> aBlob <span>=</span> <span>new</span> <span>Blob</span><span>(</span> array<span>,</span> options <span>)</span><span>;</span>
-</code></pre><div aria-hidden="true"><div></div></div></div><p>参数</p>
-<ul>
-<li><em>array</em> 是一个由<code>ArrayBuffer</code> <code>ArrayBufferView</code>, Blob<code>, </code>DOMString<code>等对象构成的 [</code>Array<code>，或者其他类似对象的混合体，它将会被放进 </code>Blob`。DOMStrings会被编码为UTF-8。</li>
-<li><em>options</em> 是可选的，它可能会指定如下两个属性：
-<ul>
-<li><code>type</code>，默认值为 <code>&quot;&quot;</code>，它代表了将会被放入到blob中的数组内容的MIME类型。<strong>也就是设置文件类型。</strong></li>
-<li><code>endings</code>，默认值为<code>&quot;transparent&quot;</code>，用于指定包含行结束符<code>\n</code>的字符串如何被写入。 它是以下两个值中的一个： <code>&quot;native&quot;</code>，代表行结束符会被更改为适合宿主操作系统文件系统的换行符，或者 <code>&quot;transparent&quot;</code>，代表会保持blob中保存的结束符不变。</li>
-</ul>
-</li>
-</ul>
-<h3 id="_2-3-url对象" tabindex="-1"> 2.3 URL对象</h3>
-<p>通过创建URL对象指定文件的下载链接。</p>
-<div><pre><code><span>// 创建新的URL表示指定的File对象或者Blob对象。</span>
-<span>let</span> objectURL <span>=</span> window<span>.</span><span>URL</span><span>.</span><span>createObjectURL</span><span>(</span>blob<span>)</span><span>;</span> 
-window<span>.</span><span>URL</span><span>.</span><span>revokeObjectURL</span><span>(</span>objectURL<span>)</span><span>;</span> <span>// 释放内存</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><blockquote>
-<p>在每次调用createObjectURL()方法时，都会创建一个新的 URL 对象，即使你已经用相同的对象作为参数创建过。当不再需要这些 URL 对象时，每个对象必须通过调用 URL.revokeObjectURL()方法来释放。浏览器会在文档退出的时候自动释放它们，但是为了获得最佳性能和内存使用状况，你应该在安全的时机主动释放掉它们。</p>
-</blockquote>
-<h3 id="_2-4-利用a标签自定义文件名" tabindex="-1"> 2.4 利用a标签自定义文件名</h3>
-<div><pre><code><span>const</span> link <span>=</span> document<span>.</span><span>createElement</span><span>(</span><span>'a'</span><span>)</span><span>;</span> <span>// 生成一个a标签。</span>
-link<span>.</span>href <span>=</span> window<span>.</span><span>URL</span><span>.</span><span>createObjectURL</span><span>(</span>blob<span>)</span><span>;</span> <span>// href属性指定下载链接</span>
-link<span>.</span>download <span>=</span> fileName<span>;</span> <span>// dowload属性指定文件名</span>
-link<span>.</span><span>click</span><span>(</span><span>)</span><span>;</span> <span>// click()事件触发下载</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><p>download 属性设置文件名时，可以直接设置扩展名。如果没有设置，则浏览器将自动检测正确的文件扩展名并添加到文件 。</p>
-<h3 id="_2-5-主要完整代码" tabindex="-1"> 2.5 主要完整代码</h3>
+      <title>01.go日常开发代码片段</title>
+      <link>https://bytecodes.tech/language/go/04.skills/01.go%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5.html</link>
+      <guid>https://bytecodes.tech/language/go/04.skills/01.go%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">01.go日常开发代码片段</source>
+      <pubDate>Fri, 06 Jan 2023 14:36:39 GMT</pubDate>
+      <content:encoded><![CDATA[<h1 id="_01-go日常开发代码片段" tabindex="-1"> 01.go日常开发代码片段</h1>
+<h2 id="获取终端输入" tabindex="-1"> 获取终端输入</h2>
+<p>一般情况下，我们使用fmt包的scan方法来获取终端输入内容，但是这可能会有一个问题，如果输入内容有空格或者换行，就不适用了，因此，可以通过bufio来实现获取输入的功能。</p>
+<div><pre><code><span>package</span> main
+
+<span>import</span> <span>(</span>
+ <span>"bufio"</span>
+ <span>"fmt"</span>
+ <span>"os"</span>
+<span>)</span>
+
+<span>func</span> <span>input1</span><span>(</span><span>)</span> <span>{</span>
+ <span>var</span> s <span>string</span>
+ fmt<span>.</span><span>Print</span><span>(</span><span>"请输入内容："</span><span>)</span>
+ fmt<span>.</span><span>Scanln</span><span>(</span><span>&amp;</span>s<span>)</span>
+ fmt<span>.</span><span>Printf</span><span>(</span><span>"输入的内容为：%s\n"</span><span>,</span> s<span>)</span>
+<span>}</span>
+
+<span>func</span> <span>input2</span><span>(</span><span>)</span> <span>{</span>
+ <span>var</span> s <span>string</span>
+ reader <span>:=</span> bufio<span>.</span><span>NewReader</span><span>(</span>os<span>.</span>Stdin<span>)</span>
+ s<span>,</span> <span>_</span> <span>=</span> reader<span>.</span><span>ReadString</span><span>(</span><span>'\n'</span><span>)</span> <span>//指定获取输入时的分隔标识</span>
+ fmt<span>.</span><span>Printf</span><span>(</span><span>"输入的内容为:%s\n"</span><span>,</span> s<span>)</span>
+
+<span>}</span>
+
+<span>func</span> <span>main</span><span>(</span><span>)</span> <span>{</span>
+ <span>//问题在于，当用户输入内容为  a b c时，程序获取到的只有a，亦即空格即被截断</span>
+ <span>// input1()</span>
+ <span>input2</span><span>(</span><span>)</span>
+<span>}</span>
+
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="生成一个随机数" tabindex="-1"> 生成一个随机数</h2>
+<div><pre><code><span>package</span> main
+
+<span>import</span> <span>(</span>
+ <span>"fmt"</span>
+ <span>"math/rand"</span>
+ <span>"time"</span>
+<span>)</span>
+
+<span>func</span> <span>main</span><span>(</span><span>)</span> <span>{</span>
+ <span>// 设置一个时间种子</span>
+ rand<span>.</span><span>Seed</span><span>(</span>time<span>.</span><span>Now</span><span>(</span><span>)</span><span>.</span><span>UnixNano</span><span>(</span><span>)</span><span>)</span>
+ <span>// 表示随机返回一个0到100之间的数字</span>
+ s <span>:=</span> rand<span>.</span><span>Intn</span><span>(</span><span>100</span><span>)</span>
+ fmt<span>.</span><span>Println</span><span>(</span>s<span>)</span>
+<span>}</span>
+
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="获取主机ip" tabindex="-1"> 获取主机IP</h2>
+<div><pre><code><span>package</span> main
+
+<span>import</span> <span>(</span>
+ <span>"fmt"</span>
+ <span>"net"</span>
+ <span>"strings"</span>
+<span>)</span>
+
+<span>func</span> <span>GetOutboundIP</span><span>(</span><span>)</span> <span>(</span>ip <span>string</span><span>,</span> err <span>error</span><span>)</span> <span>{</span>
+ conn<span>,</span> err <span>:=</span> net<span>.</span><span>Dial</span><span>(</span><span>"udp"</span><span>,</span> <span>"8.8.8.8:80"</span><span>)</span>
+ <span>if</span> err <span>!=</span> <span>nil</span> <span>{</span>
+  <span>return</span>
+ <span>}</span>
+ <span>defer</span> conn<span>.</span><span>Close</span><span>(</span><span>)</span>
+ localAddr <span>:=</span> conn<span>.</span><span>LocalAddr</span><span>(</span><span>)</span><span>.</span><span>(</span><span>*</span>net<span>.</span>UDPAddr<span>)</span>
+ <span>//fmt.Println(localAddr.String())</span>
+ ip <span>=</span> strings<span>.</span><span>Split</span><span>(</span>localAddr<span>.</span>IP<span>.</span><span>String</span><span>(</span><span>)</span><span>,</span> <span>":"</span><span>)</span><span>[</span><span>0</span><span>]</span>
+ <span>return</span>
+<span>}</span>
+
+<span>func</span> <span>main</span><span>(</span><span>)</span> <span>{</span>
+ ip<span>,</span> err <span>:=</span> <span>GetOutboundIP</span><span>(</span><span>)</span>
+ <span>if</span> err <span>!=</span> <span>nil</span> <span>{</span>
+  fmt<span>.</span><span>Println</span><span>(</span>err<span>)</span>
+ <span>}</span>
+ fmt<span>.</span><span>Println</span><span>(</span>ip<span>)</span>
+<span>}</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>执行效果如下：</p>
+<div><pre><code><span>[</span>root@ops<span>-</span>eryajf<span>-</span>test<span>-</span><span>1</span> test<span>]</span>$<span>go</span> run main<span>.</span><span>go</span>
+<span>10.3</span><span>.0</span><span>.41</span>
+</code></pre><div aria-hidden="true"><div></div><div></div></div></div><h2 id="如何获取一周前-一天前的时间" tabindex="-1"> 如何获取一周前,一天前的时间</h2>
+<p>获取一天前或者一周前应该是日常当中经常遇到的场景，这里说一下go当中的实现方式：</p>
+<div><pre><code><span>package</span> main
+<span>import</span> <span>(</span>
+  <span>"fmt"</span>
+  <span>"time"</span>
+<span>)</span>
+<span>func</span> <span>main</span><span>(</span><span>)</span> <span>{</span>
+<span>//Add方法和Sub方法是相反的，获取t0和t1的时间距离d是使用Sub</span>
+<span>//将t0加d获取t1就是使用Add方法</span>
+  k <span>:=</span> time<span>.</span><span>Now</span><span>(</span><span>)</span>
+  <span>//一天之前</span>
+  d<span>,</span> <span>_</span> <span>:=</span> time<span>.</span><span>ParseDuration</span><span>(</span><span>"-24h"</span><span>)</span>
+  fmt<span>.</span><span>Println</span><span>(</span>k<span>.</span><span>Add</span><span>(</span>d<span>)</span><span>)</span>
+  <span>//一周之前</span>
+  fmt<span>.</span><span>Println</span><span>(</span>k<span>.</span><span>Add</span><span>(</span>d <span>*</span> <span>7</span><span>)</span><span>)</span>
+  <span>//一月之前</span>
+  fmt<span>.</span><span>Println</span><span>(</span>k<span>.</span><span>Add</span><span>(</span>d <span>*</span> <span>30</span><span>)</span><span>)</span>
+<span>}</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>上边例子比较有意义的是一周之前，一天之前或者一月之前的算法，更多用如下方式：</p>
+<div><pre><code>t <span>:=</span> time<span>.</span><span>Now</span><span>(</span><span>)</span>
+<span>// 计算前一天, 当前时间加上0年，0月，-1天</span>
+t1 <span>:=</span> t<span>.</span><span>AddDate</span><span>(</span><span>0</span><span>,</span><span>0</span><span>,</span><span>-</span><span>1</span><span>)</span>
+ 
+<span>// 计算上一个月时间,当前时间加上0年，-1月，0天</span>
+t1 <span>:=</span> t<span>.</span><span>AddDate</span><span>(</span><span>0</span><span>,</span><span>-</span><span>1</span><span>,</span><span>0</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="如何判断一个字符串是否在切片列表里" tabindex="-1"> 如何判断一个字符串是否在切片列表里</h2>
+<p>有时候我们会通过遍历拿到数据，但是这些数据当中的部分内容是我们特别关心的，这个时候就出现了一个场景：遍历的时候如何判断字符串是否在自己关心的列表当中？</p>
+<div><pre><code><span>func</span> <span>Find</span><span>(</span>slice <span>[</span><span>]</span><span>string</span><span>,</span> val <span>string</span><span>)</span> <span>(</span><span>int</span><span>,</span> <span>bool</span><span>)</span> <span>{</span>
+    <span>for</span> i<span>,</span> item <span>:=</span> <span>range</span> slice <span>{</span>
+        <span>if</span> item <span>==</span> val <span>{</span>
+            <span>return</span> i<span>,</span> <span>true</span>
+        <span>}</span>
+    <span>}</span>
+    <span>return</span> <span>-</span><span>1</span><span>,</span> <span>false</span>
+<span>}</span>
+ 
+<span>func</span> <span>main</span><span>(</span><span>)</span> <span>{</span>
+　　dataList <span>:=</span> <span>[</span><span>]</span><span>string</span><span>{</span><span>"test1"</span><span>,</span> <span>"test2"</span><span>}</span>
+　　
+　　dataStr <span>:=</span> <span>"test1"</span>　　
+　　<span>// 传入切片 和 要查找的字符串</span>
+　　<span>_</span><span>,</span> flag <span>:=</span> <span>Find</span><span>(</span>dataList<span>,</span> dataStr<span>)</span>
+　　<span>if</span> flag <span>{</span>
+　　　　fmt<span>.</span><span>Println</span><span>(</span><span>"存在 -> "</span><span>,</span> dataStr<span>)</span>
+　　<span>}</span> <span>else</span> <span>{</span>
+　　　　fmt<span>.</span><span>Println</span><span>(</span><span>"不存在 -> "</span><span>,</span> dataStr<span>)</span>
+　　<span>}</span>
+<span>}</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>这个时候我们就可以借助于上边的这个小工具来快速过滤或者判断对应的字符串是否是自己想要的了。</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>02.golang交叉编译</title>
+      <link>https://bytecodes.tech/language/go/04.skills/02.golang%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91.html</link>
+      <guid>https://bytecodes.tech/language/go/04.skills/02.golang%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">02.golang交叉编译</source>
+      <pubDate>Fri, 06 Jan 2023 14:36:39 GMT</pubDate>
+      <content:encoded><![CDATA[<h1 id="_02-golang交叉编译" tabindex="-1"> 02.golang交叉编译</h1>
+<p>Golang支持交叉编译程序，交叉编译的意思就是在Mac电脑上可以编译出能在Windows上，Linux上运行的程序，同理其他环境也可以。</p>
+<p>方法也特别简单，这里做一下记录。</p>
+<h2 id="_1-mac电脑上编译" tabindex="-1"> 1，Mac电脑上编译</h2>
+<p><code>Linux</code></p>
+<div><pre><code>CGO_ENABLED<span>=</span><span>0</span> GOOS<span>=</span>linux GOARCH<span>=</span>amd64 <span>go</span> build main<span>.</span><span>go</span>
+</code></pre><div aria-hidden="true"><div></div></div></div><p><code>Windows</code></p>
+<div><pre><code>CGO_ENABLED<span>=</span><span>0</span> GOOS<span>=</span>windows GOARCH<span>=</span>amd64 <span>go</span> build main<span>.</span><span>go</span>
+</code></pre><div aria-hidden="true"><div></div></div></div><h2 id="_2-linux环境编译" tabindex="-1"> 2，Linux环境编译</h2>
+<p><code>Mac</code></p>
+<div><pre><code>CGO_ENABLED<span>=</span><span>0</span> GOOS<span>=</span>darwin GOARCH<span>=</span>amd64 <span>go</span> build main<span>.</span><span>go</span>
+</code></pre><div aria-hidden="true"><div></div></div></div><p><code>Windows</code></p>
+<div><pre><code>CGO_ENABLED<span>=</span><span>0</span> GOOS<span>=</span>windows GOARCH<span>=</span>amd64 <span>go</span> build main<span>.</span><span>go</span>
+</code></pre><div aria-hidden="true"><div></div></div></div><h2 id="_3-windows电脑上编译" tabindex="-1"> 3，Windows电脑上编译</h2>
+<p><code>Mac</code></p>
+<div><pre><code>SET CGO_ENABLED<span>=</span><span>0</span>
+SET GOOS<span>=</span>darwin
+SET GOARCH<span>=</span>amd64
+<span>go</span> build main<span>.</span><span>go</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><p><code>Linux</code></p>
+<div><pre><code>SET CGO_ENABLED<span>=</span><span>0</span>
+SET GOOS<span>=</span>linux
+SET GOARCH<span>=</span>amd64
+<span>go</span> build main<span>.</span><span>go</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div>]]></content:encoded>
+    </item>
+    <item>
+      <title>03.两个切片内容相减的几种方法</title>
+      <link>https://bytecodes.tech/language/go/04.skills/03.%E4%B8%A4%E4%B8%AA%E5%88%87%E7%89%87%E5%86%85%E5%AE%B9%E7%9B%B8%E5%87%8F%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95.html</link>
+      <guid>https://bytecodes.tech/language/go/04.skills/03.%E4%B8%A4%E4%B8%AA%E5%88%87%E7%89%87%E5%86%85%E5%AE%B9%E7%9B%B8%E5%87%8F%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">03.两个切片内容相减的几种方法</source>
+      <pubDate>Fri, 06 Jan 2023 14:36:39 GMT</pubDate>
+      <content:encoded><![CDATA[<h1 id="_03-两个切片内容相减的几种方法" tabindex="-1"> 03.两个切片内容相减的几种方法</h1>
 <ul>
 <li>
-<p>普通下载</p>
-<div><pre><code>axios<span>.</span><span>post</span><span>(</span>postUrl<span>,</span> params<span>,</span> <span>{</span><span>responseType</span><span>:</span> <span>'arraybuffer'</span><span>}</span><span>)</span><span>.</span><span>then</span><span>(</span><span>res</span> <span>=></span> <span>{</span>
-    <span>// 创建Blob对象，设置文件类型</span>
-    <span>let</span> blob <span>=</span> <span>new</span> <span>Blob</span><span>(</span><span>[</span>res<span>.</span>data<span>]</span><span>,</span> <span>{</span><span>type</span><span>:</span> <span>"application/vnd.ms-excel"</span><span>}</span><span>)</span>
-    <span>let</span> objectUrl <span>=</span> <span>URL</span><span>.</span><span>createObjectURL</span><span>(</span>blob<span>)</span> <span>// 创建URL</span>
-    location<span>.</span>href <span>=</span> objectUrl<span>;</span>
-    <span>URL</span><span>.</span><span>revokeObjectURL</span><span>(</span>objectUrl<span>)</span><span>;</span> <span>// 释放内存</span>
-<span>}</span><span>)</span>
+<p>问题</p>
+<div><pre><code>已知： 
+ <span>var</span> a <span>[</span><span>]</span><span>string</span> <span>=</span> <span>[</span><span>]</span><span>string</span><span>{</span><span>"11"</span><span>,</span> <span>"33"</span><span>,</span> <span>"22"</span><span>,</span> <span>"44"</span><span>}</span>
+ <span>var</span> b <span>[</span><span>]</span><span>string</span> <span>=</span> <span>[</span><span>]</span><span>string</span><span>{</span><span>"11"</span><span>,</span> <span>"22"</span><span>}</span>
+ <span>var</span> b <span>[</span><span>]</span><span>string</span>
+
+预期：
+ c <span>=</span> <span>[</span><span>]</span><span>string</span><span>{</span><span>"11"</span><span>,</span> <span>"22"</span><span>}</span>
 </code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></li>
-<li>
-<p>自定义下载后的文件名</p>
-<div><pre><code><span>// 利用a标签自定义下载文件名</span>
-<span>const</span> link <span>=</span> document<span>.</span><span>createElement</span><span>(</span><span>'a'</span><span>)</span>
-
-axios<span>.</span><span>post</span><span>(</span>postUrl<span>,</span> params<span>,</span> <span>{</span><span>responseType</span><span>:</span> <span>'arraybuffer'</span><span>}</span><span>)</span><span>.</span><span>then</span><span>(</span><span>res</span> <span>=></span> <span>{</span>
-    <span>// 创建Blob对象，设置文件类型</span>
-    <span>let</span> blob <span>=</span> <span>new</span> <span>Blob</span><span>(</span><span>[</span>res<span>.</span>data<span>]</span><span>,</span> <span>{</span><span>type</span><span>:</span> <span>"application/vnd.ms-excel"</span><span>}</span><span>)</span>
-    <span>let</span> objectUrl <span>=</span> <span>URL</span><span>.</span><span>createObjectURL</span><span>(</span>blob<span>)</span> <span>// 创建URL</span>
-    link<span>.</span>href <span>=</span> objectUrl
-    link<span>.</span>download <span>=</span> <span>'xxx'</span> <span>// 自定义文件名</span>
-    link<span>.</span><span>click</span><span>(</span><span>)</span> <span>// 下载文件</span>
-    <span>URL</span><span>.</span><span>revokeObjectURL</span><span>(</span>objectUrl<span>)</span><span>;</span> <span>// 释放内存</span>
-<span>}</span><span>)</span>
-
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></li>
 </ul>
-<h2 id="_3-方案二-使用-js-file-download" tabindex="-1"> 3. 方案二：使用 <code>js-file-download</code></h2>
+<h2 id="_1-运维的思路" tabindex="-1"> 1，运维的思路</h2>
+<h3 id="方法一" tabindex="-1"> 方法一</h3>
+<div><pre><code><span>package</span> main
+
+<span>import</span> <span>"fmt"</span>
+
+<span>func</span> <span>main</span><span>(</span><span>)</span> <span>{</span>
+ <span>var</span> <span>(</span>
+  weightInstanceList <span>[</span><span>]</span><span>string</span> <span>=</span> <span>[</span><span>]</span><span>string</span><span>{</span><span>"11"</span><span>,</span> <span>"22"</span><span>,</span> <span>"33"</span><span>,</span> <span>"44"</span><span>}</span>
+  RelateInstance     <span>[</span><span>]</span><span>string</span> <span>=</span> <span>[</span><span>]</span><span>string</span><span>{</span><span>"11"</span><span>,</span> <span>"22"</span><span>}</span>
+  a                  <span>[</span><span>]</span><span>string</span> <span>// 期望：22,33,44</span>
+ <span>)</span>
+
+ fmt<span>.</span><span>Println</span><span>(</span>weightInstanceList<span>,</span> RelateInstance<span>)</span>
+
+ <span>// 循环老的</span>
+ <span>for</span> <span>_</span><span>,</span> instance <span>:=</span> <span>range</span> weightInstanceList <span>{</span>
+  <span>// 传入待删除IP切片 老的IP 进行判断 是否相等 相等表示待删除 反之加入更新jenkinsFile列表</span>
+  isOk <span>:=</span> <span>IsContain</span><span>(</span>RelateInstance<span>,</span> instance<span>)</span>
+  <span>if</span> <span>!</span>isOk <span>{</span>
+   a <span>=</span> <span>append</span><span>(</span>a<span>,</span> instance<span>)</span>
+  <span>}</span>
+
+ <span>}</span>
+
+ fmt<span>.</span><span>Println</span><span>(</span><span>"最后结果："</span><span>,</span> a<span>)</span> <span>// a=["11","11","11"]</span>
+
+<span>}</span>
+
+<span>func</span> <span>IsContain</span><span>(</span>items <span>[</span><span>]</span><span>string</span><span>,</span> item <span>string</span><span>)</span> <span>bool</span> <span>{</span>
+ <span>for</span> <span>_</span><span>,</span> eachItem <span>:=</span> <span>range</span> items <span>{</span>
+  <span>if</span> eachItem <span>==</span> item <span>{</span>
+   <span>return</span> <span>true</span>
+  <span>}</span>
+ <span>}</span>
+ <span>return</span> <span>false</span>
+<span>}</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="方法二" tabindex="-1"> 方法二</h3>
+<div><pre><code><span>package</span> main
+
+<span>import</span> <span>"fmt"</span>
+
+<span>func</span> <span>main</span><span>(</span><span>)</span> <span>{</span>
+ <span>var</span> <span>(</span>
+  weightInstanceList <span>[</span><span>]</span><span>string</span> <span>=</span> <span>[</span><span>]</span><span>string</span><span>{</span><span>"11"</span><span>,</span> <span>"33"</span><span>,</span> <span>"22"</span><span>,</span> <span>"44"</span><span>}</span>
+  RelateInstance     <span>[</span><span>]</span><span>string</span> <span>=</span> <span>[</span><span>]</span><span>string</span><span>{</span><span>"11"</span><span>,</span> <span>"22"</span><span>}</span>
+ <span>)</span>
+ fmt<span>.</span><span>Println</span><span>(</span>weightInstanceList<span>[</span><span>1</span><span>:</span><span>]</span><span>)</span>
+ <span>for</span> <span>_</span><span>,</span> instance <span>:=</span> <span>range</span> weightInstanceList <span>{</span>
+  <span>for</span> <span>_</span><span>,</span> item <span>:=</span> <span>range</span> RelateInstance <span>{</span>
+   <span>if</span> instance <span>==</span> item <span>{</span>
+    weightInstanceList <span>=</span> <span>RemoveParam</span><span>(</span>weightInstanceList<span>,</span> instance<span>)</span>
+   <span>}</span>
+
+  <span>}</span>
+ <span>}</span>
+ fmt<span>.</span><span>Println</span><span>(</span><span>"最后结果："</span><span>,</span> weightInstanceList<span>)</span> <span>// a=["11","11","11"]</span>
+<span>}</span>
+
+<span>func</span> <span>RemoveParam</span><span>(</span>sli <span>[</span><span>]</span><span>string</span><span>,</span> n <span>string</span><span>)</span> <span>[</span><span>]</span><span>string</span> <span>{</span>
+ <span>for</span> i <span>:=</span> <span>0</span><span>;</span> i <span>&lt;</span> <span>len</span><span>(</span>sli<span>)</span><span>;</span> i<span>++</span> <span>{</span>
+  <span>if</span> sli<span>[</span>i<span>]</span> <span>==</span> n <span>{</span>
+   <span>if</span> i <span>==</span> <span>0</span> <span>{</span>
+    sli <span>=</span> sli<span>[</span><span>1</span><span>:</span><span>]</span>
+   <span>}</span> <span>else</span> <span>if</span> i <span>==</span> <span>len</span><span>(</span>sli<span>)</span><span>-</span><span>1</span> <span>{</span>
+    sli <span>=</span> sli<span>[</span><span>:</span>i<span>]</span>
+   <span>}</span> <span>else</span> <span>{</span>
+    sli <span>=</span> <span>append</span><span>(</span>sli<span>[</span><span>:</span>i<span>]</span><span>,</span> sli<span>[</span>i<span>+</span><span>1</span><span>:</span><span>]</span><span>...</span><span>)</span>
+   <span>}</span>
+   i<span>--</span> <span>// 如果索引i被去掉后，原来索引i+1的会移动到索引i</span>
+  <span>}</span>
+ <span>}</span>
+ <span>return</span> sli
+<span>}</span>
+
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="_2开发的思路" tabindex="-1"> 2开发的思路</h2>
+<h3 id="方法一-1" tabindex="-1"> 方法一</h3>
+<div><pre><code><span>package</span> main
+
+<span>import</span> <span>"fmt"</span>
+
+<span>func</span> <span>main</span><span>(</span><span>)</span> <span>{</span>
+ <span>var</span> <span>(</span>
+  weightInstanceList <span>[</span><span>]</span><span>string</span> <span>=</span> <span>[</span><span>]</span><span>string</span><span>{</span><span>"11"</span><span>,</span> <span>"33"</span><span>,</span> <span>"22"</span><span>,</span> <span>"44"</span><span>}</span>
+  RelateInstance     <span>[</span><span>]</span><span>string</span> <span>=</span> <span>[</span><span>]</span><span>string</span><span>{</span><span>"11"</span><span>,</span> <span>"22"</span><span>}</span>
+ <span>)</span>
+ fmt<span>.</span><span>Println</span><span>(</span><span>diff</span><span>(</span>weightInstanceList<span>,</span> RelateInstance<span>)</span><span>)</span>
+<span>}</span>
+<span>func</span> <span>diff</span><span>(</span>a<span>,</span> b <span>[</span><span>]</span><span>string</span><span>)</span> <span>[</span><span>]</span><span>string</span> <span>{</span>
+ <span>var</span> <span>(</span>
+  r <span>[</span><span>]</span><span>string</span>
+  m <span>=</span> <span>make</span><span>(</span><span>map</span><span>[</span><span>string</span><span>]</span><span>struct</span><span>{</span><span>}</span><span>,</span> <span>len</span><span>(</span>a<span>)</span><span>)</span>
+ <span>)</span>
+
+ <span>for</span> <span>_</span><span>,</span> v <span>:=</span> <span>range</span> b <span>{</span>
+  m<span>[</span>v<span>]</span> <span>=</span> <span>struct</span><span>{</span><span>}</span><span>{</span><span>}</span>
+ <span>}</span>
+
+ <span>for</span> <span>_</span><span>,</span> v <span>:=</span> <span>range</span> a <span>{</span>
+  <span>if</span> <span>_</span><span>,</span> ok <span>:=</span> m<span>[</span>v<span>]</span><span>;</span> <span>!</span>ok <span>{</span>
+   r <span>=</span> <span>append</span><span>(</span>r<span>,</span> v<span>)</span>
+  <span>}</span>
+ <span>}</span>
+
+ <span>return</span> r
+<span>}</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="方法二-1" tabindex="-1"> 方法二</h3>
+<div><pre><code><span>package</span> main
+
+<span>import</span> <span>"fmt"</span>
+
+<span>func</span> <span>main</span><span>(</span><span>)</span> <span>{</span>
+ <span>var</span> <span>(</span>
+  weightInstanceList <span>[</span><span>]</span><span>string</span> <span>=</span> <span>[</span><span>]</span><span>string</span><span>{</span><span>"11"</span><span>,</span> <span>"33"</span><span>,</span> <span>"22"</span><span>,</span> <span>"44"</span><span>}</span>
+  RelateInstance     <span>[</span><span>]</span><span>string</span> <span>=</span> <span>[</span><span>]</span><span>string</span><span>{</span><span>"11"</span><span>,</span> <span>"22"</span><span>}</span>
+ <span>)</span>
+ fmt<span>.</span><span>Println</span><span>(</span><span>diff</span><span>(</span>weightInstanceList<span>,</span> RelateInstance<span>)</span><span>)</span>
+<span>}</span>
+<span>func</span> <span>diff</span><span>(</span>a<span>,</span> b <span>[</span><span>]</span><span>string</span><span>)</span> <span>[</span><span>]</span><span>string</span> <span>{</span>
+ <span>var</span> <span>(</span>
+  r <span>[</span><span>]</span><span>string</span>
+  m <span>=</span> <span>make</span><span>(</span><span>map</span><span>[</span><span>string</span><span>]</span><span>struct</span><span>{</span><span>}</span><span>,</span> <span>len</span><span>(</span>a<span>)</span><span>)</span>
+ <span>)</span>
+
+ <span>for</span> <span>_</span><span>,</span> v <span>:=</span> <span>range</span> a <span>{</span>
+  m<span>[</span>v<span>]</span> <span>=</span> <span>struct</span><span>{</span><span>}</span><span>{</span><span>}</span>
+ <span>}</span>
+
+ <span>for</span> <span>_</span><span>,</span> v <span>:=</span> <span>range</span> b <span>{</span>
+  <span>delete</span><span>(</span>m<span>,</span> v<span>)</span>
+ <span>}</span>
+
+ <span>for</span> k<span>,</span> <span>_</span> <span>:=</span> <span>range</span> m <span>{</span>
+  r <span>=</span> <span>append</span><span>(</span>r<span>,</span> k<span>)</span>
+ <span>}</span>
+
+ <span>return</span> r
+<span>}</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>可以看出，运维处理该问题时思路会困在当前类型中予以实现，不如开发对数据结构以及特性掌握的牢固，运用起来也就不够灵活了。</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>04.golang以结构体中某个字段进行排序</title>
+      <link>https://bytecodes.tech/language/go/04.skills/04.golang%E4%BB%A5%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%AD%E6%9F%90%E4%B8%AA%E5%AD%97%E6%AE%B5%E8%BF%9B%E8%A1%8C%E6%8E%92%E5%BA%8F.html</link>
+      <guid>https://bytecodes.tech/language/go/04.skills/04.golang%E4%BB%A5%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%AD%E6%9F%90%E4%B8%AA%E5%AD%97%E6%AE%B5%E8%BF%9B%E8%A1%8C%E6%8E%92%E5%BA%8F.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">04.golang以结构体中某个字段进行排序</source>
+      <pubDate>Fri, 06 Jan 2023 14:36:39 GMT</pubDate>
+      <content:encoded><![CDATA[<h1 id="_04-golang以结构体中某个字段进行排序" tabindex="-1"> 04.golang以结构体中某个字段进行排序</h1>
+<p>我写了一个脚本获取项目在harbor中的tag列表，经过一些curl测试之后，很快就完成了这个脚本的编写。</p>
+<p>接下来需要做一些优化方面的考量。</p>
+<p>首先一个问题是，返回的结果的顺序好像是随机的，这不是我想要的，通常，当我利用此脚本查项目可用的tag时，我的诉求可能更倾向于获取它最新push的tag，于是，就有了一个在内存中对列表排序的需求。</p>
+<p>经过一番搜索，发现官方提供的sort包，直接使用能够对简单的列表进行排序，如果是结构体中的某个字段，则可以用如下方式定义方法：</p>
+<div><pre><code><span>// Tags harbor项目tag的对象</span>
+<span>type</span> Tags <span>struct</span> <span>{</span>
+ Digest        <span>string</span>    <span>`json:"digest"`</span>
+ Name          <span>string</span>    <span>`json:"name"`</span>
+ Size          <span>int</span>       <span>`json:"size"`</span>
+ Architecture  <span>string</span>    <span>`json:"architecture"`</span>
+ Os            <span>string</span>    <span>`json:"os"`</span>
+ OsVersion     <span>string</span>    <span>`json:"os.version"`</span>
+ DockerVersion <span>string</span>    <span>`json:"docker_version"`</span>
+ Author        <span>string</span>    <span>`json:"author"`</span>
+ Created       time<span>.</span>Time <span>`json:"created"`</span>
+ Config        <span>struct</span> <span>{</span>
+  Labels <span>interface</span><span>{</span><span>}</span> <span>`json:"labels"`</span>
+ <span>}</span> <span>`json:"config"`</span>
+ Signature <span>interface</span><span>{</span><span>}</span>   <span>`json:"signature"`</span>
+ Labels    <span>[</span><span>]</span><span>interface</span><span>{</span><span>}</span> <span>`json:"labels"`</span>
+ PushTime  time<span>.</span>Time     <span>`json:"push_time"`</span>
+ PullTime  time<span>.</span>Time     <span>`json:"pull_time"`</span>
+<span>}</span>
+
+<span>// 基于时间字段进行排序功能</span>
+<span>type</span> tags <span>[</span><span>]</span>Tags
+
+<span>func</span> <span>(</span>s tags<span>)</span> <span>Len</span><span>(</span><span>)</span> <span>int</span> <span>{</span>
+ <span>return</span> <span>len</span><span>(</span>s<span>)</span>
+<span>}</span>
+<span>func</span> <span>(</span>s tags<span>)</span> <span>Swap</span><span>(</span>i<span>,</span> j <span>int</span><span>)</span> <span>{</span>
+ s<span>[</span>i<span>]</span><span>,</span> s<span>[</span>j<span>]</span> <span>=</span> s<span>[</span>j<span>]</span><span>,</span> s<span>[</span>i<span>]</span>
+<span>}</span>
+
+<span>type</span> ByTime <span>struct</span> <span>{</span>
+ tags
+<span>}</span>
+
+<span>func</span> <span>(</span>b ByTime<span>)</span> <span>Less</span><span>(</span>i<span>,</span> j <span>int</span><span>)</span> <span>bool</span> <span>{</span>
+ <span>return</span> b<span>.</span>tags<span>[</span>i<span>]</span><span>.</span>Created<span>.</span><span>Before</span><span>(</span>b<span>.</span>tags<span>[</span>j<span>]</span><span>.</span>Created<span>)</span>
+<span>}</span>
+
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>在结果返回的地方，直接调用此方法即可实现按时间排序：</p>
+<div><pre><code>sort<span>.</span><span>Sort</span><span>(</span>ByTime<span>{</span>data<span>}</span><span>)</span> <span>// 基于创建时间字段进行排序</span>
+</code></pre><div aria-hidden="true"><div></div></div></div><p>网上的文章，如果字段是int类型时的排序方式：<a href="https://segmentfault.com/a/1190000008062661" target="_blank" rel="noopener noreferrer">golang对自定义类型排序</a></p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>05.vscode开发golang报黄提示composite literal uses unkeyed fields</title>
+      <link>https://bytecodes.tech/language/go/04.skills/05.vscode%E5%BC%80%E5%8F%91golang%E6%8A%A5%E9%BB%84%E6%8F%90%E7%A4%BAcomposite%20literal%20uses%20unkeyed%20fields.html</link>
+      <guid>https://bytecodes.tech/language/go/04.skills/05.vscode%E5%BC%80%E5%8F%91golang%E6%8A%A5%E9%BB%84%E6%8F%90%E7%A4%BAcomposite%20literal%20uses%20unkeyed%20fields.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">05.vscode开发golang报黄提示composite literal uses unkeyed fields</source>
+      <pubDate>Fri, 06 Jan 2023 14:36:39 GMT</pubDate>
+      <content:encoded><![CDATA[<h1 id="_05-vscode开发golang报黄提示composite-literal-uses-unkeyed-fields" tabindex="-1"> 05.vscode开发golang报黄提示composite literal uses unkeyed fields</h1>
+<p>Golang 中使用 Mongo 时经常会写</p>
+<p>:::
+<code>bson.D{{&quot;key&quot;, &quot;value&quot;}}</code> 这种内容，然后 VS Code 中就会得到大量PROBLEMS，并且老有波浪线的提示，有两种方式能够解决，一种是将结构体补全，一种是禁用掉这种检测。</p>
+<h2 id="补全结构体" tabindex="-1"> 补全结构体</h2>
+<p>补全结构体就是将如上的bson写成如下方式就不会报了：</p>
+<div><pre><code>bson<span>.</span>D<span>{</span><span>{</span>Key<span>:</span> <span>"key"</span><span>,</span> Value<span>:</span> <span>"value"</span><span>}</span><span>}</span>
+</code></pre><div aria-hidden="true"><div></div></div></div><p>:::</p>
+<p>这种写法固然可以，不过当嵌套多的时候，写起来会比较费劲儿，因此这里推荐第二种方式。</p>
+<h2 id="关闭检测" tabindex="-1"> 关闭检测</h2>
+<p>通过命令行打开<code>setting.json</code>：</p>
+<p><img src="http://t.eryajf.net/imgs/2022/01/d6fa4a9f2f285f91.png" alt="imags"></p>
+<p>然后添加如下内容：</p>
+<div><pre><code> <span>"gopls"</span><span>:</span> <span>{</span>
+        <span>"analyses"</span><span>:</span> <span>{</span> <span>"composites"</span><span>:</span> <span>false</span> <span>}</span> <span>// 关闭MongoDB的composites分析</span>
+    <span>}</span><span>,</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><p>然后再回来看检测就不会有这个提示了。</p>
 <ul>
-<li>
-<p>安装</p>
-<div><pre><code><span>npm</span> <span>install</span> js-file-download <span>--save</span>
-</code></pre><div aria-hidden="true"><div></div></div></div></li>
-<li>
-<p>使用</p>
-<div><pre><code><span>import</span> fileDownload <span>from</span> <span>'js-file-download'</span>
-
-axios<span>.</span><span>post</span><span>(</span>postUrl<span>,</span> params<span>,</span> <span>{</span><span>responseType</span><span>:</span> <span>'arraybuffer'</span><span>}</span><span>)</span><span>.</span><span>then</span><span>(</span><span>res</span> <span>=></span> <span>{</span>
-    <span>fileDownload</span><span>(</span>res<span>.</span>data<span>,</span> <span>'xxx.xls'</span><span>)</span>
-<span>}</span><span>)</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div></div></div></li>
+<li>参考：
+<ul>
+<li><a href="https://blog.51cto.com/u_15310543/4753519" target="_blank" rel="noopener noreferrer">https://blog.51cto.com/u_15310543/4753519</a></li>
+<li><a href="https://stackoverflow.com/questions/54548441/composite-literal-uses-unkeyed-fields" target="_blank" rel="noopener noreferrer">Composite literal uses unkeyed fields</a></li>
 </ul>
-<h2 id="_4-可能遇到的问题" tabindex="-1"> 4. 可能遇到的问题</h2>
-<h3 id="_4-1-axios获取不到文件名" tabindex="-1"> 4.1 axios获取不到文件名</h3>
+</li>
+</ul>
+]]></content:encoded>
+      <enclosure url="http://t.eryajf.net/imgs/2022/01/d6fa4a9f2f285f91.png" type="image/png"/>
+    </item>
+    <item>
+      <title>06.golang使用$in或$nin查询MongoDB是否在数组内的数据</title>
+      <link>https://bytecodes.tech/language/go/04.skills/06.golang%E4%BD%BF%E7%94%A8$in%E6%88%96$nin%E6%9F%A5%E8%AF%A2MongoDB%E6%98%AF%E5%90%A6%E5%9C%A8%E6%95%B0%E7%BB%84%E5%86%85%E7%9A%84%E6%95%B0%E6%8D%AE.html</link>
+      <guid>https://bytecodes.tech/language/go/04.skills/06.golang%E4%BD%BF%E7%94%A8$in%E6%88%96$nin%E6%9F%A5%E8%AF%A2MongoDB%E6%98%AF%E5%90%A6%E5%9C%A8%E6%95%B0%E7%BB%84%E5%86%85%E7%9A%84%E6%95%B0%E6%8D%AE.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">06.golang使用$in或$nin查询MongoDB是否在数组内的数据</source>
+      <pubDate>Fri, 06 Jan 2023 14:36:39 GMT</pubDate>
+      <content:encoded><![CDATA[<h1 id="_06-golang使用-in或-nin查询mongodb是否在数组内的数据" tabindex="-1"> 06.golang使用$in或$nin查询MongoDB是否在数组内的数据</h1>
+<h2 id="前言" tabindex="-1"> 前言</h2>
+<p>开发cmdb系统的时候，有一个场景是A对象数据关联B对象的数据，此时有一个接口需要透出已经在(或者不在)A对象某条数据关联列表的B对象的数据。</p>
+<p>因为两边都是一个列表对象，如果单纯使用代码的思路来解决，大概会是下边这样：</p>
 <ol>
-<li>
-<p>需要在服务端加上此请求头</p>
-<div><pre><code><span>//响应时在响应头里添加 Access-Control-Expose-Headers </span>
- response<span>.</span><span>setHeader</span><span>(</span><span>"Access-Control-Expose-Headers"</span><span>,</span> <span>"Content-Disposition"</span><span>)</span><span>;</span>
-</code></pre><div aria-hidden="true"><div></div><div></div></div></div></li>
-<li>
-<p>前端还是用原生的axios post 方法吧</p>
-<div><pre><code>download(url, params, filename) {
-        // NProgress.start()
-        return axios.post(url, params, {
-            timeout: 300000,
-            baseURL: baseUrl,
-            transformRequest: [(params) => {
-                return tansParams(params);
-            }],
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "Authorization": "Bearer " + getToken()
-            },
-            responseType: "blob"
-        }).then((response) => {
-            if (filename == null||filename== undefined||filename==''){
-                // 前提是服务端要在header设置Access-Control-Expose-Headers: Content-Disposition
-                // 前端才能正常获取到Content-Disposition内容
-                const disposition = response.headers["content-disposition"];
-                let filename = disposition.substring(disposition.indexOf("filename=") + 9, disposition.length);
-                // iso8859-1的字符转换成中文
-                filename = decodeURI(escape(filename));
-                // 去掉双引号
-                filename = filename.replace(/\"/g, "");
-            }
-            
-            const content = response.data;
-            const blob = new Blob([content]);
-            if ("download" in document.createElement("a")) {
-                const elink = document.createElement("a");
-                elink.download = filename;
-                elink.style.display = "none";
-                elink.href = URL.createObjectURL(blob);
-                document.body.appendChild(elink);
-                elink.click();
-                URL.revokeObjectURL(elink.href);
-                document.body.removeChild(elink);
-            } else {
-                navigator.msSaveBlob(blob, filename);
-            }
-            // NProgress.done()
-        }).catch((r) => {
-        });
-    },
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></li>
+<li>首先查询A对象这条数，能够拿到关联的B对象的数据ID。</li>
+<li>然后查询B对象对应的所有数据，遍历这数据，判断是否已经在A绑定的列表中。</li>
 </ol>
-<h2 id="参考文章" tabindex="-1"> 参考文章</h2>
-<p><a href="https://segmentfault.com/a/1190000020540788" target="_blank" rel="noopener noreferrer">前端js/vue下载后台传过来的流文件（如excel）并设置下载文件名</a></p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>统一代码风格工具editorConfig</title>
-      <link>https://bytecodes.tech/language/frontend-base/fe-editor-config.html</link>
-      <guid>https://bytecodes.tech/language/frontend-base/fe-editor-config.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">统一代码风格工具editorConfig</source>
-      <pubDate>Mon, 26 Dec 2022 09:08:14 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="统一代码风格工具editorconfig" tabindex="-1"> 统一代码风格工具editorConfig</h1>
-<h2 id="_1-背景" tabindex="-1"> 1. 背景</h2>
-<p>团队中有多人进行项目开发时，每个人可能喜欢的编辑器不同，有人喜欢webstrom、有人用VsCode、还有人用sublime。</p>
-<p>我们无法强迫开发者使用某种开发工具，那么我们如何让开发者都遵循统一的代码规范呢？</p>
-<p>这时候我们就需要editorConfig了，<strong>在editorConfig里的配置的代码规范优先级是高于编辑器默认的代码格式化规则</strong>。</p>
-<h2 id="_2-editorconfig-简介" tabindex="-1"> 2. editorConfig 简介</h2>
-<p>editorConfig不是什么软件，而是一个名称为.editorconfig的自定义文件。该文件用来定义项目的编码规范，编辑器的行为会与.editorconfig 文件中定义的一致，并且<strong>其优先级比编辑器自身的设置要高</strong></p>
-<p>当打开一个文件时，EditorConfig插件会在打开文件的目录和其每一级父目录查找.editorconfig文件，直到有一个配置文件root=true</p>
-<p>EditorConfig的配置文件是从上往下读取的并且最近的EditorConfig配置文件会被最先读取. 匹配EditorConfig配置文件中的配置项会按照读取顺序被应用, 所以最近的配置文件中的配置项拥有优先权</p>
-<p><strong>如果.editorconfig文件没有进行某些配置，则使用编辑器默认的设置</strong></p>
-<h2 id="_3-配置-editorconfig" tabindex="-1"> 3. 配置.editorconfig</h2>
-<p>在当前项目根目录下添加<code>.editorconfig</code>文件</p>
-<p>editorconfig文件是定义一些格式化规则（此规则并不会被vscode直接解析）</p>
-<h3 id="_3-1-官网的一个配置" tabindex="-1"> 3.1 官网的一个配置</h3>
-<div><pre><code># EditorConfig is awesome<span>:</span> https<span>:</span><span>/</span><span>/</span>EditorConfig<span>.</span>org
-
-# top<span>-</span>most EditorConfig file 表示是最顶层的配置文件，发现设为<span>true</span>时，才会停止查找<span>.</span>editorconfig文件
-root <span>=</span> <span>true</span>
-
-# Unix<span>-</span>style newlines <span>with</span> a newline ending every file 对于所有的文件  始终在文件末尾插入一个新行
-<span>[</span><span>*</span><span>]</span>
-end_of_line <span>=</span> lf
-insert_final_newline <span>=</span> <span>true</span>
-
-# Matches multiple files <span>with</span> brace expansion notation
-# Set <span>default</span> charset  对于所有的js<span>,</span>py文件，设置文件字符集为utf<span>-</span><span>8</span>
-<span>[</span><span>*</span><span>.</span><span>{</span>js<span>,</span>py<span>}</span><span>]</span>
-charset <span>=</span> utf<span>-</span><span>8</span>
-
-# <span>4</span> space indentation 控制py文件类型的缩进大小
-<span>[</span><span>*</span><span>.</span>py<span>]</span>
-indent_style <span>=</span> space
-indent_size <span>=</span> <span>4</span>
-
-# Tab <span>indentation</span> <span>(</span>no size specified<span>)</span> 设置某中文件的缩进风格为tab Makefile未指明
-<span>[</span>Makefile<span>]</span>
-indent_style <span>=</span> tab
-
-# Indentation override <span>for</span> all <span>JS</span> under lib directory  设置在lib目录下所有<span>JS</span>的缩进为
-<span>[</span>lib<span>/**.js]
-indent_style = space
-indent_size = 2
-
-# Matches the exact files either package.json or .travis.yml 设置确切文件 package.json/.travis/.yml的缩进类型
-[<span>{</span>package.json,.travis.yml<span>}</span>]
-indent_style = space
-indent_size = 2
-
-
-</span></code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="_4-语法" tabindex="-1"> 4. 语法</h2>
-<p>editorConfig配置文件需要是UTF-8字符集编码的, 以回车换行或换行作为一行的分隔符</p>
-<p>斜线(/)被用作为一个路径分隔符，井号(#)或分号(;)被用作于注释. 注释需要与注释符号写在同一行</p>
-<h3 id="_4-1-通配符" tabindex="-1"> 4.1 通配符</h3>
-<div><pre><code>*                匹配除/之外的任意字符串
-**               匹配任意字符串
-?                匹配任意单个字符
-[name]           匹配name中的任意一个单一字符
-[!name]          匹配不存在name中的任意一个单一字符
-{s1,s2,s3}       匹配给定的字符串中的任意一个(用逗号分隔) 
-{num1..num2}   　匹配num1到num2之间的任意一个整数, 这里的num1和num2可以为正整数也可以为负整数
-
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="_4-2-属性" tabindex="-1"> 4.2 属性</h3>
-<p>所有的属性和值都是忽略大小写的. 解析时它们都是小写的</p>
-<div><pre><code>indent_style    设置缩进风格(tab是硬缩进，space为软缩进)
-indent_size     用一个整数定义的列数来设置缩进的宽度，如果indent_style为tab，则此属性默认为tab_width
-tab_width       用一个整数来设置tab缩进的列数。默认是indent_size
-end_of_line     设置换行符，值为lf、cr和crlf
-charset         设置编码，值为latin1、utf-8、utf-8-bom、utf-16be和utf-16le，不建议使用utf-8-bom
-trim_trailing_whitespace  设为true表示会去除换行行首的任意空白字符。
-insert_final_newline      设为true表示使文件以一个空白行结尾
-root        　　　表示是最顶层的配置文件，发现设为true时，才会停止查找.editorconfig文件
-
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="_4-3-控制指定文件类型的缩进大小" tabindex="-1"> 4.3 控制指定文件类型的缩进大小</h3>
-<p>这里可以设置，如下：</p>
-<div><pre><code>[{*.json,*.yml}]
-indent_style = space
-indent_size = 2
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><p>对于<code>.json</code> <code>.yml</code> 文件，使用空格替代tab，并且一个tab会被替换为2个空格。</p>
-<h3 id="_4-4-文件末尾新行" tabindex="-1"> 4.4 文件末尾新行</h3>
-<p>始终在文件末尾插入一个新行</p>
-<div><pre><code>[*]
-end_of_line = lf
-insert_final_newline = true
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><p>对于所有的文件</p>
+<p>这个思路虽然能够解题，但是不够优雅，后来看到MongoDB有一个<code>$in</code>和<code>$nin</code>的方法，能够很方便的满足这个需求。</p>
 <ul>
-<li>每一行的尾部自动调整为 Lf</li>
-<li>文件的末尾是一个空行</li>
+<li><code>$in</code>:相当于关系型数据库中的<code>in()</code>查询，但<code>$in</code>操作符指定查询对象是一个数组。</li>
+<li><code>$nin</code>:与<code>$in</code>一样，只不过是取反的意思。</li>
 </ul>
-<h2 id="_5-实例" tabindex="-1"> 5. 实例</h2>
-<div><pre><code># 告诉EditorConfig插件，这是根文件，不用继续往上查找
-root = true
+<h2 id="实践" tabindex="-1"> 实践</h2>
+<h3 id="原始语句" tabindex="-1"> 原始语句</h3>
+<p>首先准备三条B对象的数据：</p>
+<div><pre><code>db<span>.</span>users<span>.</span><span>insert</span><span>(</span><span>[</span>{<span>"name"</span>:<span>"aaa"</span><span>,</span><span>"age"</span>:<span>20</span>}<span>,</span>{<span>"name"</span>:<span>"bbb"</span><span>,</span><span>"age"</span>:<span>2</span>}<span>,</span>{<span>"name"</span>:<span>"ccc"</span><span>,</span><span>"age"</span>:<span>30</span>}<span>]</span><span>)</span><span>;</span>
+</code></pre><div aria-hidden="true"><div></div></div></div><p>插入之后三条数据如下：</p>
+<div><pre><code><span>/* 1 */</span>
+<span>{</span>
+    <span>"_id"</span> <span>:</span> ObjectId(<span>"6219c18d6e5030b4a6caa42b"</span>)<span>,</span>
+    <span>"name"</span> <span>:</span> <span>"aaa"</span><span>,</span>
+    <span>"age"</span> <span>:</span> <span>20.0</span>
+<span>}</span>
 
-# 匹配全部文件
-[*]
-# 设置字符集
-charset = utf-8
-# 缩进风格，可选space、tab
-indent_style = space
-# 缩进的空格数
-indent_size = 4
-# 结尾换行符，可选lf、cr、crlf
-end_of_line = lf
-# 在文件结尾插入新行
-insert_final_newline = true
-# 删除一行中的前后空格
-trim_trailing_whitespace = true
+<span>/* 2 */</span>
+<span>{</span>
+    <span>"_id"</span> <span>:</span> ObjectId(<span>"6219c18d6e5030b4a6caa42c"</span>)<span>,</span>
+    <span>"name"</span> <span>:</span> <span>"bbb"</span><span>,</span>
+    <span>"age"</span> <span>:</span> <span>2.0</span>
+<span>}</span>
 
-# 匹配md结尾的文件
-[*.md]
-insert_final_newline = false
-trim_trailing_whitespace = false
+<span>/* 3 */</span>
+<span>{</span>
+    <span>"_id"</span> <span>:</span> ObjectId(<span>"6219c2016e5030b4a6caa42d"</span>)<span>,</span>
+    <span>"name"</span> <span>:</span> <span>"ccc"</span><span>,</span>
+    <span>"age"</span> <span>:</span> <span>30.0</span>
+<span>}</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>然后插入一条A对象的数据：</p>
+<div><pre><code>db<span>.</span>groups<span>.</span><span>insert</span><span>(</span><span>[</span>{<span>"name"</span>:<span>"ops"</span><span>,</span><span>"nick_name"</span>:<span>"运维"</span><span>,</span><span>"users"</span>:<span>[</span><span>]</span>}<span>]</span><span>)</span><span>;</span>
+</code></pre><div aria-hidden="true"><div></div></div></div><p>输入插入之后如下：</p>
+<div><pre><code><span>/* 1 */</span>
+<span>{</span>
+    <span>"_id"</span> <span>:</span> ObjectId(<span>"6219c27c6e5030b4a6caa42e"</span>)<span>,</span>
+    <span>"name"</span> <span>:</span> <span>"ops"</span><span>,</span>
+    <span>"nick_name"</span> <span>:</span> <span>"运维"</span><span>,</span>
+    <span>"users"</span> <span>:</span> <span>[</span><span>]</span>
+<span>}</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>这个时候我们可以看到在ops组里的用户为空，那么在我们将用户往组里添加的时候，需要获取到不在这个组内的用户，可以使用如下语句：</p>
+<div><pre><code>$ db<span>.</span>getCollection<span>(</span><span>'users'</span><span>)</span><span>.</span>find<span>(</span>{<span>"_id"</span>: {<span>"$nin"</span>: <span>[</span><span>]</span>}}<span>)</span>
 
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h4 id="_5-1-测试是否可用" tabindex="-1"> 5.1 测试是否可用：</h4>
-<p>在项目的 js 文件中使用 tab 键进行缩进，分别修改 indent_size 属性值为 2 和 4，观察是否有变化。如果没有任何变化，说明还没有安装 Editorconfig 插件。</p>
-<h2 id="_6-编辑器中安装使用" tabindex="-1"> 6. 编辑器中安装使用</h2>
-<h3 id="_6-1-vscode中安装editorconfig" tabindex="-1"> 6.1 VSCode中安装EditorConfig</h3>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210924210740884.png" alt="image-20210924210740884"></p>
-<p>EditorConfig扩展的作用是读取第一步创建的editorconfig文件中定义的规则，并覆盖user/workspace settings中的对应配置（从这我们也可以看出vscode本身其实是并不直接支持editorconfig的）</p>
-<h4 id="_6-1-1-全局安装或局部安装" tabindex="-1"> 6.1.1 全局安装或局部安装</h4>
-<p>editorconfig依赖包(npm install -g editorconfig | npm install -D editorconfig)
-安装editorconfig依赖包主要是因为EditorConfig依赖于editorconfig包，不安装的可能会导致EditorConfig无法正常解析我们在第一步定义的editorconfig文件</p>
-<h3 id="_6-1-2-使用" tabindex="-1"> 6.1.2 使用</h3>
-<p>打开需要格式化的文件并手动格式化代码（shift+alt+f）</p>
-<h2 id="_7-导出editorconfig文件" tabindex="-1"> 7. 导出editorconfig文件</h2>
-<h3 id="_7-1-webstorm-导出editorconfig文件" tabindex="-1"> 7.1 webstorm 导出editorconfig文件</h3>
-<p>操作步骤：webstorm里找到配置，按照以下图示导出.editorconfig，.editorconfig文件会出现在项目的根目录里：</p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210924210543587.png" alt="image-20210924210543587"></p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210924210707992.png" alt="image-20210924210707992"></p>
-<h2 id="参考文章" tabindex="-1"> 参考文章</h2>
-<p><a href="https://blog.csdn.net/Gabriel_wei/article/details/90286668" target="_blank" rel="noopener noreferrer">vscode使用editorconfig插件以及.editorconfig配置文件说明(统一代码风格工具——editorConfig)</a></p>
-]]></content:encoded>
-      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210924210740884.png" type="image/png"/>
-    </item>
-    <item>
-      <title>不同font-size的文字底部在一条线上</title>
-      <link>https://bytecodes.tech/language/frontend-base/fe-font-size-line-bottom.html</link>
-      <guid>https://bytecodes.tech/language/frontend-base/fe-font-size-line-bottom.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">不同font-size的文字底部在一条线上</source>
-      <pubDate>Mon, 26 Dec 2022 09:08:14 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="不同font-size的文字底部在一条线上" tabindex="-1"> 不同font-size的文字底部在一条线上</h1>
-<h2 id="_1-背景" tabindex="-1"> 1. 背景</h2>
-<p>有个需求是前端需要展示￥158.8，为了凸显金额，所以158.8 的字体要大，￥的字体要小。原本挺简单的需求，却被我玩坏了</p>
-<h3 id="_1-1-问题原因" tabindex="-1"> 1.1 问题原因</h3>
-<p>虽然只是展示两个文字，但我在选择布局的时候。却选择了flex+div的形式。导致我陷在里面一直无法实现此功能。哪怕是设置为底部对齐和baseline</p>
-<ul>
-<li>
-<p>align-items: flex-end</p>
-<ul>
-<li>
-<p>没有一个能对齐的</p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220403233950269.png" alt="image-20220403233950269"></p>
-</li>
-</ul>
-</li>
-<li>
-<p>align-items: baseline;</p>
-<ul>
-<li>
-<p>符号和数字对齐了,中文还差点意思</p>
-<p>![image-20220403235103157](/Users/zsz/Library/Application Support/typora-user-images/image-20220403235103157.png)</p>
-</li>
-</ul>
-</li>
-</ul>
-<p><strong>现在感觉自己啥东西都想套flex布局，这就是一个典型的反面教材</strong></p>
-<h2 id="_2-解决" tabindex="-1"> 2. 解决</h2>
-<h3 id="_2-1-基础方案1" tabindex="-1"> 2.1 基础方案1：</h3>
-<p>去掉外围的flex 布局，默认就是底部对齐的，当然中文还有点问题</p>
-<blockquote>
-<p>适用于那些没有中文等，特殊情况的</p>
-</blockquote>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220403234509741.png" alt="image-20220403234509741"></p>
-<h3 id="_2-2-方案2-手工计算" tabindex="-1"> 2.2 方案2：手工计算</h3>
-<p>需要支持中文，你需要强制对不同大小的字体设定不同的行高。</p>
-<div><pre><code><span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>a inline<span>"</span></span><span>></span></span>
-  <span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>b<span>"</span></span><span>></span></span>哈哈<span><span><span>&lt;/</span>div</span><span>></span></span>
-  <span><span><span>&lt;</span>span</span> <span>class</span><span><span>=</span><span>"</span>b<span>"</span></span><span>></span></span>嘎嘎<span><span><span>&lt;/</span>span</span><span>></span></span>
-  <span><span><span>&lt;</span>b</span> <span>class</span><span><span>=</span><span>"</span>b<span>"</span></span><span>></span></span>呱呱<span><span><span>&lt;/</span>b</span><span>></span></span>
-  <span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>b e1<span>"</span></span><span>></span></span>haha<span><span><span>&lt;/</span>div</span><span>></span></span>
-  <span><span><span>&lt;</span>span</span> <span>class</span><span><span>=</span><span>"</span>b e2<span>"</span></span><span>></span></span>gaga<span><span><span>&lt;/</span>span</span><span>></span></span>
-  <span><span><span>&lt;</span>b</span> <span>class</span><span><span>=</span><span>"</span>b e3<span>"</span></span><span>></span></span>guagua<span><span><span>&lt;/</span>b</span><span>></span></span>
-<span><span><span>&lt;/</span>div</span><span>></span></span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><div><pre><code><span>.a</span> <span>{</span>
-  <span>width</span><span>:</span> 100%<span>;</span>
-  <span>overflow</span><span>:</span> hidden<span>;</span>
-  <span>border-bottom</span><span>:</span> 1px solid lightblue<span>;</span>
-  <span>margin</span><span>:</span> 40px auto<span>;</span>
-<span>}</span>
-<span>.inline .b</span> <span>{</span>
-  <span>display</span><span>:</span> inline<span>;</span>
-  <span>vertical-align</span><span>:</span> bottom<span>;</span>
-<span>}</span>
-<span>.a div</span> <span>{</span>
-  <span>font-size</span><span>:</span> 20px<span>;</span>
-  <span>line-height</span><span>:</span> 20px<span>;</span>
-<span>}</span>
-<span>.a span</span> <span>{</span>
-  <span>font-size</span><span>:</span> 40px<span>;</span>
-  <span>line-height</span><span>:</span> 37px<span>;</span>
-<span>}</span>
-<span>.a b</span> <span>{</span>
-  <span>line-height</span><span>:</span> 15px<span>;</span>
-<span>}</span>
-<span>.b.e1</span> <span>{</span>
-  <span>line-height</span><span>:</span> 16px<span>;</span>
-<span>}</span>
-<span>.b.e2</span> <span>{</span>
-  <span>line-height</span><span>:</span> 46px<span>;</span>  
-<span>}</span>
-<span>.b.e3</span> <span>{</span>
-  <span>line-height</span><span>:</span> 18px<span>;</span>
-<span>}</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>最终效果如下：</p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/bV2Nvn" alt="clipboard.png"></p>
-<h3 id="_2-3-方案3-自动计算" tabindex="-1"> 2.3 方案3：自动计算</h3>
-<p>如果不想手工调整，而想自动计算的话，代码如下：</p>
-<div><pre><code><span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>a inline<span>"</span></span><span>></span></span>
-  <span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>b c1<span>"</span></span><span>></span></span>哈哈<span><span><span>&lt;/</span>div</span><span>></span></span>
-  <span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>b c2<span>"</span></span><span>></span></span>嘎嘎<span><span><span>&lt;/</span>div</span><span>></span></span>
-  <span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>b c3<span>"</span></span><span>></span></span>呱呱<span><span><span>&lt;/</span>div</span><span>></span></span>
-  <span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>b e1<span>"</span></span><span>></span></span>haha<span><span><span>&lt;/</span>div</span><span>></span></span>
-  <span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>b e2<span>"</span></span><span>></span></span>gaga<span><span><span>&lt;/</span>div</span><span>></span></span>
-  <span><span><span>&lt;</span>div</span> <span>class</span><span><span>=</span><span>"</span>b e3<span>"</span></span><span>></span></span>guagua<span><span><span>&lt;/</span>div</span><span>></span></span>
-<span><span><span>&lt;/</span>div</span><span>></span></span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><div><pre><code><span>.a <span>{</span></span>
-  <span><span>border-bottom</span><span>:</span> <span>1</span><span>px</span> solid <span>lightblue</span><span>;</span></span>
-<span>}</span>
-<span>.inline .b <span>{</span></span>
-  <span><span>display</span><span>:</span> inline<span>;</span></span>
-  <span><span>vertical-align</span><span>:</span> bottom<span>;</span></span>
-  <span><span>line-height</span><span>:</span> <span>1</span><span>;</span></span>
-<span>}</span>
-<span>.a .c1 <span>{</span></span>
-  <span><span>font-size</span><span>:</span> <span>40</span><span>px</span><span>;</span></span>
-<span>}</span>
-<span>.a .c2 <span>{</span></span>
-  <span><span>font-size</span><span>:</span> <span>80</span><span>px</span><span>;</span></span>
-<span>}</span>
-<span>.a .c3 <span>{</span></span>
-  <span><span>font-size</span><span>:</span> <span>20</span><span>px</span><span>;</span></span>
-<span>}</span>
-<span>.a .e1 <span>{</span></span>
-  <span><span>font-size</span><span>:</span> <span>40</span><span>px</span><span>;</span></span>
-<span>}</span>
-<span>.a .e2 <span>{</span></span>
-  <span><span>font-size</span><span>:</span> <span>80</span><span>px</span><span>;</span></span>
-<span>}</span>
-<span>.a .e3 <span>{</span></span>
-  <span><span>font-size</span><span>:</span> <span>20</span><span>px</span><span>;</span></span>
-<span>}</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>效果也还可以，英文的出入比较大，中文略有差距：</p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220403235355217.png" alt="image-20220403235355217"></p>
-<h2 id="参考文章" tabindex="-1"> 参考文章</h2>
-<p><a href="https://segmentfault.com/q/1010000012994498" target="_blank" rel="noopener noreferrer">视觉上如何让不同 font-size 的文字底部在一条线上？</a></p>
-]]></content:encoded>
-      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220403233950269.png" type="image/png"/>
-    </item>
-    <item>
-      <title>首页优化之-gzip压缩</title>
-      <link>https://bytecodes.tech/language/frontend-base/fe-gzip.html</link>
-      <guid>https://bytecodes.tech/language/frontend-base/fe-gzip.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">首页优化之-gzip压缩</source>
-      <pubDate>Mon, 26 Dec 2022 09:08:14 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="首页优化之-gzip压缩" tabindex="-1"> 首页优化之-gzip压缩</h1>
-<p>当前打包出来的dist 是13.6M</p>
-<p>使用gzip压缩之后变成15.8M,在原有的基础上加上了gzip</p>
-<h2 id="_1-简介" tabindex="-1"> 1. 简介</h2>
-<p>gzip 压缩是一种http请求优化方式，通过减少文件体积来提高加载速度。html、js、css文件甚至json数据都可以用它来压缩，可以减少60%以上的体积</p>
-<h2 id="_2-压缩配置" tabindex="-1"> 2. 压缩配置</h2>
-<h3 id="_2-1-安装-compression-webpack-plugin-插件" tabindex="-1"> 2.1 安装 compression webpack plugin 插件</h3>
-<div><pre><code>npm install --save-dev compression-webpack-plugin
-</code></pre><div aria-hidden="true"><div></div></div></div><h3 id="_2-2-在vue-cli3-0-生成的项目里-可在vue-config-js-中按照如下方式配置" tabindex="-1"> 2.2 在vue cli3.0 生成的项目里，可在vue.config.js 中按照如下方式配置</h3>
-<div><pre><code>
-const CompressionWebpackPlugin = require("compression-webpack-plugin");
-const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
-
-module.exports = {
- 	...
-  configureWebpack: config => {
-    const plugins = [];
-
-    // Begin 生成 gzip 压缩文件
-    plugins.push(
-        new CompressionWebpackPlugin({
-            filename: "[path].gz[query]",
-            algorithm: "gzip",
-            test: productionGzipExtensions,
-            threshold: 10240,
-            minRatio: 0.8
-        })
-    );
-    // End 生成 gzip 压缩文件
-    
-    config.plugins = [...config.plugins, ...plugins];
-	},
-	...
+<span>/* 1 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"6219c18d6e5030b4a6caa42b"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"aaa"</span><span>,</span>
+    <span>"age"</span> : <span>20.0</span>
 }
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="_2-3-nginx-配置" tabindex="-1"> 2.3 nginx 配置</h3>
-<p>在nginx.conf 的 在http 中添加</p>
-<pre><code>gzip                on;
-#gzip_static         on;
-gzip_min_length     1k;
-gzip_comp_level     5;
-gzip_http_version   1.0;
-gzip_types          text/plain application/javascript application/x-javascript text/javascript text/xml text/css;
-</code></pre>
-<p>使用 gzip_static  需要nginx 支持，可选择性开启</p>
+
+<span>/* 2 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"6219c18d6e5030b4a6caa42c"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"bbb"</span><span>,</span>
+    <span>"age"</span> : <span>2.0</span>
+}
+
+<span>/* 3 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"6219c2016e5030b4a6caa42d"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"ccc"</span><span>,</span>
+    <span>"age"</span> : <span>30.0</span>
+}
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>同理如果直接将$nin改掉，则可以看到获取到的数据为空：</p>
+<div><pre><code>$ db<span>.</span>getCollection<span>(</span><span>'users'</span><span>)</span><span>.</span>find<span>(</span>{<span>"_id"</span>: {<span>"$in"</span>: <span>[</span><span>]</span>}}<span>)</span>
+Fetched <span>0</span> record<span>(</span>s<span>)</span> <span>in</span> <span>3</span>ms
+</code></pre><div aria-hidden="true"><div></div><div></div></div></div><h3 id="golang代码" tabindex="-1"> golang代码</h3>
+<p>接着我们将如上的查询转换成golang代码，这里仅展示主要查询的思路代码：</p>
+<div><pre><code><span>type</span> Group <span>struct</span> <span>{</span>
+ Name     <span>string</span>   <span>`json:"name" bson:"name"`</span>
+ NickName <span>string</span>   <span>`json:"nick_name" bson:"nick_name"`</span>
+ Users    <span>[</span><span>]</span><span>string</span> <span>`json:"users" bson:"users"`</span>
+<span>}</span>
+
+<span>type</span> User <span>struct</span> <span>{</span>
+ Name <span>string</span> <span>`json:"name" bson:"name"`</span>
+ Age  <span>int</span>    <span>`json:"age" bson:"age"`</span>
+<span>}</span>
+
+<span>func</span> <span>FindTest</span><span>(</span><span>)</span> <span>{</span>
+ <span>var</span> group Group
+ table <span>:=</span> DB<span>.</span><span>Collection</span><span>(</span><span>"groups"</span><span>)</span>
+ res <span>:=</span> table<span>.</span><span>FindOne</span><span>(</span>ctx<span>,</span> bson<span>.</span>M<span>{</span><span>"name"</span><span>:</span> <span>"ops"</span><span>}</span><span>)</span>
+ <span>if</span> err <span>:=</span> res<span>.</span><span>Err</span><span>(</span><span>)</span><span>;</span> err <span>!=</span> <span>nil</span> <span>{</span>
+  fmt<span>.</span><span>Printf</span><span>(</span><span>"find data failed: %v\n"</span><span>,</span> err<span>)</span>
+ <span>}</span>
+ <span>if</span> err <span>:=</span> res<span>.</span><span>Decode</span><span>(</span><span>&amp;</span>group<span>)</span><span>;</span> err <span>!=</span> <span>nil</span> <span>{</span>
+  fmt<span>.</span><span>Printf</span><span>(</span><span>"decode data failed: %v\n"</span><span>,</span> err<span>)</span>
+ <span>}</span>
+
+ <span>var</span> alreadyLinks <span>[</span><span>]</span>primitive<span>.</span>ObjectID
+ <span>for</span> <span>_</span><span>,</span> v <span>:=</span> <span>range</span> group<span>.</span>Users <span>{</span>
+  objid<span>,</span> err <span>:=</span> primitive<span>.</span><span>ObjectIDFromHex</span><span>(</span>v<span>)</span>
+  <span>if</span> err <span>!=</span> <span>nil</span> <span>{</span>
+   fmt<span>.</span><span>Printf</span><span>(</span><span>"%v\n"</span><span>,</span> err<span>)</span>
+  <span>}</span>
+  alreadyLinks <span>=</span> <span>append</span><span>(</span>alreadyLinks<span>,</span> objid<span>)</span>
+ <span>}</span>
+
+ filter <span>:=</span> bson<span>.</span>D<span>{</span><span>}</span>
+ filter <span>=</span> <span>append</span><span>(</span>filter<span>,</span> bson<span>.</span>E<span>{</span>Key<span>:</span> <span>"_id"</span><span>,</span> Value<span>:</span> bson<span>.</span>M<span>{</span><span>"$in"</span><span>:</span> alreadyLinks<span>}</span><span>}</span><span>)</span>
+ users<span>,</span> err <span>:=</span> <span>ListUser</span><span>(</span>filter<span>,</span> options<span>.</span>FindOptions<span>{</span><span>}</span><span>)</span>
+ <span>if</span> err <span>!=</span> <span>nil</span> <span>{</span>
+  fmt<span>.</span><span>Printf</span><span>(</span><span>"get data failed: %v\n"</span><span>,</span> err<span>)</span>
+ <span>}</span>
+ <span>for</span> <span>_</span><span>,</span> v <span>:=</span> <span>range</span> users <span>{</span>
+  fmt<span>.</span><span>Printf</span><span>(</span><span>"用户名: %v 年龄: %v\n"</span><span>,</span> v<span>.</span>Name<span>,</span> v<span>.</span>Age<span>)</span>
+ <span>}</span>
+<span>}</span>
+
+<span>// ListUser 获取用户列表</span>
+<span>func</span> <span>ListUser</span><span>(</span>filter bson<span>.</span>D<span>,</span> options options<span>.</span>FindOptions<span>)</span> <span>(</span><span>[</span><span>]</span><span>*</span>User<span>,</span> <span>error</span><span>)</span> <span>{</span>
+ table <span>:=</span> DB<span>.</span><span>Collection</span><span>(</span><span>"users"</span><span>)</span>
+ cus<span>,</span> err <span>:=</span> table<span>.</span><span>Find</span><span>(</span>ctx<span>,</span> filter<span>,</span> <span>&amp;</span>options<span>)</span>
+ <span>if</span> err <span>!=</span> <span>nil</span> <span>{</span>
+  fmt<span>.</span><span>Printf</span><span>(</span><span>"find data failed: %v\n"</span><span>,</span> err<span>)</span>
+ <span>}</span>
+ <span>defer</span> <span>func</span><span>(</span>cus <span>*</span>mongo<span>.</span>Cursor<span>,</span> ctx context<span>.</span>Context<span>)</span> <span>{</span>
+  err <span>:=</span> cus<span>.</span><span>Close</span><span>(</span>ctx<span>)</span>
+  <span>if</span> err <span>!=</span> <span>nil</span> <span>{</span>
+   <span>return</span>
+  <span>}</span>
+ <span>}</span><span>(</span>cus<span>,</span> ctx<span>)</span>
+
+ list <span>:=</span> <span>make</span><span>(</span><span>[</span><span>]</span><span>*</span>User<span>,</span> <span>0</span><span>)</span>
+ <span>for</span> cus<span>.</span><span>Next</span><span>(</span>ctx<span>)</span> <span>{</span>
+  user <span>:=</span> <span>new</span><span>(</span>User<span>)</span>
+  err <span>:=</span> cus<span>.</span><span>Decode</span><span>(</span><span>&amp;</span>user<span>)</span>
+  <span>if</span> err <span>!=</span> <span>nil</span> <span>{</span>
+   fmt<span>.</span><span>Printf</span><span>(</span><span>"decode data failed: %v\n"</span><span>,</span> err<span>)</span>
+  <span>}</span>
+  list <span>=</span> <span>append</span><span>(</span>list<span>,</span> user<span>)</span>
+ <span>}</span>
+
+ <span>return</span> list<span>,</span> <span>nil</span>
+<span>}</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>此时运行代码，会报一个错误：<code>find data failed: (BadValue) $nin needs an array</code>。</p>
+<p>当我们使用这个方法的时候，MongoDB要求数组里边至少有一个值，如果没有值，则可以塞一个空的值进去用于聚合，因此加入下边的判断代码：</p>
+<div><pre><code> <span>//如果数组为空,则需要为其填充一个空的ID,否则会报错  $nin needs an array</span>
+ <span>if</span> <span>len</span><span>(</span>alreadyLinks<span>)</span> <span>==</span> <span>0</span> <span>{</span> 
+  alreadyLinks <span>=</span> <span>append</span><span>(</span>alreadyLinks<span>,</span> primitive<span>.</span>NilObjectID<span>)</span>
+ <span>}</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><p>此时再次运行，可以得到如下结果：</p>
+<div><pre><code>$ go run main.go
+用户名：aaa 年龄：20
+用户名：bbb 年龄：2
+用户名：ccc 年龄：30
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><p>可以看到跟我们用sql查询的结果是一致的。</p>
+<h3 id="再验证" tabindex="-1"> 再验证</h3>
+<p>此时我们将aaa用户的ID塞进ops组内，数据如下：</p>
+<div><pre><code>$ db<span>.</span>getCollection<span>(</span><span>'groups'</span><span>)</span><span>.</span>find<span>(</span>{}<span>)</span>
+<span>/* 1 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"6219c2c46e5030b4a6caa42f"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"ops"</span><span>,</span>
+    <span>"nick_name"</span> : <span>"运维"</span><span>,</span>
+    <span>"users"</span> : <span>[</span> 
+        <span>"6219c18d6e5030b4a6caa42b"</span>
+    <span>]</span>
+}
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>然后查询已经在组内的用户：</p>
+<div><pre><code>$ db<span>.</span>getCollection<span>(</span><span>'users'</span><span>)</span><span>.</span>find<span>(</span>{<span>"_id"</span>: {<span>"$in"</span>: <span>[</span>ObjectId<span>(</span><span>"6219c18d6e5030b4a6caa42b"</span><span>)</span><span>]</span>}}<span>)</span>
+
+<span>/* 1 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"6219c18d6e5030b4a6caa42b"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"aaa"</span><span>,</span>
+    <span>"age"</span> : <span>20.0</span>
+}
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>查询不在组内的用户：</p>
+<div><pre><code>$ db<span>.</span>getCollection<span>(</span><span>'users'</span><span>)</span><span>.</span>find<span>(</span>{<span>"_id"</span>: {<span>"$nin"</span>: <span>[</span>ObjectId<span>(</span><span>"6219c18d6e5030b4a6caa42b"</span><span>)</span><span>]</span>}}<span>)</span>
+
+<span>/* 1 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"6219c18d6e5030b4a6caa42c"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"bbb"</span><span>,</span>
+    <span>"age"</span> : <span>2.0</span>
+}
+
+<span>/* 2 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"6219c2016e5030b4a6caa42d"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"ccc"</span><span>,</span>
+    <span>"age"</span> : <span>30.0</span>
+}
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>此时运行我们的代码，可以看到相同的想要的结果：</p>
+<div><pre><code>$ go run main.go
+用户名: bbb 年龄: <span>2</span>
+用户名: ccc 年龄: <span>30</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><p>这个例子就是结合MongoDB提供的方法，来解决实际场景中的问题的，能够更加优雅地解决问题，也能节约一定的资源开销。</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>07.golang使用$push和$addToSet往数组添加字段的异同</title>
+      <link>https://bytecodes.tech/language/go/04.skills/07.golang%E4%BD%BF%E7%94%A8$push%E5%92%8C$addToSet%E5%BE%80%E6%95%B0%E7%BB%84%E6%B7%BB%E5%8A%A0%E5%AD%97%E6%AE%B5%E7%9A%84%E5%BC%82%E5%90%8C.html</link>
+      <guid>https://bytecodes.tech/language/go/04.skills/07.golang%E4%BD%BF%E7%94%A8$push%E5%92%8C$addToSet%E5%BE%80%E6%95%B0%E7%BB%84%E6%B7%BB%E5%8A%A0%E5%AD%97%E6%AE%B5%E7%9A%84%E5%BC%82%E5%90%8C.html</guid>
+      <source url="https://bytecodes.tech/rss.xml">07.golang使用$push和$addToSet往数组添加字段的异同</source>
+      <pubDate>Fri, 06 Jan 2023 14:36:39 GMT</pubDate>
+      <content:encoded><![CDATA[<h1 id="_07-golang使用-push和-addtoset往数组添加字段的异同" tabindex="-1"> 07.golang使用$push和$addToSet往数组添加字段的异同</h1>
+<h2 id="前言结论" tabindex="-1"> 前言结论</h2>
+<p>在面对MongoDB的集合字段交互时，我们可能会接触到<code>$push</code>与<code>$addToSet</code>两个方法，两个方法看似功能差不多，实际使用场景中也有一些不同，这里先说结论。</p>
 <ul>
-<li>
-<p>使用前876KB</p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20200326183747822.png" alt="image-20200326183747822"></p>
+<li>相同
+<ul>
+<li>都是提供了往数组添加元素的功能。</li>
+</ul>
 </li>
-<li>
-<p>使用后311KB</p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20200326183657671.png" alt="image-20200326183657671"></p>
+<li>差异
+<ul>
+<li>无论数组对象是什么样，相同的值，多次添加时，<code>$addToSet</code>会自动去重，而<code>$push</code>不会。</li>
+<li>无论数组对象是什么样，<code>$addToSet</code>一次只能添加一个元素，而<code>$push</code>可以结合<code>$each</code>实现一次添加多个元素。</li>
+</ul>
 </li>
 </ul>
-]]></content:encoded>
-      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20200326183747822.png" type="image/png"/>
+<p>进入验证之前，先放一张美女图提神醒脑一波：</p>
+<h2 id="实验验证" tabindex="-1"> 实验验证</h2>
+<h3 id="准备数据" tabindex="-1"> 准备数据</h3>
+<p>首先我们可以看以下一组操作，体现两者都能够添加元素到数组内，准备测试数据如下，后边每次重新测试，都会重置准备的数据，不再赘述。</p>
+<div><pre><code>$ db<span>.</span>datas<span>.</span><span>insert</span><span>(</span>
+    <span>[</span>
+        {<span>"name"</span>:<span>"aa"</span>}<span>,</span>
+        {<span>"name"</span>:<span>"bb"</span>}<span>,</span>
+        {<span>"name"</span>:<span>"cc"</span>}<span>,</span>
+        {<span>"name"</span>:<span>"dd"</span>}
+    <span>]</span>
+<span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>看一眼数据：</p>
+<div><pre><code>$ db<span>.</span>getCollection<span>(</span><span>'datas'</span><span>)</span><span>.</span>find<span>(</span>{}<span>)</span>
+<span>/* 1 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"622b04709d75257165271fc5"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"aa"</span>
+}
+
+<span>/* 2 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"622b04709d75257165271fc6"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"bb"</span>
+}
+
+<span>/* 3 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"622b04709d75257165271fc7"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"cc"</span>
+}
+
+<span>/* 4 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"622b04709d75257165271fc8"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"dd"</span>
+}
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="添加单条数据" tabindex="-1"> 添加单条数据</h3>
+<p>执行如下一波操作添加字段到一个列表：</p>
+<div><pre><code><span>// 添加单个元素到列表</span>
+db<span>.</span>datas<span>.</span><span>update</span><span>(</span>
+   { <span>"name"</span> : <span>"aa"</span> }<span>,</span>
+   { $addToSet: { <span>"label_list"</span>: <span>"11"</span> } }
+<span>)</span>
+<span>// 添加单个元素到列表</span>
+db<span>.</span>datas<span>.</span><span>update</span><span>(</span>
+   { <span>"name"</span> : <span>"aa"</span> }<span>,</span>
+   { $addToSet: { <span>"label_list"</span>: <span>"11"</span> } }
+<span>)</span>
+<span>// 添加一个对象到列表</span>
+db<span>.</span>datas<span>.</span><span>update</span><span>(</span>
+   { <span>"name"</span> : <span>"bb"</span> }<span>,</span>
+   { $addToSet: { <span>"label_list"</span>: {<span>"name"</span>:<span>"bb-1"</span><span>,</span><span>"age"</span>:<span>"bb-1"</span>} } }
+<span>)</span>
+<span>// 添加一个对象到列表</span>
+db<span>.</span>datas<span>.</span><span>update</span><span>(</span>
+   { <span>"name"</span> : <span>"bb"</span> }<span>,</span>
+   { $addToSet: { <span>"label_list"</span>: {<span>"name"</span>:<span>"bb-1"</span><span>,</span><span>"age"</span>:<span>"bb-1"</span>} } }
+<span>)</span>
+
+<span>// 添加单个元素到列表</span>
+db<span>.</span>datas<span>.</span><span>update</span><span>(</span>
+   { <span>"name"</span> : <span>"cc"</span> }<span>,</span>
+   { $push: { <span>"label_list"</span>: <span>"22"</span> } }
+<span>)</span>
+<span>// 添加单个元素到列表</span>
+db<span>.</span>datas<span>.</span><span>update</span><span>(</span>
+   { <span>"name"</span> : <span>"cc"</span> }<span>,</span>
+   { $push: { <span>"label_list"</span>: <span>"22"</span> } }
+<span>)</span>
+<span>// 添加一个对象到列表</span>
+db<span>.</span>datas<span>.</span><span>update</span><span>(</span>
+   { <span>"name"</span> : <span>"dd"</span> }<span>,</span>
+   { $push: { <span>"label_list"</span>: {<span>"name"</span>:<span>"dd-2"</span><span>,</span><span>"age"</span>:<span>"dd-2"</span>} } }
+<span>)</span>
+<span>// 添加一个对象到列表</span>
+db<span>.</span>datas<span>.</span><span>update</span><span>(</span>
+   { <span>"name"</span> : <span>"dd"</span> }<span>,</span>
+   { $push: { <span>"label_list"</span>: {<span>"name"</span>:<span>"dd-2"</span><span>,</span><span>"age"</span>:<span>"dd-2"</span>} } }
+<span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p><code>注意：</code>如上命令之所以执行两次，是为了结合结果看出其中差异。</p>
+<p>此时再次查库可看到结果如下：</p>
+<div><pre><code>$ db<span>.</span>getCollection<span>(</span><span>'datas'</span><span>)</span><span>.</span>find<span>(</span>{}<span>)</span>
+<span>/* 1 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"622b08129d75257165271fcd"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"aa"</span><span>,</span>
+    <span>"label_list"</span> : <span>[</span> 
+        <span>"11"</span>
+    <span>]</span>
+}
+
+<span>/* 2 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"622b08129d75257165271fce"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"bb"</span><span>,</span>
+    <span>"label_list"</span> : <span>[</span> 
+        {
+            <span>"name"</span> : <span>"bb-1"</span><span>,</span>
+            <span>"age"</span> : <span>"bb-1"</span>
+        }
+    <span>]</span>
+}
+
+<span>/* 3 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"622b08129d75257165271fcf"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"cc"</span><span>,</span>
+    <span>"label_list"</span> : <span>[</span> 
+        <span>"22"</span><span>,</span> 
+        <span>"22"</span>
+    <span>]</span>
+}
+
+<span>/* 4 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"622b08129d75257165271fd0"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"dd"</span><span>,</span>
+    <span>"label_list"</span> : <span>[</span> 
+        {
+            <span>"name"</span> : <span>"dd-2"</span><span>,</span>
+            <span>"age"</span> : <span>"dd-2"</span>
+        }<span>,</span> 
+        {
+            <span>"name"</span> : <span>"dd-2"</span><span>,</span>
+            <span>"age"</span> : <span>"dd-2"</span>
+        }
+    <span>]</span>
+}
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>可以看到两个指令都支持简单和复杂对象的交互，只不过使用<code>$addToSet</code>添加时，如果列表已存在该值，则不会重复添加。</p>
+<h3 id="添加多条数据" tabindex="-1"> 添加多条数据</h3>
+<p>添加的多个元素为简单字符串：</p>
+<div><pre><code>$ db<span>.</span>datas<span>.</span><span>update</span><span>(</span>
+   { name: <span>"aa"</span> }<span>,</span>
+   { $push: { <span>"label_list"</span>: { $each: <span>[</span> <span>"90"</span><span>,</span> <span>"92"</span><span>,</span> <span>"85"</span> <span>]</span> } } }
+<span>)</span>
+$ db<span>.</span>datas<span>.</span><span>update</span><span>(</span>
+   { name: <span>"aa"</span> }<span>,</span>
+   { $push: { <span>"label_list"</span>: { $each: <span>[</span> <span>"90"</span><span>,</span> <span>"92"</span><span>,</span> <span>"85"</span> <span>]</span> } } }
+<span>)</span>
+
+$ db<span>.</span>datas<span>.</span><span>update</span><span>(</span>
+   { name: <span>"bb"</span> }<span>,</span>
+   { $addToSet: { <span>"label_list"</span>: { $each: <span>[</span> <span>"90"</span><span>,</span> <span>"92"</span><span>,</span> <span>"85"</span> <span>]</span> } } }
+<span>)</span>
+$ db<span>.</span>datas<span>.</span><span>update</span><span>(</span>
+   { name: <span>"bb"</span> }<span>,</span>
+   { $addToSet: { <span>"label_list"</span>: { $each: <span>[</span> <span>"90"</span><span>,</span> <span>"92"</span><span>,</span> <span>"85"</span> <span>]</span> } } }
+<span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>其中<code>$push</code>多次添加会重复添加：</p>
+<div><pre><code><span>/* 1 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"622b13239d75257165271fdd"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"aa"</span><span>,</span>
+    <span>"label_list"</span> : <span>[</span> 
+        <span>"90"</span><span>,</span> 
+        <span>"92"</span><span>,</span> 
+        <span>"85"</span><span>,</span> 
+        <span>"90"</span><span>,</span> 
+        <span>"92"</span><span>,</span> 
+        <span>"85"</span>
+    <span>]</span>
+}
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>再看<code>$addToSet</code>的效果，会自动去重：</p>
+<div><pre><code><span>/* 2 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"622b13239d75257165271fde"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"bb"</span><span>,</span>
+    <span>"label_list"</span> : <span>[</span> 
+        <span>"90"</span><span>,</span> 
+        <span>"92"</span><span>,</span> 
+        <span>"85"</span>
+    <span>]</span>
+}
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>添加的多个元素为复杂对象：</p>
+<div><pre><code>$ db<span>.</span>datas<span>.</span><span>update</span><span>(</span>
+   { <span>"name"</span> : <span>"cc"</span> }<span>,</span>
+   { $push: { <span>"link_model"</span>:{
+        $each: <span>[</span>{<span>"name"</span>:<span>"aa-1"</span><span>,</span><span>"age"</span>:<span>"3"</span>}<span>,</span>{<span>"name"</span>:<span>"bb-1"</span><span>,</span><span>"age"</span>:<span>"4"</span>}<span>]</span><span>,</span>
+  <span>"$position"</span>:<span>0</span><span>,</span>
+     } } }
+<span>)</span>
+$ db<span>.</span>datas<span>.</span><span>update</span><span>(</span>
+   { <span>"name"</span> : <span>"cc"</span> }<span>,</span>
+   { $push: { <span>"link_model"</span>:{
+        $each: <span>[</span>{<span>"name"</span>:<span>"aa-1"</span><span>,</span><span>"age"</span>:<span>"3"</span>}<span>,</span>{<span>"name"</span>:<span>"bb-1"</span><span>,</span><span>"age"</span>:<span>"4"</span>}<span>]</span><span>,</span>
+  <span>"$position"</span>:<span>0</span><span>,</span>
+     } } }
+<span>)</span>
+
+$ db<span>.</span>datas<span>.</span><span>update</span><span>(</span>
+   { <span>"name"</span> : <span>"dd"</span> }<span>,</span>
+   { $addToSet: { <span>"link_models"</span>:{
+        $each: <span>[</span>{<span>"name"</span>:<span>"aa-1"</span><span>,</span><span>"age"</span>:<span>"3"</span>}<span>,</span>{<span>"name"</span>:<span>"bb-1"</span><span>,</span><span>"age"</span>:<span>"4"</span>}<span>]</span><span>,</span>
+     } } }
+<span>)</span>
+$ db<span>.</span>datas<span>.</span><span>update</span><span>(</span>
+   { <span>"name"</span> : <span>"dd"</span> }<span>,</span>
+   { $addToSet: { <span>"link_models"</span>:{
+        $each: <span>[</span>{<span>"name"</span>:<span>"aa-1"</span><span>,</span><span>"age"</span>:<span>"3"</span>}<span>,</span>{<span>"name"</span>:<span>"bb-1"</span><span>,</span><span>"age"</span>:<span>"4"</span>}<span>]</span><span>,</span>
+     } } }
+<span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>然后查看通过<code>$push</code>添加的这条数据，没有自动查重：</p>
+<div><pre><code><span>/* 3 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"622b13239d75257165271fdf"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"cc"</span><span>,</span>
+    <span>"link_model"</span> : <span>[</span> 
+        {
+            <span>"name"</span> : <span>"aa-1"</span><span>,</span>
+            <span>"age"</span> : <span>"3"</span>
+        }<span>,</span> 
+        {
+            <span>"name"</span> : <span>"bb-1"</span><span>,</span>
+            <span>"age"</span> : <span>"4"</span>
+        }<span>,</span> 
+        {
+            <span>"name"</span> : <span>"aa-1"</span><span>,</span>
+            <span>"age"</span> : <span>"3"</span>
+        }<span>,</span> 
+        {
+            <span>"name"</span> : <span>"bb-1"</span><span>,</span>
+            <span>"age"</span> : <span>"4"</span>
+        }
+    <span>]</span>
+}
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>再看使用<code>$addToSet</code>，则可以自动去重：</p>
+<div><pre><code><span>/* 4 */</span>
+{
+    <span>"_id"</span> : ObjectId<span>(</span><span>"622b13239d75257165271fe0"</span><span>)</span><span>,</span>
+    <span>"name"</span> : <span>"dd"</span><span>,</span>
+    <span>"link_models"</span> : <span>[</span> 
+        {
+            <span>"name"</span> : <span>"aa-1"</span><span>,</span>
+            <span>"age"</span> : <span>"3"</span>
+        }<span>,</span> 
+        {
+            <span>"name"</span> : <span>"bb-1"</span><span>,</span>
+            <span>"age"</span> : <span>"4"</span>
+        }
+    <span>]</span>
+}
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>]]></content:encoded>
     </item>
   </channel>
 </rss>

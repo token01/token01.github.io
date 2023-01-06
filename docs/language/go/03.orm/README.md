@@ -1,5 +1,5 @@
 ---
-title: go
+title: go-orm
 index: false
 
 dir:

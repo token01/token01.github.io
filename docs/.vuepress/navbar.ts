@@ -31,7 +31,7 @@ export default navbar([
         {
           text: "go",
           icon: "creative",
-          link: "go/readme"
+          link: "go/01.base"
         },
         {
           text: "rust",

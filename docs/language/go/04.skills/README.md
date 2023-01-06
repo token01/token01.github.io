@@ -1,5 +1,5 @@
 ---
-title: go
+title: go-开发技巧
 index: false
 
 dir:

@@ -1,5 +1,5 @@
 ---
-title: go
+title: go-web
 index: false
 
 dir:

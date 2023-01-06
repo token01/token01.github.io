@@ -28,6 +28,16 @@ export default navbar([
           icon: "creative",
           link: "weixin/wx-package-Optimization"
         },
+        {
+          text: "go",
+          icon: "creative",
+          link: "go/readme"
+        },
+        {
+          text: "rust",
+          icon: "creative",
+          link: "rust/readme"
+        },
       ]
     },
   {

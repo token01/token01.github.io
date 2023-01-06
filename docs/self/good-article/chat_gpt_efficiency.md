@@ -1,6 +1,6 @@
 # 面向软件工程师的 3 个简单的 ChatGPT 技巧：立即提高您的工作效率
 
-![](https://miro.medium.com/max/1400/1*et-B2tZr5CUe7mtn1UDTGA.png)
+![](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/202301061314590.png)
 
 AI 增强您的写作和工作效率
 
@@ -18,64 +18,66 @@ AI 增强您的写作和工作效率
 
 ChatGPT 可能会使用类似于以下内容的代码进行响应：
 
-从“反应”  
-导入 React 从“下一个/链接”导入链接，  
-从“样式化组件”  
+```
+import React from 'react'  
+import Link from 'next/link'  
+import styled from 'styled-components'  
   
-  导入样式 标头 = 样式化。标题显示  
-：灵活; 对齐项目：居中; 对齐内容：间距; 高度：50px; 背景颜色：#333; 颜色：#fff; 填充：0 20px;  
+const Header = styled.header`  
+display: flex;  
+align-items: center;  
+justify-content: space-between;  
+height: 50px;  
+background-color: #333;  
+color: #fff;  
+padding: 0 20px;  
+`  
   
+const Main = styled.main`  
+display: flex;  
+flex-direction: column;  
+align-items: center;  
+justify-content: center;  
+height: calc(100vh - 100px);  
+`  
   
+const Footer = styled.footer`  
+display: flex;  
+align-items: center;  
+justify-content: space-between;  
+height: 50px;  
+background-color: #333;  
+color: #fff;  
+padding: 0 20px;  
+`  
   
+const Home = () => (  
+<>  
+<Header>  
+<Link href="/">  
+<a>Home</a>  
+</Link>  
+<Link href="/about">  
+<a>About</a>  
+</Link>  
+<Link href="/contact">  
+<a>Contact Us</a>  
+</Link>  
+</Header>  
+<Main>  
+<h1>Welcome to the Home Page!</h1>  
+</Main>  
+<Footer>  
+<p>Copyright 2021</p>  
+<Link href="/privacy-policy">  
+<a>Privacy Policy</a>  
+</Link>  
+</Footer>  
+</>  
+)  
   
-  
-  
-'  
-  
-const Main = 样式。主显示  
-：柔性; 弹性方向：列; 对齐项目：居中; 两端内容：居中;  
-  
-  
-  
- 高度：计算（100vh - 100px）;  
-'  
-  
-const 页脚 = 样式。页脚显示  
-：灵活; 对齐项：居中; 两端对齐内容：间距; 高度：50px; 背景颜色：#333; 颜色：#fff; 填充：0 20px;  
-  
-  
-  
-  
-  
-  
-'  
-  
-const Home = （） => （  
- <> <Header> <Link href=“/”> <a>Home</a> </Link> <Link href=“/about”> <a>About</a> </Link> <Link href=“/contact”> <a>联系我们  
-  
-</a> </链接>  
-  
-  
-  
-  
-  
-  
-  
-  
- </页眉>  
- <主>  
- <h1>欢迎来到主页！</h1  
-> </主>  
- <页脚>  
- <页>版权所有 2021</p>  
- <链接 href=“/隐私政策”>  
-  
- <a>隐私政策</a> </链接>  
- </页脚>  
- </>  
-）  
-  
-导出默认主页
+export default Home
+```
 
 此代码创建一个主页，其中包含页眉、主节和页脚，所有这些都使用样式化组件设置样式。页眉和页脚分别包含指向“关于”和“联系我们”页面的链接。您可以交换单词“home”或“about”，并继续让它为这些页面生成可用的样板代码。
 
@@ -84,11 +86,11 @@ const Home = （） => （
 然而，仍然缺少的是引用特定行的能力，但我相信开发人员正在研究这个问题，以便您可以更好地将上下文馈送到模型中，类似于种子的工作方式。
 
 # 2. 获取反馈
-
 使用 ChatGPT，您可以获得有关编码的有用反馈，并在任何问题或错误变得太大之前快速识别它们。
 
 在这个例子中，我们使用一个函数来计算数组中元素的总和：
 
+```
 func sum（arr []int） int  { result ：= 0 for i ：= 0  
 ; i < len（arr）; i++ { result += arr[i]  
  }  
@@ -96,25 +98,29 @@ func sum（arr []int） int  { result ：= 0 for i ：= 0
   
  result  
 }
+```
 
 你可以要求chatGPT使这段代码更有效率，比如说：“嘿ChatGPT，你能建议一些方法让这段代码更有效率吗？我正在尝试计算数组中元素的总和。
 
 ChatGPT 可能会使用建议进行响应，例如使用不同的循环结构，例如 for range 循环，这通常比使用上面显示的索引循环更有效。或者，ChatGPT 可能会建议使用内置函数，如“math”包中的“sum”，这比编写自己的循环更有效。
 
-## 虫子猎人
+## BUG 猎手
 
 您还可以使用它来查找应用程序中的潜在错误。您将需要提供更多上下文。您可以将包之间的函数分解为小块，然后将它们提供给chatgpt，如下所示：
-
+```
 package pkgA  
   
 func Add（a int， b int） int  {  
  return a + b  
 }
+```
+
 
 然后，您需要将包的名称指定为“github.com/user/pkgA”。您还可以在 github 上为实际包提供该上下文和关联。
 
 现在假设你想使用 ChatGPT 来帮助你在另一个包中编写一个函数，该函数从“pkgA”调用“Add”函数。下面是 ChatGPT 如何帮助您查找包之间的错误的示例，包括代码中的实际错误：
 
+```
 package pkgB  
   
 import “github.com/user/pkgA”  
@@ -126,6 +132,7 @@ func Sum（arr []int） int  { result ：= 0 for i ：= 0
   
  result  
 }
+```
 
 此示例中的错误是对“pkgA.Add”的函数调用使用了错误的运算符（= 而不是 +=）。此错误将导致函数始终返回 0，即使输入数组不同也是如此。
 
@@ -137,8 +144,7 @@ ChatGPT可以检测并快速解决您遇到的任何技术问题。例如，它�
 
 > 代码中似乎存在错误。调用 'pkgA.Add' 的函数使用的是赋值运算符 — '=' 而不是加法运算符 - '+=' 。因此，无论输入什么数组，这将始终确保返回 0。若要解决此问题，您可能需要考虑使用正确的运算符。
 
-ChatGPT 可以成为救星，在代码中发现和修复错误之前将其视为问题。此外，ChatGPT 可帮助您创建可靠且强大的代码，这些代码将持续数年！
-
+ChatGPT 可以成为救星，在代码中发现和修复错误之前将其视为问题。此外，ChatGPT 可帮助您创建可靠且强大的代码，这些代码将持续
 # 3. 获取帮助
 
 如果您在项目时遇到问题，可以使用 ChatGPT 获取帮助。例如，如果您在文件验证和错误处理方面遇到问题，您可以说：“嘿 ChatGPT，我正在尝试实现一项允许用户上传和下载文件的功能。我在处理文件验证和验证错误时遇到问题。你能帮我集思广益一些方法或建议一些可以用来解决这个问题的资源吗？
@@ -159,7 +165,7 @@ ChatGPT 可以成为救星，在代码中发现和修复错误之前将其视为
 
 如果您面临挑战，可以使用 ChatGPT 寻求帮助。在他们的帮助下，头脑风暴解决方案变得更加容易——他们可以指导您找到解决问题并达到新高度的方法。这不仅可以节省时间，还可以减少工作量。
 
-# 亲自尝试并增强您的工作流程！
+# 4.亲自尝试并增强您的工作流程！
 
 最终，ChatGPT是软件工程师的必备品。它不仅可以通过自动化繁琐的任务来节省时间和精力，还可以提供对丰富知识的访问，这些知识可以帮助您克服项目中的任何障碍或挑战。它的实用性并不止于此——ChatGPT 提供了有关如何简化工作流程、优化代码和比以往更快地学习新技术技能的有用见解。
 

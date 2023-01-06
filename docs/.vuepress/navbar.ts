@@ -286,7 +286,13 @@ export default navbar([
     text: "自我记录",
     icon: "anonymous",
     prefix: "/self/",
-    children: []
+    children: [
+      {
+      text: "好文章",
+      icon: "creative",
+      link: "good-article/use-rss-email-read"
+    },
+  ]
     // children:[
     //   {
     //     text: "Bug记录",

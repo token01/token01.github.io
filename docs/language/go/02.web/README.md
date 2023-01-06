@@ -1,5 +1,5 @@
 ---
-title: go-web
+title: go语言-web
 index: false
 
 dir:

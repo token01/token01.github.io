@@ -1,5 +1,5 @@
 ---
-title: 基础知识
+title: go语言-基础知识
 index: false
 
 dir:

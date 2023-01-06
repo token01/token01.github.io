@@ -1,5 +1,5 @@
 ---
-title: go
+title: go语言
 index: false
 
 dir:

@@ -6,32 +6,33 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Fri, 06 Jan 2023 02:38:57 GMT</pubDate>
-    <lastBuildDate>Fri, 06 Jan 2023 02:38:57 GMT</lastBuildDate>
+    <pubDate>Fri, 06 Jan 2023 04:36:42 GMT</pubDate>
+    <lastBuildDate>Fri, 06 Jan 2023 04:36:42 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
-    <category>自我记录</category>
+    <category>好文章</category>
     <category>信息简报</category>
+    <category>自我记录</category>
     <category>前端</category>
     <item>
-      <title>自我记录</title>
-      <link>https://bytecodes.tech/self/</link>
-      <guid>https://bytecodes.tech/self/</guid>
-      <source url="https://bytecodes.tech/rss.xml">自我记录</source>
-      <category>自我记录</category>
-      <pubDate>Wed, 28 Dec 2022 03:20:51 GMT</pubDate>
+      <title>好文章</title>
+      <link>https://bytecodes.tech/self/good-article/</link>
+      <guid>https://bytecodes.tech/self/good-article/</guid>
+      <source url="https://bytecodes.tech/rss.xml">好文章</source>
+      <category>好文章</category>
+      <pubDate>Fri, 06 Jan 2023 04:11:48 GMT</pubDate>
       <content:encoded><![CDATA[<h1 id="目录" tabindex="-1"> 目录</h1>
 <p>TODO</p>
 ]]></content:encoded>
     </item>
     <item>
       <title>构建自己的信息简报</title>
-      <link>https://bytecodes.tech/self/use-rss-email-read.html</link>
-      <guid>https://bytecodes.tech/self/use-rss-email-read.html</guid>
+      <link>https://bytecodes.tech/self/good-article/use-rss-email-read.html</link>
+      <guid>https://bytecodes.tech/self/good-article/use-rss-email-read.html</guid>
       <source url="https://bytecodes.tech/rss.xml">构建自己的信息简报</source>
       <description>使用RSS与Email打造自己的信息简报。</description>
       <category>信息简报</category>
-      <pubDate>Wed, 28 Dec 2022 03:20:51 GMT</pubDate>
+      <pubDate>Fri, 06 Jan 2023 04:11:48 GMT</pubDate>
       <content:encoded><![CDATA[<h1 id="构建自己的信息简报" tabindex="-1"> 构建自己的信息简报</h1>
 <p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/FcpHuTrWIAEcdmz.jpeg" alt="FcpHuTrWIAEcdmz.jpeg"></p>
 <p>喜欢阅读，除了看书这种传统的获取知识的途径外，获取信息的渠道或方式还有：公众号、邮件列表、社交媒体、垂直社区（如知乎、V2EX、微信热搜）、搜索与聊天群组。如此多途径，怎么管理？</p>
@@ -68,6 +69,17 @@
 <p>Mailbrew每周会自动给我汇总一份信息简报投递至邮箱，我不需要主动去很多分散的网站来获取信息，只需要定期查看邮件即可。</p>
 ]]></content:encoded>
       <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/FcpHuTrWIAEcdmz.jpeg" type="image/jpeg"/>
+    </item>
+    <item>
+      <title>自我记录</title>
+      <link>https://bytecodes.tech/self/</link>
+      <guid>https://bytecodes.tech/self/</guid>
+      <source url="https://bytecodes.tech/rss.xml">自我记录</source>
+      <category>自我记录</category>
+      <pubDate>Wed, 28 Dec 2022 03:20:51 GMT</pubDate>
+      <content:encoded><![CDATA[<h1 id="目录" tabindex="-1"> 目录</h1>
+<p>TODO</p>
+]]></content:encoded>
     </item>
     <item>
       <title>前端-基础</title>
@@ -587,131 +599,6 @@ pdfIframe<span>.</span>contentWindow<span>.</span>location<span>.</span><span>re
 </code></pre><div aria-hidden="true"><div></div><div></div></div></div><h2 id="参考文章" tabindex="-1"> 参考文章</h2>
 <p><a href="https://segmentfault.com/a/1190000004502619" target="_blank" rel="noopener noreferrer">iframe,我们来谈一谈</a></p>
 ]]></content:encoded>
-    </item>
-    <item>
-      <title>js导出：exports、module.exports 和 export、export default</title>
-      <link>https://bytecodes.tech/language/frontend-base/fe-js-export.html</link>
-      <guid>https://bytecodes.tech/language/frontend-base/fe-js-export.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">js导出：exports、module.exports 和 export、export default</source>
-      <pubDate>Mon, 26 Dec 2022 09:08:14 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="js导出-exports、module-exports-和-export、export-default" tabindex="-1"> js导出：exports、module.exports 和 export、export default</h1>
-<h2 id="_1-前言" tabindex="-1"> 1. 前言</h2>
-<p>js导入导出有多种方式，新手常常被绕得晕头转向</p>
-<p>它们的使用范围</p>
-<ul>
-<li>
-<p><code>require</code>: node 支持的引入</p>
-</li>
-<li>
-<p><code>module.exports / exports</code>: 只有 node 支持的导出</p>
-</li>
-<li>
-<p><code>export / import</code> : 只有es6 支持的导出引入`</p>
-</li>
-</ul>
-<blockquote>
-<p>我们大部分在vue中使用的是es6 <code>export / import</code> 的导入导出，</p>
-<p>如导出api:</p>
-<p>​	let api{</p>
-<p>​		// 网络请求</p>
-<p>​	}</p>
-<p>export default api;</p>
-<p>导入：</p>
-<p>import api from '../api/myapi';</p>
-</blockquote>
-<h2 id="_2-node模块" tabindex="-1"> 2.node模块</h2>
-<p><code>Node</code>里面的模块系统遵循的是<code>CommonJS</code>规范。 那问题又来了，什么是<code>CommonJS</code>规范呢？ 由于<code>js</code>以前比较混乱，各写各的代码，没有一个模块的概念，而这个规范出来其实就是对模块的一个定义。</p>
-<blockquote>
-<p><code>CommonJS</code>定义的模块分为: 模块标识(<code>module</code>)、模块定义(<code>exports</code>) 、模块引用(<code>require</code>)</p>
-</blockquote>
-<p>先解释 <code>exports</code> 和 <code>module.exports</code> 在一个node执行一个文件时，会给这个文件内生成一个 <code>exports</code>和<code>module</code>对象， 而<code>module</code>又有一个<code>exports</code>属性。他们之间的关系如下图，都指向一块{}内存区域。</p>
-<div><pre><code>exports = module.exports = {};
-</code></pre><div aria-hidden="true"><div></div></div></div><p><img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20210207165709128.png" alt="image-20210207165709128"></p>
-<p>那下面我们来看看代码的吧。</p>
-<div><pre><code>//utils.js
-let a = 100;
-console.log(module.exports); //能打印出结果为：{}
-console.log(exports); //能打印出结果为：{}
-
-exports.a = 200; //这里辛苦劳作帮 module.exports 的内容给改成 {a : 200}
-
-exports = '指向其他内存区'; //这里把exports的指向指走
-
-//test.js
-
-var a = require('/utils');
-console.log(a) // 打印为 {a : 200} 
-
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><blockquote>
-<p>从上面可以看出，其实<code>require</code>导出的内容是<code>module.exports</code>的指向的内存块内容，并不是<code>exports</code>的。 简而言之，<strong>区分他们之间的区别就是 <code>exports</code> 只是 <code>module.exports</code>的引用，辅助后者添加内容用的</strong>。</p>
-</blockquote>
-<p>用白话讲就是，<code>exports</code>只辅助<code>module.exports</code>操作内存中的数据，辛辛苦苦各种操作数据完，累得要死，结果到最后真正被<code>require</code>出去的内容还是<code>module.exports</code>的，真是好苦逼啊。</p>
-<p>其实大家用内存块的概念去理解，就会很清楚了。</p>
-<p>然后呢，为了避免糊涂，<strong>尽量都用 <code>module.exports</code> 导出，然后用<code>require</code>导入。</strong></p>
-<h2 id="_3-es中的模块导出导入" tabindex="-1"> 3. ES中的模块导出导入</h2>
-<p>在es中的模块，就非常清晰了。不过也有一些细节的东西需要搞清楚。 比如 <code>export</code> 和 <code>export default</code>，还有 导入的时候，<code>import a from ..</code>,<code>import {a} from ..</code>，总之也有点乱，那么下面我们就开始把它们捋清楚吧。</p>
-<h3 id="_3-1-export-和-export-default" tabindex="-1"> 3.1 export 和 export default</h3>
-<p>首先我们讲这两个导出，下面我们讲讲它们的区别</p>
-<ol>
-<li>export与export default均可用于导出常量、函数、文件、模块等</li>
-<li>在一个文件或模块中，export、import可以有多个，export default仅有一个</li>
-<li>通过export方式导出，在导入时要加{ }，export default则不需要</li>
-<li>export能直接导出变量表达式，export default不行。</li>
-</ol>
-<p>下面咱们看看代码去验证一下</p>
-<h3 id="_3-2-es6导出验证" tabindex="-1"> 3.2 ES6导出验证</h3>
-<h4 id="testes6export-js" tabindex="-1"> testEs6Export.js</h4>
-<div><pre><code>'use strict'
-//导出变量
-export const a = '100';  
-
- //导出方法
-export const dogSay = function(){ 
-    console.log('wang wang');
-}
-
- //导出方法第二种
-function catSay(){
-   console.log('miao miao'); 
-}
-export { catSay };
-
-//export default导出
-const m = 100;
-export default m; 
-//export defult const m = 100;// 这里不能写这种格式。
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="_3-3-es6导入验证" tabindex="-1"> 3.3 ES6导入验证</h3>
-<h4 id="index-js" tabindex="-1"> index.js</h4>
-<div><pre><code>//index.js
-'use strict'
-var express = require('express');
-var router = express.Router();
-
-import { dogSay, catSay } from './testEs6Export'; //导出了 export 方法 
-import m from './testEs6Export';  //导出了 export default 
-
-import * as testModule from './testEs6Export';//as 集合成对象导出
-
-
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  dogSay();
-  catSay();
-  console.log(m);
-  testModule.dogSay();
-  console.log(testModule.m); // undefined , 因为  as 导出是 把 零散的 export 聚集在一起作为一个对象，而export default 是导出为 default属性。
-  console.log(testModule.default); // 100
-  res.send('恭喜你，成功验证');
-});
-
-module.exports = router;
-
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>从上面可以看出，确实感觉 <code>ES6</code>的模块系统非常灵活的。</p>
-<h2 id="参考文章" tabindex="-1"> 参考文章</h2>
-<p><a href="https://juejin.im/post/6844903489257095181" target="_blank" rel="noopener noreferrer">exports、module.exports 和 export、export default 到底是咋回事</a></p>
-]]></content:encoded>
-      <enclosure url="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/blogimage-master/img/image-20210207165709128.png" type="image/png"/>
     </item>
   </channel>
 </rss>

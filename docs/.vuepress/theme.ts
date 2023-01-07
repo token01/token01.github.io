@@ -79,7 +79,7 @@ export default hopeTheme({
       Zhihu: "https://www.zhihu.com/people/abel-48",
       CSDN: "https://blog.csdn.net/kongmingdaoshi",
       Github: "https://github.com/token01",
-      Gitee: "https://gitee.com/token01",
+      Gitee: "https://gitee.com/sunzhenya5611997",
       Wechat:"https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/abel/abelsun.jpeg",
       Twitter:"https://twitter.com/sunzhenya",
       Youtube:"https://www.youtube.com/channel/UCEP8tOUjGKf6XxlXBvEsL5Q",

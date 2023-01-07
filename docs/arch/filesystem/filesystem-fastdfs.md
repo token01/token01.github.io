@@ -1,596 +1,467 @@
----
-order: 40
-category:
-  - 架构
----
+# FastDFS安装
 
-# 分布式系统-分布式事务及实现方案
+## 1.什么是 FastDFS
 
->**事务**是一个程序执行单元，里面的所有操作要么全部执行成功，要么全部执行失败。而**分布式事务**是指事务的参与者、支持事务的服务器、资源服务器以及事务管理器分别位于不同的分布式系统的不同节点之上。
+### 1.1 简介
 
-## 1. 什么是分布式事务
+FastDFS 由淘宝的余庆大佬在 2008 年开源的一款轻量级分布式文件管理系统，FastDFS 用 C 语言实现，支持 Linux、FreeBSD、MacOS 等类 UNIX 系统。FastDFS 类似 google FS，属于应用级文件系统，不是通用的文件系统，只能通过专有 API 访问，目前提供了 C 和 Java SDK ，以及 PHP 扩展 SDK。
 
-> **事务**是一个程序执行单元，里面的所有操作要么全部执行成功，要么全部执行失败。在分布式系统中，这些操作可能是位于不同的服务中，那么如果也能保证这些操作要么全部执行成功要么全部执行失败呢？这便是分布式事务要解决的问题。
+FastDFS 专为互联网应用量身定做，解决大容量文件存储问题，追求高性能和高扩展性，它可以看做是基于文件的 key/value 存储系统，key 为文件 ID，value 为文件内容，因此称作分布式文件存储服务更为合适。
 
-**以一个网上的经典下单减库存例子为例**：
+### 1.2 为什么需要 FastDFS
 
-单体应用所有的业务都使用一个数据库，整个下单流程或许只用在一个方法里同一个事务下操作数据库即可。此时所有操作都在一个事务里，要么全部提交，要么全部回滚。
+传统的企业级开发对于高并发要求不是很高，而且数据量可能也不大，在这样的环境下文件管理可能非常 Easy。
 
-![image-20220620194336102](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620194336102.png)
+但是互联网应用访问量大、数据量大，在互联网应用中，我们必须考虑解决文件大容量存储和高性能访问的问题，而 FastDFS 就特别适合干这件事情，常见的图片存储、视频存储、文档存储等等我们都可以采用 FastDFS 来做。
 
-但随着业务量不断增长，业务服务化拆分，就会分离出订单中心、库存中心等。而这样就造成业务间相互隔离，每个业务都维护着自己的数据库，数据的交换只能进行服务调用。
+### 1.3 FastDFS 架构
 
-用户再下单时，创建订单和扣减库存，需要同时对订单DB和库存DB进行操作。两步操作必须同时成功，否则就会造成业务混乱，可此时我们只能保证自己服务的数据一致性，无法保证调用其他服务的操作是否成功，所以为了保证整个下单流程的数据一致性，就需要分布式事务介入。
+作为一款分布式文件管理系统，FastDFS 主要包括四个方面的功能：
 
-![image-20220620194459985](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620194459985.png)
+- 文件存储
+- 文件同步
+- 文件上传
+- 文件下载
 
-## 2. 如何理解分布式事务
+这个方面的功能，基本上就能搞定我们常见的文件管理需求了。
 
-> 分布式的理论角度和分布式事务的知识体系角度理解分布式事务。
+下面这是一张来自 FastDFS 官网的系统架构图：
 
-### 2.1 从分布式的理论的角度看
+![image-20201211172156714](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20201211172156714.png)
 
-> 分布式的理论基础是CAP，由于P(分区容错）是必选项，所以只能在AP或者CP中选择。
+从上面这张图中我们可以看到，**FastDFS 架构包括 Tracker 和 Storage 两部分，看名字大概就能知道，Tracker 用来追踪文件，相当于是文件的一个索引，而 Storage 则用来保存文件。**
 
-- **分布式理论的CP** -> 刚性事务
+我们上传文件的文件最终保存在 Storage 上，文件的元数据信息保存在 Tracker 上，通过 Tracker 可以实现对 Storage 的负载均衡。
 
-遵循ACID，对数据要求强一致性
+Storage 一般会搭建成集群，一个 Storage Cluster 可以由多个组构成，不同的组之间不进行通信，一个组又相当于一个小的集群，组由多个 Storage Server 组成，组内的 Storage Server 会通过连接进行文件同步来保证高可用。
 
-- **分布式理论的AP+BASE** -> 柔性事务
+## 2. 安装
 
-遵循BASE，允许一定时间内不同节点的数据不一致，但要求最终一致。
+为了测试方便，不开启多台虚拟机，Tracker 和 Storage 我将安装在同一台服务器上。
 
-### 2.2 从分布式事务的体系看
+图片上传我们一般使用 FastDFS，图片上传成功之后，接下来的图片访问我们一般采用 Nginx。我们分别从以下三个方面介绍
 
-如下图，可以帮助你构筑分布式事务的知识体系，一目了然。
+- Tracker 安装
+- Storage 安装
+- Nginx 安装（只介绍关键配置）
 
-![image-20220620194648624](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620194648624.png)
+### 2.1 Tracker 安装
 
-#### 2.2.1 刚性事务
+安装，我们首先需要准备一个环境两个库以及一个安装包。
 
-**刚性事务**：分布式理论的CP，遵循ACID，对数据要求强一致性。
+1. 一个环境
 
-- **XA协议** 是一个基于数据库层面的分布式事务协议，其分为两部分：**事务管理器（Transaction Manager）**和**本地资源管理器（Resource Manager）**。事务管理器作为一个全局的调度者，负责对各个本地资源管理器统一号令提交或者回滚。主流的诸如Oracle、MySQL等数据库均已实现了XA接口。
-  - **二阶提交协议（2PC）**: 根据XA协议衍生出来而来; 引入一个作为协调者的组件来统一掌控所有参与者的操作结果并最终指示这些节点是否要把操作结果进行真正的提交; 参与者将操作成败通知协调者，再由协调者根据所有参与者的反馈情报决定各参与者是否要提交操作还是中止操作。所谓的两个阶段是指：第一阶段：准备阶段 (投票阶段) 和第二阶段：提交阶段（执行阶段）
-  - **三阶提交协议（3PC）**: 是对两段提交（2PC）的一种升级优化，**3PC在2PC的第一阶段和第二阶段中插入一个准备阶段**。保证了在最后提交阶段之前，各参与者节点的状态都一致。同时在协调者和参与者中都引入超时机制，当参与者各种原因未收到协调者的commit请求后，会对本地事务进行commit，不会一直阻塞等待，解决了2PC的单点故障问题，但3PC还是没能从根本上解决数据一致性的问题。
-- Java事务规范
-  - **JTA**：Java事务API（Java Transaction API）是一个Java企业版的应用程序接口，在Java环境中，允许完成跨越多个XA资源的分布式事务。
-  - **JTS**：Java事务服务（Java Transaction Service）是J2EE平台提供了分布式事务服务的具体实现规范，j2ee服务器提供商根据JTS规范实现事务并提供JTA接口。
+    FastDFS 采用 C 语言开发，所以在安装之前，如果没有 gcc 环境，需要先安装，安装命令如下：
 
-#### 2.2.2 柔性事务
+   ```
+   yum install gcc-c++
+   ```
 
-**柔性事务**：分布式理论的AP，遵循BASE，允许一定时间内不同节点的数据不一致，但要求最终一致。
+2. 两个库
 
-- 基于业务层
-  - **TCC**: TCC（Try-Confirm-Cancel）又被称补偿事务，TCC与2PC的思想很相似，事务处理流程也很相似，但2PC是应用于在DB层面，TCC则可以理解为在应用层面的2PC，是需要我们编写业务逻辑来实现。
-  - **SAGA**：Saga是由一系列的本地事务构成。每一个本地事务在更新完数据库之后，会发布一条消息或者一个事件来触发Saga中的下一个本地事务的执行。如果一个本地事务因为某些业务规则无法满足而失败，Saga会执行在这个失败的事务之前成功提交的所有事务的补偿操作。Saga的实现有很多种方式，其中最流行的两种方式是：基于事件的方式和基于命令的方式。
-- 最终一致性
-  - **消息表**：本地消息表的方案最初是由 eBay 提出，核心思路是将分布式事务拆分成本地事务进行处理。
-  - **消息队列**：基于 MQ 的分布式事务方案其实是对本地消息表的封装，将本地消息表基于 MQ 内部，其他方面的协议基本与本地消息表一致。
-  - **最大努力通知**：最大努力通知也称为定期校对，是对MQ事务方案的进一步优化。它在事务主动方增加了消息校对的接口，如果事务被动方没有接收到消息，此时可以调用事务主动方提供的消息校对的接口主动获取。
+   - libevent
 
-## 3. 分布式事务方案之刚性事务
+      FastDFS 依赖 libevent 库，安装命令如下：
 
-> 说到刚性事务，首先要讲的是XA协议。XA协议是一个基于**数据库**的分布式事务协议，其分为两部分：**事务管理器（Transaction Manager）\**和\**本地资源管理器（Resource Manager）**。事务管理器作为一个全局的调度者，负责对各个本地资源管理器统一号令提交或者回滚。`二阶提交协议（2PC）`和`三阶提交协议（3PC）`就是根据此协议衍生出来而来。主流的诸如Oracle、MySQL等数据库均已实现了XA接口。
+     ```
+     yum -y install libevent
+     ```
 
-XA接口是双向的系统接口，在事务管理器（Transaction Manager）以及一个或多个资源管理器（Resource Manager）之间形成通信桥梁。也就是说，在基于XA的一个事务中，我们可以针对多个资源进行事务管理，例如一个系统访问多个数据库，或即访问数据库、又访问像消息中间件这样的资源。这样我们就能够实现在多个数据库和消息中间件直接实现全部提交、或全部取消的事务。**XA规范不是java的规范，而是一种通用的规范; Java 中的规范是JTA和JTS：Java事务API（Java Transaction API）是一个Java企业版的应用程序接口，在Java环境中，允许完成跨越多个XA资源的分布式事务；Java事务服务（Java Transaction Service）是J2EE平台提供了分布式事务服务的具体实现规范，j2ee服务器提供商根据JTS规范实现事务并提供JTA接口**。
+   - libfastcommon
 
-### 3.1 两段提交（2PC）
+      FastDFS 官方提供的，它包含了 FastDFS 运行所需要的一些基础库。
 
-> 引入一个作为协调者（coordinator）的组件来统一掌控所有参与者（participant）的操作结果，并最终指示这些节点是否要把操作结果进行真正的提交。
+     [下载地址](https://github.com/happyfish100/libfastcommon/archive/V1.0.43.tar.gz) : https://github.com/happyfish100/libfastcommon/archive/V1.0.43.tar.gz
 
-简单而言：参与者（participant）用来管理资源，协调者（coordinator）用来协调事务状态
+     将下载好的 libfastcommon 拷贝至 /usr/local/ 目录下，然后依次执行如下命令：
 
-两段提交（2PC - Prepare & Commit）是指两个阶段的提交：
+     ```sh
+      cd /usr/local
+      tar -zxvf libfastcommon-1.0.43.tar.gz 
+      cd libfastcommon-1.0.43/
+      ./make.sh
+      ./make.sh install
+     ```
 
-- 第一阶段: 准备阶段；
-  - 协调者向所有参与者发送 REQUEST-TO-PREPARE
-  - 当参与者收到REQUEST-TO-PREPARE 消息后, 它向协调者发送消息PREPARED或者NO，表示事务是否准备好；如果发送的是NO，那么事务要回滚；
-- 第二阶段: 提交阶段。
-  - 协调者收集所有参与者的返回消息, 如果所有的参与者都回复的是PREPARED， 那么协调者向所有参与者发送COMMIT 消息；否则，协调者向所有回复PREPARED的参与者发送ABORT消息；
-  - 参与者如果回复了PREPARED消息并且收到协调者发来的COMMIT消息，或者它收到ABORT消息，它将执行提交或回滚，并向协调者发送DONE消息以确认。
+3. 一个安装包
 
-![image-20220620202716714](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620202716714.png)
+   接下来我们下载 Tracker，注意，**由于 Tracker 和 Storage 是相同的安装包**，所以下载一次即可
 
-**两段提交（2PC）的缺点**：
+   [下载地址](https://github.com/happyfish100/fastdfs/archive/V6.06.tar.gz) : https://github.com/happyfish100/fastdfs/archive/V6.06.tar.gz
 
-二阶段提交看似能够提供原子性的操作，但它存在着严重的缺陷：
+   下载成功后，将下载文件拷贝到 /usr/local 目录下，然后依次执行如下命令安装：
 
-- **网络抖动导致的数据不一致**：第二阶段中协调者向参与者发送commit命令之后，一旦此时发生网络抖动，导致一部分参与者接收到了commit请求并执行，可其他未接到commit请求的参与者无法执行事务提交。进而导致整个分布式系统出现了数据不一致。
-- **超时导致的同步阻塞问题**：2PC中的所有的参与者节点都为事务阻塞型，当某一个参与者节点出现通信超时，其余参与者都会被动阻塞占用资源不能释放。
-- **单点故障的风险**：由于严重的依赖协调者，一旦协调者发生故障，而此时参与者还都处于锁定资源的状态，无法完成事务commit操作。虽然协调者出现故障后，会重新选举一个协调者，可无法解决因前一个协调者宕机导致的参与者处于阻塞状态的问题。
+   ```sh
+   cd /usr/local
+   tar -zxvf fastdfs-6.06.tar.gz
+   cd fastdfs-6.06/
+   ./make.sh
+   ./make.sh install
+   ```
 
-**2PC小结**
+   安装成功后，执行如下命令，将安装目录内 conf 目录下的配置文件拷贝到 /etc/fdfs 目录下：
 
-2PC除本身的算法局限外，还有一个使用上的限制，就是它主要用在两个数据库之间（数据库实现了XA协议）。两个系统之间是无法使用2PC的，因为不会直接在底层的两个业务数据库之间做一致性，而是在两个服务上面实现一致性。
+   ```
+   cd conf/
+   cp ./* /etc/fdfs/
+   ```
 
-> *2PC只适用两个数据库（数据库实现了XA协议）之间；2PC有诸多问题和不便，在实践中一般很少使用*。
+4. 配置
 
-### 3.2 三段提交（3PC）
+   进入 /etc/fdfs/ 目录下进行配置：
 
-> 三段提交（3PC）是对两段提交（2PC）的一种升级优化，**3PC在2PC的第一阶段和第二阶段中插入一个准备阶段**。保证了在最后提交阶段之前，各参与者节点的状态都一致。同时在协调者和参与者中都引入超时机制，当参与者各种原因未收到协调者的commit请求后，会对本地事务进行commit，不会一直阻塞等待，解决了2PC的单点故障问题，但3PC还是没能从根本上解决数据一致性的问题。
+   打开 tracker.conf 文件：
 
-**3PC的三个阶段分别是CanCommit、PreCommit、DoCommit**：
+   ```sh
+   vi tracker.conf
+   ```
 
-- **CanCommit**：协调者向所有参与者发送CanCommit命令，询问是否可以执行事务提交操作。如果全部响应YES则进入下一个阶段。
-- **PreCommit**：协调者向所有参与者发送PreCommit命令，询问是否可以进行事务的预提交操作，参与者接收到PreCommit请求后，如参与者成功的执行了事务操作，则返回Yes响应，进入最终commit阶段。一旦参与者中有向协调者发送了No响应，或因网络造成超时，协调者没有接到参与者的响应，协调者向所有参与者发送abort请求，参与者接受abort命令执行事务的中断。
-- **DoCommit**：在前两个阶段中所有参与者的响应反馈均是YES后，协调者向参与者发送DoCommit命令正式提交事务，如协调者没有接收到参与者发送的ACK响应，会向所有参与者发送abort请求命令，执行事务的中断。
+   修改如下配置：
 
-![image-20220620203825150](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620203825150.png)
+   ![image-20201211094903515](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20201211094903515.png)
 
-**3PC存在的问题**
+- 默认端口:22122 （无特殊需求暂不做修改）
+- 元数据的保存目录：（注意目录要存在）
 
-3PC工作在同步网络模型上，它假设消息传输时间是有上界的，只存在机器失败而不存在消息失败。这个假设太强，现实的情形是，机器失败是无法完美地检测出来的，消息传输可能因为网络拥堵花费很多时间。同时, 说阻塞是相对, 存在协调者和参与者同时失败的情形下, 3PC事务依然会阻塞。实际上，很少会有系统实现3PC，多数现实的系统会通过复制状态机解决2PC阻塞的问题。比如，如果失败模型不是失败-停止, 而是消息失败（消息延迟或网络分区），那样3PC会产生不一致的情形。
+5. 启动
 
-**3PC小结**
+   接下来执行如下命令启动 Tracker：
 
-> *3PC并没有完美解决2PC的阻塞，也引入了新的问题（不一致问题），所以3PC很少会被真正的使用*。
+   ```
+   /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf start
+   ```
 
-## 4. 分布式事务方案之柔性事务
+### 2.2 Storage 安装
 
-> 柔性事务：分布式理论的AP，遵循BASE，允许一定时间内不同节点的数据不一致，但要求最终一致。
+这里我们搭建一个 Storage 实例即可。Storage 安装也需要 libevent 和 libfastcommon，这两个库的安装参考上文
 
-### 4.1 补偿事务 (TCC)
+Storage 本身的安装，也和 Tracker 一致，执行命令也都一样，因为我这里将 Tracker 和 Storage 安装在同一台服务器上，所以不用再执行安装命令了（相当于安装 Tracker 时已经安装了 Storage 了）。
 
-> TCC（Try-Confirm-Cancel）又被称补偿事务，TCC与2PC的思想很相似，事务处理流程也很相似，但**2PC是应用于在DB层面，TCC则可以理解为在应用层面的2PC，是需要我们编写业务逻辑来实现**。
+唯一要做的，就是进入到 /etc/fdfs 目录下，配置 Storage：
 
-TCC它的核心思想是："针对每个操作都要注册一个与其对应的确认（Try）和补偿（Cancel）"。
+```
+vi storage.conf
+```
 
-还拿下单扣库存解释下它的三个操作：
+![image-20201211101021672](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20201211101021672.png)
 
-- **Try阶段**：下单时通过Try操作去扣除库存预留资源。
-- **Confirm阶段**：确认执行业务操作，在只预留的资源基础上，发起购买请求。
-- **Cancel阶段**：只要涉及到的相关业务中，有一个业务方预留资源未成功，则取消所有业务资源的预留请求。
+![image-20201211100945362](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20201211100945362.png)
 
-![image-20220620204222513](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620204222513.png)
+这里一共配置三个地方，分别是 base_path、store_path0 以及 tracker_server ，tracker_server 模板有两个地址，我们这里只有一个，配置完成后，记得注释掉另外一个不用的。
 
-**TCC的缺点**：
+配置完成后，执行如下命令启动 Storage：
 
-1. 空回滚
+```sh
+/usr/bin/fdfs_storaged /etc/fdfs/storage.conf start
+```
 
-   当一个分支事务所在的服务发生宕机或者网络异常导致调用失败，并未执行try方法，当恢复后事务执行回滚操作就会调用此分支事务的cancel方法,如果cancel方法不能处理此种情况就会出现空回滚。
+这两个启动完成后，现在就可以做文件的上传了，但是一般如果是图片文件，我们还需要提供一个图片的访问功能，目前来说最佳方案当然是 Nginx 了，所以我们这里连同 Nginx 一起配置好，再来做测试。
 
-   是否出现空回滚，我们需要需要判断是否执行了try方法，如果执行了就没有空回滚。解决方法就是当主业务发起事务时，生成一个全局事务记录，并生成一个全局唯一ID，贯穿整个事务，再创建一张分支事务记录表，用于记录分支事务，try执行时将全局事务ID和分支事务ID存入分支事务表中，表示执行了try阶段，当cancel执行时，先判断表中是否有该全局事务ID的数据，如果有则回滚，否则不做任何操作。比如seata的AT模式中就有分支事务表。
+### 2.3 Nginx 安装
 
-2. 幂等问题
+Nginx 的安装分为两个步骤：
 
-   由于服务宕机或者网络问题，方法的调用可能出现超时，为了保证事务正常执行我们往往会加入重试的机制，因此就需要保证confirm和cancel阶段操作的幂等性。
+- 安装 Nginx
+- 首先在 Storage 下安装 fastdfs-nginx-module
 
-   我们可以在分支事务记录表中增加事务执行状态，每次执行confirm和cancel方法时都查询该事务的执行状态，以此判断事务的幂等性。
+#### 2.3.1 安装Nginx
 
-3. 悬挂问题
+参考：[安装nginx](http://java.isture.com/linux/nginx/%E5%AE%89%E8%A3%85nginx.html)
 
-   TCC中，在调用try之前会先注册分支事务，注册分支事务之后，调用出现超时，此时try请求还未到达对应的服务，因为调用超时了，所以会执行cancel调用，此时cancel已经执行完了，然而这个时候try请求到达了，这个时候执行了try之后就没有后续的操作了，就会导致资源挂起，无法释放。
+#### 2.3.2 Storage 下安装 fastdfs-nginx-module
 
-   执行try方法时我们可以判断confirm或者cancel方法是否执行，如果执行了那么就不执行try阶段。同样借助分支事务表中事务的执行状态。如果已经执行了confirm或者cancel那么try就执行。
+1. 下载fastdfs-nginx-module
 
-### 4.2 Saga事务
+   [下载地址](https://github.com/happyfish100/fastdfs-nginx-module/releases)
 
-> Saga是分布式事务领域最有名气的解决方案之一，最初出现在1987年Hector Garcaa-Molrna & Kenneth Salem发表的论文SAGAS里。 如下内容主要来源于[这里](https://blog.couchbase.com/saga-pattern-implement-business-transactions-using-microservices-part/)，然后由flyingww翻译整理在[知乎](https://zhuanlan.zhihu.com/p/95852045)。
+2. 下载完成后，将下载的文件拷贝到 /usr/local 目录下。然后进入 /usr/local 目录，分别执行如下命令：
 
-Saga是由一系列的本地事务构成。每一个本地事务在更新完数据库之后，会发布一条消息或者一个事件来触发Saga中的下一个本地事务的执行。如果一个本地事务因为某些业务规则无法满足而失败，Saga会执行在这个失败的事务之前成功提交的所有事务的补偿操作。
+   ```
+   cd /usr/local/
+   tar -zxvf fastdfs-nginx-module-1.22.tar.gz
+   ```
 
-Saga的实现有很多种方式，其中最流行的两种方式是：
+3. 然后将 `/usr/local/fastdfs-nginx-module-1.22/src/mod_fastdfs.conf` 文件拷贝到 `/etc/fdfs/` 目录下，并修改该文件的内容：
 
-- **基于事件的方式**。这种方式没有协调中心，整个模式的工作方式就像舞蹈一样，各个舞蹈演员按照预先编排的动作和走位各自表演，最终形成一只舞蹈。处于当前Saga下的各个服务，会产生某类事件，或者监听其它服务产生的事件并决定是否需要针对监听到的事件做出响应。
-- **基于命令的方式**。这种方式的工作形式就像一只乐队，由一个指挥家（协调中心）来协调大家的工作。协调中心来告诉Saga的参与方应该执行哪一个本地事务。
+   ```sh
+   cp /usr/local/fastdfs-nginx-module-1.22/src/mod_fastdfs.conf /etc/fdfs/
+   ```
 
-我们继续以订单流程为例，说明一下该模式。
+4. 修改mod_fastdfs.conf的内容：
 
-假设一个完整的订单流程包含了如下几个服务：
+   ```
+   vi /etc/fdfs/mod_fastdfs.conf
+   ```
 
-1. Order Service：订单服务
-2. Payment Service：支付服务
-3. Stock Service：库存服务
-4. Delivery Service：物流服务
+   ![image-20201211102958727](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20201211102958727.png)
 
-![image-20220620204857819](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620204857819.png)
+5. 接下来，回到第一步下载的 nginx 安装文件的解压目录中，执行如下命令，重新配置编译安装：
 
-#### 4.2.1 基于事件的方式
+   ```sh
+   ./configure --add-module=/usr/local/fastdfs-nginx-module-1.22/src
+   make
+   make install
+   ```
 
-在基于事件的方式中，第一个服务执行完本地事务之后，会产生一个事件。其它服务会监听这个事件，触发该服务本地事务的执行，并产生新的事件。
+6. 安装完成后，修改 nginx 的配置文件，如下：
 
-采用基于事件的saga模式的订单处理流程如下：
+   ```
+   vi /usr/local/nginx/conf/nginx.conf
+   ```
 
-![image-20220620204955668](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620204955668.png)
+   添加
 
-1. 订单服务创建一笔新订单，将订单状态设置为"待处理"，产生事件ORDER_CREATED_EVENT。
-2. 支付服务监听ORDER_CREATED_EVENT，完成扣款并产生事件BILLED_ORDER_EVENT。
-3. 库存服务监听BILLED_ORDER_EVENT，完成库存扣减和备货，产生事件ORDER_PREPARED_EVENT。
-4. 物流服务监听ORDER_PREPARED_EVENT，完成商品配送，产生事件ORDER_DELIVERED_EVENT。
-5. 订单服务监听ORDER_DELIVERED_EVENT，将订单状态更新为"完成"。
+   ```ssh
+   	server {
+           listen          80;
+           server_name     127.0.0.1;       
+   		location ~/group([0-9]) {
+               ngx_fastdfs_module;
+          	}
+       }
+   ```
 
-在这个流程中，订单服务很可能还会监听BILLED_ORDER_EVENT，ORDER_PREPARED_EVENT来完成订单状态的实时更新。将订单状态分别更新为"已经支付"和"已经出库"等状态来及时反映订单的最新状态。
+   在这里配置 nginx 请求转发。
 
-##### 4.2.1.1  **该模式下分布式事务的回滚**
+   配置完成后，启动 nginx，看到如下日志，表示 nginx 启动成功：
 
-为了在异常情况下回滚整个分布式事务，我们需要为相关服务提供补偿操作接口。
+   ```
+   ngx_http_fastdfs_set pid=19040
+   ```
 
-假设库存服务由于库存不足没能正确完成备货，我们可以按照下面的流程来回滚整个Saga事务：
+   **疑问：fastdfs-nginx-module 有啥用**
 
-<img src="https://zszblog.oss-cn-beijing.aliyuncs.com/zszblog/image-20220620205136726.png"/>
+   看了整个安装过程之后，很多小伙伴有疑问，到头来还是 nginx 本身直接找到了图片文件目录，fastdfs-nginx-module 到底有啥用？
 
-1. 库存服务产生事件PRODUCT_OUT_OF_STOCK_EVENT。
-2. 订单服务和支付服务都会监听该事件并做出响应：
-   1. 支付服务完成退款。
-   2. 订单服务将订单状态设置为"失败"。
+   前面我们说过，Storage 由很多组构成，每个组又是一个小的集群，在每一个组里边，数据会进行同步，但是如果数据还没同步，这个时候就有请求发来了，该怎么办？此时**fastdfs-nginx-module 会帮助我们直接从源 Storage 上获取文件。**
 
-##### 4.2.1.2 **基于事件方式的优缺点**
+## 3. 启动fastDFS
 
-**优点**：简单且容易理解。各参与方相互之间无直接沟通，完全解耦。这种方式比较适合整个分布式事务只有2-4个步骤的情形。
+重启tracker
 
-**缺点**：这种方式如果涉及比较多的业务参与方，则比较容易失控。各业务参与方可随意监听对方的消息，以至于最后没人知道到底有哪些系统在监听哪些消息。更悲催的是，这个模式还可能产生环形监听，也就是两个业务方相互监听对方所产生的事件。
+```bash
+/usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf start
+```
 
-接下来，我们将介绍如何使用命令的方式来克服上面提到的缺点。
+重启storage
 
-#### 4.2.2 基于命令的方式
+```bash
+/usr/bin/fdfs_storaged /etc/fdfs/storage.conf start
+```
 
-在基于命令的方式中，我们会定义一个新的服务，这个服务扮演的角色就和一支交响乐乐队的指挥一样，告诉各个业务参与方，在什么时候做什么事情。我们管这个新服务叫做协调中心。协调中心通过命令/回复的方式来和Saga中其它服务进行交互。
+## 4. Java客户端调用
 
-我们继续以之前的订单流程来举例。下图中的Order Saga Orchestrator就是新引入的协调中心。
+### 4.1 相关配置
 
-![image-20220620205512563](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620205512563.png)
+安装成功后，接下来我们就用 Java 客户端来测试一下文件上传下载。
 
-1. 订单服务创建一笔新订单，将订单状态设置为"待处理"，然后让Order Saga Orchestrator（OSO）开启创建订单事务。
-2. OSO发送一个"支付命令"给支付服务，支付服务完成扣款并回复"支付完成"消息。
-3. OSO发送一个"备货命令"给库存服务，库存服务完成库存扣减和备货，并回复"出库"消息。
-4. OSO发送一个"配送命令"给物流服务，物流服务完成配送，并回复"配送完成"消息。
-5. OSO向订单服务发送"订单结束命令"给订单服务，订单服务将订单状态设置为"完成"。
-6. OSO清楚一个订单处理Saga的具体流程，并在出现异常时向相关服务发送补偿命令来回滚整个分布式事务。
+1. 添加maven 依赖
 
-实现协调中心的一个比较好的方式是使用**状态机(Sate Machine)**。
+   ```xml
+   <dependency>
+       <groupId>net.oschina.zcx7878</groupId>
+       <artifactId>fastdfs-client-java</artifactId>
+       <version>1.27.0.0</version>
+   </dependency>
+   ```
 
-##### 4.2.2.1 **该模式下分布式事务的回滚**
+2. 在项目的 resources 目录下添加 FastDFS 的配置文件 fastdfs-client.properties，内容如下：
 
-该模式下的回滚流程如下：
+   ```
+   fastdfs.connect_timeout_in_seconds = 5
+   fastdfs.network_timeout_in_seconds = 30
+   fastdfs.charset = UTF-8
+   fastdfs.http_anti_steal_token = false
+   fastdfs.http_secret_key = FastDFS1234567890
+   fastdfs.http_tracker_http_port = 80
+   fastdfs.tracker_servers = 120.79.200.222:22122
+   fastdfs.connection_pool.enabled = true
+   fastdfs.connection_pool.max_count_per_entry = 500
+   fastdfs.connection_pool.max_idle_time = 3600
+   fastdfs.connection_pool.max_wait_time_in_ms = 1000
+   ```
 
-![image-20220620205704545](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620205704545.png)
+   fastdfs.tracker_servers: 这是 Tracker 的地址，根据实际情况配置即可。
 
 
+### 4.2 文件上传
 
-1. 库存服务回复OSO一个"库存不足"消息。
+   配置完成后，先来看文件上传，代码如下：
 
-2. OSO意识到该分布式事务失败了，触发回滚流程：
+   ```java
+    @Test
+       void testUpload() {
+           try {
+               ClientGlobal.initByProperties("fastdfs-client.properties");
+               TrackerClient tracker = new TrackerClient();
+               TrackerServer trackerServer = tracker.getConnection();
+               StorageServer storageServer = null;
+               StorageClient1 client = new StorageClient1(trackerServer, storageServer);
+               NameValuePair nvp[] = null;
+               //上传到文件系统
+               String fileId = client.upload_file1("img\test.jpg", "jpg",
+                       nvp);
+               logger.info(fileId);
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+   ```
 
-3. OSO发送"退款命令"给支付服务，支付服务完成退款并回复"退款成功"消息。
+   执行步骤
 
-4. OSO向订单服务发送"将订单状态改为失败命令"，订单服务将订单状态更新为"失败"。
+   1. 首先加载配置文件
 
-##### 4.2.2.2 **基于命令方式的优缺点**
+   2. 然后构造一个 TrackerClient 对象
 
-优点：
+   3. 根据这个对象获取到一个 TrackerServer
 
-1. 避免了业务方之间的环形依赖。
-2. 将分布式事务的管理交由协调中心管理，协调中心对整个逻辑非常清楚。
-3. 减少了业务参与方的复杂度。这些业务参与方不再需要监听不同的消息，只是需要响应命令并回复消息。
-4. 测试更容易（分布式事务逻辑存在于协调中心，而不是分散在各业务方）。
-5. 回滚也更容易。
+   4. 然后创建一个 StorageClient1 实例
 
-缺点：
+   5. NameValuePair 中保存的是文件的元数据信息，如果有的话，就以 key/value 的方式来设置，如果没有的话，直接给一个 null 即可。
 
-1. 一个可能的缺点就是需要维护协调中心，而这个协调中心并不属于任何业务方。
+   6. 调用 client 的 upload_file1 方法上传文件，第一个参数是文件路径，第二个参数是文件的扩展名，第三个参数就是文件的元数据信息，这个方法的返回值，就是上传文件的访问路径。
 
-#### 4.2.3 Saga模式建议
+      执行该方法，打印日志如下：
 
-1. 给每一个分布式事务创建一个唯一的Tx id。这个唯一的Tx id可以用来在各个业务参与方沟通时精确定位哪一笔分布式事务。
+      ```
+      group1/M00/00/00/eE_Ib1_S57OAa6pQAADzHWHkPwM335.jpg
+      ```
 
-2. 对于基于命令的方式，在命令中携带回复地址。这种方式可以让服务同时响应多个协调中心请求。
+      就是文件的路径，此时，在浏览器中输入http://120.79.200.xxx:8701/group1/M00/00/00/eE_Ib1_S57OAa6pQAADzHWHkPwM335.jpg 就可以看到上传的图片了。
+      
+   #### 4.2.1 图片显示不出
 
-3. 幂等性。幂等性能够增加系统的容错性，让各个业务参与方服务提供幂等性操作，能够在遇到异常情况下进行重试。
+FastDFS 配好了，Nginx也配好了，可是网页打开图片地址就是访问不了，查看Nginx的log文件看到
+```sh
+  ERROR - file: /usr/local/src/fastdfs-nginx-module-1.20/src/common.c, line: 111, section: group1, you must set parameter: group_name!
+```
 
-4. 尽量在命令或者消息中携带下游处理需要的业务数据，避免下游处理时需要调用消息产生方接口获取更多数据。减少系统之间的相互依赖。
+找到 mod_fastdfs.conf ，发现groupname 没有写对(被注释了)
+```sh
+# when support multi-group on this storage server, uncomment following section
+  [group1]
+  group_name=group1
+  storage_server_port=23000
+  store_path_count=1
+  store_path0=/home/fastdfsuser/fastdfs
+  #store_path1=/home/yuqing/fastdfs1
+```
 
-### 4.3 本地消息表
+重启fastdfs 和 nginx
 
-> 本地消息表的方案最初是由 eBay 提出，核心思路是将分布式事务拆分成本地事务进行处理。
+### 4.3 文件下载
 
-角色：
+```java
+  @Test
+    void testDownload() {
+        try {
+            ClientGlobal.initByProperties("fastdfs-client.properties");
+            TrackerClient tracker = new TrackerClient();
+            TrackerServer trackerServer = tracker.getConnection();
+            StorageServer storageServer = null;
+            StorageClient1 client = new StorageClient1(trackerServer, storageServer);
+            byte[] bytes = client.download_file1("group1/M00/00/00/eE_Ib1_S57OAa6pQAADzHWHkPwM335.jpg");
+            FileOutputStream fos = new FileOutputStream(new File("img\\out.png"));
+            fos.write(bytes);
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-- 事务主动方
-- 事务被动方
+```
 
-通过在事务主动发起方额外新建事务消息表，事务发起方处理业务和记录事务消息在本地事务中完成，轮询事务消息表的数据发送事务消息，事务被动方基于消息中间件消费事务消息表中的事务。
+直接调用 download_file1 方法获取到一个 byte 数组，然后通过 IO 流写出到本地文件即可。
 
-这样可以避免以下两种情况导致的数据不一致性：
 
-- 业务处理成功、事务消息发送失败
-- 业务处理失败、事务消息发送成功
 
-整体的流程如下图：
+## 5. 安全问题
 
-![image-20220620210356716](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620210356716.png)
+现在，任何人都可以访问我们服务器上传文件，这肯定是不行的，这个问题好解决，加一个上传时候的令牌即可。
 
-上图中整体的处理步骤如下：
+1. 首先我们在服务端开启令牌校验：
 
-1. 事务主动方在同一个本地事务中处理业务和写消息表操作
-2. 事务主动方通过消息中间件，通知事务被动方处理事务通知事务待消息。消息中间件可以基于 Kafka、RocketMQ 消息队列，事务主动方主动写消息到消息队列，事务消费方消费并处理消息队列中的消息。
-3. 事务被动方通过消息中间件，通知事务主动方事务已处理的消息。
-4. 事务主动方接收中间件的消息，更新消息表的状态为已处理。
+   ```
+   vi /etc/fdfs/http.conf
+   ```
 
-一些必要的容错处理如下：
+   ![image-20201211150330620](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20201211150330620.png)
 
-- 当1处理出错，由于还在事务主动方的本地事务中，直接回滚即可
-- 当2,3处理出错，由于事务主动方本地保存了消息，只需要轮询消息重新通过消息中间件发送，事务被动方重新读取消息处理业务即可。
-- 如果是业务上处理失败，事务被动方可以发消息给事务主动方回滚事务
-- 如果事务被动方已经消费了消息，事务主动方需要回滚事务的话，需要发消息通知事务主动方进行回滚事务。
+2. 重启服务端
 
-**优点**
+   ```
+   ./nginx -s stop
+   ./nginx
+   ```
 
-- 从应用设计开发的角度实现了消息数据的可靠性，消息数据的可靠性不依赖于消息中间件，弱化了对 MQ 中间件特性的依赖。
-- 方案轻量，容易实现。
+3. 前端获取令牌
 
-**缺点**
+   ```java
+    @Test
+       public void getToken() throws Exception {
+           int ts = (int) Instant.now().getEpochSecond();
+           String token = ProtoCommon.getToken("M00/00/00/eE_Ib1_S57OAa6pQAADzHWHkPwM335.jpg", ts, "FastDFS1234567890");
+           StringBuilder sb = new StringBuilder();
+           sb.append("?token=").append(token);
+           sb.append("&ts=").append(ts);
+           System.out.println(sb.toString());
+       }
+   ```
 
-- 与具体的业务场景绑定，耦合性强，不可公用。
-- 消息数据与业务数据同库，占用业务系统资源。
-- 业务系统在使用关系型数据库的情况下，消息服务性能会受到关系型数据库并发性能的局限。
+   根据 ProtoCommon.getToken 方法来获取令牌
 
-### 4.4 MQ事务方案（可靠消息事务）
+   - 第一个参数是你要访问的文件 id，**注意，这个地址里边不包含 group，千万别搞错了；**
+   - 第二个参数是时间戳
+   - 第三个参数是密钥，密钥要和服务端的配置一致。
 
-> 基于 MQ 的分布式事务方案其实是对本地消息表的封装，将本地消息表基于 MQ 内部，其他方面的协议基本与本地消息表一致。
+   将生成的字符串拼接，追加到访问路径后面，如：
 
-MQ事务方案整体流程和本地消息表的流程很相似，如下图：
+   http://120.79.200.xxx:8701/group1/M00/00/00/eE_Ib1_S57OAa6pQAADzHWHkPwM335.jpg?token=94a8e7167e1583b0efa674d0dbf5fc63&ts=1607670503。**此时访问路径里边如果没有令牌，会访问失败。**
 
-![image-20220620210812437](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620210812437.png)
+## 6.异常处理
 
-从上图可以看出和本地消息表方案唯一不同就是将本地消息表存在了MQ内部，而不是业务数据库中。
+### 6.1 getStoreStorage fail, errno code: 28
 
-那么MQ内部的处理尤为重要，下面主要基于 RocketMQ 4.3 之后的版本介绍 MQ 的分布式事务方案。
+![image-20201211113209071](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20201211113209071.png)
 
-在本地消息表方案中，保证事务主动方发写业务表数据和写消息表数据的一致性是基于数据库事务，RocketMQ 的事务消息相对于普通 MQ提供了 2PC 的提交接口，方案如下：
+引起错误的原因是，在我们配置tracker的时候，里面有一个配置项：
 
-#### 4.4.1 **正常情况：事务主动方发消息**
+```
+# reserved storage space for system or other applications.
+# if the free(available) space of any stoarge server in
+# a group <= reserved_storage_space, no file can be uploaded to this group.
+# bytes unit can be one of follows:
+### G or g for gigabyte(GB)
+### M or m for megabyte(MB)
+### K or k for kilobyte(KB)
+### no unit for byte(B)
+### XX.XX% as ratio such as: reserved_storage_space = 10%
+reserved_storage_space = 10%
 
-![image-20220620210923960](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620210923960.png)
+```
 
-这种情况下，事务主动方服务正常，没有发生故障，发消息流程如下：
+该配置项是配置storage服务预留磁盘空间的大小的比值，默认是10%，即当磁盘空间不足10%时，则tracker拒绝上传文件。
 
-- 发送方向 MQ 服务端(MQ Server)发送 half 消息。
-- MQ Server 将消息持久化成功之后，向发送方 ack 确认消息已经发送成功。
-- 发送方开始执行本地事务逻辑。
-- 发送方根据本地事务执行结果向 MQ Server 提交二次确认（commit 或是 rollback）。
-- MQ Server 收到 commit 状态则将半消息标记为可投递，订阅方最终将收到该消息；MQ Server 收到 rollback 状态则删除半消息，订阅方将不会接受该消息。
+解决方法：
 
-#### 4.4.2 **异常情况：事务主动方消息恢复**
+1. 删除不用文件，最好调用DFS的删除API执行删除，因为DFS会维护一个索引文件，调用API删除时会连同索引文件都会删除。这种方式谨慎使用。
+2. 如果文件不允许删除，则需要扩展磁盘。
+3. 临时解决方案，调小该比例
 
-![image-20220620211120347](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620211120347.png)
+### 6.2 客户端连接超时
 
-在断网或者应用重启等异常情况下，图中 4 提交的二次确认超时未到达 MQ Server，此时处理逻辑如下：
+connect timed out
 
-- MQ Server 对该消息发起消息回查。
-- 发送方收到消息回查后，需要检查对应消息的本地事务执行的最终结果。
-- 发送方根据检查得到的本地事务的最终状态再次提交二次确认。
-- MQ Server基于 commit/rollback 对消息进行投递或者删除。
+![image-20210324234312735](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210324234312735.png)
 
-#### 4.4.3 **优点**
+我们需要确认fdfs 端口是否打开，如果是阿里云服务器，则需要配置安全组
 
-相比本地消息表方案，MQ 事务方案优点是：
+![image-20210324234130717](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20210324234130717.png)
 
-- 消息数据独立存储 ，降低业务系统与消息系统之间的耦合。
-- 吞吐量大于使用本地消息表方案。
-
-#### 4.4.4 **缺点**
-
-- 一次消息发送需要两次网络请求(half 消息 + commit/rollback 消息) 。
-- 业务处理服务需要实现消息状态回查接口。
-
-### 4.5 最大努力通知
-
-> 最大努力通知也称为定期校对，是对MQ事务方案的进一步优化。它在事务主动方增加了消息校对的接口，如果事务被动方没有接收到消息，此时可以调用事务主动方提供的消息校对的接口主动获取。
-
-最大努力通知的整体流程如下图：
-
-![image-20220620211354603](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620211354603.png)
-
-在可靠消息事务中，事务主动方需要将消息发送出去，并且消息接收方成功接收，这种可靠性发送是由事务主动方保证的；
-
-但是最大努力通知，事务主动方尽最大努力（重试，轮询....）将事务发送给事务接收方，但是仍然存在消息接收不到，此时需要事务被动方主动调用事务主动方的消息校对接口查询业务消息并消费，这种通知的可靠性是由事务被动方保证的。
-
-最大努力通知适用于业务通知类型，**例如微信交易的结果，就是通过最大努力通知方式通知各个商户，既有回调通知，也有交易查询接口**。
-
-## 5. 分布式事务的中间件Seata
-
-> Seata 是一款开源的分布式事务解决方案，致力于提供高性能和简单易用的分布式事务服务。Seata 将为用户提供了 AT、TCC、SAGA 和 XA 事务模式，为用户打造一站式的分布式解决方案。如下内容来源于[Seata官网](https://seata.io/zh-cn/docs/overview/what-is-seata.html)
-
-- **TC (Transaction Coordinator) - 事务协调者**: 维护全局和分支事务的状态，驱动全局事务提交或回滚。
-- **TM (Transaction Manager) - 事务管理器**: 定义全局事务的范围：开始全局事务、提交或回滚全局事务。
-- **RM (Resource Manager) - 资源管理器**: 管理分支事务处理的资源，与TC交谈以注册分支事务和报告分支事务的状态，并驱动分支事务提交或回滚。
-
-![image-20220620211847193](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620211847193.png)
-
-### 5.1 Seata AT 模式
-
-#### 5.1.1 **前提**
-
-- 基于支持本地 ACID 事务的关系型数据库。
-- Java 应用，通过 JDBC 访问数据库。
-
-#### 5.1.2 **整体机制**
-
-两阶段提交协议的演变：
-
-- 一阶段：业务数据和回滚日志记录在同一个本地事务中提交，释放本地锁和连接资源。
-- 二阶段：
-  - 提交异步化，非常快速地完成。
-  - 回滚通过一阶段的回滚日志进行反向补偿。
-
-#### 5.1.3 **写隔离**
-
-- 一阶段本地事务提交前，需要确保先拿到 全局锁 。
-- 拿不到 全局锁 ，不能提交本地事务。
-- 拿 全局锁 的尝试被限制在一定范围内，超出范围将放弃，并回滚本地事务，释放本地锁。
-
-以一个示例来说明：
-
-两个全局事务 tx1 和 tx2，分别对 a 表的 m 字段进行更新操作，m 的初始值 1000。
-
-tx1 先开始，开启本地事务，拿到本地锁，更新操作 m = 1000 - 100 = 900。本地事务提交前，先拿到该记录的 全局锁 ，本地提交释放本地锁。 tx2 后开始，开启本地事务，拿到本地锁，更新操作 m = 900 - 100 = 800。本地事务提交前，尝试拿该记录的 全局锁 ，tx1 全局提交前，该记录的全局锁被 tx1 持有，tx2 需要重试等待 全局锁 。
-
-![image-20220620212124418](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620212124418.png)
-
-tx1 二阶段全局提交，释放 全局锁 。tx2 拿到 全局锁 提交本地事务。
-
-![image-20220620212145672](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620212145672.png)
-
-如果 tx1 的二阶段全局回滚，则 tx1 需要重新获取该数据的本地锁，进行反向补偿的更新操作，实现分支的回滚。
-
-此时，如果 tx2 仍在等待该数据的 全局锁，同时持有本地锁，则 tx1 的分支回滚会失败。分支的回滚会一直重试，直到 tx2 的 全局锁 等锁超时，放弃 全局锁 并回滚本地事务释放本地锁，tx1 的分支回滚最终成功。
-
-因为整个过程 全局锁 在 tx1 结束前一直是被 tx1 持有的，所以不会发生 脏写 的问题。
-
-#### 5.1.4 **读隔离**
-
-在数据库本地事务隔离级别 读已提交（Read Committed） 或以上的基础上，Seata（AT 模式）的默认全局隔离级别是 读未提交（Read Uncommitted） 。
-
-如果应用在特定场景下，必需要求全局的 读已提交 ，目前 Seata 的方式是通过 SELECT FOR UPDATE 语句的代理。
-
-![image-20220620212306075](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620212306075.png)
-
-SELECT FOR UPDATE 语句的执行会申请 全局锁 ，如果 全局锁 被其他事务持有，则释放本地锁（回滚 SELECT FOR UPDATE 语句的本地执行）并重试。这个过程中，查询是被 block 住的，直到 全局锁 拿到，即读取的相关数据是 已提交 的，才返回。
-
-出于总体性能上的考虑，Seata 目前的方案并没有对所有 SELECT 语句都进行代理，仅针对 FOR UPDATE 的 SELECT 语句。
-
-### 5.2 Seata XA 模式
-
-#### 5.2.1 前提
-
-- 支持XA 事务的数据库。
-- Java 应用，通过 JDBC 访问数据库。
-
-#### 5.2.2  整体机制
-
-在 Seata 定义的分布式事务框架内，利用事务资源（数据库、消息服务等）对 XA 协议的支持，以 XA 协议的机制来管理分支事务的一种 事务模式。
-
-![image-20220620212439618](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620212439618.png)
-
-**执行阶段**：
-
-1. 可回滚：业务 SQL 操作放在 XA 分支中进行，由资源对 XA 协议的支持来保证 可回滚
-2. 持久化：XA 分支完成后，执行 XA prepare，同样，由资源对 XA 协议的支持来保证 持久化（即，之后任何意外都不会造成无法回滚的情况）
-
-**完成阶段**：
-
-1. 分支提交：执行 XA 分支的 commit
-2. 分支回滚：执行 XA 分支的 rollback
-
-#### 5.2.3 工作机制
-
-1. **整体运行机制**
-
-XA 模式 运行在 Seata 定义的事务框架内：
-
-![image-20220620212552183](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620212552183.png)
-
-- 执行阶段（E xecute）： XA start/XA end/XA prepare + SQL + 注册分支
-- 完成阶段（F inish）：XA commit/XA rollback
-
-2. 数据源代理
-
-XA 模式需要 XAConnection。
-
-获取 XAConnection 两种方式：
-
-- 方式一：要求开发者配置 XADataSource
-- 方式二：根据开发者的普通 DataSource 来创建
-
-第一种方式，给开发者增加了认知负担，需要为 XA 模式专门去学习和使用 XA 数据源，与 透明化 XA 编程模型的设计目标相违背。
-
-第二种方式，对开发者比较友好，和 AT 模式使用一样，开发者完全不必关心 XA 层面的任何问题，保持本地编程模型即可。
-
-我们优先设计实现第二种方式：数据源代理根据普通数据源中获取的普通 JDBC 连接创建出相应的 XAConnection。
-
-类比 AT 模式的数据源代理机制，如下：
-
-![image-20220620212702983](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620212702983.png)
-
-但是，第二种方法有局限：无法保证兼容的正确性。
-
-实际上，这种方法是在做数据库驱动程序要做的事情。不同的厂商、不同版本的数据库驱动实现机制是厂商私有的，我们只能保证在充分测试过的驱动程序上是正确的，开发者使用的驱动程序版本差异很可能造成机制的失效。
-
-这点在 Oracle 上体现非常明显。参见 Druid issue：https://github.com/alibaba/druid/issues/3707
-
-综合考虑，XA 模式的数据源代理设计需要同时支持第一种方式：基于 XA 数据源进行代理。
-
-类比 AT 模式的数据源代理机制，如下：
-
-![image-20220620212758686](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620212758686.png)
-
-3. **分支注册**
-
-XA start 需要 Xid 参数。
-
-这个 Xid 需要和 Seata 全局事务的 XID 和 BranchId 关联起来，以便由 TC 驱动 XA 分支的提交或回滚。
-
-目前 Seata 的 BranchId 是在分支注册过程，由 TC 统一生成的，所以 XA 模式分支注册的时机需要在 XA start 之前。
-
-*将来一个可能的优化方向*：
-
-把分支注册尽量延后。类似 AT 模式在本地事务提交之前才注册分支，避免分支执行失败情况下，没有意义的分支注册。
-
-这个优化方向需要 BranchId 生成机制的变化来配合。BranchId 不通过分支注册过程生成，而是生成后再带着 BranchId 去注册分支。
-
-### 5.3 Seata TCC 模式
-
-回顾总览中的描述：一个分布式的全局事务，整体是 两阶段提交 的模型。全局事务是由若干分支事务组成的，分支事务要满足 两阶段提交 的模型要求，即需要每个分支事务都具备自己的：
-
-- 一阶段 prepare 行为
-- 二阶段 commit 或 rollback 行为
-
-![image-20220620212921535](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620212921535.png)
-
-根据两阶段行为模式的不同，我们将分支事务划分为 Automatic (Branch) Transaction Mode 和 TCC (Branch) Transaction Mode.
-
-AT 模式基于 支持本地 ACID 事务 的 关系型数据库：
-
-1. 一阶段 prepare 行为：在本地事务中，一并提交业务数据更新和相应回滚日志记录。
-2. 二阶段 commit 行为：马上成功结束，自动 异步批量清理回滚日志。
-3. 二阶段 rollback 行为：通过回滚日志，自动 生成补偿操作，完成数据回滚。
-
-相应的，TCC 模式，不依赖于底层数据资源的事务支持：
-
-1. 一阶段 prepare 行为：调用 自定义 的 prepare 逻辑。
-2. 二阶段 commit 行为：调用 自定义 的 commit 逻辑。
-3. 二阶段 rollback 行为：调用 自定义 的 rollback 逻辑。
-
-所谓 TCC 模式，是指支持把 自定义 的分支事务纳入到全局事务的管理中。
-
-### 5.4 Seata Saga 模式
-
-> Saga模式是SEATA提供的长事务解决方案，在Saga模式中，业务流程中每个参与者都提交本地事务，当出现某一个参与者失败则补偿前面已经成功的参与者，一阶段正向服务和二阶段补偿服务都由业务开发实现。
-
-![image-20220620213127266](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620213127266.png)
-
-#### 5.4.1 概述
-
-**适用场景**：
-
-1. 业务流程长、业务流程多
-2. 参与者包含其它公司或遗留系统服务，无法提供 TCC 模式要求的三个接口
-
-**优势**：
-
-1. 一阶段提交本地事务，无锁，高性能
-2. 事件驱动架构，参与者可异步执行，高吞吐
-3. 补偿服务易于实现
-
-**缺点**：
-
-1. 不保证隔离性（应对方案见后面文档）
-
-#### 5.4.2 Saga的实现
-
-目前SEATA提供的Saga模式是基于状态机引擎来实现的，机制是：
-
-1. 通过状态图来定义服务调用的流程并生成 json 状态语言定义文件
-2. 状态图中一个节点可以是调用一个服务，节点可以配置它的补偿节点
-3. 状态图 json 由状态机引擎驱动执行，当出现异常时状态引擎反向执行已成功节点对应的补偿节点将事务回滚
-   1. 注意: 异常发生时是否进行补偿也可由用户自定义决定
-4. 可以实现服务编排需求，支持单项选择、并发、子流程、参数转换、参数映射、服务执行状态判断、异常捕获等功能
-
-示例状态图:
-
-![image-20220620213300286](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/image-20220620213300286.png)
+端口有两个：**22122 和23000 都要开启**！！！！
 
 ## 参考文章
 
-[**分布式系统 - 分布式事务及实现方案**](https://pdai.tech/md/arch/arch-z-transection.html)
+[手把手教你用 FastDFS 构建分布式文件管理系统](https://blog.csdn.net/u012702547/article/details/104589468)
+
+[FastDFS + Nginx 网页访问不了](https://blog.csdn.net/weixin_42591789/article/details/87931282)

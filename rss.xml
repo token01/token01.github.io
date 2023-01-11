@@ -6,8 +6,8 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 11 Jan 2023 04:35:44 GMT</pubDate>
-    <lastBuildDate>Wed, 11 Jan 2023 04:35:44 GMT</lastBuildDate>
+    <pubDate>Wed, 11 Jan 2023 04:36:20 GMT</pubDate>
+    <lastBuildDate>Wed, 11 Jan 2023 04:36:20 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>go</category>
@@ -18,7 +18,7 @@
       <source url="https://bytecodes.tech/rss.xml">3个月从零开始养成Machine Learning / AI 达人</source>
       <pubDate>Wed, 11 Jan 2023 03:59:03 GMT</pubDate>
       <content:encoded><![CDATA[<h1 id="_3个月从零开始养成machine-learning-ai-达人" tabindex="-1"> 3个月从零开始养成Machine Learning / AI 达人</h1>
-<p>今年无疑是AI爆火的一年，ChatGPT的横空出世，可能是2022年下半年最引人注目的AI突破，虽然可能不是技术含量最高的。为了更好的了解新技术的爆火，本文的目的单纯想加速从零开始转换AI领域的时间. 希望按表操课的人可以以最高效率， 在三个月内具备以下AI技能.</p>
+<p>本文的目的单纯想加速从零开始转换AI领域的时间. 希望按表操课的人可以以最高效率， 在三个月内具备以下AI技能.</p>
 <ul>
 <li>了解Machine Learning 基本算法</li>
 <li>会用Matlab / Octave / python建构Machine Learning</li>

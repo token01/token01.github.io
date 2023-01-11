@@ -6,8 +6,8 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 11 Jan 2023 05:47:45 GMT</pubDate>
-    <lastBuildDate>Wed, 11 Jan 2023 05:47:45 GMT</lastBuildDate>
+    <pubDate>Wed, 11 Jan 2023 05:55:51 GMT</pubDate>
+    <lastBuildDate>Wed, 11 Jan 2023 05:55:51 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>go</category>
@@ -26,30 +26,21 @@
 <li>熟悉Anaconda、jupyter等功能及环境介面</li>
 <li>了解Deep Learning Framework（ 如Tensorflow、keras、PyTorch 等）</li>
 </ul>
-<p>建议菜单序</p>
-<ul>
-<li>
+<h2 id="建议菜单序" tabindex="-1"> 建议菜单序</h2>
 <ol>
-<li>网络课程（视频课程）</li>
-</ol>
-</li>
-<li>a. <a href="https://www.coursera.org/learn/machine-learning" target="_blank" rel="noopener noreferrer">Coursera的Machine Learning</a>（=CS229a， less math， run @ matlab/octave）</li>
-<li>b. <a href="https://www.coursera.org/specializations/deep-learning" target="_blank" rel="noopener noreferrer">Coursera的Deep Learning specialization</a>（=CS230， less math， run @ python/tensorflow）</li>
-<li>c. <a href="https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU" target="_blank" rel="noopener noreferrer">Stanford的CS229</a> （Machine Learning， more math， run @ matlab/octave）</li>
-<li>d. <a href="https://www.youtube.com/playlist?list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qEE1Zxk" target="_blank" rel="noopener noreferrer">Stanford的CS231n</a> (Convolutional Neural Networks for Visual Recognition)</li>
-<li>
-<ol start="2">
-<li>开发工具（工具/环境）</li>
-</ol>
-</li>
-<li>
-<ol start="3">
-<li>应用实战（Kaggle）</li>
-</ol>
-</li>
+<li>网络课程（视频课程）
+<ul>
+<li>1-a. <a href="https://www.coursera.org/learn/machine-learning" target="_blank" rel="noopener noreferrer">Coursera的Machine Learning</a>（=CS229a， less math， run @ matlab/octave）</li>
+<li>1-b. <a href="https://www.coursera.org/specializations/deep-learning" target="_blank" rel="noopener noreferrer">Coursera的Deep Learning specialization</a>（=CS230， less math， run @ python/tensorflow）</li>
+<li>1-c. <a href="https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU" target="_blank" rel="noopener noreferrer">Stanford的CS229</a> （Machine Learning， more math， run @ matlab/octave）</li>
+<li>1-d. <a href="https://www.youtube.com/playlist?list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qEE1Zxk" target="_blank" rel="noopener noreferrer">Stanford的CS231n</a> (Convolutional Neural Networks for Visual Recognition)</li>
 </ul>
-<p>课程菜单 ：</p>
-<h2 id="_1-a-coursera的machine-learning-大约需要3周左右完成" tabindex="-1"> 1.a Coursera的Machine Learning （大约需要3周左右完成）</h2>
+</li>
+<li>开发工具（工具/环境）</li>
+<li>应用实战（Kaggle）ermaid</li>
+</ol>
+<h2 id="网络课程课程菜单" tabindex="-1"> 网络课程课程菜单</h2>
+<h3 id="_1-a-coursera的machine-learning-大约需要3周左右完成" tabindex="-1"> 1.a Coursera的Machine Learning （大约需要3周左右完成）</h3>
 <p>其实这就是Stanford的229a， 建议直接到Coursera参加课程， 作为0基础者的入门是非常浅显易懂的， Coding部分只用了matlat/octave， 对没有python经验的新人来说， 真的是进入Machine Learning的方便之门， 这也是最花时间的部分，完成这个阶段算是对Machine Learning有基本的了解， 从Linear、Non-linear、Logistic 一直到 Nueral Network、Recommend system等等， 也有能力自己写一些小程序练习， 完成此课程后对这个<a href="https://playground.tensorflow.org/" target="_blank" rel="noopener noreferrer">playground</a>的小接口大概可以有些感觉</p>
 <h3 id="_1-b-coursera-的deep-learning-specialization-course-1-5" tabindex="-1"> 1.b Coursera 的Deep Learning Specialization （Course 1 ~ 5）</h3>
 <p>Course.1 <a href="https://www.coursera.org/learn/neural-networks-deep-learning?specialization=deep-learning" target="_blank" rel="noopener noreferrer">Neural Networks and Deep Learning</a> （大约可以4天左右完成）</p>

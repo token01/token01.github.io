@@ -6,19 +6,19 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 11 Jan 2023 05:40:14 GMT</pubDate>
-    <lastBuildDate>Wed, 11 Jan 2023 05:40:14 GMT</lastBuildDate>
+    <pubDate>Wed, 11 Jan 2023 05:42:22 GMT</pubDate>
+    <lastBuildDate>Wed, 11 Jan 2023 05:42:22 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>go</category>
     <item>
-      <title>3个月从零开始养成Machine Learning / AI 达人</title>
+      <title>小白3个月从零养成Machine Learning / AI 达人</title>
       <link>https://bytecodes.tech/self/good-article/3-month-machine-learning.html</link>
       <guid>https://bytecodes.tech/self/good-article/3-month-machine-learning.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">3个月从零开始养成Machine Learning / AI 达人</source>
+      <source url="https://bytecodes.tech/rss.xml">小白3个月从零养成Machine Learning / AI 达人</source>
       <pubDate>Wed, 11 Jan 2023 05:05:01 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="_3个月从零开始养成machine-learning-ai-达人" tabindex="-1"> 3个月从零开始养成Machine Learning / AI 达人</h1>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/_ (1).jpeg" alt="">
+      <content:encoded><![CDATA[<h1 id="小白3个月从零养成machine-learning-ai-达人" tabindex="-1"> 小白3个月从零养成Machine Learning / AI 达人</h1>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/3 Disruptive Stocks Shaping the Future of Technology _ The Motley Fool.jpeg" alt="">
 本文的目的单纯想加速从零开始转换AI领域的时间. 希望按表操课的人可以以最高效率， 在三个月内具备以下AI技能.</p>
 <ul>
 <li>了解Machine Learning 基本算法</li>
@@ -33,10 +33,10 @@
 <li>网络课程（视频课程）</li>
 </ol>
 </li>
-<li>a. <a href="https://www.coursera.org/learn/machine-learning" target="_blank" rel="noopener noreferrer">Coursera的Machine Learning</a>（=CS229a， less math， run @ matlab/octave）</li>
-<li>b. <a href="https://www.coursera.org/specializations/deep-learning" target="_blank" rel="noopener noreferrer">Coursera的Deep Learning specialization</a>（=CS230， less math， run @ python/tensorflow）</li>
-<li>c. <a href="https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU" target="_blank" rel="noopener noreferrer">Stanford的CS229</a> （Machine Learning， more math， run @ matlab/octave）</li>
-<li>d. <a href="https://www.youtube.com/playlist?list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qEE1Zxk" target="_blank" rel="noopener noreferrer">Stanford的CS231n</a> (Convolutional Neural Networks for Visual Recognition)</li>
+<li>1-a. <a href="https://www.coursera.org/learn/machine-learning" target="_blank" rel="noopener noreferrer">Coursera的Machine Learning</a>（=CS229a， less math， run @ matlab/octave）</li>
+<li>1-b. <a href="https://www.coursera.org/specializations/deep-learning" target="_blank" rel="noopener noreferrer">Coursera的Deep Learning specialization</a>（=CS230， less math， run @ python/tensorflow）</li>
+<li>1-c. <a href="https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU" target="_blank" rel="noopener noreferrer">Stanford的CS229</a> （Machine Learning， more math， run @ matlab/octave）</li>
+<li>1-d. <a href="https://www.youtube.com/playlist?list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qEE1Zxk" target="_blank" rel="noopener noreferrer">Stanford的CS231n</a> (Convolutional Neural Networks for Visual Recognition)</li>
 <li>
 <ol start="2">
 <li>开发工具（工具/环境）</li>
@@ -44,7 +44,7 @@
 </li>
 <li>
 <ol start="3">
-<li>应用实战（Kaggle）</li>
+<li>应用实战（Kaggle）ermaid</li>
 </ol>
 </li>
 </ul>
@@ -100,7 +100,7 @@ Titanic的分享文很多， 英文不错的话建议看这两篇<br>
 <a href="https://developers.google.com/machine-learning/" target="_blank" rel="noopener noreferrer">Machine Learning Crash Course</a> ： Google 提供的ML在线教育资源<br>
 <a href="https://leetcode.com/" target="_blank" rel="noopener noreferrer">https://leetcode.com/</a> ： 写程序必须谨记“高效”， 彻底改变你对写程序的认知</p>
 ]]></content:encoded>
-      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/_%20(1" type="image/"/>
+      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/3%20Disruptive%20Stocks%20Shaping%20the%20Future%20of%20Technology%20_%20The%20Motley%20Fool.jpeg" type="image/jpeg"/>
     </item>
     <item>
       <title>go语言-基础知识</title>

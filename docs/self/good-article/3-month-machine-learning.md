@@ -1,13 +1,13 @@
-# 小白3个月从零养成Machine Learning / AI 达人
+# 让小白3个月从零养成Machine Learning / AI 达人
 
 
-
-![](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/3%20Disruptive%20Stocks%20Shaping%20the%20Future%20of%20Technology%20_%20The%20Motley%20Fool.jpeg)
 本文的目的单纯想加速从零开始转换AI领域的时间. 希望按表操课的人可以以最高效率， 在三个月内具备以下AI技能.  
 - 了解Machine Learning 基本算法  
 - 会用Matlab / Octave / python建构Machine Learning  
 - 熟悉Anaconda、jupyter等功能及环境介面  
 - 了解Deep Learning Framework（ 如Tensorflow、keras、PyTorch 等）
+
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/aac6bbcf8dd44139a6bd835c39b7ece2~tplv-k3u1fbpfcp-zoom-1.image)
 
 ##  建议菜单序  
 1. 网络课程（视频课程）
@@ -63,21 +63,21 @@ Titanic的分享文很多， 英文不错的话建议看这两篇
 中文建议这篇  
 -[泰坦尼克号生存预测（Top 3%）](https://medium.com/@yulongtsai/https-medium-com-yulongtsai-titanic-top3-8e64741cc11f)
 
-![](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/1__Jmlki3sk42GQQTR2SzZ3g.png)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/377a184940d74b8f83de4371c8bd9ce8~tplv-k3u1fbpfcp-zoom-1.image)
 
 搞了3天 总算达成自定义目标 （rank TOP 3% up & score 0.8 up）， 非常适合新手练习的题目
 
 Deep CNN Task ： 上完Coursera Deep Learning专项课程后， 应该有能力作一些稍微复杂的模型， 个人练习了重现facenet模型（Facenet = MTCNN + ResNET embedding+ Triplet classifier）， 下图为在[jupyter重现MTCNN的结果](https://l.facebook.com/l.php?u=https%3A%2F%2Fgithub.com%2Fdoing-great-events%2FMTCNN_inside_jupyter%2Fblob%2Fmain%2FMTCNN_inside_jupyter%2Fjypyter_MTCNN_upload.ipynb%3Ffbclid%3DIwAR1QcipPXUyOLj4nmu5RSMI46uB5Jqtd3PP-tS_SK12w4MYdWxB_n5EUkg0&h=AT0B5vxVeWJriwH-cm4RZRPdNZaVEFDNRbUgh1-Tzv4nYL4tcCZXeI3UcREaIvMC5y9e8TMZvhtolG6sM_pCBSVJErXzV9LYXf03couIiQ5gimzmLbKJYi6NCN8b_zJu3BJB&__tn__=R]-R&c[0]=AT2vjRjltRa9vUA4v8RiH0joNP2WJMb_TmN4nvK_2gXwHypDosibS3fSSsYlob06isUq9rjW_P9PvBIeDaU0ZJUjAxtQb9_U8kEiyim4fyp3cT4GFfbVKyMVA6KldkfDB19RdcxDNVwSKJFdTDiMkjrPCg).
 
-![](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/1_8_Prcmpuq23zIFl-qP4OPw.png)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/992f3feb024540d388dc5dc8d2285491~tplv-k3u1fbpfcp-zoom-1.image)
 
-![](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/1_cu9pxh9DY9JNdo0inkscdQ.png)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/48fd9878fc164c59b886c2db1245d706~tplv-k3u1fbpfcp-zoom-1.image)
 
 左边为MTCNN 3阶段产出， 右边为即时影像脸部侦测
 
 Deep CNN Task ： 重现[Facenet 即时人脸辨识](https://github.com/doing-great-events/FACENET_inside_jupyter)
 
-![](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/1_miVebjWjOlg-wdS78KDxyA.png)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0a2c0b80a1844f8e8877a761d67f3359~tplv-k3u1fbpfcp-zoom-1.image)
 
 Other Resources  
 [Machine Learning Crash Course](https://developers.google.com/machine-learning/) ： Google 提供的ML在线教育资源  

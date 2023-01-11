@@ -6,17 +6,17 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 11 Jan 2023 07:05:34 GMT</pubDate>
-    <lastBuildDate>Wed, 11 Jan 2023 07:05:34 GMT</lastBuildDate>
+    <pubDate>Wed, 11 Jan 2023 07:48:22 GMT</pubDate>
+    <lastBuildDate>Wed, 11 Jan 2023 07:48:22 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>go</category>
     <item>
       <title>让小白3个月从零养成Machine Learning / AI 达人</title>
-      <link>https://bytecodes.tech/self/good-article/3-month-machine-learning.html</link>
-      <guid>https://bytecodes.tech/self/good-article/3-month-machine-learning.html</guid>
+      <link>https://bytecodes.tech/self/good-article/month-machine-learning.html</link>
+      <guid>https://bytecodes.tech/self/good-article/month-machine-learning.html</guid>
       <source url="https://bytecodes.tech/rss.xml">让小白3个月从零养成Machine Learning / AI 达人</source>
-      <pubDate>Wed, 11 Jan 2023 05:05:01 GMT</pubDate>
+      <pubDate>Wed, 11 Jan 2023 07:15:28 GMT</pubDate>
       <content:encoded><![CDATA[<h1 id="让小白3个月从零养成machine-learning-ai-达人" tabindex="-1"> 让小白3个月从零养成Machine Learning / AI 达人</h1>
 <p>本文的目的单纯想加速从零开始转换AI领域的时间. 希望按表操课的人可以以最高效率， 在三个月内具备以下AI技能.</p>
 <ul>

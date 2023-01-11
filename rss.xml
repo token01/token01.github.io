@@ -6,8 +6,8 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 11 Jan 2023 05:42:22 GMT</pubDate>
-    <lastBuildDate>Wed, 11 Jan 2023 05:42:22 GMT</lastBuildDate>
+    <pubDate>Wed, 11 Jan 2023 05:47:45 GMT</pubDate>
+    <lastBuildDate>Wed, 11 Jan 2023 05:47:45 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>go</category>
@@ -33,10 +33,10 @@
 <li>网络课程（视频课程）</li>
 </ol>
 </li>
-<li>1-a. <a href="https://www.coursera.org/learn/machine-learning" target="_blank" rel="noopener noreferrer">Coursera的Machine Learning</a>（=CS229a， less math， run @ matlab/octave）</li>
-<li>1-b. <a href="https://www.coursera.org/specializations/deep-learning" target="_blank" rel="noopener noreferrer">Coursera的Deep Learning specialization</a>（=CS230， less math， run @ python/tensorflow）</li>
-<li>1-c. <a href="https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU" target="_blank" rel="noopener noreferrer">Stanford的CS229</a> （Machine Learning， more math， run @ matlab/octave）</li>
-<li>1-d. <a href="https://www.youtube.com/playlist?list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qEE1Zxk" target="_blank" rel="noopener noreferrer">Stanford的CS231n</a> (Convolutional Neural Networks for Visual Recognition)</li>
+<li>a. <a href="https://www.coursera.org/learn/machine-learning" target="_blank" rel="noopener noreferrer">Coursera的Machine Learning</a>（=CS229a， less math， run @ matlab/octave）</li>
+<li>b. <a href="https://www.coursera.org/specializations/deep-learning" target="_blank" rel="noopener noreferrer">Coursera的Deep Learning specialization</a>（=CS230， less math， run @ python/tensorflow）</li>
+<li>c. <a href="https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU" target="_blank" rel="noopener noreferrer">Stanford的CS229</a> （Machine Learning， more math， run @ matlab/octave）</li>
+<li>d. <a href="https://www.youtube.com/playlist?list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qEE1Zxk" target="_blank" rel="noopener noreferrer">Stanford的CS231n</a> (Convolutional Neural Networks for Visual Recognition)</li>
 <li>
 <ol start="2">
 <li>开发工具（工具/环境）</li>
@@ -44,7 +44,7 @@
 </li>
 <li>
 <ol start="3">
-<li>应用实战（Kaggle）ermaid</li>
+<li>应用实战（Kaggle）</li>
 </ol>
 </li>
 </ul>

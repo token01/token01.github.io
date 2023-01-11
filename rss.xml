@@ -6,26 +6,26 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 11 Jan 2023 05:55:51 GMT</pubDate>
-    <lastBuildDate>Wed, 11 Jan 2023 05:55:51 GMT</lastBuildDate>
+    <pubDate>Wed, 11 Jan 2023 06:04:48 GMT</pubDate>
+    <lastBuildDate>Wed, 11 Jan 2023 06:04:48 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>go</category>
     <item>
-      <title>小白3个月从零养成Machine Learning / AI 达人</title>
+      <title>让小白3个月从零养成Machine Learning / AI 达人</title>
       <link>https://bytecodes.tech/self/good-article/3-month-machine-learning.html</link>
       <guid>https://bytecodes.tech/self/good-article/3-month-machine-learning.html</guid>
-      <source url="https://bytecodes.tech/rss.xml">小白3个月从零养成Machine Learning / AI 达人</source>
+      <source url="https://bytecodes.tech/rss.xml">让小白3个月从零养成Machine Learning / AI 达人</source>
       <pubDate>Wed, 11 Jan 2023 05:05:01 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="小白3个月从零养成machine-learning-ai-达人" tabindex="-1"> 小白3个月从零养成Machine Learning / AI 达人</h1>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/3 Disruptive Stocks Shaping the Future of Technology _ The Motley Fool.jpeg" alt="">
-本文的目的单纯想加速从零开始转换AI领域的时间. 希望按表操课的人可以以最高效率， 在三个月内具备以下AI技能.</p>
+      <content:encoded><![CDATA[<h1 id="让小白3个月从零养成machine-learning-ai-达人" tabindex="-1"> 让小白3个月从零养成Machine Learning / AI 达人</h1>
+<p>本文的目的单纯想加速从零开始转换AI领域的时间. 希望按表操课的人可以以最高效率， 在三个月内具备以下AI技能.</p>
 <ul>
 <li>了解Machine Learning 基本算法</li>
 <li>会用Matlab / Octave / python建构Machine Learning</li>
 <li>熟悉Anaconda、jupyter等功能及环境介面</li>
 <li>了解Deep Learning Framework（ 如Tensorflow、keras、PyTorch 等）</li>
 </ul>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/aac6bbcf8dd44139a6bd835c39b7ece2~tplv-k3u1fbpfcp-zoom-1.image" alt=""></p>
 <h2 id="建议菜单序" tabindex="-1"> 建议菜单序</h2>
 <ol>
 <li>网络课程（视频课程）
@@ -79,19 +79,19 @@ Titanic的分享文很多， 英文不错的话建议看这两篇<br>
 - <a href="https://www.kaggle.com/soham1024/titanic-data-science-eda-with-meme-solution" target="_blank" rel="noopener noreferrer">Titanic Data Science EDA with meme+Solution</a><br>
 中文建议这篇<br>
 -<a href="https://medium.com/@yulongtsai/https-medium-com-yulongtsai-titanic-top3-8e64741cc11f" target="_blank" rel="noopener noreferrer">泰坦尼克号生存预测（Top 3%）</a></p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/1__Jmlki3sk42GQQTR2SzZ3g.png" alt=""></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/377a184940d74b8f83de4371c8bd9ce8~tplv-k3u1fbpfcp-zoom-1.image" alt=""></p>
 <p>搞了3天 总算达成自定义目标 （rank TOP 3% up &amp; score 0.8 up）， 非常适合新手练习的题目</p>
 <p>Deep CNN Task ： 上完Coursera Deep Learning专项课程后， 应该有能力作一些稍微复杂的模型， 个人练习了重现facenet模型（Facenet = MTCNN + ResNET embedding+ Triplet classifier）， 下图为在<a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fgithub.com%2Fdoing-great-events%2FMTCNN_inside_jupyter%2Fblob%2Fmain%2FMTCNN_inside_jupyter%2Fjypyter_MTCNN_upload.ipynb%3Ffbclid%3DIwAR1QcipPXUyOLj4nmu5RSMI46uB5Jqtd3PP-tS_SK12w4MYdWxB_n5EUkg0&amp;h=AT0B5vxVeWJriwH-cm4RZRPdNZaVEFDNRbUgh1-Tzv4nYL4tcCZXeI3UcREaIvMC5y9e8TMZvhtolG6sM_pCBSVJErXzV9LYXf03couIiQ5gimzmLbKJYi6NCN8b_zJu3BJB&amp;__tn__=R%5D-R&amp;c%5B0%5D=AT2vjRjltRa9vUA4v8RiH0joNP2WJMb_TmN4nvK_2gXwHypDosibS3fSSsYlob06isUq9rjW_P9PvBIeDaU0ZJUjAxtQb9_U8kEiyim4fyp3cT4GFfbVKyMVA6KldkfDB19RdcxDNVwSKJFdTDiMkjrPCg" target="_blank" rel="noopener noreferrer">jupyter重现MTCNN的结果</a>.</p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/1_8_Prcmpuq23zIFl-qP4OPw.png" alt=""></p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/1_cu9pxh9DY9JNdo0inkscdQ.png" alt=""></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/992f3feb024540d388dc5dc8d2285491~tplv-k3u1fbpfcp-zoom-1.image" alt=""></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/48fd9878fc164c59b886c2db1245d706~tplv-k3u1fbpfcp-zoom-1.image" alt=""></p>
 <p>左边为MTCNN 3阶段产出， 右边为即时影像脸部侦测</p>
 <p>Deep CNN Task ： 重现<a href="https://github.com/doing-great-events/FACENET_inside_jupyter" target="_blank" rel="noopener noreferrer">Facenet 即时人脸辨识</a></p>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/1_miVebjWjOlg-wdS78KDxyA.png" alt=""></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0a2c0b80a1844f8e8877a761d67f3359~tplv-k3u1fbpfcp-zoom-1.image" alt=""></p>
 <p>Other Resources<br>
 <a href="https://developers.google.com/machine-learning/" target="_blank" rel="noopener noreferrer">Machine Learning Crash Course</a> ： Google 提供的ML在线教育资源<br>
 <a href="https://leetcode.com/" target="_blank" rel="noopener noreferrer">https://leetcode.com/</a> ： 写程序必须谨记“高效”， 彻底改变你对写程序的认知</p>
 ]]></content:encoded>
-      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/3%20Disruptive%20Stocks%20Shaping%20the%20Future%20of%20Technology%20_%20The%20Motley%20Fool.jpeg" type="image/jpeg"/>
+      <enclosure url="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/aac6bbcf8dd44139a6bd835c39b7ece2~tplv-k3u1fbpfcp-zoom-1.image" type="image/"/>
     </item>
     <item>
       <title>go语言-基础知识</title>

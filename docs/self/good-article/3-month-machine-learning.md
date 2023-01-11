@@ -1,8 +1,8 @@
-# 3个月从零开始养成Machine Learning / AI 达人
+# 小白3个月从零养成Machine Learning / AI 达人
 
 
 
-![](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/_%20(1).jpeg)
+![](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/3%20Disruptive%20Stocks%20Shaping%20the%20Future%20of%20Technology%20_%20The%20Motley%20Fool.jpeg)
 本文的目的单纯想加速从零开始转换AI领域的时间. 希望按表操课的人可以以最高效率， 在三个月内具备以下AI技能.  
 - 了解Machine Learning 基本算法  
 - 会用Matlab / Octave / python建构Machine Learning  

@@ -6,8 +6,8 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 11 Jan 2023 05:24:36 GMT</pubDate>
-    <lastBuildDate>Wed, 11 Jan 2023 05:24:36 GMT</lastBuildDate>
+    <pubDate>Wed, 11 Jan 2023 05:30:15 GMT</pubDate>
+    <lastBuildDate>Wed, 11 Jan 2023 05:30:15 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>go</category>
@@ -91,7 +91,7 @@ Titanic的分享文很多， 英文不错的话建议看这两篇<br>
 <p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/1__Jmlki3sk42GQQTR2SzZ3g.png" alt=""></p>
 <p>搞了3天 总算达成自定义目标 （rank TOP 3% up &amp; score 0.8 up）， 非常适合新手练习的题目</p>
 <p>Deep CNN Task ： 上完Coursera Deep Learning专项课程后， 应该有能力作一些稍微复杂的模型， 我个人练习了重现facenet模型（Facenet = MTCNN + ResNET embedding+ Triplet classifier）， 下图为我在<a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fgithub.com%2Fdoing-great-events%2FMTCNN_inside_jupyter%2Fblob%2Fmain%2FMTCNN_inside_jupyter%2Fjypyter_MTCNN_upload.ipynb%3Ffbclid%3DIwAR1QcipPXUyOLj4nmu5RSMI46uB5Jqtd3PP-tS_SK12w4MYdWxB_n5EUkg0&amp;h=AT0B5vxVeWJriwH-cm4RZRPdNZaVEFDNRbUgh1-Tzv4nYL4tcCZXeI3UcREaIvMC5y9e8TMZvhtolG6sM_pCBSVJErXzV9LYXf03couIiQ5gimzmLbKJYi6NCN8b_zJu3BJB&amp;__tn__=R%5D-R&amp;c%5B0%5D=AT2vjRjltRa9vUA4v8RiH0joNP2WJMb_TmN4nvK_2gXwHypDosibS3fSSsYlob06isUq9rjW_P9PvBIeDaU0ZJUjAxtQb9_U8kEiyim4fyp3cT4GFfbVKyMVA6KldkfDB19RdcxDNVwSKJFdTDiMkjrPCg" target="_blank" rel="noopener noreferrer">jupyter重现MTCNN的结果</a>.</p>
-<p><img src="https://miro.medium.com/max/3324/1*8_Prcmpuq23zIFl-qP4OPw.png" alt=""></p>
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/1_8_Prcmpuq23zIFl-qP4OPw.png" alt=""></p>
 <p><img src="https://miro.medium.com/max/3836/1*cu9pxh9DY9JNdo0inkscdQ.png" alt=""></p>
 <p>左边为MTCNN 3阶段产出， 右边为即时影像脸部侦测</p>
 <p>Deep CNN Task ： 重现<a href="https://github.com/doing-great-events/FACENET_inside_jupyter" target="_blank" rel="noopener noreferrer">Facenet 即时人脸辨识</a></p>

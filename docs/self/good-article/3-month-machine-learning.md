@@ -10,13 +10,15 @@
 - 了解Deep Learning Framework（ 如Tensorflow、keras、PyTorch 等）
 
 建议菜单序  
+
 * 1. 网络课程（视频课程）
-* a. [Coursera的Machine Learning](https://www.coursera.org/learn/machine-learning)（=CS229a， less math， run @ matlab/octave）
-* b. [Coursera的Deep Learning specialization](https://www.coursera.org/specializations/deep-learning)（=CS230， less math， run @ python/tensorflow）
-* c. [Stanford的CS229](https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU) （Machine Learning， more math， run @ matlab/octave）
-* d. [Stanford的CS231n](https://www.youtube.com/playlist?list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qEE1Zxk) (Convolutional Neural Networks for Visual Recognition)
+* 1-a. [Coursera的Machine Learning](https://www.coursera.org/learn/machine-learning)（=CS229a， less math， run @ matlab/octave）
+* 1-b. [Coursera的Deep Learning specialization](https://www.coursera.org/specializations/deep-learning)（=CS230， less math， run @ python/tensorflow）
+* 1-c. [Stanford的CS229](https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU) （Machine Learning， more math， run @ matlab/octave）
+* 1-d. [Stanford的CS231n](https://www.youtube.com/playlist?list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qEE1Zxk) (Convolutional Neural Networks for Visual Recognition)
 *  2. 开发工具（工具/环境）
-*  3. 应用实战（Kaggle）
+*  3. 应用实战（Kaggle）ermaid 
+
 
 课程菜单 ：  
 ##  1.a Coursera的Machine Learning （大约需要3周左右完成）  

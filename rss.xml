@@ -6,8 +6,8 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 11 Jan 2023 04:36:20 GMT</pubDate>
-    <lastBuildDate>Wed, 11 Jan 2023 04:36:20 GMT</lastBuildDate>
+    <pubDate>Wed, 11 Jan 2023 04:37:55 GMT</pubDate>
+    <lastBuildDate>Wed, 11 Jan 2023 04:37:55 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>go</category>
@@ -18,7 +18,7 @@
       <source url="https://bytecodes.tech/rss.xml">3个月从零开始养成Machine Learning / AI 达人</source>
       <pubDate>Wed, 11 Jan 2023 03:59:03 GMT</pubDate>
       <content:encoded><![CDATA[<h1 id="_3个月从零开始养成machine-learning-ai-达人" tabindex="-1"> 3个月从零开始养成Machine Learning / AI 达人</h1>
-<p>本文的目的单纯想加速从零开始转换AI领域的时间. 希望按表操课的人可以以最高效率， 在三个月内具备以下AI技能.</p>
+<p>今年无疑是AI爆火的一年，ChatGPT的横空出世，可能是2022年下半年最引人注目的AI突破，虽然可能不是技术含量最高的。为了更好的了解新技术的爆火，本文的目的单纯想加速从零开始转换AI领域的时间. 希望按表操课的人可以以最高效率， 在三个月内具备以下AI技能.</p>
 <ul>
 <li>了解Machine Learning 基本算法</li>
 <li>会用Matlab / Octave / python建构Machine Learning</li>
@@ -26,17 +26,18 @@
 <li>了解Deep Learning Framework（ 如Tensorflow、keras、PyTorch 等）</li>
 </ul>
 <p>建议菜单序</p>
-<blockquote>
 <ul>
 <li>
 <ol>
-<li>网络课程（视频课程）
-*a. <a href="https://www.coursera.org/learn/machine-learning" target="_blank" rel="noopener noreferrer">Coursera的Machine Learning</a>（=CS229a， less math， run @ matlab/octave）
-b. <a href="https://www.coursera.org/specializations/deep-learning" target="_blank" rel="noopener noreferrer">Coursera的Deep Learning specialization</a>（=CS230， less math， run @ python/tensorflow）
-c. <a href="https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU" target="_blank" rel="noopener noreferrer">Stanford的CS229</a> （Machine Learning， more math， run @ matlab/octave）
-d. <a href="https://www.youtube.com/playlist?list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qEE1Zxk" target="_blank" rel="noopener noreferrer">Stanford的CS231n</a> (Convolutional Neural Networks for Visual Recognition)</li>
+<li>网络课程（视频课程）</li>
 </ol>
 </li>
+</ul>
+<p>*a. <a href="https://www.coursera.org/learn/machine-learning" target="_blank" rel="noopener noreferrer">Coursera的Machine Learning</a>（=CS229a， less math， run @ matlab/octave）
+*b. <a href="https://www.coursera.org/specializations/deep-learning" target="_blank" rel="noopener noreferrer">Coursera的Deep Learning specialization</a>（=CS230， less math， run @ python/tensorflow）
+*c. <a href="https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU" target="_blank" rel="noopener noreferrer">Stanford的CS229</a> （Machine Learning， more math， run @ matlab/octave）
+*d. <a href="https://www.youtube.com/playlist?list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qEE1Zxk" target="_blank" rel="noopener noreferrer">Stanford的CS231n</a> (Convolutional Neural Networks for Visual Recognition)</p>
+<ul>
 <li>
 <ol start="2">
 <li>开发工具（工具/环境）</li>
@@ -48,7 +49,6 @@ d. <a href="https://www.youtube.com/playlist?list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qE
 </ol>
 </li>
 </ul>
-</blockquote>
 <p>课程菜单 ：</p>
 <h2 id="_1-a-coursera的machine-learning-大约需要3周左右完成" tabindex="-1"> 1.a Coursera的Machine Learning （大约需要3周左右完成）</h2>
 <p>其实这就是Stanford的229a， 建议直接到Coursera参加课程， 作为0基础者的入门是非常浅显易懂的， Coding部分只用了matlat/octave， 对没有python经验的新人来说， 真的是进入Machine Learning的方便之门， 这也是最花时间的部分，完成这个阶段算是对Machine Learning有基本的了解， 从Linear、Non-linear、Logistic 一直到 Nueral Network、Recommend system等等， 也有能力自己写一些小程序练习， 完成此课程后对这个<a href="https://playground.tensorflow.org/" target="_blank" rel="noopener noreferrer">playground</a>的小接口大概可以有些感觉</p>

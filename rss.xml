@@ -6,19 +6,19 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 11 Jan 2023 05:38:48 GMT</pubDate>
-    <lastBuildDate>Wed, 11 Jan 2023 05:38:48 GMT</lastBuildDate>
+    <pubDate>Wed, 11 Jan 2023 05:40:14 GMT</pubDate>
+    <lastBuildDate>Wed, 11 Jan 2023 05:40:14 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>go</category>
     <item>
       <title>3个月从零开始养成Machine Learning / AI 达人</title>
-      <link>https://bytecodes.tech/self/good-article/%E6%9C%AA%E5%91%BD%E5%90%8D.html</link>
-      <guid>https://bytecodes.tech/self/good-article/%E6%9C%AA%E5%91%BD%E5%90%8D.html</guid>
+      <link>https://bytecodes.tech/self/good-article/3-month-machine-learning.html</link>
+      <guid>https://bytecodes.tech/self/good-article/3-month-machine-learning.html</guid>
       <source url="https://bytecodes.tech/rss.xml">3个月从零开始养成Machine Learning / AI 达人</source>
-      <pubDate>Wed, 11 Jan 2023 03:59:03 GMT</pubDate>
+      <pubDate>Wed, 11 Jan 2023 05:05:01 GMT</pubDate>
       <content:encoded><![CDATA[<h1 id="_3个月从零开始养成machine-learning-ai-达人" tabindex="-1"> 3个月从零开始养成Machine Learning / AI 达人</h1>
-<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/1.jpeg" alt="">
+<p><img src="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/_ (1).jpeg" alt="">
 本文的目的单纯想加速从零开始转换AI领域的时间. 希望按表操课的人可以以最高效率， 在三个月内具备以下AI技能.</p>
 <ul>
 <li>了解Machine Learning 基本算法</li>
@@ -100,7 +100,7 @@ Titanic的分享文很多， 英文不错的话建议看这两篇<br>
 <a href="https://developers.google.com/machine-learning/" target="_blank" rel="noopener noreferrer">Machine Learning Crash Course</a> ： Google 提供的ML在线教育资源<br>
 <a href="https://leetcode.com/" target="_blank" rel="noopener noreferrer">https://leetcode.com/</a> ： 写程序必须谨记“高效”， 彻底改变你对写程序的认知</p>
 ]]></content:encoded>
-      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/1.jpeg" type="image/jpeg"/>
+      <enclosure url="https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/_%20(1" type="image/"/>
     </item>
     <item>
       <title>go语言-基础知识</title>

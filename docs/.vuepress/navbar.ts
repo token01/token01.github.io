@@ -298,7 +298,7 @@ export default navbar([
     prefix: "/self/",
     children: [
       {
-      text: "hao'wen",
+      text: "好文分享",
       icon: "creative",
       link: "good-article/use-rss-email-read"
     },

@@ -9,19 +9,17 @@
 - 熟悉Anaconda、jupyter等功能及环境介面  
 - 了解Deep Learning Framework（ 如Tensorflow、keras、PyTorch 等）
 
-建议菜单序  
+##  建议菜单序  
+1. 网络课程（视频课程）
+	* 1-a. [Coursera的Machine Learning](https://www.coursera.org/learn/machine-learning)（=CS229a， less math， run @ matlab/octave）
+	* 1-b. [Coursera的Deep Learning specialization](https://www.coursera.org/specializations/deep-learning)（=CS230， less math， run @ python/tensorflow）
+	* 1-c. [Stanford的CS229](https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU) （Machine Learning， more math， run @ matlab/octave）
+	* 1-d. [Stanford的CS231n](https://www.youtube.com/playlist?list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qEE1Zxk) (Convolutional Neural Networks for Visual Recognition)
+2. 开发工具（工具/环境）
+3. 应用实战（Kaggle）ermaid
 
-* 1. 网络课程（视频课程）
-* 1-a. [Coursera的Machine Learning](https://www.coursera.org/learn/machine-learning)（=CS229a， less math， run @ matlab/octave）
-* 1-b. [Coursera的Deep Learning specialization](https://www.coursera.org/specializations/deep-learning)（=CS230， less math， run @ python/tensorflow）
-* 1-c. [Stanford的CS229](https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU) （Machine Learning， more math， run @ matlab/octave）
-* 1-d. [Stanford的CS231n](https://www.youtube.com/playlist?list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qEE1Zxk) (Convolutional Neural Networks for Visual Recognition)
-*  2. 开发工具（工具/环境）
-*  3. 应用实战（Kaggle）ermaid 
-
-
-课程菜单 ：  
-##  1.a Coursera的Machine Learning （大约需要3周左右完成）  
+## 网络课程课程菜单 
+###  1.a Coursera的Machine Learning （大约需要3周左右完成）  
 其实这就是Stanford的229a， 建议直接到Coursera参加课程， 作为0基础者的入门是非常浅显易懂的， Coding部分只用了matlat/octave， 对没有python经验的新人来说， 真的是进入Machine Learning的方便之门， 这也是最花时间的部分，完成这个阶段算是对Machine Learning有基本的了解， 从Linear、Non-linear、Logistic 一直到 Nueral Network、Recommend system等等， 也有能力自己写一些小程序练习， 完成此课程后对这个[playground](https://playground.tensorflow.org/)的小接口大概可以有些感觉
 
 ### 1.b Coursera 的Deep Learning Specialization （Course 1 ~ 5）  

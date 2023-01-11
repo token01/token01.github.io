@@ -6,8 +6,8 @@
     <link>https://bytecodes.tech/</link>
     <description>开源工具、效率方法、心理学探索的自我提升笔记，记录并输出一切能让自己提升的知识。</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 11 Jan 2023 04:25:52 GMT</pubDate>
-    <lastBuildDate>Wed, 11 Jan 2023 04:25:52 GMT</lastBuildDate>
+    <pubDate>Wed, 11 Jan 2023 04:31:39 GMT</pubDate>
+    <lastBuildDate>Wed, 11 Jan 2023 04:31:39 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>go</category>
@@ -27,13 +27,14 @@
 <li>了解Deep Learning Framework（ 如Tensorflow、keras、PyTorch 等）</li>
 </ul>
 <p>建议菜单序</p>
+<blockquote>
 <ul>
 <li>
 <ol>
-<li>网络课程（视频课程）<br>
-*a. <a href="https://www.coursera.org/learn/machine-learning" target="_blank" rel="noopener noreferrer">Coursera的Machine Learning</a>（=CS229a， less math， run @ matlab/octave）<br>
-b. <a href="https://www.coursera.org/specializations/deep-learning" target="_blank" rel="noopener noreferrer">Coursera的Deep Learning specialization</a>（=CS230， less math， run @ python/tensorflow）<br>
-c. <a href="https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU" target="_blank" rel="noopener noreferrer">Stanford的CS229</a> （Machine Learning， more math， run @ matlab/octave）<br>
+<li>网络课程（视频课程）
+*a. <a href="https://www.coursera.org/learn/machine-learning" target="_blank" rel="noopener noreferrer">Coursera的Machine Learning</a>（=CS229a， less math， run @ matlab/octave）
+b. <a href="https://www.coursera.org/specializations/deep-learning" target="_blank" rel="noopener noreferrer">Coursera的Deep Learning specialization</a>（=CS230， less math， run @ python/tensorflow）
+c. <a href="https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU" target="_blank" rel="noopener noreferrer">Stanford的CS229</a> （Machine Learning， more math， run @ matlab/octave）
 d. <a href="https://www.youtube.com/playlist?list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qEE1Zxk" target="_blank" rel="noopener noreferrer">Stanford的CS231n</a> (Convolutional Neural Networks for Visual Recognition)</li>
 </ol>
 </li>
@@ -48,11 +49,12 @@ d. <a href="https://www.youtube.com/playlist?list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qE
 </ol>
 </li>
 </ul>
-<p>课程菜单 ：<br>
-1.a Coursera的Machine Learning （大约需要3周左右完成）<br>
-其实这就是Stanford的229a， 建议直接到Coursera参加课程， 作为0基础者的入门是非常浅显易懂的， Coding部分只用了matlat/octave， 对没有python经验的新人来说， 真的是进入Machine Learning的方便之门， 这也是最花时间的部分，完成这个阶段算是对Machine Learning有基本的了解， 从Linear、Non-linear、Logistic 一直到 Nueral Network、Recommend system等等， 也有能力自己写一些小程序练习， 完成此课程后对这个<a href="https://playground.tensorflow.org/" target="_blank" rel="noopener noreferrer">playground</a>的小接口大概可以有些感觉</p>
-<p>1.b Coursera 的Deep Learning Specialization （Course 1 ~ 5）<br>
-Course.1 <a href="https://www.coursera.org/learn/neural-networks-deep-learning?specialization=deep-learning" target="_blank" rel="noopener noreferrer">Neural Networks and Deep Learning</a> （大约可以4天左右完成）</p>
+</blockquote>
+<p>课程菜单 ：</p>
+<h2 id="_1-a-coursera的machine-learning-大约需要3周左右完成" tabindex="-1"> 1.a Coursera的Machine Learning （大约需要3周左右完成）</h2>
+<p>其实这就是Stanford的229a， 建议直接到Coursera参加课程， 作为0基础者的入门是非常浅显易懂的， Coding部分只用了matlat/octave， 对没有python经验的新人来说， 真的是进入Machine Learning的方便之门， 这也是最花时间的部分，完成这个阶段算是对Machine Learning有基本的了解， 从Linear、Non-linear、Logistic 一直到 Nueral Network、Recommend system等等， 也有能力自己写一些小程序练习， 完成此课程后对这个<a href="https://playground.tensorflow.org/" target="_blank" rel="noopener noreferrer">playground</a>的小接口大概可以有些感觉</p>
+<h3 id="_1-b-coursera-的deep-learning-specialization-course-1-5" tabindex="-1"> 1.b Coursera 的Deep Learning Specialization （Course 1 ~ 5）</h3>
+<p>Course.1 <a href="https://www.coursera.org/learn/neural-networks-deep-learning?specialization=deep-learning" target="_blank" rel="noopener noreferrer">Neural Networks and Deep Learning</a> （大约可以4天左右完成）</p>
 <ul>
 <li>内容都是跟cs229a基本一样， 相当于用jupyter python复习一次<br>
 Course.2 <a href="https://www.coursera.org/learn/deep-neural-network?specialization=deep-learning" target="_blank" rel="noopener noreferrer">Improving Deep Neural Networks</a> （大约可以7天左右完成）</li>
@@ -64,36 +66,30 @@ Course.5 <a href="https://www.coursera.org/learn/nlp-sequence-models" target="_
 我的作法是在免费平台看完， 然后登入Coursera全力做quiz &amp; assignment，这样你可以在7天内完成课程喔， 我已经把空白的assignment整理好， 只要下载（<a href="https://github.com/doing-great-events/Coursera-Deep-Learning-Specialization.git" target="_blank" rel="noopener noreferrer">下载链接</a> ）后放到jupyter文件夹即可， 所以完全可以依课程进度在单机作业， 完成每个课程后再去coursera冲assignment/quize提交， 这样可以确保每一门课的完成时间（<a href="https://medium.com/@patient_shadows_eagle_388/%E6%88%91%E6%8A%8Aai%E8%AA%AA%E7%99%BD%E4%BA%86-%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E6%90%9E%E5%AE%9Aanoconda-jupyter-76c81a4687b?source=friends_link&amp;sk=6bf6dedbc4e3248c0e1bb18dadf39a4d" target="_blank" rel="noopener noreferrer">jupyter安装看这边</a>）.<br>
 完成这个阶段算是对Deep Learning有一定了解了， 可以说出ML/DL差异的个人看法、熟悉jupyter能写点python、知道tensor flow/keras等等frameworks.</li>
 </ul>
-<p>1.c Stanford的CS229<br>
-Youtube可以找到完整课程， 229 &amp; 229a的差别在于CS229 比较着重数学推导说明， CS229a着重在实用知识， 就手应用技巧， 数学说明较少<br>
+<h3 id="_1-c-stanford的cs229" tabindex="-1"> 1.c Stanford的CS229</h3>
+<p>Youtube可以找到完整课程， 229 &amp; 229a的差别在于CS229 比较着重数学推导说明， CS229a着重在实用知识， 就手应用技巧， 数学说明较少<br>
 Andrew Ng个人建议是， 因为229是挑战性较高的课程， 如果你担心你还没准备好， 可以先考虑229a， 我个人建议是看229a就好， 因为Andrew会提醒你这部分的数学推导我跳过啰， 如果你有兴趣的话你会尝试自己推导验证. 所以看完229a你会知道你对229有没有兴趣， 如果你对数学有特殊爱好当然也可以直接看229， 看完就真的不用看229a了.<br>
 个人认为最大的帮助是， 最短时间内你确实踏实的修了一门algorithm的概念课程， 这类帮助在平常几乎是看不出来（或者说需要有点能力，才能辨别出来）， 但是在很多小细节的思维逻辑及讨论过程就能看出水平的差异， 在很多领域都有类似的状况， 就像很多机构工程师连应力都不会算一样， 但还是可以混得下去的.</p>
-<p>1.d Stanford的CS231n<br>
-一般来说是因为算法特性的关系，<br>
+<h3 id="_1-d-stanford的cs231n" tabindex="-1"> 1.d Stanford的CS231n</h3>
+<p>一般来说是因为算法特性的关系，<br>
 CNN特别适合用在影像AI （2D/3D data）， RNN特别适合用在音频AI（1D sequence data）， 231n是专门讲CNN的课程， 尤其因为飞飞的关系， 在强国被奉为大陆影像AI第一人， 所以她的课程光是大陆人的流量就爆冲了.</p>
 <p>上述课程的难易度一般来说是<br>
 coursera Machine Learning &lt; cousera Deep Learning &lt; CS231 &lt; CS229<br>
 ps. 虽然很多课程是重复的， 不过有些东西还是可以花点时间看一下， 例如YouTube上的cs230 autumn 2018 L8， Andrew分享了一些他怎么读 paper的方式， 以及他个人看过这么多Stanford学生的求学/求职模式后， 他觉得各种模式的优缺比较. 听听看Standford名师课堂上对Stanford学生的建议与分享， 我觉得也是不错的.<br>
 另外1.25x播放是非常不错的方式， 可以很大程度帮助各位提高效率并节省很多时间， 我到第二个月才发现这个方式， 我个人建议是如果能快的时候可以尽量快， 该慢的时候要步步踏实， 例如我在做assignment的时候， 除了完成作业， 我会把他们的code看懂（因为我很久没有写程序啦）， 卡关的时候切忌不要上网找答案， 像我在第一次assignment的时候， 卡在simutaneously update就卡了1个小时多才发现问题， 再回头对比程序及教材或数学式时， 我会对数学式或Andrew再三强调的simutaneously update很有感觉.</p>
-<ol start="2">
-<li>
-<p>开发工具（工具/环境）<br>
-如果依上述菜单进行的话， 你会依以下流程习惯这些工作环境 ：<br>
+<h2 id="_2-开发工具-工具-环境" tabindex="-1"> 2. 开发工具（工具/环境）</h2>
+<p>如果依上述菜单进行的话， 你会依以下流程习惯这些工作环境 ：<br>
 Octave/Matlab（cs229a） -&gt; <a href="https://medium.com/@patient_shadows_eagle_388/%E6%88%91%E6%8A%8Aai%E8%AA%AA%E7%99%BD%E4%BA%86-%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E6%90%9E%E5%AE%9Aanoconda-jupyter-76c81a4687b?source=friends_link&amp;sk=6bf6dedbc4e3248c0e1bb18dadf39a4d" target="_blank" rel="noopener noreferrer">jupyter python</a>（cs230 / cs231n） -&gt; <a href="https://medium.com/@patient_shadows_eagle_388/%E6%88%91%E6%8A%8Aai%E8%AA%AA%E7%99%BD%E4%BA%86-tensorflow%E6%98%AF%E4%BB%80%E9%BA%BC-%E6%88%91%E8%A9%B2%E6%80%8E%E9%BA%BC%E8%A3%9D%E6%9C%80%E5%A5%BD-68e30826e975?source=friends_link&amp;sk=f065a2311b6839ba2a4d19b606e40f86" target="_blank" rel="noopener noreferrer">tensor flow</a>（cs230） -&gt; Google Colab<br>
 使用python时， 千万不要单独安装python以及各种package， 建议要务必利用<a href="https://medium.com/@patient_shadows_eagle_388/%E6%88%91%E6%8A%8Aai%E8%AA%AA%E7%99%BD%E4%BA%86-%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E6%90%9E%E5%AE%9Aanoconda-jupyter-76c81a4687b?source=friends_link&amp;sk=6bf6dedbc4e3248c0e1bb18dadf39a4d" target="_blank" rel="noopener noreferrer">Anaconda</a>作为python版本及众多package的管理界面. 可以节省大量时间而且省心省力好上手.<br>
 另外建议要熟悉一下github界面， 因为cs230的assignment， 我当时是在GitHub上东拼西凑整理出来， 未来要做项目免不了team work模式， 所以GitHub的界面使用还是有必要了解一下的， 只是为了协助各位最短时间吃完以上菜单， 所以我直接把<a href="https://github.com/doing-great-events/Coursera-Deep-Learning-Specialization.git" target="_blank" rel="noopener noreferrer">cs230 assignment的空白卷</a> 也一并整理出来让大家效率更高.<br>
 完成这个阶段， 原则上你已经是具备AI的一切技能了， 差的只是提升实战经验了.</p>
-</li>
-<li>
-<p>应用实战（<a href="https://www.kaggle.com/" target="_blank" rel="noopener noreferrer">Kaggle</a>）<br>
-我大概在完成1b. Course 2开始接触Kaggle， 个人觉得这个切入的时机点不错， 因为这个阶段已经算对ML/DL有一定认识， 只是coding技能尚未纯熟， 问题思考角度与经验尚待补强， 这时候进到Kaggle最大的好处是， 它有很多很多很多的题目， 所以绝对足够练习. 另外Kaggle也有一些免费课程， 这边的课程我觉得就不用上了， 直接透过Competetion题目实作学习比较快. 一般来说Knowledge类的题目都是不错的练习题， Kaggle也会告诉你Titanic是它们建议的第一题， 再来House Prices、Digital Recognition等等， 第一次感受完后， 可以看看其他人的思考过程分享文（<a href="https://github.com/doing-great-events/Kaggle/blob/main/Titanic_competition/Titanic_Top2.5%25.ipynb" target="_blank" rel="noopener noreferrer">我的结果Top 2.5%， code在GitHub这边</a>）.<br>
+<h2 id="_3-应用实战-kaggle" tabindex="-1"> 3. 应用实战（<a href="https://www.kaggle.com/" target="_blank" rel="noopener noreferrer">Kaggle</a>）</h2>
+<p>大概在完成1b. Course 2开始接触Kaggle， 觉得这个切入的时机点不错， 因为这个阶段已经算对ML/DL有一定认识， 只是coding技能尚未纯熟， 问题思考角度与经验尚待补强， 这时候进到Kaggle最大的好处是， 它有很多很多很多的题目， 所以绝对足够练习. 另外Kaggle也有一些免费课程， 这边的课程我觉得就不用上了， 直接透过Competetion题目实作学习比较快. 一般来说Knowledge类的题目都是不错的练习题， Kaggle也会告诉你Titanic是它们建议的第一题， 再来House Prices、Digital Recognition等等， 第一次感受完后， 可以看看其他人的思考过程分享文（<a href="https://github.com/doing-great-events/Kaggle/blob/main/Titanic_competition/Titanic_Top2.5%25.ipynb" target="_blank" rel="noopener noreferrer">我的结果Top 2.5%， code在GitHub这边</a>）.<br>
 Titanic的分享文很多， 英文不错的话建议看这两篇<br>
 - <a href="https://www.kaggle.com/themlphdstudent/titanic-survive-prediction-tutorial-for-beginners" target="_blank" rel="noopener noreferrer">Titanic Survive Prediction Tutorial for Beginners</a><br>
 - <a href="https://www.kaggle.com/soham1024/titanic-data-science-eda-with-meme-solution" target="_blank" rel="noopener noreferrer">Titanic Data Science EDA with meme+Solution</a><br>
 中文建议这篇<br>
 -<a href="https://medium.com/@yulongtsai/https-medium-com-yulongtsai-titanic-top3-8e64741cc11f" target="_blank" rel="noopener noreferrer">泰坦尼克号生存预测（Top 3%）</a></p>
-</li>
-</ol>
 <p><img src="https://miro.medium.com/max/1400/1*_Jmlki3sk42GQQTR2SzZ3g.png" alt=""></p>
 <p>搞了3天 总算达成自定义目标 （rank TOP 3% up &amp; score 0.8 up）， 非常适合新手练习的题目</p>
 <p>Deep CNN Task ： 上完Coursera Deep Learning专项课程后， 应该有能力作一些稍微复杂的模型， 我个人练习了重现facenet模型（Facenet = MTCNN + ResNET embedding+ Triplet classifier）， 下图为我在<a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fgithub.com%2Fdoing-great-events%2FMTCNN_inside_jupyter%2Fblob%2Fmain%2FMTCNN_inside_jupyter%2Fjypyter_MTCNN_upload.ipynb%3Ffbclid%3DIwAR1QcipPXUyOLj4nmu5RSMI46uB5Jqtd3PP-tS_SK12w4MYdWxB_n5EUkg0&amp;h=AT0B5vxVeWJriwH-cm4RZRPdNZaVEFDNRbUgh1-Tzv4nYL4tcCZXeI3UcREaIvMC5y9e8TMZvhtolG6sM_pCBSVJErXzV9LYXf03couIiQ5gimzmLbKJYi6NCN8b_zJu3BJB&amp;__tn__=R%5D-R&amp;c%5B0%5D=AT2vjRjltRa9vUA4v8RiH0joNP2WJMb_TmN4nvK_2gXwHypDosibS3fSSsYlob06isUq9rjW_P9PvBIeDaU0ZJUjAxtQb9_U8kEiyim4fyp3cT4GFfbVKyMVA6KldkfDB19RdcxDNVwSKJFdTDiMkjrPCg" target="_blank" rel="noopener noreferrer">jupyter重现MTCNN的结果</a>.</p>

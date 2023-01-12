@@ -6,6 +6,8 @@
 
 有什么比iTerm更好的呢？iTerm2.我使用iTerm而不是内置的mac终端。当我使用Mac终端然后切换到iTerm时，我找不到一些功能。再也没有回头。拆分窗格并使用快捷方式将 iTerm 置于前台。它具有良好的搜索功能。
 
+![]()
+
 ![](https://miro.medium.com/max/1400/1*f-9Rn44AyKZ2jU9-z0Zn9w.png)
 
 # 2. CleanShot
@@ -73,5 +75,5 @@ setapp.com/（无会员链接）
 3.  图 — 终端工具 — [https://fig.io/](https://fig.io/)（免费供个人使用）
 4.  显示器控制 — 使用键盘快捷键控制显示器 — [https://github.com/MonitorControl/MonitorControl](https://github.com/MonitorControl/MonitorControl)（免费）
 5.  AirBuddy - 更好的蓝牙设备可见性 - [https://v2.airbuddy.app/](https://v2.airbuddy.app/)（9.99美元） - 或使用[Setapp](https://go.setapp.com/invite/ncv0xvtz)获取)
-6.  # Bartender - 干净的菜单栏 - [https://www.macbartender.com/](https://www.macbartender.com/)（16美元） - 或使用[Setapp](https://go.setapp.com/invite/ncv0xvtz)购买)
+6.  调酒师 - 干净的菜单栏 - [https://www.macbartender.com/](https://www.macbartender.com/)（16美元） - 或使用[Setapp](https://go.setapp.com/invite/ncv0xvtz)购买)
 7.  PasteApp - 类固醇的剪贴板 - [https://pasteapp.io/](https://pasteapp.io/)（$ 1.99 / mo - 或使用Setapp获取）

@@ -6,9 +6,8 @@
 
 有什么比iTerm更好的呢？iTerm2.我使用iTerm而不是内置的mac终端。当我使用Mac终端然后切换到iTerm时，我找不到一些功能。再也没有回头。拆分窗格并使用快捷方式将 iTerm 置于前台。它具有良好的搜索功能。
 
-![](![1_f-9Rn44AyKZ2jU9-z0Zn9w.png](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/1_f-9Rn44AyKZ2jU9-z0Zn9w.png)
+![](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/1_f-9Rn44AyKZ2jU9-z0Zn9w.png)
 
-![](https://miro.medium.com/max/1400/1*f-9Rn44AyKZ2jU9-z0Zn9w.png)
 
 # 2. CleanShot
 
@@ -36,10 +35,10 @@ P.S — 我主要使用无花果来建议命令行开关。例如，如果您键
 
 真的很方便，我可以看一眼当前的电池电量并拖延充电，直到它因自然情况而死亡。这是不可避免的，因为宇宙最终的热寂。
 
-![1_KbYlt4u1mBLfjtnu_JiTOQ.png](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/1_KbYlt4u1mBLfjtnu_JiTOQ.png)
 
+# 5. AirBuddy
 我没有那么多支持蓝牙的设备，所以我会在这里添加更长的文本来弥补这一点。
-
+![1_KbYlt4u1mBLfjtnu_JiTOQ.png](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/1_KbYlt4u1mBLfjtnu_JiTOQ.png)
 # 6.Bartender
 
 我认为调酒师应用程序不需要为许多 mac 用户进行任何介绍。它可以帮助我减少菜单栏上的图标混乱，并且可以固定和隐藏我不经常使用的图标。此外，我使用快捷方式来激活 CleanShotX 等应用程序，因此隐藏图标有助于我保持干净的菜单栏。

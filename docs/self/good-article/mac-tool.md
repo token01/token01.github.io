@@ -6,7 +6,7 @@
 
 有什么比iTerm更好的呢？iTerm2.我使用iTerm而不是内置的mac终端。当我使用Mac终端然后切换到iTerm时，我找不到一些功能。再也没有回头。拆分窗格并使用快捷方式将 iTerm 置于前台。它具有良好的搜索功能。
 
-![]()
+![](![1_f-9Rn44AyKZ2jU9-z0Zn9w.png](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/1_f-9Rn44AyKZ2jU9-z0Zn9w.png)
 
 ![](https://miro.medium.com/max/1400/1*f-9Rn44AyKZ2jU9-z0Zn9w.png)
 
@@ -14,8 +14,8 @@
 
 我经常不得不发送某些内容不起作用的屏幕截图或在屏幕上记录某些内容。虽然 Mac 上预先构建的录制应用程序已经发展，但我使用 CleanShot 是因为它具有模糊内容并上传到他们的云等功能集。通过文本将视频作为链接发送比尝试发送视频剪辑（尤其是向非iMessage用户发送）更容易
 
-![](https://miro.medium.com/max/1400/1*Kp0nIOYx6AxZmevA8vbMTA.png)
 
+![1_Kp0nIOYx6AxZmevA8vbMTA.png](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/1_Kp0nIOYx6AxZmevA8vbMTA.png)
 是的，这是用CleanShot拍摄的。
 
 # 3.Fig

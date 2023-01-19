@@ -10,7 +10,7 @@
 4.  **回顾**：找出输出过程中自己不能理解的地方，回顾和反思学到的知识；
 5.  **内化**：通过简化吸收形成自己的知识体系，内化是一切学习的终极目的；
 
-![](https://www.indigox.me/content/images/2023/01/figure-01.png)
+![](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/figure-01.png)
 
 配图01：费曼学习法
 
@@ -22,7 +22,7 @@
 
 其实这一个很朴素的方法 - Learning by Teaching，我们可能早就知道，并且一直都在使用，只不过在费曼的光环下，这个技巧就显得特别耀眼。学习专家 [Edgar Dale](https://en.wikipedia.org/wiki/Edgar_Dale)（爱德加·戴尔）在上世纪六十年代，提出了 [Dale's Cone Experience](https://www.queensu.ca/teachingandlearning/modules/active/documents/Dales_Cone_of_Experience_summary.pdf) 的模型，这是美国缅因州的国家训练实验室，对不同形式学习效果的量化研究成果，从数据上验证了“费曼技巧”的效能。
 
-![](https://www.indigox.me/content/images/2023/01/figure-02-cone-of-experience.png)
+![](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/figure-02-cone-of-experience.png)
 
 配图02：Dale's Cone Experience
 
@@ -40,7 +40,7 @@ Cone Experience 用数字形象地呈现了：采用不同的学习方式，学�
 
 那时还不知道“费曼技巧”，不过聚焦阅读应该算是“确立目标”，提升专注力的一种方式。按照香农信息论的概念，就是通过自己的信息处理模型，逐步向着高“信息熵”的源头探索的过程（通俗来讲就是向对于自己信息量大的干货内容聚焦），这个过程可以把杂乱的信息有序转换为可以系统输出的知识。这里我绘制了一张自己使用的信息获取与知识输出流程图。
 
-![](https://www.indigox.me/content/images/2023/01/indigo-learning-flowchart.png)
+![](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/indigo-learning-flowchart.png)
 
 配图03：INDIGO 的信息获取与知识输出流程图
 
@@ -75,7 +75,7 @@ Cone Experience 用数字形象地呈现了：采用不同的学习方式，学�
 
 学习的输出非常灵活，完全因人而异。我尝试了一年的直播课还有快两年的长文创作，用这个来倒逼输入，完全能体会到费曼教授所说的“内化”，通过简化最终形成自己的知识体系。
 
-![](https://www.indigox.me/content/images/2023/01/figure-04.png)
+![](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/figure-04.png)
 
 配图04: 结构化输出的方法
 
@@ -105,7 +105,7 @@ Cone Experience 用数字形象地呈现了：采用不同的学习方式，学�
 
 从开始放弃小本本做笔记收藏后的第一个数字化工具就是 [Evernote](https://evernote.com/)。但由于软件太臃肿，后来逐渐切换到了 Apple Note，便捷快速，最大的缺点就是不方便归档整理和跨平台使用，目前主要用它来做日常快速记录，所有和学习研究的笔记已经全部都用 Notion 了，组建自己的知识库，现在来看 Notion 最合适。
 
-![](https://www.indigox.me/content/images/2023/01/figure-05.png)
+![](https://abelsun-1256449468.cos.ap-beijing.myqcloud.com/image/figure-05.png)
 
 配图05：以 Notion 为中心的个人知识库
 

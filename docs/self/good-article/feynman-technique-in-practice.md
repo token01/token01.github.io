@@ -77,8 +77,6 @@ Cone Experience 用数字形象地呈现了：采用不同的学习方式，学�
 
 配图04: 结构化输出的方法
 
-在确定写长文输出之前，先把这个主题的信息结构整理清晰，做一个叙事框架，通常会在正式开写一个月以前就确定好框架。如果是自己不太熟悉或者非常新兴的领域，就得先看完几本这个领域的书或者是连载的博客。创作《[机器之心的进化 / 理解 AI 驱动的软件 2.0 智能革命](https://www.indigox.me/the-evolution-of-machine-intelligence/)》这篇，就是通过研习 [Giuliano Giacaglia](https://twitter.com/giacaglia) 的《[Making Things Think](https://www.holloway.com/b/making-things-think)》这本书做的大纲；还有《[速解元宇宙 / Metaverse 迷雾下的行动指南](https://www.indigox.me/dive-into-the-metaverse/)》这篇的结构从 [Matthew Ball](https://www.matthewball.vc/) 的博客借鉴了很多。
-
 有了输出骨架，下一步就是内容填充。这一步骤实际上是 **精读学习**，对应费曼技巧的“**理解**”与“**输出**”两个步骤，更多细节的 **筛选** 与 **结构化**。同时，我们把输入环节收藏的内容拿出来做主题检索（来自 [Pocket](https://getpocket.com/)、[Raindrop](https://raindrop.io/) 以及 Google 检索），对有价值的文章做深度阅读，沉淀和创作主题相关的内容。[Notion](https://www.notion.so/) 是创作过程中最主要的信息整理工具，我会为要写的主题专门建立一个 Page，用来做关联链接收藏、深度阅读摘录和写创作草稿，这时也可以在不同的概念之间强行建立联系，让创作的内容更有广度和跳跃性。最终正式的文章通过 [Google Docs](https://docs.google.com/) 汇总成文输出！
 
 课程是对长文输出的“**回顾**”和“**内化**”。将学到的知识，转化成自己的体系，才能够做到清晰的讲解。因为文章输出的重点是知识结构，而课程输出的是知识要点的细节，这里需要配合更多的图示和案例。人类是图形化思考的动物，制作课程最重要的过程就是 **将文字理解转化为图形**，可以自己绘制，可以搜索图例；同时课程需要用到更多的细节概念和例子，这也能强化深度研究，Google 将是这个阶段的主要工具，可以帮助扩展在输入阶段没能覆盖到的内容。
@@ -110,14 +108,6 @@ Cone Experience 用数字形象地呈现了：采用不同的学习方式，学�
 其实在 Notion 之前，还尝试使用过 [Obsidian](https://obsidian.md/) 和 [Roam Research](https://roamresearch.com/)，但这两款工具在易用性、多平台的访问还有内容组织的灵活度与结构化上，始终和 Notion 有些差距，特别是需要多人共享知识库的时候，就捉襟见肘了。当然，如果更关心数据安全和可以本地访问，本着我的数据属于我的原则， [Obsidian](https://obsidian.md/) 就是最佳选择了，完全基于 Markdown 可以灵活迁移绝对是 Geek 的最爱。
 
 最近正在体验一个新的笔记组织工具 [Heptabase](https://heptabase.com/)，一款专注可视化学习的笔记工具，用思维导图的方式组织所有笔记资源，大家有兴趣可以试试。
-
-0:00
-
-/0:07
-
-1×
-
-视频06：Heptabase - See the big picture of your learning topic
 
 问题是，我们把东西做成笔记，因为我们不知道它们有什么用。你写下一本书中的一句话，因为你最终可以用 1000 种不同的方式使用它。你可以用它来帮助你做决定，或者写一篇文章，或者在朋友经历困难时鼓舞他们。同样的道理也适用于一次会议的笔记，或者是在你脑中一闪而过的新想法。所以，你需要有新的工具来帮忙把笔记提取出来，在你真正需要用到它们的时候，现在 AI 的快速进化，让这种行为变成了可能，而且你都可能不需要再花费精力去分类组织笔记了，就像 DAN SHIPPER 在《[The End of Organizing](https://every.to/superorganizers/the-end-of-organizing)》所描述的那样。  
 
